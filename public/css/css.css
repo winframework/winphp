@@ -24,9 +24,11 @@ a{
 }
 a:hover{
 	color:#222;
-    transition: .3s background-color;
-    -webkit-transition: .3s background-color;
-    -moz-transition: .3s background-color;
+	color:#222;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
 }
 body {
 	background: #FFF;
@@ -45,27 +47,27 @@ header {
 }
 #logo { width: 20%; margin:10px 0; }
 .navBar {
-  background: #ecf0f1;
-  position: relative;
-  min-width: 100%;
+	background: #ecf0f1;
+	position: relative;
+	min-width: 100%;
 }
 .wrapper {
-  margin: 0 auto;
-  max-width: 1003px;
-  padding: 0 2%;
+	margin: 0 auto;
+	max-width: 1003px;
+	padding: 0 2%;
 }
 nav ul {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  height: auto;
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	height: auto;
 }
 nav ul a {
-  color: #000;
-  border-bottom: 4px solid #ecf0f1;
-  text-decoration: none;
-  transition: all .5s ease;
-  margin-left: 40px;
+	color: #000;
+	border-bottom: 4px solid #ecf0f1;
+	text-decoration: none;
+	transition: all .5s ease;
+	margin-left: 40px;
 }
 nav ul a:hover,
 nav ul a.active {
@@ -77,9 +79,9 @@ nav li { display: inline-block; }
 nav #menu-toggle { display: none; }
 nav .label-toggle { display: none; }
 nav .wrapper {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
 }
 .middle{ min-height: 300px; }
 main {
@@ -163,9 +165,9 @@ h5, h6{ font-weight: normal; }
 	margin:5px 0;
 }
 hr {
-  margin-top: 10px;
-  width: 80%;
-  border-top: 1px solid #6C7A89;
+	margin-top: 10px;
+	width: 80%;
+	border-top: 1px solid #6C7A89;
 }
 footer {
 	display: flex;
@@ -298,7 +300,7 @@ textarea{
 @-webkit-keyframes eye {
 	0% { box-shadow:  3em -9em #535353; }
 	5% { box-shadow: 0 0 0 0 #535353; }
-	50% { box-shadow:  0em 0em #535353; }
+	50% { box-shadow:  0 0 #535353; }
 }
 @-webkit-keyframes mouth {
 	0% { box-shadow:  6em -4em #535353, 7em -4em #535353, 8em -4em #535353; }
@@ -312,20 +314,19 @@ textarea{
 @-webkit-keyframes ground {
 	0% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  8em 8em #535353, 9em 8em #535353, 10em 8em #535353,  -7em 9em #535353, -6em 9em #535353,  6em 10em #535353, 7em 10em #535353,  -10em 11em #535353, -9em 11em #535353; }
 	15% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  4em 8em #535353, 5em 8em #535353, 6em 8em #535353,  -12em 9em #535353, -11em 9em #535353,  2em 10em #535353, 3em 10em #535353,  10em 11em #535353, 11em 11em #535353; }
-	30% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  0em 8em #535353, 1em 8em #535353, 2em 8em #535353,  8em 9em #535353, 9em 9em #535353,  -2em 10em #535353, -1em 10em #535353,  6em 11em #535353, 7em 11em #535353; }
+	30% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  0 8em #535353, 1em 8em #535353, 2em 8em #535353,  8em 9em #535353, 9em 9em #535353,  -2em 10em #535353, -1em 10em #535353,  6em 11em #535353, 7em 11em #535353; }
 	45% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  -4em 8em #535353, -3em 8em #535353, -2em 8em #535353,  4em 9em #535353, 5em 9em #535353,  -6em 10em #535353, -5em 10em #535353,  2em 11em #535353, 3em 11em #535353; }
-	60% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  -8em 8em #535353, -7em 8em #535353, -6em 8em #535353,  0em 9em #535353, 1em 9em #535353,  -10em 10em #535353, -9em 10em #535353,  -2em 11em #535353, -1em 11em #535353; }
+	60% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  -8em 8em #535353, -7em 8em #535353, -6em 8em #535353,  0 9em #535353, 1em 9em #535353,  -10em 10em #535353, -9em 10em #535353,  -2em 11em #535353, -1em 11em #535353; }
 	75% { box-shadow:  -12em 6em #535353, -11em 6em #535353, -10em 6em #535353, -9em 6em #535353, -8em 6em #535353, -7em 6em #535353, -6em 6em #535353, 4em 6em #535353, 5em 6em #535353, 6em 6em #535353, 7em 6em #535353, 8em 6em #535353, 9em 6em #535353, 10em 6em #535353, 11em 6em #535353, 12em 6em #535353,  -12em 8em #535353, -11em 8em #535353, -10em 8em #535353,  -4em 9em #535353, -3em 9em #535353,  10em 10em #535353, 11em 10em #535353,  -6em 11em #535353, -5em 11em #535353; }
 }
 @-webkit-keyframes dino {
-	0% { box-shadow:  2em -10em #535353, 3em -10em #535353, 4em -10em #535353, 5em -10em #535353, 6em -10em #535353, 7em -10em #535353, 8em -10em #535353, 9em -10em #535353,  1em -9em #535353, 2em -9em #535353, 4em -9em #535353, 5em -9em #535353, 6em -9em #535353, 7em -9em #535353, 8em -9em #535353, 9em -9em #535353, 10em -9em #535353,  1em -8em #535353, 2em -8em #535353, 3em -8em #535353, 4em -8em #535353, 5em -8em #535353, 6em -8em #535353, 7em -8em #535353, 8em -8em #535353, 9em -8em #535353, 10em -8em #535353,  1em -7em #535353, 2em -7em #535353, 3em -7em #535353, 4em -7em #535353, 5em -7em #535353, 6em -7em #535353, 7em -7em #535353, 8em -7em #535353, 9em -7em #535353, 10em -7em #535353,  1em -6em #535353, 2em -6em #535353, 3em -6em #535353, 4em -6em #535353, 5em -6em #535353, 6em -6em #535353, 7em -6em #535353, 8em -6em #535353, 9em -6em #535353, 10em -6em #535353,  1em -5em #535353, 2em -5em #535353, 3em -5em #535353, 4em -5em #535353, 5em -5em #535353,  0em -4em #535353, 1em -4em #535353, 2em -4em #535353, 3em -4em #535353, 4em -4em #535353, 5em -4em #535353,  -9em -3em #535353, -3em -3em #535353, -2em -3em #535353, -1em -3em #535353, 0em -3em #535353, 1em -3em #535353, 2em -3em #535353, 3em -3em #535353, 4em -3em #535353,  -9em -2em #535353, -2em -2em #535353, -1em -2em #535353, 0em -2em #535353, 1em -2em #535353, 2em -2em #535353, 3em -2em #535353, 4em -2em #535353,  -9em -1em #535353, -8em -1em #535353, -3em -1em #535353, -2em -1em #535353, -1em -1em #535353, 0em -1em #535353, 1em -1em #535353, 2em -1em #535353, 3em -1em #535353, 4em -1em #535353, 5em -1em #535353, 6em -1em #535353,  -9em 0em #535353, -8em 0em #535353, -7em 0em #535353, -4em 0em #535353, -3em 0em #535353, -2em 0em #535353, -1em 0em #535353, 0em 0em #535353, 1em 0em #535353, 2em 0em #535353, 3em 0em #535353, 4em 0em #535353, 6em 0em #535353,  -9em 1em #535353, -8em 1em #535353, -7em 1em #535353, -6em 1em #535353, -5em 1em #535353, -4em 1em #535353, -3em 1em #535353, -2em 1em #535353, -1em 1em #535353, 0em 1em #535353, 1em 1em #535353, 2em 1em #535353, 3em 1em #535353, 4em 1em #535353,  -8em 2em #535353, -7em 2em #535353, -6em 2em #535353, -5em 2em #535353, -4em 2em #535353, -3em 2em #535353, -2em 2em #535353, -1em 2em #535353, 0em 2em #535353, 1em 2em #535353, 2em 2em #535353, 3em 2em #535353, 4em 2em #535353,  -7em 3em #535353, -6em 3em #535353, -5em 3em #535353, -4em 3em #535353, -3em 3em #535353, -2em 3em #535353, -1em 3em #535353, 0em 3em #535353, 1em 3em #535353, 2em 3em #535353, 3em 3em #535353,  -6em 4em #535353, -5em 4em #535353, -4em 4em #535353, -3em 4em #535353, -2em 4em #535353, -1em 4em #535353, 0em 4em #535353, 1em 4em #535353, 2em 4em #535353,  -5em 5em #535353, -4em 5em #535353, -3em 5em #535353, -2em 5em #535353, -1em 5em #535353, 0em 5em #535353, 1em 5em #535353,  -4em 6em #535353, -3em 6em #535353, 0em 6em #535353, 1em 6em #535353,  -3em 7em #535353, -2em 7em #535353, 1em 7em #535353,  1em 8em #535353,  1em 9em #535353, 2em 9em #535353; }
-	50% { box-shadow:  2em -10em #535353, 3em -10em #535353, 4em -10em #535353, 5em -10em #535353, 6em -10em #535353, 7em -10em #535353, 8em -10em #535353, 9em -10em #535353,  1em -9em #535353, 2em -9em #535353, 4em -9em #535353, 5em -9em #535353, 6em -9em #535353, 7em -9em #535353, 8em -9em #535353, 9em -9em #535353, 10em -9em #535353,  1em -8em #535353, 2em -8em #535353, 3em -8em #535353, 4em -8em #535353, 5em -8em #535353, 6em -8em #535353, 7em -8em #535353, 8em -8em #535353, 9em -8em #535353, 10em -8em #535353,  1em -7em #535353, 2em -7em #535353, 3em -7em #535353, 4em -7em #535353, 5em -7em #535353, 6em -7em #535353, 7em -7em #535353, 8em -7em #535353, 9em -7em #535353, 10em -7em #535353,  1em -6em #535353, 2em -6em #535353, 3em -6em #535353, 4em -6em #535353, 5em -6em #535353, 6em -6em #535353, 7em -6em #535353, 8em -6em #535353, 9em -6em #535353, 10em -6em #535353,  1em -5em #535353, 2em -5em #535353, 3em -5em #535353, 4em -5em #535353, 5em -5em #535353,  -3em -4em #535353, -2em -4em #535353, 0em -4em #535353, 1em -4em #535353, 2em -4em #535353, 3em -4em #535353, 4em -4em #535353, 5em -4em #535353,  -9em -3em #535353, -2em -3em #535353, -1em -3em #535353, 0em -3em #535353, 1em -3em #535353, 2em -3em #535353, 3em -3em #535353, 4em -3em #535353,  -9em -2em #535353, -2em -2em #535353, -1em -2em #535353, 0em -2em #535353, 1em -2em #535353, 2em -2em #535353, 3em -2em #535353, 4em -2em #535353,  -9em -1em #535353, -8em -1em #535353, -3em -1em #535353, -2em -1em #535353, -1em -1em #535353, 0em -1em #535353, 1em -1em #535353, 2em -1em #535353, 3em -1em #535353, 4em -1em #535353,  -9em 0em #535353, -8em 0em #535353, -7em 0em #535353, -4em 0em #535353, -3em 0em #535353, -2em 0em #535353, -1em 0em #535353, 0em 0em #535353, 1em 0em #535353, 2em 0em #535353, 3em 0em #535353, 4em 0em #535353, 5em 0em #535353, 6em 0em #535353,  -9em 1em #535353, -8em 1em #535353, -7em 1em #535353, -6em 1em #535353, -5em 1em #535353, -4em 1em #535353, -3em 1em #535353, -2em 1em #535353, -1em 1em #535353, 0em 1em #535353, 1em 1em #535353, 2em 1em #535353, 3em 1em #535353, 4em 1em #535353, 6em 1em #535353,  -8em 2em #535353, -7em 2em #535353, -6em 2em #535353, -5em 2em #535353, -4em 2em #535353, -3em 2em #535353, -2em 2em #535353, -1em 2em #535353, 0em 2em #535353, 1em 2em #535353, 2em 2em #535353, 3em 2em #535353, 4em 2em #535353,  -7em 3em #535353, -6em 3em #535353, -5em 3em #535353, -4em 3em #535353, -3em 3em #535353, -2em 3em #535353, -1em 3em #535353, 0em 3em #535353, 1em 3em #535353, 2em 3em #535353, 3em 3em #535353,  -6em 4em #535353, -5em 4em #535353, -4em 4em #535353, -3em 4em #535353, -2em 4em #535353, -1em 4em #535353, 0em 4em #535353, 1em 4em #535353, 2em 4em #535353,  -5em 5em #535353, -4em 5em #535353, -3em 5em #535353, -2em 5em #535353, -1em 5em #535353, 0em 5em #535353, 1em 5em #535353,  -4em 6em #535353, -3em 6em #535353, -2em 6em #535353, 1em 6em #535353, 2em 6em #535353,  -4em 7em #535353, -3em 7em #535353,  -4em 8em #535353,  -4em 9em #535353, -3em 9em #535353; }
+	0% { box-shadow:  2em -10em #535353, 3em -10em #535353, 4em -10em #535353, 5em -10em #535353, 6em -10em #535353, 7em -10em #535353, 8em -10em #535353, 9em -10em #535353,  1em -9em #535353, 2em -9em #535353, 4em -9em #535353, 5em -9em #535353, 6em -9em #535353, 7em -9em #535353, 8em -9em #535353, 9em -9em #535353, 10em -9em #535353,  1em -8em #535353, 2em -8em #535353, 3em -8em #535353, 4em -8em #535353, 5em -8em #535353, 6em -8em #535353, 7em -8em #535353, 8em -8em #535353, 9em -8em #535353, 10em -8em #535353,  1em -7em #535353, 2em -7em #535353, 3em -7em #535353, 4em -7em #535353, 5em -7em #535353, 6em -7em #535353, 7em -7em #535353, 8em -7em #535353, 9em -7em #535353, 10em -7em #535353,  1em -6em #535353, 2em -6em #535353, 3em -6em #535353, 4em -6em #535353, 5em -6em #535353, 6em -6em #535353, 7em -6em #535353, 8em -6em #535353, 9em -6em #535353, 10em -6em #535353,  1em -5em #535353, 2em -5em #535353, 3em -5em #535353, 4em -5em #535353, 5em -5em #535353,  0 -4em #535353, 1em -4em #535353, 2em -4em #535353, 3em -4em #535353, 4em -4em #535353, 5em -4em #535353,  -9em -3em #535353, -3em -3em #535353, -2em -3em #535353, -1em -3em #535353, 0 -3em #535353, 1em -3em #535353, 2em -3em #535353, 3em -3em #535353, 4em -3em #535353,  -9em -2em #535353, -2em -2em #535353, -1em -2em #535353, 0 -2em #535353, 1em -2em #535353, 2em -2em #535353, 3em -2em #535353, 4em -2em #535353,  -9em -1em #535353, -8em -1em #535353, -3em -1em #535353, -2em -1em #535353, -1em -1em #535353, 0 -1em #535353, 1em -1em #535353, 2em -1em #535353, 3em -1em #535353, 4em -1em #535353, 5em -1em #535353, 6em -1em #535353,  -9em 0 #535353, -8em 0 #535353, -7em 0 #535353, -4em 0 #535353, -3em 0 #535353, -2em 0 #535353, -1em 0 #535353, 0 0 #535353, 1em 0 #535353, 2em 0 #535353, 3em 0 #535353, 4em 0 #535353, 6em 0 #535353,  -9em 1em #535353, -8em 1em #535353, -7em 1em #535353, -6em 1em #535353, -5em 1em #535353, -4em 1em #535353, -3em 1em #535353, -2em 1em #535353, -1em 1em #535353, 0 1em #535353, 1em 1em #535353, 2em 1em #535353, 3em 1em #535353, 4em 1em #535353,  -8em 2em #535353, -7em 2em #535353, -6em 2em #535353, -5em 2em #535353, -4em 2em #535353, -3em 2em #535353, -2em 2em #535353, -1em 2em #535353, 0 2em #535353, 1em 2em #535353, 2em 2em #535353, 3em 2em #535353, 4em 2em #535353,  -7em 3em #535353, -6em 3em #535353, -5em 3em #535353, -4em 3em #535353, -3em 3em #535353, -2em 3em #535353, -1em 3em #535353, 0 3em #535353, 1em 3em #535353, 2em 3em #535353, 3em 3em #535353,  -6em 4em #535353, -5em 4em #535353, -4em 4em #535353, -3em 4em #535353, -2em 4em #535353, -1em 4em #535353, 0 4em #535353, 1em 4em #535353, 2em 4em #535353,  -5em 5em #535353, -4em 5em #535353, -3em 5em #535353, -2em 5em #535353, -1em 5em #535353, 0 5em #535353, 1em 5em #535353,  -4em 6em #535353, -3em 6em #535353, 0 6em #535353, 1em 6em #535353,  -3em 7em #535353, -2em 7em #535353, 1em 7em #535353,  1em 8em #535353,  1em 9em #535353, 2em 9em #535353; }
+	50% { box-shadow:  2em -10em #535353, 3em -10em #535353, 4em -10em #535353, 5em -10em #535353, 6em -10em #535353, 7em -10em #535353, 8em -10em #535353, 9em -10em #535353,  1em -9em #535353, 2em -9em #535353, 4em -9em #535353, 5em -9em #535353, 6em -9em #535353, 7em -9em #535353, 8em -9em #535353, 9em -9em #535353, 10em -9em #535353,  1em -8em #535353, 2em -8em #535353, 3em -8em #535353, 4em -8em #535353, 5em -8em #535353, 6em -8em #535353, 7em -8em #535353, 8em -8em #535353, 9em -8em #535353, 10em -8em #535353,  1em -7em #535353, 2em -7em #535353, 3em -7em #535353, 4em -7em #535353, 5em -7em #535353, 6em -7em #535353, 7em -7em #535353, 8em -7em #535353, 9em -7em #535353, 10em -7em #535353,  1em -6em #535353, 2em -6em #535353, 3em -6em #535353, 4em -6em #535353, 5em -6em #535353, 6em -6em #535353, 7em -6em #535353, 8em -6em #535353, 9em -6em #535353, 10em -6em #535353,  1em -5em #535353, 2em -5em #535353, 3em -5em #535353, 4em -5em #535353, 5em -5em #535353,  -3em -4em #535353, -2em -4em #535353, 0 -4em #535353, 1em -4em #535353, 2em -4em #535353, 3em -4em #535353, 4em -4em #535353, 5em -4em #535353,  -9em -3em #535353, -2em -3em #535353, -1em -3em #535353, 0 -3em #535353, 1em -3em #535353, 2em -3em #535353, 3em -3em #535353, 4em -3em #535353,  -9em -2em #535353, -2em -2em #535353, -1em -2em #535353, 0 -2em #535353, 1em -2em #535353, 2em -2em #535353, 3em -2em #535353, 4em -2em #535353,  -9em -1em #535353, -8em -1em #535353, -3em -1em #535353, -2em -1em #535353, -1em -1em #535353, 0 -1em #535353, 1em -1em #535353, 2em -1em #535353, 3em -1em #535353, 4em -1em #535353,  -9em 0 #535353, -8em 0 #535353, -7em 0 #535353, -4em 0 #535353, -3em 0 #535353, -2em 0 #535353, -1em 0 #535353, 0 0 #535353, 1em 0 #535353, 2em 0 #535353, 3em 0 #535353, 4em 0 #535353, 5em 0 #535353, 6em 0 #535353,  -9em 1em #535353, -8em 1em #535353, -7em 1em #535353, -6em 1em #535353, -5em 1em #535353, -4em 1em #535353, -3em 1em #535353, -2em 1em #535353, -1em 1em #535353, 0 1em #535353, 1em 1em #535353, 2em 1em #535353, 3em 1em #535353, 4em 1em #535353, 6em 1em #535353,  -8em 2em #535353, -7em 2em #535353, -6em 2em #535353, -5em 2em #535353, -4em 2em #535353, -3em 2em #535353, -2em 2em #535353, -1em 2em #535353, 0 2em #535353, 1em 2em #535353, 2em 2em #535353, 3em 2em #535353, 4em 2em #535353,  -7em 3em #535353, -6em 3em #535353, -5em 3em #535353, -4em 3em #535353, -3em 3em #535353, -2em 3em #535353, -1em 3em #535353, 0 3em #535353, 1em 3em #535353, 2em 3em #535353, 3em 3em #535353,  -6em 4em #535353, -5em 4em #535353, -4em 4em #535353, -3em 4em #535353, -2em 4em #535353, -1em 4em #535353, 0 4em #535353, 1em 4em #535353, 2em 4em #535353,  -5em 5em #535353, -4em 5em #535353, -3em 5em #535353, -2em 5em #535353, -1em 5em #535353, 0 5em #535353, 1em 5em #535353,  -4em 6em #535353, -3em 6em #535353, -2em 6em #535353, 1em 6em #535353, 2em 6em #535353,  -4em 7em #535353, -3em 7em #535353,  -4em 8em #535353,  -4em 9em #535353, -3em 9em #535353; }
 }
 .error {
 	box-shadow: none;
 	height: 350px;
 	font-size: 7px;
-	background-image: url("https://i.imgur.com/Xccdmky.gif") cover cover;
 }
 .error > * {
 	height: 0.5em;
@@ -360,41 +361,14 @@ textarea{
 	width: 100%;
 	font-size: 1em;
 }
-.button {
+.buttons {
 	margin-top: 10px;
 	text-align: center;
 	width: 100%;
 }
-a.button-initial {
-	margin-right: 5px;
-	width: 70%;
-	text-align: center;
-	padding: 10px 45px;
-	background: #ecf0f1;
-	border-radius: 10px;
-	transition: all .5s ease;
-}
-a.button-initial:hover {
-	background: #019875;
-	color: #ecf0f1;
-}
-a.button-back {
-	width: 30%;
-	text-align: center;
-	padding: 10px 25px;
-	background: #019875;
-	border-radius: 10px;
-	color: #ecf0f1;
-	cursor: pointer;
-	transition: all .5s ease;
-}
-a.button-back:hover {
-	background: #ecf0f1;
-	color: #019875;
-}
 .dino, .eye, .mouth {
-  width: 1em;
-  height: 1em;
+	width: 1em;
+	height: 1em;
 }
 .dino { animation: dino 0.25s both steps(1) infinite; }
 .eye { animation: eye 4s both steps(1) infinite; }
@@ -420,43 +394,17 @@ a.button-back:hover {
 		left: 51%;
 	}
 	.info-error strong, .info-error em, .info-error span { display: none; }
-	.info-error .button { display: block; }
-	.button {
+	.buttons {
+		display: block;
 		margin-left: -110px;
 		margin-top: 310px;
-	}
-	a.button-initial {
-		margin-right: 5px;
-		text-align: center;
-		padding: 10px 45px;
-		background: #ecf0f1;
-		border-radius: 10px;
-		transition: all .5s ease;
-	}
-	a.button-initial:hover {
-		background: #019875;
-		color: #ecf0f1;
-	}
-	a.button-back {
-		width: 30%;
-		text-align: center;
-		padding: 10px 25px;
-		background: #019875;
-		border-radius: 10px;
-		color: #ecf0f1;
-		cursor: pointer;
-		transition: all .5s ease;
-	}
-	a.button-back:hover {
-		background: #ecf0f1;
-		color: #019875;
 	}
 }
 /* Responsive Smartphone */
 @media screen and (max-width: 768px) {
 	/* Theme */
 	header { height: auto; }
-	#logo{ width: 20%; margin-bottom: 0px; }
+	#logo{ width: 20%; margin-bottom: 0; }
 	nav ul {
 		background-color: #ecf0f1;
 		display: block;
@@ -464,7 +412,6 @@ a.button-back:hover {
 		list-style-type: none;
 		opacity: 0;
 		text-align: center;
-		transition: all 1s ease;
 		width: 100%;
 		visibility: hidden;
 	}
@@ -475,7 +422,6 @@ a.button-back:hover {
 		padding: 0.2em 0;
 	}
 	nav ul li:hover {
-		transition: all .5s ease;
 		color: #019875;
 	}
 	nav #menu-toggle:checked ~ ul {
@@ -494,7 +440,7 @@ a.button-back:hover {
 		width: 20px;
 	}
 	nav .wrapper {
-    	display: block;
+		display: block;
 	}
 	main h1 { text-align: center; }
 	.column,
@@ -511,36 +457,10 @@ a.button-back:hover {
 	}
 	.title-error { display: block; }
 	.info-error strong, .info-error em, .info-error span { display: none; }
-	.info-error .button { display: block; }
-	.button {
+	.buttons {
+		display: block;
 		margin-left: -10px;
 		margin-top: -50px;
-	}
-	a.button-initial {
-		margin-right: 5px;
-		text-align: center;
-		padding: 10px 45px;
-		background: #ecf0f1;
-		border-radius: 10px;
-		transition: all .5s ease;
-	}
-	a.button-initial:hover {
-		background: #019875;
-		color: #ecf0f1;
-	}
-	a.button-back {
-		width: 30%;
-		text-align: center;
-		padding: 10px 25px;
-		background: #019875;
-		border-radius: 10px;
-		color: #ecf0f1;
-		cursor: pointer;
-		transition: all .5s ease;
-	}
-	a.button-back:hover {
-		background: #ecf0f1;
-		color: #019875;
 	}
 }
 @media screen and (max-width: 460px) {
@@ -554,30 +474,8 @@ a.button-back:hover {
 	.title-error { display: block; }
 	.info-error { height: auto; }
 	.info-error strong, .info-error em, .info-error span { display: none; }
-	.info-error .button { display: block; }
-	.button { margin: -50px 0 0 0; }
-	a.button-initial {
-		padding: 10px 25px;
-		background: #ecf0f1;
-		border-radius: 10px;
-		transition: all .5s ease;
-	}
-	a.button-initial:hover {
-		background: #019875;
-		color: #ecf0f1;
-	}
-	a.button-back {
-		width: 30%;
-		text-align: center;
-		padding: 10px 25px;
-		background: #019875;
-		border-radius: 10px;
-		color: #ecf0f1;
-		cursor: pointer;
-		transition: all .5s ease;
-	}
-	a.button-back:hover {
-		background: #ecf0f1;
-		color: #019875;
+	.buttons { 
+		display: block; 
+		margin: -50px 0 0 0; 
 	}
 }
