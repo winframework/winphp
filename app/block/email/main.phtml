@@ -1,0 +1,23 @@
+<?php /* @var $this Win\Mvc\Block */ ?>
+<?php /* @var $email Win\Mailer\Email */ ?>
+<?php
+
+use Win\Mvc\Application;
+?>
+<div id="email-container" style="width:100%; max-width: 500px; margin: 0 auto; border: solid 1px #AAA; font-family: Arial; font-size: 14px; line-height: 16px;">
+	<div id="email-header" style="background:#019875; color:#FFF; margin: 5px; text-align: center ">
+		<img src="<?= Application::app()->getBaseUrl(); ?>public/img/logo.png" alt="logo" style="max-width: 120px; max-height: 60px; margin: 10px auto" />
+	</div>
+
+	<div id="email-body" style="margin:15px; line-height: 22px;">
+		<?php echo $email->getBody(); ?>
+	</div>
+
+	<div id="email-footer" style="background:#aaa; color:#FFF; margin: 5px; padding: 10px; font-size:11px;">
+		Enviado por:
+		<a target="_blank" href="<?= Application::app()->getBaseUrl(); ?>" style="color:#EEE" >
+			<?= Application::app()->getName(); ?>
+		</a><br />
+		Enviado em: <?= date('d/m/Y')?> às <?= date('H:i:s') ?><br />
+	</div>
+</div>

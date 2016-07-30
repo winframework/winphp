@@ -1,0 +1,29 @@
+<?php /* @var $this Win\Mvc\View */ ?>
+<main>
+	<form action="" method="post">
+
+		<?php if (!$submit): ?>
+			<div class="alert-default">Preencha os campos baixo:</div>
+		<?php elseif ($error): ?>
+			<div class="alert-danger"><?= $error ?></div>
+		<?php else: ?>
+			<div class="alert-success">Sua mensagem foi enviada com sucesso!</div>
+			<!--<meta http-equiv="refresh" content="10;url=index" />-->
+		<?php endif; ?>
+
+		<fieldset>
+			<input type="text" name="name" value="<?= $name; ?>" placeholder="Nome" required maxlength="75"/>
+			<input type="email" name="email" value="<?= $email; ?>"  placeholder="E-mail" required maxlength="45" />
+			<input type="text" name="phone" value="<?= $phone; ?>" placeholder="Telefone" required maxlength="45"/>
+			<input type="text" name="subject" value="<?= $subject; ?>" placeholder="Assunto" required maxlength="45" />
+			<textarea name="message" placeholder="Mensagem" required rows="6"><?= $message; ?></textarea>
+		</fieldset>
+
+		<fieldset>
+			<img src="lib/captcha/captcha.php" class="img-captcha" alt="Captcha" />
+			<input type="text" name="captcha" class="input-captcha" required="" maxlength="5" />
+			<button type="submit" name="submit" class="submit" value="submit">Enviar</button>
+		</fieldset>
+
+	</form>
+</main>
