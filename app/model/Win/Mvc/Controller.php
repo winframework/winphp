@@ -1,0 +1,88 @@
+<?php
+
+namespace Win\Mvc;
+
+use Win\Helper\Url;
+
+/**
+ * Controllers
+ * 
+ * São responsáveis por processar as requisições e chamar as Views
+ */
+abstract class Controller {
+
+	public static $dir = 'app/controller/';
+
+	/**
+	 * Define qual bloco será usado como layout
+	 * @var string
+	 */
+	public $layout = 'main';
+
+	/**
+	 * Ponteiro para Aplicação Principal
+	 * @var Application
+	 */
+	public $app;
+
+	/** @var string */
+	private $action;
+
+	/**
+	 * Cria o Controller, definindo o action
+	 */
+	public function __construct($action = null) {
+		$this->app = Application::app();
+		$this->action = (!is_null($action)) ? $action : Application::app()->getParam(1);
+	}
+
+	/** @return string */
+	public function getAction() {
+		return $this->action;
+	}
+
+	/**
+	 * Carrega o controller,
+	 * executando o action atual
+	 */
+	public function load() {
+		$this->init();
+		$action = $this->action;
+		$view = $this->$action();
+		if ($view instanceof View):
+			$this->app->view = $view;
+		endif;
+		$this->app->view->validate();
+	}
+
+	/**
+	 * Volta para o método index da pagina atual
+	 */
+	protected function backToIndex() {
+		Url::instance()->redirect($this->app->getPage());
+	}
+
+	/**
+	 * Acao index
+	 */
+	abstract public function index();
+
+	/**
+	 * Este metodo é chamado sempre que o controller é carregado
+	 * Não é necessário fazer uso do parent::init()
+	 */
+	protected function init() {
+		
+	}
+
+	/**
+	 * Evita chamada de um metodo que nao existe
+	 * @param string $name
+	 * @param mixed[] $arguments
+	 * @return boolean
+	 */
+	public function __call($name, $arguments) {
+		$this->app->pageNotFound();
+	}
+
+}

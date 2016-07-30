@@ -1,0 +1,16 @@
+<?php /* @var $this Win\Mvc\View */ ?>
+<?php
+
+use Win\Html\Menu;
+?>
+<main>
+	<h1>Exemplo > Inicial</h1>
+
+	<p class="text-center">
+		<a href="exemplo/" class="btn <?= Menu::active('exemplo/'); ?>">Inicial</a>
+		<a href="exemplo/foo/" class="btn <?= Menu::active('exemplo/foo'); ?>">Foo</a>
+		<a href="exemplo/bar/" class="btn <?= Menu::active('exemplo/bar'); ?>">Bar</a>
+	</p>
+
+
+</main>
