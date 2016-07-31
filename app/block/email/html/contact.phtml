@@ -1,9 +1,5 @@
 <?php /* @var $this Win\Mvc\Block */ ?>
-<?php
-
-use Win\Mvc\Application;
-?>
-<b>Contato efetuado pelo site <?= Application::app()->getName(); ?>: <?= Application::app()->getBaseUrl(); ?></b><br />
+<b>Contato efetuado pelo site <?= $this->app->getName(); ?>: <?= $this->app->getBaseUrl(); ?></b><br />
 <br />
 <b>Nome:</b> <?= $name ?><br />
 <b>Telefone:</b> <?= $phone ?><br />

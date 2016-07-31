@@ -33,7 +33,7 @@ abstract class Controller {
 	 */
 	public function __construct($action = null) {
 		$this->app = Application::app();
-		$this->action = (!is_null($action)) ? $action : Application::app()->getParam(1);
+		$this->action = (!is_null($action)) ? $action : $this->app->getParam(1);
 	}
 
 	/** @return string */
