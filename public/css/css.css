@@ -221,20 +221,54 @@ footer a:hover {
 /* More Pages */
 .text-center{ text-align: center; }
 .btn {
+	cursor: pointer;
 	display: inline-block;
 	background:#019875;
+	border: solid 2px #007F5C;
+	border:none;
 	line-height: 25px;
-	padding:5px 10px;
+	padding:4px 20px;
 	margin:2px;
+	font-size:14px;
 	color:#FFF;
+	transition: 0.2s;
+	border-radius: 2px;
 }
-.btn:hover {
+.btn:hover,
+.btn:focus{
+	outline: none;
 	color:#FFF;
-	background: #01A885;
+	-webkit-filter: brightness(1.1);
+	   -moz-filter: brightness(1.1);
+	    -ms-filter: brightness(1.1);
+	     -o-filter: brightness(1.1);
+		    filter: brightness(1.1);
 }
-.btn:focus,
-.btn:active,
-.btn.active{ background:#3e4950;}
+.btn:active{
+	transition: 0s;
+	outline: none;
+	-webkit-filter: brightness(1.0);
+	   -moz-filter: brightness(1.0);
+	    -ms-filter: brightness(1.0);
+	     -o-filter: brightness(1.0);
+		    filter: brightness(1.0);
+	box-shadow: inset 0px 5px 5px rgba(0,0,0,0.3);
+}
+.btn.active{
+	text-decoration: underline;
+}
+
+.btn-primary{
+	background:#019875;
+}
+.btn-default{
+	background:#777;
+	border-color:#5E5E5E;
+}
+.btn-danger{
+	background:#e74c3c;
+	border-color:#CE3323;
+}
 form{
 	margin: 0 auto 20px auto;
 	max-width:400px;
@@ -243,35 +277,38 @@ input,
 select,
 textarea{
 	font-size:14px;
-	border:solid 1px #999;
+	border:solid 2px #BBB;
 	width:100%;
 	margin:5px 0 0 0;
 	max-width: 100%;
 	max-width: 400px;
-	padding: 5px;
+	padding: 6px;
 	vertical-align: top;
+}
+input:focus,
+select:focus,
+textarea:focus{
+	outline: none;
+	border-color:#019875;
+	border:solid 2px #019875;
 }
 .img-captcha{
 	margin: 5px 0 0 0;
 	border:solid 1px #999;
 	vertical-align: top;
-	height: 30px;
+	height: 34px;
 }
 .input-captcha{
 	margin: 5px 5px 0 5px;
 	width:80px;
-	height: 30px;
+	height: 34px;
 	text-align: center;
 	font-size:16px;
 	text-transform: uppercase;
 }
-.submit{
+.submit, .reset{
 	float: right;
-	margin:5px 0 0 0;
-	border: solid 1px #999;
-	line-height: 20px;
-	padding: 4px 20px;
-	cursor: pointer;
+	margin:5px 0 0 9px;
 }
 .alert-success,
 .alert-danger,
