@@ -224,8 +224,7 @@ footer a:hover {
 	cursor: pointer;
 	display: inline-block;
 	background:#019875;
-	border: solid 2px #007F5C;
-	border:none;
+	border: solid 0 #007F5C;
 	line-height: 25px;
 	padding:4px 20px;
 	margin:2px;
@@ -253,6 +252,10 @@ footer a:hover {
 	     -o-filter: brightness(1.0);
 		    filter: brightness(1.0);
 	box-shadow: inset 0px 5px 5px rgba(0,0,0,0.3);
+}
+.btn-bordered{
+	border-width: 2px;
+	padding:2px 20px;
 }
 .btn.active{
 	text-decoration: underline;
