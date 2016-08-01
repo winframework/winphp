@@ -67,7 +67,9 @@ nav ul a {
 	margin-left: 40px;
 }
 nav ul a:hover,
+nav ul a:focus,
 nav ul a.active {
+	outline: none;
 	color: #7f8c8d;
 	border-bottom: 4px solid #019875;
 	transition: all .5s ease;
@@ -238,19 +240,19 @@ footer a:hover {
 	outline: none;
 	color:#FFF;
 	-webkit-filter: brightness(1.1);
-	   -moz-filter: brightness(1.1);
-	    -ms-filter: brightness(1.1);
-	     -o-filter: brightness(1.1);
-		    filter: brightness(1.1);
+	-moz-filter: brightness(1.1);
+	-ms-filter: brightness(1.1);
+	-o-filter: brightness(1.1);
+	filter: brightness(1.1);
 }
 .btn:active{
 	transition: 0s;
 	outline: none;
 	-webkit-filter: brightness(1.0);
-	   -moz-filter: brightness(1.0);
-	    -ms-filter: brightness(1.0);
-	     -o-filter: brightness(1.0);
-		    filter: brightness(1.0);
+	-moz-filter: brightness(1.0);
+	-ms-filter: brightness(1.0);
+	-o-filter: brightness(1.0);
+	filter: brightness(1.0);
 	box-shadow: inset 0px 5px 5px rgba(0,0,0,0.3);
 }
 .btn-bordered{
@@ -296,22 +298,28 @@ textarea:focus{
 	border:solid 2px #019875;
 }
 .img-captcha{
-	margin: 5px 0 0 0;
+	margin: 0 0 0 0;
 	border:solid 1px #999;
 	vertical-align: top;
 	height: 34px;
 }
 .input-captcha{
-	margin: 5px 5px 0 5px;
-	width:80px;
+	margin: 0 30px 0 5px;
+	width:90px;
 	height: 34px;
 	text-align: center;
 	font-size:16px;
 	text-transform: uppercase;
 }
-.submit, .reset{
-	float: right;
-	margin:5px 0 0 9px;
+form fieldset{
+	border: solid 1px #DDD;
+	padding:20px;
+	margin:  10px 0 0 0;
+	background: #FAFAFA;
+}
+.form-buttons{
+	margin:10px 0 0 0;
+	text-align: right;
 }
 .alert-success,
 .alert-danger,
