@@ -11,7 +11,7 @@ use Win\Helper\Template;
  */
 class View {
 
-	public static $dir = 'app/view/';
+	public static $dir = BASE_PATH . '/app/view/';
 
 	/**
 	 * Ponteiro para Aplicação Principal
@@ -48,7 +48,7 @@ class View {
 	 */
 	private function setFile($file) {
 		$filePath = static::$dir . $file;
-		
+
 		if (!is_null(Template::instance()->getTheme())):
 			$filePath = Template::instance()->getFilePath(static::$dir, $file);
 		endif;

@@ -11,7 +11,7 @@ use Win\Helper\Url;
  */
 abstract class Controller {
 
-	public static $dir = 'app/controller/';
+	public static $dir = BASE_PATH . '/app/controller/';
 
 	/**
 	 * Define qual bloco será usado como layout
@@ -31,9 +31,27 @@ abstract class Controller {
 	/**
 	 * Cria o Controller, definindo o action
 	 */
-	public function __construct($action = null) {
+	public function __construct($action = '') {
 		$this->app = Application::app();
-		$this->action = (!is_null($action)) ? $action : $this->app->getParam(1);
+		$this->setAction($action);
+	}
+
+	/**
+	 * Define o action
+	 * Alterando de "hifem-case" para "camelCase"
+	 * @param string $action
+	 */
+	private function setAction($action = '') {
+		if (empty($action)) {
+			$action = $this->app->getParam(1);
+		}
+
+		if (strpos($action, '-') !== false) {
+			$camelCaseName = str_replace(' ', '', ucwords(str_replace('-', ' ', $action)));
+			$camelCaseName[0] = strtolower($camelCaseName[0]);
+			$action = $camelCaseName;
+		}
+		$this->action = $action;
 	}
 
 	/** @return string */

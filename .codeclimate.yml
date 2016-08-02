@@ -1,6 +1,6 @@
 languages:
-  PHP: true
+ PHP: true
 exclude_paths:
-- tests/
-- spec/
-- lib/vendor/
+ - tests/
+ - spec/
+ - lib/vendor/

@@ -13,6 +13,6 @@ namespace Win\Mvc;
  */
 class Layout extends Block {
 
-	public static $dir = 'app/block/layout/';
+	public static $dir = BASE_PATH . '/app/block/layout/';
 
 }

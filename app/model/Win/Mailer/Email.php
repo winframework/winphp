@@ -12,6 +12,8 @@ use Win\Mvc\Application;
  */
 class Email {
 
+	static $mailerClass = __DIR__ . '/../../../../lib/vendor/phpmailer/class.phpmailer.php';
+
 	/** @var Block */
 	private $layout;
 
@@ -27,7 +29,7 @@ class Email {
 	public function __construct() {
 		$this->setLayout('main');
 
-		require_once 'lib/vendor/phpmailer/class.phpmailer.php';
+		include static::$mailerClass;
 		$this->mailer = new \PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->SetLanguage('br');
