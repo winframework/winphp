@@ -12,7 +12,7 @@ use Win\Mvc\Application;
  */
 class Email {
 
-	static $mailerClass = __DIR__ . '/../../../../lib/vendor/phpmailer/class.phpmailer.php';
+	public static $mailerClass = BASE_PATH . '/lib/vendor/phpmailer/class.phpmailer.php';
 
 	/** @var Block */
 	private $layout;

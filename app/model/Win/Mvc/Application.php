@@ -35,7 +35,7 @@ class Application {
 
 	/**
 	 * Cria a aplicação principal
-	 * @param string[] $config Configurações
+	 * @param mixed[] $config Configurações
 	 */
 	public function __construct($config = []) {
 		static::$app = $this;
