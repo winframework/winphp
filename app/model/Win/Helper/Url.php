@@ -77,13 +77,24 @@ class Url extends Singleton {
 	public function getUrl() {
 		if (is_null($this->url)):
 			$host = Input::server('HTTP_HOST');
-			$requestUri = Input::server('REQUEST_URI');
-			$context = explode($host, $this->getBaseUrl());
-			$uri = (explode(end($context), $requestUri, 2));
-			$url = end($uri);
+			$url = '';
+			if ($host):
+				$requestUri = Input::server('REQUEST_URI');
+				$context = explode($host, $this->getBaseUrl());
+				$uri = (explode(end($context), $requestUri, 2));
+				$url = end($uri);
+			endif;
 			$this->url = $this->format($url);
 		endif;
 		return $this->url;
+	}
+
+	/**
+	 * Usada apenas para testes
+	 * @param string $url
+	 */
+	public function setUrl($url) {
+		$this->url = $this->format($url . '/');
 	}
 
 	/**

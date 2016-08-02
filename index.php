@@ -6,6 +6,7 @@ require 'lib/autoload.php';
 require 'app/config/app.php';
 require 'app/config/routes.php';
 
+define('BASE_PATH', __DIR__);
 $app = new Win\Mvc\Application($config);
 
 /**

@@ -14,21 +14,13 @@ use Win\DesignPattern\Singleton;
 class Route extends Singleton {
 
 	/**
-	 * Define se as rotas já foram analisadas
-	 *
-	 * Isso faz com que as rotas sejam analisadas apenas uma vez
-	 * @var boolean
-	 */
-	protected static $analyzed = false;
-
-	/**
 	 * Se for atribuido algum valor indica que é uma rota personalizada
 	 * @var mixed[]
 	 */
 	protected static $customUrl = [null, null];
 
 	/**
-	 * Retorna a Url que foi modificada pelas rotas
+	 * Retorna a nova Url
 	 * @return mixed[]
 	 */
 	public function getCustomUrl() {
@@ -36,7 +28,7 @@ class Route extends Singleton {
 	}
 
 	/**
-	 * Retorna TRUE se a URL foi customizada
+	 * Retorna TRUE se a URL foi personalizada
 	 * @return boolean
 	 */
 	public function hasCustomUrl() {
@@ -44,30 +36,22 @@ class Route extends Singleton {
 	}
 
 	/**
-	 * Cria um controller manualmente
-	 * 
-	 * Executado apenas se não possui rota automática
-	 * @return Controller|DefaultController
+	 * Inicia o processo de Url personalizada
+	 * retornando TRUE se alguma rota foi encontrada
+	 * @return boolean
 	 */
-	public function createController() {
-		$routeList = (array) Application::app()->getConfig('route', []);
-
-		if (!static::$analyzed):
-			static::$customUrl = static::createCustomUrl($routeList);
-			static::$analyzed = true;
-		endif;
-
-		return ControllerFactory::create(static::$customUrl[0], static::$customUrl[1]);
+	public function run() {
+		static::$customUrl = static::createCustomUrl();
+		return $this->hasCustomUrl();
 	}
 
 	/**
-	 * Percorre todas as rotas e retorna a Url personalizada
+	 * Percorre todas as rotas e retorna a nova Url
 	 * 
-	 * Se encontrar alguma rota, retorna a Url personalizada em Expressão regular
-	 * @param string[] $routeList
-	 * @return string[]
+	 * @return string[] Nova Url [0 => controller, 1 => action]
 	 */
-	public function createCustomUrl($routeList) {
+	protected function createCustomUrl() {
+		$routeList = (array) Application::app()->getConfig('route', []);
 		$search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
 		$matches = [];
 		foreach ($routeList as $url => $route):
@@ -78,6 +62,15 @@ class Route extends Singleton {
 			endif;
 		endforeach;
 		return [null, null];
+	}
+
+	/**
+	 * Cria um controller de acordo com a nova Url
+	 *
+	 * @return Controller|DefaultController
+	 */
+	public function createController() {
+		return ControllerFactory::create(static::$customUrl[0], static::$customUrl[1]);
 	}
 
 }

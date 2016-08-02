@@ -21,9 +21,7 @@ class ControllerFactory {
 		$class = static::getControllerClass($page);
 		if (class_exists($class)) {
 			return new $class($action);
-		} elseif (Route::instance()->hasCustomUrl() xor ! is_null($action)) {
-			return Route::instance()->createController();
-		}
+		} 
 		return new DefaultController();
 	}
 

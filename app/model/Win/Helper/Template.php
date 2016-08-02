@@ -12,9 +12,9 @@ use Win\DesignPattern\Singleton;
  * Quando uma View ou Block é chamado, primeiro o arquivo será buscando em "template/[nome-do-template]"
  * E caso o arquivo não exista, será buscado em "template/default"
  */
-class Template extends Singleton{
+class Template extends Singleton {
 
-	protected static $dir = 'app/template/';
+	protected static $dir = BASE_PATH . '/app/template/';
 	protected static $themeDefault = 'default';
 
 	/**
@@ -50,7 +50,7 @@ class Template extends Singleton{
 	 * @return string Novo caminho completo da view
 	 */
 	public function getFilePath($dir, $file) {
-		$appDir = 'app/';
+		$appDir = BASE_PATH . '/app/';
 		$newDir = str_replace($appDir, '', $dir);
 		if (file_exists(self::$dir . self::$theme . '/' . $newDir . $file . '.phtml')) {
 			return self::$dir . self::$theme . '/' . $newDir . $file;

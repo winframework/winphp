@@ -42,17 +42,26 @@ class Application {
 		$this->config = $config;
 		$this->name = $this->getConfig('name', '');
 
-		$this->setParamList(Url::instance()->instance()->getFragments());
-		$this->setPage($this->getParam(0));
-		$this->controller = ControllerFactory::create($this->page, $this->getParam(1));
+		$this->setParamList(Url::instance()->getFragments());
+		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));
 
-		if (Route::instance()->hasCustomUrl()):
+		if (Route::instance()->run()):
 			$this->setParamList(Route::instance()->getCustomUrl());
-			$this->setPage($this->getParam(0));
+			$this->controller = Route::instance()->createController();
 		endif;
-		$this->view = ViewFactory::create($this->page, $this->paramList);
+
+		$this->setPage($this->getParam(0));
+		$this->view = ViewFactory::create($this->getParam(0), $this->paramList);
 
 		$this->validatePage404();
+	}
+
+	/**
+	 * Retorna um ponteiro para a aplicação principal
+	 * @return static
+	 */
+	public static function app() {
+		return static::$app;
 	}
 
 	/**
@@ -72,14 +81,6 @@ class Application {
 		$this->controller->load();
 		$layout = new Layout($this->controller->layout);
 		$layout->load();
-	}
-
-	/**
-	 * Retorna um ponteiro para a aplicação principal
-	 * @return static
-	 */
-	public static function app() {
-		return static::$app;
 	}
 
 	/**
@@ -118,7 +119,7 @@ class Application {
 
 	/** @return bolean */
 	public function isLocalHost() {
-		return (in_array($this->getServerName(), ['localhost', '127.0.0.1', '::1']));
+		return (in_array($this->getServerName(), ['localhost', '127.0.0.1', '::1', null]));
 	}
 
 	/**
@@ -209,7 +210,7 @@ class Application {
 		$this->page = '404';
 		$this->title = 'Página não encontrada';
 		$this->view = new View('404');
-		$this->controller = ControllerFactory::create('Error404', 'index');
+		$this->controller = ControllerFactory::create('Error404');
 		http_response_code(404);
 		if ($this->getParam(0) !== '404'):
 			$this->controller->load();
