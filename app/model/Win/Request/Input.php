@@ -29,7 +29,7 @@ class Input {
 	 * @return string
 	 */
 	public static function server($name, $filter = FILTER_DEFAULT) {
-		return filter_input(INPUT_SERVER, $name, $filter);
+		return filter_var($_SERVER[$name], $filter);
 	}
 
 	/**

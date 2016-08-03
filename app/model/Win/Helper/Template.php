@@ -14,7 +14,7 @@ use Win\DesignPattern\Singleton;
  */
 class Template extends Singleton {
 
-	protected static $dir = BASE_PATH . '/app/template/';
+	protected static $dir = 'app/template/';
 	protected static $themeDefault = 'default';
 
 	/**
