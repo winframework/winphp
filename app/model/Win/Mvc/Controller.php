@@ -11,13 +11,7 @@ use Win\Helper\Url;
  */
 abstract class Controller {
 
-	public static $dir = BASE_PATH . '/app/controller/';
-
-	/**
-	 * Define qual bloco será usado como layout
-	 * @var string
-	 */
-	public $layout = 'main';
+	public static $dir = '/app/controller/';
 
 	/**
 	 * Ponteiro para Aplicação Principal
@@ -27,6 +21,12 @@ abstract class Controller {
 
 	/** @var string */
 	private $action;
+
+	/**
+	 * Define qual bloco será usado como layout
+	 * @var string
+	 */
+	public $layout = 'main';
 
 	/**
 	 * Cria o Controller, definindo o action
