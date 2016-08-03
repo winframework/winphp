@@ -455,7 +455,7 @@ form fieldset{
 		color: #53354A;
 		display: block;
 		font-size: 1em;
-		padding: 0.2em 0;
+		padding: 0.5em 0;
 	}
 	nav ul li:hover { color: #019875; }
 	nav #menu-toggle:checked ~ ul {
