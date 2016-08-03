@@ -29,7 +29,7 @@ class Email {
 	public function __construct() {
 		$this->setLayout('main');
 
-		include static::$mailerClass;
+		include_once static::$mailerClass;
 		$this->mailer = new \PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->SetLanguage('br');

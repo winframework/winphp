@@ -9,8 +9,6 @@
  */
 
 $route = [];
-$route['my-page/(.*)'] = 'exemplo/bar';
-$route['home'] = 'index';
 
 /**
  * Exemplos de rotas personalizadas
