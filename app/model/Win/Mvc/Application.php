@@ -17,7 +17,7 @@ class Application {
 
 	protected static $app = null;
 
-	/** @var string[] */
+	/** @var mixed[] */
 	private $config;
 	private $name;
 	private $page;
@@ -132,7 +132,7 @@ class Application {
 
 	/** @param string $page */
 	protected function setPage($page) {
-		$this->page = (!empty($page)) ? $page : $this->homePage;
+		$this->page = $page;
 	}
 
 	/**
@@ -167,12 +167,14 @@ class Application {
 		return $this->paramList;
 	}
 
-	/** @param string[] $paramList */
+	/**
+	 * Define os parâmetros.
+	 * Se estiver vazio, coloca os parâmetros padrão.
+	 * @param string[] $paramList
+	 */
 	private function setParamList($paramList) {
-		$this->paramList = array_filter($paramList);
-		if (!key_exists(1, $this->paramList)):
-			$this->paramList[1] = 'index';
-		endif;
+		$paramDefaulf = [$this->homePage, 'index'];
+		$this->paramList = array_replace($paramDefaulf, array_filter($paramList));
 	}
 
 	/**
