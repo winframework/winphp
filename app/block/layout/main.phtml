@@ -9,17 +9,16 @@ use Win\Html\Menu;
 	<body>
 		<div class="background">
 			<header>
-
 				<nav class="navBar">
 					<nav class="wrapper">
 						<img id="logo" src="public/img/win.svg" alt="<?= $this->app->getName(); ?>" />
 						<input type="checkbox" id="menu-toggle">
 						<label for="menu-toggle" class="label-toggle"></label>
 						<ul>
-							<a href="index/" class="<?= Menu::active('index'); ?>"><li>Página Inicial</li></a>
-							<a href="exemplo/" class="<?= Menu::active('exemplo'); ?>"><li>Exemplo</li></a>
-							<a href="contato/" class="<?= Menu::active('contato'); ?>"><li>Contato</li></a>
-							<a href="esta-url-nao-existe/" class="<?= Menu::active('404'); ?>"><li>Erro 404</li></a>
+							<li><a href="index/" class="<?= Menu::active('index'); ?>">Página Inicial</a></li>
+							<li><a href="exemplo/" class="<?= Menu::active('exemplo'); ?>">Exemplo</a></li>
+							<li><a href="contato/" class="<?= Menu::active('contato'); ?>">Contato</a></li>
+							<li><a href="esta-url-nao-existe/" class="<?= Menu::active('404'); ?>">Página de Erro</a></li>
 						</ul>
 					</nav>
 				</nav>
