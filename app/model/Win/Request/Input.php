@@ -29,7 +29,8 @@ class Input {
 	 * @return string
 	 */
 	public static function server($name, $filter = FILTER_DEFAULT) {
-		return filter_var($_SERVER[$name], $filter);
+		$server = (key_exists($name, $_SERVER)) ? $_SERVER[$name] : '';
+		return filter_var($server, $filter);
 	}
 
 	/**
