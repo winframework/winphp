@@ -46,7 +46,8 @@ header {
 	height: auto;
 	background: #ecf0f1;
 }
-#logo {
+#logo{
+	display: inline-block;
 	width: 20%;
 	margin: 10px 0;
 }
@@ -132,7 +133,7 @@ h5, h6 {
 	margin: 5px 0 15px 0;
 	flex-direction: column;
 	box-shadow: -1px 0 16px -1px rgba(0,0,0,0.15);
-	padding: 10px;
+	padding: 20px;
 }
 .columns{
 	display: flex;
@@ -146,7 +147,7 @@ h5, h6 {
 	width: 31.3%;
 	height: auto;
 	margin: 5px 1% 15px 1%;
-	padding: 10px 10px 20px 10px;
+	padding: 20px;
 	flex-direction: row;
 	flex-wrap: wrap;
 	box-shadow: -1px 0 16px -1px rgba(0,0,0,0.15);
@@ -163,7 +164,7 @@ h5, h6 {
 .column h2,
 .row h2 {
 	max-width: 80%;
-	padding: 10px;
+	padding: 0 10px 10px 10px;
 	border-bottom: solid 1px #999;
 	margin: 0 auto 5px auto;
 }
@@ -390,6 +391,9 @@ form fieldset{
 	color: #019875;
 	font-style: normal;
 }
+.info-error span{
+	display: block;
+}
 .dino, .eye, .mouth {
 	width: 1em;
 	height: 1em;
@@ -472,12 +476,13 @@ form fieldset{
 		margin-top: 180px;
 	}
 	.page-error h1 { display: block; }
-	.info-error strong, .info-error em, .info-error span { display: none; }
-	
+	.info-error strong, .info-error em{ display: none; }
+	.info-error span{ margin-top: 10px; }
+
 }
 
 @media screen and (max-width: 460px) {
 	/* Theme */
-	#logo { width: 25%;	}
+	#logo{ width: 25%;	}
 	.main-nav label { top: 30px; }
 }
