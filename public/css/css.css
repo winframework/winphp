@@ -4,7 +4,6 @@ table{ border-collapse: collapse; border-spacing: 0; }
 th, td{ text-align: left; vertical-align: top;}
 h1, h2, h3, h4, h5, h6, th, td, caption { font-weight: normal; }
 img { border: 0; }
-div, p{ width: 100%; }
 p{ margin: 10px 0; }
 
 html { box-sizing: border-box; }
@@ -88,15 +87,10 @@ header {
 	min-height: 300px;
 }
 main {
-	display: flex;
 	max-width: 1003px;
 	height: auto;
 	margin: 0 auto;
 	padding: 10px 20px 20px 20px;
-	flex-direction: row;
-	align-items: center;
-	flex-wrap: wrap;
-	justify-content: flex-start;
 	background: #FFF;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -476,6 +470,7 @@ form fieldset{
 		margin-top: 180px;
 	}
 	.page-error h1 { display: block; }
+	.info-error{ display: block; }
 	.info-error strong, .info-error em{ display: none; }
 	.info-error span{ margin-top: 10px; }
 
