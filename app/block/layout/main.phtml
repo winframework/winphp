@@ -9,7 +9,9 @@ use Win\Html\Menu;
 	<body>
 		<header>
 			<nav class="main-nav">
-				<img id="logo" src="public/img/win.svg" alt="<?= $this->app->getName(); ?>" />
+				<a id="logo" href="<?= $this->app->getBaseUrl(); ?>">
+					<img src="public/img/win.svg" alt="<?= $this->app->getName(); ?>" />
+				</a>
 				<input type="checkbox" id="menu-toggle" />
 				<label for="menu-toggle"></label>
 				<ul>
