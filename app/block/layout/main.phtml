@@ -7,31 +7,27 @@ use Win\Html\Menu;
 <html lang="pt-BR">
 	<?php echo new Win\Mvc\Block('layout/html/head'); ?>
 	<body>
-		<div class="background">
-			<header>
-				<nav class="navBar">
-					<nav class="wrapper">
-						<img id="logo" src="public/img/win.svg" alt="<?= $this->app->getName(); ?>" />
-						<input type="checkbox" id="menu-toggle">
-						<label for="menu-toggle" class="label-toggle"></label>
-						<ul>
-							<li><a href="index/" class="<?= Menu::active('index'); ?>">Página Inicial</a></li>
-							<li><a href="exemplo/" class="<?= Menu::active('exemplo'); ?>">Exemplo</a></li>
-							<li><a href="contato/" class="<?= Menu::active('contato'); ?>">Contato</a></li>
-							<li><a href="esta-url-nao-existe/" class="<?= Menu::active('404'); ?>">Página de Erro</a></li>
-						</ul>
-					</nav>
-				</nav>
-			</header>
+		<header>
+			<nav class="main-nav">
+				<img id="logo" src="public/img/win.svg" alt="<?= $this->app->getName(); ?>" />
+				<input type="checkbox" id="menu-toggle" />
+				<label for="menu-toggle"></label>
+				<ul>
+					<li><a href="index/" class="<?= Menu::active('index'); ?>">Página Inicial</a></li>
+					<li><a href="exemplo/" class="<?= Menu::active('exemplo'); ?>">Exemplo</a></li>
+					<li><a href="contato/" class="<?= Menu::active('contato'); ?>">Contato</a></li>
+					<li><a href="esta-url-nao-existe/" class="<?= Menu::active('404'); ?>">Página de Erro</a></li>
+				</ul>
+			</nav>
+		</header>
 
-			<div class="middle">
-				<?php $this->app->view->load(); ?>
-			</div>
-
-			<footer>
-				Made with <span class="heart"></span> by
-					<a href="https://github.com/winframework/winphp" target="_blank" class="link-white"><?= $this->app->getName(); ?> </a>
-			</footer>
+		<div class="middle">
+			<?php $this->app->view->load(); ?>
 		</div>
+
+		<footer>
+			Made with <span class="heart"></span> by
+			<a href="https://github.com/winframework/winphp" target="_blank" class="link-white"><?= $this->app->getName(); ?> </a>
+		</footer>
 	</body>
 </html>
