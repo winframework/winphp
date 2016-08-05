@@ -1,6 +1,6 @@
 <?php /* @var $this Win\Mvc\View */ ?>
-<main>
-	<h1 class="title-error">Página não Encontrada</h1>
+<main class="page-error">
+	<h1>Página não Encontrada</h1>
 
 	<div class="columns">
 		<div class="column error">
@@ -13,13 +13,16 @@
 		<div class="column info-error">
 			<strong>404</strong>
 			<em>Página Não Encontrada</em>
-			<span>Essa página não existe ou está temporariamente indisponível.</span>
-			<span>Verifique se você digitou o endereço corretamente.</span>
-			<span>Tente novamente mais tarde ou entre em contato.</span>
-			
-			<div class="buttons">
-				<a href="index" class="btn btn-initial">Ir para a Página Inicial</a>
-				<a href="javascript:history.back(-1)" class="btn btn-back">Voltar</a>
+			<div class="text-center">
+				Essa página não existe ou está temporariamente indisponível.<br />
+				Verifique se você digitou o endereço corretamente.<br />
+				Tente novamente mais tarde ou entre em contato.<br />
+				<br />
+			</div>
+
+			<div class="text-center buttons">
+				<a href="index" class="btn">Ir para a Página Inicial</a>
+				<a href="javascript:history.back(-1)" class="btn">Voltar</a>
 			</div>
 		</div>
 	</div>
