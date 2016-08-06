@@ -8,7 +8,6 @@ use Win\DesignPattern\Singleton;
 /**
  * Gerenciador de URL
  * 
- * Auxilia no gerenciamento de URLs
  */
 class Url extends Singleton {
 
@@ -27,8 +26,7 @@ class Url extends Singleton {
 
 	/**
 	 * Retorna no formato de URL
-	 * Adicionando base e sufixo se necessário
-	 * @param string $url URL sem barra no final
+	 * @param string $url
 	 * @return string
 	 */
 	public function format($url) {
@@ -37,7 +35,7 @@ class Url extends Singleton {
 	}
 
 	/**
-	 * Redireciona para a url escolhida
+	 * Redireciona para a URL escolhida
 	 * @param string $url
 	 */
 	public function redirect($url = '') {
@@ -90,7 +88,6 @@ class Url extends Singleton {
 	}
 
 	/**
-	 * Usada apenas para testes
 	 * @param string $url
 	 */
 	public function setUrl($url) {

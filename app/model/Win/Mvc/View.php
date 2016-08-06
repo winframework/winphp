@@ -44,7 +44,7 @@ class View {
 
 	/**
 	 * Define o arquivo da view
-	 * @param string $file Arquivo sem extensao
+	 * @param string $file
 	 */
 	private function setFile($file) {
 		$filePath = BASE_PATH . static::$dir . $file;
@@ -76,14 +76,6 @@ class View {
 	}
 
 	/**
-	 * Carrega o arquivo da view, imprimindo o resultado html
-	 * @return string
-	 */
-	public function load() {
-		$this->toHtml();
-	}
-
-	/**
 	 * Retorna o html da view
 	 * @return string
 	 */
@@ -102,7 +94,15 @@ class View {
 	}
 
 	/**
-	 * Inclui o html do arquivo da view
+	 * Carrega o arquivo da view, imprimindo o resultado html
+	 * @return string
+	 */
+	public function load() {
+		$this->toHtml();
+	}
+
+	/**
+	 * Carrega o arquivo da view, imprimindo o resultado html
 	 */
 	public function toHtml() {
 		if (!is_null($this->file)):

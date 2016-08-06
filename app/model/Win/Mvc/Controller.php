@@ -7,7 +7,7 @@ use Win\Helper\Url;
 /**
  * Controllers
  * 
- * São responsáveis por processar as requisições e chamar as Views
+ * São responsáveis por processar as requisições e definir as Views
  */
 abstract class Controller {
 
@@ -22,10 +22,7 @@ abstract class Controller {
 	/** @var string */
 	private $action;
 
-	/**
-	 * Define qual bloco será usado como layout
-	 * @var string
-	 */
+	/** @var string */
 	public $layout = 'main';
 
 	/**
@@ -38,20 +35,27 @@ abstract class Controller {
 
 	/**
 	 * Define o action
-	 * Alterando de "hifem-case" para "camelCase"
 	 * @param string $action
 	 */
 	private function setAction($action = '') {
 		if (empty($action)) {
 			$action = $this->app->getParam(1);
 		}
+		$this->action = $this->toCamelCase($action);
+	}
 
+	/**
+	 * Retorna o nome do action em camelCase
+	 * @param string $action
+	 * @return string
+	 */
+	private function toCamelCase($action) {
 		if (strpos($action, '-') !== false) {
 			$camelCaseName = str_replace(' ', '', ucwords(str_replace('-', ' ', $action)));
 			$camelCaseName[0] = strtolower($camelCaseName[0]);
 			$action = $camelCaseName;
 		}
-		$this->action = $action;
+		return $action;
 	}
 
 	/** @return string */
@@ -81,13 +85,12 @@ abstract class Controller {
 	}
 
 	/**
-	 * Acao index
+	 * Action Index
 	 */
 	abstract public function index();
 
 	/**
 	 * Este metodo é chamado sempre que o controller é carregado
-	 * Não é necessário fazer uso do parent::init()
 	 */
 	protected function init() {
 		
