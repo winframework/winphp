@@ -37,8 +37,6 @@ class Email {
 		$this->mailer->IsHTML(true);
 	}
 
-	/* Metodos de Acesso */
-
 	/**
 	 * Adiciona um Destinatário
 	 * @param string $address E-mail destinatário
@@ -60,7 +58,6 @@ class Email {
 	/**
 	 * Define qual será o arquivo de layout
 	 *
-	 * Arquivos de layout ficam em app/blocks/email
 	 * @param string $layout Nome do arquivo de layout
 	 */
 	public function setLayout($layout) {
@@ -87,14 +84,14 @@ class Email {
 
 	/**
 	 * Define o idioma
-	 * @param string @lang
+	 * @param string $lang
 	 */
 	public function setLanguage($lang) {
 		$this->mailer->SetLanguage($lang);
 	}
 
 	/**
-	 * Retorna o Destinatário
+	 * Retorna o E-mail do Destinatário
 	 * @return string
 	 */
 	public function getFrom() {

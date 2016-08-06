@@ -8,7 +8,7 @@ use Win\DesignPattern\Singleton;
 /**
  * Rota de URL
  * 
- * Envia a requisição para o controller correto.
+ * Redireicona a requisição para um outro controller.
  * Veja as rotas em config/routes.php
  */
 class Route extends Singleton {

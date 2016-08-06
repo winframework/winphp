@@ -12,7 +12,7 @@ use Win\Mvc\View;
 class ViewFactory {
 
 	/**
-	 * Cria uma view com base na página
+	 * Cria uma view com base na página e parametros
 	 * @param string $page
 	 * @param mixed[] $paramList
 	 * @return View

@@ -3,9 +3,9 @@
 namespace Win\Request;
 
 /**
- * Auxilia a pegar variáveis globais ($_REQUEST, $_POST, $_GET, etc)
+ * Manipula variáveis globais ($_REQUEST, $_POST, $_GET, etc)
  * 
- * Esta classe fornece uma camada de segurança maior do que manipular as variaveis globais diretamente.
+ * Esta classe fornece uma camada de segurança maior do que manipular as variáveis globais diretamente.
  */
 class Input {
 
@@ -14,7 +14,8 @@ class Input {
 	 *
 	 * @param string $name
 	 * @param int $filter
-	 * @param string $default
+	 * @param mixed $default
+	 * @return mixed
 	 */
 	public static function post($name, $filter = FILTER_DEFAULT, $default = '') {
 		$post = filter_input(INPUT_POST, $name, $filter);
@@ -26,7 +27,7 @@ class Input {
 	 * 
 	 * @param string $name
 	 * @param int $filter
-	 * @return string
+	 * @return mixed
 	 */
 	public static function server($name, $filter = FILTER_DEFAULT) {
 		$server = (key_exists($name, $_SERVER)) ? $_SERVER[$name] : '';

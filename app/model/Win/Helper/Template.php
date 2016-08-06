@@ -7,7 +7,7 @@ use Win\DesignPattern\Singleton;
 /**
  * Sistema de Templates
  *
- * Permite que o sistema tenha multiplos templates e facilita a alteração entre os templates.
+ * Permite que a aplicação tenha multiplos templates e facilita a alteração entre os templates.
  *
  * Quando uma View ou Block é chamado, primeiro o arquivo será buscando em "template/[nome-do-template]"
  * E caso o arquivo não exista, será buscado em "template/default"
@@ -26,7 +26,7 @@ class Template extends Singleton {
 	/**
 	 * Define o nome do Tema atual (Antes de instanciar o Application)
 	 *
-	 * Após esta chamada, todos os blocos e views serão buscados "template/{$theme}"
+	 * Após esta chamada, todos os blocos e views serão buscados "template/[$theme]"
 	 * @param string $theme
 	 */
 	public function setTheme($theme) {

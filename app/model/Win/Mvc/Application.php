@@ -75,7 +75,7 @@ class Application {
 
 	/**
 	 * Executa a applicação
-	 * chamando o controller, a view e criando o layout
+	 * chamando o controller e criando o layout que contem a view
 	 */
 	public function run() {
 		$this->controller->load();
@@ -83,10 +83,7 @@ class Application {
 		$layout->load();
 	}
 
-	/**
-	 * Retorna o nome da Aplicação
-	 * @return string
-	 */
+	/** @return string */
 	public function getName() {
 		return $this->name;
 	}
@@ -144,7 +141,7 @@ class Application {
 	}
 
 	/**
-	 * Retorna TRUE se está na Página Inicial
+	 * Retorna TRUE se está na página inicial
 	 * @return boolean
 	 */
 	public function isHomePage() {
@@ -152,7 +149,7 @@ class Application {
 	}
 
 	/**
-	 * Retorna TRUE se está em alguma Página de Erro (404, 403, 503, etc)
+	 * Retorna TRUE se está em alguma página de erro (404, 403, 503, etc)
 	 * @return boolean
 	 */
 	public function isErrorPage() {
@@ -169,7 +166,7 @@ class Application {
 
 	/**
 	 * Define os parâmetros.
-	 * Se estiver vazio, coloca os parâmetros padrão.
+	 * Se estiver vazio, utiliza os parâmetros padrão.
 	 * @param string[] $paramList
 	 */
 	private function setParamList($paramList) {
@@ -179,8 +176,8 @@ class Application {
 
 	/**
 	 * Retorna uma parte da URL
+	 * @param int $position Parte escolhida
 	 * @return string
-	 * @param int $position Posição escolhida
 	 */
 	public function getParam($position) {
 		return (key_exists($position, $this->paramList)) ? $this->paramList[$position] : '';
@@ -198,7 +195,7 @@ class Application {
 	}
 
 	/**
-	 * Define o titulo da página atual
+	 * Define o titulo da página
 	 * @param string $title
 	 */
 	public function setTitle($title) {
