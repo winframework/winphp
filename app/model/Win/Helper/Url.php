@@ -36,10 +36,14 @@ class Url extends Singleton {
 
 	/**
 	 * Redireciona para a URL escolhida
-	 * @param string $url
+	 * @param string $url Url relativa ou absoluta
 	 */
 	public function redirect($url = '') {
-		header('location:' . $this->getBaseUrl() . $this->format($url));
+		if (strpos($url, '://') === false) {
+			$url = $this->getBaseUrl() . $url;
+		}
+		header('location:' . $this->format($url));
+		exit();
 	}
 
 	/**
