@@ -65,15 +65,6 @@ class Application {
 	}
 
 	/**
-	 * Retorna uma configuração
-	 * @param string $key Nome da configuração
-	 * @param string $default Valor default, caso esta configuração esteja em branco
-	 */
-	public function getConfig($key, $default = '') {
-		return (key_exists($key, $this->config)) ? $this->config[$key] : $default;
-	}
-
-	/**
 	 * Executa a applicação
 	 * chamando o controller e criando o layout que contem a view
 	 */
@@ -81,6 +72,15 @@ class Application {
 		$this->controller->load();
 		$layout = new Layout($this->controller->layout);
 		$layout->load();
+	}
+
+	/**
+	 * Retorna uma configuração
+	 * @param string $key Nome da configuração
+	 * @param string $default Valor default, caso esta configuração esteja em branco
+	 */
+	public function getConfig($key, $default = '') {
+		return (key_exists($key, $this->config)) ? $this->config[$key] : $default;
 	}
 
 	/** @return string */
@@ -116,7 +116,8 @@ class Application {
 
 	/** @return bolean */
 	public function isLocalHost() {
-		return (in_array($this->getServerName(), ['localhost', '127.0.0.1', '::1', null]));
+		$localAddress = ['localhost', '127.0.0.1', '::1', null];
+		return (in_array($this->getServerName(), $localAddress) || strpos($this->getServerName(), '192.168') !== false);
 	}
 
 	/**

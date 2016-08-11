@@ -41,8 +41,11 @@ class Route extends Singleton {
 	 * @return boolean
 	 */
 	public function run() {
-		static::$customUrl = static::createCustomUrl();
-		return $this->hasCustomUrl();
+		if (!is_null(Application::app()->getConfig('routes', null))) {
+			static::$customUrl = static::createCustomUrl();
+			return $this->hasCustomUrl();
+		}
+		return false;
 	}
 
 	/**
