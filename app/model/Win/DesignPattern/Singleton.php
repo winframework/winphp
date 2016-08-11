@@ -9,7 +9,7 @@ namespace Win\DesignPattern;
  * @see DependenceInjector
  * Isso possibilita criar classes extendidas sem comprometer as dependencias da classe original
  */
-class Singleton {
+trait Singleton {
 
 	protected static $instance = [];
 

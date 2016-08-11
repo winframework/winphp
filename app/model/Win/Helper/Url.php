@@ -3,13 +3,14 @@
 namespace Win\Helper;
 
 use Win\Request\Input;
-use Win\DesignPattern\Singleton;
 
 /**
  * Gerenciador de URL
  * 
  */
-class Url extends Singleton {
+class Url {
+
+	use \Win\DesignPattern\Singleton;
 
 	protected $base = null;
 	protected $url = null;

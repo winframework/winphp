@@ -2,8 +2,6 @@
 
 namespace Win\Helper;
 
-use Win\DesignPattern\Singleton;
-
 /**
  * Sistema de Templates
  *
@@ -12,7 +10,9 @@ use Win\DesignPattern\Singleton;
  * Quando uma View ou Block é chamado, primeiro o arquivo será buscando em "template/[nome-do-template]"
  * E caso o arquivo não exista, será buscado em "template/default"
  */
-class Template extends Singleton {
+class Template {
+
+	use \Win\DesignPattern\Singleton;
 
 	protected static $dir = 'app/template/';
 	protected static $themeDefault = 'default';
