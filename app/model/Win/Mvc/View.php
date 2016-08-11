@@ -70,7 +70,7 @@ class View {
 	 * Se arquivo nao existe, define como 404
 	 */
 	public function validate() {
-		if (!$this->exists()):
+		if (!$this->exists() && $this->app->getPage() !== '404'):
 			$this->app->pageNotFound();
 		endif;
 	}
