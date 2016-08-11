@@ -40,7 +40,7 @@ class Email {
 	 * Inclui bibliotecas necessarias
 	 * @param string $className
 	 */
-	static function autoload($className) {
+	public static function autoload($className) {
 		$file = BASE_PATH . '/lib/vendor/phpmailer/class.' . strtolower($className) . '.php';
 		if (file_exists($file)):
 			return require $file;
