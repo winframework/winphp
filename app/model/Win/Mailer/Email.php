@@ -12,8 +12,6 @@ use Win\Mvc\Application;
  */
 class Email {
 
-	public static $mailerClass = BASE_PATH . '/lib/vendor/phpmailer/class.phpmailer.php';
-
 	/** @var Block */
 	private $layout;
 
@@ -29,12 +27,24 @@ class Email {
 	public function __construct() {
 		$this->setLayout('main');
 
-		include_once static::$mailerClass;
+		spl_autoload_register('\Win\Mailer\Email::autoload');
+
 		$this->mailer = new \PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->SetLanguage('br');
 		$this->mailer->IsMail();
 		$this->mailer->IsHTML(true);
+	}
+
+	/**
+	 * Inclui bibliotecas necessarias
+	 * @param string $className
+	 */
+	static function autoload($className) {
+		$file = BASE_PATH . '/lib/vendor/phpmailer/class.' . strtolower($className) . '.php';
+		if (file_exists($file)):
+			return require $file;
+		endif;
 	}
 
 	/**

@@ -3,7 +3,6 @@
 namespace Win\Mvc;
 
 use Win\Helper\Url;
-use Win\DesignPattern\Singleton;
 
 /**
  * Rota de URL
@@ -11,7 +10,9 @@ use Win\DesignPattern\Singleton;
  * Redireicona a requisição para um outro controller.
  * Veja as rotas em config/routes.php
  */
-class Route extends Singleton {
+class Route {
+
+	use \Win\DesignPattern\Singleton;
 
 	/**
 	 * Se for atribuido algum valor indica que é uma rota personalizada
