@@ -374,6 +374,10 @@ form fieldset{
 	width: 60%;
 	box-shadow: none;
 }
+.info-error div{
+	display: block;
+	width: 100%;
+}
 .info-error strong {
 	width: 100%;
 	margin-top: 60px;
@@ -410,7 +414,7 @@ form fieldset{
 
 /* Responsive Smartphone */
 @media screen and (max-width: 768px) {
-	#logo{width: 15%; }
+	#logo{width: 10%; }
 	.main-nav{display: block; }
 	.main-nav ul {
 		display: block;
@@ -471,7 +475,7 @@ form fieldset{
 
 @media screen and (max-width: 460px) {
 	/* Theme */
-	#logo{ width: 25%;	}
+	#logo{ width: 15%; margin-left: 5px; }
 	.main-nav label { top: 30px; }
 	.form-buttons {text-align: center;}
 
