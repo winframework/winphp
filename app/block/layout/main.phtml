@@ -25,11 +25,13 @@ use Win\Html\Menu;
 
 		<div class="middle">
 			<?php $this->app->view->load(); ?>
+			<br />
 		</div>
 
 		<footer>
 			Made with <span class="heart"></span> by
-			<a href="https://github.com/winframework/winphp" target="_blank" class="link-white"><?= $this->app->getName(); ?> </a>
+			<a href="https://github.com/winframework/winphp" target="_blank"><?= $this->app->getName(); ?> </a>
+			&copy; <?= date('Y'); ?>
 		</footer>
 	</body>
 </html>

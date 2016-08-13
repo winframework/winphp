@@ -42,7 +42,7 @@ class Route {
 	 * @return boolean
 	 */
 	public function run() {
-		if (!is_null(Application::app()->getConfig('routes', null))) {
+		if (!is_null(Application::app()->getConfig('route', null))) {
 			static::$customUrl = static::createCustomUrl();
 			return $this->hasCustomUrl();
 		}

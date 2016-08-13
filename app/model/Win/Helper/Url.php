@@ -82,9 +82,9 @@ class Url {
 			$host = Input::server('HTTP_HOST');
 			$url = '';
 			if ($host):
-				$requestUri = Input::server('REQUEST_URI');
+				$requestUri = explode('?', Input::server('REQUEST_URI'));
 				$context = explode($host, $this->getBaseUrl());
-				$uri = (explode(end($context), $requestUri, 2));
+				$uri = (explode(end($context), $requestUri[0], 2));
 				$url = end($uri);
 			endif;
 			$this->url = $this->format($url);
