@@ -20,6 +20,9 @@ pre {
 	font-size: 16px;
 	color: #555;
 }
+.xdebug-error{
+	color:#111;
+}
 
 /* Theme */
 a {
@@ -251,7 +254,8 @@ footer a:hover {
 }
 .btn-bordered {
 	border-width: 2px;
-	padding: 4px 20px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 }
 .btn.active {
 	text-decoration: underline;
@@ -266,6 +270,10 @@ footer a:hover {
 .btn-danger {
 	background: #e74c3c;
 	border-color: #CE3323;
+}
+.btn-warning{
+	background:#e67e22;
+	border-color:#D97115;
 }
 form {
 	max-width: 500px;
