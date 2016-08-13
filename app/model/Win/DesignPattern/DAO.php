@@ -2,17 +2,20 @@
 
 namespace Win\DesignPattern;
 
+use Win\Mvc\Application;
+use Win\Connection\MySQL;
+
 /**
  * Data Access Object
  */
-abstract class DAO {
+abstract class DAO implements DAOInterface {
 
 	/** @var \PDO */
 	protected $pdo;
 
 	/** Inicia o DAO */
 	public function __construct() {
-		$this->pdo = \Win\Connection\MySQL::instance()->getPDO();
+		$this->pdo = MySQL::instance()->getPDO();
 	}
 
 	/**
@@ -25,14 +28,14 @@ abstract class DAO {
 
 	/**
 	 * Retorna um objeto a partir da linha da tabela
-	 * @param mixed[] $row
+	 * @param array[] $row
 	 */
-	abstract public function mapObject(array $row);
+	abstract protected function mapObject($row);
 
 	/** Retorna a linha da tabela a partir de um objeto
 	 * @param object $obj
 	 */
-	abstract public function mapRow($obj);
+	abstract protected function mapRow($obj);
 
 	/**
 	 * Salva o registro
@@ -48,7 +51,7 @@ abstract class DAO {
 		}
 	}
 
-	/** Insere registro no banco de dados */
+	/** Insere o registro */
 	protected function insert() {
 		$mapRow = $this->mapRow($this->obj);
 		$keys = array_keys($mapRow);
@@ -60,7 +63,7 @@ abstract class DAO {
 		$stmt->execute($values);
 	}
 
-	/** Atualiza registro no banco de dados */
+	/** Atualiza o registro */
 	protected function update() {
 		$mapRow = $this->mapRow($this->obj);
 		$keys = array_keys($mapRow);
@@ -78,14 +81,14 @@ abstract class DAO {
 
 	/**
 	 * Exclui o registro
-	 * @param mixed $obj
+	 * @param object $obj
 	 */
 	public function delete($obj) {
 		$this->deleteById($obj->getId());
 	}
 
 	/**
-	 * Exclui o registro por Id
+	 * Exclui o registro por id
 	 * @param int $id
 	 */
 	public function deleteById($id) {
@@ -98,34 +101,31 @@ abstract class DAO {
 	/**
 	 * Busca o objeto pelo id
 	 * @param int $id
-	 * @return mixed
 	 */
 	public function fetchById($id) {
 		return $this->fetchByField('id', $id);
 	}
 
 	/**
-	 * Busca o objeto por um campo específico
-	 * @param string $fieldName
-	 * @param mixed $fieldValue
-	 * @return mixed
+	 * Busca o objeto por um campo/atributo específico
+	 * @param string $name Nome do atributo
+	 * @param mixed $value Valor do atributo
 	 */
-	public function fetchByField($fieldName, $fieldValue) {
-		return $this->fetch([$fieldName . ' = ?' => $fieldValue]);
+	public function fetchByField($name, $value) {
+		return $this->fetch([$name . ' = ?' => $value]);
 	}
 
 	/**
-	 * Busca o objeto pelo filtro
-	 * @param string $fieldName
-	 * @param mixed $fieldValue
-	 * @return mixed
+	 * Busca o objeto
+	 * @param string[] $filter Array de filtros
+	 * @param string $option [Order by, Limit, etc]
 	 */
-	public function fetch($filter) {
+	public function fetch($filter, $option = '') {
 		if (!is_array($filter)):
 			throw new \Exception("Filter: '{$filter}' must be a array");
 		endif;
 		$sql = $this->selectSQL($filter);
-		$stmt = $this->pdo->prepare($sql);
+		$stmt = $this->pdo->prepare($sql . ' ' . $option);
 		$stmt->execute(array_values($filter));
 
 		$result = $stmt->fetch();
@@ -135,19 +135,19 @@ abstract class DAO {
 	/**
 	 * Retorna todos os registros
 	 *
-	 * É possivel utilizar filtragem
-	 * @example fetchAll(['id = ?' => 10, 'data > ?' => '2010-01-01'])
-	 * 
-	 * @param string[] $filter Array com filtros
-	 * @return object[] Array de objetos
+	 * <code>
+	 * $dao->fetchAll( ['id = ?' => 10]);
+	 * </code>
+	 * @param string[] $filter Array de filtros
+	 * @param string $option [Order by, Limit, etc]
 	 */
-	public function fetchAll($filter = []) {
+	public function fetchAll($filter = [], $option = '') {
 		if (!is_array($filter)):
 			throw new \Exception("Filter: '{$filter}' must be a array");
 		endif;
 
 		$sql = $this->selectSQL($filter);
-		$stmt = $this->pdo->prepare($sql);
+		$stmt = $this->pdo->prepare($sql . ' ' . $option);
 		$stmt->execute(array_values($filter));
 
 		$results = $stmt->fetchAll();
@@ -158,14 +158,17 @@ abstract class DAO {
 		return $array;
 	}
 
-	/** Retorna comando Select */
+	/**
+	 * Retorna comando SELECT
+	 * @return string
+	 */
 	protected function selectSQL(&$filter) {
 		$keys = array_keys($filter);
 		return 'SELECT * FROM ' . static::TABLE . ' ' . $this->whereSQL($keys) . '';
 	}
 
 	/**
-	 * Retorna WHERE com base nas keys
+	 * Retorna comando WHERE
 	 * @param string[] $keys
 	 * @return string
 	 */
@@ -174,19 +177,17 @@ abstract class DAO {
 	}
 
 	/**
-	 * Retorna true se objeto existe
+	 * Retorna True se objeto existir
 	 * @return boolean
 	 */
-	public function objExists() {
+	protected function objExists() {
 		return ($this->obj->getId() > 0);
 	}
 
-	/**
-	 * Define pagina 404 se objeto não existir
-	 */
+	/** Define como Página 404 se o objeto não existir */
 	public function validateObject() {
-		if ($this->obj->getId() == 0) {
-			\Win\Mvc\Application::app()->pageNotFound();
+		if (!$this->objExists()) {
+			Application::app()->pageNotFound();
 		}
 	}
 

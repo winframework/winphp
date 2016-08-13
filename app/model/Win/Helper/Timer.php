@@ -7,7 +7,6 @@ namespace Win\Helper;
  *
  * Usado para medir o tempo de execução de códigos
  *
- * @example
  * <code>
  * $t = new Win\Helper\Timer();
  * [code here]
