@@ -22,7 +22,13 @@ class Application {
 	private $name;
 	private $page;
 	private $homePage = 'index';
-	private $errorPageList = ['404', '401', '403', '500'];
+	private $errorPageList = [
+		404 => 'Página não encontrada',
+		401 => 'Não autorizado',
+		403 => 'Acesso negado',
+		500 => 'Erro no Servidor',
+		503 => 'Problemas de Conexão'
+	];
 	private $url;
 	private $paramList;
 	private $title;
@@ -154,7 +160,7 @@ class Application {
 	 * @return boolean
 	 */
 	public function isErrorPage() {
-		return (boolean) (in_array($this->page, $this->errorPageList));
+		return (boolean) (key_exists((int) $this->page, $this->errorPageList));
 	}
 
 	/**
@@ -204,20 +210,6 @@ class Application {
 	}
 
 	/**
-	 * Define a página como 404
-	 */
-	public function pageNotFound() {
-		$this->page = '404';
-		$this->title = 'Página não encontrada';
-		$this->view = new View('404');
-		$this->controller = ControllerFactory::create('Error404');
-		http_response_code(404);
-		if ($this->getParam(0) !== '404'):
-			$this->controller->load();
-		endif;
-	}
-
-	/**
 	 * Chama pageNotFound se o usuario acessar /404
 	 *
 	 * Isso garante que todas as funcionalidades de pageNotFound serão executadas
@@ -226,6 +218,28 @@ class Application {
 	private function validatePage404() {
 		if ($this->getParam(0) === '404'):
 			$this->pageNotFound();
+		endif;
+	}
+
+	/** Define a página como 404 */
+	public function pageNotFound() {
+		$this->errorPage(404);
+	}
+
+	/**
+	 * Define a página como "$errorCode"
+	 * @param int $errorCode [401, 404, 500, etc]
+	 */
+	public function errorPage($errorCode) {
+		if (key_exists($errorCode, $this->errorPageList)):
+			$this->page = (string) $errorCode;
+			$this->view = new View($errorCode);
+			$this->title = $this->errorPageList[$errorCode];
+			$this->controller = ControllerFactory::create('Error' . $errorCode);
+			http_response_code($errorCode);
+			if ($this->getParam(0) !== $errorCode):
+				$this->controller->load();
+			endif;
 		endif;
 	}
 

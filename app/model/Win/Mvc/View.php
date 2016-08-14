@@ -43,6 +43,15 @@ class View {
 	}
 
 	/**
+	 * Adiciona uma variavel para usar na view
+	 * @param string $name
+	 * @param mixed $value
+	 */
+	public function addData($name, $value) {
+		$this->data[$name] = $value;
+	}
+
+	/**
 	 * Define o arquivo da view
 	 * @param string $file
 	 */
