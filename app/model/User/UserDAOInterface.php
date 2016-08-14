@@ -2,7 +2,7 @@
 
 namespace User;
 
-interface UserDAOInterface extends \Win\DesignPattern\DAOInterface {
+interface UserDAOInterface extends \Win\DAO\DAOInterface {
 
 	/** @return User */
 	public function fetchByField($fieldName, $fieldValue);
