@@ -13,18 +13,8 @@ abstract class DAO implements DAOInterface {
 	/** @var \PDO */
 	protected $pdo;
 
-	/** Inicia o DAO */
-	public function __construct() {
-		$this->pdo = MySQL::instance()->getPDO();
-	}
-
-	/**
-	 * Define uma conexão manualmente
-	 * @param \PDO $pdo
-	 */
-	public function setPDO($pdo) {
-		$this->pdo = $pdo;
-	}
+	/** @var string */
+	protected $selectedCollumns;
 
 	/**
 	 * Retorna um objeto a partir da linha da tabela
@@ -36,6 +26,28 @@ abstract class DAO implements DAOInterface {
 	 * @param object $obj
 	 */
 	abstract protected function mapRow($obj);
+
+	/** Inicia o DAO */
+	public function __construct() {
+		$this->pdo = MySQL::instance()->getPDO();
+		$this->selectedCollumns = '*';
+	}
+
+	/**
+	 * Define uma conexão manualmente
+	 * @param \PDO $pdo
+	 */
+	public function setPDO($pdo) {
+		$this->pdo = $pdo;
+	}
+
+	/**
+	 * Define quais colunas serão consultadas nos comandos SELECT
+	 * @param string $collumns
+	 */
+	public function selectedCollumns($collumns) {
+		$this->selectedCollumns = $collumns;
+	}
 
 	/**
 	 * Salva o registro
@@ -124,8 +136,8 @@ abstract class DAO implements DAOInterface {
 		if (!is_array($filter)):
 			throw new \Exception("Filter: '{$filter}' must be a array");
 		endif;
-		$sql = $this->selectSQL($filter);
-		$stmt = $this->pdo->prepare($sql . ' ' . $option);
+		$sql = $sql = $this->selectSQL() . ' ' . $this->whereSQL($filter) . ' ' . $option;
+		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute(array_values($filter));
 
 		$result = $stmt->fetch();
@@ -146,8 +158,8 @@ abstract class DAO implements DAOInterface {
 			throw new \Exception("Filter: '{$filter}' must be a array");
 		endif;
 
-		$sql = $this->selectSQL($filter);
-		$stmt = $this->pdo->prepare($sql . ' ' . $option);
+		$sql = $this->selectSQL() . ' ' . $this->whereSQL($filter) . ' ' . $option;
+		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute(array_values($filter));
 
 		$results = $stmt->fetchAll();
@@ -161,18 +173,19 @@ abstract class DAO implements DAOInterface {
 	/**
 	 * Retorna comando SELECT
 	 * @return string
+	 * @example "SELECT * FROM user"
 	 */
-	protected function selectSQL(&$filter) {
-		$keys = array_keys($filter);
-		return 'SELECT * FROM ' . static::TABLE . ' ' . $this->whereSQL($keys) . '';
+	protected function selectSQL() {
+		return 'SELECT ' . $this->selectedCollumns . ' FROM ' . static::TABLE;
 	}
 
 	/**
 	 * Retorna comando WHERE
-	 * @param string[] $keys
+	 * @param string[] $filter
 	 * @return string
 	 */
-	private function whereSQL(&$keys) {
+	private function whereSQL(&$filter) {
+		$keys = array_keys($filter);
 		return ($keys) ? 'WHERE ' . implode(' AND ', $keys) : '';
 	}
 
