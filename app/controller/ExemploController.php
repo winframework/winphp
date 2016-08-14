@@ -9,7 +9,8 @@ class ExemploController extends \Win\Mvc\Controller {
 
 		$userDAO = new \User\UserDAO();
 		$user = $userDAO->fetchLast();
-		echo ($user->getId());
+
+		var_dump($user);
 		
 	}
 
