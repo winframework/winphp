@@ -237,7 +237,7 @@ class Application {
 			$this->title = $this->errorPageList[$errorCode];
 			$this->controller = ControllerFactory::create('Error' . $errorCode);
 			http_response_code($errorCode);
-			if ($this->getParam(0) !== $errorCode):
+			if ($this->getParam(0) !== (string) $errorCode):
 				$this->controller->load();
 			endif;
 		endif;
