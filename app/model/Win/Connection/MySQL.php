@@ -11,7 +11,7 @@ use PDO;
 class MySQL extends Database {
 
 	/** Cria conexao via PDO */
-	public function connect(&$dbConfig) {
+	protected function connect(&$dbConfig) {
 		return new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'], $dbConfig['user'], $dbConfig['pass']);
 	}
 

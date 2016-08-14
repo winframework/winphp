@@ -5,5 +5,5 @@ $db = [
 	'host' => 'localhost',
 	'user' => 'root',
 	'pass' => 'wcorp@mysql',
-	'dbname' => 'win_ddemo'
+	'dbname' => 'win_demo'
 ];

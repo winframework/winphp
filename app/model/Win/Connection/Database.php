@@ -11,7 +11,7 @@ use Win\Mvc\Application;
 
 abstract class Database {
 
-	/** @var \static */
+	/** @var Database */
 	static protected $instance;
 
 	/** @var PDO */
@@ -22,7 +22,7 @@ abstract class Database {
 	 * @param string[] $dbConfig
 	 * @return PDO
 	 */
-	abstract function connect(&$dbConfig);
+	abstract protected function connect(&$dbConfig);
 
 	/** @return PDO */
 	final public function getPDO() {
@@ -30,7 +30,7 @@ abstract class Database {
 	}
 
 	/** @return static */
-	final static function instance() {
+	final public static function instance() {
 		return self::$instance;
 	}
 

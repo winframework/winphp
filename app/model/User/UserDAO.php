@@ -21,7 +21,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 */
 	protected function mapObject($row) {
 		$obj = new User();
-		if ($row) {
+		if (!empty($row)) {
 			$obj->setId($row['id']);
 			$obj->setEmail($row['email']);
 			$obj->setPass($row['pass']);
