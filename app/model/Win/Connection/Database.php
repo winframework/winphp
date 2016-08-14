@@ -8,7 +8,6 @@ namespace Win\Connection;
  */
 use PDO;
 use Win\Mvc\Application;
-use Win\Mvc\View;
 
 abstract class Database {
 
@@ -41,19 +40,11 @@ abstract class Database {
 	 */
 	public function __construct($dbConfig) {
 		self::$instance = $this;
-
-		$errorLevel = error_reporting(0);
-		$this->pdo = $this->connect($dbConfig);
-		error_reporting($errorLevel);
-
-		$this->validateConnection();
-	}
-
-	protected function validateConnection() {
-		if ($this->pdo->errorCode()) {
-			$data['error'] = $this->pdo->errorInfo();
-			Application::app()->view = new View('500', $data);
-			Application::app()->setTitle('Problemas de Conexão');
+		try {
+			$this->pdo = $this->connect($dbConfig);
+		} catch (\PDOException $ex) {
+			Application::app()->errorPage(503);
+			Application::app()->view->addData('error', $ex->getMessage());
 		}
 	}
 
