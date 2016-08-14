@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\DesignPattern;
+namespace Win\DAO;
 
 use Win\Mvc\Application;
 use Win\Connection\MySQL;
@@ -57,7 +57,9 @@ abstract class DAO implements DAOInterface {
 		$this->obj = $obj;
 		if (!$this->objExists()) {
 			$this->insert();
-			$this->obj->setId($this->pdo->lastInsertId());
+			if ($this->pdo) {
+				$this->obj->setId($this->pdo->lastInsertId());
+			}
 		} else {
 			$this->update();
 		}
@@ -71,8 +73,10 @@ abstract class DAO implements DAOInterface {
 		$params = str_split(str_repeat('?', count($keys)));
 
 		$sql = 'INSERT INTO ' . static::TABLE . ' (' . implode(',', $keys) . ') VALUES (' . implode(', ', $params) . ') ';
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute($values);
+		if ($this->pdo) {
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->execute($values);
+		}
 	}
 
 	/** Atualiza o registro */
@@ -87,8 +91,10 @@ abstract class DAO implements DAOInterface {
 		$values[] = $this->obj->getId();
 
 		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE id = ? ';
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute($values);
+		if ($this->pdo) {
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->execute($values);
+		}
 	}
 
 	/**
@@ -105,9 +111,11 @@ abstract class DAO implements DAOInterface {
 	 */
 	public function deleteById($id) {
 		$sql = 'DELETE FROM ' . static::TABLE . ' WHERE id = :id';
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->bindValue(':id', $id);
-		$stmt->execute();
+		if ($this->pdo) {
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(':id', $id);
+			$stmt->execute();
+		}
 	}
 
 	/**
@@ -137,10 +145,13 @@ abstract class DAO implements DAOInterface {
 			throw new \Exception("Filter: '{$filter}' must be a array");
 		endif;
 		$sql = $sql = $this->selectSQL() . ' ' . $this->whereSQL($filter) . ' ' . $option;
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute(array_values($filter));
+		$result = [];
+		if ($this->pdo) {
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->execute(array_values($filter));
 
-		$result = $stmt->fetch();
+			$result = $stmt->fetch();
+		}
 		return $this->mapObject($result);
 	}
 
@@ -154,19 +165,22 @@ abstract class DAO implements DAOInterface {
 	 * @param string $option [Order by, Limit, etc]
 	 */
 	public function fetchAll($filter = [], $option = '') {
+		$array = [];
 		if (!is_array($filter)):
 			throw new \Exception("Filter: '{$filter}' must be a array");
 		endif;
 
 		$sql = $this->selectSQL() . ' ' . $this->whereSQL($filter) . ' ' . $option;
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute(array_values($filter));
+		if ($this->pdo) {
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->execute(array_values($filter));
 
-		$results = $stmt->fetchAll();
-		$array = [];
-		foreach ($results as $result):
-			$array[] = $this->mapObject($result);
-		endforeach;
+			$results = $stmt->fetchAll();
+
+			foreach ($results as $result):
+				$array[] = $this->mapObject($result);
+			endforeach;
+		}
 		return $array;
 	}
 

@@ -2,7 +2,7 @@
 
 namespace User;
 
-use Win\DesignPattern\DAO;
+use Win\DAO\DAO;
 
 /**
  * User DAO
