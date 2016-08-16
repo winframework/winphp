@@ -3,6 +3,9 @@
 namespace Win\Authentication;
 
 use Win\Authentication\UserDAO;
+use Win\Helper\Url;
+use Win\Mvc\Block;
+use Win\Mailer\Email;
 
 /**
  * Usuários do sistema
@@ -17,15 +20,6 @@ class User {
 	private $isActive;
 	private $isLogged;
 	private $accessLevel;
-
-	/** @var Group */
-	private $group;
-	private $groupId;
-
-	/** @var Person */
-	private $person;
-
-	/** @var string */
 	private $name;
 	private $email;
 	private $password;
@@ -33,6 +27,13 @@ class User {
 	private $recoreryHash;
 	private $image;
 	private $lastLogin;
+
+	/** @var Group */
+	private $group;
+	private $groupId;
+
+	/** @var Person */
+	private $person;
 
 	public function __construct() {
 		$this->id = 0;
@@ -180,21 +181,20 @@ class User {
 	 * @return boolean
 	 */
 	public function login() {
-		$filterLogin = [
+		$filters = [
 			'is_active = ?' => true,
 			'access_level > ?' => 0,
 			'email = ?' => $this->email,
-			'password_hash = ?' => $this->passwordHash,
+			'password_hash = ?' => $this->passwordHash
 		];
-		$userDAO = new UserDAO();
-		$users = $userDAO->fetchAll($filterLogin);
-		if (count($users) > 0) {
-			$this->toSession($users[0]);
+		$uDAO = new UserDAO();
+		$user = $uDAO->fetch($filters);
+		if ($user->getId() > 0) {
+			$this->toSession($user);
 			$this->fromSession();
-			$this->updateLastLogin($users[0]);
-			return true;
+			$uDAO->updateLastLogin($user);
 		}
-		return false;
+		return $this->isLogged;
 	}
 
 	/**
@@ -233,12 +233,43 @@ class User {
 		$this->lastLogin = $session['last_login'];
 	}
 
-	/** Atualiza data ultimo login */
-	private function updateLastLogin(User $user) {
-		$userDAO = new UserDAO();
-		$now = date('Y-m-d H:i:s');
-		$user->setLastLogin($now);
-		$userDAO->save($user);
+	/** Obriga o usuário a se logar */
+	public function requireLogin() {
+		if (!$this->isLogged) {
+			Url::instance()->redirect('login');
+		}
+	}
+
+	/** Obriga o usuário a logar como ADMIN */
+	public function requireMaster() {
+		if (!$this->isLogged || $this->getAccessLevel() != static::ACCESS_ADMIN) {
+			Url::instance()->redirect('login');
+		}
+	}
+
+	/**
+	 * Envia link de recuperacao de senha via Email
+	 * @return boolean
+	 */
+	public function sendRecoveryHash() {
+		$success = false;
+		$filters = ['is_active = ?' => true, 'access_level > ?' => 0, 'email = ?' => $this->email];
+		$uDAO = new UserDAO();
+		$users = $uDAO->fetchAll($filters);
+		
+		if (count($users) > 0) {
+			$success = true;
+			$user = $users[0];
+			$uDAO->updateRecoveryHash($user);
+			$body = new Block('email/html/recovery-password', ['user' => $user]);
+
+			$mail = new Email();
+			$mail->setSubject('Recuperação de Senha');
+			$mail->addAddress($user->getEmail(), $user->getName());
+			$mail->setBody($body);
+			$mail->send();
+		}
+		return $success;
 	}
 
 }

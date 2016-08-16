@@ -52,6 +52,26 @@ class View {
 	}
 
 	/**
+	 * Adiciona um array de variaveis para usar na view
+	 * @param mixed[] $data
+	 */
+	public function mergeData(array $data) {
+		$this->data = array_merge($this->data, $data);
+	}
+
+	/**
+	 * Retorna uma variavel da view
+	 * @param string $name
+	 * @return mixed|null
+	 */
+	public function getData($name) {
+		if (key_exists($name, $this->data)) {
+			return $this->data[$name];
+		}
+		return null;
+	}
+
+	/**
 	 * Define o arquivo da view
 	 * @param string $file
 	 */

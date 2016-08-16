@@ -25,12 +25,24 @@ abstract class Controller {
 	/** @var string */
 	public $layout = 'main';
 
+	/** @var mixed[] Array variaveis para usar na View */
+	private $data = [];
+
 	/**
 	 * Cria o Controller, definindo o action
 	 */
 	public function __construct($action = '') {
 		$this->app = Application::app();
 		$this->setAction($action);
+	}
+
+	/**
+	 * Adiciona uma variavel para usar na view
+	 * @param string $name
+	 * @param mixed $value
+	 */
+	public function addData($name, $value) {
+		$this->data[$name] = $value;
 	}
 
 	/**
@@ -71,9 +83,12 @@ abstract class Controller {
 		$this->init();
 		$action = $this->action;
 		$view = $this->$action();
+		
 		if ($view instanceof View):
 			$this->app->view = $view;
 		endif;
+
+		$this->app->view->mergeData($this->data);
 		$this->app->view->validate();
 	}
 

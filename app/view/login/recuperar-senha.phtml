@@ -1,0 +1,31 @@
+<?php /* @var $this Win\Mvc\View */ ?>
+<main>
+	<h1>Recuperar Senha</h1>
+
+	<form method="post" action="login/recuperar-senha/">
+		<?php if (isset($error)): ?>
+			<div class="alert-danger"><?= $error; ?></div>
+		<?php elseif (isset($success)): ?>
+			<div class="alert-success"><?= $success; ?></div>
+		<?php else: ?>
+			<legend>Preencha os campos abaixo para redefinir sua senha:</legend>
+		<?php endif; ?>
+
+		<fieldset>
+			<input type="text" name="email" value="<?= $this->app->getUser()->getEmail(); ?>" required placeholder="Seu E-mail" />
+
+			<br /><br />
+			<img src="lib/captcha/captcha.php" class="img-captcha" alt="Captcha" />
+			<input type="text" name="captcha" class="input-captcha" required maxlength="5" />
+		</fieldset>
+
+		<div class="form-buttons">
+			<button type="submit" name="submit" class="btn" value="1">Enviar</button>
+		</div>
+
+		<div class="text-center">
+			<a href="login/">Voltar ao Login</a>
+		</div>
+	</form>
+
+</main>

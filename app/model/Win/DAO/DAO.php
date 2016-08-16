@@ -22,10 +22,17 @@ abstract class DAO implements DAOInterface {
 	 */
 	abstract protected function mapObject($row);
 
-	/** Retorna a linha da tabela a partir de um objeto
+	/**
+	 * Retorna a linha da tabela a partir de um objeto
 	 * @param object $obj
 	 */
 	abstract protected function mapRow($obj);
+
+	/**
+	 * Valida os campos retornando string de Erro ou Null
+	 * @return string|null
+	 */
+	abstract protected function validate();
 
 	/** Inicia o DAO */
 	public function __construct() {
@@ -41,7 +48,7 @@ abstract class DAO implements DAOInterface {
 	}
 
 	/**
-	 * Define quais colunas serão consultadas nos comandos SELECT
+	 * Define quais colunas serão consultadas no SELECT
 	 * @param string[] $collumns
 	 */
 	public function setSelectCollumns(array $collumns) {
@@ -49,7 +56,7 @@ abstract class DAO implements DAOInterface {
 	}
 
 	/**
-	 * Adiciona nova coluna no select
+	 * Adiciona nova coluna no SELECT
 	 * @param string $collumn
 	 */
 	public function addSelectCollumn($collumn) {
@@ -61,17 +68,20 @@ abstract class DAO implements DAOInterface {
 	/**
 	 * Salva o registro
 	 * @param object $obj
+	 * @return string|null
 	 */
 	public function save($obj) {
 		$this->obj = $obj;
-		if (!$this->objExists()) {
-			$this->insert();
-			if ($this->pdo) {
+		$error = $this->validate();
+		if (is_null($error) and $this->pdo !== false) {
+			if (!$this->objExists()) {
+				$this->insert();
 				$this->obj->setId($this->pdo->lastInsertId());
+			} else {
+				$this->update();
 			}
-		} else {
-			$this->update();
 		}
+		return $error;
 	}
 
 	/** Insere o registro */
@@ -146,18 +156,18 @@ abstract class DAO implements DAOInterface {
 
 	/**
 	 * Busca o objeto
-	 * @param string[] $filter Array de filtros
+	 * @param string[] $filters Array de filtros
 	 * @param string $option [Order by, Limit, etc]
 	 */
-	public function fetch($filter, $option = '') {
-		if (!is_array($filter)):
-			throw new \Exception("Filter: '{$filter}' must be a array");
+	public function fetch($filters, $option = '') {
+		if (!is_array($filters)):
+			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
-		$sql = $sql = $this->selectSQL() . ' ' . $this->whereSQL($filter) . ' ' . $option;
+		$sql = $sql = $this->selectSQL() . ' ' . $this->whereSQL($filters) . ' ' . $option;
 		$result = [];
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filter));
+			$stmt->execute(array_values($filters));
 
 			$result = $stmt->fetch();
 		}
@@ -170,19 +180,19 @@ abstract class DAO implements DAOInterface {
 	 * <code>
 	 * $dao->fetchAll( ['id = ?' => 10]);
 	 * </code>
-	 * @param string[] $filter Array de filtros
+	 * @param string[] $filters Array de filtros
 	 * @param string $option [Order by, Limit, etc]
 	 */
-	public function fetchAll($filter = [], $option = '') {
+	public function fetchAll($filters = [], $option = '') {
 		$array = [];
-		if (!is_array($filter)):
-			throw new \Exception("Filter: '{$filter}' must be a array");
+		if (!is_array($filters)):
+			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
 
-		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filter) . ' ' . $option;
+		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filters) . ' ' . $option;
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filter));
+			$stmt->execute(array_values($filters));
 
 			$results = $stmt->fetchAll();
 			foreach ($results as $result):
@@ -204,29 +214,29 @@ abstract class DAO implements DAOInterface {
 
 	/**
 	 * Retorna comando WHERE
-	 * @param string[] $filter
+	 * @param string[] $filters
 	 * @return string
 	 */
-	private function whereSQL(&$filter) {
-		$keys = array_keys($filter);
+	private function whereSQL(&$filters) {
+		$keys = array_keys($filters);
 		return ($keys) ? 'WHERE ' . implode(' AND ', $keys) : '';
 	}
 
 	/**
 	 * Retorna o total de registros
-	 * @param string[] $filter Array de filtros
+	 * @param string[] $filters Array de filtros
 	 * @return int
 	 */
-	public function numRows($filter = []) {
+	public function numRows($filters = []) {
 		$total = 0;
-		if (!is_array($filter)):
-			throw new \Exception("Filter: '{$filter}' must be a array");
+		if (!is_array($filters)):
+			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
 
-		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . $this->whereSQL($filter);
+		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . $this->whereSQL($filters);
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filter));
+			$stmt->execute(array_values($filters));
 
 			$result = $stmt->fetch();
 			$total = $result['total'];
