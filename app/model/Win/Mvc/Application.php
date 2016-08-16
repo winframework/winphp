@@ -4,6 +4,7 @@ namespace Win\Mvc;
 
 use Win\Helper\Url;
 use Win\Request\Input;
+use Win\Authentication\User;
 
 /**
  * Application (WinPHP Framework)
@@ -39,12 +40,16 @@ class Application {
 	/** @var View View atual */
 	public $view;
 
+	/** @var User */
+	private $user;
+
 	/**
 	 * Cria a aplicação principal
 	 * @param mixed[] $config Configurações
 	 */
 	public function __construct($config = []) {
 		static::$app = $this;
+		$this->user = new User();
 		$this->config = $config;
 		$this->name = $this->getConfig('name', '');
 
@@ -78,6 +83,14 @@ class Application {
 		$this->controller->load();
 		$layout = new Layout($this->controller->layout);
 		$layout->load();
+	}
+
+	/**
+	 * Retorna o usuário atual
+	 * @return User
+	 */
+	public function getUser() {
+		return $this->user;
 	}
 
 	/**

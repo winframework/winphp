@@ -13,8 +13,8 @@ abstract class DAO implements DAOInterface {
 	/** @var \PDO */
 	protected $pdo;
 
-	/** @var string */
-	protected $selectedCollumns;
+	/** @var string[] */
+	protected $selectCollumns = ['*'];
 
 	/**
 	 * Retorna um objeto a partir da linha da tabela
@@ -30,7 +30,6 @@ abstract class DAO implements DAOInterface {
 	/** Inicia o DAO */
 	public function __construct() {
 		$this->pdo = MySQL::instance()->getPDO();
-		$this->selectedCollumns = '*';
 	}
 
 	/**
@@ -43,10 +42,20 @@ abstract class DAO implements DAOInterface {
 
 	/**
 	 * Define quais colunas serão consultadas nos comandos SELECT
-	 * @param string $collumns
+	 * @param string[] $collumns
 	 */
-	public function selectedCollumns($collumns) {
-		$this->selectedCollumns = $collumns;
+	public function setSelectCollumns(array $collumns) {
+		$this->selectCollumns = $collumns;
+	}
+
+	/**
+	 * Adiciona nova coluna no select
+	 * @param string $collumn
+	 */
+	public function addSelectCollumn($collumn) {
+		if (!in_array($collumn, $this->selectCollumns)) {
+			$this->selectCollumns[] = $collumn;
+		}
 	}
 
 	/**
@@ -170,13 +179,12 @@ abstract class DAO implements DAOInterface {
 			throw new \Exception("Filter: '{$filter}' must be a array");
 		endif;
 
-		$sql = $this->selectSQL() . ' ' . $this->whereSQL($filter) . ' ' . $option;
+		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filter) . ' ' . $option;
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->execute(array_values($filter));
 
 			$results = $stmt->fetchAll();
-
 			foreach ($results as $result):
 				$array[] = $this->mapObject($result);
 			endforeach;
@@ -186,11 +194,12 @@ abstract class DAO implements DAOInterface {
 
 	/**
 	 * Retorna comando SELECT
+	 * @param string $selectCollumns
 	 * @return string
 	 * @example "SELECT * FROM user"
 	 */
-	protected function selectSQL() {
-		return 'SELECT ' . $this->selectedCollumns . ' FROM ' . static::TABLE;
+	protected function selectSQL($selectCollumns = ['*']) {
+		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE;
 	}
 
 	/**
@@ -201,6 +210,28 @@ abstract class DAO implements DAOInterface {
 	private function whereSQL(&$filter) {
 		$keys = array_keys($filter);
 		return ($keys) ? 'WHERE ' . implode(' AND ', $keys) : '';
+	}
+
+	/**
+	 * Retorna o total de registros
+	 * @param string[] $filter Array de filtros
+	 * @return int
+	 */
+	public function numRows($filter = []) {
+		$total = 0;
+		if (!is_array($filter)):
+			throw new \Exception("Filter: '{$filter}' must be a array");
+		endif;
+
+		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . $this->whereSQL($filter);
+		if ($this->pdo) {
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->execute(array_values($filter));
+
+			$result = $stmt->fetch();
+			$total = $result['total'];
+		}
+		return $total;
 	}
 
 	/**
