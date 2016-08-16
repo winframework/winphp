@@ -1,6 +1,6 @@
 <?php
 
-namespace User;
+namespace Win\Authentication;
 
 interface UserDAOInterface extends \Win\DAO\DAOInterface {
 
