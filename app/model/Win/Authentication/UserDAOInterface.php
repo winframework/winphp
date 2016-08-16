@@ -11,8 +11,8 @@ interface UserDAOInterface extends \Win\DAO\DAOInterface {
 	public function fetchById($id);
 
 	/** @return User */
-	public function fetch($filter);
+	public function fetch($filters);
 
 	/** @return User[] */
-	public function fetchAll($filter);
+	public function fetchAll($filters);
 }

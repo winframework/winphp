@@ -1,0 +1,25 @@
+<?php /* @var $this Win\Mvc\View */ ?>
+<?php /* @var $user Win\Authentication\User */ ?>
+<main>
+	<h1>Alterar Senha</h1>
+
+	<form method="post">
+		<?php if (isset($error)): ?>
+			<div class="alert-danger"><?= $error; ?></div>
+		<?php else: ?>
+			<legend>Informe uma nova senha:</legend>
+		<?php endif; ?>
+
+		<fieldset>
+			<input type="text" name="email" value="<?= $user->getEmail(); ?>" disabled />
+			<input type="password" name="new_password1" value="" required placeholder="Sua Nova Senha" />
+			<input type="password" name="new_password2" value="" required placeholder="Sua Nova Senha Novamente" />
+		</fieldset>
+
+		<div class="form-buttons">
+			<button type="submit" name="submit" class="btn" value="1">Alterar Senha</button>
+		</div>
+
+	</form>
+
+</main>

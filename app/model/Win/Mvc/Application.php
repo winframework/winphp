@@ -223,6 +223,14 @@ class Application {
 	}
 
 	/**
+	 * Redireciona para a URL
+	 * @param string $url
+	 */
+	public function redirect($url = '') {
+		Url::instance()->redirect($url);
+	}
+
+	/**
 	 * Chama pageNotFound se o usuario acessar /404
 	 *
 	 * Isso garante que todas as funcionalidades de pageNotFound serão executadas

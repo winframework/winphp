@@ -36,4 +36,19 @@ class MySQLTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($app->getPage(), '503');
 	}
 
+	public function testConnectionWithSuccess() {
+		static::startMySQLConnection();
+		$this->assertTrue(MySQL::instance()->getPDO() instanceof \PDO);
+	}
+
+	/**
+	 * @return \PDO
+	 */
+	static function startMySQLConnection() {
+		require BASE_PATH . '/app/config/database.php';
+		$db['dbname'] = 'win_test';
+		$mysql = new MySQL($db);
+		return $mysql->getPDO();
+	}
+
 }

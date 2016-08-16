@@ -17,6 +17,22 @@ class UserDAO extends DAO implements UserDAOInterface {
 	protected $obj;
 
 	/**
+	 * @return string|null
+	 */
+	protected function validate() {
+		if (strlen($this->obj->getName()) < 2) {
+			return 'O campo Nome deve possuir pelo menos 2 caracteres.';
+		} elseif (strlen($this->obj->getEmail()) == 0) {
+			return 'O campo E-mail deve ser preenchido.';
+		} elseif (!filter_var($this->obj->getEmail(), FILTER_VALIDATE_EMAIL)) {
+			return 'O campo E-mail deve ser um e-mail válido.';
+		} elseif (strlen($this->obj->getPassword()) < 4) {
+			return 'A senha deve possuir pelo menos 4 caracteres.';
+		}
+		return null;
+	}
+
+	/**
 	 * @param array $row
 	 * @return User
 	 */
@@ -57,6 +73,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * Insere o primeiro usuario
 	 * @param string $email
 	 * @param string $password
+	 * @return string|null
 	 */
 	public function insertFirst($email, $password) {
 		$totalUser = $this->numRows();
@@ -68,8 +85,49 @@ class UserDAO extends DAO implements UserDAOInterface {
 			$user->setPassword($password);
 			$user->setActive(true);
 			$user->setAccessLevel(User::ACCESS_ADMIN);
-			$this->save($user);
+			return $this->save($user);
 		}
+	}
+
+	/**
+	 * Atualiza data ultimo login
+	 * @param User $user
+	 * @return string|null
+	 */
+	public function updateLastLogin(User $user) {
+		$now = date('Y-m-d H:i:s');
+		$user->setLastLogin($now);
+		return $this->save($user);
+	}
+
+	/**
+	 * Gera/Atualiza um novo recoveryHash
+	 * @param User $user
+	 * @return string|null
+	 */
+	public function updateRecoveryHash(User $user) {
+		$hash = md5($user->getEmail() . date('Y-m-d'));
+		$user->setRecoreryHash($hash);
+		return $this->save($user);
+	}
+
+	/**
+	 * Atualiza a senha
+	 * @param User $user
+	 * @param string $newPassword1
+	 * @param string $newPassword2
+	 * @return string erro
+	 */
+	public function updatePassword(User $user, $newPassword1, $newPassword2) {
+		$error = null;
+		if ($newPassword1 != $newPassword2) {
+			$error = 'A senha deve ser informada duas vezes iguais.';
+		}
+		if (!$error) {
+			$user->setPassword($newPassword1);
+			$error = $this->save($user);
+		}
+		return $error;
 	}
 
 }
