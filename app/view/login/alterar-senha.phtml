@@ -4,11 +4,7 @@
 	<h1>Alterar Senha</h1>
 
 	<form method="post">
-		<?php if (isset($error)): ?>
-			<div class="alert-danger"><?= $error; ?></div>
-		<?php else: ?>
-			<legend>Informe uma nova senha:</legend>
-		<?php endif; ?>
+		<?php Win\Alert\Session::showAlerts(); ?>
 
 		<fieldset>
 			<input type="text" name="email" value="<?= $user->getEmail(); ?>" disabled />

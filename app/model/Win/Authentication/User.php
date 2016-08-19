@@ -17,7 +17,7 @@ class User {
 	const ACCESS_ADMIN = 2;
 
 	private $id;
-	private $isActive;
+	private $isEnable;
 	private $isLogged;
 	private $accessLevel;
 	private $name;
@@ -37,7 +37,7 @@ class User {
 
 	public function __construct() {
 		$this->id = 0;
-		$this->isActive = true;
+		$this->isEnable = true;
 		$this->isLogged = false;
 		$this->accessLevel = self::ACCESS_DISALLOWED;
 		$this->group = null;
@@ -50,18 +50,14 @@ class User {
 		$this->recoreryHash = null;
 		$this->image = null;
 		$this->lastLogin = null;
-
-		if (isset($_SESSION['user'])) {
-			$this->fromSession();
-		}
 	}
 
 	public function getId() {
 		return $this->id;
 	}
 
-	public function isActive() {
-		return $this->isActive;
+	public function isEnable() {
+		return $this->isEnable;
 	}
 
 	public function isLogged() {
@@ -127,8 +123,8 @@ class User {
 		$this->id = (int) $id;
 	}
 
-	public function setActive($active) {
-		$this->isActive = (boolean) $active;
+	public function setEnable($active) {
+		$this->isEnable = (boolean) $active;
 	}
 
 	public function setAccessLevel($accessLevel) {
@@ -189,48 +185,28 @@ class User {
 		];
 		$uDAO = new UserDAO();
 		$user = $uDAO->fetch($filters);
+
 		if ($user->getId() > 0) {
-			$this->toSession($user);
-			$this->fromSession();
+			$user->isLogged = TRUE;
+			$this->setSessionUser($user);
 			$uDAO->updateLastLogin($user);
 		}
-		return $this->isLogged;
+		return $user->isLogged;
 	}
 
-	/**
-	 * Realiza logout
-	 */
+	/** Realiza logout */
 	public function logout() {
 		unset($_SESSION['user']);
-		$this->__construct();
 	}
 
 	/** Objeto > Sessão */
-	private function toSession(User $user) {
-		$user->isLogged = TRUE;
-		$_SESSION['user'] = [
-			'logged' => $user->isLogged(),
-			'id' => $user->getId(),
-			'access_level' => $user->getAccessLevel(),
-			'group_id' => $user->getGroupId(),
-			'name' => $user->getName(),
-			'email' => $user->getEmail(),
-			'image' => $user->getImage(),
-			'last_login' => $user->getLastLogin()
-		];
+	private function setSessionUser(User $user) {
+		$_SESSION['user'] = $user;
 	}
 
 	/** Objeto < Sessão */
-	private function fromSession() {
-		$session = $_SESSION['user'];
-		$this->isLogged = true;
-		$this->id = $session['id'];
-		$this->accessLevel = $session['access_level'];
-		$this->groupId = $session['group_id'];
-		$this->name = $session['name'];
-		$this->email = $session['email'];
-		$this->image = $session['image'];
-		$this->lastLogin = $session['last_login'];
+	static function getSessionUser() {
+		return (isset($_SESSION['user'])) ? $_SESSION['user'] : new User();
 	}
 
 	/** Obriga o usuário a se logar */
@@ -255,11 +231,10 @@ class User {
 		$success = false;
 		$filters = ['is_active = ?' => true, 'access_level > ?' => 0, 'email = ?' => $this->email];
 		$uDAO = new UserDAO();
-		$users = $uDAO->fetchAll($filters);
-		
-		if (count($users) > 0) {
+		$user = $uDAO->fetch($filters);
+
+		if ($user->getId() > 0) {
 			$success = true;
-			$user = $users[0];
 			$uDAO->updateRecoveryHash($user);
 			$body = new Block('email/html/recovery-password', ['user' => $user]);
 
@@ -270,6 +245,11 @@ class User {
 			$mail->send();
 		}
 		return $success;
+	}
+
+	/** Define os atributos que são salvos na SESSAO */
+	public function __sleep() {
+		return ['id', 'isEnable', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'last_login', 'group_id'];
 	}
 
 }

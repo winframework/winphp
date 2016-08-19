@@ -3,12 +3,8 @@
 	<h1>Entrar</h1>
 
 	<form method="post">
-		<?php if (isset($error)): ?>
-			<div class="alert-danger"><?= $error; ?></div>
-		<?php else: ?>
-			<legend>Preencha os campos abaixo:</legend>
-		<?php endif; ?>
-
+		<?php Win\Alert\Session::showAlerts(); ?>
+		
 		<fieldset>
 			<input type="text" name="email" value="<?= $this->app->getUser()->getEmail(); ?>" required placeholder="Seu E-mail" />
 			<input type="password" name="password" value="" required placeholder="Sua Senha" />

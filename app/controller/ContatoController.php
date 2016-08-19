@@ -6,6 +6,7 @@ use Win\Mvc\View;
 use Win\Mvc\Block;
 use Win\Request\Input;
 use Win\Mailer\Email;
+use Win\Widget\Captcha;
 
 /**
  * Envia um formulario de contato via E-mail
@@ -19,10 +20,10 @@ class ContatoController extends \Win\Mvc\Controller {
 
 
 		/* Pega campos via POST */
-		$submit  = Input::post('submit');
-		$name    = trim(strip_tags(Input::post('name')));
-		$phone   = trim(strip_tags(Input::post('phone')));
-		$email   = trim(strip_tags(Input::post('email')));
+		$submit = Input::post('submit');
+		$name = trim(strip_tags(Input::post('name')));
+		$phone = trim(strip_tags(Input::post('phone')));
+		$email = trim(strip_tags(Input::post('email')));
 		$subject = trim(strip_tags(Input::post('subject')));
 		$message = trim(strip_tags(Input::post('message')));
 
@@ -38,11 +39,6 @@ class ContatoController extends \Win\Mvc\Controller {
 		/* Se clicou em Enviar */
 		if (!empty($submit)) {
 
-			/* Captcha */
-			$captcha = strtolower(Input::post('captcha'));
-			$sessionCaptcha = strtolower(filter_var($_SESSION['captcha']));
-			unset($_SESSION['captcha']);
-
 			/* Valida os Campos */
 			if (empty($name)) {
 				$error = 'Preencha o campo Nome.';
@@ -56,7 +52,7 @@ class ContatoController extends \Win\Mvc\Controller {
 				$error = 'Preencha o campo Assunto.';
 			} elseif (empty($message)) {
 				$error = 'Preencha o campo Mensagem.';
-			} elseif ($captcha != $sessionCaptcha) {
+			} elseif (!Captcha::isCorrect()) {
 				$error = 'Informe os caracteres de segurança corretamente.';
 			}
 

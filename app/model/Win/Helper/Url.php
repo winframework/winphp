@@ -44,7 +44,7 @@ class Url {
 			$url = $this->getBaseUrl() . $url;
 		}
 		header('location:' . $this->format($url));
-		exit();
+		die();
 	}
 
 	/**
