@@ -41,7 +41,7 @@ class Application {
 	public $view;
 
 	/** @var User */
-	private $user;
+	private $user = null;
 
 	/**
 	 * Cria a aplicação principal
@@ -49,7 +49,6 @@ class Application {
 	 */
 	public function __construct($config = []) {
 		static::$app = $this;
-		$this->user = new User();
 		$this->config = $config;
 		$this->name = $this->getConfig('name', '');
 
@@ -90,6 +89,9 @@ class Application {
 	 * @return User
 	 */
 	public function getUser() {
+		if(is_null($this->user)):
+			$this->user = User::getSessionUser();
+		endif;
 		return $this->user;
 	}
 

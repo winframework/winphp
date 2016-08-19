@@ -6,6 +6,10 @@ use Win\Request\Input;
 use Win\Authentication\UserDAO;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
+use Win\Widget\Captcha;
+use Win\Alert\AlertDefault;
+use Win\Alert\AlertError;
+use Win\Alert\AlertSuccess;
 
 class LoginController extends Controller {
 
@@ -26,8 +30,10 @@ class LoginController extends Controller {
 			if ($user->login()) {
 				$this->app->redirect($this->redirecTo);
 			} else {
-				$this->addData('error', 'Email/Senha estão incorretos.');
+				new AlertError('Email/Senha estão incorretos.');
 			}
+		} else {
+			new AlertDefault('Preencha os campos abaixo:');
 		}
 	}
 
@@ -55,25 +61,18 @@ class LoginController extends Controller {
 		$this->app->setTitle('Recuperar Senha');
 		$user = $this->app->getUser();
 
-		if ($this->app->getParam(2) == 'invalido') {
-			$this->addData('error', 'Este link expirou, preencha novamente os dados abaixo.');
-		}
-
 		if (!empty(Input::post('submit'))) {
 			$user->setEmail(Input::post('email'));
 
-			/* Captcha */
-			$captcha = strtolower(Input::post('captcha'));
-			$sessionCaptcha = strtolower(filter_var($_SESSION['captcha']));
-			unset($_SESSION['captcha']);
-
-			if ($captcha != $sessionCaptcha) {
-				$this->addData('error', 'Preencha os caracteres de segurança corretamente.');
+			if (!Captcha::isCorrect()) {
+				new AlertError('Preencha os caracteres de segurança corretamente.');
 			} elseif (!$user->sendRecoveryHash()) {
-				$this->addData('error', 'Este E-mail não está cadastrado no sistema.');
+				new AlertError('Este E-mail não está cadastrado no sistema.');
 			} else {
-				$this->addData('success', 'Foram enviadas instruções para o E-mail: <b>' . $user->getEmail() . '</b>.');
+				new AlertSuccess('Foram enviadas instruções para o E-mail: <b>' . $user->getEmail() . '</b>.');
 			}
+		} else {
+			new AlertDefault('Preencha os dados abaixo:');
 		}
 
 		return new View('login/recuperar-senha');
@@ -86,26 +85,25 @@ class LoginController extends Controller {
 		$this->preventLogged();
 		$this->app->setTitle('Alterar Senha');
 
-		$recoveryHash = $this->app->getParam(2);
-		$newPassword1 = Input::post('new_password1');
-		$newPassword2 = Input::post('new_password2');
-
 		$uDAO = new UserDAO();
-		$user = $uDAO->fetchByField('recovery_hash', $recoveryHash);
+		$user = $uDAO->fetchByRecoveryHash($this->app->getParam(2));
 
 		if ($user->getId() == 0) {
-			$this->app->redirect('login/recuperar-senha/invalido');
+			new AlertError('Este link expirou, e será necessário informar seus dados novamente.');
+			$this->app->redirect('login/recuperar-senha');
 		}
 
 		if (!empty(Input::post('submit'))) {
-			$error = $uDAO->updatePassword($user, $newPassword1, $newPassword2);
+			$error = $uDAO->updatePassword($user, Input::post('new_password1'), Input::post('new_password2'));
 
 			if (!$error) {
 				$user->login();
 				$this->app->redirect($this->redirecTo);
 			} else {
-				$this->addData('error', $error);
+				new AlertError($error);
 			}
+		} else {
+			new AlertDefault('Informe sua nova senha:');
 		}
 
 		return new View('login/alterar-senha', ['user' => $user]);

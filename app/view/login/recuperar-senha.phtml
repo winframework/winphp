@@ -3,13 +3,7 @@
 	<h1>Recuperar Senha</h1>
 
 	<form method="post" action="login/recuperar-senha/">
-		<?php if (isset($error)): ?>
-			<div class="alert-danger"><?= $error; ?></div>
-		<?php elseif (isset($success)): ?>
-			<div class="alert-success"><?= $success; ?></div>
-		<?php else: ?>
-			<legend>Preencha os campos abaixo para redefinir sua senha:</legend>
-		<?php endif; ?>
+		<?php Win\Alert\Session::showAlerts(); ?>
 
 		<fieldset>
 			<input type="text" name="email" value="<?= $this->app->getUser()->getEmail(); ?>" required placeholder="Seu E-mail" />

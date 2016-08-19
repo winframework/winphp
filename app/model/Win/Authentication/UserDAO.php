@@ -39,7 +39,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	protected function mapObject($row) {
 		$obj = new User();
 		$obj->setId($row['id']);
-		$obj->setActive($row['is_active']);
+		$obj->setEnable($row['is_active']);
 		$obj->setAccessLevel($row['access_level']);
 		$obj->setGroupId($row['group_id']);
 		$obj->setName($row['name']);
@@ -57,7 +57,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 */
 	protected function mapRow($obj) {
 		$row['id'] = $obj->getId();
-		$row['is_active'] = $obj->isActive();
+		$row['is_active'] = $obj->isEnable();
 		$row['access_level'] = $obj->getAccessLevel();
 		$row['group_id'] = $obj->getGroupId();
 		$row['name'] = $obj->getName();
@@ -80,11 +80,10 @@ class UserDAO extends DAO implements UserDAOInterface {
 
 		if ($totalUser == 0) {
 			$user = new User();
+			$user->setAccessLevel(User::ACCESS_ADMIN);
 			$user->setName('Administrador');
 			$user->setEmail($email);
 			$user->setPassword($password);
-			$user->setActive(true);
-			$user->setAccessLevel(User::ACCESS_ADMIN);
 			return $this->save($user);
 		}
 	}
@@ -128,6 +127,10 @@ class UserDAO extends DAO implements UserDAOInterface {
 			$error = $this->save($user);
 		}
 		return $error;
+	}
+
+	public function fetchByRecoveryHash($recoveryHash) {
+		return $this->fetch(['recovery_hash = ?' => $recoveryHash]);
 	}
 
 }
