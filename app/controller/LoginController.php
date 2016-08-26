@@ -13,12 +13,24 @@ use Win\Alert\AlertSuccess;
 
 class LoginController extends Controller {
 
-	private $redirecTo = 'login/painel';
+	private $redirectTo = 'index';
 
 	/**
-	 * Index (Login)
+	 * Index
 	 */
 	public function index() {
+		$uDAO = new UserDAO();
+		if ($uDAO->totalUsers() > 0) {
+			$this->entrar();
+		} else {
+			$this->iniciarMaster();
+		}
+	}
+
+	/**
+	 * Login (Entrar)
+	 */
+	private function entrar() {
 		$this->preventLogged();
 		$this->app->setTitle('Entrar');
 		$user = $this->app->getUser();
@@ -28,7 +40,7 @@ class LoginController extends Controller {
 			$user->setPassword(Input::post('password'));
 
 			if ($user->login()) {
-				$this->app->redirect($this->redirecTo);
+				$this->app->redirect($this->redirectTo);
 			} else {
 				new AlertError('Email/Senha estão incorretos.');
 			}
@@ -38,11 +50,27 @@ class LoginController extends Controller {
 	}
 
 	/**
-	 * Painel (Já está Logado)
+	 * Primeiro Admin
 	 */
-	public function painel() {
-		$this->app->getUser()->requireLogin();
-		$this->app->setTitle('Você está logado');
+	private function iniciarMaster() {
+		$uDAO = new UserDAO();
+		$user = $this->app->getUser();
+
+		if (!empty(Input::post('submit'))) {
+			$user->setEmail(Input::post('email'));
+			$user->setPassword(Input::post('password'));
+			$error = $uDAO->insertFirst($user);
+
+			if ($error) {
+				new AlertError($error);
+			} else {
+				$this->entrar();
+			}
+		} else {
+			new AlertError('Não foi encontrado nenhum usuário no sistema. Cadastre seu primeiro usuário abaixo.');
+		}
+
+		return new View('login/index');
 	}
 
 	/**
@@ -98,7 +126,7 @@ class LoginController extends Controller {
 
 			if (!$error) {
 				$user->login();
-				$this->app->redirect($this->redirecTo);
+				$this->app->redirect($this->redirectTo);
 			} else {
 				new AlertError($error);
 			}
@@ -114,7 +142,7 @@ class LoginController extends Controller {
 	 */
 	private function preventLogged() {
 		if ($this->app->getUser()->isLogged()) {
-			$this->app->redirect($this->redirecTo);
+			$this->app->redirect($this->redirectTo);
 		}
 	}
 

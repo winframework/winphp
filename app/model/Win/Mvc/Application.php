@@ -90,7 +90,7 @@ class Application {
 	 */
 	public function getUser() {
 		if(is_null($this->user)):
-			$this->user = User::getSessionUser();
+			$this->user = User::getCurrentUser();
 		endif;
 		return $this->user;
 	}

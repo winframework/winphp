@@ -39,7 +39,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	protected function mapObject($row) {
 		$obj = new User();
 		$obj->setId($row['id']);
-		$obj->setEnable($row['is_active']);
+		$obj->setEnabled($row['is_enabled']);
 		$obj->setAccessLevel($row['access_level']);
 		$obj->setGroupId($row['group_id']);
 		$obj->setName($row['name']);
@@ -57,7 +57,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 */
 	protected function mapRow($obj) {
 		$row['id'] = $obj->getId();
-		$row['is_active'] = $obj->isEnable();
+		$row['is_enabled'] = $obj->isEnabled();
 		$row['access_level'] = $obj->getAccessLevel();
 		$row['group_id'] = $obj->getGroupId();
 		$row['name'] = $obj->getName();
@@ -71,21 +71,23 @@ class UserDAO extends DAO implements UserDAOInterface {
 
 	/**
 	 * Insere o primeiro usuario
-	 * @param string $email
-	 * @param string $password
+	 * @param User $user
 	 * @return string|null
 	 */
-	public function insertFirst($email, $password) {
-		$totalUser = $this->numRows();
-
-		if ($totalUser == 0) {
-			$user = new User();
+	public function insertFirst(User $user) {
+		if ($this->totalUsers() === 0) {
 			$user->setAccessLevel(User::ACCESS_ADMIN);
 			$user->setName('Administrador');
-			$user->setEmail($email);
-			$user->setPassword($password);
 			return $this->save($user);
 		}
+	}
+
+	/**
+	 * Retorna total usuarios
+	 * @return int
+	 */
+	public function totalUsers() {
+		return (int) $this->numRows();
 	}
 
 	/**

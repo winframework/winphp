@@ -12,12 +12,12 @@ use Win\Mailer\Email;
  */
 class User {
 
-	const ACCESS_DISALLOWED = 0;
+	const ACCESS_DENIED = 0;
 	const ACCESS_ALLOWED = 1;
 	const ACCESS_ADMIN = 2;
 
 	private $id;
-	private $isEnable;
+	private $isEnabled;
 	private $isLogged;
 	private $accessLevel;
 	private $name;
@@ -37,12 +37,9 @@ class User {
 
 	public function __construct() {
 		$this->id = 0;
-		$this->isEnable = true;
+		$this->isEnabled = true;
 		$this->isLogged = false;
-		$this->accessLevel = self::ACCESS_DISALLOWED;
-		$this->group = null;
-		$this->groupId = 0;
-		$this->person = null;
+		$this->accessLevel = self::ACCESS_DENIED;
 		$this->name = '';
 		$this->email = '';
 		$this->password = '********';
@@ -50,14 +47,17 @@ class User {
 		$this->recoreryHash = null;
 		$this->image = null;
 		$this->lastLogin = null;
+		$this->group = null;
+		$this->groupId = 0;
+		$this->person = null;
 	}
 
 	public function getId() {
 		return $this->id;
 	}
 
-	public function isEnable() {
-		return $this->isEnable;
+	public function isEnabled() {
+		return $this->isEnabled;
 	}
 
 	public function isLogged() {
@@ -123,8 +123,8 @@ class User {
 		$this->id = (int) $id;
 	}
 
-	public function setEnable($active) {
-		$this->isEnable = (boolean) $active;
+	public function setEnabled($enabled) {
+		$this->isEnabled = (boolean) $enabled;
 	}
 
 	public function setAccessLevel($accessLevel) {
@@ -178,7 +178,7 @@ class User {
 	 */
 	public function login() {
 		$filters = [
-			'is_active = ?' => true,
+			'is_enabled = ?' => true,
 			'access_level > ?' => 0,
 			'email = ?' => $this->email,
 			'password_hash = ?' => $this->passwordHash
@@ -187,8 +187,7 @@ class User {
 		$user = $uDAO->fetch($filters);
 
 		if ($user->getId() > 0) {
-			$user->isLogged = TRUE;
-			$this->setSessionUser($user);
+			$this->setCurrentUser($user);
 			$uDAO->updateLastLogin($user);
 		}
 		return $user->isLogged;
@@ -200,12 +199,17 @@ class User {
 	}
 
 	/** Objeto > Sessão */
-	private function setSessionUser(User $user) {
+	private function setCurrentUser(User $user) {
 		$_SESSION['user'] = $user;
+		$this->isLogged = true;
+		$this->id = $user->getId();
+		$this->accessLevel = $user->getAccessLevel();
+		$this->name = $user->getName();
+		$this->lastLogin = $user->getLastLogin();
 	}
 
 	/** Objeto < Sessão */
-	static function getSessionUser() {
+	public static function getCurrentUser() {
 		return (isset($_SESSION['user'])) ? $_SESSION['user'] : new User();
 	}
 
@@ -229,7 +233,7 @@ class User {
 	 */
 	public function sendRecoveryHash() {
 		$success = false;
-		$filters = ['is_active = ?' => true, 'access_level > ?' => 0, 'email = ?' => $this->email];
+		$filters = ['is_enabled = ?' => true, 'access_level > ?' => 0, 'email = ?' => $this->email];
 		$uDAO = new UserDAO();
 		$user = $uDAO->fetch($filters);
 
@@ -249,7 +253,7 @@ class User {
 
 	/** Define os atributos que são salvos na SESSAO */
 	public function __sleep() {
-		return ['id', 'isEnable', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'last_login', 'group_id'];
+		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'last_login', 'group_id'];
 	}
 
 }

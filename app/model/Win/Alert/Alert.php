@@ -2,6 +2,8 @@
 
 namespace Win\Alert;
 
+use Win\Mvc\Block;
+
 /**
  * Alertas
  * São mensagens exibidas na tela
@@ -24,6 +26,15 @@ abstract class Alert {
 
 	public function __toString() {
 		return $this->message;
+	}
+
+	/**
+	 * Carrega o html do alerta
+	 * @param Alert $alert
+	 */
+	public function load() {
+		$block = new Block('alert/alert', ['alert' => $this]);
+		$block->load();
 	}
 
 }
