@@ -20,7 +20,7 @@ class UserDAOTest extends \PHPUnit_Framework_TestCase {
 		static::$pdo->query('DROP TABLE ' . UserDAO::TABLE);
 		static::$pdo->query('CREATE TABLE `user` (
 					`id` int(11) NOT NULL AUTO_INCREMENT,
-					`is_active` tinyint(1) NOT NULL,
+					`is_enabled` tinyint(1) NOT NULL,
 					`access_level` smallint(6) NOT NULL,
 					`group_id` int(11) NOT NULL,
 					`name` varchar(45) NOT NULL,
@@ -40,7 +40,7 @@ class UserDAOTest extends \PHPUnit_Framework_TestCase {
 
 	private function insertExample() {
 		$user = new User();
-		$user->setActive(true);
+		$user->setEnabled(true);
 		$user->setAccessLevel(User::ACCESS_ADMIN);
 		$user->setName('My name');
 		$user->setEmail('myemail@example.com');

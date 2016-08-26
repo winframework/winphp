@@ -2,9 +2,6 @@
 
 namespace Win\Alert;
 
-use Win\Alert\Alert;
-use Win\Mvc\Block;
-
 /**
  * Armazena e exibe Alertas
  */
@@ -23,17 +20,21 @@ class Session {
 	 * E remove os alertas da SESSAO
 	 */
 	public static function showAlerts() {
-		if (isset($_SESSION['alerts'])) {
-			foreach (array_unique($_SESSION['alerts']) as $alert) {
-				static::showAlert($alert);
-			}
+		foreach (static::getAlerts() as $alert) {
+			$alert->load();
 		}
 		unset($_SESSION['alerts']);
 	}
 
-	private static function showAlert(Alert $alert) {
-		$block = new Block('alert/alert', ['alert' => $alert]);
-		$block->toHtml();
+	/**
+	 * Retorna array de alertas da Sessao
+	 * @return Alert[]
+	 */
+	public static function getAlerts() {
+		if (!isset($_SESSION['alerts'])) {
+			$_SESSION['alerts'] = [];
+		}
+		return array_unique($_SESSION['alerts']);
 	}
 
 }

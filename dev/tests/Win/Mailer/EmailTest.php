@@ -19,12 +19,11 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('My body in string mode', $email->getBody());
 	}
 
-
 	public function testSetBodyInBlockMode() {
 		$email = new Email();
 		$body = new Block('this-block-doent-exist');
 		$email->setBody($body);
-		
+
 		$this->assertTrue($email->getBody() instanceof Block);
 		$this->assertEquals('', $email->getBody());
 	}
