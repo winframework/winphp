@@ -20,6 +20,7 @@ class AlertTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddAlertOnSession() {
+		ob_start();
 		Session::showAlerts();
 		new AlertError('My Alert 01');
 		new AlertError('My Alert 02');
@@ -27,6 +28,7 @@ class AlertTest extends \PHPUnit_Framework_TestCase {
 
 		Session::showAlerts();
 		$this->assertEquals(0, count(Session::getAlerts()));
+		ob_end_clean();
 	}
 
 }
