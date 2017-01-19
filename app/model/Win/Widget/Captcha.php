@@ -13,7 +13,7 @@ class Captcha {
 	 * Retorna True se captcha está correto
 	 * @return boolean
 	 */
-	public static function isCorrect() {
+	public static function isValid() {
 		if (isset($_SESSION['captcha'])) {
 			$captcha = strtolower(Input::post('captcha'));
 			$sessionCaptcha = strtolower(filter_var($_SESSION['captcha']));

@@ -201,6 +201,7 @@ class User {
 	/** Objeto > Sessão */
 	private function setCurrentUser(User $user) {
 		$_SESSION['user'] = $user;
+		$user->isLogged = true;
 		$this->isLogged = true;
 		$this->id = $user->getId();
 		$this->accessLevel = $user->getAccessLevel();
