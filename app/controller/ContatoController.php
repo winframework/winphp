@@ -52,7 +52,7 @@ class ContatoController extends \Win\Mvc\Controller {
 				$error = 'Preencha o campo Assunto.';
 			} elseif (empty($message)) {
 				$error = 'Preencha o campo Mensagem.';
-			} elseif (!Captcha::isCorrect()) {
+			} elseif (!Captcha::isValid()) {
 				$error = 'Informe os caracteres de segurança corretamente.';
 			}
 
