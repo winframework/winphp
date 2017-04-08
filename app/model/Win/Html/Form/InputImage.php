@@ -4,7 +4,7 @@
  * Input Imagem
  * Input type="file" personalizado, (apenas Imagens)
  * Esta classe irá adicionar um Plugin personalizado para Upload de Imagens
- * @author WebCorpore
+ *
  */
 
 namespace Win\Html\Form;

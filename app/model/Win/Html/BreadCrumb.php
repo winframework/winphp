@@ -4,7 +4,7 @@
  * BreadCrumbs
  * Cria breadcrumbs personalizados
  * Exemplo de um breadcrumb:	 Página Inicial > Produto > Óculos de Sol
- * @author WebCorpore
+ *
  */
 
 namespace Win\Html;
