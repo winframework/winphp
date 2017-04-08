@@ -3,7 +3,7 @@
 /**
  * Checkbox
  * Auxilia nas <input type="checkbox">
- * @author WebCorpore
+ *
  */
 
 namespace Win\Html\Form;

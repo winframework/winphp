@@ -3,7 +3,7 @@
 /**
  * Select
  * Auxilia nas <select>
- * @author WebCorpore
+ *
  */
 
 namespace Win\Html\Form;
