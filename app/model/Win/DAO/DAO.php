@@ -13,6 +13,10 @@ abstract class DAO implements DAOInterface {
 	/** @var \PDO */
 	protected $pdo;
 
+	const JOIN = '';
+
+	protected $fixedFilter = [];
+
 	/** @var string[] */
 	protected $selectCollumns = ['*'];
 
@@ -74,11 +78,15 @@ abstract class DAO implements DAOInterface {
 		$this->obj = $obj;
 		$error = $this->validate();
 		if (is_null($error) and $this->pdo !== false) {
-			if (!$this->objExists()) {
-				$this->insert();
+			$error = $this->beforeSave();
+			if (!$this->objExists() && is_null($error)) {
+				$error = $this->insert();
 				$this->obj->setId($this->pdo->lastInsertId());
-			} else {
-				$this->update();
+			} elseif (is_null($error)) {
+				$error = $this->update();
+			}
+			if (is_null($error)) {
+				$error = $this->afterSave();
 			}
 		}
 		return $error;
@@ -96,6 +104,7 @@ abstract class DAO implements DAOInterface {
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->execute($values);
 		}
+		return $this->error($stmt);
 	}
 
 	/** Atualiza o registro */
@@ -109,11 +118,27 @@ abstract class DAO implements DAOInterface {
 		endforeach;
 		$values[] = $this->obj->getId();
 
-		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE id = ? ';
+		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE ' . static::TABLE . '_id = ? ';
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->execute($values);
 		}
+		return $this->error($stmt);
+	}
+
+	/**
+	 * @param $stmt \PDOStatement
+	 * @return string erro
+	 */
+	protected function error(\PDOStatement $stmt) {
+		$error = null;
+		if ($stmt->errorCode() !== '00000') {
+			$error = 'Houve um erro ao salvar o registro. [Erro ' . $stmt->errorCode() . ']';
+			if (Application::app()->isLocalHost()) {
+				$error .= '<br /><small>' . $stmt->errorInfo()[2] . '</small>';
+			}
+		}
+		return $error;
 	}
 
 	/**
@@ -129,10 +154,19 @@ abstract class DAO implements DAOInterface {
 	 * @param int $id
 	 */
 	public function deleteById($id) {
-		$sql = 'DELETE FROM ' . static::TABLE . ' WHERE id = :id';
+		$this->deleteByField(static::TABLE . '_id', $id);
+	}
+
+	/**
+	 * Exclui o registro por id
+	 * @param string $name
+	 * * @param mixed $value
+	 */
+	public function deleteByField($name, $value) {
+		$sql = 'DELETE FROM ' . static::TABLE . ' WHERE ' . $name . ' = :value';
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->bindValue(':id', $id);
+			$stmt->bindValue(':value', $value);
 			$stmt->execute();
 		}
 	}
@@ -142,7 +176,7 @@ abstract class DAO implements DAOInterface {
 	 * @param int $id
 	 */
 	public function fetchById($id) {
-		return $this->fetchByField('id', $id);
+		return $this->fetchByField(static::TABLE . '_id', $id);
 	}
 
 	/**
@@ -159,15 +193,15 @@ abstract class DAO implements DAOInterface {
 	 * @param string[] $filters Array de filtros
 	 * @param string $option [Order by, Limit, etc]
 	 */
-	public function fetch($filters, $option = '') {
+	public function fetch($filters, $option = 'ORDER BY 1 DESC') {
 		if (!is_array($filters)):
 			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
-		$sql = $sql = $this->selectSQL() . ' ' . $this->whereSQL($filters) . ' ' . $option;
+		$sql = $this->selectSQL() . ' ' . ' ' . $this->whereSQL($filters) . ' ' . $option;
 		$result = [];
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filters));
+			$stmt->execute(array_values($filters + $this->fixedFilter));
 
 			$result = $stmt->fetch();
 		}
@@ -183,7 +217,7 @@ abstract class DAO implements DAOInterface {
 	 * @param string[] $filters Array de filtros
 	 * @param string $option [Order by, Limit, etc]
 	 */
-	public function fetchAll($filters = [], $option = '') {
+	public function fetchAll($filters = [], $option = 'ORDER BY 1 DESC') {
 		$array = [];
 		if (!is_array($filters)):
 			throw new \Exception("Filter: '{$filters}' must be a array");
@@ -192,7 +226,7 @@ abstract class DAO implements DAOInterface {
 		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filters) . ' ' . $option;
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filters));
+			$stmt->execute(array_values($filters + $this->fixedFilter));
 
 			$results = $stmt->fetchAll();
 			foreach ($results as $result):
@@ -209,7 +243,7 @@ abstract class DAO implements DAOInterface {
 	 * @example "SELECT * FROM user"
 	 */
 	protected function selectSQL($selectCollumns = ['*']) {
-		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE;
+		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE . ' ' . static::JOIN;
 	}
 
 	/**
@@ -217,31 +251,33 @@ abstract class DAO implements DAOInterface {
 	 * @param string[] $filters
 	 * @return string
 	 */
-	private function whereSQL(&$filters) {
-		$keys = array_keys($filters);
+	protected function whereSQL(&$filters) {
+		$keys = array_keys($filters + $this->fixedFilter);
 		return ($keys) ? 'WHERE ' . implode(' AND ', $keys) : '';
 	}
 
 	/**
 	 * Retorna o total de registros
 	 * @param string[] $filters Array de filtros
+	 * @param string $option
 	 * @return int
 	 */
-	public function numRows($filters = []) {
+	public function numRows($filters = [], $option = 'ORDER BY 1 DESC') {
 		$total = 0;
 		if (!is_array($filters)):
 			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
 
-		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . $this->whereSQL($filters);
+		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . static::JOIN . ' ' . $this->whereSQL($filters) . ' ' . $option;
+
 		if ($this->pdo) {
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filters));
+			$stmt->execute(array_values($filters + $this->fixedFilter));
 
 			$result = $stmt->fetch();
 			$total = $result['total'];
 		}
-		return $total;
+		return (int) $total;
 	}
 
 	/**
@@ -257,6 +293,14 @@ abstract class DAO implements DAOInterface {
 		if (!$this->objExists()) {
 			Application::app()->pageNotFound();
 		}
+	}
+
+	protected function beforeSave() {
+		
+	}
+
+	protected function afterSave() {
+		
 	}
 
 }

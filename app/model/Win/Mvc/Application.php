@@ -63,7 +63,7 @@ class Application {
 		$this->setPage($this->getParam(0));
 		$this->view = ViewFactory::create($this->getParam(0), $this->paramList);
 
-		$this->validatePage404();
+		$this->validateErrorPage();
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Application {
 	 * @return User
 	 */
 	public function getUser() {
-		if(is_null($this->user)):
+		if (is_null($this->user)):
 			$this->user = User::getCurrentUser();
 		endif;
 		return $this->user;
@@ -238,9 +238,9 @@ class Application {
 	 * Isso garante que todas as funcionalidades de pageNotFound serão executadas
 	 * mesmo se a página existente 404 for acessada
 	 */
-	private function validatePage404() {
-		if ($this->getParam(0) === '404'):
-			$this->pageNotFound();
+	private function validateErrorPage() {
+		if (key_exists((int) $this->getParam(0), $this->errorPageList)):
+			$this->errorPage((int) $this->getParam(0));
 		endif;
 	}
 
@@ -255,13 +255,17 @@ class Application {
 	 */
 	public function errorPage($errorCode) {
 		if (key_exists($errorCode, $this->errorPageList)):
+			if ($errorCode == 403 && $this->getParam(0) !== (string) $errorCode):
+				$this->redirect(403);
+			endif;
+
 			$this->page = (string) $errorCode;
 			$this->view = new View($errorCode);
 			$this->title = $this->errorPageList[$errorCode];
 			$this->controller = ControllerFactory::create('Error' . $errorCode);
 			http_response_code($errorCode);
 			if ($this->getParam(0) !== (string) $errorCode):
-				$this->controller->load();
+				$this->controller->reload();
 			endif;
 		endif;
 	}

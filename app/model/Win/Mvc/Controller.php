@@ -83,7 +83,7 @@ abstract class Controller {
 		$this->init();
 		$action = $this->action;
 		$view = $this->$action();
-		
+
 		if ($view instanceof View):
 			$this->app->view = $view;
 		endif;
@@ -91,12 +91,19 @@ abstract class Controller {
 		$this->app->view->mergeData($this->data);
 		$this->app->view->validate();
 	}
+	
+	public function reload(){
+		$this->init();
+		$this->index();
+	}
 
 	/**
 	 * Volta para o método index da pagina atual
 	 */
 	protected function backToIndex() {
-		Url::instance()->redirect($this->app->getPage());
+		if (!$this->app->isErrorPage()):
+			Url::instance()->redirect($this->app->getPage());
+		endif;
 	}
 
 	/**

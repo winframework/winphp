@@ -23,6 +23,16 @@ class Input {
 	}
 
 	/**
+	 * RRetorna variavel $_POST em modo array
+	 * @param string $indice variável desejada
+	 * @param string $filtro filtro PHP
+	 * @return mixed[] array POST
+	 */
+	public static function postArray($indice, $filtro = FILTER_DEFAULT) {
+		return (array) filter_input(INPUT_POST, $indice, $filtro, FILTER_REQUIRE_ARRAY);
+	}
+
+	/**
 	 * Retorna variavel $_SERVER
 	 * 
 	 * @param string $name
@@ -38,28 +48,32 @@ class Input {
 	 * Retorna variavel $_GET
 	 */
 	public static function get() {
-
+		
 	}
 
 	/**
 	 * Retorna variavel $_FILE
 	 */
-	public static function file() {
-
+	public static function file($name) {
+		if (key_exists($name, $_FILES)) {
+			return $_FILES[$name];
+		} else {
+			return null;
+		}
 	}
 
 	/**
 	 * Retorna variavel $_PUT
 	 */
 	public static function put() {
-
+		
 	}
 
 	/**
 	 * Retorna variavel $_DELETE
 	 */
 	public static function delete() {
-
+		
 	}
 
 	/**

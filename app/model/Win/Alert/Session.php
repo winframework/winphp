@@ -37,4 +37,12 @@ class Session {
 		return array_unique($_SESSION['alerts']);
 	}
 
+	/**
+	 * Retorna TRUE se possui algum alert
+	 * @return boolean
+	 */
+	public static function hasAlert() {
+		return !count(static::getAlerts());
+	}
+
 }
