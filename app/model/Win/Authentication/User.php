@@ -2,10 +2,15 @@
 
 namespace Win\Authentication;
 
+use Win\Mvc\Application;
 use Win\Authentication\UserDAO;
+use Local\Person\Person;
+use Local\Person\PersonDAO;
 use Win\Helper\Url;
 use Win\Mvc\Block;
 use Win\Mailer\Email;
+use Win\File\Image;
+use Win\Calendar\Date;
 
 /**
  * Usuários do sistema
@@ -16,6 +21,7 @@ class User {
 	const ACCESS_ALLOWED = 1;
 	const ACCESS_ADMIN = 2;
 
+	private static $passwordSalt = 'E50H%gDui#';
 	private $id;
 	private $isEnabled;
 	private $isLogged;
@@ -25,8 +31,12 @@ class User {
 	private $password;
 	private $passwordHash;
 	private $recoreryHash;
+
+	/** @var Date */
+	private $loginDate;
+
+	/** @var Image */
 	private $image;
-	private $lastLogin;
 
 	/** @var Group */
 	private $group;
@@ -45,8 +55,9 @@ class User {
 		$this->password = '********';
 		$this->passwordHash = '';
 		$this->recoreryHash = null;
-		$this->image = null;
-		$this->lastLogin = null;
+		$this->image = new Image();
+		$this->image->setDirectory('data/upload/user');
+		$this->loginDate = new Date('00/00/0000');
 		$this->group = null;
 		$this->groupId = 0;
 		$this->person = null;
@@ -84,9 +95,11 @@ class User {
 		return $this->groupId;
 	}
 
+	/** @return Person */
 	public function getPerson() {
 		if (is_null($this->person)) {
-			// personDAO
+			$pDAO = new PersonDAO();
+			$this->person = $pDAO->fetchById($this->id);
 		}
 		return $this->person;
 	}
@@ -115,8 +128,9 @@ class User {
 		return $this->image;
 	}
 
-	public function getLastLogin() {
-		return $this->lastLogin;
+	/** @return Date */
+	public function getLoginDate() {
+		return $this->loginDate;
 	}
 
 	public function setId($id) {
@@ -144,16 +158,16 @@ class User {
 	}
 
 	public function setName($name) {
-		$this->name = $name;
+		$this->name = strClear($name);
 	}
 
 	public function setEmail($email) {
-		$this->email = $email;
+		$this->email = strClear($email);
 	}
 
 	public function setPassword($password) {
 		$this->password = $password;
-		$this->passwordHash = md5($password);
+		$this->passwordHash = static::encryptPassword($password);
 	}
 
 	public function setPasswordHash($passwordHash) {
@@ -164,8 +178,8 @@ class User {
 		$this->recoreryHash = $recoreryHash;
 	}
 
-	public function setLastLogin($lastLogin) {
-		$this->lastLogin = $lastLogin;
+	public function setLoginDate($loginDate) {
+		$this->loginDate = $loginDate;
 	}
 
 	public function setImage($image) {
@@ -188,7 +202,7 @@ class User {
 
 		if ($user->getId() > 0) {
 			$this->setCurrentUser($user);
-			$uDAO->updateLastLogin($user);
+			$uDAO->updateLoginDate($user);
 		}
 		return $user->isLogged;
 	}
@@ -206,7 +220,8 @@ class User {
 		$this->id = $user->getId();
 		$this->accessLevel = $user->getAccessLevel();
 		$this->name = $user->getName();
-		$this->lastLogin = $user->getLastLogin();
+		$this->loginDate = $user->getLoginDate();
+		$this->image = $user->getImage();
 	}
 
 	/** Objeto < Sessão */
@@ -223,38 +238,53 @@ class User {
 
 	/** Obriga o usuário a logar como ADMIN */
 	public function requireMaster() {
-		if (!$this->isLogged || $this->getAccessLevel() != static::ACCESS_ADMIN) {
-			Url::instance()->redirect('login');
+		$this->requireLogin();
+		if ($this->getAccessLevel() != static::ACCESS_ADMIN) {
+			Application::app()->errorPage(403);
 		}
 	}
 
 	/**
 	 * Envia link de recuperacao de senha via Email
-	 * @return boolean
+	 * @return string | null
 	 */
 	public function sendRecoveryHash() {
-		$success = false;
 		$filters = ['is_enabled = ?' => true, 'access_level > ?' => 0, 'email = ?' => $this->email];
 		$uDAO = new UserDAO();
 		$user = $uDAO->fetch($filters);
 
 		if ($user->getId() > 0) {
-			$success = true;
 			$uDAO->updateRecoveryHash($user);
 			$body = new Block('email/html/recovery-password', ['user' => $user]);
 
 			$mail = new Email();
+			$mail->setFrom(EMAIL_FROM, Application::app()->getName());
 			$mail->setSubject('Recuperação de Senha');
 			$mail->addAddress($user->getEmail(), $user->getName());
 			$mail->setBody($body);
-			$mail->send();
+			return $mail->send();
+		} else {
+			return 'Este E-mail não está cadastrado no sistema.';
 		}
-		return $success;
 	}
 
 	/** Define os atributos que são salvos na SESSAO */
 	public function __sleep() {
-		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'last_login', 'group_id'];
+		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'loginDate', 'groupId'];
+	}
+
+	/**
+	 * Adiciona maior segura na senha/ utilizar esta função ao inves de um simples md5
+	 * @param string $password
+	 */
+	public static function encryptPassword($password) {
+		return md5($password . static::$passwordSalt);
+	}
+
+	/** @return boolean Retorna true se já existe este email no sistema */
+	public function emailIsDuplicated() {
+		$dao = new PersonDAO();
+		return (boolean) $dao->numRows(['email = ?' => $this->email, 'person_id <> ?' => $this->id]);
 	}
 
 }

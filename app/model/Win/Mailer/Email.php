@@ -63,15 +63,6 @@ class Email {
 	 */
 	public function setFrom($address, $name = '') {
 		$this->mailer->SetFrom($address, $name);
-		$this->mailer->ClearReplyTos();
-	}
-
-	/**
-	 * Define pra quem será respondido
-	 * @param string $address
-	 */
-	public function addReplyTo($address, $name = '') {
-		$this->mailer->AddReplyTo($address, $name);
 	}
 
 	/**

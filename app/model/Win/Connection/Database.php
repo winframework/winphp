@@ -12,7 +12,7 @@ use Win\Mvc\Application;
 abstract class Database {
 
 	/** @var Database */
-	static protected $instance;
+	protected static $instance;
 
 	/** @var PDO */
 	protected $pdo;
@@ -42,6 +42,7 @@ abstract class Database {
 		self::$instance = $this;
 		try {
 			$this->pdo = $this->connect($dbConfig);
+			$this->pdo->exec("set names utf8");
 		} catch (\PDOException $ex) {
 			Application::app()->errorPage(503);
 			Application::app()->view->addData('error', $ex->getMessage());

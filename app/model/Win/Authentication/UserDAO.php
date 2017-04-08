@@ -4,13 +4,14 @@ namespace Win\Authentication;
 
 use Win\DAO\DAO;
 use Win\Authentication\User;
+use Win\Calendar\Date;
 
 /**
  * User DAO
  */
 class UserDAO extends DAO implements UserDAOInterface {
 
-	const TABLE = 'user';
+	const TABLE = 'person';
 	const ALIAS = 'Usuário';
 
 	/** @var User */
@@ -26,7 +27,9 @@ class UserDAO extends DAO implements UserDAOInterface {
 			return 'O campo E-mail deve ser preenchido.';
 		} elseif (!filter_var($this->obj->getEmail(), FILTER_VALIDATE_EMAIL)) {
 			return 'O campo E-mail deve ser um e-mail válido.';
-		} elseif (strlen($this->obj->getPassword()) < 4) {
+		} elseif (strlen($this->obj->getEmail()) > 0 and $this->obj->emailIsDuplicated()) {
+			return 'Já existe um usuário com este e-mail.';
+		} elseif ($this->obj->getPassword() != null and strlen($this->obj->getPassword()) < 4) {
 			return 'A senha deve possuir pelo menos 4 caracteres.';
 		}
 		return null;
@@ -38,7 +41,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 */
 	protected function mapObject($row) {
 		$obj = new User();
-		$obj->setId($row['id']);
+		$obj->setId($row['person_id']);
 		$obj->setEnabled($row['is_enabled']);
 		$obj->setAccessLevel($row['access_level']);
 		$obj->setGroupId($row['group_id']);
@@ -46,8 +49,10 @@ class UserDAO extends DAO implements UserDAOInterface {
 		$obj->setEmail($row['email']);
 		$obj->setPasswordHash($row['password_hash']);
 		$obj->setRecoreryHash($row['recovery_hash']);
-		$obj->setImage($row['image']);
-		$obj->setLastLogin($row['last_login']);
+		$obj->getImage()->setName($row['image']);
+		if (!is_null($row['login_date'])) {
+			$obj->setLoginDate(new Date($row['login_date']));
+		}
 		return $obj;
 	}
 
@@ -56,16 +61,20 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @return mixed[]
 	 */
 	protected function mapRow($obj) {
-		$row['id'] = $obj->getId();
+		$row['person_id'] = $obj->getId();
 		$row['is_enabled'] = $obj->isEnabled();
 		$row['access_level'] = $obj->getAccessLevel();
 		$row['group_id'] = $obj->getGroupId();
 		$row['name'] = $obj->getName();
 		$row['email'] = $obj->getEmail();
-		$row['password_hash'] = $obj->getPasswordHash();
-		$row['recovery_hash'] = $obj->getRecoreryHash();
-		$row['image'] = $obj->getImage();
-		$row['last_login'] = $obj->getLastLogin();
+		if ($obj->getPassword() != null) {
+			$row['password_hash'] = $obj->getPasswordHash();
+		}
+		if ($obj->getRecoreryHash() != null) {
+			$row['recovery_hash'] = $obj->getRecoreryHash();
+		}
+		$row['image'] = $obj->getImage()->getName();
+		$row['login_date'] = $obj->getLoginDate()->toSql();
 		return $row;
 	}
 
@@ -95,10 +104,11 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @param User $user
 	 * @return string|null
 	 */
-	public function updateLastLogin(User $user) {
-		$now = date('Y-m-d H:i:s');
-		$user->setLastLogin($now);
-		return $this->save($user);
+	public function updateLoginDate(User $user) {
+		$now = new Date();
+		$userClone = clone $user;
+		$userClone->setLoginDate($now);
+		return $this->save($userClone);
 	}
 
 	/**
@@ -113,17 +123,18 @@ class UserDAO extends DAO implements UserDAOInterface {
 	}
 
 	/**
-	 * Atualiza a senha
-	 * @param User $user
+	 * Atualiza a senha | É necessário informar a senha atual, ou então o recoveryHash
+	 * @param int $userId
 	 * @param string $newPassword1
 	 * @param string $newPassword2
+	 * @param string $currentPassword
+	 * @param string $recoveryHash
 	 * @return string erro
 	 */
-	public function updatePassword(User $user, $newPassword1, $newPassword2) {
-		$error = null;
-		if ($newPassword1 != $newPassword2) {
-			$error = 'A senha deve ser informada duas vezes iguais.';
-		}
+	public function updatePassword($userId, $newPassword1, $newPassword2, $currentPassword = null, $recoveryHash = null) {
+		$user = $this->fetchById($userId);
+		$error = $this->validateNewPassword($user, $newPassword1, $newPassword2, $currentPassword, $recoveryHash);
+
 		if (!$error) {
 			$user->setPassword($newPassword1);
 			$error = $this->save($user);
@@ -131,8 +142,36 @@ class UserDAO extends DAO implements UserDAOInterface {
 		return $error;
 	}
 
+	/**
+	 * Valida se está apto a alterar a senha
+	 * @param User $user
+	 * @param string $newPassword1
+	 * @param string $newPassword2
+	 * @param string $currentPassword
+	 * @param string $recoveryHash
+	 * @return string|null
+	 */
+	private function validateNewPassword($user, $newPassword1, $newPassword2, $currentPassword, $recoveryHash) {
+		if (!is_null($currentPassword) and $user->getPasswordHash() != User::encryptPassword($currentPassword)) {
+			return 'A senha atual não está correta.';
+		} elseif (!is_null($recoveryHash) and $user->getRecoreryHash() !== $recoveryHash) {
+			return 'O link de recuperação é inválido.';
+		} elseif (!is_null($user->getPassword()) and strlen($newPassword1) < 4) {
+			return 'A nova senha deve possuir pelo menos 4 caracteres.';
+		} elseif ($newPassword1 != $newPassword2) {
+			return 'A nova senha deve ser informada duas vezes iguais.';
+		}
+		return null;
+	}
+
 	public function fetchByRecoveryHash($recoveryHash) {
 		return $this->fetch(['recovery_hash = ?' => $recoveryHash]);
+	}
+
+	/** @param User $obj */
+	public function delete($obj) {
+		$obj->getImage()->remove();
+		parent::delete($obj);
 	}
 
 }
