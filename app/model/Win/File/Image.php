@@ -3,8 +3,9 @@
 namespace Win\File;
 
 use \PhpThumbFactory;
+
 /**
- * Arquivos
+ * Arquivos de Imagem
  *
  */
 class Image extends File {
@@ -15,35 +16,7 @@ class Image extends File {
 	const MAX_HEIGHT = 900;
 	const MAX_WIDTH = 1200;
 
-	private $subtitle;
-	private $order;
 	protected static $validExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-
-	/* @overwrite */
-
-	public function __construct($name = '') {
-		parent::__construct($name);
-		$this->subtitle = '';
-		$this->order = 0;
-	}
-
-	/* METODOS DE ACESSO */
-
-	public function getSubtitle() {
-		return $this->subtitle;
-	}
-
-	public function getOrder() {
-		return $this->order;
-	}
-
-	public function setSubtitle($subtitle) {
-		$this->subtitle = $subtitle;
-	}
-
-	public function setOrder($order) {
-		$this->order = $order;
-	}
 
 	/* @overwrite */
 

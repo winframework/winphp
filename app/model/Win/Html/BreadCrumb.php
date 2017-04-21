@@ -3,7 +3,7 @@
 /**
  * BreadCrumbs
  * Cria breadcrumbs personalizados
- * Exemplo de um breadcrumb:	 Página Inicial > Produto > Óculos de Sol
+ * Exemplo de um breadcrumb: - Página Inicial > Produto > Óculos de Sol
  *
  */
 

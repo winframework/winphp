@@ -84,7 +84,7 @@ abstract class Controller {
 		$action = $this->action;
 		$view = $this->$action();
 
-		if ($view instanceof View):
+		if ($view instanceof View && !$this->app->isErrorPage()):
 			$this->app->view = $view;
 		endif;
 

@@ -15,14 +15,14 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 
 	public function testSetBodyInStringMode() {
 		$email = new Email();
-		$email->setBody('My body in string mode');
+		$email->setContent('My body in string mode');
 		$this->assertEquals('My body in string mode', $email->getBody());
 	}
 
 	public function testSetBodyInBlockMode() {
 		$email = new Email();
 		$body = new Block('this-block-doent-exist');
-		$email->setBody($body);
+		$email->setContent($body);
 
 		$this->assertTrue($email->getBody() instanceof Block);
 		$this->assertEquals('', $email->getBody());
