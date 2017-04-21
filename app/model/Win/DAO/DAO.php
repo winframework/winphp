@@ -20,6 +20,9 @@ abstract class DAO implements DAOInterface {
 	/** @var string[] */
 	protected $selectCollumns = ['*'];
 
+	/** @var boolean */
+	public static $debug = false;
+
 	/**
 	 * Retorna um objeto a partir da linha da tabela
 	 * @param array[] $row
@@ -79,7 +82,7 @@ abstract class DAO implements DAOInterface {
 		$error = $this->validate();
 		if (is_null($error) and $this->pdo !== false) {
 			$error = $this->beforeSave();
-			if (!$this->objExists() && is_null($error)) {
+			if (!$this->objExists($obj) && is_null($error)) {
 				$error = $this->insert();
 				$this->obj->setId($this->pdo->lastInsertId());
 			} elseif (is_null($error)) {
@@ -101,6 +104,7 @@ abstract class DAO implements DAOInterface {
 
 		$sql = 'INSERT INTO ' . static::TABLE . ' (' . implode(',', $keys) . ') VALUES (' . implode(', ', $params) . ') ';
 		if ($this->pdo) {
+			$this->debug($sql, $values);
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->execute($values);
 		}
@@ -120,6 +124,7 @@ abstract class DAO implements DAOInterface {
 
 		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE ' . static::TABLE . '_id = ? ';
 		if ($this->pdo) {
+			$this->debug($sql, $values);
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->execute($values);
 		}
@@ -165,6 +170,7 @@ abstract class DAO implements DAOInterface {
 	public function deleteByField($name, $value) {
 		$sql = 'DELETE FROM ' . static::TABLE . ' WHERE ' . $name . ' = :value';
 		if ($this->pdo) {
+			$this->debug($sql, $value);
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->bindValue(':value', $value);
 			$stmt->execute();
@@ -200,8 +206,9 @@ abstract class DAO implements DAOInterface {
 		$sql = $this->selectSQL() . ' ' . ' ' . $this->whereSQL($filters) . ' ' . $option;
 		$result = [];
 		if ($this->pdo) {
+			$this->debug($sql, $this->getFilterValues($filters));
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filters + $this->fixedFilter));
+			$stmt->execute($this->getFilterValues($filters));
 
 			$result = $stmt->fetch();
 		}
@@ -225,8 +232,9 @@ abstract class DAO implements DAOInterface {
 
 		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filters) . ' ' . $option;
 		if ($this->pdo) {
+			$this->debug($sql, $this->getFilterValues($filters));
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filters + $this->fixedFilter));
+			$stmt->execute($this->getFilterValues($filters));
 
 			$results = $stmt->fetchAll();
 			foreach ($results as $result):
@@ -271,8 +279,9 @@ abstract class DAO implements DAOInterface {
 		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . static::JOIN . ' ' . $this->whereSQL($filters) . ' ' . $option;
 
 		if ($this->pdo) {
+			$this->debug($sql, $this->getFilterValues($filters));
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute(array_values($filters + $this->fixedFilter));
+			$stmt->execute($this->getFilterValues($filters));
 
 			$result = $stmt->fetch();
 			$total = $result['total'];
@@ -284,15 +293,33 @@ abstract class DAO implements DAOInterface {
 	 * Retorna True se objeto existir
 	 * @return boolean
 	 */
-	protected function objExists() {
-		return ($this->obj->getId() > 0);
+	protected function objExists($obj) {
+		return ($obj->getId() > 0);
 	}
 
 	/** Define como Página 404 se o objeto não existir */
-	public function validateObject() {
-		if (!$this->objExists()) {
+	public function checkFoundRegistry($obj) {
+		if (!$this->objExists($obj)) {
 			Application::app()->pageNotFound();
+			Application::app()->controller->reload();
 		}
+	}
+
+	/**
+	 * Exibe comando SQL, se debug está habilitado
+	 * @param string $sql
+	 * @param mixed[] $values
+	 */
+	protected function debug($sql, $values = []) {
+		if (static::$debug) {
+			var_dump($sql);
+			var_dump($values);
+			var_dump('...');
+		}
+	}
+
+	private function getFilterValues($filters) {
+		return array_values($filters + $this->fixedFilter);
 	}
 
 	protected function beforeSave() {

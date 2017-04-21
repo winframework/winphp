@@ -16,7 +16,7 @@ class Email {
 	private $layout;
 
 	/** @var Block|string */
-	private $body;
+	private $content;
 
 	/** @var object Classe responsável pelo envio real */
 	private $mailer;
@@ -78,10 +78,10 @@ class Email {
 	/**
 	 * Define o conteudo do E-mail
 	 * que pode ser uma string ou um bloco
-	 * @param string|Block $body
+	 * @param string|Block $content
 	 */
-	public function setBody($body) {
-		$this->body = $body;
+	public function setContent($content) {
+		$this->content = $content;
 	}
 
 	/**
@@ -120,8 +120,8 @@ class Email {
 	 * Retorna o conteudo do E-mail
 	 * @return string
 	 */
-	public function getBody() {
-		return $this->body;
+	public function getContent() {
+		return $this->content;
 	}
 
 	/**

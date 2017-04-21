@@ -17,7 +17,7 @@ class Checkbox {
 	 */
 	public static function active($value1, $value2 = true) {
 		if ($value1 == $value2) {
-			echo 'checked="true"';
+			return 'checked="true"';
 		}
 	}
 

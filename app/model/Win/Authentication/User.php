@@ -80,7 +80,7 @@ class User {
 	}
 
 	/** @return boolean */
-	public function isMaster() {
+	public function isAdmin() {
 		return ($this->accessLevel == self::ACCESS_ADMIN);
 	}
 
@@ -237,7 +237,7 @@ class User {
 	}
 
 	/** Obriga o usuário a logar como ADMIN */
-	public function requireMaster() {
+	public function requireAdmin() {
 		$this->requireLogin();
 		if ($this->getAccessLevel() != static::ACCESS_ADMIN) {
 			Application::app()->errorPage(403);
@@ -255,13 +255,13 @@ class User {
 
 		if ($user->getId() > 0) {
 			$uDAO->updateRecoveryHash($user);
-			$body = new Block('email/html/recovery-password', ['user' => $user]);
+			$content = new Block('email/content/recovery-password', ['user' => $user]);
 
 			$mail = new Email();
 			$mail->setFrom(EMAIL_FROM, Application::app()->getName());
 			$mail->setSubject('Recuperação de Senha');
 			$mail->addAddress($user->getEmail(), $user->getName());
-			$mail->setBody($body);
+			$mail->setContent($content);
 			return $mail->send();
 		} else {
 			return 'Este E-mail não está cadastrado no sistema.';
@@ -285,6 +285,24 @@ class User {
 	public function emailIsDuplicated() {
 		$dao = new PersonDAO();
 		return (boolean) $dao->numRows(['email = ?' => $this->email, 'person_id <> ?' => $this->id]);
+	}
+
+	/**
+	 * Retorna uma senha aleatoria
+	 * A senha tem sempre pelo menos: 1 caracter especial e 2 numeros;
+	 * @param int $length
+	 * @return string
+	 */
+	public static function generatePassword($length = 6) {
+		$letters = str_shuffle('abcdefghijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXY');
+		$numbers = str_shuffle('23456789');
+		$specials = str_shuffle('@#&%');
+
+		$password = substr($letters, 0, $length - 3)
+				. substr($numbers, 0, 2)
+				. substr($specials, 0, 1);
+
+		return str_shuffle($password);
 	}
 
 }

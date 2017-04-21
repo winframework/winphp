@@ -92,7 +92,7 @@ class LoginController extends Controller {
 		if (!empty(Input::post('submit'))) {
 			$user->setEmail(Input::post('email'));
 
-			if (!Captcha::isCorrect()) {
+			if (!Captcha::isValid()) {
 				new AlertError('Preencha os caracteres de segurança corretamente.');
 			} elseif (!$user->sendRecoveryHash()) {
 				new AlertError('Este E-mail não está cadastrado no sistema.');

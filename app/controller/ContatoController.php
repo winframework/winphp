@@ -63,8 +63,8 @@ class ContatoController extends \Win\Mvc\Controller {
 				$mail->addAddress($this->sendTo);
 				$mail->setFrom($email, $name);
 
-				$body = new Block('email/html/contact', $data);
-				$mail->setBody($body);
+				$content = new Block('email/content/contact', $data);
+				$mail->setContent($content);
 				$error = $mail->send();
 
 				/* Limpa dados */

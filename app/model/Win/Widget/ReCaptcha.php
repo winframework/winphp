@@ -4,7 +4,6 @@ namespace Win\Widget;
 
 /**
  * Validador do ReCaptcha do google
- *
  */
 class ReCaptcha {
 

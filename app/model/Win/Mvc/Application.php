@@ -233,6 +233,14 @@ class Application {
 	}
 
 	/**
+	 * Atualiza a mesma página
+	 * @param string $url
+	 */
+	public function refresh() {
+		Url::instance()->redirect($this->getUrl());
+	}
+
+	/**
 	 * Chama pageNotFound se o usuario acessar /404
 	 *
 	 * Isso garante que todas as funcionalidades de pageNotFound serão executadas
