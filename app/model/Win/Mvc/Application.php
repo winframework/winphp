@@ -12,7 +12,7 @@ use Win\Authentication\User;
  * Framework em PHP baseado em MVC
  * Esta classe é responśavel por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 0.1
+ * @version 0.2
  */
 class Application {
 
