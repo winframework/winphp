@@ -107,7 +107,7 @@ class Date {
 		if (is_null($stringDate)):
 			$stringDate = date("Y-m-d H:i:s");
 		endif;
-		$arrayDate = explode(' ', strEscape(strStrip($stringDate)) . ' ');
+		$arrayDate = explode(' ', strip_tags($stringDate) . ' ');
 		$this->initDate($arrayDate[0]);
 		$this->initTime($arrayDate[1]);
 	}

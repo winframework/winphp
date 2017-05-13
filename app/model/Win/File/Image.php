@@ -45,12 +45,12 @@ class Image extends File {
 	 */
 	function saveThumb() {
 		$this->includeLibrary();
-
-		$thumb = PhpThumbFactory::create($this->getFullName());
-		$thumb->resize(self::MAX_WIDTH, self::MAX_HEIGHT);
-		$this->remove();
-		$thumb->save($this->getFullName());
-
+		if (file_exists($this->getTempName())) {
+			$thumb = PhpThumbFactory::create($this->getFullName());
+			$thumb->resize(self::MAX_WIDTH, self::MAX_HEIGHT);
+			$this->remove();
+			$thumb->save($this->getFullName());
+		}
 		return null;
 	}
 

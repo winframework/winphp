@@ -172,11 +172,13 @@ class File {
 
 	/** Move o arquivo de $temp para $diretorio atual */
 	public function move() {
-		if ($this->getName() == '') {
-			$this->setName(md5(uniqid(time())));
+		if (file_exists($this->getTempName())) {
+			if ($this->getName() == '') {
+				$this->setName(md5(uniqid(time())));
+			}
+			rename($this->getTempName(), $this->getFullName());
+			$this->setTempName($this->getFullName());
 		}
-		rename($this->getTempName(), $this->getFullName());
-		$this->setTempName($this->getFullName());
 	}
 
 	/** Exclui o arquivo no diretorio */
