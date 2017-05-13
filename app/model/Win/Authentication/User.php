@@ -17,6 +17,8 @@ use Win\Calendar\Date;
  */
 class User {
 
+	private static $accessLevels = [0, 1, 2];
+
 	const ACCESS_DENIED = 0;
 	const ACCESS_ALLOWED = 1;
 	const ACCESS_ADMIN = 2;
@@ -28,7 +30,9 @@ class User {
 	private $accessLevel;
 	private $name;
 	private $email;
+	private $confirmEmail;
 	private $password;
+	private $confirmPassword;
 	private $passwordHash;
 	private $recoreryHash;
 
@@ -52,8 +56,10 @@ class User {
 		$this->accessLevel = self::ACCESS_DENIED;
 		$this->name = '';
 		$this->email = '';
-		$this->password = '********';
-		$this->passwordHash = '';
+		$this->confirmEmail = '';
+		$this->password = null;
+		$this->confirmPassword = null;
+		$this->passwordHash = null;
 		$this->recoreryHash = null;
 		$this->image = new Image();
 		$this->image->setDirectory('data/upload/user');
@@ -77,6 +83,10 @@ class User {
 
 	public function getAccessLevel() {
 		return $this->accessLevel;
+	}
+
+	public function accessIsDenied() {
+		return ($this->accessLevel == self::ACCESS_DENIED);
 	}
 
 	/** @return boolean */
@@ -112,8 +122,16 @@ class User {
 		return $this->email;
 	}
 
+	public function getConfirmEmail() {
+		return $this->confirmEmail;
+	}
+
 	public function getPassword() {
 		return $this->password;
+	}
+
+	public function getConfirmPassword() {
+		return $this->confirmPassword;
 	}
 
 	public function getPasswordHash() {
@@ -128,7 +146,6 @@ class User {
 		return $this->image;
 	}
 
-	/** @return Date */
 	public function getLoginDate() {
 		return $this->loginDate;
 	}
@@ -142,7 +159,9 @@ class User {
 	}
 
 	public function setAccessLevel($accessLevel) {
-		$this->accessLevel = (int) $accessLevel;
+		if (in_array($accessLevel, static::$accessLevels)) {
+			$this->accessLevel = (int) $accessLevel;
+		}
 	}
 
 	public function setGroup(Group $group) {
@@ -158,16 +177,24 @@ class User {
 	}
 
 	public function setName($name) {
-		$this->name = strClear($name);
+		$this->name = $name;
 	}
 
 	public function setEmail($email) {
 		$this->email = strClear($email);
 	}
 
+	public function setConfirmEmail($confirmEmail) {
+		$this->confirmEmail = strClear($confirmEmail);
+	}
+
 	public function setPassword($password) {
 		$this->password = $password;
 		$this->passwordHash = static::encryptPassword($password);
+	}
+
+	public function setConfirmPassword($confirmPassword) {
+		$this->confirmPassword = $confirmPassword;
 	}
 
 	public function setPasswordHash($passwordHash) {
@@ -178,11 +205,11 @@ class User {
 		$this->recoreryHash = $recoreryHash;
 	}
 
-	public function setLoginDate($loginDate) {
+	public function setLoginDate(Date $loginDate) {
 		$this->loginDate = $loginDate;
 	}
 
-	public function setImage($image) {
+	public function setImage(Image $image) {
 		$this->image = $image;
 	}
 
@@ -281,12 +308,6 @@ class User {
 		return md5($password . static::$passwordSalt);
 	}
 
-	/** @return boolean Retorna true se já existe este email no sistema */
-	public function emailIsDuplicated() {
-		$dao = new PersonDAO();
-		return (boolean) $dao->numRows(['email = ?' => $this->email, 'person_id <> ?' => $this->id]);
-	}
-
 	/**
 	 * Retorna uma senha aleatoria
 	 * A senha tem sempre pelo menos: 1 caracter especial e 2 numeros;
@@ -296,7 +317,7 @@ class User {
 	public static function generatePassword($length = 6) {
 		$letters = str_shuffle('abcdefghijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXY');
 		$numbers = str_shuffle('23456789');
-		$specials = str_shuffle('@#&%');
+		$specials = str_shuffle('@#&');
 
 		$password = substr($letters, 0, $length - 3)
 				. substr($numbers, 0, 2)

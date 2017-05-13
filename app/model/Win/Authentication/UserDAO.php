@@ -23,14 +23,18 @@ class UserDAO extends DAO implements UserDAOInterface {
 	protected function validate() {
 		if (strlen($this->obj->getName()) < 2) {
 			return 'O campo Nome deve possuir pelo menos 2 caracteres.';
-		} elseif (strlen($this->obj->getEmail()) == 0) {
+		} elseif (!$this->obj->accessIsDenied() && strlen($this->obj->getEmail()) == 0) {
 			return 'O campo E-mail deve ser preenchido.';
-		} elseif (!filter_var($this->obj->getEmail(), FILTER_VALIDATE_EMAIL)) {
+		} elseif (!$this->obj->accessIsDenied() && !filter_var($this->obj->getEmail(), FILTER_VALIDATE_EMAIL)) {
 			return 'O campo E-mail deve ser um e-mail válido.';
-		} elseif (strlen($this->obj->getEmail()) > 0 and $this->obj->emailIsDuplicated()) {
+		} elseif (!$this->obj->accessIsDenied() && $this->obj->getConfirmEmail() !== null && $this->obj->getConfirmEmail() != $this->obj->getEmail()) {
+			return 'O campo E-mail deve ser informado duas vezes iguais.';
+		} elseif (strlen($this->obj->getEmail()) > 0 and $this->emailIsUsed()) {
 			return 'Já existe um usuário com este e-mail.';
-		} elseif ($this->obj->getPassword() != null and strlen($this->obj->getPassword()) < 4) {
+		} elseif (!$this->obj->accessIsDenied() && $this->obj->getPassword() !== null && strlen($this->obj->getPassword()) < 4) {
 			return 'A senha deve possuir pelo menos 4 caracteres.';
+		} elseif ($this->obj->getConfirmPassword() != $this->obj->getPassword()) {
+			return 'O campo Senha deve ser informado duas vezes iguais.';
 		}
 		return null;
 	}
@@ -39,20 +43,19 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @param array $row
 	 * @return User
 	 */
-	protected function mapObject($row) {
+	public static function mapObject($row) {
 		$obj = new User();
 		$obj->setId($row['person_id']);
 		$obj->setEnabled($row['is_enabled']);
 		$obj->setAccessLevel($row['access_level']);
-		$obj->setGroupId($row['group_id']);
+		//$obj->setGroupId($row['group_id']);
 		$obj->setName($row['name']);
 		$obj->setEmail($row['email']);
+		$obj->setConfirmEmail($row['email']);
 		$obj->setPasswordHash($row['password_hash']);
 		$obj->setRecoreryHash($row['recovery_hash']);
 		$obj->getImage()->setName($row['image']);
-		if (!is_null($row['login_date'])) {
-			$obj->setLoginDate(new Date($row['login_date']));
-		}
+		$obj->setLoginDate(new Date($row['login_date']));
 		return $obj;
 	}
 
@@ -60,43 +63,21 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @param User $obj
 	 * @return mixed[]
 	 */
-	protected function mapRow($obj) {
+	public static function mapRow($obj) {
 		$row['person_id'] = $obj->getId();
-		$row['is_enabled'] = $obj->isEnabled();
+		$row['is_enabled'] = (int) $obj->isEnabled();
 		$row['access_level'] = $obj->getAccessLevel();
-		$row['group_id'] = $obj->getGroupId();
-		$row['name'] = $obj->getName();
-		$row['email'] = $obj->getEmail();
-		if ($obj->getPassword() != null) {
-			$row['password_hash'] = $obj->getPasswordHash();
-		}
-		if ($obj->getRecoreryHash() != null) {
-			$row['recovery_hash'] = $obj->getRecoreryHash();
-		}
+		$row['name'] = strClear($obj->getName());
+		$row['email'] = strClear($obj->getEmail());
 		$row['image'] = $obj->getImage()->getName();
 		$row['login_date'] = $obj->getLoginDate()->toSql();
-		return $row;
-	}
-
-	/**
-	 * Insere o primeiro usuario
-	 * @param User $user
-	 * @return string|null
-	 */
-	public function insertFirst(User $user) {
-		if ($this->totalUsers() === 0) {
-			$user->setAccessLevel(User::ACCESS_ADMIN);
-			$user->setName('Administrador');
-			return $this->save($user);
+		if (!is_null($obj->getPasswordHash())) {
+			$row['password_hash'] = $obj->getPasswordHash();
 		}
-	}
-
-	/**
-	 * Retorna total usuarios
-	 * @return int
-	 */
-	public function totalUsers() {
-		return (int) $this->numRows();
+		if (!is_null($obj->getRecoreryHash())) {
+			$row['recovery_hash'] = $obj->getRecoreryHash();
+		}
+		return $row;
 	}
 
 	/**
@@ -124,54 +105,51 @@ class UserDAO extends DAO implements UserDAOInterface {
 
 	/**
 	 * Atualiza a senha | É necessário informar a senha atual, ou então o recoveryHash
-	 * @param int $userId
-	 * @param string $newPassword1
-	 * @param string $newPassword2
-	 * @param string $currentPassword
-	 * @param string $recoveryHash
-	 * @return string erro
-	 */
-	public function updatePassword($userId, $newPassword1, $newPassword2, $currentPassword = null, $recoveryHash = null) {
-		$user = $this->fetchById($userId);
-		$error = $this->validateNewPassword($user, $newPassword1, $newPassword2, $currentPassword, $recoveryHash);
-
-		if (!$error) {
-			$user->setPassword($newPassword1);
-			$error = $this->save($user);
-		}
-		return $error;
-	}
-
-	/**
-	 * Valida se está apto a alterar a senha
 	 * @param User $user
-	 * @param string $newPassword1
-	 * @param string $newPassword2
 	 * @param string $currentPassword
 	 * @param string $recoveryHash
 	 * @return string|null
 	 */
-	private function validateNewPassword($user, $newPassword1, $newPassword2, $currentPassword, $recoveryHash) {
-		if (!is_null($currentPassword) and $user->getPasswordHash() != User::encryptPassword($currentPassword)) {
+	public function updatePassword($user, $currentPassword = null, $recoveryHash = null) {
+		$savedUser = $this->fetchById($user->getId());
+		if (!is_null($currentPassword) and $savedUser->getPasswordHash() != User::encryptPassword($currentPassword)) {
 			return 'A senha atual não está correta.';
 		} elseif (!is_null($recoveryHash) and $user->getRecoreryHash() !== $recoveryHash) {
 			return 'O link de recuperação é inválido.';
-		} elseif (!is_null($user->getPassword()) and strlen($newPassword1) < 4) {
-			return 'A nova senha deve possuir pelo menos 4 caracteres.';
-		} elseif ($newPassword1 != $newPassword2) {
-			return 'A nova senha deve ser informada duas vezes iguais.';
 		}
-		return null;
+		return $this->save($user);
+	}
+
+	/**
+	 * Retorna true se já existe este email no sistema 
+	 * @return boolean
+	 */
+	public function emailIsUsed() {
+		return $this->numRows(['email = ?' => $this->obj->getEmail(), 'person_id <> ?' => $this->obj->getId()]);
 	}
 
 	public function fetchByRecoveryHash($recoveryHash) {
 		return $this->fetch(['recovery_hash = ?' => $recoveryHash]);
 	}
 
-	/** @param User $obj */
-	public function delete($obj) {
-		$obj->getImage()->remove();
-		parent::delete($obj);
+	public function onDelete() {
+		$this->obj->getImage()->remove();
+	}
+
+	/**
+	 * Insere o primeiro admin
+	 * @param User $user
+	 * @return string|null
+	 */
+	public function insertFirst(User $user) {
+		$user->setName('Administrador');
+		$user->setAccessLevel(User::ACCESS_ADMIN);
+		$user->setConfirmEmail($user->getEmail());
+		$user->setConfirmPassword($user->getPassword());
+
+		if ($this->numRows() === 0) {
+			return $this->save($user);
+		}
 	}
 
 }

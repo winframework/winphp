@@ -7,11 +7,13 @@
 define('BASE_PATH', __DIR__);
 
 require 'lib/autoload.php';
+require 'lib/functions/strings.php';
 require 'app/config/app.php';
 require 'app/config/routes.php';
 require 'app/config/database.php';
 
 session_start();
 $app = new Win\Mvc\Application($config);
-//$db = new Win\Connection\MySQL($db);
+$db = new Win\Connection\MySQL($db);
+error_reporting(E_ALL);
 $app->run();

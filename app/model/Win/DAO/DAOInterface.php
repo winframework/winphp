@@ -14,4 +14,16 @@ interface DAOInterface {
 	public function fetch($filter);
 
 	public function fetchAll($filter);
+
+	/**
+	 * Retorna um objeto a partir da linha da tabela
+	 * @param array[] $row
+	 */
+	public static function mapObject($row);
+
+	/**
+	 * Retorna a linha da tabela a partir de um objeto
+	 * @param object $obj
+	 */
+	public static function mapRow($obj);
 }

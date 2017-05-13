@@ -13,27 +13,14 @@ abstract class DAO implements DAOInterface {
 	/** @var \PDO */
 	protected $pdo;
 
-	const JOIN = '';
-
-	protected $fixedFilter = [];
-
 	/** @var string[] */
 	protected $selectCollumns = ['*'];
+	protected $join = '';
+	protected $primaryKey = null;
+	protected $fixedFilter = [];
 
 	/** @var boolean */
 	public static $debug = false;
-
-	/**
-	 * Retorna um objeto a partir da linha da tabela
-	 * @param array[] $row
-	 */
-	abstract protected function mapObject($row);
-
-	/**
-	 * Retorna a linha da tabela a partir de um objeto
-	 * @param object $obj
-	 */
-	abstract protected function mapRow($obj);
 
 	/**
 	 * Valida os campos retornando string de Erro ou Null
@@ -80,54 +67,68 @@ abstract class DAO implements DAOInterface {
 	public function save($obj) {
 		$this->obj = $obj;
 		$error = $this->validate();
+
 		if (is_null($error) and $this->pdo !== false) {
 			$error = $this->beforeSave();
-			if (!$this->objExists($obj) && is_null($error)) {
+			$mode = (!$this->objExists($obj)) ? 'insert' : 'update';
+			
+			if ($mode == 'insert' && is_null($error)) {
 				$error = $this->insert();
 				$this->obj->setId($this->pdo->lastInsertId());
 			} elseif (is_null($error)) {
 				$error = $this->update();
 			}
+			
 			if (is_null($error)) {
 				$error = $this->afterSave();
+			}
+			if (!is_null($error) && $mode == 'insert') {
+				$this->delete($obj);
 			}
 		}
 		return $error;
 	}
 
-	/** Insere o registro */
-	protected function insert() {
-		$mapRow = $this->mapRow($this->obj);
-		$keys = array_keys($mapRow);
-		$values = array_values($mapRow);
-		$params = str_split(str_repeat('?', count($keys)));
-
-		$sql = 'INSERT INTO ' . static::TABLE . ' (' . implode(',', $keys) . ') VALUES (' . implode(', ', $params) . ') ';
+	/**
+	 * Executa SQL via PDO
+	 * @param string $sql
+	 * @param mixed[] $values
+	 * @return \PDOStatement
+	 */
+	protected function execSql($sql, $values) {
 		if ($this->pdo) {
 			$this->debug($sql, $values);
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->execute($values);
+			return $stmt;
 		}
+	}
+
+	/** Insere o registro */
+	protected function insert() {
+		$mapRow = static::mapRow($this->obj);
+		$keys = array_keys($mapRow);
+		$params = str_split(str_repeat('?', count($keys)));
+
+		$sql = 'INSERT INTO ' . static::TABLE . ' (' . implode(',', $keys) . ') VALUES (' . implode(', ', $params) . ') ';
+		$stmt = $this->execSql($sql, array_values($mapRow));
 		return $this->error($stmt);
 	}
 
 	/** Atualiza o registro */
 	protected function update() {
-		$mapRow = $this->mapRow($this->obj);
+		$mapRow = static::mapRow($this->obj);
 		$keys = array_keys($mapRow);
 		$values = array_values($mapRow);
+		$values[] = $this->obj->getId();
 		$params = [];
+
 		foreach ($keys as $key):
 			$params[] = $key . ' = ?';
 		endforeach;
-		$values[] = $this->obj->getId();
 
-		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE ' . static::TABLE . '_id = ? ';
-		if ($this->pdo) {
-			$this->debug($sql, $values);
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute($values);
-		}
+		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE ' . $this->getPrimaryKey() . ' = ? ';
+		$stmt = $this->execSql($sql, $values);
 		return $this->error($stmt);
 	}
 
@@ -151,7 +152,11 @@ abstract class DAO implements DAOInterface {
 	 * @param object $obj
 	 */
 	public function delete($obj) {
-		$this->deleteById($obj->getId());
+		$this->obj = $obj;
+		$this->onDelete();
+		$filters = [$this->getPrimaryKey() . ' = ?' => $obj->getId()];
+		$sql = 'DELETE FROM ' . static::TABLE . ' ' . $this->whereSQL($filters);
+		$this->execSql($sql, $this->getFilterValues($filters));
 	}
 
 	/**
@@ -159,7 +164,7 @@ abstract class DAO implements DAOInterface {
 	 * @param int $id
 	 */
 	public function deleteById($id) {
-		$this->deleteByField(static::TABLE . '_id', $id);
+		$this->deleteByField($this->getPrimaryKey() . '', $id);
 	}
 
 	/**
@@ -168,13 +173,23 @@ abstract class DAO implements DAOInterface {
 	 * * @param mixed $value
 	 */
 	public function deleteByField($name, $value) {
-		$sql = 'DELETE FROM ' . static::TABLE . ' WHERE ' . $name . ' = :value';
-		if ($this->pdo) {
-			$this->debug($sql, $value);
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->bindValue(':value', $value);
-			$stmt->execute();
-		}
+		$this->deleteAll([$name . ' = ?' => $value]);
+	}
+
+	/**
+	 * Exclui todos os registros
+	 * @param mixed[] $filters
+	 */
+	public function deleteAll($filters = []) {
+		$fixed = $this->fixedFilter;
+		$this->fixedFilter = [];
+
+		$objList = $this->fetchAll($filters);
+		foreach ($objList as $obj):
+			$this->delete($obj);
+		endforeach;
+
+		$this->fixedFilter = $fixed;
 	}
 
 	/**
@@ -182,7 +197,7 @@ abstract class DAO implements DAOInterface {
 	 * @param int $id
 	 */
 	public function fetchById($id) {
-		return $this->fetchByField(static::TABLE . '_id', $id);
+		return $this->fetchByField($this->getPrimaryKey() . '', $id);
 	}
 
 	/**
@@ -203,16 +218,13 @@ abstract class DAO implements DAOInterface {
 		if (!is_array($filters)):
 			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
-		$sql = $this->selectSQL() . ' ' . ' ' . $this->whereSQL($filters) . ' ' . $option;
+		$sql = $this->selectSQL($this->selectCollumns) . ' ' . ' ' . $this->whereSQL($filters) . ' ' . $option;
 		$result = [];
 		if ($this->pdo) {
-			$this->debug($sql, $this->getFilterValues($filters));
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute($this->getFilterValues($filters));
-
+			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
 			$result = $stmt->fetch();
 		}
-		return $this->mapObject($result);
+		return static::mapObject($result);
 	}
 
 	/**
@@ -231,14 +243,13 @@ abstract class DAO implements DAOInterface {
 		endif;
 
 		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filters) . ' ' . $option;
+
 		if ($this->pdo) {
-			$this->debug($sql, $this->getFilterValues($filters));
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute($this->getFilterValues($filters));
+			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
 
 			$results = $stmt->fetchAll();
 			foreach ($results as $result):
-				$array[] = $this->mapObject($result);
+				$array[] = static::mapObject($result);
 			endforeach;
 		}
 		return $array;
@@ -251,7 +262,7 @@ abstract class DAO implements DAOInterface {
 	 * @example "SELECT * FROM user"
 	 */
 	protected function selectSQL($selectCollumns = ['*']) {
-		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE . ' ' . static::JOIN;
+		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE . ' ' . $this->join;
 	}
 
 	/**
@@ -276,13 +287,10 @@ abstract class DAO implements DAOInterface {
 			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
 
-		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . static::JOIN . ' ' . $this->whereSQL($filters) . ' ' . $option;
+		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . $this->join . ' ' . $this->whereSQL($filters) . ' ' . $option;
 
 		if ($this->pdo) {
-			$this->debug($sql, $this->getFilterValues($filters));
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute($this->getFilterValues($filters));
-
+			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
 			$result = $stmt->fetch();
 			$total = $result['total'];
 		}
@@ -294,7 +302,7 @@ abstract class DAO implements DAOInterface {
 	 * @return boolean
 	 */
 	protected function objExists($obj) {
-		return ($obj->getId() > 0);
+		return ($this->numRows([$this->getPrimaryKey() . ' = ?' => $obj->getId()]));
 	}
 
 	/** Define como Página 404 se o objeto não existir */
@@ -311,10 +319,15 @@ abstract class DAO implements DAOInterface {
 	 * @param mixed[] $values
 	 */
 	protected function debug($sql, $values = []) {
+
 		if (static::$debug) {
-			var_dump($sql);
-			var_dump($values);
-			var_dump('...');
+			foreach ($values as $value):
+				$sql = preg_replace('/\?/', '<b style="color:#D22;">"' . $value . '"</b>', $sql, 1);
+			endforeach;
+
+			$find = [' WHERE ', ' ' . static::TABLE . ' '];
+			$replace = [' <b style="color:#22D">WHERE</b> ', ' </b>' . static::TABLE . ' '];
+			echo '<pre><b>' . str_replace($find, $replace, $sql) . '</pre>';
 		}
 	}
 
@@ -328,6 +341,18 @@ abstract class DAO implements DAOInterface {
 
 	protected function afterSave() {
 		
+	}
+
+	protected function onDelete() {
+		
+	}
+
+	/** @return string Retorna o nome da PK */
+	private function getPrimaryKey() {
+		if (is_null($this->primaryKey)) {
+			$this->primaryKey = static::TABLE . '_id';
+		}
+		return $this->primaryKey;
 	}
 
 }
