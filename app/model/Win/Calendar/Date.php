@@ -262,19 +262,17 @@ class Date {
 	 * @param string $tipo [days,month,years]
 	 */
 	public function sumTime($time, $tipo = 'days') {
-		$newTime = strtotime('+' . $time . ' ' . $tipo, strtotime($this->format('d-m-y')));
-		$this->day = date('d', $newTime);
-		$this->month = date('m', $newTime);
-		$this->year = date('Y', $newTime);
+		$newTime = strtotime('+' . $time . ' ' . $tipo, strtotime($this->format('d-m-y h:i:s')));
+		$this->initDateTime(date('Y-m-d H:i:s', $newTime));
 	}
 
 	/**
 	 * Retorna a diferença em Segundos entre duas datas
-	 * @param Data $date1
-	 * @param Data $date2
+	 * @param Date $date1
+	 * @param Date $date2
 	 * @return float Diferença em Segundos
 	 */
-	public static function secondsDiff(Data $date1, Data $date2) {
+	public static function diffSeconds(Date $date1, Date $date2) {
 		$mkTime1 = mktime($date1->getHour(), $date1->getMinute(), $date1->getSecond(), $date1->getMonth(), $date1->getDay(), $date1->getYear());
 		$mkTime2 = mktime($date2->getHour(), $date2->getMinute(), $date2->getSecond(), $date2->getMonth(), $date2->getDay(), $date2->getYear());
 		$mkTimeDiff = $mkTime2 - $mkTime1;
@@ -284,12 +282,12 @@ class Date {
 
 	/**
 	 * Retorna a diferença em Dias entre duas datas
-	 * @param Data $date1
-	 * @param Data $date2
+	 * @param Date $date1
+	 * @param Date $date2
 	 * @return float Diferença em Dias
 	 */
-	public static function daysDiff(Data $date1, Data $date2) {
-		$diffInDay = ((self::secondsDiff($date1, $date2)) / 86400);
+	public static function diffDays(Date $date1, Date $date2) {
+		$diffInDay = ((self::diffSeconds($date1, $date2)) / 86400);
 		return $diffInDay;
 	}
 

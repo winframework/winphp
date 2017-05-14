@@ -87,9 +87,8 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 */
 	public function updateLoginDate(User $user) {
 		$now = new Date();
-		$userClone = clone $user;
-		$userClone->setLoginDate($now);
-		return $this->save($userClone);
+		$user->setLoginDate($now);
+		return $this->save($user);
 	}
 
 	/**
@@ -100,6 +99,16 @@ class UserDAO extends DAO implements UserDAOInterface {
 	public function updateRecoveryHash(User $user) {
 		$hash = md5($user->getEmail() . date('Y-m-d'));
 		$user->setRecoreryHash($hash);
+		return $this->save($user);
+	}
+
+	/**
+	 * Limpa o recoveryHash
+	 * @param User $user
+	 * @return string|null
+	 */
+	public function clearRecoveryHash(User $user) {
+		$user->setRecoreryHash('');
 		return $this->save($user);
 	}
 

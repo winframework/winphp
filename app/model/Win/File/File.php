@@ -12,6 +12,8 @@ class File {
 	private $tempName = null;
 	private $extension = null;
 	private $size = 0;
+
+	/** @var Directory */
 	private $directory = null;
 	protected $uploadPrepared = false;
 	private $oldName = null;
@@ -138,7 +140,7 @@ class File {
 				return 'Houve um erro ao enviar o arquivo, verifique se o arquivo não ultrapasse o tamanho máximo permitido. ';
 			} elseif (!in_array($this->extension, static::$validExtensions)) {
 				return 'Tipo de arquivo inválido, somente ' . strtoupper(implode('/', static::$validExtensions)) . '.';
-			} elseif ((!file_exists($this->directory))) {
+			} elseif ((!file_exists($this->directory) && !$this->directory->create(0777))) {
 				return 'O diretorio ' . $this->directory . ' não existe.';
 			} elseif ($this->size > (static::$maxSize * 1024 * 1024) or $this->size == 0) {
 				return 'O tamanho do arquivo deve ser entre 0kb e ' . static::$maxSize . 'Mb.';
@@ -197,6 +199,19 @@ class File {
 	}
 
 	/**
+	 * Remove diretorio(s) por expressao regular
+	 * @param string $regExp
+	 * @return int quantidade de diretorios removidos
+	 */
+	public static function removeRegExp($regExp) {
+		$fileNames = glob($regExp);
+		foreach ($fileNames as $filename) {
+			unlink($filename);
+		}
+		return count($fileNames);
+	}
+
+	/**
 	 * Retorna a extension pelo nome
 	 * @param string $name
 	 * @return string
@@ -204,6 +219,28 @@ class File {
 	protected static function getExtensionByName($name) {
 		$ext = explode('.', $name);
 		return strtolower(end($ext));
+	}
+
+	/**
+	 * Salva conteudo no arquivo
+	 * @param string $content
+	 * @param string $mode
+	 */
+	public function write($content = '', $mode = 'a') {
+		if (!is_null($this->getName())) {
+			$this->directory->create(0777);
+			$fp = fopen($this->getFullName(), $mode);
+			fwrite($fp, $content);
+			fclose($fp);
+		}
+	}
+
+	/**
+	 * Retorna o conteudo do arquivo
+	 * @param string $content
+	 */
+	public function read() {
+		return file_get_contents($this->getFullName());
 	}
 
 }

@@ -2,7 +2,7 @@
 
 namespace Win\File;
 
-use \PhpThumbFactory;
+use PhpThumbFactory;
 
 /**
  * Arquivos de Imagem
@@ -86,14 +86,19 @@ class Image extends File {
 	}
 
 	public function removeOld() {
-		$this->clearCache();
+		$this->clearCache($this->getOldName());
 		parent::removeOld();
 	}
 
+	public function remove() {
+		$this->clearCache($this->getFullName());
+		parent::remove();
+	}
+
 	/** Limpa imagens em cache */
-	public function clearCache() {
-		$cacheDirectory = new Directory('data/cache/thumb/');
-		$cacheDirectory->remove();
+	public function clearCache($name) {
+		$dir = 'data/cache/thumb/*/*/';
+		File::removeRegExp($dir . $name);
 	}
 
 }
