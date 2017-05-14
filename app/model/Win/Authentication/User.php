@@ -105,7 +105,7 @@ class User {
 
 	public function getGroup() {
 		if (is_null($this->group)) {
-			// groupDAO
+// groupDAO
 		}
 		return $this->group;
 	}
@@ -149,6 +149,11 @@ class User {
 
 	public function getRecoreryHash() {
 		return $this->recoreryHash;
+	}
+
+	/** @return string */
+	public function getRecoveryUrl() {
+		return Application::app()->getBaseUrl() . 'login/alterar-senha/' . $this->getRecoreryHash() . '/';
 	}
 
 	public function getImage() {
@@ -329,9 +334,7 @@ class User {
 
 		if ($user->getId() > 0) {
 			$uDAO->updateRecoveryHash($user);
-
-			$url = Application::app()->getBaseUrl() . 'login/alterar-senha/' . $user->getRecoreryHash() . '/';
-			$content = new Block('email/content/recovery-password', ['user' => $user, 'url' => $url]);
+			$content = new Block('email/content/recovery-password', ['user' => $user]);
 
 			$mail = new Email();
 			$mail->setFrom(EMAIL_FROM, Application::app()->getName());
