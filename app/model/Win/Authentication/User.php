@@ -329,7 +329,9 @@ class User {
 
 		if ($user->getId() > 0) {
 			$uDAO->updateRecoveryHash($user);
-			$content = new Block('email/content/recovery-password', ['user' => $user]);
+
+			$url = Application::app()->getBaseUrl() . 'login/alterar-senha/' . $user->getRecoreryHash() . '/';
+			$content = new Block('email/content/recovery-password', ['user' => $user, 'url' => $url]);
 
 			$mail = new Email();
 			$mail->setFrom(EMAIL_FROM, Application::app()->getName());
