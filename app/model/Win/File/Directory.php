@@ -31,14 +31,14 @@ class Directory {
 	 * @param int $chmod permissões deste diretório
 	 * @return boolean Retora TRUE caso obtenha algum sucesso
 	 */
-	public function create($chmod = '0755') {
-		if (file_exists($this->path)) {
-			return false;
-		} elseif (!@mkdir($this->path, $chmod)) {
-			return false;
-		} else {
-			return true;
+	public function create($chmod = 0755) {
+		if (!file_exists($this->path)) {
+			$old = umask(0);
+			$success = @mkdir($this->path, $chmod, STREAM_MKDIR_RECURSIVE);
+			umask($old);
+			return $success;
 		}
+		return false;
 	}
 
 	/**

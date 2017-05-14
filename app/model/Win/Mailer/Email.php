@@ -2,8 +2,12 @@
 
 namespace Win\Mailer;
 
-use Win\Mvc\Block;
+use PHPMailer;
+use Win\File\Directory;
+use Win\File\File;
 use Win\Mvc\Application;
+use Win\Mvc\Block;
+use const BASE_PATH;
 
 /**
  * Envios de E-mails
@@ -29,7 +33,7 @@ class Email {
 
 		spl_autoload_register('\Win\Mailer\Email::autoload');
 
-		$this->mailer = new \PHPMailer();
+		$this->mailer = new PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->SetLanguage('br');
 		$this->mailer->IsMail();
@@ -148,9 +152,22 @@ class Email {
 				return 'Houve um erro ao enviar o e-mail.<br /><span style="display:none">' . $this->mailer->ErrorInfo . '</span>';
 			}
 			return null;
+		} else {
+			$this->saveOnDisk();
 		}
-		$this->layout->toHtml();
 		return null;
+	}
+
+	/**
+	 * Salva o email em um arquivo
+	 */
+	private function saveOnDisk() {
+		$file = new File();
+		$file->setDirectory('data/email');
+
+		$fileName = date('Y-m-d H:i:s') . ' ' . strtolower(md5(uniqid(time()))) . '.html';
+		$file->setName($fileName);
+		$file->write($this->layout->toString());
 	}
 
 }

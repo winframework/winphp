@@ -23,6 +23,10 @@ class User {
 	const ACCESS_ALLOWED = 1;
 	const ACCESS_ADMIN = 2;
 
+	/* Lock after many login fails */
+	const LOCK_TRIES = 5;
+	const LOCK_TIME_MINUTES = 10;
+
 	private static $passwordSalt = 'E50H%gDui#';
 	private $id;
 	private $isEnabled;
@@ -38,6 +42,10 @@ class User {
 
 	/** @var Date */
 	private $loginDate;
+
+	/** @var Date */
+	private $loginLockDate;
+	public $loginFailCount = 0;
 
 	/** @var Image */
 	private $image;
@@ -64,6 +72,7 @@ class User {
 		$this->image = new Image();
 		$this->image->setDirectory('data/upload/user');
 		$this->loginDate = new Date('00/00/0000');
+		$this->loginLockDate = new Date('00/00/0000');
 		$this->group = null;
 		$this->groupId = 0;
 		$this->person = null;
@@ -150,6 +159,21 @@ class User {
 		return $this->loginDate;
 	}
 
+	public function getLoginLockDate() {
+		return $this->loginLockDate;
+	}
+
+	/** @return Date retorna data que poderá logar novamente sem bloqueio */
+	public function getLoginUnlockDate() {
+		$date = clone $this->getLoginLockDate();
+		$date->sumTime(static::LOCK_TIME_MINUTES, 'minutes');
+		return $date;
+	}
+
+	public function getLockedMsg() {
+		return 'Você foi bloqueado por realizar ' . static::LOCK_TRIES . ' tentativas de login.<br /> Você poderá tentar novamente ' . $this->getLoginUnlockDate()->toHumanFormat() . '.';
+	}
+
 	public function setId($id) {
 		$this->id = (int) $id;
 	}
@@ -226,12 +250,18 @@ class User {
 		];
 		$uDAO = new UserDAO();
 		$user = $uDAO->fetch($filters);
+		$this->setCurrentUser($user);
 
-		if ($user->getId() > 0) {
-			$this->setCurrentUser($user);
+		if ($user->getId() > 0 && !$this->isLocked()) {
+			$this->isLogged = true;
+			$uDAO->clearRecoveryHash($user);
 			$uDAO->updateLoginDate($user);
+			$this->loginFailCount = 0;
+		} else {
+			$this->incrementLoginFail();
 		}
-		return $user->isLogged;
+
+		return $this->isLogged;
 	}
 
 	/** Realiza logout */
@@ -239,11 +269,28 @@ class User {
 		unset($_SESSION['user']);
 	}
 
+	private function incrementLoginFail() {
+		$this->loginFailCount++;
+		if ($this->loginFailCount >= static::LOCK_TRIES && !$this->isLocked()) {
+			$this->loginLockDate = new Date();
+			$this->loginFailCount = 0;
+		}
+	}
+
+	/** @return boolean retorna TRUE se está bloqueado por tentativas de login */
+	public function isLocked() {
+		$diff = Date::diffSeconds($this->getLoginUnlockDate(), new Date);
+		return (boolean) ($diff <= 0 );
+	}
+
+	/** @return int total de tentativas restantes até ser bloqueado */
+	public function getLoginTriesLeft() {
+		return (static::LOCK_TRIES - $this->loginFailCount);
+	}
+
 	/** Objeto > Sessão */
 	private function setCurrentUser(User $user) {
-		$_SESSION['user'] = $user;
-		$user->isLogged = true;
-		$this->isLogged = true;
+		$_SESSION['user'] = $this;
 		$this->id = $user->getId();
 		$this->accessLevel = $user->getAccessLevel();
 		$this->name = $user->getName();
@@ -297,7 +344,7 @@ class User {
 
 	/** Define os atributos que são salvos na SESSAO */
 	public function __sleep() {
-		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'loginDate', 'groupId'];
+		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'loginDate', 'groupId', 'loginFailCount', 'loginLockDate'];
 	}
 
 	/**
