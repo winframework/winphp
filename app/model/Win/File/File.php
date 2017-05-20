@@ -83,6 +83,10 @@ class File {
 		return $this->getDirectory() . $this->getName();
 	}
 
+	public static function getValidExtensions() {
+		return static::$validExtensions;
+	}
+
 	public function __toString() {
 		if ($this->getName() != '') {
 			return $this->getFullName();
@@ -140,7 +144,7 @@ class File {
 				return 'Houve um erro ao enviar o arquivo, verifique se o arquivo não ultrapasse o tamanho máximo permitido. ';
 			} elseif (!in_array($this->extension, static::$validExtensions)) {
 				return 'Tipo de arquivo inválido, somente ' . strtoupper(implode('/', static::$validExtensions)) . '.';
-			} elseif ((!file_exists($this->directory) && !$this->directory->create(0777))) {
+			} elseif ((!file_exists($this->directory) && !$this->directory->create())) {
 				return 'O diretorio ' . $this->directory . ' não existe.';
 			} elseif ($this->size > (static::$maxSize * 1024 * 1024) or $this->size == 0) {
 				return 'O tamanho do arquivo deve ser entre 0kb e ' . static::$maxSize . 'Mb.';
@@ -228,7 +232,7 @@ class File {
 	 */
 	public function write($content = '', $mode = 'a') {
 		if (!is_null($this->getName())) {
-			$this->directory->create(0777);
+			$this->directory->create();
 			$fp = fopen($this->getFullName(), $mode);
 			fwrite($fp, $content);
 			fclose($fp);

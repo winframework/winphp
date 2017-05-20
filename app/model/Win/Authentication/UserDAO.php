@@ -31,7 +31,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 			return 'O campo E-mail deve ser informado duas vezes iguais.';
 		} elseif (strlen($this->obj->getEmail()) > 0 and $this->emailIsUsed()) {
 			return 'Já existe um usuário com este e-mail.';
-		} elseif (!$this->obj->accessIsDenied() && $this->obj->getPassword() !== null && strlen($this->obj->getPassword()) < 4) {
+		} elseif (!$this->obj->accessIsDenied() && ($this->obj->getPassword() !== null || $this->obj->getId() === 0) && strlen($this->obj->getPassword()) < 4) {
 			return 'A senha deve possuir pelo menos 4 caracteres.';
 		} elseif ($this->obj->getConfirmPassword() != $this->obj->getPassword()) {
 			return 'O campo Senha deve ser informado duas vezes iguais.';

@@ -2,6 +2,8 @@
 
 namespace Win\File;
 
+use Win\Mvc\Application;
+
 /**
  * Diretorio de arquivos
  */
@@ -33,9 +35,7 @@ class Directory {
 	 */
 	public function create($chmod = 0755) {
 		if (!file_exists($this->path)) {
-			$old = umask(0);
 			$success = @mkdir($this->path, $chmod, STREAM_MKDIR_RECURSIVE);
-			umask($old);
 			return $success;
 		}
 		return false;

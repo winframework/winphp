@@ -15,9 +15,14 @@ abstract class DAO implements DAOInterface {
 
 	/** @var string[] */
 	protected $selectCollumns = ['*'];
-	protected $join = '';
+	protected $joins = [];
+	protected $fixedFilters = [];
+
+	/** @var string */
 	protected $primaryKey = null;
-	protected $fixedFilter = [];
+
+	/** @var int */
+	protected $totalPerPage = null;
 
 	/** @var boolean */
 	public static $debug = false;
@@ -71,14 +76,14 @@ abstract class DAO implements DAOInterface {
 		if (is_null($error) and $this->pdo !== false) {
 			$error = $this->beforeSave();
 			$mode = (!$this->objExists($obj)) ? 'insert' : 'update';
-			
+
 			if ($mode == 'insert' && is_null($error)) {
 				$error = $this->insert();
 				$this->obj->setId($this->pdo->lastInsertId());
 			} elseif (is_null($error)) {
 				$error = $this->update();
 			}
-			
+
 			if (is_null($error)) {
 				$error = $this->afterSave();
 			}
@@ -150,6 +155,7 @@ abstract class DAO implements DAOInterface {
 	/**
 	 * Exclui o registro
 	 * @param object $obj
+	 * @param mixed[] $filters
 	 */
 	public function delete($obj) {
 		$this->obj = $obj;
@@ -181,15 +187,15 @@ abstract class DAO implements DAOInterface {
 	 * @param mixed[] $filters
 	 */
 	public function deleteAll($filters = []) {
-		$fixed = $this->fixedFilter;
-		$this->fixedFilter = [];
+		$fixed = $this->fixedFilters;
+		$this->fixedFilters = [];
 
 		$objList = $this->fetchAll($filters);
 		foreach ($objList as $obj):
 			$this->delete($obj);
 		endforeach;
 
-		$this->fixedFilter = $fixed;
+		$this->fixedFilters = $fixed;
 	}
 
 	/**
@@ -212,13 +218,13 @@ abstract class DAO implements DAOInterface {
 	/**
 	 * Busca o objeto
 	 * @param string[] $filters Array de filtros
-	 * @param string $option [Order by, Limit, etc]
+	 * @param string $option [Order by, Group by, etc]
 	 */
 	public function fetch($filters, $option = 'ORDER BY 1 DESC') {
 		if (!is_array($filters)):
 			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
-		$sql = $this->selectSQL($this->selectCollumns) . ' ' . ' ' . $this->whereSQL($filters) . ' ' . $option;
+		$sql = $this->selectSQL($this->selectCollumns) . ' ' . ' ' . $this->whereSQL($filters) . ' ' . $option . ' ' . $this->limitSQL();
 		$result = [];
 		if ($this->pdo) {
 			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
@@ -234,7 +240,7 @@ abstract class DAO implements DAOInterface {
 	 * $dao->fetchAll( ['id = ?' => 10]);
 	 * </code>
 	 * @param string[] $filters Array de filtros
-	 * @param string $option [Order by, Limit, etc]
+	 * @param string $option [Order by, Group by, etc]
 	 */
 	public function fetchAll($filters = [], $option = 'ORDER BY 1 DESC') {
 		$array = [];
@@ -242,7 +248,7 @@ abstract class DAO implements DAOInterface {
 			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
 
-		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filters) . ' ' . $option;
+		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filters) . ' ' . $option . ' ' . $this->limitSQL();
 
 		if ($this->pdo) {
 			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
@@ -262,7 +268,7 @@ abstract class DAO implements DAOInterface {
 	 * @example "SELECT * FROM user"
 	 */
 	protected function selectSQL($selectCollumns = ['*']) {
-		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE . ' ' . $this->join;
+		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE . ' ' . implode(' ', $this->joins);
 	}
 
 	/**
@@ -271,7 +277,7 @@ abstract class DAO implements DAOInterface {
 	 * @return string
 	 */
 	protected function whereSQL(&$filters) {
-		$keys = array_keys($filters + $this->fixedFilter);
+		$keys = array_keys($filters + $this->fixedFilters);
 		return ($keys) ? 'WHERE ' . implode(' AND ', $keys) : '';
 	}
 
@@ -287,7 +293,7 @@ abstract class DAO implements DAOInterface {
 			throw new \Exception("Filter: '{$filters}' must be a array");
 		endif;
 
-		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . $this->join . ' ' . $this->whereSQL($filters) . ' ' . $option;
+		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . implode(' ', $this->joins) . ' ' . $this->whereSQL($filters) . ' ' . $option . ' ' . $this->limitSQL();
 
 		if ($this->pdo) {
 			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
@@ -299,10 +305,11 @@ abstract class DAO implements DAOInterface {
 
 	/**
 	 * Retorna True se objeto existir
+	 * @param mixed $obj
 	 * @return boolean
 	 */
-	protected function objExists($obj) {
-		return ($this->numRows([$this->getPrimaryKey() . ' = ?' => $obj->getId()]));
+	public function objExists($obj) {
+		return ($obj->getId() > 0 && $this->numRows([$this->getPrimaryKey() . ' = ?' => $obj->getId()]));
 	}
 
 	/** Define como Página 404 se o objeto não existir */
@@ -332,7 +339,7 @@ abstract class DAO implements DAOInterface {
 	}
 
 	private function getFilterValues($filters) {
-		return array_values($filters + $this->fixedFilter);
+		return array_values($filters + $this->fixedFilters);
 	}
 
 	protected function beforeSave() {
@@ -353,6 +360,31 @@ abstract class DAO implements DAOInterface {
 			$this->primaryKey = static::TABLE . '_id';
 		}
 		return $this->primaryKey;
+	}
+
+	/**
+	 * Define a paginação dos itens
+	 * @param int totalPerPage
+	 */
+	public function paginate($totalPerPage) {
+		$this->totalPerPage = $totalPerPage;
+	}
+
+	/**
+	 * Busca os registros baseado na paginação definida
+	 * @return string
+	 */
+	protected function limitSQL() {
+		if (!is_null($this->totalPerPage)) {
+			$begin = $this->totalPerPage * $this->getCurrentPage();
+			return 'LIMIT ' . $begin . ',' . $this->totalPerPage;
+		}
+		return '';
+	}
+
+	/** @return int Paginação atual */
+	private function getCurrentPage() {
+		return (int) (isset($_GET['p']) && $_GET['p'] > 0) ? $_GET['p'] : 1;
 	}
 
 }

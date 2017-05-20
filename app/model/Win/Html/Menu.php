@@ -12,14 +12,17 @@ use Win\Helper\Url;
 class Menu {
 
 	/**
-	 * Usado para ativar links
+	 * Usado para ativar links (aceita arrays)
 	 *
 	 * Retorna 'active' se o link informado for a página atual
 	 * ou se o link for idêntico ao início da Url
-	 * @param string $link href do link/botão
+	 * @param string|string[] $link href do link/botão
 	 * @return string 'active'|''
 	 */
 	public static function active($link) {
+		if (is_array($link)) {
+			return static::multiActive($link);
+		}
 		$app = Application::app();
 		if ($link === $app->getPage() || strpos($app->getUrl(), Url::instance()->format($link)) === 0) {
 			return 'active';
@@ -29,8 +32,6 @@ class Menu {
 
 	/**
 	 * Usado para ativar multiplos links
-	 *
-	 * Semelhante ao metodo active(), mas este aceita arrays
 	 * @param string[] $linkList
 	 * @return string 'active'|''
 	 */

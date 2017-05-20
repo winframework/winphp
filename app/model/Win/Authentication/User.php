@@ -2,15 +2,18 @@
 
 namespace Win\Authentication;
 
-use Win\Mvc\Application;
-use Win\Authentication\UserDAO;
 use Local\Person\Person;
 use Local\Person\PersonDAO;
-use Win\Helper\Url;
-use Win\Mvc\Block;
-use Win\Mailer\Email;
-use Win\File\Image;
+use Win\Alert\AlertError;
+use Win\Authentication\UserDAO;
 use Win\Calendar\Date;
+use Win\File\Image;
+use Win\Helper\Url;
+use Win\Mailer\Email;
+use Win\Mvc\Application;
+use Win\Mvc\Block;
+use const EMAIL_FROM;
+use function strClear;
 
 /**
  * Usuários do sistema
@@ -305,7 +308,25 @@ class User {
 
 	/** Objeto < Sessão */
 	public static function getCurrentUser() {
-		return (isset($_SESSION['user'])) ? $_SESSION['user'] : new User();
+		/* @var $user User */
+		$user = (isset($_SESSION['user'])) ? $_SESSION['user'] : new User();
+		static::preventDeletedAndLogged($user);
+		return $user;
+	}
+
+	/**
+	 * Evita que um usuário seja removido e continue logado
+	 * @param User $user
+	 */
+	private static function preventDeletedAndLogged(User $user) {
+		if ($user->isLogged) {
+			$dao = new UserDAO();
+			if (!$dao->objExists($user)) {
+				$user->logout();
+				new AlertError('Sua sessão foi finalizada, tente realizar o login novamente.');
+				Application::app()->refresh();
+			}
+		}
 	}
 
 	/** Obriga o usuário a se logar */
