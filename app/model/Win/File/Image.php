@@ -97,8 +97,10 @@ class Image extends File {
 
 	/** Limpa imagens em cache */
 	public function clearCache($name) {
-		$dir = 'data/cache/thumb/*/*/';
-		File::removeRegExp($dir . $name);
+		if ($this->exists()) {
+			$dir = 'data/cache/thumb/*/*/';
+			File::removeRegExp($dir . $name);
+		}
 	}
 
 }

@@ -12,7 +12,7 @@ use Win\Authentication\User;
  * Framework em PHP baseado em MVC
  * Esta classe é responśavel por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 0.1
+ * @version 1.0
  */
 class Application {
 
@@ -263,10 +263,7 @@ class Application {
 	 */
 	public function errorPage($errorCode) {
 		if (key_exists($errorCode, $this->errorPageList)):
-			if ($errorCode == 403 && $this->getParam(0) !== (string) $errorCode):
-				$this->redirect(403);
-			endif;
-
+			$this->stopControllerIf403($errorCode);
 			$this->page = (string) $errorCode;
 			$this->view = new View($errorCode);
 			$this->title = $this->errorPageList[$errorCode];
@@ -275,6 +272,17 @@ class Application {
 			if ($this->getParam(0) !== (string) $errorCode):
 				$this->controller->reload();
 			endif;
+		endif;
+	}
+
+	/**
+	 * Trava o carregamento do controller, se ele definir um erro 403
+	 * Isso evita que códigos sem permissões de acesso nunca sejam executados
+	 * @param int $errorCode
+	 */
+	private function stopControllerIf403($errorCode) {
+		if ($errorCode == 403 && $this->getParam(0) !== (string) $errorCode):
+			$this->redirect(403 . '/index/' . $this->getUrl());
 		endif;
 	}
 
