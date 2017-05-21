@@ -21,19 +21,20 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @return string|null
 	 */
 	protected function validate() {
-		if (strlen($this->obj->getName()) < 2) {
+		
+		if (strlen($this->obj->name) < 2) {
 			return 'O campo Nome deve possuir pelo menos 2 caracteres.';
 		} elseif (!$this->obj->accessIsDenied() && strlen($this->obj->getEmail()) == 0) {
 			return 'O campo E-mail deve ser preenchido.';
 		} elseif (!$this->obj->accessIsDenied() && !filter_var($this->obj->getEmail(), FILTER_VALIDATE_EMAIL)) {
 			return 'O campo E-mail deve ser um e-mail válido.';
-		} elseif (!$this->obj->accessIsDenied() && $this->obj->getConfirmEmail() !== null && $this->obj->getConfirmEmail() != $this->obj->getEmail()) {
+		} elseif (!$this->obj->accessIsDenied() && $this->obj->confirmEmail()) {
 			return 'O campo E-mail deve ser informado duas vezes iguais.';
 		} elseif (strlen($this->obj->getEmail()) > 0 and $this->emailIsUsed()) {
 			return 'Já existe um usuário com este e-mail.';
 		} elseif (!$this->obj->accessIsDenied() && ($this->obj->getPassword() !== null || $this->obj->getId() === 0) && strlen($this->obj->getPassword()) < 4) {
 			return 'A senha deve possuir pelo menos 4 caracteres.';
-		} elseif ($this->obj->getConfirmPassword() != $this->obj->getPassword()) {
+		} elseif (!$this->obj->confirmPassword()) {
 			return 'O campo Senha deve ser informado duas vezes iguais.';
 		}
 		return null;
@@ -45,17 +46,16 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 */
 	public static function mapObject($row) {
 		$obj = new User();
-		$obj->setId($row['person_id']);
-		$obj->setEnabled($row['is_enabled']);
-		$obj->setAccessLevel($row['access_level']);
+		$obj->id = $row['person_id'];
+		$obj->isEnabled = $row['is_enabled'];
+		$obj->accessLevel = $row['access_level'];
 		//$obj->setGroupId($row['group_id']);
-		$obj->setName($row['name']);
+		$obj->name = $row['name'];
 		$obj->setEmail($row['email']);
-		$obj->setConfirmEmail($row['email']);
-		$obj->setPasswordHash($row['password_hash']);
-		$obj->setRecoreryHash($row['recovery_hash']);
-		$obj->getImage()->setName($row['image']);
-		$obj->setLoginDate(new Date($row['login_date']));
+		$obj->passwordHash = $row['password_hash'];
+		$obj->recoreryHash = $row['recovery_hash'];
+		$obj->image->setName($row['image']);
+		$obj->loginDate = new Date($row['login_date']);
 		return $obj;
 	}
 
@@ -64,18 +64,18 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @return mixed[]
 	 */
 	public static function mapRow($obj) {
-		$row['person_id'] = $obj->getId();
-		$row['is_enabled'] = (int) $obj->isEnabled();
-		$row['access_level'] = $obj->getAccessLevel();
-		$row['name'] = strClear($obj->getName());
+		$row['person_id'] = $obj->id;
+		$row['is_enabled'] = (int) $obj->isEnabled;
+		$row['access_level'] = $obj->accessLevel;
+		$row['name'] = strClear($obj->name);
 		$row['email'] = strClear($obj->getEmail());
-		$row['image'] = $obj->getImage()->getName();
-		$row['login_date'] = $obj->getLoginDate()->toSql();
-		if (!is_null($obj->getPasswordHash())) {
-			$row['password_hash'] = $obj->getPasswordHash();
+		//$row['image'] = $obj->image->getName();
+		$row['login_date'] = $obj->loginDate->toSql();
+		if (!is_null($obj->passwordHash)) {
+			$row['password_hash'] = $obj->passwordHash;
 		}
-		if (!is_null($obj->getRecoreryHash())) {
-			$row['recovery_hash'] = $obj->getRecoreryHash();
+		if (!is_null($obj->recoreryHash)) {
+			$row['recovery_hash'] = $obj->recoreryHash;
 		}
 		return $row;
 	}
@@ -86,29 +86,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @return string|null
 	 */
 	public function updateLoginDate(User $user) {
-		$now = new Date();
-		$user->setLoginDate($now);
-		return $this->save($user);
-	}
-
-	/**
-	 * Gera/Atualiza um novo recoveryHash
-	 * @param User $user
-	 * @return string|null
-	 */
-	public function updateRecoveryHash(User $user) {
-		$hash = md5($user->getEmail() . date('Y-m-d'));
-		$user->setRecoreryHash($hash);
-		return $this->save($user);
-	}
-
-	/**
-	 * Limpa o recoveryHash
-	 * @param User $user
-	 * @return string|null
-	 */
-	public function clearRecoveryHash(User $user) {
-		$user->setRecoreryHash('');
+		$user->loginDate = new Date();
 		return $this->save($user);
 	}
 
@@ -121,9 +99,9 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 */
 	public function updatePassword($user, $currentPassword = null, $recoveryHash = null) {
 		$savedUser = $this->fetchById($user->getId());
-		if (!is_null($currentPassword) and $savedUser->getPasswordHash() != User::encryptPassword($currentPassword)) {
+		if (!is_null($currentPassword) and $savedUser->passwordHash != Password::encrypt($currentPassword)) {
 			return 'A senha atual não está correta.';
-		} elseif (!is_null($recoveryHash) and $user->getRecoreryHash() !== $recoveryHash) {
+		} elseif (!is_null($recoveryHash) and $user->recoreryHash !== $recoveryHash) {
 			return 'O link de recuperação é inválido.';
 		}
 		return $this->save($user);
@@ -134,7 +112,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @return boolean
 	 */
 	public function emailIsUsed() {
-		return $this->numRows(['email = ?' => $this->obj->getEmail(), 'person_id <> ?' => $this->obj->getId()]);
+		return $this->numRows(['email = ?' => $this->obj->getEmail(), 'person_id <> ?' => $this->obj->id]);
 	}
 
 	public function fetchByRecoveryHash($recoveryHash) {
@@ -142,7 +120,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	}
 
 	public function onDelete() {
-		$this->obj->getImage()->remove();
+		$this->obj->image->remove();
 	}
 
 	/**
@@ -151,10 +129,8 @@ class UserDAO extends DAO implements UserDAOInterface {
 	 * @return string|null
 	 */
 	public function insertFirst(User $user) {
-		$user->setName('Administrador');
-		$user->setAccessLevel(User::ACCESS_ADMIN);
-		$user->setConfirmEmail($user->getEmail());
-		$user->setConfirmPassword($user->getPassword());
+		$user->name = 'Administrador';
+		$user->accessLevel = User::ACCESS_ADMIN;
 
 		if ($this->numRows() === 0) {
 			return $this->save($user);

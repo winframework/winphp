@@ -38,6 +38,9 @@ class Directory {
 			$success = @mkdir($this->path, $chmod, STREAM_MKDIR_RECURSIVE);
 			return $success;
 		}
+		if (Application::app()->isLocalHost()) {
+			chmod($this->path, 0777);
+		}
 		return false;
 	}
 

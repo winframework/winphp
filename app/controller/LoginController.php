@@ -6,6 +6,7 @@ use Win\Alert\AlertError;
 use Win\Alert\AlertInfo;
 use Win\Alert\AlertSuccess;
 use Win\Alert\Session;
+use Win\Authentication\RecoveryPassword;
 use Win\Authentication\User;
 use Win\Authentication\UserDAO;
 use Win\Mvc\Controller;
@@ -51,8 +52,10 @@ class LoginController extends Controller {
 
 			if ($user->login()) {
 				$this->app->redirect($this->redirectTo);
+			} elseif ($user->isLocked()) {
+				new AlertError($user->getLockedMsg());
 			} else {
-				new AlertError('Email/Senha estão incorretos.');
+				new AlertError('Email/Senha estão incorretos. Você ainda possui ' . $user->getLoginTriesLeft() . ' tentativas.');
 			}
 		} else {
 			new AlertInfo('Preencha os campos abaixo:');
@@ -125,7 +128,7 @@ class LoginController extends Controller {
 		if (!Captcha::isValid()) {
 			$error = 'Preencha os caracteres de segurança corretamente.';
 		} else {
-			$error = $user->sendRecoveryHash();
+			$error = RecoveryPassword::sendEmail(Input::post('email'));
 		}
 		return $error;
 	}
@@ -143,8 +146,7 @@ class LoginController extends Controller {
 		$this->validateRecoveryHash($user);
 
 		if (!empty(Input::post('submit'))) {
-			$user->setPassword(Input::post('new_password1'));
-			$user->setConfirmPassword(Input::post('new_password2'));
+			$user->setPassword(Input::post('new_password1'),Input::post('new_password2'));
 			$error = $uDAO->updatePassword($user, null, $recoveryHash);
 
 			if (!$error) {

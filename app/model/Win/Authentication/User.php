@@ -9,18 +9,12 @@ use Win\Authentication\UserDAO;
 use Win\Calendar\Date;
 use Win\File\Image;
 use Win\Helper\Url;
-use Win\Mailer\Email;
 use Win\Mvc\Application;
-use Win\Mvc\Block;
-use const EMAIL_FROM;
-use function strClear;
 
 /**
  * Usuários do sistema
  */
 class User {
-
-	private static $accessLevels = [0, 1, 2];
 
 	const ACCESS_DENIED = 0;
 	const ACCESS_ALLOWED = 1;
@@ -30,32 +24,31 @@ class User {
 	const LOCK_TRIES = 5;
 	const LOCK_TIME_MINUTES = 10;
 
-	private static $passwordSalt = 'E50H%gDui#';
-	private $id;
-	private $isEnabled;
+	public $id;
+	public $isEnabled;
 	private $isLogged;
-	private $accessLevel;
-	private $name;
+	public $accessLevel;
+	public $name;
 	private $email;
 	private $confirmEmail;
 	private $password;
 	private $confirmPassword;
-	private $passwordHash;
-	private $recoreryHash;
+	public $passwordHash;
+	public $recoreryHash;
 
 	/** @var Date */
-	private $loginDate;
+	public $loginDate;
 
 	/** @var Date */
-	private $loginLockDate;
+	public $loginLockDate;
 	public $loginFailCount = 0;
 
 	/** @var Image */
-	private $image;
+	public $image;
 
 	/** @var Group */
 	private $group;
-	private $groupId;
+	public $groupId;
 
 	/** @var Person */
 	private $person;
@@ -85,16 +78,8 @@ class User {
 		return $this->id;
 	}
 
-	public function isEnabled() {
-		return $this->isEnabled;
-	}
-
 	public function isLogged() {
 		return $this->isLogged;
-	}
-
-	public function getAccessLevel() {
-		return $this->accessLevel;
 	}
 
 	public function accessIsDenied() {
@@ -108,13 +93,17 @@ class User {
 
 	public function getGroup() {
 		if (is_null($this->group)) {
-// groupDAO
+			// groupDAO
 		}
 		return $this->group;
 	}
 
-	public function getGroupId() {
-		return $this->groupId;
+	public function getPassword() {
+		return $this->password;
+	}
+
+	public function getEmail() {
+		return $this->email;
 	}
 
 	/** @return Person */
@@ -126,123 +115,34 @@ class User {
 		return $this->person;
 	}
 
-	public function getName() {
-		return $this->name;
-	}
-
-	public function getEmail() {
-		return $this->email;
-	}
-
-	public function getConfirmEmail() {
-		return $this->confirmEmail;
-	}
-
-	public function getPassword() {
-		return $this->password;
-	}
-
-	public function getConfirmPassword() {
-		return $this->confirmPassword;
-	}
-
-	public function getPasswordHash() {
-		return $this->passwordHash;
-	}
-
-	public function getRecoreryHash() {
-		return $this->recoreryHash;
-	}
-
-	/** @return string */
-	public function getRecoveryUrl() {
-		return Application::app()->getBaseUrl() . 'login/alterar-senha/' . $this->getRecoreryHash() . '/';
-	}
-
-	public function getImage() {
-		return $this->image;
-	}
-
-	public function getLoginDate() {
-		return $this->loginDate;
-	}
-
-	public function getLoginLockDate() {
-		return $this->loginLockDate;
-	}
-
 	/** @return Date retorna data que poderá logar novamente sem bloqueio */
 	public function getLoginUnlockDate() {
-		$date = clone $this->getLoginLockDate();
+		$date = clone $this->loginLockDate;
 		$date->sumTime(static::LOCK_TIME_MINUTES, 'minutes');
 		return $date;
 	}
 
 	public function getLockedMsg() {
-		return 'Você foi bloqueado por realizar ' . static::LOCK_TRIES . ' tentativas de login.<br /> Você poderá tentar novamente ' . $this->getLoginUnlockDate()->toHumanFormat() . '.';
+		return 'Você foi bloqueado por realizar ' . static::LOCK_TRIES . ' tentativas de login.<br /> Você poderá tentar novamente ' . $this->getLoginUnlockDate()->toTimeAgo() . '.';
 	}
 
 	public function setId($id) {
-		$this->id = (int) $id;
-	}
-
-	public function setEnabled($enabled) {
-		$this->isEnabled = (boolean) $enabled;
-	}
-
-	public function setAccessLevel($accessLevel) {
-		if (in_array($accessLevel, static::$accessLevels)) {
-			$this->accessLevel = (int) $accessLevel;
-		}
-	}
-
-	public function setGroup(Group $group) {
-		$this->group = $group;
-	}
-
-	public function setGroupId($groupId) {
-		$this->groupId = (int) $groupId;
+		$this->id = $id;
 	}
 
 	public function setPerson(Person $person) {
 		$this->person = $person;
 	}
 
-	public function setName($name) {
-		$this->name = $name;
+	public function setEmail($email, $confirmEmail = null) {
+		$this->email = $email;
+		$this->confirmEmail = $confirmEmail;
 	}
 
-	public function setEmail($email) {
-		$this->email = strClear($email);
-	}
-
-	public function setConfirmEmail($confirmEmail) {
-		$this->confirmEmail = strClear($confirmEmail);
-	}
-
-	public function setPassword($password) {
+	public function setPassword($password, $confirmPassword = null) {
 		$this->password = $password;
-		$this->passwordHash = static::encryptPassword($password);
-	}
-
-	public function setConfirmPassword($confirmPassword) {
 		$this->confirmPassword = $confirmPassword;
-	}
-
-	public function setPasswordHash($passwordHash) {
-		$this->passwordHash = $passwordHash;
-	}
-
-	public function setRecoreryHash($recoreryHash) {
-		$this->recoreryHash = $recoreryHash;
-	}
-
-	public function setLoginDate(Date $loginDate) {
-		$this->loginDate = $loginDate;
-	}
-
-	public function setImage(Image $image) {
-		$this->image = $image;
+		$this->passwordHash = Password::encrypt($password);
 	}
 
 	/**
@@ -260,9 +160,9 @@ class User {
 		$user = $uDAO->fetch($filters);
 		$this->setCurrentUser($user);
 
-		if ($user->getId() > 0 && !$this->isLocked()) {
+		if ($user->id > 0 && !$this->isLocked()) {
 			$this->isLogged = true;
-			$uDAO->clearRecoveryHash($user);
+			RecoveryPassword::clearHash($user);
 			$uDAO->updateLoginDate($user);
 			$this->loginFailCount = 0;
 		} else {
@@ -270,6 +170,16 @@ class User {
 		}
 
 		return $this->isLogged;
+	}
+
+	/** @return boolean TRUE se preencheu os emails iguais */
+	public function confirmEmail() {
+		return $this->confirmEmail !== null || $this->confirmEmail == $this->email;
+	}
+
+	/** @return boolean TRUE se preencheu as senhas iguais */
+	public function confirmPassword() {
+		return $this->confirmPassword == null || $this->confirmPassword == $this->password;
 	}
 
 	/** Realiza logout */
@@ -287,8 +197,8 @@ class User {
 
 	/** @return boolean retorna TRUE se está bloqueado por tentativas de login */
 	public function isLocked() {
-		$diff = Date::diffSeconds($this->getLoginUnlockDate(), new Date);
-		return (boolean) ($diff <= 0 );
+		$diff = $this->getLoginUnlockDate()->diff(new Date());
+		return (boolean) ($diff > 0 );
 	}
 
 	/** @return int total de tentativas restantes até ser bloqueado */
@@ -299,11 +209,11 @@ class User {
 	/** Objeto > Sessão */
 	private function setCurrentUser(User $user) {
 		$_SESSION['user'] = $this;
-		$this->id = $user->getId();
-		$this->accessLevel = $user->getAccessLevel();
-		$this->name = $user->getName();
-		$this->loginDate = $user->getLoginDate();
-		$this->image = $user->getImage();
+		$this->id = $user->id;
+		$this->accessLevel = $user->accessLevel;
+		$this->name = $user->name;
+		$this->loginDate = $user->loginDate;
+		$this->image = $user->image;
 	}
 
 	/** Objeto < Sessão */
@@ -344,59 +254,9 @@ class User {
 		}
 	}
 
-	/**
-	 * Envia link de recuperacao de senha via Email
-	 * @return string | null
-	 */
-	public function sendRecoveryHash() {
-		$filters = ['is_enabled = ?' => true, 'access_level > ?' => 0, 'email = ?' => $this->email];
-		$uDAO = new UserDAO();
-		$user = $uDAO->fetch($filters);
-
-		if ($user->getId() > 0) {
-			$uDAO->updateRecoveryHash($user);
-			$content = new Block('email/content/recovery-password', ['user' => $user]);
-
-			$mail = new Email();
-			$mail->setFrom(EMAIL_FROM, Application::app()->getName());
-			$mail->setSubject('Recuperação de Senha');
-			$mail->addAddress($user->getEmail(), $user->getName());
-			$mail->setContent($content);
-			return $mail->send();
-		} else {
-			return 'Este E-mail não está cadastrado no sistema.';
-		}
-	}
-
 	/** Define os atributos que são salvos na SESSAO */
 	public function __sleep() {
 		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'loginDate', 'groupId', 'loginFailCount', 'loginLockDate'];
-	}
-
-	/**
-	 * Adiciona maior segura na senha/ utilizar esta função ao inves de um simples md5
-	 * @param string $password
-	 */
-	public static function encryptPassword($password) {
-		return md5($password . static::$passwordSalt);
-	}
-
-	/**
-	 * Retorna uma senha aleatoria
-	 * A senha tem sempre pelo menos: 1 caracter especial e 2 numeros;
-	 * @param int $length
-	 * @return string
-	 */
-	public static function generatePassword($length = 6) {
-		$letters = str_shuffle('abcdefghijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXY');
-		$numbers = str_shuffle('23456789');
-		$specials = str_shuffle('@#&');
-
-		$password = substr($letters, 0, $length - 3)
-				. substr($numbers, 0, 2)
-				. substr($specials, 0, 1);
-
-		return str_shuffle($password);
 	}
 
 }
