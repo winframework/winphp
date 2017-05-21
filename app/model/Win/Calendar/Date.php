@@ -7,24 +7,24 @@ namespace Win\Calendar;
  */
 class Date {
 
-	private $year = '00';
-	private $month = '00';
-	private $day = '00';
-	private $hour = '00';
-	private $minute = '00';
-	private $second = '00';
-	static $monthNames = array(0 => "00", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
-	static $zeroDate = '0000-00-00 00:00:00';
+	public $year = '00';
+	public $month = '00';
+	public $day = '00';
+	public $hour = '00';
+	public $minute = '00';
+	public $second = '00';
+	static $monthNames = [0 => "00", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-	const UNITS = array(
-		31536000 => ['ano', 'anos'],
-		2592000 => ['mês', 'mêses'],
-		604800 => ['semana', 'semanas'],
-		86400 => ['dia', 'dias'],
-		3600 => ['hora', 'horas'],
-		60 => ['minuto', 'minutos'],
-		1 => ['segundo', 'segundos']
-	);
+	/** @var int */
+	public static $units = [
+		'seconds' => 1,
+		'minutes' => 60,
+		'hours' => 60 * 60,
+		'days' => 60 * 60 * 24,
+		'weeks' => 60 * 60 * 24 * 7,
+		'months' => 60 * 60 * 24 * 30,
+		'years' => 60 * 60 * 24 * 365
+	];
 
 	/**
 	 * Inicia a data/hora de acordo com a string informada
@@ -32,63 +32,13 @@ class Date {
 	 * @example new Data('01/01/1980 18:00');
 	 */
 	public function __construct($stringDate = null) {
-		if ($stringDate != static::$zeroDate):
-			$this->initDateTime($stringDate);
-		endif;
+		$this->initDateTime($stringDate);
 	}
 
 	/* METODOS DE ACESSO */
 
-	public function getYear() {
-		return $this->year;
-	}
-
-	public function getMonth() {
-		return $this->month;
-	}
-
-	public function getDay() {
-		return $this->day;
-	}
-
-	public function getHour() {
-		return $this->hour;
-	}
-
-	public function getMinute() {
-		return $this->minute;
-	}
-
-	public function getSecond() {
-		return $this->second;
-	}
-
-	public static function getZeroDate() {
-		return self::$zeroDate;
-	}
-
-	public function setYear($year) {
-		$this->year = $year;
-	}
-
-	public function setMonth($month) {
-		$this->month = $month;
-	}
-
-	public function setDay($day) {
-		$this->day = $day;
-	}
-
-	public function setHour($hour) {
-		$this->hour = $hour;
-	}
-
-	public function setMinute($minute) {
-		$this->minute = $minute;
-	}
-
-	public function setSecond($second) {
-		$this->second = $second;
+	public function isEmpty() {
+		return (boolean) $this->year == 0;
 	}
 
 	public function getMonthName() {
@@ -119,17 +69,15 @@ class Date {
 	private function initDate($stringDateOnly) {
 		if (strpos($stringDateOnly, '/') > 0) {
 			/* FORMATO: DD/MM/AAAA */
-			$d1 = explode('/', $stringDateOnly . '///');
-			$this->year = strLengthFormat((int) $d1[2], 4);
-			$this->month = strLengthFormat((int) $d1[1], 2);
-			$this->day = strLengthFormat((int) $d1[0], 2);
+			$date = explode('/', $stringDateOnly . '///');
+			array_reverse($date);
 		} else {
 			/* FORMATO: AAAA-MM-DD */
-			$d1 = explode('-', $stringDateOnly . '---');
-			$this->year = strLengthFormat((int) $d1[0], 4);
-			$this->month = strLengthFormat((int) $d1[1], 2);
-			$this->day = strLengthFormat((int) $d1[2], 2);
+			$date = explode('-', $stringDateOnly . '---');
 		}
+		$this->year = strLengthFormat((int) $date[0], 4);
+		$this->month = strLengthFormat((int) $date[1], 2);
+		$this->day = strLengthFormat((int) $date[2], 2);
 	}
 
 	/**
@@ -153,18 +101,6 @@ class Date {
 	}
 
 	/**
-	 * Retorna a data no padrao SQL DATETIME: "Ano-Mês-Dia Hora:Minuto:Segundo"
-	 * @return string
-	 */
-	public function toSql() {
-		if ($this->year == 0) {
-			return static::$zeroDate;
-		} else {
-			return $this->format('y-m-d h:i:s');
-		}
-	}
-
-	/**
 	 * Retorna a data com o formato padrão 'd/m/y'
 	 * @return string 
 	 */
@@ -173,23 +109,19 @@ class Date {
 	}
 
 	/**
-	 * Retorna a data no formato humano
-	 * @return string (ex: 4 horas atrás), (ex: daqui a 5 dias)
+	 * Retorna a data no padrao SQL DATETIME
+	 * @return string
 	 */
-	public function toHumanFormat() {
-		$time = time() - strtotime($this->format('d-m-y h:i:s'));
-		if ($this->toSql() == static::$zeroDate) {
-			return 'indisponível';
-		}
-		if ($time == 0) {
-			return 'agora mesmo';
-		}
-		if ($time > 0) {
-			return $this->getHumanUnits($time) . ' atrás';
-		}
-		if ($time < 0) {
-			return 'daqui a ' . $this->getHumanUnits($time * (-1));
-		}
+	public function toSql() {
+		return $this->format('y-m-d h:i:s');
+	}
+
+	/**
+	 * Retorna a data no padrao TimeAgo
+	 * @return string
+	 */
+	public function toTimeAgo() {
+		return TimeAgo::format($this);
 	}
 
 	/**
@@ -198,7 +130,7 @@ class Date {
 	 * @return string Data no formato desejado
 	 */
 	public function format($format = 'd/m/y') {
-		$date = '';
+		$date = null;
 		if ($this->year != 0 and $this->month != 0 and $this->day != 0) {
 			$a = array('d', 'm', 'y', 'h', 'i', 's');
 			$b = array($this->day, $this->month, $this->year, $this->hour, $this->minute, $this->second);
@@ -233,81 +165,41 @@ class Date {
 	}
 
 	/**
-	 * Soma a quantidade de dias informada
-	 * @param int $days
-	 */
-	public function sumDays($days) {
-		$this->sumTime($days, 'days');
-	}
-
-	/**
-	 * Soma a quantidade de meses informada
-	 * @param int $months
-	 */
-	public function sumMonths($months) {
-		$this->sumTime($months, 'months');
-	}
-
-	/**
-	 * Soma a quantidade de anos informada
-	 * @param int $years
-	 */
-	public function sumYears($years) {
-		$this->sumTime($years, 'years');
-	}
-
-	/**
 	 * Soma a quantidade de tempo informada
-	 * @param int $time Unidade
-	 * @param string $tipo [days,month,years]
+	 * @param int $time
+	 * @param string $unit [days,month,years,etc]
 	 */
-	public function sumTime($time, $tipo = 'days') {
-		$newTime = strtotime('+' . $time . ' ' . $tipo, strtotime($this->format('d-m-y h:i:s')));
+	public function sumTime($time, $unit = 'days') {
+		$newTime = strtotime('+' . $time . ' ' . $unit, strtotime($this->format('d-m-y h:i:s')));
 		$this->initDateTime(date('Y-m-d H:i:s', $newTime));
 	}
 
 	/**
-	 * Retorna a diferença em Segundos entre duas datas
-	 * @param Date $date1
-	 * @param Date $date2
-	 * @return float Diferença em Segundos
+	 * Retorna o mktime da data
+	 * @return int
 	 */
-	public static function diffSeconds(Date $date1, Date $date2) {
-		$mkTime1 = mktime($date1->getHour(), $date1->getMinute(), $date1->getSecond(), $date1->getMonth(), $date1->getDay(), $date1->getYear());
-		$mkTime2 = mktime($date2->getHour(), $date2->getMinute(), $date2->getSecond(), $date2->getMonth(), $date2->getDay(), $date2->getYear());
-		$mkTimeDiff = $mkTime2 - $mkTime1;
-
-		return $mkTimeDiff;
+	public function toMktime() {
+		return mktime($this->hour, $this->minute, $this->second, $this->month, $this->day, $this->year);
 	}
 
 	/**
-	 * Retorna a diferença em Dias entre duas datas
-	 * @param Date $date1
-	 * @param Date $date2
-	 * @return float Diferença em Dias
+	 * Retorna a diferença em Segundos entre as duas datas
+	 * @param Date $date
+	 * @param string $unit [days,month,years,etc]
+	 * @return int diferença na unidade desejada
 	 */
-	public static function diffDays(Date $date1, Date $date2) {
-		$diffInDay = ((self::diffSeconds($date1, $date2)) / 86400);
-		return $diffInDay;
+	public function diff(Date $date, $unit = 'seconds') {
+		$mkTimeDiff = $this->toMktime() - $date->toMktime();
+		return $this->convertSeconds($mkTimeDiff, $unit);
 	}
 
 	/**
-	 * Retorna a data em unidade de tempo Humana
-	 * @param string $dateInSeconds
-	 * @return string
+	 * Converte segundos em outra unidade
+	 * @param int $seconds
+	 * @param string $newUnit [days,month,years,etc]
 	 */
-	protected function getHumanUnits($dateInSeconds) {
-		foreach (static::UNITS as $unit => $measure) {
-			if ($dateInSeconds < $unit) {
-				continue;
-			}
-			$total = floor($dateInSeconds / $unit);
-			if ($total > 1) {
-				return $total . ' ' . $measure[1];
-			} else {
-				return $total . ' ' . $measure[0];
-			}
-		}
+	public static function convertSeconds($seconds = 0, $newUnit = 'minutes') {
+		return $seconds / static::$units[$newUnit];
 	}
 
 }

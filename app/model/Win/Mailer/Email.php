@@ -3,7 +3,6 @@
 namespace Win\Mailer;
 
 use PHPMailer;
-use Win\File\Directory;
 use Win\File\File;
 use Win\Mvc\Application;
 use Win\Mvc\Block;
