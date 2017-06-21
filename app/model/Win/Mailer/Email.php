@@ -60,6 +60,15 @@ class Email {
 	}
 
 	/**
+	 * Define pra quem será respondido
+	 * @param string $address
+	 * @param string $name
+	 */
+	public function addReplyTo($address, $name = '') {
+		$this->mailer->AddReplyTo($address, $name);
+	}
+
+	/**
 	 * Define o Remetente
 	 * @param string $address E-mail remetente
 	 * @param string $name Nome remetente
