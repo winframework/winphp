@@ -14,7 +14,7 @@ use Win\Widget\Captcha;
 class ContatoController extends \Win\Mvc\Controller {
 
 	private $sendTo = 'fulano@example.com';
-	private $sendFrom = 'no-reply@this';
+	private $sendFrom = 'no-reply@example.com';
 
 	public function index() {
 		$this->app->setTitle('Contato');
