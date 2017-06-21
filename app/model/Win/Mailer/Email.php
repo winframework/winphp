@@ -75,6 +75,7 @@ class Email {
 	 */
 	public function setFrom($address, $name = '') {
 		$this->mailer->SetFrom($address, $name);
+		$this->mailer->ClearReplyTos();
 	}
 
 	/**
