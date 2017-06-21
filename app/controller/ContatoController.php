@@ -63,7 +63,7 @@ class ContatoController extends \Win\Mvc\Controller {
 				$mail->setSubject('Contato efetuado pelo site ' . $this->app->getName());
 				$mail->addAddress($this->sendTo);
 				$mail->setFrom($this->sendFrom, $this->app->getName());
-				$mail->
+				$mail->addReplyTo($email, $name);
 
 				$content = new Block('email/content/contact', $data);
 				$mail->setContent($content);
