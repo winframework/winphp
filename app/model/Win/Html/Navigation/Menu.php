@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Html;
+namespace Win\Html\Navigation;
 
 use Win\Mvc\Application;
 use Win\Helper\Url;

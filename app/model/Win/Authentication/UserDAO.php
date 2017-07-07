@@ -2,14 +2,18 @@
 
 namespace Win\Authentication;
 
-use Win\DAO\DAO;
+use Win\Authentication\Password;
 use Win\Authentication\User;
 use Win\Calendar\Date;
+use Win\DAO\DAO;
+use function strClear;
 
 /**
  * User DAO
+ * @method User fetch
+ * @method User fetchAll
  */
-class UserDAO extends DAO implements UserDAOInterface {
+class UserDAO extends DAO {
 
 	const TABLE = 'person';
 	const ALIAS = 'Usuário';
@@ -17,11 +21,9 @@ class UserDAO extends DAO implements UserDAOInterface {
 	/** @var User */
 	protected $obj;
 
-	/**
-	 * @return string|null
-	 */
+	/** @return string|null */
 	protected function validate() {
-		
+
 		if (strlen($this->obj->name) < 2) {
 			return 'O campo Nome deve possuir pelo menos 2 caracteres.';
 		} elseif (!$this->obj->accessIsDenied() && strlen($this->obj->getEmail()) == 0) {
@@ -41,7 +43,7 @@ class UserDAO extends DAO implements UserDAOInterface {
 	}
 
 	/**
-	 * @param array $row
+	 * @param mixed[] $row
 	 * @return User
 	 */
 	public static function mapObject($row) {

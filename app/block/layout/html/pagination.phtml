@@ -1,0 +1,46 @@
+<?php
+
+use Win\DAO\Pagination;
+use Win\Helper\Url;
+use Win\Mvc\Block;
+
+$url = Url::instance()->getUrl();
+$enableKickNav = false;
+$showDisabled = false;
+
+/* @var $this Block */
+/* @var $pagination Pagination */
+?>
+
+<?php if ($pagination->last() > 0): ?>
+	<ul class="pagination pagination-lg <?= isset($class) ? $class : ''; ?>">
+		<?php if ($enableKickNav && $pagination->current() >= $pagination->first() + 5): ?>
+			<li>
+				<a href="<?= $url; ?>?p=<?= $pagination->first(); ?>">Primeiro</a>
+			</li>
+		<?php endif; ?>
+		<?php if ($showDisabled || $pagination->current() > $pagination->first()): ?>
+			<li>
+				<a href="<?= $url; ?>?p=<?= $pagination->prev(); ?>">&laquo;</a>
+			</li>
+		<?php endif; ?>
+		<?php for ($i = 1; $i <= $pagination->last(); $i++): ?>
+			<li class="<?= ($i == $pagination->current()) ? 'active' : ''; ?>">
+				<a href="<?= $url; ?>?p=<?= $i; ?>">
+					<?= $i ?>
+					<?= ($i == $pagination->current()) ? '<span class="sr-only">(current)</span></a>' : ''; ?>
+				</a>
+			</li>
+		<?php endfor; ?>
+		<?php if ($showDisabled || $pagination->current() < $pagination->last()): ?>
+			<li>
+				<a href="<?= $url; ?>?p=<?= $pagination->next(); ?>">&raquo;</a>
+			</li>
+		<?php endif; ?>
+		<?php if ($enableKickNav && $pagination->current() <= $pagination->last() - 5): ?>
+			<li>
+				<a href="<?= $url; ?>?p=<?= $pagination->last(); ?>">Último</a>
+			</li>
+		<?php endif; ?>
+	</ul>
+<?php endif; ?>

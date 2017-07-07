@@ -414,6 +414,33 @@ form fieldset{
 .ground { animation: ground 0.5s both steps(1) infinite; }
 .comets { animation: comets 0.5s both steps(1) infinite; }
 
+/* Extras */
+.sr-only{
+	display: none;
+}
+.pagination{
+	text-align: center;
+	list-style: none;
+}
+.pagination li{
+	display: inline-block;
+}
+.pagination li a{
+	border-radius: 3px;
+	background: #019875;
+	padding:5px 12px;
+	color:#FFF;
+}
+.pagination li a:hover,
+.pagination li a:focus{
+	color:#DDD;
+}
+.pagination li a:active,
+.pagination li a.active,
+.pagination li.active a{
+	background:#222;
+}
+
 /* Responsive Tablet */
 @media screen and (min-width: 768px) and (max-width: 992px) {
 	.error{margin: 40px 0 0 40px; }

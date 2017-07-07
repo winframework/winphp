@@ -2,30 +2,43 @@
 
 namespace Win\DAO;
 
+use Exception;
+use PDO;
+use PDOException;
+use PDOStatement;
+use Win\Alert\AlertError;
+use Win\Connection\Mysql;
 use Win\Mvc\Application;
-use Win\Connection\MySQL;
 
 /**
  * Data Access Object
  */
 abstract class DAO implements DAOInterface {
 
-	/** @var \PDO */
+	/** @var PDO */
 	protected $pdo;
-
-	/** @var string[] */
-	protected $selectCollumns = ['*'];
-	protected $joins = [];
-	protected $fixedFilters = [];
 
 	/** @var string */
 	protected $primaryKey = null;
 
-	/** @var int */
-	protected $totalPerPage = null;
+	/** @var string[] */
+	protected $selectCollumns = ['*'];
+
+	/** @var string[] */
+	protected $joins = [];
+
+	/** @var Where */
+	protected $where;
+
+	/** @var Option */
+	protected $option;
+
+	/** @var Pagination */
+	protected $pagination;
 
 	/** @var boolean */
-	public static $debug = false;
+	protected static $debug = false;
+	protected static $instance = [];
 
 	/**
 	 * Valida os campos retornando string de Erro ou Null
@@ -33,14 +46,34 @@ abstract class DAO implements DAOInterface {
 	 */
 	abstract protected function validate();
 
+	/**
+	 * Retorna a instancia do DAO
+	 * @return static
+	 */
+	public static function instance() {
+		$class = get_called_class();
+		if (!isset(static::$instance[$class])):
+			static::$instance[$class] = new $class();
+		endif;
+		return static::$instance[$class];
+	}
+
 	/** Inicia o DAO */
-	public function __construct() {
-		$this->pdo = MySQL::instance()->getPDO();
+	final public function __construct() {
+		$this->pdo = Mysql::instance()->getPDO();
+		$this->primaryKey = static::TABLE . '_id';
+		$this->option = new Option();
+		$this->pagination = new Pagination();
+		$this->where = new Where();
+	}
+
+	public function pagination() {
+		return $this->pagination;
 	}
 
 	/**
 	 * Define uma conexão manualmente
-	 * @param \PDO $pdo
+	 * @param PDO $pdo
 	 */
 	public function setPDO($pdo) {
 		$this->pdo = $pdo;
@@ -94,21 +127,6 @@ abstract class DAO implements DAOInterface {
 		return $error;
 	}
 
-	/**
-	 * Executa SQL via PDO
-	 * @param string $sql
-	 * @param mixed[] $values
-	 * @return \PDOStatement
-	 */
-	protected function execSql($sql, $values) {
-		if ($this->pdo) {
-			$this->debug($sql, $values);
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->execute($values);
-			return $stmt;
-		}
-	}
-
 	/** Insere o registro */
 	protected function insert() {
 		$mapRow = static::mapRow($this->obj);
@@ -116,8 +134,8 @@ abstract class DAO implements DAOInterface {
 		$params = str_split(str_repeat('?', count($keys)));
 
 		$sql = 'INSERT INTO ' . static::TABLE . ' (' . implode(',', $keys) . ') VALUES (' . implode(', ', $params) . ') ';
-		$stmt = $this->execSql($sql, array_values($mapRow));
-		return $this->error($stmt);
+		$stmt = $this->exec($sql, array_values($mapRow));
+		return $this->errorSql($stmt);
 	}
 
 	/** Atualiza o registro */
@@ -132,24 +150,9 @@ abstract class DAO implements DAOInterface {
 			$params[] = $key . ' = ?';
 		endforeach;
 
-		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE ' . $this->getPrimaryKey() . ' = ? ';
-		$stmt = $this->execSql($sql, $values);
-		return $this->error($stmt);
-	}
-
-	/**
-	 * @param $stmt \PDOStatement
-	 * @return string erro
-	 */
-	protected function error(\PDOStatement $stmt) {
-		$error = null;
-		if ($stmt->errorCode() !== '00000') {
-			$error = 'Houve um erro ao salvar o registro. [Erro ' . $stmt->errorCode() . ']';
-			if (Application::app()->isLocalHost()) {
-				$error .= '<br /><small>' . $stmt->errorInfo()[2] . '</small>';
-			}
-		}
-		return $error;
+		$sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $params) . ' WHERE ' . $this->primaryKey . ' = ? ';
+		$stmt = $this->exec($sql, $values);
+		return $this->errorSql($stmt);
 	}
 
 	/**
@@ -160,9 +163,10 @@ abstract class DAO implements DAOInterface {
 	public function delete($obj) {
 		$this->obj = $obj;
 		$this->onDelete();
-		$filters = [$this->getPrimaryKey() . ' = ?' => $obj->getId()];
-		$sql = 'DELETE FROM ' . static::TABLE . ' ' . $this->whereSQL($filters);
-		$this->execSql($sql, $this->getFilterValues($filters));
+		$where = new Where();
+		$where->filter($this->primaryKey . ' = ?', [$obj->getId()]);
+		$sql = 'DELETE FROM ' . static::TABLE . ' ' . $this->where->toSql();
+		$this->exec($sql, $this->where->values());
 	}
 
 	/**
@@ -170,7 +174,7 @@ abstract class DAO implements DAOInterface {
 	 * @param int $id
 	 */
 	public function deleteById($id) {
-		$this->deleteByField($this->getPrimaryKey() . '', $id);
+		$this->deleteByField($this->primaryKey . '', $id);
 	}
 
 	/**
@@ -199,11 +203,50 @@ abstract class DAO implements DAOInterface {
 	}
 
 	/**
+	 * Executa SQL via PDO
+	 * @param string $sql
+	 * @param mixed[] $values
+	 * @return PDOStatement
+	 */
+	protected function exec($sql, $values) {
+		if ($this->pdo) {
+			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->showDebug($sql, $values);
+			$stmt = $this->pdo->prepare($sql);
+			try {
+				$stmt->execute($values);
+			} catch (PDOException $e) {
+				$alert = new AlertError($this->errorSql($stmt, $e));
+				//$alert->load();
+			}
+			return $stmt;
+		}
+	}
+
+	/**
+	 * @param $stmt \PDOStatement
+	 * @param PDOException|null $e
+	 * @return string erro
+	 */
+	protected function errorSql(PDOStatement $stmt, PDOException $e = null) {
+		$error = null;
+		if ($stmt->errorCode() !== '00000') {
+			$error = 'Houve um durante a execução do comando SQL. [Erro ' . $stmt->errorCode() . ']';
+			if ($e instanceof PDOException) {
+				$error .= '<br /><small>' . $e->getMessage() . '</small>';
+			} elseif (Application::app()->isLocalHost()) {
+				$error .= '<br /><small>' . $stmt->errorInfo()[2] . '</small>';
+			}
+		}
+		return $error;
+	}
+
+	/**
 	 * Busca o objeto pelo id
 	 * @param int $id
 	 */
 	public function fetchById($id) {
-		return $this->fetchByField($this->getPrimaryKey() . '', $id);
+		return $this->fetchByField($this->primaryKey . '', $id);
 	}
 
 	/**
@@ -218,16 +261,16 @@ abstract class DAO implements DAOInterface {
 	/**
 	 * Busca o objeto
 	 * @param string[] $filters Array de filtros
-	 * @param string $option [Order by, Group by, etc]
 	 */
-	public function fetch($filters, $option = 'ORDER BY 1 DESC') {
-		if (!is_array($filters)):
-			throw new \Exception("Filter: '{$filters}' must be a array");
-		endif;
-		$sql = $this->selectSQL($this->selectCollumns) . ' ' . ' ' . $this->whereSQL($filters) . ' ' . $option . ' ' . $this->limitSQL();
+	public function fetch($filters) {
+		$this->validateArray($filters);
+
+		$this->addFilters($filters);
+		$sql = $this->selectSQL($this->selectCollumns) . $this->where->toSql() . $this->option->toSql();
+
 		$result = [];
 		if ($this->pdo) {
-			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
+			$stmt = $this->exec($sql, $this->where->values());
 			$result = $stmt->fetch();
 		}
 		return static::mapObject($result);
@@ -240,24 +283,24 @@ abstract class DAO implements DAOInterface {
 	 * $dao->fetchAll( ['id = ?' => 10]);
 	 * </code>
 	 * @param string[] $filters Array de filtros
-	 * @param string $option [Order by, Group by, etc]
 	 */
-	public function fetchAll($filters = [], $option = 'ORDER BY 1 DESC') {
+	public function fetchAll($filters = []) {
+		$this->validateArray($filters);
+
+		$this->addFilters($filters);
+		$this->pagination->setTotal($this->numRows());
+		$sql = $this->selectSQL($this->selectCollumns) . $this->where->toSql() . $this->option->toSql() . $this->pagination->toSql();
+
 		$array = [];
-		if (!is_array($filters)):
-			throw new \Exception("Filter: '{$filters}' must be a array");
-		endif;
-
-		$sql = $this->selectSQL($this->selectCollumns) . ' ' . $this->whereSQL($filters) . ' ' . $option . ' ' . $this->limitSQL();
-
 		if ($this->pdo) {
-			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
+			$stmt = $this->exec($sql, $this->where->values());
 
 			$results = $stmt->fetchAll();
 			foreach ($results as $result):
 				$array[] = static::mapObject($result);
 			endforeach;
 		}
+
 		return $array;
 	}
 
@@ -268,35 +311,58 @@ abstract class DAO implements DAOInterface {
 	 * @example "SELECT * FROM user"
 	 */
 	protected function selectSQL($selectCollumns = ['*']) {
-		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE . ' ' . implode(' ', $this->joins);
+		return 'SELECT ' . implode(', ', $selectCollumns) . ' FROM ' . static::TABLE . implode(' ', $this->joins);
 	}
 
 	/**
-	 * Retorna comando WHERE
-	 * @param string[] $filters
-	 * @return string
+	 * Adiciona o array de filtros
+	 * @param mixed[] $filters
 	 */
-	protected function whereSQL(&$filters) {
-		$keys = array_keys($filters + $this->fixedFilters);
-		return ($keys) ? 'WHERE ' . implode(' AND ', $keys) : '';
+	private function addFilters($filters = []) {
+		$this->filter(implode(' AND ', array_keys($filters)), $filters);
 	}
+
+	/**
+	 * Filtra a proxima busca
+	 * @param string $condition
+	 * @param mixed[] $values
+	 */
+	public function filter($condition, $values) {
+		$this->where->filter($condition, $values);
+	}
+
+	/**
+	 * Adiciona opções de busca
+	 * @param string $option
+	 */
+	public function option($option) {
+		$this->option->set($option);
+	}
+
+	/**
+	 * Define a paginação dos itens
+	 * @param int $totalPerPage
+	 * @param int $currentPage
+	 */
+	public function paginate($totalPerPage, $currentPage = null) {
+		$this->pagination = new Pagination($totalPerPage, $currentPage);
+	}
+
 
 	/**
 	 * Retorna o total de registros
 	 * @param string[] $filters Array de filtros
-	 * @param string $option
 	 * @return int
 	 */
-	public function numRows($filters = [], $option = 'ORDER BY 1 DESC') {
+	public function numRows($filters = []) {
+		$this->validateArray($filters);
+
+		$this->addFilters($filters);
+		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . implode(' ', $this->joins) . $this->where->toSql() . $this->option->toSql();
+
 		$total = 0;
-		if (!is_array($filters)):
-			throw new \Exception("Filter: '{$filters}' must be a array");
-		endif;
-
-		$sql = 'SELECT count(*) as total FROM ' . static::TABLE . ' ' . implode(' ', $this->joins) . ' ' . $this->whereSQL($filters) . ' ' . $option . ' ' . $this->limitSQL();
-
 		if ($this->pdo) {
-			$stmt = $this->execSql($sql, $this->getFilterValues($filters));
+			$stmt = $this->exec($sql, $this->where->values());
 			$result = $stmt->fetch();
 			$total = $result['total'];
 		}
@@ -309,7 +375,7 @@ abstract class DAO implements DAOInterface {
 	 * @return boolean
 	 */
 	public function objExists($obj) {
-		return ($obj->getId() > 0 && $this->numRows([$this->getPrimaryKey() . ' = ?' => $obj->getId()]));
+		return ($obj->getId() > 0 && $this->numRows([$this->primaryKey . ' = ?' => $obj->getId()]));
 	}
 
 	/** Define como Página 404 se o objeto não existir */
@@ -320,12 +386,23 @@ abstract class DAO implements DAOInterface {
 		}
 	}
 
+	private function validateArray($filters) {
+		if (!is_array($filters)):
+			throw new Exception("Filter: '{$filters}' must be a array");
+		endif;
+	}
+
+	/** Habilita o modo debug */
+	final public static function debug() {
+		static::$debug = 1;
+	}
+
 	/**
 	 * Exibe comando SQL, se debug está habilitado
 	 * @param string $sql
 	 * @param mixed[] $values
 	 */
-	protected function debug($sql, $values = []) {
+	protected function showDebug($sql, $values) {
 
 		if (static::$debug) {
 			foreach ($values as $value):
@@ -338,10 +415,6 @@ abstract class DAO implements DAOInterface {
 		}
 	}
 
-	private function getFilterValues($filters) {
-		return array_values($filters + $this->fixedFilters);
-	}
-
 	protected function beforeSave() {
 		
 	}
@@ -352,39 +425,6 @@ abstract class DAO implements DAOInterface {
 
 	protected function onDelete() {
 		
-	}
-
-	/** @return string Retorna o nome da PK */
-	private function getPrimaryKey() {
-		if (is_null($this->primaryKey)) {
-			$this->primaryKey = static::TABLE . '_id';
-		}
-		return $this->primaryKey;
-	}
-
-	/**
-	 * Define a paginação dos itens
-	 * @param int totalPerPage
-	 */
-	public function paginate($totalPerPage) {
-		$this->totalPerPage = $totalPerPage;
-	}
-
-	/**
-	 * Busca os registros baseado na paginação definida
-	 * @return string
-	 */
-	protected function limitSQL() {
-		if (!is_null($this->totalPerPage)) {
-			$begin = $this->totalPerPage * $this->getCurrentPage();
-			return 'LIMIT ' . $begin . ',' . $this->totalPerPage;
-		}
-		return '';
-	}
-
-	/** @return int Paginação atual */
-	private function getCurrentPage() {
-		return (int) (isset($_GET['p']) && $_GET['p'] > 0) ? $_GET['p'] : 1;
 	}
 
 }
