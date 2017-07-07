@@ -33,7 +33,7 @@ abstract class Alert {
 	 * @param Alert $alert
 	 */
 	public function load() {
-		$block = new Block('alert/alert', ['alert' => $this]);
+		$block = new Block('layout/html/alert', ['alert' => $this]);
 		$block->load();
 	}
 

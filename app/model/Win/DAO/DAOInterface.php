@@ -17,7 +17,7 @@ interface DAOInterface {
 
 	/**
 	 * Retorna um objeto a partir da linha da tabela
-	 * @param array[] $row
+	 * @param mixed[] $row
 	 */
 	public static function mapObject($row);
 

@@ -22,8 +22,9 @@ class LoginController extends Controller {
 	 * Index
 	 */
 	public function index() {
-		$uDAO = new UserDAO();
-		if ($uDAO->numRows() > 0) {
+		$userDAO = UserDAO::instance();
+		
+		if ($userDAO->numRows() > 0) {
 			$this->entrar();
 		} else {
 			$this->iniciarMaster();
@@ -146,7 +147,7 @@ class LoginController extends Controller {
 		$this->validateRecoveryHash($user);
 
 		if (!empty(Input::post('submit'))) {
-			$user->setPassword(Input::post('new_password1'),Input::post('new_password2'));
+			$user->setPassword(Input::post('new_password1'), Input::post('new_password2'));
 			$error = $uDAO->updatePassword($user, null, $recoveryHash);
 
 			if (!$error) {

@@ -14,6 +14,6 @@ require 'app/config/database.php';
 
 session_start();
 $app = new Win\Mvc\Application($config);
-$db = new Win\Connection\MySQL($db);
-error_reporting(E_ALL);
+$db = new Win\Connection\Mysql($db);
+
 $app->run();

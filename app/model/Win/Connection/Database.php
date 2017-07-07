@@ -49,4 +49,14 @@ abstract class Database {
 		}
 	}
 
+	/**
+	 * Redireciona para 503 caso não haja conexao
+	 * @param boolean $connection
+	 */
+	public static function validate($connection = false) {
+		if ($connection === false):
+			Application::app()->errorPage(503);
+		endif;
+	}
+
 }

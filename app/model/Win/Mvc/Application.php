@@ -12,7 +12,7 @@ use Win\Authentication\User;
  * Framework em PHP baseado em MVC
  * Esta classe é responśavel por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.0
+ * @version 1.01
  */
 class Application {
 
@@ -219,8 +219,12 @@ class Application {
 	/**
 	 * Define o titulo da página
 	 * @param string $title
+	 * @param boolean $addName Define se irá adicionar o nome da aplicação do titulo
 	 */
-	public function setTitle($title) {
+	public function setTitle($title = '', $addName = true) {
+		if ($addName) {
+			$title .= ' | ' . $this->getName();
+		}
 		$this->title = $title;
 	}
 

@@ -8,7 +8,7 @@ use PDO;
  * Conexão com banco de dados MySQL
  * 
  */
-class MySQL extends Database {
+class Mysql extends Database {
 
 	/** Cria conexao via PDO */
 	protected function connect(&$dbConfig) {
