@@ -46,6 +46,18 @@ abstract class Controller {
 	}
 
 	/**
+	 * Retorna uma variavel do controller
+	 * @param string $name
+	 * @return mixed|null
+	 */
+	public function getData($name) {
+		if (key_exists($name, $this->data)) {
+			return $this->data[$name];
+		}
+		return null;
+	}
+
+	/**
 	 * Define o action
 	 * @param string $action
 	 */
@@ -91,8 +103,8 @@ abstract class Controller {
 		$this->app->view->mergeData($this->data);
 		$this->app->view->validate();
 	}
-	
-	public function reload(){
+
+	public function reload() {
 		$this->init();
 		$this->index();
 	}

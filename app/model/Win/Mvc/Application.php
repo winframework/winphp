@@ -219,12 +219,8 @@ class Application {
 	/**
 	 * Define o titulo da página
 	 * @param string $title
-	 * @param boolean $addName Define se irá adicionar o nome da aplicação do titulo
 	 */
-	public function setTitle($title = '', $addName = true) {
-		if ($addName) {
-			$title .= ' | ' . $this->getName();
-		}
+	public function setTitle($title = '') {
 		$this->title = $title;
 	}
 
