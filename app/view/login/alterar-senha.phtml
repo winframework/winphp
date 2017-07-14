@@ -1,12 +1,12 @@
 <?php
-/* @var $this Win\Mvc\View */
-/* @var $user Win\Authentication\User */
+/* @var $this \Win\Mvc\View */
+/* @var $user \Win\Authentication\User */
 ?>
 <main>
 	<h1>Alterar Senha</h1>
 
 	<form method="post">
-		<?php Win\Alert\Session::showAlerts(); ?>
+		<?php \Win\Alert\Session::showAlerts(); ?>
 
 		<fieldset>
 			<input type="text" name="email" value="<?= $user->getEmail(); ?>" disabled />
