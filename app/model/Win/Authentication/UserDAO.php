@@ -6,7 +6,6 @@ use Win\Authentication\Password;
 use Win\Authentication\User;
 use Win\Calendar\Date;
 use Win\DAO\DAO;
-use function strClear;
 
 /**
  * User DAO

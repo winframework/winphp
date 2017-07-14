@@ -6,7 +6,6 @@ use PHPMailer;
 use Win\File\File;
 use Win\Mvc\Application;
 use Win\Mvc\Block;
-use const BASE_PATH;
 
 /**
  * Envios de E-mails

@@ -3,8 +3,6 @@
 namespace Win\Html\Seo;
 
 use Win\Mvc\Application;
-use function strLower;
-use function strTruncate;
 
 /**
  * Auxilia gerenciamento de keywords

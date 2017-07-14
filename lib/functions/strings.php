@@ -33,20 +33,6 @@ function strTruncate($string, $length, $rep = false) {
 }
 
 /**
- * Remove aspas da string (Evita SQL-INJECT)
- * @param string $string
- * @return string [String sem aspas]
- */
-function strEscape($string) {
-	if (!get_magic_quotes_gpc()) {
-		return $string;
-		/* return mysqli_real_escape_string($string); */
-	} else {
-		return $string;
-	}
-}
-
-/**
  * Limpa a string de caracteres inválidos
  * @param string $string
  * @return string
