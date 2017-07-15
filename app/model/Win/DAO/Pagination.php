@@ -6,7 +6,7 @@ use Win\Mvc\Block;
 
 /**
  * Paginação
- * Auxilia busca por paginação
+ * Auxilia realizar paginação em buscas, ou limitar buscas
  */
 class Pagination {
 
