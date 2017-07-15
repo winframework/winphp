@@ -5,7 +5,7 @@ namespace Win\Widget;
 use Win\Request\Input;
 
 /**
- * Valida Captcha
+ * Validador Captcha em PHP
  */
 class Captcha {
 

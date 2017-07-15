@@ -1,16 +1,15 @@
 <?php
 
+namespace Win\Html\Navigation;
+
+use Win\Mvc\Application;
+
 /**
  * BreadCrumbs
  * Cria breadcrumbs personalizados
  * Exemplo de um breadcrumb: - Página Inicial > Produto > Óculos de Sol
  *
  */
-
-namespace Win\Html\Navigation;
-
-use Win\Mvc\Application;
-
 class BreadCrumb {
 
 	private static $text;

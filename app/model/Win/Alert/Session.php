@@ -21,7 +21,7 @@ class Session {
 	 */
 	public static function showAlerts() {
 		foreach (static::getAlerts() as $alert) {
-			$alert->load();
+			$alert->toHtml();
 		}
 		unset($_SESSION['alerts']);
 	}

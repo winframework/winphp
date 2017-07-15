@@ -1,13 +1,12 @@
 <?php
 
+namespace Win\Html\Form;
+
 /**
  * Select
  * Auxilia nas <select>
  *
  */
-
-namespace Win\Html\Form;
-
 class Select {
 
 	protected $options;
