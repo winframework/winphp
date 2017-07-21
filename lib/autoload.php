@@ -4,9 +4,9 @@
  * Autoload Controller
  */
 spl_autoload_register(function ($className) {
-	$controllerFile = BASE_PATH . '/app/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
-	if (file_exists($controllerFile)):
-		return require $controllerFile;
+	$file = BASE_PATH . '/app/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+	if (file_exists($file)):
+		return require $file;
 	endif;
 });
 
@@ -14,8 +14,18 @@ spl_autoload_register(function ($className) {
  * Autoload Model
  */
 spl_autoload_register(function ($className) {
-	$modelFile = BASE_PATH . '/app/model/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
-	if (file_exists($modelFile)):
-		return require $modelFile;
+	$file = BASE_PATH . '/app/model/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+	if (file_exists($file)):
+		return require $file;
+	endif;
+});
+
+/**
+ * Autoload Lib
+ */
+spl_autoload_register(function ($className) {
+	$file = BASE_PATH . '/lib/vendor/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+	if (file_exists($file)):
+		return require $file;
 	endif;
 });

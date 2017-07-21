@@ -6,3 +6,4 @@ gulpfile.js
 !/data/upload
 /data/upload/*/*
 !/data/upload/*/default.png
+!/data/.htaccess

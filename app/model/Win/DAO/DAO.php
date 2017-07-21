@@ -9,6 +9,7 @@ use PDOStatement;
 use Win\Alert\AlertError;
 use Win\Connection\Mysql;
 use Win\Mvc\Application;
+use Win\Request\Server;
 
 /**
  * Data Access Object
@@ -234,7 +235,7 @@ abstract class DAO implements DAOInterface {
 			$error = 'Houve um durante a execução do comando SQL. [Erro ' . $stmt->errorCode() . ']';
 			if ($e instanceof PDOException) {
 				$error .= '<br /><small>' . $e->getMessage() . '</small>';
-			} elseif (Application::app()->isLocalHost()) {
+			} elseif (Server::isLocalHost()) {
 				$error .= '<br /><small>' . $stmt->errorInfo()[2] . '</small>';
 			}
 		}

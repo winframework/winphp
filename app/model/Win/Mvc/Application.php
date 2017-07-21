@@ -2,9 +2,8 @@
 
 namespace Win\Mvc;
 
-use Win\Helper\Url;
-use Win\Request\Input;
 use Win\Authentication\User;
+use Win\Helper\Url;
 
 /**
  * Application (WinPHP Framework)
@@ -12,7 +11,7 @@ use Win\Authentication\User;
  * Framework em PHP baseado em MVC
  * Esta classe é responśavel por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.01
+ * @version 1.0.2
  */
 class Application {
 
@@ -128,17 +127,6 @@ class Application {
 			$this->url = Url::instance()->format(implode('/', $this->getParamList()));
 		endif;
 		return $this->url;
-	}
-
-	/** @return string */
-	public function getServerName() {
-		return Input::server('SERVER_NAME', FILTER_SANITIZE_STRING);
-	}
-
-	/** @return bolean */
-	public function isLocalHost() {
-		$localAddress = ['localhost', '127.0.0.1', '::1', null];
-		return (in_array($this->getServerName(), $localAddress) || strpos($this->getServerName(), '192.168') !== false);
 	}
 
 	/**

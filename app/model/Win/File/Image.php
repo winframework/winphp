@@ -10,8 +10,6 @@ use PhpThumbFactory;
  */
 class Image extends File {
 
-	static $phpThumbLib = '/../../../../lib/thumb/ThumbLib.inc.php';
-
 	const QUALITY = 70;
 	const MAX_HEIGHT = 900;
 	const MAX_WIDTH = 1200;
@@ -44,7 +42,6 @@ class Image extends File {
 	 * @return string
 	 */
 	function saveThumb() {
-		$this->includeLibrary();
 		if (file_exists($this->getTempName())) {
 			$thumb = PhpThumbFactory::create($this->getFullName());
 			$thumb->resize(self::MAX_WIDTH, self::MAX_HEIGHT);
@@ -52,21 +49,6 @@ class Image extends File {
 			$thumb->save($this->getFullName());
 		}
 		return null;
-	}
-
-	/**
-	 * Inclui bibliotecas necessárias
-	 * @return string
-	 */
-	protected function includeLibrary() {
-		if (!class_exists('PhpThumbFactory')) {
-			$phpThumbDir = dirname(realpath(__FILE__)) . static::$phpThumbLib;
-			if (file_exists($phpThumbDir)) {
-				include_once $phpThumbDir;
-			} else {
-				return 'PhpThumbFactory não incluído!';
-			}
-		}
 	}
 
 	public function __toString() {
