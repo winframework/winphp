@@ -1,4 +1,10 @@
-<?php /* @var $this \Win\Mvc\View */ ?>
+<?php
+
+use Win\Mvc\View;
+use Win\Widget\ReCaptcha;
+
+/* @var $this View */
+?>
 <main>
 	<h1>Exemplo de Formulário de Contato</h1>
 
@@ -22,8 +28,7 @@
 		</fieldset>
 
 		<fieldset>
-			<img src="lib/captcha/captcha.php" class="img-captcha" alt="Captcha" />
-			<input type="text" name="captcha" class="input-captcha" required maxlength="5" />
+			<div class="g-recaptcha" data-sitekey="<?= ReCaptcha::$siteKey; ?>"></div>
 		</fieldset>
 
 		<div class="form-buttons">
@@ -33,3 +38,5 @@
 
 	</form>
 </main>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>

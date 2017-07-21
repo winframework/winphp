@@ -2,8 +2,9 @@
 
 namespace Win\Mvc;
 
-use Win\Mvc\Application;
 use Win\Helper\Url;
+use Win\Mvc\Application;
+use Win\Request\Server;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase {
 
@@ -107,8 +108,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testIsLocalHost() {
-		$app = new Application();
-		$this->assertEquals(true, $app->isLocalHost());
+		$this->assertEquals(true, Server::isLocalHost());
 	}
 
 	public function testGetConfig() {

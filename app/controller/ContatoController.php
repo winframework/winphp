@@ -6,14 +6,14 @@ use Win\Mvc\View;
 use Win\Mvc\Block;
 use Win\Request\Input;
 use Win\Mailer\Email;
-use Win\Widget\Captcha;
+use Win\Widget\ReCaptcha;
 
 /**
  * Envia um formulario de contato via E-mail
  */
 class ContatoController extends \Win\Mvc\Controller {
 
-	private $sendTo = 'fulano@example.com';
+	private $sendTo = 'destinatario@example.com';
 	private $sendFrom = 'no-reply@example.com';
 
 	public function index() {
@@ -53,8 +53,8 @@ class ContatoController extends \Win\Mvc\Controller {
 				$error = 'Preencha o campo Assunto.';
 			} elseif (empty($message)) {
 				$error = 'Preencha o campo Mensagem.';
-			} elseif (!Captcha::isValid()) {
-				$error = 'Informe os caracteres de segurança corretamente.';
+			} elseif (!ReCaptcha::isValid()) {
+				$error = 'Marque a opção "Não sou um robô".';
 			}
 
 			/* Envia Email */

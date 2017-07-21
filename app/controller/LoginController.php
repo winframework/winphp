@@ -23,7 +23,7 @@ class LoginController extends Controller {
 	 */
 	public function index() {
 		$userDAO = UserDAO::instance();
-		
+
 		if ($userDAO->numRows() > 0) {
 			$this->entrar();
 		} else {
