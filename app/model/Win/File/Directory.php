@@ -2,7 +2,6 @@
 
 namespace Win\File;
 
-use Win\Mvc\Application;
 use Win\Request\Server;
 
 /**
@@ -26,6 +25,14 @@ class Directory {
 
 	public function setPath($path) {
 		$this->path = $path;
+	}
+
+	/**
+	 * Retorna TRUE se é um diretorio
+	 * @return boolean
+	 */
+	public function exists(){
+		return is_dir($this->path);
 	}
 
 	/**

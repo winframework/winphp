@@ -1,6 +1,6 @@
 <?php
 
-use Win\File\Thumb\Thumb;
+use Win\File\Image\Thumb;
 
 define('BASE_PATH', __DIR__ . '/../..');
 include BASE_PATH . '/lib/autoload.php';

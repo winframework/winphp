@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\File\Thumb;
+namespace Win\File\Image;
 
 use PHPThumb\GD;
 use Win\File\Directory;

@@ -232,8 +232,8 @@ class File {
 	 */
 	public function write($content = '', $mode = 'wb') {
 		if (!is_null($this->getName())) {
-			$success = $this->directory->create();
-			if ($success):
+			$dirExists = $this->directory->exists() || $this->directory->create();
+			if ($dirExists):
 				$fp = fopen($this->getFullName(), $mode);
 				fwrite($fp, $content);
 				fclose($fp);
