@@ -147,7 +147,7 @@ class Thumb {
 		}
 	}
 
-	/**  Exibe a imagem default */
+	/** Exibe a imagem default */
 	private function showDefault() {
 		$this->image = new GD(BASE_PATH . '/' . $this->default);
 		$this->padding = $this->width * 0.2;

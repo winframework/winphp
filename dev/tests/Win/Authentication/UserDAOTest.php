@@ -30,7 +30,7 @@ class UserDAOTest extends \PHPUnit_Framework_TestCase {
 					`image` varchar(45) DEFAULT NULL,
 					`last_login` datetime DEFAULT NULL,
 					PRIMARY KEY(`id`)
-				  );
+				);
 		');
 	}
 

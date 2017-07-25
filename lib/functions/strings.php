@@ -4,7 +4,7 @@
  * FUNÇÕES DE TRATAMENTO DE STRINGS
  * Funções que tratam uma string e a retorna modificada começam com nome: str[...]
  * Funções que convertem uma string para outro formato começam com nome: strTo[...]
- * Funções de conversão deve ter o nome no formato:  [...]To[...]
+ * Funções de conversão deve ter o nome no formato: [...]To[...]
  */
 
 setlocale(LC_ALL, 'pt_BR.UTF8');
@@ -13,7 +13,7 @@ setlocale(LC_ALL, 'pt_BR.UTF8');
  * Corta um texto, sem cortar a última palavra.
  * @param string $string [string a ser cortada]
  * @param int $length [tamanho da string cortada]
- * @param bool $rep  [define se corta antes ou depois do tamanho maximo]
+ * @param bool $rep [define se corta antes ou depois do tamanho maximo]
  * @return string $string [string resumida ]
  */
 function strTruncate($string, $length, $rep = false) {
@@ -107,7 +107,7 @@ function strLengthFormat($int = 0, $length = 2) {
 
 /**
  * Converte uma string, nome ou frase em URL válida
- * @param string $string  [Ex: Minha Notícia da 'Página 2000 especial' ]
+ * @param string $string [Ex: Minha Notícia da 'Página 2000 especial' ]
  * @return string $url [Ex: minha-noticia-da-pagina-2000-especial ]
  */
 function strToURL($string) {
@@ -152,7 +152,7 @@ function booleanToString($boolean) {
 }
 
 /**
- * Retorna no formato de ID, ex:  #00009 
+ * Retorna no formato de ID, ex: #00009 
  * @param int
  * @return string
  */
