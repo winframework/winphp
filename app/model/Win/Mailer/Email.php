@@ -20,7 +20,7 @@ class Email {
 	/** @var Block|string */
 	private $content;
 
-	/** @var object Classe responsável pelo envio real */
+	/** @var \PHPMailer Classe responsável pelo envio real */
 	private $mailer;
 
 	/**
@@ -176,6 +176,23 @@ class Email {
 		$fileName = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 		$file->setName($fileName);
 		$file->write($this->layout->toString());
+	}
+
+	/**
+	 * Autentica o email via SMTP
+	 * @param string $host
+	 * @param string $user
+	 * @param string $pass
+	 * @param int $port
+	 */
+	public function autenticate($host, $user, $pass, $port = 587) {
+		//$this->mailer->IsSMTP();
+		$this->mailer->SMTPAuth = true;
+		$this->mailer->SMTPSecure = "tls";
+		$this->mailer->Host = $host;
+		$this->mailer->Port = $port;
+		$this->mailer->Username = $user;
+		$this->mailer->Password = $pass;
 	}
 
 }
