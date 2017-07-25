@@ -11,7 +11,7 @@ use Win\Helper\Url;
  * Framework em PHP baseado em MVC
  * Esta classe é responśavel por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.0.2
+ * @version 1.1.0
  */
 class Application {
 

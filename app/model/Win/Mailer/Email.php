@@ -178,21 +178,5 @@ class Email {
 		$file->write($this->layout->toString());
 	}
 
-	/**
-	 * Autentica o email via SMTP
-	 * @param string $host
-	 * @param string $user
-	 * @param string $pass
-	 * @param int $port
-	 */
-	public function autenticate($host, $user, $pass, $port = 587) {
-		//$this->mailer->IsSMTP();
-		$this->mailer->SMTPAuth = true;
-		$this->mailer->SMTPSecure = "tls";
-		$this->mailer->Host = $host;
-		$this->mailer->Port = $port;
-		$this->mailer->Username = $user;
-		$this->mailer->Password = $pass;
-	}
 
 }
