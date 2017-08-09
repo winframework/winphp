@@ -1,12 +1,13 @@
 <?php
 
-namespace Win\Html\Form;
-
 /**
  * Checkbox
  * Auxilia nas <input type="checkbox">
  *
  */
+
+namespace Win\Html\Form;
+
 class Checkbox {
 
 	/**

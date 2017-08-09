@@ -44,7 +44,7 @@ class LoginController extends Controller {
 	 */
 	private function entrar() {
 		$this->preventLogged();
-		$this->app->setTitle('Entrar');
+		$this->setTitle('Entrar | ' . $this->app->getName());
 		$user = $this->app->getUser();
 
 		if (!empty(Input::post('submit'))) {
@@ -100,7 +100,7 @@ class LoginController extends Controller {
 	 */
 	public function recuperarSenha() {
 		$this->preventLogged();
-		$this->app->setTitle('Recuperar Senha');
+		$this->setTitle('Recuperar Senha | ' . $this->app->getName());
 		$user = $this->app->getUser();
 
 		if (!empty(Input::post('submit'))) {
@@ -139,7 +139,7 @@ class LoginController extends Controller {
 	 */
 	public function alterarSenha() {
 		$this->preventLogged();
-		$this->app->setTitle('Alterar Senha');
+		$this->setTitle('Alterar Senha | ' . $this->app->getName());
 		$recoveryHash = $this->app->getParam(2);
 
 		$uDAO = new UserDAO();

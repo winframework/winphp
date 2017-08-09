@@ -71,6 +71,10 @@ class View {
 		return null;
 	}
 
+	public function getTitle() {
+		return $this->getData('title');
+	}
+
 	/**
 	 * Define o arquivo da view
 	 * @param string $file

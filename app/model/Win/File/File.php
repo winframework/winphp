@@ -230,14 +230,12 @@ class File {
 	 * @param string $content
 	 * @param string $mode
 	 */
-	public function write($content = '', $mode = 'wb') {
+	public function write($content = '', $mode = 'a') {
 		if (!is_null($this->getName())) {
-			$dirExists = $this->directory->exists() || $this->directory->create();
-			if ($dirExists):
-				$fp = fopen($this->getFullName(), $mode);
-				fwrite($fp, $content);
-				fclose($fp);
-			endif;
+			$this->directory->create();
+			$fp = fopen($this->getFullName(), $mode);
+			fwrite($fp, $content);
+			fclose($fp);
 		}
 	}
 
