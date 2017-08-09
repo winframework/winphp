@@ -4,8 +4,8 @@ namespace Win\Mailer;
 
 use PHPMailer;
 use Win\File\File;
+use Win\Mvc\Application;
 use Win\Mvc\Block;
-use Win\Request\Server;
 
 /**
  * Envios de E-mails
@@ -20,7 +20,7 @@ class Email {
 	/** @var Block|string */
 	private $content;
 
-	/** @var \PHPMailer Classe responsável pelo envio real */
+	/** @var object Classe responsável pelo envio real */
 	private $mailer;
 
 	/**
@@ -151,7 +151,7 @@ class Email {
 	 * @return null|string Retorna null ou string de erro
 	 */
 	public function send() {
-		if (!Server::isLocalHost()) {
+		if (!Application::app()->isLocalHost()) {
 			$this->mailer->Body = $this->layout->toString();
 			$send = $this->mailer->Send();
 			$this->mailer->ClearAllRecipients();
@@ -173,26 +173,9 @@ class Email {
 		$file = new File();
 		$file->setDirectory('data/email');
 
-		$fileName = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
+		$fileName = date('Y-m-d H:i:s') . ' ' . strtolower(md5(uniqid(time()))) . '.html';
 		$file->setName($fileName);
 		$file->write($this->layout->toString());
-	}
-
-	/**
-	 * Autentica o email via SMTP
-	 * @param string $host
-	 * @param string $user
-	 * @param string $pass
-	 * @param int $port
-	 */
-	public function autenticate($host, $user, $pass, $port = 587) {
-		//$this->mailer->IsSMTP();
-		$this->mailer->SMTPAuth = true;
-		$this->mailer->SMTPSecure = "tls";
-		$this->mailer->Host = $host;
-		$this->mailer->Port = $port;
-		$this->mailer->Username = $user;
-		$this->mailer->Password = $pass;
 	}
 
 }

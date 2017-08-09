@@ -2,13 +2,13 @@
 
 namespace Win\Connection;
 
+/**
+ * Conexão com banco de dados
+ *
+ */
 use PDO;
 use Win\Mvc\Application;
 
-/**
- * Conexão com banco de dados
- * 
- */
 abstract class Database {
 
 	/** @var Database */

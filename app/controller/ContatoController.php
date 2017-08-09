@@ -17,7 +17,7 @@ class ContatoController extends \Win\Mvc\Controller {
 	private $sendFrom = 'no-reply@example.com';
 
 	public function index() {
-		$this->app->setTitle('Contato');
+		$this->setTitle('Contato | ' . $this->app->getName());
 
 
 		/* Pega campos via POST */

@@ -2,7 +2,7 @@
 
 namespace Win\File;
 
-use Win\Request\Server;
+use Win\Mvc\Application;
 
 /**
  * Diretorio de arquivos
@@ -28,27 +28,18 @@ class Directory {
 	}
 
 	/**
-	 * Retorna TRUE se é um diretorio
-	 * @return boolean
-	 */
-	public function exists(){
-		return is_dir($this->path);
-	}
-
-	/**
 	 * Cria o diretorio para salvar a imagem
 	 * @param string $pathetorio Caminho do novo diretorio
 	 * @param int $chmod permissões deste diretório
 	 * @return boolean Retora TRUE caso obtenha algum sucesso
 	 */
 	public function create($chmod = 0755) {
-		if (Server::isLocalHost()) {
-			umask(0);
-			$chmod = 0777;
-		}
 		if (!file_exists($this->path)) {
 			$success = @mkdir($this->path, $chmod, STREAM_MKDIR_RECURSIVE);
 			return $success;
+		}
+		if (Application::app()->isLocalHost()) {
+			chmod($this->path, 0777);
 		}
 		return false;
 	}

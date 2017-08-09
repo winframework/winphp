@@ -1,9 +1,3 @@
-/nbproject
 /node_modules
 package.json
 gulpfile.js
-/data/*
-!/data/upload
-/data/upload/*/*
-!/data/upload/*/default.png
-!/data/.htaccess

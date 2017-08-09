@@ -11,7 +11,7 @@ use Win\Helper\Url;
  * Framework em PHP baseado em MVC
  * Esta classe é responśavel por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.1.0
+ * @version 1.2.0
  */
 class Application {
 
@@ -31,7 +31,6 @@ class Application {
 	];
 	private $url;
 	private $paramList;
-	private $title;
 
 	/** @var Controller Controller atual */
 	public $controller;
@@ -110,7 +109,7 @@ class Application {
 
 	/** @return string */
 	public function getFullUrl() {
-		return $this->getBaseUrl() . $this->getUrl();
+		return Url::instance()->getBaseUrl() . Url::instance()->getUrl();
 	}
 
 	/** @return string */
@@ -194,25 +193,6 @@ class Application {
 	}
 
 	/**
-	 * Retorna o titulo da página atual
-	 * @return string
-	 */
-	public function getTitle() {
-		if (is_null($this->title)):
-			$this->title = ucwords(str_replace('-', ' ', $this->page));
-		endif;
-		return $this->title;
-	}
-
-	/**
-	 * Define o titulo da página
-	 * @param string $title
-	 */
-	public function setTitle($title = '') {
-		$this->title = $title;
-	}
-
-	/**
 	 * Redireciona para a URL
 	 * @param string $url
 	 */
@@ -236,7 +216,7 @@ class Application {
 	 */
 	private function validateErrorPage() {
 		if (key_exists((int) $this->getParam(0), $this->errorPageList)):
-			$this->errorPage((int) $this->getParam(0));
+			$this->pageNotFound();
 		endif;
 	}
 
@@ -254,12 +234,11 @@ class Application {
 			$this->stopControllerIf403($errorCode);
 			$this->page = (string) $errorCode;
 			$this->view = new View($errorCode);
-			$this->title = $this->errorPageList[$errorCode];
+
 			$this->controller = ControllerFactory::create('Error' . $errorCode);
+			$this->view->addData('title', $this->errorPageList[$errorCode]);
 			http_response_code($errorCode);
-			if ($this->getParam(0) !== (string) $errorCode):
-				$this->controller->reload();
-			endif;
+			$this->controller->reload();
 		endif;
 	}
 

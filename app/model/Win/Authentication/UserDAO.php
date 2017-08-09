@@ -11,15 +11,18 @@ use Win\DAO\DAO;
  * User DAO
  * @method User fetch
  * @method User fetchAll
- * @property User $obj
  */
 class UserDAO extends DAO {
 
 	const TABLE = 'person';
 	const ALIAS = 'Usuário';
 
+	/** @var User */
+	protected $obj;
+
 	/** @return string|null */
 	protected function validate() {
+
 		if (strlen($this->obj->name) < 2) {
 			return 'O campo Nome deve possuir pelo menos 2 caracteres.';
 		} elseif (!$this->obj->accessIsDenied() && strlen($this->obj->getEmail()) == 0) {

@@ -36,6 +36,11 @@ abstract class Controller {
 		$this->setAction($action);
 	}
 
+
+	public function setTitle($title) {
+		$this->addData('title', $title);
+	}
+
 	/**
 	 * Adiciona uma variavel para usar na view
 	 * @param string $name
@@ -100,13 +105,16 @@ abstract class Controller {
 			$this->app->view = $view;
 		endif;
 
-		$this->app->view->mergeData($this->data);
-		$this->app->view->validate();
+		if (!$this->app->isErrorPage()):
+			$this->app->view->mergeData($this->data);
+			$this->app->view->validate();
+		endif;
 	}
 
 	public function reload() {
 		$this->init();
 		$this->index();
+		$this->app->view->mergeData($this->data);
 	}
 
 	/**

@@ -32,9 +32,9 @@ abstract class Alert {
 	 * Carrega o html do alerta
 	 * @param Alert $alert
 	 */
-	public function toHtml() {
+	public function load() {
 		$block = new Block('layout/html/alert', ['alert' => $this]);
-		$block->toHtml();
+		$block->load();
 	}
 
 }
