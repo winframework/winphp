@@ -4,8 +4,8 @@ namespace Win\Mailer;
 
 use PHPMailer;
 use Win\File\File;
-use Win\Mvc\Application;
 use Win\Mvc\Block;
+use Win\Request\Server;
 
 /**
  * Envios de E-mails
@@ -151,7 +151,7 @@ class Email {
 	 * @return null|string Retorna null ou string de erro
 	 */
 	public function send() {
-		if (!Application::app()->isLocalHost()) {
+		if (!Server::isLocalHost()) {
 			$this->mailer->Body = $this->layout->toString();
 			$send = $this->mailer->Send();
 			$this->mailer->ClearAllRecipients();
