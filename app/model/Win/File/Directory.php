@@ -3,6 +3,7 @@
 namespace Win\File;
 
 use Win\Mvc\Application;
+use Win\Request\Server;
 
 /**
  * Diretorio de arquivos
@@ -38,7 +39,7 @@ class Directory {
 			$success = @mkdir($this->path, $chmod, STREAM_MKDIR_RECURSIVE);
 			return $success;
 		}
-		if (Application::app()->isLocalHost()) {
+		if (Server::isLocalHost()) {
 			chmod($this->path, 0777);
 		}
 		return false;
