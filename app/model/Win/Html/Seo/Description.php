@@ -15,7 +15,11 @@ class Description {
 	 * @return string
 	 */
 	public static function otimize($description) {
-		return strTruncate($description, static::$MAX_LENGTH, true);
+		if (strlen($description) > 0) {
+			return strTruncate($description, static::$MAX_LENGTH, true);
+		} else {
+			return DESCRIPTION_DEFAULT;
+		}
 	}
 
 }
