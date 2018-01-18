@@ -1,7 +1,0 @@
-{
-    "name": "winframework/winphp",
-    "description": "Estrutura PHP baseada em MVC, para gerenciar de forma dinâmica como as páginas são chamadas. Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...",
-    "require": {
-        "php": "^5.3.3 || ^7.0"
-    }
-}
