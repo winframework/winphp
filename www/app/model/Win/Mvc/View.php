@@ -74,7 +74,7 @@ class View {
 
 	public function getTitle() {
 		if (empty($this->getData('title'))){
-			$this->addData('title', Title::otimize(ucfirst(str_replace('-', ' ', $this->app->getPage()))));
+			$this->addData('title', Title::otimize(ucwords(str_replace('-', ' ', $this->app->getPage()))));
 		}
 		return $this->getData('title');
 	}
@@ -96,7 +96,7 @@ class View {
 	}
 
 	/**
-	 * Retorna true se a view existe
+	 * Retorna TRUE se a view existe
 	 * @return boolean
 	 */
 	public function exists() {
@@ -104,7 +104,7 @@ class View {
 	}
 
 	/**
-	 * Se arquivo nao existe, define como 404
+	 * Se arquivo não existe, define como 404
 	 */
 	public function validate() {
 		if (!$this->exists() && $this->app->getPage() !== '404'):
@@ -113,7 +113,7 @@ class View {
 	}
 
 	/**
-	 * Retorna o html da view
+	 * Retorna o HTML da view
 	 * @return string
 	 */
 	public function __toString() {
@@ -121,7 +121,7 @@ class View {
 	}
 
 	/**
-	 * Retorna o html da view
+	 * Retorna o HTML da view
 	 * @return string
 	 */
 	public function toString() {
@@ -131,7 +131,7 @@ class View {
 	}
 
 	/**
-	 * Carrega o arquivo da view, imprimindo o resultado html
+	 * Exibe o conteúdo HTML da view
 	 * @return string
 	 */
 	public function load() {
@@ -139,7 +139,7 @@ class View {
 	}
 
 	/**
-	 * Carrega o arquivo da view, imprimindo o resultado html
+	 * Exibe o conteúdo HTML da view
 	 */
 	public function toHtml() {
 		if (!is_null($this->file)):

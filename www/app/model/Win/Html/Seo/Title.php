@@ -9,23 +9,23 @@ use Win\Mvc\Application;
  */
 class Title {
 
-	protected static $MAX_LENGTH = 70;
-	protected static $SEPARATOR = ' | ';
+	public static $maxLength = 70;
+	public static $prefix = '';
+	public static $sufix = '';
 
 	/**
-	 * Retorna o titulo com o nome da aplicação no final
-	 * Mantendo o maximo de caracteres
+	 * Retorna o título com o nome da aplicação no final
+	 * Mantendo o máximo de caracteres
 	 * @param string $title
 	 * @return string
 	 */
 	public static function otimize($title) {
-		$name = Application::app()->getName();
-		$maxLenght = static::$MAX_LENGTH - strLength($name) - strLength(static::$SEPARATOR) - 3;
-		return strTruncate($title, $maxLenght, true) . static::$SEPARATOR . $name;
+		$maxLenght = static::$maxLength - strLength(static::$prefix) - strLength(static::$sufix) - 3;
+		return static::$prefix . strTruncate($title, $maxLenght, true) . static::$sufix;
 	}
 
 	/**
-	 * Define o titulo, otimizando
+	 * Define o título, otimizando
 	 * @param string $title
 	 */
 	public static function setTitle($title) {

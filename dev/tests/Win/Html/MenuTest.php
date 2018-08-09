@@ -4,7 +4,7 @@ namespace Win\Html;
 
 use Win\Mvc\Application;
 use Win\Helper\Url;
-use Win\Html\Menu;
+use Win\Html\Navigation\Menu;
 
 class MenuTest extends \PHPUnit_Framework_TestCase {
 
@@ -23,11 +23,14 @@ class MenuTest extends \PHPUnit_Framework_TestCase {
 		new Application();
 
 		$this->assertEquals('active', Menu::active('my-page'));
-		$this->assertEquals('', Menu::active('my-page/my-action'));
+		$this->assertEquals('active', Menu::active('my-page/my-action'));
+		$this->assertEquals('active', Menu::active('my-page/my-action/'));
 		$this->assertEquals('active', Menu::active('my-page/my-action/my-last-param'));
 
 		$this->assertEquals('', Menu::active('other-page'));
 		$this->assertEquals('', Menu::active('my-page/other-action'));
+		$this->assertEquals('', Menu::active('my-page/my-acti'));
+		$this->assertEquals('', Menu::active('my-page/my-action/my-last'));
 	}
 
 }

@@ -2,11 +2,11 @@
 
 namespace Win\File;
 
-use Win\Mvc\Application;
+use Exception;
 use Win\Request\Server;
 
 /**
- * Diretorio de arquivos
+ * Diretório de arquivos
  */
 class Directory {
 
@@ -29,10 +29,10 @@ class Directory {
 	}
 
 	/**
-	 * Cria o diretorio para salvar a imagem
-	 * @param string $pathetorio Caminho do novo diretorio
+	 * Cria o diretório para salvar a imagem
+	 * @param string $pathetorio Caminho do novo diretório
 	 * @param int $chmod permissões deste diretório
-	 * @return boolean Retora TRUE caso obtenha algum sucesso
+	 * @return boolean Retorna TRUE caso obtenha algum sucesso
 	 */
 	public function create($chmod = 0755) {
 		if (!file_exists($this->path)) {
@@ -40,14 +40,18 @@ class Directory {
 			return $success;
 		}
 		if (Server::isLocalHost()) {
-			chmod($this->path, 0777);
+			$success = @chmod($this->path, 0777);
+			if (!$success) {
+				throw new Exception('Changing permission (chmod) is not allowed on directory: "' .
+				$this->path . '". Remove this directory and try again.');
+			}
 		}
 		return false;
 	}
 
 	/**
-	 * Renomeia o diretorio
-	 * @param string $newName Caminho para o novo diretorio
+	 * Renomeia o diretório
+	 * @param string $newName Caminho para o novo diretório
 	 * @return boolean
 	 */
 	public function rename($newName) {
@@ -59,7 +63,7 @@ class Directory {
 	}
 
 	/**
-	 * Exclui o diretorio, e os arquivos dentro dele
+	 * Exclui o diretório e os arquivos dentro dele
 	 * @param string $path
 	 * @return boolean
 	 */
@@ -73,16 +77,16 @@ class Directory {
 		endif;
 	}
 
-	/** Exclui os arquivos deste diretorio */
+	/** Exclui os arquivos deste diretório */
 	protected function removeAllFiles() {
 		$path = str_replace('//', '/', $this->path);
 		$files = array_diff(scandir($path), ['.', '..']);
 		foreach ($files as $file) {
-			if (is_dir("$path/$file")) {
-				$subDirectory = new Directory("$path/$file");
+			if (is_dir($path . '/' . $file)) {
+				$subDirectory = new Directory($path . '/' . $file);
 				$subDirectory->remove();
 			} else {
-				unlink("$path/$file");
+				unlink($path . '/' . $file);
 			}
 		}
 	}
