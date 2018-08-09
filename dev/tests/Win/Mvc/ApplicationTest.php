@@ -3,6 +3,7 @@
 namespace Win\Mvc;
 
 use Win\Helper\Url;
+use Win\Html\Seo\Title;
 use Win\Mvc\Application;
 use Win\Request\Server;
 
@@ -26,22 +27,27 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	public function testGetTitle() {
 		Url::instance()->setUrl('');
 		$app = new Application();
-		$this->assertEquals('Index', $app->getTitle());
+		$app->controller->setTitle('Index');
+		$this->assertEquals('Index', $app->view->getTitle());
 
 		Url::instance()->setUrl('my-custom-page');
 		$app2 = new Application();
-		$this->assertEquals('My Custom Page', $app2->getTitle());
+		$this->assertEquals('My Custom Page', $app2->view->getTitle());
 
 		Url::instance()->setUrl('my-custom-page/my-action');
 		$app3 = new Application();
 		$app3->controller->load();
-		$this->assertNotEquals('My Custom Page', $app3->getTitle());
+		$this->assertNotEquals('My Custom Page', $app3->view->getTitle());
 
-		$app->setTitle('My Custom Test Title');
-		$this->assertEquals('My Custom Test Title', $app->getTitle());
+		$app->controller->setTitle('My Custom Test Title');
+		
+		$app->view->addData('title','My Custom Test Title');
+		$this->assertEquals('My Custom Test Title' , $app->view->getTitle());
 
 		$app->pageNotFound();
-		$this->assertNotEquals('My Custom Test Title', $app->getTitle());
+		$this->assertNotEquals('My Custom Test Title' , $app->view->getTitle());
+		 
+		
 	}
 
 	public function testGetPage() {
@@ -147,11 +153,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	public function testValidatePage404() {
 		Url::instance()->setUrl('this-url-doent-exist');
 		$app = new Application();
-		$this->assertEquals('This Url Doent Exist', $app->getTitle());
+		$this->assertEquals('This Url Doent Exist', $app->view->getTitle());
 
 		Url::instance()->setUrl('404');
 		$app2 = new Application();
-		$this->assertNotEquals('404', $app2->getTitle());
+		$this->assertNotEquals('404', $app2->view->getTitle());
 	}
 
 }
