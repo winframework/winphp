@@ -22,7 +22,6 @@ class Email {
 
 	/** @var object Classe responsável pelo envio real */
 	private $mailer;
-
 	public static $sendOnLocalHost = false;
 
 	/**

@@ -8,7 +8,7 @@ namespace Win\Alert;
 class Session {
 
 	/**
-	 * Adicina o alerta no container
+	 * Adiciona o alerta na sessão
 	 * @param Alert $alert
 	 */
 	public static function addAlert(Alert $alert) {
@@ -16,8 +16,7 @@ class Session {
 	}
 
 	/**
-	 * Mostra todos os alertas criados
-	 * E remove os alertas da SESSAO
+	 * Mostra todos os alertas criados, removendo-os da sessão
 	 */
 	public static function showAlerts() {
 		foreach (static::getAlerts() as $alert) {
@@ -27,7 +26,7 @@ class Session {
 	}
 
 	/**
-	 * Retorna array de alertas da Sessao
+	 * Retorna todos os alertas da sessão
 	 * @return Alert[]
 	 */
 	public static function getAlerts() {
@@ -38,25 +37,18 @@ class Session {
 	}
 
 	/**
-	 * Retorna TRUE se possui algum alert
-	 * @return boolean
+	 * Remove todos os alertas da sessão
 	 */
-	public static function hasAlert() {
-		return !count(static::getAlerts());
+	public static function clearAlerts() {
+		unset($_SESSION['alerts']);
 	}
 
 	/**
-	 * Cria um alerta de erro ou sucesso, depedendo dos parametros
-	 * Usado para simplificar o uso de "AlertError" e "AlertSuccess"
-	 * @param string $error
-	 * @param string $success
+	 * Retorna TRUE se a sessão possui algum alerta
+	 * @return boolean
 	 */
-	public static function alert($error, $success) {
-		if (!is_null($error)) {
-			new AlertError($error);
-		} else {
-			new AlertSuccess($success);
-		}
+	public static function hasAlert() {
+		return count(static::getAlerts());
 	}
 
 }
