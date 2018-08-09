@@ -10,9 +10,9 @@ use Win\Html\Seo\Title;
  * Application (WinPHP Framework)
  *
  * Framework em PHP baseado em MVC
- * Esta classe é responśavel por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
+ * Esta classe é responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.2.1
+ * @version 1.2.2
  */
 class Application {
 
@@ -33,10 +33,10 @@ class Application {
 	private $url;
 	private $paramList;
 
-	/** @var Controller Controller atual */
+	/** @var Controller */
 	public $controller;
 
-	/** @var View View atual */
+	/** @var View */
 	public $view;
 
 	/** @var User */
@@ -44,7 +44,7 @@ class Application {
 
 	/**
 	 * Cria a aplicação principal
-	 * @param mixed[] $config Configurações
+	 * @param mixed[] $config
 	 */
 	public function __construct($config = []) {
 		static::$app = $this;
@@ -66,7 +66,7 @@ class Application {
 	}
 
 	/**
-	 * Retorna um ponteiro para a aplicação principal
+	 * Retorna o ponteiro para a aplicação principal
 	 * @return static
 	 */
 	public static function app() {
@@ -74,8 +74,8 @@ class Application {
 	}
 
 	/**
-	 * Executa a applicação
-	 * chamando o controller e criando o layout que contem a view
+	 * Roda a aplicação
+	 * Executando o controller e criando o layout que contem a view
 	 */
 	public function run() {
 		$this->controller->load();
@@ -130,7 +130,7 @@ class Application {
 	}
 
 	/**
-	 * Retorna o nome da página atual
+	 * Retorna a página atual
 	 * @return string
 	 */
 	public function getPage() {
@@ -167,7 +167,7 @@ class Application {
 	}
 
 	/**
-	 * Retorna um array com todos os parametros da URL
+	 * Retorna um todos os parâmetros da URL
 	 * @return string[]
 	 */
 	protected function getParamList() {
@@ -210,7 +210,7 @@ class Application {
 	}
 
 	/**
-	 * Chama pageNotFound se o usuario acessar /404
+	 * Chama pageNotFound se o usuário acessar /404
 	 *
 	 * Isso garante que todas as funcionalidades de pageNotFound serão executadas
 	 * mesmo se a página existente 404 for acessada
@@ -227,7 +227,7 @@ class Application {
 	}
 
 	/**
-	 * Define a página como "$errorCode"
+	 * Define a página atual como algum erro
 	 * @param int $errorCode [401, 404, 500, etc]
 	 */
 	public function errorPage($errorCode) {
