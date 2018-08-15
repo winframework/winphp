@@ -22,23 +22,23 @@ class UserDAO extends DAO {
 
 	/** @return string|null */
 	protected function validate() {
-
+		$error = null;
 		if (strlen($this->obj->name) < 2) {
-			return 'O campo Nome deve possuir pelo menos 2 caracteres.';
+			$error = 'O campo Nome deve possuir pelo menos 2 caracteres.';
 		} elseif (!$this->obj->accessIsDenied() && strlen($this->obj->getEmail()) == 0) {
-			return 'O campo E-mail deve ser preenchido.';
+			$error = 'O campo E-mail deve ser preenchido.';
 		} elseif (!$this->obj->accessIsDenied() && !filter_var($this->obj->getEmail(), FILTER_VALIDATE_EMAIL)) {
-			return 'O campo E-mail deve ser um e-mail válido.';
+			$error = 'O campo E-mail deve ser um e-mail válido.';
 		} elseif (!$this->obj->accessIsDenied() && $this->obj->confirmEmail()) {
-			return 'O campo E-mail deve ser informado duas vezes iguais.';
+			$error = 'O campo E-mail deve ser informado duas vezes iguais.';
 		} elseif (strlen($this->obj->getEmail()) > 0 && $this->emailIsUsed()) {
-			return 'Já existe um usuário com este e-mail.';
+			$error = 'Já existe um usuário com este e-mail.';
 		} elseif (!$this->obj->accessIsDenied() && ($this->obj->getPassword() !== null || $this->obj->getId() === 0) && strlen($this->obj->getPassword()) < 4) {
-			return 'A senha deve possuir pelo menos 4 caracteres.';
+			$error = 'A senha deve possuir pelo menos 4 caracteres.';
 		} elseif (!$this->obj->confirmPassword()) {
-			return 'O campo Senha deve ser informado duas vezes iguais.';
+			$error = 'O campo Senha deve ser informado duas vezes iguais.';
 		}
-		return null;
+		return $error;
 	}
 
 	/**
