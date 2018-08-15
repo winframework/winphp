@@ -50,7 +50,7 @@ class TimeAgo extends DateFormat {
 			if ($seconds > $unitTotal) {
 				$timeTotal = floor($seconds / $unitTotal);
 				$isPlural = ($timeTotal > 1);
-				return $timeTotal . ' ' . static::$unitsName[$unitName][$isPlural];
+				return $timeTotal . ' ' . self::$unitsName[$unitName][$isPlural];
 			}
 		}
 		return 0;

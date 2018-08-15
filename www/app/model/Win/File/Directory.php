@@ -36,7 +36,7 @@ class Directory {
 	 */
 	public function create($chmod = 0755) {
 		if (!file_exists($this->path)) {
-			$success = @mkdir($this->path, $chmod, STREAM_MKDIR_RECURSIVE);
+			$success = @mkdir($this->path, $chmod, (boolean) STREAM_MKDIR_RECURSIVE);
 			return $success;
 		}
 		if (Server::isLocalHost()) {

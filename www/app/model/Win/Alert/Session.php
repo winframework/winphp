@@ -48,7 +48,7 @@ class Session {
 	 * @return boolean
 	 */
 	public static function hasAlert() {
-		return count(static::getAlerts());
+		return (count(static::getAlerts()) > 0);
 	}
 
 }
