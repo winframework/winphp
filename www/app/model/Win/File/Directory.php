@@ -69,12 +69,12 @@ class Directory {
 	 */
 	public function remove() {
 		$path = str_replace('//', '/', $this->path);
-		if (is_dir($path)):
+		if (is_dir($path)) {
 			$this->removeAllFiles();
 			return rmdir($path);
-		else:
+		} else {
 			return false;
-		endif;
+		}
 	}
 
 	/** Exclui os arquivos deste diretório */

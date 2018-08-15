@@ -73,7 +73,7 @@ class View {
 	}
 
 	public function getTitle() {
-		if (empty($this->getData('title'))){
+		if (empty($this->getData('title'))) {
 			$this->addData('title', Title::otimize(ucwords(str_replace('-', ' ', $this->app->getPage()))));
 		}
 		return $this->getData('title');
