@@ -123,7 +123,7 @@ class File {
 		if ($this->getName() != '') {
 			$this->oldName = $this->getFullName();
 		}
-		if (!empty($fileName) and file_exists($fileName)) {
+		if (!empty($fileName) && file_exists($fileName)) {
 			$this->tempName = $fileName;
 			$this->extension = static::getExtensionByName($fileName);
 			$this->size = -1;
@@ -173,7 +173,7 @@ class File {
 
 	/** Retorna true se arquivo existe */
 	public function exists() {
-		return ($this->getName() and is_file($this->getFullName()));
+		return ($this->getName() && is_file($this->getFullName()));
 	}
 
 	/** Move o arquivo de $temp para $diretorio atual */

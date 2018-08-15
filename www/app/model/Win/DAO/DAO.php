@@ -107,7 +107,7 @@ abstract class DAO implements DAOInterface {
 		$this->obj = $obj;
 		$error = $this->validate();
 
-		if (is_null($error) and $this->pdo !== false) {
+		if (is_null($error) && $this->pdo !== false) {
 			$error = $this->beforeSave();
 			$mode = (!$this->objExists($obj)) ? 'insert' : 'update';
 
