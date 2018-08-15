@@ -53,7 +53,7 @@ class ErrorPage {
 	 */
 	private static function stopControllerIf403($errorCode) {
 		if ($errorCode == 403 && static::app()->getParam(0) !== (string) $errorCode):
-			$this->redirect(403 . '/index/' . static::app()->getUrl());
+			static::app()->redirect(403 . '/index/' . static::app()->getUrl());
 		endif;
 	}
 
