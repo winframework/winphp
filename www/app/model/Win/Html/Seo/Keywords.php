@@ -5,17 +5,17 @@ namespace Win\Html\Seo;
 use Win\Mvc\Application;
 
 /**
- * Auxilia gerenciamento de keywords
+ * Auxilia gerenciamento de Keywords
  */
 class Keywords {
 
 	const MAX_LENGTH = 100;
 
 	/**
-	 * Retorna uma string em minuscula, separada por virgula
+	 * Retorna uma string em minúscula, separada por virgula
 	 * @param string[]
 	 */
-	static function toKeys($array1, $array2 = []) {
+	public static function toKeys($array1, $array2 = []) {
 		if (empty($array2)) {
 			$array2 = [Application::app()->controller->getData('keywords')];
 		}

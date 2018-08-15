@@ -21,10 +21,9 @@ function strTruncate($string, $length, $rep = false) {
 		return $string;
 	}
 
-	if ($rep == true) {
+	if ($rep === true) {
 		$oc = strrpos(substr($string, 0, $length), ' ');
-	}
-	if ($rep == false) {
+	} else {
 		$oc = strpos(substr($string, $length), ' ') + $length;
 	}
 

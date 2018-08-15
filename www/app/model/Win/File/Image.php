@@ -20,7 +20,7 @@ class Image extends File {
 
 	/* @overwrite */
 
-	function upload($newName = '') {
+	public function upload($newName = '') {
 		$error = parent::upload($newName);
 		if ($this->uploadPrepared && is_null($error)) {
 			$error = $this->saveThumb(self::MAX_WIDTH, self::MAX_HEIGHT);
@@ -35,7 +35,7 @@ class Image extends File {
 	 * @param int $height altura
 	 * @param boolean $mode modo de corte
 	 */
-	function showThumb($width = 100, $height = 100, $mode = 'normal') {
+	public function showThumb($width = 100, $height = 100, $mode = 'normal') {
 		return "lib/thumb/" . $mode . '/' . $width . '/' . $height . '/' . $this->__toString();
 	}
 
@@ -43,7 +43,7 @@ class Image extends File {
 	 * Cria uma miniatura da imagem 
 	 * @return string
 	 */
-	function saveThumb() {
+	public function saveThumb() {
 		$this->includeLibrary();
 		if (file_exists($this->getTempName())) {
 			$thumb = PhpThumbFactory::create($this->getFullName());
