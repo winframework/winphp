@@ -31,7 +31,7 @@ class UserDAO extends DAO {
 			return 'O campo E-mail deve ser um e-mail válido.';
 		} elseif (!$this->obj->accessIsDenied() && $this->obj->confirmEmail()) {
 			return 'O campo E-mail deve ser informado duas vezes iguais.';
-		} elseif (strlen($this->obj->getEmail()) > 0 and $this->emailIsUsed()) {
+		} elseif (strlen($this->obj->getEmail()) > 0 && $this->emailIsUsed()) {
 			return 'Já existe um usuário com este e-mail.';
 		} elseif (!$this->obj->accessIsDenied() && ($this->obj->getPassword() !== null || $this->obj->getId() === 0) && strlen($this->obj->getPassword()) < 4) {
 			return 'A senha deve possuir pelo menos 4 caracteres.';
@@ -65,6 +65,7 @@ class UserDAO extends DAO {
 	 * @return mixed[]
 	 */
 	public static function mapRow($obj) {
+		$row = [];
 		$row['person_id'] = $obj->id;
 		$row['is_enabled'] = (int) $obj->isEnabled;
 		$row['access_level'] = $obj->accessLevel;
@@ -100,9 +101,9 @@ class UserDAO extends DAO {
 	 */
 	public function updatePassword($user, $currentPassword = null, $recoveryHash = null) {
 		$savedUser = $this->fetchById($user->getId());
-		if (!is_null($currentPassword) and $savedUser->passwordHash != Password::encrypt($currentPassword)) {
+		if (!is_null($currentPassword) && $savedUser->passwordHash != Password::encrypt($currentPassword)) {
 			return 'A senha atual não está correta.';
-		} elseif (!is_null($recoveryHash) and $user->recoreryHash !== $recoveryHash) {
+		} elseif (!is_null($recoveryHash) && $user->recoreryHash !== $recoveryHash) {
 			return 'O link de recuperação é inválido.';
 		}
 		return $this->save($user);

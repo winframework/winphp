@@ -131,7 +131,7 @@ class Date {
 	 */
 	public function format($format = 'd/m/y') {
 		$date = null;
-		if ($this->year != 0 and $this->month != 0 and $this->day != 0) {
+		if ($this->year != 0 && $this->month != 0 && $this->day != 0) {
 			$a = array('d', 'm', 'y', 'h', 'i', 's');
 			$b = array($this->day, $this->month, $this->year, $this->hour, $this->minute, $this->second);
 			$date = str_replace($a, $b, strtolower($format));
