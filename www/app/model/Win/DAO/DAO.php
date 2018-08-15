@@ -16,8 +16,12 @@ use Win\Request\Server;
  */
 abstract class DAO implements DAOInterface {
 
+	const TABLE = '';
+	const ALIAS = '';
+
 	/** @var PDO */
 	protected $pdo;
+	protected $obj;
 
 	/** @var string */
 	protected $primaryKey = null;
@@ -192,22 +196,17 @@ abstract class DAO implements DAOInterface {
 	 * @param mixed[] $filters
 	 */
 	public function deleteAll($filters = []) {
-		$fixed = $this->fixedFilters;
-		$this->fixedFilters = [];
-
 		$objList = $this->fetchAll($filters);
 		foreach ($objList as $obj):
 			$this->delete($obj);
 		endforeach;
-
-		$this->fixedFilters = $fixed;
 	}
 
 	/**
 	 * Executa SQL via PDO
 	 * @param string $sql
 	 * @param mixed[] $values
-	 * @return PDOStatement
+	 * @return PDOStatement|boolean
 	 */
 	protected function exec($sql, $values) {
 		if ($this->pdo) {
@@ -349,7 +348,6 @@ abstract class DAO implements DAOInterface {
 		$this->pagination = new Pagination($totalPerPage, $currentPage);
 	}
 
-
 	/**
 	 * Retorna o total de registros
 	 * @param string[] $filters Array de filtros
@@ -417,15 +415,15 @@ abstract class DAO implements DAOInterface {
 	}
 
 	protected function beforeSave() {
-		
+		return null;
 	}
 
 	protected function afterSave() {
-		
+		return null;
 	}
 
 	protected function onDelete() {
-		
+		return null;
 	}
 
 }

@@ -144,7 +144,7 @@ class Date {
 	 * @return boolean retorna True se data é valida
 	 */
 	public function isValid() {
-		if ($this->second >= 60 or $this->minute >= 60 or $this->hour >= 24) {
+		if ($this->second >= 60 || $this->minute >= 60 || $this->hour >= 24) {
 			return false;
 		}
 		return checkdate($this->month, $this->day, $this->year);
@@ -158,7 +158,7 @@ class Date {
 		$MIN_AGE = 0;
 		$MAX_AGE = 200;
 		$age = date('Y') - $this->getYear();
-		if ($age < $MIN_AGE or $age > $MAX_AGE) {
+		if ($age < $MIN_AGE || $age > $MAX_AGE) {
 			return false;
 		}
 		return $this->isValid();

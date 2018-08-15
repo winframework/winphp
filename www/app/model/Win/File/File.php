@@ -102,7 +102,7 @@ class File {
 	 * @param array $files $_FILES['arquivo']
 	 * @example $obj->receiveFiles($_FILES['arquivo']);
 	 */
-	function receiveFiles($files) {
+	public function receiveFiles($files) {
 		if ($this->getName() != '') {
 			$this->oldName = $this->getFullName();
 		}
@@ -137,6 +137,7 @@ class File {
 	 * @return string|null Retorna algum erro ou NULL
 	 */
 	public function upload($newName = '') {
+		$error = null;
 		if ($this->uploadPrepared) {
 			$error = $this->validateUpload();
 			if (!$error) {
@@ -158,7 +159,7 @@ class File {
 			$error = 'Tipo de arquivo inválido, somente ' . strtoupper(implode('/', static::$validExtensions)) . '.';
 		} elseif ((!file_exists($this->directory) && !$this->directory->create())) {
 			$error = 'O diretorio ' . $this->directory . ' não existe.';
-		} elseif ($this->size > (static::$maxSize * 1024 * 1024) or $this->size == 0) {
+		} elseif ($this->size > (static::$maxSize * 1024 * 1024) || $this->size == 0) {
 			$error = 'O tamanho do arquivo deve ser entre 0kb e ' . static::$maxSize . 'Mb.';
 		}
 		return $error;
