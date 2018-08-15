@@ -2,26 +2,31 @@
 
 namespace Win\Mvc;
 
+use Win\DesignPattern\Singleton;
 use Win\Helper\Url;
 
 /**
  * Rota de URL
  * 
- * Redireicona a requisição para um outro controller.
- * Veja as rotas em config/routes.php
+ * Redireciona a requisição para um outro Controller.
+ * Veja as rotas em "config/routes.php"
  */
-class Route {
+class Router {
 
-	use \Win\DesignPattern\Singleton;
+	use Singleton;
+
+	/** @var string[] */
+	private $routes = [];
+	public static $file = '/app/config/routes.php';
 
 	/**
-	 * Se for atribuido algum valor indica que é uma rota personalizada
+	 * Se for atribuído algum valor indica que é uma rota personalizada
 	 * @var mixed[]
 	 */
 	protected static $customUrl = [null, null];
 
 	/**
-	 * Retorna a nova Url
+	 * Retorna a nova URL
 	 * @return mixed[]
 	 */
 	public function getCustomUrl() {
@@ -37,28 +42,34 @@ class Route {
 	}
 
 	/**
-	 * Inicia o processo de Url personalizada
+	 * Inicia o processo de URL personalizada
 	 * retornando TRUE se alguma rota foi encontrada
 	 * @return boolean
 	 */
 	public function run() {
-		if (!is_null(Application::app()->getConfig('route', null))) {
+		$this->load();
+		if (count($this->routes)) {
 			static::$customUrl = static::createCustomUrl();
 			return $this->hasCustomUrl();
 		}
 		return false;
 	}
 
+	/** Carrega o arquivo que contem as rotas */
+	private function load() {
+		if (file_exists(BASE_PATH . static::$file)) {
+			$this->routes = include BASE_PATH . static::$file;
+		}
+	}
+
 	/**
-	 * Percorre todas as rotas e retorna a nova Url
-	 * 
-	 * @return string[] Nova Url [0 => controller, 1 => action]
+	 * Percorre todas as rotas e retorna a nova URL
+	 * @return string[] Nova URL [0 => controller, 1 => action]
 	 */
 	protected function createCustomUrl() {
-		$routeList = (array) Application::app()->getConfig('route', []);
 		$search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
 		$matches = [];
-		foreach ($routeList as $url => $route):
+		foreach ($this->routes as $url => $route):
 			$exists = preg_match('@' . Url::instance()->format($url) . '$@', Url::instance()->getUrl(), $matches) == 1;
 			if ($exists):
 				$route = str_replace($search, $matches, $route) . '/';
@@ -69,8 +80,7 @@ class Route {
 	}
 
 	/**
-	 * Cria um controller de acordo com a nova Url
-	 *
+	 * Cria um Controller de acordo com a nova URL
 	 * @return Controller|DefaultController
 	 */
 	public function createController() {
