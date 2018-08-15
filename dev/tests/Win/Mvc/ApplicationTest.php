@@ -40,14 +40,12 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 		$this->assertNotEquals('My Custom Page', $app3->view->getTitle());
 
 		$app->controller->setTitle('My Custom Test Title');
-		
-		$app->view->addData('title','My Custom Test Title');
-		$this->assertEquals('My Custom Test Title' , $app->view->getTitle());
+
+		$app->view->addData('title', 'My Custom Test Title');
+		$this->assertEquals('My Custom Test Title', $app->view->getTitle());
 
 		$app->pageNotFound();
-		$this->assertNotEquals('My Custom Test Title' , $app->view->getTitle());
-		 
-		
+		$this->assertNotEquals('My Custom Test Title', $app->view->getTitle());
 	}
 
 	public function testGetPage() {
