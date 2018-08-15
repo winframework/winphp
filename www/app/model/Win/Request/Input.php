@@ -17,9 +17,9 @@ class Input {
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	public static function post($name, $filter = FILTER_DEFAULT, $default = '') {
+	public static function post($name, $filter = FILTER_DEFAULT, $default = null) {
 		$post = filter_input(INPUT_POST, $name, $filter);
-		return ($post) ? $post : $default;
+		return !is_null($post) ? $post : $default;
 	}
 
 	/**
