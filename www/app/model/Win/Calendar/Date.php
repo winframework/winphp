@@ -15,7 +15,7 @@ class Date {
 	public $second = '00';
 	static $monthNames = [0 => "00", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-	/** @var int */
+	/** @var int[] */
 	public static $units = [
 		'seconds' => 1,
 		'minutes' => 60,
@@ -147,7 +147,7 @@ class Date {
 		if ($this->second >= 60 or $this->minute >= 60 or $this->hour >= 24) {
 			return false;
 		}
-		return checkdate($this->getMonth(), $this->getDay(), $this->getYear());
+		return checkdate($this->month, $this->day, $this->year);
 	}
 
 	/**

@@ -10,7 +10,7 @@ namespace Win\Request;
 class Input {
 
 	/**
-	 * Retorna variavel $_POST
+	 * Retorna variável $_POST
 	 *
 	 * @param string $name
 	 * @param int $filter
@@ -23,17 +23,17 @@ class Input {
 	}
 
 	/**
-	 * RRetorna variavel $_POST em modo array
-	 * @param string $indice variável desejada
-	 * @param string $filtro filtro PHP
-	 * @return mixed[] array POST
+	 * Retorna variável $_POST em modo array
+	 * @param string $name
+	 * @param int $filter
+	 * @return mixed[]
 	 */
-	public static function postArray($indice, $filtro = FILTER_DEFAULT) {
-		return (array) filter_input(INPUT_POST, $indice, $filtro, FILTER_REQUIRE_ARRAY);
+	public static function postArray($name, $filter = FILTER_DEFAULT) {
+		return (array) filter_input(INPUT_POST, $name, $filter, FILTER_REQUIRE_ARRAY);
 	}
 
 	/**
-	 * Retorna variavel $_SERVER
+	 * Retorna variável $_SERVER
 	 * 
 	 * @param string $name
 	 * @param int $filter
@@ -45,14 +45,14 @@ class Input {
 	}
 
 	/**
-	 * Retorna variavel $_GET
+	 * Retorna variável $_GET
 	 */
 	public static function get() {
 		
 	}
 
 	/**
-	 * Retorna variavel $_FILE
+	 * Retorna variável $_FILE
 	 */
 	public static function file($name) {
 		if (key_exists($name, $_FILES)) {
@@ -63,21 +63,21 @@ class Input {
 	}
 
 	/**
-	 * Retorna variavel $_PUT
+	 * Retorna variável $_PUT
 	 */
 	public static function put() {
 		
 	}
 
 	/**
-	 * Retorna variavel $_DELETE
+	 * Retorna variável $_DELETE
 	 */
 	public static function delete() {
 		
 	}
 
 	/**
-	 * Retorna variavel $_COOKIE
+	 * Retorna variável $_COOKIE
 	 */
 	public static function cookie() {
 		
@@ -85,7 +85,7 @@ class Input {
 
 	/**
 	 * Retorna o protocolo atual
-	 * @return string http|https
+	 * @return string 'http'|'https'
 	 */
 	public static function protocol() {
 		$https = Input::server('HTTPS');

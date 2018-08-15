@@ -2,10 +2,7 @@
 
 namespace Win\Authentication;
 
-use Local\Person\Person;
-use Local\Person\PersonDAO;
 use Win\Alert\AlertError;
-use Win\Authentication\UserDAO;
 use Win\Calendar\Date;
 use Win\File\Image;
 use Win\Helper\Url;
@@ -249,7 +246,7 @@ class User {
 	/** Obriga o usuário a logar como ADMIN */
 	public function requireAdmin() {
 		$this->requireLogin();
-		if ($this->getAccessLevel() != static::ACCESS_ADMIN) {
+		if ($this->accessLevel != static::ACCESS_ADMIN) {
 			Application::app()->errorPage(403);
 		}
 	}

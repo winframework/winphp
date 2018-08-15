@@ -32,7 +32,7 @@ abstract class Password {
 	 * @param string $password
 	 */
 	public static function encrypt($password) {
-		return md5($password . static::$salt);
+		return md5($password . self::$salt);
 	}
 
 }

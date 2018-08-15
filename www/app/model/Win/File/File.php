@@ -104,7 +104,7 @@ class File {
 	 */
 	function receiveFiles($files) {
 		if ($this->getName() != '') {
-			$this->anterior = $this->getFullName();
+			$this->oldName = $this->getFullName();
 		}
 		if (!empty($files['name'])) {
 			$this->tempName = $files['tmp_name'];
@@ -234,8 +234,13 @@ class File {
 		if (!is_null($this->getName())) {
 			$this->directory->create();
 			$fp = fopen($this->getFullName(), $mode);
-			fwrite($fp, $content);
-			fclose($fp);
+			if ($fp !== false) {
+				fwrite($fp, $content);
+				fclose($fp);
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 

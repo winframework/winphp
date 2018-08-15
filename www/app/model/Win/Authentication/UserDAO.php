@@ -113,7 +113,7 @@ class UserDAO extends DAO {
 	 * @return boolean
 	 */
 	public function emailIsUsed() {
-		return $this->numRows(['email = ?' => $this->obj->getEmail(), 'person_id <> ?' => $this->obj->id]);
+		return ($this->numRows(['email = ?' => $this->obj->getEmail(), 'person_id <> ?' => $this->obj->id]) > 0);
 	}
 
 	public function fetchByRecoveryHash($recoveryHash) {
