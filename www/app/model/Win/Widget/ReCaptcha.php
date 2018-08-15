@@ -3,7 +3,8 @@
 namespace Win\Widget;
 
 /**
- * Validador do ReCaptcha do google
+ * Utiliza o ReCaptcha do Google
+ * Validando se o usuário não é um robô
  */
 class ReCaptcha {
 
