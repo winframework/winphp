@@ -31,7 +31,6 @@ abstract class Alert {
 
 	/**
 	 * Exibe o conteúdo HTML do alerta
-	 * @param Alert $alert
 	 */
 	public function load() {
 		$block = new Block('layout/html/alert', ['alert' => $this]);
