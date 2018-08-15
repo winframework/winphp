@@ -133,45 +133,58 @@ class File {
 
 	/**
 	 * Realiza o envio para a pasta, reduzindo o tamanho e com um nome aleatório
-	 * @param string $newName opcional, escolhe o nome que será salvo
-	 * @return string Retorna algum erro ou NULL
+	 * @param string $newName [opcional] escolhe o nome que será salvo
+	 * @return string|null Retorna algum erro ou NULL
 	 */
-	function upload($newName = '') {
-
+	public function upload($newName = '') {
 		if ($this->uploadPrepared) {
-
-			if (!file_exists($this->tempName)) {
-				return 'Houve um erro ao enviar o arquivo, verifique se o arquivo não ultrapasse o tamanho máximo permitido. ';
-			} elseif (!in_array($this->extension, static::$validExtensions)) {
-				return 'Tipo de arquivo inválido, somente ' . strtoupper(implode('/', static::$validExtensions)) . '.';
-			} elseif ((!file_exists($this->directory) && !$this->directory->create())) {
-				return 'O diretorio ' . $this->directory . ' não existe.';
-			} elseif ($this->size > (static::$maxSize * 1024 * 1024) or $this->size == 0) {
-				return 'O tamanho do arquivo deve ser entre 0kb e ' . static::$maxSize . 'Mb.';
+			$error = $this->validateUpload();
+			if (!$error) {
+				$this->generateIdealName($newName);
+				$this->removeOld();
+				$this->remove();
+				$this->moveTmpFile();
 			}
+		}
+		return $error;
+	}
 
-			/* Gera o nome */
-			if (empty($newName)) {
-				$this->name = strtolower(md5(uniqid(time())) . '.' . $this->extension);
-			} else {
-				$this->name = strtolower($newName . '.' . $this->extension);
-			}
-
-			/* exclui se já existir */
-			$this->removeOld();
-			$this->remove();
-
-			/* Move o arquivo */
-			if ($this->size === -1) {
-				$this->move();
-			} else {
-				move_uploaded_file($this->getTempName(), $this->getFullName());
-			}
+	/** @return null|string */
+	protected function validateUpload() {
+		if (!file_exists($this->tempName)) {
+			return 'Houve um erro ao enviar o arquivo, verifique se o arquivo não ultrapasse o tamanho máximo permitido. ';
+		} elseif (!in_array($this->extension, static::$validExtensions)) {
+			return 'Tipo de arquivo inválido, somente ' . strtoupper(implode('/', static::$validExtensions)) . '.';
+		} elseif ((!file_exists($this->directory) && !$this->directory->create())) {
+			return 'O diretorio ' . $this->directory . ' não existe.';
+		} elseif ($this->size > (static::$maxSize * 1024 * 1024) or $this->size == 0) {
+			return 'O tamanho do arquivo deve ser entre 0kb e ' . static::$maxSize . 'Mb.';
 		}
 		return null;
 	}
 
-	/** Retorna true se arquivo existe */
+	/** @param string $newName */
+	protected function generateIdealName($newName) {
+		if (empty($newName)) {
+			$this->name = strtolower(md5(uniqid(time())) . '.' . $this->extension);
+		} else {
+			$this->name = strtolower($newName . '.' . $this->extension);
+		}
+	}
+
+	/** Move o arquivo que era temporário */
+	protected function moveTmpFile() {
+		if ($this->size === -1) {
+			$this->move();
+		} else {
+			move_uploaded_file($this->getTempName(), $this->getFullName());
+		}
+	}
+
+	/**
+	 * Retorna TRUE se arquivo existe
+	 * @return boolean
+	 */
 	public function exists() {
 		return ($this->getName() && is_file($this->getFullName()));
 	}
@@ -187,7 +200,7 @@ class File {
 		}
 	}
 
-	/** Exclui o arquivo no diretorio */
+	/** Exclui o arquivo no diretório */
 	public function remove() {
 		if ($this->exists()) {
 			unlink($this->getFullName());
@@ -203,9 +216,9 @@ class File {
 	}
 
 	/**
-	 * Remove diretorio(s) por expressao regular
+	 * Remove diretório(s) por expressão regular
 	 * @param string $regExp
-	 * @return int quantidade de diretorios removidos
+	 * @return int quantidade de diretórios removidos
 	 */
 	public static function removeRegExp($regExp) {
 		$fileNames = glob($regExp);
@@ -216,8 +229,8 @@ class File {
 	}
 
 	/**
-	 * Retorna a extension pelo nome
-	 * @param string $name
+	 * Retorna a extensão do arquivo
+	 * @param string $name nome do arquivo
 	 * @return string
 	 */
 	protected static function getExtensionByName($name) {
@@ -226,9 +239,10 @@ class File {
 	}
 
 	/**
-	 * Salva conteudo no arquivo
+	 * Salva o conteúdo no arquivo
 	 * @param string $content
 	 * @param string $mode
+	 * @return boolean
 	 */
 	public function write($content = '', $mode = 'a') {
 		if (!is_null($this->getName())) {
@@ -238,14 +252,13 @@ class File {
 				fwrite($fp, $content);
 				fclose($fp);
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 		}
 	}
 
 	/**
-	 * Retorna o conteudo do arquivo
+	 * Retorna o conteúdo do arquivo
 	 * @param string $content
 	 */
 	public function read() {
