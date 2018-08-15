@@ -1,6 +1,6 @@
 <img src="https://rawgit.com/winframework/winphp/master/www/public/img/image-readme.png"/>
 
-[![Code Climate](https://codeclimate.com/github/winframework/winphp/badges/gpa.svg)](https://codeclimate.com/github/winframework/winphp)
+[![Code Climate](https://codeclimate.com/github/winframework/winphp.png)](https://codeclimate.com/github/winframework/winphp)
 [![Build Status](https://scrutinizer-ci.com/g/winframework/winphp/badges/build.png?b=master)](https://scrutinizer-ci.com/g/winframework/winphp/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/winframework/winphp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/winframework/winphp/?branch=master)
 
