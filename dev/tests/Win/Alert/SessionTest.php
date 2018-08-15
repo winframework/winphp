@@ -38,13 +38,17 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($alert->message, $alerts[0]->message);
 	}
 
-	public function testShowAnything() {
+	public function testShowOneAlert() {
 		ob_start();
-		new AlertError('My Error msg');
+		$msg = new AlertError('My Error msg');
 		Session::showAlerts();
 		$content = ob_get_contents();
 		ob_end_clean();
-		$this->assertNotEmpty($content);
+		ob_start();
+		$msg->load();
+		$msgContent = ob_get_contents();
+		ob_end_clean();
+		$this->assertEquals($content, $msgContent);
 	}
 
 	public function testShowNothing() {
