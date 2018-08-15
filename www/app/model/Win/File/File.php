@@ -151,16 +151,17 @@ class File {
 
 	/** @return null|string */
 	protected function validateUpload() {
+		$error = null;
 		if (!file_exists($this->tempName)) {
-			return 'Houve um erro ao enviar o arquivo, verifique se o arquivo não ultrapasse o tamanho máximo permitido. ';
+			$error = 'Houve um erro ao enviar o arquivo, verifique se o arquivo não ultrapasse o tamanho máximo permitido. ';
 		} elseif (!in_array($this->extension, static::$validExtensions)) {
-			return 'Tipo de arquivo inválido, somente ' . strtoupper(implode('/', static::$validExtensions)) . '.';
+			$error = 'Tipo de arquivo inválido, somente ' . strtoupper(implode('/', static::$validExtensions)) . '.';
 		} elseif ((!file_exists($this->directory) && !$this->directory->create())) {
-			return 'O diretorio ' . $this->directory . ' não existe.';
+			$error = 'O diretorio ' . $this->directory . ' não existe.';
 		} elseif ($this->size > (static::$maxSize * 1024 * 1024) or $this->size == 0) {
-			return 'O tamanho do arquivo deve ser entre 0kb e ' . static::$maxSize . 'Mb.';
+			$error = 'O tamanho do arquivo deve ser entre 0kb e ' . static::$maxSize . 'Mb.';
 		}
-		return null;
+		return $error;
 	}
 
 	/** @param string $newName */
