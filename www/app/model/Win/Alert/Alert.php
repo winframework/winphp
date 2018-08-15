@@ -40,7 +40,7 @@ abstract class Alert {
 	/**
 	 * Cria um alerta de erro ou sucesso, dependendo dos parâmetros
 	 * Possibilitando criar um "AlertError" ou "AlertSuccess" em um único método
-	 * @param string $error
+	 * @param string|null $error
 	 * @param string $success
 	 * @return Alert
 	 */
