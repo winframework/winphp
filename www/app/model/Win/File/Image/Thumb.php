@@ -39,6 +39,30 @@ class Thumb {
 		$this->mode = 'normal';
 	}
 
+	public function getWidth() {
+		return $this->width;
+	}
+
+	public function getHeight() {
+		return $this->height;
+	}
+
+	public function getPadding() {
+		return $this->padding;
+	}
+
+	public function setWidth($width) {
+		$this->width = (int) $width > 0 ? $width : Image::MAX_WIDTH;
+	}
+
+	public function setHeight($height) {
+		$this->height = (int) $height > 0 ? $height : Image::MAX_HEIGHT;
+	}
+
+	public function setPadding($padding) {
+		$this->padding = (int) $padding;
+	}
+
 	public function setCache($cache) {
 		$this->cache = $cache;
 	}
@@ -96,19 +120,10 @@ class Thumb {
 	 * @param mixed[] $config
 	 */
 	private function setSize(&$config) {
-		$size = explode('x', array_shift($config));
-		if (isset($size[0]) && $size[0] > 0) {
-			$this->width = (int) $size[0];
-		}
-		if (isset($size[1]) && $size[1] > 0) {
-			$this->height = (int) $size[1];
-		}
-		if (isset($size[2])) {
-			$this->padding = (int) $size[2];
-		}
-		if (count($size) == 1) {
-			$this->height = array_shift($config);
-		}
+		$size = explode('x', array_shift($config), 2);
+		$this->setWidth($size[0]);
+		$this->setHeight($size[1]);
+		$this->setPadding($size[2]);
 	}
 
 	/** Exibe a thumb final */
