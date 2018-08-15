@@ -198,7 +198,7 @@ class User {
 	/** @return boolean retorna TRUE se está bloqueado por tentativas de login */
 	public function isLocked() {
 		$diff = $this->getLoginUnlockDate()->diff(new Date());
-		return (boolean) ($diff > 0 );
+		return (boolean) ($diff > 0);
 	}
 
 	/** @return int total de tentativas restantes até ser bloqueado */
