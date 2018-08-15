@@ -224,11 +224,11 @@ abstract class DAO implements DAOInterface {
 	}
 
 	/**
-	 * @param $stmt \PDOStatement
+	 * @param \PDOStatement|boolean $stmt
 	 * @param PDOException|null $e
 	 * @return string erro
 	 */
-	protected function errorSql(PDOStatement $stmt, PDOException $e = null) {
+	protected function errorSql($stmt, PDOException $e = null) {
 		$error = null;
 		if ($stmt->errorCode() !== '00000') {
 			$error = 'Houve um durante a execução do comando SQL. [Erro ' . $stmt->errorCode() . ']';
