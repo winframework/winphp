@@ -105,10 +105,6 @@ class User {
 
 	/** @return Person */
 	public function getPerson() {
-		if (is_null($this->person)) {
-			$pDAO = new PersonDAO();
-			$this->person = $pDAO->fetchById($this->id);
-		}
 		return $this->person;
 	}
 

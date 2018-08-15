@@ -8,10 +8,10 @@ namespace Win\Mvc;
 class Config {
 
 	/** @var mixed[] */
-	private static $configs;
+	private static $config;
 
 	final public static function init($config) {
-		static::$configs = $config;
+		static::$config = $config;
 	}
 
 	/**
@@ -20,7 +20,7 @@ class Config {
 	 * @param string $default Valor default, caso esta configuração esteja em branco
 	 */
 	final public static function get($key, $default = '') {
-		return (key_exists($key, static::$configs)) ? static::$configs[$key] : $default;
+		return (key_exists($key, self::$config)) ? self::$config[$key] : $default;
 	}
 
 }

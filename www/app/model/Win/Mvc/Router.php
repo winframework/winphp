@@ -49,7 +49,7 @@ class Router {
 	public function run() {
 		$this->load();
 		if (count($this->routes)) {
-			static::$customUrl = static::createCustomUrl();
+			static::$customUrl = $this->createCustomUrl();
 			return $this->hasCustomUrl();
 		}
 		return false;
