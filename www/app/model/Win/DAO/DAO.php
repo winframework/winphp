@@ -226,7 +226,7 @@ abstract class DAO implements DAOInterface {
 	/**
 	 * @param \PDOStatement|boolean $stmt
 	 * @param PDOException|null $e
-	 * @return string erro
+	 * @return string|null erro
 	 */
 	protected function errorSql($stmt, PDOException $e = null) {
 		$error = null;

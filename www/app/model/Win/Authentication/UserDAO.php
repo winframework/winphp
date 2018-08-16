@@ -9,8 +9,6 @@ use Win\DAO\DAO;
 
 /**
  * User DAO
- * @method User fetch
- * @method User fetchAll
  */
 class UserDAO extends DAO {
 
@@ -50,7 +48,6 @@ class UserDAO extends DAO {
 		$obj->id = $row['person_id'];
 		$obj->isEnabled = $row['is_enabled'];
 		$obj->accessLevel = $row['access_level'];
-		//$obj->setGroupId($row['group_id']);
 		$obj->name = $row['name'];
 		$obj->setEmail($row['email']);
 		$obj->passwordHash = $row['password_hash'];
