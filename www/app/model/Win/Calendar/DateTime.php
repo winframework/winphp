@@ -22,12 +22,12 @@ class DateTime extends DateTimePHP {
 
 	/** @return string|false */
 	public function getMonthName() {
-		return Month::getName((int) $this->format('m'));
+		return Month::create($this->format('m'))->getName();
 	}
 
 	/** @return string|false */
 	public function getMonthAbbre() {
-		return Month::getNameAbbre((int) $this->format('m'));
+		return Month::create($this->format('m'))->getNameAbbre();
 	}
 
 	/** @return int */
@@ -52,12 +52,12 @@ class DateTime extends DateTimePHP {
 
 	/**
 	 * Retorna TRUE se a data é valida
-	 * @param string $date
+	 * @param string $time
 	 * @param string|null $format
 	 * @return boolean
 	 */
-	public static function isValid($date, $format = null) {
-		return (static::createFromFormat(!is_null($format) ? $format : static::BR_DATE_TIME, $date) !== false);
+	public static function isValid($time, $format = null) {
+		return (static::createFromFormat(!is_null($format) ? $format : static::BR_DATE_TIME, $time) !== false);
 	}
 
 	/**

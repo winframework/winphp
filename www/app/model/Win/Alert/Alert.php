@@ -12,16 +12,20 @@ abstract class Alert {
 
 	public $type;
 	public $message;
+	protected static $file = 'layout/html/alert';
 
 	/**
 	 * Cria um novo alerta
 	 * @param string $type
 	 * @param string $message
+	 * @param boolean $saveOnSession [optional]
 	 */
-	public function __construct($type, $message) {
+	public function __construct($type, $message, $saveOnSession = true) {
 		$this->type = $type;
 		$this->message = $message;
-		Session::addAlert($this);
+		if ($saveOnSession) {
+			Session::addAlert($this);
+		}
 	}
 
 	/** @return string */
@@ -33,7 +37,7 @@ abstract class Alert {
 	 * Exibe o conteúdo HTML do alerta
 	 */
 	public function load() {
-		$block = new Block('layout/html/alert', ['alert' => $this]);
+		$block = new Block(static::$file, ['alert' => $this]);
 		$block->load();
 	}
 
