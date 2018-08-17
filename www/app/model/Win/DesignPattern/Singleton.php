@@ -30,16 +30,10 @@ trait Singleton {
 
 	/**
 	 * Retorna o nome a classe que deverá ser usada no $instance
-	 *
-	 * Se existe uma classe personalizada em DependenceInjector::$container, então ela será usada
 	 * @return string
 	 */
 	protected static function getClassDi() {
-		$class = get_called_class();
-		if (key_exists($class, DependenceInjector::$container)):
-			$class = DependenceInjector::$container[$class];
-		endif;
-		return $class;
+		return DependenceInjector::getClassDi(get_called_class());
 	}
 
 	/**
