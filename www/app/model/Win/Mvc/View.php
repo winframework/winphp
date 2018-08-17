@@ -24,7 +24,7 @@ class View {
 	 * Endereço completo do arquivo .phtml que contem o código HTML
 	 * @var string
 	 */
-	private $file = null;
+	private $file;
 
 	/**
 	 * Variáveis para serem usadas no arquivo da View
@@ -142,7 +142,7 @@ class View {
 	 * Exibe o conteúdo HTML da View
 	 */
 	public function toHtml() {
-		if (!is_null($this->file)):
+		if (isset($this->file)):
 			extract($this->data);
 			include $this->file;
 		endif;

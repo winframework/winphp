@@ -7,7 +7,8 @@ namespace Win\Html\Seo;
  */
 class Description {
 
-	protected static $MAX_LENGTH = 150;
+	public static $MAX_LENGTH = 150;
+	public static $DEFAULT = '';
 
 	/**
 	 * Retorna a 'description' com tamanho ideal
@@ -18,7 +19,7 @@ class Description {
 		if (strlen($description) > 0) {
 			return strTruncate($description, static::$MAX_LENGTH, true);
 		} else {
-			return DESCRIPTION_DEFAULT;
+			return static::$DEFAULT;
 		}
 	}
 

@@ -393,7 +393,7 @@ abstract class DAO implements DAOInterface {
 
 	/** Habilita o modo debug */
 	final public static function debug() {
-		static::$debug = 1;
+		static::$debug = true;
 	}
 
 	/**

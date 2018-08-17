@@ -90,7 +90,7 @@ class Input {
 	public static function protocol() {
 		$https = Input::server('HTTPS');
 		$port = Input::server('SERVER_PORT');
-		if (!empty($https) && $https !== 'off' || $port == 443):
+		if (!empty($https) && ($https !== 'off' || $port == 443)):
 			return 'https';
 		endif;
 		return 'http';
