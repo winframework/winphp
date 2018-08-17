@@ -18,7 +18,7 @@ abstract class Database {
 	protected $pdo;
 
 	/**
-	 * Cria e retorna conexao PDO
+	 * Cria e retorna conexão PDO
 	 * @param string[] $dbConfig
 	 * @return PDO
 	 */
@@ -50,7 +50,7 @@ abstract class Database {
 	}
 
 	/**
-	 * Redireciona para 503 caso não haja conexao
+	 * Redireciona para 503 caso não haja conexão
 	 * @param boolean $connection
 	 */
 	public static function validate($connection = false) {

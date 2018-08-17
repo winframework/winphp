@@ -3,14 +3,14 @@
 namespace Win\Html\Seo;
 
 /**
- * Auxilia a criar o description otimizado para SEO
+ * Auxilia a criar o Description otimizado para SEO
  */
 class Description {
 
 	protected static $MAX_LENGTH = 150;
 
 	/**
-	 * Retorna a description com tamanho ideal
+	 * Retorna a 'description' com tamanho ideal
 	 * @param string $description
 	 * @return string
 	 */

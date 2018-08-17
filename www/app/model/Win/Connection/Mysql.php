@@ -10,7 +10,7 @@ use PDO;
  */
 class Mysql extends Database {
 
-	/** Cria conexao via PDO */
+	/** Cria conexão via PDO */
 	protected function connect(&$dbConfig) {
 		return new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'], $dbConfig['user'], $dbConfig['pass']);
 	}

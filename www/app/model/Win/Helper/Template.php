@@ -2,17 +2,20 @@
 
 namespace Win\Helper;
 
+use Win\DesignPattern\Singleton;
+use const BASE_PATH;
+
 /**
  * Sistema de Templates
  *
- * Permite que a aplicação tenha multiplos templates e facilita a alteração entre os templates.
+ * Permite que a aplicação tenha múltiplos Templates e facilita a alteração entre os Templates.
  *
  * Quando uma View ou Block é chamado, primeiro o arquivo será buscando em "template/[nome-do-template]"
  * E caso o arquivo não exista, será buscado em "template/default"
  */
 class Template {
 
-	use \Win\DesignPattern\Singleton;
+	use Singleton;
 
 	protected static $dir = 'app/template/';
 	protected static $themeDefault = 'default';
@@ -26,7 +29,7 @@ class Template {
 	/**
 	 * Define o nome do Tema atual (Antes de instanciar o Application)
 	 *
-	 * Após esta chamada, todos os blocos e views serão buscados "template/[$theme]"
+	 * Após esta chamada, todos os Blocos e Views serão buscados "template/[$theme]"
 	 * @param string $theme
 	 */
 	public function setTheme($theme) {
@@ -43,11 +46,11 @@ class Template {
 
 	/**
 	 * Retorna o Novo caminho completo do arquivo
-	 * (incluindo o diretorio do template atual)
+	 * (incluindo o diretório do template atual)
 	 * 
-	 * @param string $dir Diretorio atual da view
-	 * @param string $file Arquivo atual da view
-	 * @return string Novo caminho completo da view
+	 * @param string $dir diretório atual da View
+	 * @param string $file Arquivo atual da View
+	 * @return string Novo caminho completo da View
 	 */
 	public function getFilePath($dir, $file) {
 		$appDir = BASE_PATH . '/app/';

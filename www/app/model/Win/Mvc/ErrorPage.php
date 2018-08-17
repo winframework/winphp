@@ -9,6 +9,7 @@ use Win\Html\Seo\Title;
  */
 class ErrorPage {
 
+	/** @var string[] */
 	public static $pages = [
 		404 => 'Página não encontrada',
 		401 => 'Não autorizado',

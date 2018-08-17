@@ -8,9 +8,9 @@ use Win\Mvc\Block;
 use Win\Request\Server;
 
 /**
- * Envios de E-mails
+ * Envio de E-mails
  *
- * Responsável por enviar emails, simplificando a forma de envio
+ * Responsável por enviar E-mails, simplificando a forma de envio
  */
 class Email {
 
@@ -76,7 +76,7 @@ class Email {
 	}
 
 	/**
-	 * Define o conteudo do E-mail
+	 * Define o conteúdo do E-mail
 	 * que pode ser uma string ou um bloco
 	 * @param string|Block $content
 	 */
@@ -117,7 +117,7 @@ class Email {
 	}
 
 	/**
-	 * Retorna o conteudo do E-mail
+	 * Retorna o conteúdo do E-mail
 	 * @return string
 	 */
 	public function getContent() {
@@ -133,9 +133,8 @@ class Email {
 	}
 
 	/**
-	 * Envia o email
+	 * Envia o E-mail
 	 *
-	 * No localhost será mostrado o conteudo do E-mail
 	 * @return null|string Retorna null ou string de erro
 	 */
 	public function send() {
@@ -155,7 +154,7 @@ class Email {
 	}
 
 	/**
-	 * Salva o email em um arquivo
+	 * Salva o E-mail em um arquivo
 	 */
 	private function saveOnDisk() {
 		$file = new File();

@@ -5,18 +5,18 @@ namespace Win\DesignPattern;
 /**
  * Implementa Design Pattern Singleton
  *
- * Ao utilizar o metodo instance(), será buscado no DependenceInjector a classe correspondente
+ * Ao utilizar o método instance(), será buscado no DependenceInjector a classe correspondente
  * @see DependenceInjector
- * Isso possibilita criar classes extendidas sem comprometer as dependencias da classe original
+ * Isso possibilita criar classes extendidas sem comprometer as dependências da classe original
  */
 trait Singleton {
 
 	protected static $instance = [];
 
 	/**
-	 * Retorna a instancia da Classe
+	 * Retorna a instância da Classe
 	 *
-	 * Este metodo é capaz de retornar uma classe extendida a partir do container em Dependence Injector
+	 * Este método é capaz de retornar uma classe extendida a partir do container em Dependence Injector
 	 * @return static
 	 */
 	public static function instance() {

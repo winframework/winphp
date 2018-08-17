@@ -25,7 +25,7 @@ class Select {
 	}
 
 	/**
-	 * Cria um select com options, selecionando automatico
+	 * Cria um <select> com <options>, selecionando automático
 	 * @param string[] $options
 	 * @param string $current
 	 */
@@ -35,7 +35,7 @@ class Select {
 	}
 
 	/**
-	 * Exibe os options do select
+	 * Exibe os <options> do <select>
 	 * @return string
 	 */
 	public function __toString() {

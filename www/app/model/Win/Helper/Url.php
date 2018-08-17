@@ -37,7 +37,7 @@ class Url {
 
 	/**
 	 * Redireciona para a URL escolhida
-	 * @param string $url Url relativa ou absoluta
+	 * @param string $url URL relativa ou absoluta
 	 */
 	public function redirect($url = '') {
 		if (strpos($url, '://') === false) {

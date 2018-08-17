@@ -54,11 +54,11 @@ class Timer {
 		$microsegs = ($segs - floor($segs)) * 1000;
 
 		return
-				(empty($days) ? "" : $days . "d ") .
-				(empty($hours) ? "" : $hours . "h ") .
-				(empty($minutes) ? "" : $minutes . "m ") .
-				floor($segs) . "s " .
-				$microsegs . "ms";
+				(empty($days) ? '' : $days . 'd ') .
+				(empty($hours) ? '' : $hours . 'h ') .
+				(empty($minutes) ? '' : $minutes . 'm ') .
+				floor($segs) . 's ' .
+				$microsegs . 'ms';
 	}
 
 }

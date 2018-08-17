@@ -7,6 +7,7 @@ namespace Win\Request;
  */
 class Server {
 
+	/** @return boolean */
 	public static function isLocalHost() {
 		$localAddress = ['localhost', '127.0.0.1', '::1', null];
 		return (in_array(static::getName(), $localAddress) || strpos(static::getName(), '192.168') !== false);

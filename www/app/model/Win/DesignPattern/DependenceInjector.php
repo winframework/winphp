@@ -5,10 +5,10 @@ namespace Win\DesignPattern;
 /**
  * Dependence Injector
  *
- * Auxilia a Injetar dependencias
- * As classes ficam salvas em $container, então poderao ser sobreescritas
+ * Auxilia a Injetar dependências
+ * As classes ficam salvas em $container, então poderão ser sobrescritas
  * desde que todas as chamadas das classes estejam utilizando o intance() do Singleton
- * ao inves de instanciar a classe.
+ * ao invés de instanciar a classe.
  */
 class DependenceInjector {
 
