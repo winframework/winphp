@@ -2,7 +2,7 @@
 
 /**
  * Select
- * Auxilia nas <select>
+ * Auxilia ao utilizar <select>
  *
  */
 
@@ -17,11 +17,10 @@ class Select {
 	 * Retorna selected="true" se os valores são iguais
 	 * @param mixed $value1
 	 * @param mixed $value2
+	 * @return string
 	 */
 	public static function active($value1, $value2 = true) {
-		if ($value1 == $value2) {
-			return 'selected="true"';
-		}
+		return ($value1 == $value2) ? 'selected="true"' : '';
 	}
 
 	/**
