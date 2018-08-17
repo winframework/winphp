@@ -1,6 +1,8 @@
 <?php
 
-namespace Win\Widget;
+namespace Win\Html\Form;
+
+use Win\Request\Input;
 
 /**
  * Utiliza o ReCaptcha do Google
@@ -17,8 +19,8 @@ class ReCaptcha {
 	 */
 	public static function isValid() {
 		if (static::$siteKey && static::$secretKey) {
-			$captcha = $_POST['g-recaptcha-response'];
-			$response = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . static::$secretKey . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']), TRUE);
+			$captcha = Input::post('g-recaptcha-response');
+			$response = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . static::$secretKey . "&response=" . $captcha . "&remoteip=" . Input::server('REMOTE_ADDR')), true);
 			return (boolean) $response['success'];
 		} else {
 			return true;
