@@ -22,12 +22,12 @@ class DateTime extends DateTimePHP {
 
 	/** @return string */
 	public function getMonthName() {
-		return Month::getName($this->format('m'));
+		return Month::getName((int) $this->format('m'));
 	}
 
 	/** @return string */
 	public function getMonthAbbre() {
-		return Month::getNameAbbre($this->format('m'));
+		return Month::getNameAbbre((int) $this->format('m'));
 	}
 
 	/** @return int */
@@ -49,7 +49,6 @@ class DateTime extends DateTimePHP {
 	public function toSql() {
 		return $this->format(static::SQL_DATE_TIME);
 	}
-
 
 	/**
 	 * Retorna TRUE se a data é valida

@@ -14,7 +14,7 @@ class Month {
 
 	/**
 	 * @param int $month
-	 * @return string
+	 * @return string|false
 	 */
 	public static function getName($month) {
 		return key_exists($month, static::$names) ? static::$names[$month] : false;
@@ -22,7 +22,7 @@ class Month {
 
 	/**
 	 * @param int $month
-	 * @return string
+	 * @return string|false
 	 */
 	public static function getNameAbbre($month) {
 		$name = static::getName($month);

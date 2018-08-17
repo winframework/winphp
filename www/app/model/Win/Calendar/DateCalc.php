@@ -153,9 +153,10 @@ class DateCalc {
 
 	/**
 	 * Retorna a data no formato humano
+	 * @param DateTime|boolean $date
 	 * @return string (ex: 4 horas atrás), (ex: daqui a 5 dias)
 	 */
-	public static function toTimeAgo(DateTime $date) {
+	public static function toTimeAgo($date) {
 		if ($date === false) {
 			return 'indisponível';
 		}
