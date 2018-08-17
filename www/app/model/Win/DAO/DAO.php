@@ -217,7 +217,7 @@ abstract class DAO implements DAOInterface {
 				$stmt->execute($values);
 			} catch (PDOException $e) {
 				$alert = new AlertError($this->errorSql($stmt, $e));
-				//$alert->load();
+				$alert->load();
 			}
 			return $stmt;
 		}
