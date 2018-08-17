@@ -10,7 +10,7 @@ use PhpThumbFactory;
  */
 class Image extends File {
 
-	static $phpThumbLib = '/../../../../lib/thumb/ThumbLib.inc.php';
+	public static $phpThumbLib = '/../../../../lib/thumb/ThumbLib.inc.php';
 
 	const QUALITY = 70;
 	const MAX_HEIGHT = 900;

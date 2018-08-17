@@ -7,8 +7,6 @@
  * Funções de conversão deve ter o nome no formato: [...]To[...]
  */
 
-setlocale(LC_ALL, 'pt_BR.UTF8');
-
 /**
  * Corta um texto, sem cortar a última palavra.
  * @param string $string [string a ser cortada]

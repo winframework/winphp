@@ -32,7 +32,7 @@ class DateTime extends DateTimePHP {
 
 	/** @return int */
 	public function getAge($date = 'NOW') {
-		return $this->diff($date)->format('%y');
+		return (int) $this->diff($date)->format('%y');
 	}
 
 	/** @return string */
