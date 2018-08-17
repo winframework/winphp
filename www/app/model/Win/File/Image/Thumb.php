@@ -27,7 +27,7 @@ class Thumb {
 	private $padding;
 	private $quality;
 	private $mode;
-	static private $modes = ['normal', 'center', 'padding'];
+	static protected $modes = ['normal', 'center', 'padding'];
 
 	/**
 	 * Construtor

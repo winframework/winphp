@@ -8,7 +8,7 @@ namespace Win\Mvc;
 class Config {
 
 	/** @var mixed[] */
-	private static $config;
+	protected static $config;
 
 	final public static function init($config) {
 		static::$config = $config;

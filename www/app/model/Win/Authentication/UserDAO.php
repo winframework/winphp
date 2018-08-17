@@ -68,7 +68,6 @@ class UserDAO extends DAO {
 		$row['access_level'] = $obj->accessLevel;
 		$row['name'] = strClear($obj->name);
 		$row['email'] = strClear($obj->getEmail());
-		//$row['image'] = $obj->image->getName();
 		$row['login_date'] = $obj->loginDate->toSql();
 		if (!is_null($obj->passwordHash)) {
 			$row['password_hash'] = $obj->passwordHash;

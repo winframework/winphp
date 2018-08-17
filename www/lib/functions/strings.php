@@ -39,15 +39,6 @@ function strClear($string) {
 }
 
 /**
- * Criptografa a string utilizando MD5 + SALT
- * @param string $string [string a ser criptografada]
- * @return string $stringEncript [string criptografada]
- */
-function strEncrypt($string, $salt = APP_ID) {
-	return md5($salt . $string);
-}
-
-/**
  * Retorna total de caracteres da string UTF-8
  * @param string
  * @return int
