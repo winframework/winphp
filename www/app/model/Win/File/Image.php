@@ -23,7 +23,7 @@ class Image extends File {
 	public function upload($newName = '') {
 		$error = parent::upload($newName);
 		if ($this->uploadPrepared && is_null($error)) {
-			$error = $this->saveThumb(self::MAX_WIDTH, self::MAX_HEIGHT);
+			$error = $this->saveThumb();
 		}
 		return $error;
 	}

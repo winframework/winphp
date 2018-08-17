@@ -20,12 +20,12 @@ class DateTime extends DateTimePHP {
 		return (boolean) ($this->format('y') < 0);
 	}
 
-	/** @return string */
+	/** @return string|false */
 	public function getMonthName() {
 		return Month::getName((int) $this->format('m'));
 	}
 
-	/** @return string */
+	/** @return string|false */
 	public function getMonthAbbre() {
 		return Month::getNameAbbre((int) $this->format('m'));
 	}
