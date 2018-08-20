@@ -7,11 +7,7 @@ use Win\Mvc\Block;
 
 class EmailTest extends \PHPUnit_Framework_TestCase {
 
-
 	public function testGetSubject() {
-		$b = new Block('email/content/first');
-		$this->assertEquals($b->exists(),'My first');
-
 		$email = new Email();
 		$email->setSubject('My Subject');
 		$this->assertEquals('My Subject', $email->getSubject());
@@ -30,7 +26,6 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('My Name', $email->getFromName());
 	}
 
-	
 	public function testContentString() {
 		$email = new Email();
 		$email->setContent('My body in string mode');
@@ -72,7 +67,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($this->findString($email->__toString(), 'My custom layout'));
 	}
 
-	public function testLayoutWithContent(){
+	public function testLayoutWithContent() {
 		$email = new Email();
 		$email->setLayout('main');
 		$email->setContent(new Block('email/content/first'));
