@@ -1,12 +1,13 @@
 <?php
 
+/* Constantes */
+define('BASE_PATH', getcwd());
+
+
 /* Configurações básicas da aplicação */
 $config = [
 	'name' => 'winPHP Framework'
 ];
-
-/* Constantes */
-define('BASE_PATH', getcwd());
 
 
 /* Configurações do PHP */
