@@ -57,13 +57,11 @@ class Router {
 
 	/**
 	 * Carrega o arquivo que contem as rotas
-	 * @param string|null $routes
+	 * @param string[] $routes
 	 */
-	public function load($routes = null) {
-		if (!is_null($routes)) {
-			$this->routes = $routes;
-		}
-		if (is_null($routes) && file_exists(BASE_PATH . static::$file)) {
+	public function load($routes = []) {
+		$this->routes = $routes;
+		if (empty($routes) && file_exists(BASE_PATH . static::$file)) {
 			$this->routes = include BASE_PATH . static::$file;
 		}
 	}

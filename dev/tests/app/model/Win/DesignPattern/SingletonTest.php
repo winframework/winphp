@@ -4,24 +4,6 @@ namespace Win\DesignPattern;
 
 use Win\Mvc\Application;
 
-class SuperDemoSingleton {
-
-	use Singleton;
-
-	public $value = 10;
-
-	public function getMyClass() {
-		return $this->getClassDi();
-	}
-
-}
-
-class DemoSingleton extends SuperDemoSingleton {
-
-	public $value = 20;
-
-}
-
 class SingletonTest extends \PHPUnit_Framework_TestCase {
 
 	public function testInstance() {

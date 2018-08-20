@@ -26,7 +26,7 @@ class ErrorPage {
 	 */
 	public static function validate() {
 		if (key_exists((int) Application::app()->getParam(0), static::$pages)):
-			ErrorPage::setError(Application::app()->getParam(0));
+			ErrorPage::setError((int) Application::app()->getParam(0));
 		endif;
 	}
 

@@ -7,7 +7,7 @@ namespace Win\Alert;
  */
 class Session {
 
-	private static $autoSave = true;
+	protected static $autoSave = true;
 
 	/**
 	 * Adiciona o alerta na sessão

@@ -6,8 +6,7 @@ use Win\Mvc\Block;
 
 /**
  * Alertas
- * São mensagens armazenadas na sessão e exibidas ao usuário
- * @var string TYPE
+ * São mensagens armazenadas na sessão e exibidas ao usuárioTYPE
  */
 abstract class Alert {
 
@@ -15,6 +14,8 @@ abstract class Alert {
 	public $group;
 	public $message;
 	protected static $file = 'layout/html/alert';
+
+	const TYPE = '';
 
 	/**
 	 * Cria um novo alerta
