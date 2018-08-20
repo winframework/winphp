@@ -75,6 +75,11 @@ class Email {
 		$this->layout = new Block($file, ['email' => $this]);
 	}
 
+	/** @return string */
+	public function __toString() {
+		return $this->layout->toString();
+	}
+
 	/**
 	 * Define o conteúdo do E-mail
 	 * que pode ser uma string ou um bloco

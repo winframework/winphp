@@ -90,9 +90,12 @@ class View {
 			$filePath = Template::instance()->getFilePath(BASE_PATH . static::$dir, $file);
 		endif;
 
-		if (file_exists($filePath . '.phtml')):
-			$this->file = $filePath . '.phtml';
-		endif;
+		$this->file = $filePath . '.phtml';
+	}
+
+	/** @return string */
+	public function getFile() {
+		return $this->file;
 	}
 
 	/**
@@ -142,7 +145,7 @@ class View {
 	 * Exibe o conteúdo HTML da View
 	 */
 	public function toHtml() {
-		if (isset($this->file)):
+		if (isset($this->file) && $this->exists()):
 			extract($this->data);
 			include $this->file;
 		endif;

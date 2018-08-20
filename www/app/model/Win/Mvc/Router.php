@@ -55,9 +55,15 @@ class Router {
 		return false;
 	}
 
-	/** Carrega o arquivo que contem as rotas */
-	private function load() {
-		if (file_exists(BASE_PATH . static::$file)) {
+	/**
+	 * Carrega o arquivo que contem as rotas
+	 * @param string|null $routes
+	 */
+	public function load($routes = null) {
+		if (!is_null($routes)) {
+			$this->routes = $routes;
+		}
+		if (is_null($routes) && file_exists(BASE_PATH . static::$file)) {
 			$this->routes = include BASE_PATH . static::$file;
 		}
 	}

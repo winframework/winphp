@@ -7,25 +7,24 @@ use Win\Mvc\Block;
 /**
  * Alertas
  * São mensagens armazenadas na sessão e exibidas ao usuário
+ * @var string TYPE
  */
 abstract class Alert {
 
 	public $type;
+	public $group;
 	public $message;
 	protected static $file = 'layout/html/alert';
 
 	/**
 	 * Cria um novo alerta
-	 * @param string $type
 	 * @param string $message
-	 * @param boolean $saveOnSession [optional]
 	 */
-	public function __construct($type, $message, $saveOnSession = true) {
-		$this->type = $type;
+	public function __construct($message, $group = null) {
 		$this->message = $message;
-		if ($saveOnSession) {
-			Session::addAlert($this);
-		}
+		$this->type = static::TYPE;
+		$this->group = $group;
+		Session::addAlert($this);
 	}
 
 	/** @return string */
@@ -48,12 +47,28 @@ abstract class Alert {
 	 * @param string $success
 	 * @return Alert
 	 */
-	public static function create($error, $success) {
+	public static function create($error, $success, $group = null) {
 		if (!is_null($error)) {
-			return new AlertError($error);
+			return new AlertError($error, $group);
 		} else {
-			return new AlertSuccess($success);
+			return new AlertSuccess($success, $group);
 		}
+	}
+
+	/**
+	 * @param string $group
+	 * @return boolean
+	 */
+	public function isGroup($group) {
+		return ($group == '' || $group == $this->group);
+	}
+
+	/**
+	 * @param string $type
+	 * @return boolean
+	 */
+	public function isType($type = '') {
+		return ($type == '' || $type == $this->type);
 	}
 
 }
