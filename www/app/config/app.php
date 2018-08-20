@@ -2,8 +2,7 @@
 
 /* Configurações básicas da aplicação */
 $config = [
-	'name' => 'winPHP Framework',
-	'BASE_PATH', getcwd()
+	'name' => 'winPHP Framework'
 ];
 
 
