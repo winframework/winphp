@@ -2,6 +2,8 @@
 
 namespace Win\Mvc;
 
+use controller\DemoController;
+use controller\IndexController;
 use Win\Mvc\Application;
 use Win\Mvc\ControllerFactory;
 use Win\Mvc\DefaultController;
@@ -29,13 +31,19 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCreateControllerWithCustomAction() {
-		$app = new Application();
+		new Application();
 		$controller = ControllerFactory::create('demo', 'return-five');
-		$five = $controller->load();
+		$controller->load();
 
 		$this->assertEquals('returnFive', $controller->getAction());
-		$this->assertEquals(5, $five);
-		$this->assertFalse(404, $app->getPage());
+	}
+
+	public function testCreateControllerWithInvalidView() {
+		$app = new Application();
+		$controller = ControllerFactory::create('demo', 'return-invalid-view');
+		$controller->load();
+
+		$this->assertFalse($app->view->exists());
 	}
 
 	public function testCreateControllerWithInvalidAction() {
@@ -43,7 +51,8 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 		$controller = ControllerFactory::create('demo', 'invalid');
 		$controller->load();
 		$this->assertEquals('invalid', $controller->getAction());
-		$this->assertTrue(404, $app->getPage());
+		$this->assertEquals(404, $app->getPage());
+		$this->assertFalse($app->view->exists());
 	}
 
 }
