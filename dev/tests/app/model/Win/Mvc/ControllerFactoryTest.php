@@ -15,17 +15,35 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($notFound);
 	}
 
-	public function testControllerIndex() {
+	public function testCreateController() {
 		new Application();
-		$controller = ControllerFactory::create('index');
-		$notFound = $controller instanceof DefaultController;
-		$this->assertFalse($notFound);
+		$controller = ControllerFactory::create('demo');
+		$this->assertFalse($controller instanceof IndexController);
+		$this->assertTrue($controller instanceof DemoController);
 	}
 
-	public function testAutomaticActionName() {
-		new Application();
-		$controller = ControllerFactory::create('index', 'my-example-action');
-		$this->assertEquals('myExampleAction', $controller->getAction());
+	public function testCreateControllerWithIndexAction() {
+		$controller = ControllerFactory::create('demo', 'index');
+		$this->assertFalse($controller instanceof IndexController);
+		$this->assertTrue($controller instanceof DemoController);
+	}
+
+	public function testCreateControllerWithCustomAction() {
+		$app = new Application();
+		$controller = ControllerFactory::create('demo', 'return-five');
+		$five = $controller->load();
+
+		$this->assertEquals('returnFive', $controller->getAction());
+		$this->assertEquals(5, $five);
+		$this->assertFalse(404, $app->getPage());
+	}
+
+	public function testCreateControllerWithInvalidAction() {
+		$app = new Application();
+		$controller = ControllerFactory::create('demo', 'invalid');
+		$controller->load();
+		$this->assertEquals('invalid', $controller->getAction());
+		$this->assertTrue(404, $app->getPage());
 	}
 
 }

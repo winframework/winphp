@@ -2,9 +2,6 @@
 
 namespace Win\Mvc;
 
-use Win\Mvc\ViewFactory;
-use Win\Helper\Url;
-
 class ViewFactoryTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCreateView() {

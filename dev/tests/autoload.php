@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Autoload Controller Tests
+ * Autoload Controller
  */
 spl_autoload_register(function($className) {
 	$file = BASE_PATH . '/../../www/app/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
@@ -11,10 +11,10 @@ spl_autoload_register(function($className) {
 });
 
 /**
- * Autoload Model Tests
+ * Autoload Controller Tests
  */
 spl_autoload_register(function($className) {
-	$file = BASE_PATH . '/app/model/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+	$file = BASE_PATH . '/app/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
 	if (file_exists($file)):
 		return require $file;
 	endif;
@@ -31,3 +31,13 @@ spl_autoload_register(function($className) {
 	endif;
 });
 
+
+/**
+ * Autoload Model Tests
+ */
+spl_autoload_register(function($className) {
+	$file = BASE_PATH . '/app/model/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+	if (file_exists($file)):
+		return require $file;
+	endif;
+});

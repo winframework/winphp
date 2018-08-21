@@ -62,6 +62,7 @@ class Router {
 	public function load($routes = []) {
 		$this->routes = $routes;
 		if (empty($routes) && file_exists(BASE_PATH . static::$file)) {
+			var_dump('1111');
 			$this->routes = include BASE_PATH . static::$file;
 		}
 	}
