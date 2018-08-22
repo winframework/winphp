@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Helper;
+namespace Win\Mvc;
 
 use Win\DesignPattern\Singleton;
 use const BASE_PATH;

@@ -9,6 +9,8 @@ class Month {
 
 	/** @var string[] */
 	public static $names = [1 => 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+	/** @var int */
 	protected $month;
 
 	const ABBRE_LENGTH = 3;

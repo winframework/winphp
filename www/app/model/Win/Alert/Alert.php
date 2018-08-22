@@ -20,8 +20,9 @@ abstract class Alert {
 	/**
 	 * Cria um novo alerta
 	 * @param string $message
+	 * @param string $group
 	 */
-	public function __construct($message, $group = null) {
+	public function __construct($message, $group = '') {
 		$this->message = $message;
 		$this->type = static::TYPE;
 		$this->group = $group;
@@ -30,15 +31,17 @@ abstract class Alert {
 
 	/** @return string */
 	public function __toString() {
-		return $this->message;
+		return $this->getBlock()->toString();
 	}
 
-	/**
-	 * Exibe o conteúdo HTML do alerta
-	 */
+	/** Exibe o conteúdo HTML do alerta */
 	public function load() {
-		$block = new Block(static::$file, ['alert' => $this]);
-		$block->load();
+		return $this->getBlock()->load();
+	}
+
+	/** @return Block */
+	protected function getBlock() {
+		return new Block(static::$file, ['alert' => $this]);
 	}
 
 	/**
@@ -46,9 +49,10 @@ abstract class Alert {
 	 * Possibilitando criar um "AlertError" ou "AlertSuccess" em um único método
 	 * @param string|null $error
 	 * @param string $success
+	 * @param string $group
 	 * @return Alert
 	 */
-	public static function create($error, $success, $group = null) {
+	public static function create($error, $success, $group = '') {
 		if (!is_null($error)) {
 			return new AlertError($error, $group);
 		} else {
@@ -68,7 +72,7 @@ abstract class Alert {
 	 * @param string $type
 	 * @return boolean
 	 */
-	public function isType($type = '') {
+	public function isType($type) {
 		return ($type == '' || $type == $this->type);
 	}
 

@@ -5,7 +5,7 @@ namespace Win\Authentication;
 use Win\Alert\AlertError;
 use Win\Calendar\Date;
 use Win\File\Image;
-use Win\Helper\Url;
+use Win\Request\Url;
 use Win\Mvc\Application;
 
 /**

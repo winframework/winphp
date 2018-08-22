@@ -2,7 +2,6 @@
 
 namespace Win\Mvc;
 
-use Win\Helper\Template;
 use Win\Html\Seo\Title;
 
 /**

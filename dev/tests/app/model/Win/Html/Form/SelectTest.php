@@ -4,18 +4,18 @@ namespace Win\Html\Form;
 
 class SelectTest extends \PHPUnit_Framework_TestCase {
 
-	private static $active = 'selected="true"';
+	private static $active = 'selected';
 
 	public function testIsActive() {
-		$this->assertEquals(Select::active(true), static::$active);
-		$this->assertEquals(Select::active(1), static::$active);
-		$this->assertEquals(Select::active('teste', 'teste'), static::$active);
+		$this->assertContains(static::$active, Select::active(true));
+		$this->assertContains(static::$active, Select::active(1));
+		$this->assertContains(static::$active, Select::active('teste', 'teste'));
 	}
 
 	public function testIsNotActive() {
-		$this->assertNotEquals(Select::active(false), static::$active);
-		$this->assertNotEquals(Select::active(0), static::$active);
-		$this->assertNotEquals(Select::active('teste', 'wrong'), static::$active);
+		$this->assertNotContains(static::$active, Select::active(false));
+		$this->assertNotContains(static::$active, Select::active(0));
+		$this->assertNotContains(static::$active, Select::active('teste', 'wrong'));
 	}
 
 	public function testToString() {

@@ -9,7 +9,11 @@ class AlertTest extends \PHPUnit_Framework_TestCase {
 	public function testGetMessage() {
 		$instance = new AlertError('My Alert');
 		$this->assertEquals('My Alert', $instance->message);
-		$this->assertEquals('My Alert', $instance);
+	}
+
+	public function testToString() {
+		$instance = new AlertError('My Alert Text');
+		$this->assertContains('My Alert Text', (string) $instance);
 	}
 
 	public function testGetType() {
@@ -47,7 +51,7 @@ class AlertTest extends \PHPUnit_Framework_TestCase {
 
 	public function testIsType() {
 		$msg = new AlertDefault('Test');
-		$this->assertTrue($msg->isType());
+		$this->assertTrue($msg->isType(''));
 		$this->assertTrue($msg->isType(AlertDefault::TYPE));
 		$this->assertFalse($msg->isType('other-type'));
 	}

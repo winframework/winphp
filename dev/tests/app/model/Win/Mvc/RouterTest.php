@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Helper\Url;
+use Win\Request\Url;
 use Win\Mvc\Router;
 use Win\Mvc\Application;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Helper;
+namespace Win\Calendar;
 
 class TimerTest extends \PHPUnit_Framework_TestCase {
 

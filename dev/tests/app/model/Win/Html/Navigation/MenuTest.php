@@ -3,7 +3,7 @@
 namespace Win\Html\Navigation;
 
 use Win\Mvc\Application;
-use Win\Helper\Url;
+use Win\Request\Url;
 use Win\Html\Navigation\Menu;
 
 class MenuTest extends \PHPUnit_Framework_TestCase {

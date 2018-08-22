@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Helper;
+namespace Win\Mvc;
 
 class TemplateTest extends \PHPUnit_Framework_TestCase {
 

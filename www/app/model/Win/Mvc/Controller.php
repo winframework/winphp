@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Helper\Url;
+use Win\Request\Url;
 
 /**
  * Controllers
@@ -25,18 +25,22 @@ abstract class Controller {
 	/** @var string */
 	public $layout = 'main';
 
-	/** @var mixed[] Array variáveis para usar na View */
+	/**
+	 * Variáveis para serem usadas no arquivo da View
+	 * @var mixed[]
+	 */
 	private $data = [];
 
 	/**
 	 * Cria o Controller, definindo o Action
+	 * @param string $action
 	 */
 	public function __construct($action = '') {
 		$this->app = Application::app();
 		$this->setAction($action);
 	}
 
-
+	/** @param string $title */
 	public function setTitle($title) {
 		$this->addData('title', $title);
 	}

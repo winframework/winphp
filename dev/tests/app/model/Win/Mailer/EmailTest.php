@@ -2,8 +2,10 @@
 
 namespace Win\Mailer;
 
+use Win\File\Directory;
 use Win\Mailer\Email;
 use Win\Mvc\Block;
+use Win\Request\Server;
 
 class EmailTest extends \PHPUnit_Framework_TestCase {
 
@@ -72,6 +74,31 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		$email->setLayout('main');
 		$email->setContent(new Block('email/content/first'));
 		$this->assertTrue($this->findString($email->__toString(), 'My first content'));
+	}
+
+	public function testSend() {
+		$email = new Email();
+		$email->setContent('My email content');
+		$send = $email->send();
+		$this->assertTrue($send);
+	}
+
+	public function testSendSaveFile() {
+		$dir = new Directory('data/email');
+		$dir->remove();
+		$dir->create();
+		$this->assertEquals(0, count($dir->getFiles()));
+
+		Email::$sendOnLocalHost = false;
+		$email = new Email();
+		$email->setContent('My email content');
+		$email->send();
+
+		if (Server::isLocalHost()) {
+			$this->assertEquals(1, count($dir->getFiles()));
+		} else {
+			$this->assertEquals(0, count($dir->getFiles()));
+		}
 	}
 
 	/** @return boolean */

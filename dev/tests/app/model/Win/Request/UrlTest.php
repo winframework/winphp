@@ -1,8 +1,6 @@
 <?php
 
-namespace Win\Helper;
-
-use Win\Helper\Url;
+namespace Win\Request;
 
 class UrlTest extends \PHPUnit_Framework_TestCase {
 

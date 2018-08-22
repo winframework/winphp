@@ -1,8 +1,8 @@
 <?php
 
-namespace Win\Helper;
+namespace Win\Request;
 
-use Win\Request\Input;
+use Win\DesignPattern\Singleton;
 
 /**
  * Gerenciador de URL
@@ -10,7 +10,7 @@ use Win\Request\Input;
  */
 class Url {
 
-	use \Win\DesignPattern\Singleton;
+	use Singleton;
 
 	protected $base = null;
 	protected $url = null;

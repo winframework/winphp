@@ -2,7 +2,7 @@
 
 namespace Win\Html\Navigation;
 
-use Win\Helper\Url;
+use Win\Request\Url;
 use Win\Mvc\Application;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Win\Connection;
 
-use Win\Helper\Url;
+use Win\Request\Url;
 use Win\Mvc\Application;
 
 class MysqlTest extends \PHPUnit_Framework_TestCase {

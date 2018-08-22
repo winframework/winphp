@@ -7,6 +7,7 @@ namespace Win\Alert;
  */
 class Session {
 
+	/** @var boolean */
 	protected static $autoSave = true;
 
 	/**
@@ -30,8 +31,8 @@ class Session {
 	/**
 	 * Mostra os alertas criados, podendo filtrar por $type e/ou $group
 	 * Removendo-os da sessão
-	 * @param string $type
-	 * @param string $group
+	 * @param string $type [optional] Se não informado, retorna todos os tipos
+	 * @param string $group [optional] Se não informado, retorna todos os grupos
 	 */
 	public static function showAlerts($type = '', $group = '') {
 		foreach (static::getAlerts($type, $group) as $i => $alert) {
@@ -42,8 +43,8 @@ class Session {
 
 	/**
 	 * Retorna alertas criados, podendo filtrar por $type e/ou $group
-	 * @param string $type
-	 * @param string $group
+	 * @param string $type [optional] Se não informado, retorna todos os tipos
+	 * @param string $group [optional] Se não informado, retorna todos os grupos
 	 * @return Alert[]
 	 */
 	public static function getAlerts($type = '', $group = '') {

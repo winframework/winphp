@@ -22,6 +22,7 @@ class File {
 
 	/* Construtor */
 
+	/** @param string $name */
 	public function __construct($name = '') {
 		if (is_file($name)) {
 			$this->name = pathinfo($name, PATHINFO_BASENAME);
@@ -35,14 +36,17 @@ class File {
 
 	/* Metodos de acesso */
 
+	/** @return string */
 	public function getName() {
 		return $this->name;
 	}
 
+	/** @return string */
 	public function getTempName() {
 		return $this->tempName;
 	}
 
+	/** @return string */
 	public function getExtension() {
 		if (is_null($this->extension)):
 			$this->extension = static::getExtensionByName($this->name);
@@ -50,6 +54,7 @@ class File {
 		return $this->extension;
 	}
 
+	/** @return intg */
 	public function getSize() {
 		return $this->size;
 	}

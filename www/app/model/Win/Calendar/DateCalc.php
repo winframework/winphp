@@ -33,7 +33,7 @@ class DateCalc {
 	 * @param int $minutes
 	 */
 	public static function sumSeconds(DateTime $dateTime, $minutes = 1) {
-		$dateTime->add(DateInterval::createFromDateString($minutes . ' seconds'));
+		$dateTime->add(DateInterval::createFromDateString($minutes . ' ' . static::SECONDS));
 	}
 
 	/**
@@ -41,7 +41,7 @@ class DateCalc {
 	 * @param int $minutes
 	 */
 	public static function sumMinutes(DateTime $dateTime, $minutes = 1) {
-		$dateTime->add(DateInterval::createFromDateString($minutes . ' minutes'));
+		$dateTime->add(DateInterval::createFromDateString($minutes . ' ' . static::MINUTES));
 	}
 
 	/**
@@ -49,7 +49,7 @@ class DateCalc {
 	 * @param int $hours
 	 */
 	public static function sumHours(DateTime $dateTime, $hours = 1) {
-		$dateTime->add(DateInterval::createFromDateString($hours . ' hours'));
+		$dateTime->add(DateInterval::createFromDateString($hours . ' ' . static::HOURS));
 	}
 
 	/**
@@ -57,7 +57,7 @@ class DateCalc {
 	 * @param int $days
 	 */
 	public static function sumDays(DateTime $dateTime, $days = 1) {
-		$dateTime->add(DateInterval::createFromDateString($days . ' days'));
+		$dateTime->add(DateInterval::createFromDateString($days . ' ' . static::DAYS));
 	}
 
 	/**
@@ -65,7 +65,7 @@ class DateCalc {
 	 * @param int $weeks
 	 */
 	public static function sumWeeks(DateTime $dateTime, $weeks = 1) {
-		$dateTime->add(DateInterval::createFromDateString($weeks . ' weeks'));
+		$dateTime->add(DateInterval::createFromDateString($weeks . ' ' . static::WEEKS));
 	}
 
 	/**
@@ -73,7 +73,7 @@ class DateCalc {
 	 * @param int $months
 	 */
 	public static function sumMonths(DateTime $dateTime, $months = 1) {
-		$dateTime->add(DateInterval::createFromDateString($months . ' months'));
+		$dateTime->add(DateInterval::createFromDateString($months . ' ' . static::MONTHS));
 	}
 
 	/**
@@ -81,7 +81,7 @@ class DateCalc {
 	 * @param int $years
 	 */
 	public static function sumYears(DateTime $dateTime, $years = 1) {
-		$dateTime->add(DateInterval::createFromDateString($years . ' years'));
+		$dateTime->add(DateInterval::createFromDateString($years . ' ' . static::YEARS));
 	}
 
 	/**
@@ -89,7 +89,7 @@ class DateCalc {
 	 * @param int $minutes
 	 */
 	public static function subSeconds(DateTime $dateTime, $minutes = 1) {
-		$dateTime->sub(DateInterval::createFromDateString($minutes . ' seconds'));
+		$dateTime->sub(DateInterval::createFromDateString($minutes . ' ' . static::SECONDS));
 	}
 
 	/**
@@ -97,7 +97,7 @@ class DateCalc {
 	 * @param int $minutes
 	 */
 	public static function subMinutes(DateTime $dateTime, $minutes = 1) {
-		$dateTime->sub(DateInterval::createFromDateString($minutes . ' minutes'));
+		$dateTime->sub(DateInterval::createFromDateString($minutes . ' ' . static::MINUTES));
 	}
 
 	/**
@@ -105,7 +105,7 @@ class DateCalc {
 	 * @param int $hours
 	 */
 	public static function subHours(DateTime $dateTime, $hours = 1) {
-		$dateTime->sub(DateInterval::createFromDateString($hours . ' hours'));
+		$dateTime->sub(DateInterval::createFromDateString($hours . ' ' . static::HOURS));
 	}
 
 	/**
@@ -113,7 +113,7 @@ class DateCalc {
 	 * @param int $days
 	 */
 	public static function subDays(DateTime $dateTime, $days = 1) {
-		$dateTime->sub(DateInterval::createFromDateString($days . ' days'));
+		$dateTime->sub(DateInterval::createFromDateString($days . ' ' . static::DAYS));
 	}
 
 	/**
@@ -121,7 +121,7 @@ class DateCalc {
 	 * @param int $weeks
 	 */
 	public static function subWeeks(DateTime $dateTime, $weeks = 1) {
-		$dateTime->sub(DateInterval::createFromDateString($weeks . ' weeks'));
+		$dateTime->sub(DateInterval::createFromDateString($weeks . ' ' . static::WEEKS));
 	}
 
 	/**
@@ -129,7 +129,7 @@ class DateCalc {
 	 * @param int $months
 	 */
 	public static function subMonths(DateTime $dateTime, $months = 1) {
-		$dateTime->sub(DateInterval::createFromDateString($months . ' months'));
+		$dateTime->sub(DateInterval::createFromDateString($months . ' ' . static::MONTHS));
 	}
 
 	/**
@@ -137,7 +137,7 @@ class DateCalc {
 	 * @param int $years
 	 */
 	public static function subYears(DateTime $dateTime, $years = 1) {
-		$dateTime->sub(DateInterval::createFromDateString($years . ' years'));
+		$dateTime->sub(DateInterval::createFromDateString($years . ' ' . static::YEARS));
 	}
 
 	/**

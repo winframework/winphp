@@ -4,7 +4,7 @@ namespace Win\Mvc;
 
 use controller\DemoController;
 use controller\IndexController;
-use Win\Helper\Url;
+use Win\Request\Url;
 
 class ControllerTest extends \PHPUnit_Framework_TestCase {
 

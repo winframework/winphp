@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Helper;
+namespace Win\Calendar;
 
 /**
  * Contador de Tempo

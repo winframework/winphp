@@ -10,8 +10,10 @@ use Win\Request\Server;
  */
 class Directory {
 
+	/** @var string */
 	private $path;
 
+	/** @param string $path */
 	public function __construct($path) {
 		$this->path = str_replace(['///', '//'], ['/', '/'], $path . '/');
 	}
@@ -64,7 +66,6 @@ class Directory {
 
 	/**
 	 * Exclui o diretório e os arquivos dentro dele
-	 * @param string $path
 	 * @return boolean
 	 */
 	public function remove() {
@@ -89,6 +90,18 @@ class Directory {
 				unlink($path . '/' . $file);
 			}
 		}
+	}
+
+	/** @return string[] */
+	public function getFiles() {
+		$path = str_replace('//', '/', $this->path);
+		$files = array_diff(scandir($path), ['.', '..']);
+		foreach ($files as $i => $file) {
+			if (is_dir($path . '/' . $file)) {
+				unset($files[$i]);
+			}
+		}
+		return $files;
 	}
 
 }

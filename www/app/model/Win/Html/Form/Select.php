@@ -14,13 +14,13 @@ class Select {
 	private $current;
 
 	/**
-	 * Retorna selected="true" se os valores são iguais
+	 * Retorna "selected" se os valores são iguais
 	 * @param mixed $value1
 	 * @param mixed $value2
 	 * @return string
 	 */
 	public static function active($value1, $value2 = true) {
-		return ($value1 == $value2) ? 'selected="true"' : '';
+		return ($value1 == $value2) ? 'selected' : '';
 	}
 
 	/**

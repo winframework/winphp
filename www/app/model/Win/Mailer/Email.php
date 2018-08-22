@@ -24,6 +24,9 @@ class Email {
 	private $mailer;
 	public static $sendOnLocalHost = false;
 
+	/** @var string|null */
+	private $error = null;
+
 	/**
 	 * Cria uma mensagem de E-mail
 	 */
@@ -138,28 +141,37 @@ class Email {
 	}
 
 	/**
+	 * Retorna o erro caso 'send()' tenha retornado FALSE
+	 * @return string|null
+	 */
+	public function getError() {
+		return $this->error;
+	}
+
+	/**
 	 * Envia o E-mail
 	 *
 	 * @return null|string Retorna null ou string de erro
 	 */
 	public function send() {
+		$send = false;
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
 			$this->mailer->Body = $this->layout->toString();
 			$send = $this->mailer->Send();
 			$this->mailer->ClearAllRecipients();
 			$this->mailer->ClearAttachments();
 			if (!$send) {
-				return 'Houve um erro ao enviar o e-mail.<br /><span style="display:none">' . $this->mailer->ErrorInfo . '</span>';
+				$this->error = 'Houve um erro ao enviar o e-mail.<br /><span style="display:none">' . $this->mailer->ErrorInfo . '</span>';
 			}
-			return null;
 		} else {
-			$this->saveOnDisk();
+			$send = $this->saveOnDisk();
 		}
-		return null;
+		return $send;
 	}
 
 	/**
 	 * Salva o E-mail em um arquivo
+	 * @return boolean
 	 */
 	private function saveOnDisk() {
 		$file = new File();
@@ -167,7 +179,7 @@ class Email {
 
 		$fileName = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 		$file->setName($fileName);
-		$file->write($this->layout->toString());
+		return $file->write($this->layout->toString());
 	}
 
 }
