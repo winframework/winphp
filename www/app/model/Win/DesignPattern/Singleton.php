@@ -5,41 +5,37 @@ namespace Win\DesignPattern;
 /**
  * Implementa Design Pattern Singleton
  *
- * Ao utilizar o metodo instance(), será buscado no DependenceInjector a classe correspondente
+ * Ao utilizar o método instance(), será buscado no DependenceInjector a classe correspondente
  * @see DependenceInjector
- * Isso possibilita criar classes extendidas sem comprometer as dependencias da classe original
+ * Isso possibilita criar classes extendidas sem comprometer as dependências da classe original
  */
 trait Singleton {
 
 	protected static $instance = [];
 
 	/**
-	 * Retorna a instancia da Classe
+	 * Retorna a instância da Classe
 	 *
-	 * Este metodo é capaz de retornar uma classe extendida a partir do container em Dependence Injector
+	 * Este método é capaz de retornar uma classe extendida a partir do container em Dependence Injector
+	 * @param string $alias Com este parâmetro é possível criar múltiplas instâncias
 	 * @return static
 	 */
-	public static function instance() {
+	public static function instance($alias = 'default') {
 		$class = get_called_class();
-		if (!isset(static::$instance[$class])):
+		if (!isset(static::$instance[$class][$alias])):
 			$classDi = static::getClassDi();
-			static::$instance[$class] = new $classDi();
+			$instance = new $classDi();
+			static::$instance[$class][$alias] = $instance;
 		endif;
-		return static::$instance[$class];
+		return static::$instance[$class][$alias];
 	}
 
 	/**
 	 * Retorna o nome a classe que deverá ser usada no $instance
-	 *
-	 * Se existe uma classe personalizada em DependenceInjector::$container, então ela será usada
 	 * @return string
 	 */
 	protected static function getClassDi() {
-		$class = get_called_class();
-		if (key_exists($class, DependenceInjector::$container)):
-			$class = DependenceInjector::$container[$class];
-		endif;
-		return $class;
+		return DependenceInjector::getClassDi(get_called_class());
 	}
 
 	/**

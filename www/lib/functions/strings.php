@@ -7,8 +7,6 @@
  * Funções de conversão deve ter o nome no formato: [...]To[...]
  */
 
-setlocale(LC_ALL, 'pt_BR.UTF8');
-
 /**
  * Corta um texto, sem cortar a última palavra.
  * @param string $string [string a ser cortada]
@@ -38,15 +36,6 @@ function strTruncate($string, $length, $rep = false) {
  */
 function strClear($string) {
 	return trim(strip_tags(str_replace('"', '&quot;', $string)));
-}
-
-/**
- * Criptografa a string utilizando MD5 + SALT
- * @param string $string [string a ser criptografada]
- * @return string $stringEncript [string criptografada]
- */
-function strEncrypt($string, $salt = APP_ID) {
-	return md5($salt . $string);
 }
 
 /**

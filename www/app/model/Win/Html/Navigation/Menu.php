@@ -2,7 +2,7 @@
 
 namespace Win\Html\Navigation;
 
-use Win\Helper\Url;
+use Win\Request\Url;
 use Win\Mvc\Application;
 
 /**
@@ -12,10 +12,10 @@ use Win\Mvc\Application;
 class Menu {
 
 	/**
-	 * Usado para ativar links (aceita arrays)
+	 * Usado para ativar Links (aceita arrays)
 	 *
 	 * Retorna 'active' se o link informado for a página atual
-	 * ou se o link for idêntico ao início da Url
+	 * ou se o link for idêntico ao início da URL
 	 * @param string|string[] $link href do link/botão
 	 * @return string 'active'|''
 	 */
@@ -31,7 +31,7 @@ class Menu {
 	}
 
 	/**
-	 * Usado para ativar multiplos links
+	 * Usado para ativar múltiplos Links
 	 * @param string[] $linkList
 	 * @return string 'active'|''
 	 */

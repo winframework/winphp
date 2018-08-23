@@ -66,7 +66,7 @@ class Pagination {
 		}
 	}
 
-	/** @param int $current */
+	/** @param int|null $current */
 	public function setCurrent($current) {
 		if (is_null($current) && isset($_GET['p'])) {
 			$current = $_GET['p'];

@@ -9,6 +9,7 @@ use Win\Html\Seo\Title;
  */
 class ErrorPage {
 
+	/** @var string[] */
 	public static $pages = [
 		404 => 'Página não encontrada',
 		401 => 'Não autorizado',
@@ -24,8 +25,8 @@ class ErrorPage {
 	 * mesmo se a página existente 404 for acessada
 	 */
 	public static function validate() {
-		if (key_exists((int) static::app()->getParam(0), static::$pages)):
-			Application::app()->pageNotFound();
+		if (key_exists((int) Application::app()->getParam(0), static::$pages)):
+			ErrorPage::setError((int) Application::app()->getParam(0));
 		endif;
 	}
 
@@ -34,15 +35,16 @@ class ErrorPage {
 	 * @param int $errorCode
 	 */
 	public static function setError($errorCode) {
+		$app = Application::app();
 		if (key_exists($errorCode, static::$pages)):
 			static::stopControllerIf403($errorCode);
-			static::app()->setPage((string) $errorCode);
-			static::app()->view = new View($errorCode);
+			$app->setPage((string) $errorCode);
+			$app->view = new View($errorCode);
 
-			static::app()->controller = ControllerFactory::create('Error' . $errorCode);
-			static::app()->view->addData('title', Title::otimize(static::$pages[$errorCode]));
+			$app->controller = ControllerFactory::create('Error' . $errorCode);
+			$app->controller->setTitle(Title::otimize(static::$pages[$errorCode]));
 			http_response_code($errorCode);
-			static::app()->controller->reload();
+			$app->controller->reload();
 		endif;
 	}
 
@@ -52,8 +54,9 @@ class ErrorPage {
 	 * @param int $errorCode
 	 */
 	private static function stopControllerIf403($errorCode) {
-		if ($errorCode == 403 && static::app()->getParam(0) !== (string) $errorCode):
-			static::app()->redirect(403 . '/index/' . static::app()->getUrl());
+		$app = Application::app();
+		if ($errorCode == 403 && $app->getParam(0) !== (string) $errorCode):
+			$app->redirect(403 . '/index/' . $app->getUrl());
 		endif;
 	}
 
@@ -64,7 +67,7 @@ class ErrorPage {
 
 	/** @return boolean */
 	public static function isErrorPage() {
-		return (boolean) (key_exists((int) static::app()->getPage(), static::$pages));
+		return (boolean) (key_exists((int) Application::app()->getPage(), static::$pages));
 	}
 
 }

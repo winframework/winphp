@@ -217,18 +217,18 @@ abstract class DAO implements DAOInterface {
 				$stmt->execute($values);
 			} catch (PDOException $e) {
 				$alert = new AlertError($this->errorSql($stmt, $e));
-				//$alert->load();
+				$alert->load();
 			}
 			return $stmt;
 		}
 	}
 
 	/**
-	 * @param $stmt \PDOStatement
+	 * @param \PDOStatement|boolean $stmt
 	 * @param PDOException|null $e
-	 * @return string erro
+	 * @return string|null erro
 	 */
-	protected function errorSql(PDOStatement $stmt, PDOException $e = null) {
+	protected function errorSql($stmt, PDOException $e = null) {
 		$error = null;
 		if ($stmt->errorCode() !== '00000') {
 			$error = 'Houve um durante a execução do comando SQL. [Erro ' . $stmt->errorCode() . ']';
@@ -393,7 +393,7 @@ abstract class DAO implements DAOInterface {
 
 	/** Habilita o modo debug */
 	final public static function debug() {
-		static::$debug = 1;
+		static::$debug = true;
 	}
 
 	/**

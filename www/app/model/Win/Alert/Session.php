@@ -7,33 +7,54 @@ namespace Win\Alert;
  */
 class Session {
 
+	/** @var boolean */
+	protected static $autoSave = true;
+
 	/**
 	 * Adiciona o alerta na sessão
 	 * @param Alert $alert
 	 */
 	public static function addAlert(Alert $alert) {
-		$_SESSION['alerts'][] = $alert;
-	}
-
-	/**
-	 * Mostra todos os alertas criados, removendo-os da sessão
-	 */
-	public static function showAlerts() {
-		foreach (static::getAlerts() as $alert) {
-			$alert->load();
+		if (static::$autoSave) {
+			$_SESSION['alerts'][] = $alert;
 		}
-		unset($_SESSION['alerts']);
 	}
 
 	/**
-	 * Retorna todos os alertas da sessão
+	 * Liga/Desliga o salvamento automático de alertas na sessão
+	 * @param boolean $mode
+	 */
+	public static function setAutoSave($mode = true) {
+		static::$autoSave = $mode;
+	}
+
+	/**
+	 * Mostra os alertas criados, podendo filtrar por $type e/ou $group
+	 * Removendo-os da sessão
+	 * @param string $type [optional] Se não informado, retorna todos os tipos
+	 * @param string $group [optional] Se não informado, retorna todos os grupos
+	 */
+	public static function showAlerts($type = '', $group = '') {
+		foreach (static::getAlerts($type, $group) as $i => $alert) {
+			$alert->load();
+			unset($_SESSION['alerts'][$i]);
+		}
+	}
+
+	/**
+	 * Retorna alertas criados, podendo filtrar por $type e/ou $group
+	 * @param string $type [optional] Se não informado, retorna todos os tipos
+	 * @param string $group [optional] Se não informado, retorna todos os grupos
 	 * @return Alert[]
 	 */
-	public static function getAlerts() {
-		if (!isset($_SESSION['alerts'])) {
-			$_SESSION['alerts'] = [];
+	public static function getAlerts($type = '', $group = '') {
+		$alerts = isset($_SESSION['alerts']) ? array_unique($_SESSION['alerts']) : [];
+		foreach ($alerts as $i => $alert) {
+			if (!$alert->isType($type) || !$alert->isGroup($group)) {
+				unset($alerts[$i]);
+			}
 		}
-		return array_unique($_SESSION['alerts']);
+		return $alerts;
 	}
 
 	/**

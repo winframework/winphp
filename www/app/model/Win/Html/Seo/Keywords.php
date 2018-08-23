@@ -9,17 +9,19 @@ use Win\Mvc\Application;
  */
 class Keywords {
 
-	const MAX_LENGTH = 100;
+	public static $MAX_LENGTH = 100;
 
 	/**
 	 * Retorna uma string em minúscula, separada por virgula
-	 * @param string[]
+	 * @param string[] $array1
+	 * @param string[] $array2
+	 * @return string
 	 */
 	public static function toKeys($array1, $array2 = []) {
 		if (empty($array2)) {
 			$array2 = [Application::app()->controller->getData('keywords')];
 		}
-		return strLower(str_replace([',...', '...'], '', strTruncate(implode(', ', array_filter(array_merge($array1, $array2))), static::MAX_LENGTH)));
+		return strLower(str_replace([',...', '...'], '', strTruncate(implode(', ', array_filter(array_merge($array1, $array2))), static::$MAX_LENGTH)));
 	}
 
 }

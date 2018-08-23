@@ -2,7 +2,6 @@
 
 namespace Win\Mvc;
 
-use Win\Helper\Template;
 use Win\Html\Seo\Title;
 
 /**
@@ -21,21 +20,21 @@ class View {
 	public $app;
 
 	/**
-	 * Endereço completo do arquivo .phtml que contem o código html
+	 * Endereço completo do arquivo .phtml que contem o código HTML
 	 * @var string
 	 */
-	private $file = null;
+	private $file;
 
 	/**
-	 * Variáveis para serem usadas no arquivo da view
+	 * Variáveis para serem usadas no arquivo da View
 	 * @var mixed[]
 	 */
 	private $data;
 
 	/**
 	 * Cria uma View com base no arquivo escolhido
-	 * @param string $file Nome do arquivo da view
-	 * @param mixed[] $data Array de variaveis
+	 * @param string $file Nome do arquivo da View
+	 * @param mixed[] $data Array de variáveis
 	 */
 	public function __construct($file, $data = []) {
 		$this->app = Application::app();
@@ -44,7 +43,7 @@ class View {
 	}
 
 	/**
-	 * Adiciona uma variavel para usar na view
+	 * Adiciona uma variável para usar na View
 	 * @param string $name
 	 * @param mixed $value
 	 */
@@ -53,7 +52,7 @@ class View {
 	}
 
 	/**
-	 * Adiciona um array de variaveis para usar na view
+	 * Adiciona um array de variáveis para usar na View
 	 * @param mixed[] $data
 	 */
 	public function mergeData(array $data) {
@@ -61,7 +60,7 @@ class View {
 	}
 
 	/**
-	 * Retorna uma variavel da view
+	 * Retorna uma variável da View
 	 * @param string $name
 	 * @return mixed|null
 	 */
@@ -80,7 +79,7 @@ class View {
 	}
 
 	/**
-	 * Define o arquivo da view
+	 * Define o arquivo da View
 	 * @param string $file
 	 */
 	private function setFile($file) {
@@ -90,13 +89,16 @@ class View {
 			$filePath = Template::instance()->getFilePath(BASE_PATH . static::$dir, $file);
 		endif;
 
-		if (file_exists($filePath . '.phtml')):
-			$this->file = $filePath . '.phtml';
-		endif;
+		$this->file = $filePath . '.phtml';
+	}
+
+	/** @return string */
+	public function getFile() {
+		return $this->file;
 	}
 
 	/**
-	 * Retorna TRUE se a view existe
+	 * Retorna TRUE se a View existe
 	 * @return boolean
 	 */
 	public function exists() {
@@ -113,7 +115,7 @@ class View {
 	}
 
 	/**
-	 * Retorna o HTML da view
+	 * Retorna o HTML da View
 	 * @return string
 	 */
 	public function __toString() {
@@ -121,7 +123,7 @@ class View {
 	}
 
 	/**
-	 * Retorna o HTML da view
+	 * Retorna o HTML da View
 	 * @return string
 	 */
 	public function toString() {
@@ -131,7 +133,7 @@ class View {
 	}
 
 	/**
-	 * Exibe o conteúdo HTML da view
+	 * Exibe o conteúdo HTML da View
 	 * @return string
 	 */
 	public function load() {
@@ -139,10 +141,10 @@ class View {
 	}
 
 	/**
-	 * Exibe o conteúdo HTML da view
+	 * Exibe o conteúdo HTML da View
 	 */
 	public function toHtml() {
-		if (!is_null($this->file)):
+		if (isset($this->file) && $this->exists()):
 			extract($this->data);
 			include $this->file;
 		endif;

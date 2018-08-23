@@ -46,9 +46,14 @@ class Input {
 
 	/**
 	 * Retorna variável $_GET
+	 * @param string $name
+	 * @param int $filter
+	 * @param mixed $default
+	 * @return mixed
 	 */
-	public static function get() {
-		
+	public static function get($name, $filter = FILTER_DEFAULT, $default = null) {
+		$get = filter_input(INPUT_GET, $name, $filter);
+		return !is_null($get) ? $get : $default;
 	}
 
 	/**
@@ -90,7 +95,7 @@ class Input {
 	public static function protocol() {
 		$https = Input::server('HTTPS');
 		$port = Input::server('SERVER_PORT');
-		if (!empty($https) && $https !== 'off' || $port == 443):
+		if (!empty($https) && ($https !== 'off' || $port == 443)):
 			return 'https';
 		endif;
 		return 'http';
