@@ -34,7 +34,7 @@ class Application {
 	public function __construct($config = []) {
 		static::$app = $this;
 		Config::load($config);
-		$this->name = Config::get('name', '');
+		$this->name = (string) Config::get('name', '');
 
 		$this->setParamList(Url::instance()->getFragments());
 		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));

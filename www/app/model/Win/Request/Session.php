@@ -11,7 +11,7 @@ class Session extends Data {
 
 	const TYPE = 'default';
 
-	public static function getAll() {
+	protected static function getAll() {
 		return $_SESSION;
 	}
 

@@ -59,7 +59,7 @@ abstract class Database {
 	 * Redireciona para 503 caso a conexão tenha falhado
 	 */
 	public function validate() {
-		if (!$this->isValid()):
+		if (!is_null($this->pdoException)):
 			Application::app()->errorPage(503);
 			Application::app()->view->addData('error', $this->pdoException->getMessage());
 		endif;

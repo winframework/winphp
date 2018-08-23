@@ -54,7 +54,7 @@ class File {
 		return $this->extension;
 	}
 
-	/** @return intg */
+	/** @return int */
 	public function getSize() {
 		return $this->size;
 	}
@@ -252,7 +252,7 @@ class File {
 	 * @return boolean
 	 */
 	public function write($content = '', $mode = 'a') {
-		if (!is_null($this->getName())) {
+		if (strlen($this->getName()) > 0) {
 			$this->directory->create();
 			$fp = fopen($this->getFullName(), $mode);
 			if ($fp !== false) {
