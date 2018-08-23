@@ -9,7 +9,7 @@ use Win\Mvc\Application;
  */
 class Title {
 
-	public static $maxLength = 70;
+	public static $MAX_LENGTH = 70;
 	public static $prefix = '';
 	public static $sufix = '';
 
@@ -20,7 +20,7 @@ class Title {
 	 * @return string
 	 */
 	public static function otimize($title) {
-		$maxLenght = static::$maxLength - strLength(static::$prefix) - strLength(static::$sufix) - 3;
+		$maxLenght = static::$MAX_LENGTH - strLength(static::$prefix) - strLength(static::$sufix) - 3;
 		return static::$prefix . strTruncate($title, $maxLenght, true) . static::$sufix;
 	}
 

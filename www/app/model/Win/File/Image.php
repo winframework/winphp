@@ -2,19 +2,11 @@
 
 namespace Win\File;
 
-use PhpThumbFactory;
-
 /**
  * Arquivos de Imagem
  *
  */
 class Image extends File {
-
-	static $phpThumbLib = '/../../../../lib/thumb/ThumbLib.inc.php';
-
-	const QUALITY = 70;
-	const MAX_HEIGHT = 900;
-	const MAX_WIDTH = 1200;
 
 	protected static $validExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
@@ -23,50 +15,13 @@ class Image extends File {
 	public function upload($newName = '') {
 		$error = parent::upload($newName);
 		if ($this->uploadPrepared && is_null($error)) {
-			$error = $this->saveThumb(self::MAX_WIDTH, self::MAX_HEIGHT);
+			$error = $this->saveThumb();
 		}
 		return $error;
 	}
 
-	/**
-	 * Gera a miniatura
-	 * @return string Retorna o caminho da thumb
-	 * @param int $width largura
-	 * @param int $height altura
-	 * @param boolean $mode modo de corte
-	 */
-	public function showThumb($width = 100, $height = 100, $mode = 'normal') {
-		return "lib/thumb/" . $mode . '/' . $width . '/' . $height . '/' . $this->__toString();
-	}
-
-	/**
-	 * Cria uma miniatura da imagem 
-	 * @return string
-	 */
 	public function saveThumb() {
-		$this->includeLibrary();
-		if (file_exists($this->getTempName())) {
-			$thumb = PhpThumbFactory::create($this->getFullName());
-			$thumb->resize(self::MAX_WIDTH, self::MAX_HEIGHT);
-			$this->remove();
-			$thumb->save($this->getFullName());
-		}
-		return null;
-	}
-
-	/**
-	 * Inclui bibliotecas necessárias
-	 * @return string
-	 */
-	protected function includeLibrary() {
-		if (!class_exists('PhpThumbFactory')) {
-			$phpThumbDir = dirname(realpath(__FILE__)) . static::$phpThumbLib;
-			if (file_exists($phpThumbDir)) {
-				include_once $phpThumbDir;
-			} else {
-				return 'PhpThumbFactory não incluído!';
-			}
-		}
+		return false;
 	}
 
 	public function __toString() {

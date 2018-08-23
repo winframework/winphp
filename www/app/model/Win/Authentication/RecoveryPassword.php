@@ -22,9 +22,6 @@ abstract class RecoveryPassword {
 			$content = new Block('email/content/recovery-password', ['user' => $user]);
 
 			$mail = new Email();
-			if (defined('EMAIL_FROM')) {
-				$mail->setFrom(EMAIL_FROM, Application::app()->getName());
-			}
 			$mail->setSubject('Recuperação de Senha');
 			$mail->addAddress($user->getEmail(), $user->name);
 			$mail->setContent($content);

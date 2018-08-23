@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Helper\Url;
+use Win\Request\Url;
 
 /**
  * Controllers
@@ -25,24 +25,28 @@ abstract class Controller {
 	/** @var string */
 	public $layout = 'main';
 
-	/** @var mixed[] Array variaveis para usar na View */
+	/**
+	 * Variáveis para serem usadas no arquivo da View
+	 * @var mixed[]
+	 */
 	private $data = [];
 
 	/**
-	 * Cria o Controller, definindo o action
+	 * Cria o Controller, definindo o Action
+	 * @param string $action
 	 */
 	public function __construct($action = '') {
 		$this->app = Application::app();
 		$this->setAction($action);
 	}
 
-
+	/** @param string $title */
 	public function setTitle($title) {
 		$this->addData('title', $title);
 	}
 
 	/**
-	 * Adiciona uma variavel para usar na view
+	 * Adiciona uma variável para usar na View
 	 * @param string $name
 	 * @param mixed $value
 	 */
@@ -51,7 +55,7 @@ abstract class Controller {
 	}
 
 	/**
-	 * Retorna uma variavel do controller
+	 * Retorna uma variável do Controller
 	 * @param string $name
 	 * @return mixed|null
 	 */
@@ -63,7 +67,7 @@ abstract class Controller {
 	}
 
 	/**
-	 * Define o action
+	 * Define o Action
 	 * @param string $action
 	 */
 	private function setAction($action = '') {
@@ -74,7 +78,7 @@ abstract class Controller {
 	}
 
 	/**
-	 * Retorna o nome do action em camelCase
+	 * Retorna o nome do Action em camelCase
 	 * @param string $action
 	 * @return string
 	 */
@@ -93,14 +97,13 @@ abstract class Controller {
 	}
 
 	/**
-	 * Carrega o controller,
-	 * executando o action atual
+	 * Carrega o Controller,
+	 * executando o Action atual
 	 */
 	public function load() {
 		$this->init();
 		$action = $this->action;
 		$view = $this->$action();
-
 		if ($view instanceof View && !$this->app->isErrorPage()):
 			$this->app->view = $view;
 		endif;
@@ -132,14 +135,14 @@ abstract class Controller {
 	abstract public function index();
 
 	/**
-	 * Este metodo é chamado sempre que o controller é carregado
+	 * Este método é chamado sempre que o Controller é carregado
 	 */
 	protected function init() {
 		
 	}
 
 	/**
-	 * Evita chamada de um metodo que nao existe
+	 * Evita chamada de um método que não exista
 	 * @param string $name
 	 * @param mixed[] $arguments
 	 * @return boolean

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Para editar o código html do layout, procure em:
+ * Para editar o código HTML do layout, procure em:
  * app/block/layout/
  */
 define('BASE_PATH', __DIR__);

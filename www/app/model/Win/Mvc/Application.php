@@ -2,7 +2,8 @@
 
 namespace Win\Mvc;
 
-use Win\Helper\Url;
+use Win\Data\Config;
+use Win\Request\Url;
 
 /**
  * Application (WinPHP Framework)
@@ -32,8 +33,8 @@ class Application {
 	 */
 	public function __construct($config = []) {
 		static::$app = $this;
-		Config::init($config);
-		$this->name = Config::get('name', '');
+		Config::load($config);
+		$this->name = (string) Config::get('name', '');
 
 		$this->setParamList(Url::instance()->getFragments());
 		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));

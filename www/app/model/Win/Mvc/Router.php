@@ -3,7 +3,7 @@
 namespace Win\Mvc;
 
 use Win\DesignPattern\Singleton;
-use Win\Helper\Url;
+use Win\Request\Url;
 
 /**
  * Rota de URL
@@ -55,9 +55,13 @@ class Router {
 		return false;
 	}
 
-	/** Carrega o arquivo que contem as rotas */
-	private function load() {
-		if (file_exists(BASE_PATH . static::$file)) {
+	/**
+	 * Carrega o arquivo que contem as rotas
+	 * @param string[] $routes
+	 */
+	public function load($routes = []) {
+		$this->routes = $routes;
+		if (empty($routes) && file_exists(BASE_PATH . static::$file)) {
 			$this->routes = include BASE_PATH . static::$file;
 		}
 	}
