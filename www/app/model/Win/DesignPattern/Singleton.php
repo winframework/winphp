@@ -17,15 +17,17 @@ trait Singleton {
 	 * Retorna a instância da Classe
 	 *
 	 * Este método é capaz de retornar uma classe extendida a partir do container em Dependence Injector
+	 * @param string $alias Com este parâmetro é possível criar múltiplas instâncias
 	 * @return static
 	 */
-	public static function instance() {
+	public static function instance($alias = 'default') {
 		$class = get_called_class();
-		if (!isset(static::$instance[$class])):
+		if (!isset(static::$instance[$class][$alias])):
 			$classDi = static::getClassDi();
-			static::$instance[$class] = new $classDi();
+			$instance = new $classDi();
+			static::$instance[$class][$alias] = $instance;
 		endif;
-		return static::$instance[$class];
+		return static::$instance[$class][$alias];
 	}
 
 	/**

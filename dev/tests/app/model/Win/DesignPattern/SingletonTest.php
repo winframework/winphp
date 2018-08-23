@@ -24,6 +24,7 @@ class SingletonTest extends \PHPUnit_Framework_TestCase {
 		DependenceInjector::$container[SuperDemoSingleton::class] = 'My\Teste';
 		$class = SuperDemoSingleton::instance()->getMyClass();
 		$this->assertEquals($class, 'My\Teste');
+		DependenceInjector::$container = [];
 	}
 
 	public function testSuperGetValue() {
@@ -40,6 +41,16 @@ class SingletonTest extends \PHPUnit_Framework_TestCase {
 		DemoSingleton::instance()->value = 5;
 		$this->assertEquals(DemoSingleton::instance()->value, 5);
 		$this->assertEquals(SuperDemoSingleton::instance()->value, 10);
+	}
+
+	public function testAlias() {
+		SuperDemoSingleton::instance()->value = 10;
+		SuperDemoSingleton::instance('super1')->value = 20;
+		SuperDemoSingleton::instance('super2')->value = 30;
+
+		$this->assertEquals(SuperDemoSingleton::instance()->value, 10);
+		$this->assertEquals(SuperDemoSingleton::instance('super1')->value, 20);
+		$this->assertEquals(SuperDemoSingleton::instance('super2')->value, 30);
 	}
 
 }

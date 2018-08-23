@@ -2,60 +2,66 @@
 
 namespace Win\Connection;
 
+use PDO;
+use PDOException;
+use Win\DesignPattern\Singleton;
+use Win\Mvc\Application;
+
 /**
  * Conexão com banco de dados
  *
  */
-use PDO;
-use Win\Mvc\Application;
-
 abstract class Database {
 
-	/** @var Database */
-	protected static $instance;
+	use Singleton;
 
 	/** @var PDO */
 	protected $pdo;
+
+	/** @var PDOException|null */
+	protected $pdoException;
 
 	/**
 	 * Cria e retorna conexão PDO
 	 * @param string[] $dbConfig
 	 * @return PDO
 	 */
-	abstract protected function connect(&$dbConfig);
+	abstract protected function createPdo(&$dbConfig);
 
 	/** @return PDO */
 	final public function getPDO() {
 		return $this->pdo;
 	}
 
-	/** @return static */
-	final public static function instance() {
-		return self::$instance;
-	}
-
 	/**
 	 * Cria uma conexão com um banco de dados
 	 * @param string[] $dbConfig
 	 */
-	public function __construct($dbConfig) {
-		self::$instance = $this;
+	public function connect($dbConfig) {
 		try {
-			$this->pdo = $this->connect($dbConfig);
+			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec("set names utf8");
-		} catch (\PDOException $ex) {
-			Application::app()->errorPage(503);
-			Application::app()->view->addData('error', $ex->getMessage());
+			$this->pdoException = null;
+		} catch (PDOException $ex) {
+			$this->pdoException = $ex;
 		}
 	}
 
 	/**
-	 * Redireciona para 503 caso não haja conexão
-	 * @param boolean $connection
+	 * Retorna TRUE caso a conexão tenha sido bem sucedida
+	 * @return boolean
 	 */
-	public static function validate($connection = false) {
-		if ($connection === false):
+	public function isValid() {
+		return (is_null($this->pdoException) && $this->pdo instanceof \PDO);
+	}
+
+	/**
+	 * Redireciona para 503 caso a conexão tenha falhado
+	 */
+	public function validate() {
+		if (!$this->isValid()):
 			Application::app()->errorPage(503);
+			Application::app()->view->addData('error', $this->pdoException->getMessage());
 		endif;
 	}
 
