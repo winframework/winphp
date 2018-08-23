@@ -5,7 +5,7 @@ namespace Win\Authentication;
 use Win\Alert\AlertError;
 use Win\Calendar\Date;
 use Win\File\Image;
-use Win\Helper\Url;
+use Win\Request\Url;
 use Win\Mvc\Application;
 
 /**
@@ -43,13 +43,6 @@ class User {
 	/** @var Image */
 	public $image;
 
-	/** @var Group */
-	private $group;
-	public $groupId;
-
-	/** @var Person */
-	private $person;
-
 	public function __construct() {
 		$this->id = 0;
 		$this->isEnabled = true;
@@ -66,9 +59,6 @@ class User {
 		$this->image->setDirectory('data/upload/user');
 		$this->loginDate = new Date('00/00/0000');
 		$this->loginLockDate = new Date('00/00/0000');
-		$this->group = null;
-		$this->groupId = 0;
-		$this->person = null;
 	}
 
 	public function getId() {
@@ -88,24 +78,12 @@ class User {
 		return ($this->accessLevel == self::ACCESS_ADMIN);
 	}
 
-	public function getGroup() {
-		if (is_null($this->group)) {
-			// groupDAO
-		}
-		return $this->group;
-	}
-
 	public function getPassword() {
 		return $this->password;
 	}
 
 	public function getEmail() {
 		return $this->email;
-	}
-
-	/** @return Person */
-	public function getPerson() {
-		return $this->person;
 	}
 
 	/** @return Date retorna data que poderá logar novamente sem bloqueio */
@@ -121,10 +99,6 @@ class User {
 
 	public function setId($id) {
 		$this->id = $id;
-	}
-
-	public function setPerson(Person $person) {
-		$this->person = $person;
 	}
 
 	public function setEmail($email, $confirmEmail = null) {
@@ -249,7 +223,7 @@ class User {
 
 	/** Define os atributos que são salvos na SESSAO */
 	public function __sleep() {
-		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'loginDate', 'groupId', 'loginFailCount', 'loginLockDate'];
+		return ['id', 'isEnabled', 'isLogged', 'accessLevel', 'name', 'email', 'image', 'loginDate', 'loginFailCount', 'loginLockDate'];
 	}
 
 }

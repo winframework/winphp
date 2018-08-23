@@ -7,12 +7,12 @@ use Win\Mvc\View;
 /**
  * Fábrica de Views
  * 
- * Cria a view de acordo com a URL
+ * Cria a View de acordo com a URL
  */
 class ViewFactory {
 
 	/**
-	 * Cria uma view com base na página e parametros
+	 * Cria uma View com base na página e parâmetros
 	 * @param string $page
 	 * @param mixed[] $paramList
 	 * @return View

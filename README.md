@@ -14,4 +14,4 @@ Estrutura PHP baseada em MVC, para gerenciar de forma dinâmica como as páginas
 
 ### Requisitos
 
-| PHP 5.4 +
+| PHP 5.6 +
