@@ -124,6 +124,16 @@ class Email {
 		return $this->mailer->FromName;
 	}
 
+	/** @return string[] */
+	public function getAdresses() {
+		return $this->mailer->getAllRecipientAddresses();
+	}
+
+	/** @return string[] */
+	public function getReplyToAddresses() {
+		return $this->mailer->getReplyToAddresses();
+	}
+
 	/**
 	 * Retorna o conteúdo do E-mail
 	 * @return string

@@ -52,17 +52,13 @@ class ErrorPage {
 	 * Trava o carregamento do Controller, se ele definir um erro 403
 	 * Isso evita que códigos sem permissões de acesso nunca sejam executados
 	 * @param int $errorCode
+	 * @codeCoverageIgnore
 	 */
 	private static function stopControllerIf403($errorCode) {
 		$app = Application::app();
 		if ($errorCode == 403 && $app->getParam(0) !== (string) $errorCode):
 			$app->redirect(403 . '/index/' . $app->getUrl());
 		endif;
-	}
-
-	/** @return Application */
-	protected static function app() {
-		return Application::app();
 	}
 
 	/** @return boolean */

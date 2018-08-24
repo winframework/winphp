@@ -38,6 +38,7 @@ class Url {
 	/**
 	 * Redireciona para a URL escolhida
 	 * @param string $url URL relativa ou absoluta
+	 * @codeCoverageIgnore
 	 */
 	public function redirect($url = '') {
 		if (strpos($url, '://') === false) {

@@ -33,4 +33,15 @@ class MenuTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('', Menu::active('my-page/my-action/my-last'));
 	}
 
+	public function testMultiActive() {
+		Url::instance()->setUrl('my-page/my-action/my-last-param');
+		new Application();
+
+		$this->assertEquals('active', Menu::active(['my-page', 'other-page', 'last-page']));
+		$this->assertEquals('active', Menu::active(['first-page', 'my-page', 'last-page']));
+		$this->assertEquals('active', Menu::active(['first-page', 'my-page/my-action', 'last-page']));
+		$this->assertEquals('', Menu::active(['first-page', 'my-page/other-action', 'last-page']));
+		$this->assertEquals('', Menu::active(['first-page', 'second-page', 'last-page']));
+	}
+
 }

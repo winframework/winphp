@@ -28,7 +28,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('exampleAction', $controller3->getAction());
 	}
 
-	public function getData() {
+	public function testGetData() {
 		$controller = new DefaultController();
 		$controller->addData('a', 1);
 		$controller->addData('b', 2);
@@ -38,7 +38,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $controller->getData('c'));
 	}
 
-	public function setTitle() {
+	public function testSetTitle() {
 		$controller = new DefaultController();
 		$controller->setTitle('My title page');
 		$this->assertEquals('My title page', $controller->getData('title'));

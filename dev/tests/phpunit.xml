@@ -1,1 +1,16 @@
-<phpunit bootstrap="./bootstrap.php" colors="true"></phpunit>
+<phpunit bootstrap="./bootstrap.php" colors="true"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		stopOnFailure="false">
+
+	<filter>
+		<whitelist>
+		<directory suffix='.php'>../../www/app/model/Win</directory>
+		</whitelist>
+	</filter>
+
+	<logging>
+		<log type="coverage-html" target="report" lowUpperBound="35" highLowerBound="70"/>
+	</logging>
+</phpunit>

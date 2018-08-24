@@ -27,7 +27,7 @@ class DemoController extends Controller {
 		return new View('this-file-doesnt-exist');
 	}
 
-		public function returnInvalidView2() {
+	public function returnInvalidView2() {
 		return new View('my-view/invalid');
 	}
 

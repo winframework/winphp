@@ -5,8 +5,10 @@ namespace Win\Request;
 class InputTest extends \PHPUnit_Framework_TestCase {
 
 	public function testProtocol() {
-		$this->assertTrue(strlen(Input::protocol()) > 0);
-		$this->assertTrue(strpos(Input::protocol(), 'http') !== false);
+		$this->assertEquals('http', Input::protocol());
+		
+		$_SERVER['HTTPS'] = true;
+		$this->assertEquals('https', Input::protocol());
 	}
 
 	public function testFile() {
@@ -21,6 +23,17 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	public function testPostDefault() {
 		$value = Input::post('not-exists', FILTER_DEFAULT, 'my default post');
 		$this->assertEquals($value, 'my default post');
+	}
+
+	public function testPostArray() {
+		$this->assertTrue(is_array(Input::postArray('not-exists')));
+	}
+
+	public function testPostFile() {
+		$_FILES['photo']['name'] = 'image.jpg';
+		$_FILES['photo']['size'] = 10;
+		$this->assertNotNull(Input::file('photo'));
+		$this->assertEquals('image.jpg', Input::file('photo')['name']);
 	}
 
 	public function testGet() {

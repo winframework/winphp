@@ -68,27 +68,6 @@ class Input {
 	}
 
 	/**
-	 * Retorna variável $_PUT
-	 */
-	public static function put() {
-		
-	}
-
-	/**
-	 * Retorna variável $_DELETE
-	 */
-	public static function delete() {
-		
-	}
-
-	/**
-	 * Retorna variável $_COOKIE
-	 */
-	public static function cookie() {
-		
-	}
-
-	/**
 	 * Retorna o protocolo atual
 	 * @return string 'http'|'https'
 	 */

@@ -157,20 +157,19 @@ class DateCalc {
 	 * @return string (ex: 4 horas atrás), (ex: daqui a 5 dias)
 	 */
 	public static function toTimeAgo($date) {
-		if ($date === false) {
-			return 'indisponível';
-		}
-		$time = time() - strtotime($date->format(DateTime::SQL_DATE_TIME));
+		$timeAgo = 'indisponível';
+		if ($date !== false) {
+			$time = time() - strtotime($date->format(DateTime::SQL_DATE_TIME));
 
-		if ($time == 0) {
-			return 'agora mesmo';
+			if ($time === 0) {
+				$timeAgo = 'agora mesmo';
+			} elseif ($time > 0) {
+				$timeAgo = static::getTime($time) . ' atrás';
+			} else {
+				$timeAgo = 'daqui a ' . static::getTime($time * (-1));
+			}
 		}
-		if ($time > 0) {
-			return static::getTime($time) . ' atrás';
-		}
-		if ($time < 0) {
-			return 'daqui a ' . static::getTime($time * (-1));
-		}
+		return $timeAgo;
 	}
 
 	/**
@@ -180,14 +179,16 @@ class DateCalc {
 	 */
 	protected static function getTime($seconds) {
 		$units = array_reverse(DateCalc::$units);
+		$time = 0;
 		foreach ($units as $unitName => $unitInfo) {
 			if ($seconds >= $unitInfo[2]) {
 				$timeTotal = floor($seconds / $unitInfo[2]);
 				$isPlural = ($timeTotal > 1);
-				return $timeTotal . ' ' . self::$units[$unitName][$isPlural];
+				$time = $timeTotal . ' ' . self::$units[$unitName][$isPlural];
+				break;
 			}
 		}
-		return 0;
+		return $time;
 	}
 
 }

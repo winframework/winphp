@@ -28,6 +28,31 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('My Name', $email->getFromName());
 	}
 
+	public function testAddAddress() {
+		$email = new Email();
+		$email->addAddress('first@email.com', 'First Name');
+		$email->addAddress('second@email.com', 'Second Name');
+		$addresses = $email->getAdresses();
+
+		$this->assertEquals(2, count($addresses));
+		$this->assertTrue(key_exists('first@email.com', $addresses));
+		$this->assertTrue(key_exists('second@email.com', $addresses));
+		$this->assertFalse(key_exists('third@email.com', $addresses));
+	}
+
+	public function testReplyTo() {
+		$email = new Email();
+		$email->addAddress('first@email.com', 'First Name');
+		$email->addReplyTo('first@reply.com', 'First Reply');
+		$email->addReplyTo('second@reply.com', 'Second Reply');
+		$replyAddresses = $email->getReplyToAddresses();
+
+		$this->assertEquals(2, count($replyAddresses));
+		$this->assertTrue(key_exists('first@reply.com', $replyAddresses));
+		$this->assertTrue(key_exists('second@reply.com', $replyAddresses));
+		$this->assertFalse(key_exists('first@email.com', $replyAddresses));
+	}
+
 	public function testContentString() {
 		$email = new Email();
 		$email->setContent('My body in string mode');
@@ -79,8 +104,20 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	public function testSend() {
 		$email = new Email();
 		$email->setContent('My email content');
+		$email->setLanguage('pt-br');
 		$send = $email->send();
 		$this->assertTrue($send);
+		$this->assertNull($email->getError());
+	}
+
+		public function testSendErrorLocalHost() {
+		$email = new Email();
+		Email::$sendOnLocalHost = true;
+		$email->setContent('My email content');
+		$send = $email->send();
+		$this->assertFalse($send);
+		$this->assertNotNull($email->getError());
+		Email::$sendOnLocalHost = false;
 	}
 
 	public function testSendSaveFile() {
@@ -96,8 +133,6 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 
 		if (Server::isLocalHost()) {
 			$this->assertEquals(1, count($dir->getFiles()));
-		} else {
-			$this->assertEquals(0, count($dir->getFiles()));
 		}
 	}
 

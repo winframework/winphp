@@ -47,12 +47,8 @@ class Router {
 	 * @return boolean
 	 */
 	public function run() {
-		$this->load();
-		if (count($this->routes)) {
-			static::$customUrl = $this->createCustomUrl();
-			return $this->hasCustomUrl();
-		}
-		return false;
+		static::$customUrl = $this->createCustomUrl();
+		return $this->hasCustomUrl();
 	}
 
 	/**

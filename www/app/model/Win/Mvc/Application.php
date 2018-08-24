@@ -11,7 +11,7 @@ use Win\Request\Url;
  * Framework em PHP baseado em MVC
  * Esta classe é responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.2.5
+ * @version 1.2.6
  */
 class Application {
 
@@ -39,6 +39,7 @@ class Application {
 		$this->setParamList(Url::instance()->getFragments());
 		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));
 
+		Router::instance()->load();
 		if (Router::instance()->run()):
 			$this->setParamList(Router::instance()->getCustomUrl());
 			$this->controller = Router::instance()->createController();
