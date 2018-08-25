@@ -13,7 +13,7 @@ final class DefaultController extends Controller {
 		
 	}
 
-	public function init() {
+	protected function init() {
 
 	}
 

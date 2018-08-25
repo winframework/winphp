@@ -79,4 +79,14 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($demo->returnValidView()->exists());
 	}
 
+	public function testRedirect() {
+		$demo = new DemoController();
+		$demo->tryRedirect();
+	}
+
+	public function testRefresh() {
+		$demo = new DemoController();
+		$demo->tryRefresh();
+	}
+
 }

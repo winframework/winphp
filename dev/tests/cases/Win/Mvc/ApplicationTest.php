@@ -144,6 +144,17 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 		Url::instance()->setUrl($currentUrl);
 		$app = new Application();
 		$this->assertEquals($currentUrl, $app->getUrl());
+		$this->assertNotEquals($currentUrl, $app->getFullUrl());
+		$this->assertContains($currentUrl, $app->getFullUrl());
+	}
+
+		public function testGetUrlWithRoutes() {
+		$currentUrl = Url::instance()->format('other-page/params/');
+		Url::instance()->setUrl($currentUrl);
+		$app = new Application();
+		$this->assertEquals('exemplo/index/params/', $app->getUrl());
+		$this->assertNotEquals('exemplo/index/params/', $app->getFullUrl());
+		$this->assertContains('other-page/params/', $app->getFullUrl());
 	}
 
 	public function testValidatePage404() {
@@ -155,5 +166,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 		$app2 = new Application();
 		$this->assertNotEquals('404', $app2->view->getTitle());
 	}
+
 
 }

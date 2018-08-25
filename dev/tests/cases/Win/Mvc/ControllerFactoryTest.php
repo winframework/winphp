@@ -7,6 +7,7 @@ use controller\IndexController;
 use Win\Mvc\Application;
 use Win\Mvc\ControllerFactory;
 use Win\Mvc\DefaultController;
+use Win\Request\Url;
 
 class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 
@@ -53,6 +54,14 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('invalid', $controller->getAction());
 		$this->assertEquals(404, $app->getPage());
 		$this->assertFalse($app->view->exists());
+	}
+
+	public function testLoadWithView() {
+		Url::instance()->setUrl('index');
+		$app = new Application();
+		$controller = ControllerFactory::create('demo', 'return-valid-view');
+		$controller->load();
+		$this->assertTrue($app->view->exists());
 	}
 
 }

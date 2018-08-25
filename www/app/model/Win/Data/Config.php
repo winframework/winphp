@@ -14,7 +14,7 @@ class Config extends Data {
 		static::$config = $config;
 	}
 
-	protected static function getAll() {
+	public static function getAll() {
 		return static::$config;
 	}
 

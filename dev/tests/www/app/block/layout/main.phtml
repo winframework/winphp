@@ -1,0 +1,39 @@
+<?php
+
+use Win\Html\Navigation\Menu;
+use Win\Mvc\Block;
+
+/* @var $this Block */
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<?php echo new Block('layout/include/head'); ?>
+	<body>
+		<header>
+			<nav class="main-nav">
+				<a id="logo" href="<?= $this->app->getBaseUrl(); ?>">
+					<img src="public/img/win.svg" alt="<?= $this->app->getName(); ?>" />
+				</a>
+				<input type="checkbox" id="menu-toggle" />
+				<label for="menu-toggle"></label>
+				<ul>
+					<li><a href="index/" class="<?= Menu::active('index'); ?>">Página Inicial</a></li>
+					<li><a href="exemplo/" class="<?= Menu::active('exemplo'); ?>">Exemplo</a></li>
+					<li><a href="contato/" class="<?= Menu::active('contato'); ?>">Contato</a></li>
+					<li><a href="esta-url-nao-existe/" class="<?= Menu::active('404'); ?>">Página de Erro</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<div class="middle">
+			<?php $this->app->view->load(); ?>
+			<br />
+		</div>
+
+		<footer>
+			Made with <span class="heart"></span> by
+			<a href="https://github.com/winframework/winphp" target="_blank"><?= $this->app->getName(); ?> </a>
+			&copy; <?= date('Y'); ?>
+		</footer>
+	</body>
+</html>

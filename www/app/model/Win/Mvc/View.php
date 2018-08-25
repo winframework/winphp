@@ -83,13 +83,13 @@ class View {
 	 * @param string $file
 	 */
 	private function setFile($file) {
-		$filePath = BASE_PATH . static::$dir . $file;
+		$filePath = static::$dir . $file;
 
 		if (!is_null(Template::instance()->getTheme())):
-			$filePath = Template::instance()->getFilePath(BASE_PATH . static::$dir, $file);
+			$filePath = Template::instance()->getFilePath($file);
 		endif;
 
-		$this->file = $filePath . '.phtml';
+		$this->file = BASE_PATH . $filePath . '.phtml';
 	}
 
 	/** @return string */

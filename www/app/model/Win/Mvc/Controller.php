@@ -122,6 +122,7 @@ abstract class Controller {
 
 	/**
 	 * Volta para o método index da pagina atual
+	 * @codeCoverageIgnore
 	 */
 	protected function backToIndex() {
 		if (!$this->app->isErrorPage()):
@@ -137,8 +138,22 @@ abstract class Controller {
 	/**
 	 * Este método é chamado sempre que o Controller é carregado
 	 */
-	protected function init() {
-		
+	abstract protected function init();
+
+	/**
+	 * Redireciona para a URL
+	 * @param string $url
+	 */
+	public function redirect($url) {
+		Url::instance()->redirect($url);
+	}
+
+	/**
+	 * Atualiza a mesma página
+	 * @param string $url
+	 */
+	public function refresh() {
+		Url::instance()->redirect(Url::instance()->getUrl());
 	}
 
 	/**

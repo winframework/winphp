@@ -48,17 +48,16 @@ class Template {
 	 * Retorna o Novo caminho completo do arquivo
 	 * (incluindo o diretório do template atual)
 	 * 
-	 * @param string $dir diretório atual da View
 	 * @param string $file Arquivo atual da View
 	 * @return string Novo caminho completo da View
 	 */
-	public function getFilePath($dir, $file) {
-		$appDir = BASE_PATH . '/app/';
-		$newDir = str_replace($appDir, '', $dir);
-		if (file_exists(self::$dir . self::$theme . '/' . $newDir . $file . '.phtml')) {
-			return self::$dir . self::$theme . '/' . $newDir . $file;
+	public function getFilePath($file) {
+		$viewDir = str_replace('app/', '', View::$dir);
+		$path = '/' . self::$dir . self::$theme . $viewDir;
+		if (file_exists(BASE_PATH . $path . $file . '.phtml')) {
+			return $path . $file;
 		}
-		return self::$dir . self::$themeDefault . '/' . $newDir . $file;
+		return self::$dir . self::$themeDefault . $viewDir . $file;
 	}
 
 }

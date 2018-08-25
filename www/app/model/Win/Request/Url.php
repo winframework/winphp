@@ -31,21 +31,18 @@ class Url {
 	 * @return string
 	 */
 	public function format($url) {
-		$url = rtrim($url, $this->sufix) . $this->sufix;
-		return $url;
+		return rtrim($url, $this->sufix) . $this->sufix;
 	}
 
 	/**
 	 * Redireciona para a URL escolhida
 	 * @param string $url URL relativa ou absoluta
-	 * @codeCoverageIgnore
 	 */
 	public function redirect($url = '') {
 		if (strpos($url, '://') === false) {
 			$url = $this->getBaseUrl() . $url;
 		}
-		header('location:' . $this->format($url));
-		die();
+		Header::set('location', $url);
 	}
 
 	/**

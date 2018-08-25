@@ -5,7 +5,7 @@ namespace Win\Data;
 /**
  * Dados
  */
-abstract class Data {
+abstract class Data implements DataInterface {
 
 	/**
 	 * Retorna valor da sessão
@@ -25,12 +25,4 @@ abstract class Data {
 		return $config;
 	}
 
-	/** @return mixed[] */
-	abstract protected static function getAll();
-
-	/**
-	 * @param string $key
-	 * @param mixed $value
-	 */
-	abstract public static function set($key, $value);
 }

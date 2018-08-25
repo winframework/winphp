@@ -3,6 +3,7 @@
 namespace Win\Mvc;
 
 use Win\Data\Config;
+use Win\Request\Header;
 use Win\Request\Url;
 
 /**
@@ -65,6 +66,7 @@ class Application {
 	 */
 	public function run() {
 		$this->controller->load();
+		Header::run();
 		$layout = new Layout($this->controller->layout);
 		$layout->load();
 	}
@@ -146,22 +148,6 @@ class Application {
 	 */
 	public function getParam($position) {
 		return (key_exists($position, $this->paramList)) ? $this->paramList[$position] : '';
-	}
-
-	/**
-	 * Redireciona para a URL
-	 * @param string $url
-	 */
-	public function redirect($url = '') {
-		Url::instance()->redirect($url);
-	}
-
-	/**
-	 * Atualiza a mesma página
-	 * @param string $url
-	 */
-	public function refresh() {
-		Url::instance()->redirect($this->getUrl());
 	}
 
 	/** Define a página como 404 */

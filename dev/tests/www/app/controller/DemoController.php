@@ -31,4 +31,12 @@ class DemoController extends Controller {
 		return new View('my-view/invalid');
 	}
 
+
+	public function tryRedirect(){
+		$this->redirect('exemplo');
+	}
+
+	public function tryRefresh(){
+		$this->refresh();
+	}
 }

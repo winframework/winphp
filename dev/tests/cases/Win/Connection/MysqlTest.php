@@ -7,6 +7,9 @@ use Win\Mvc\Application;
 
 class MysqlTest extends \PHPUnit_Framework_TestCase {
 
+	protected static $dbFile = BASE_PATH . '/app/config/database.php';
+
+
 	public function testNotValidWrongUser() {
 		static::newApplication();
 		$this->startWrongUser();
@@ -54,11 +57,11 @@ class MysqlTest extends \PHPUnit_Framework_TestCase {
 		static::newApplication();
 		$this->startWrongDatabase();
 
-		require 'app/config/database.php';
+		require static::$dbFile;
 		$db['dbname'] = 'mysql';
 		Mysql::instance('mysql2')->connect($db);
 
-		require 'app/config/database.php';
+		require static::$dbFile;
 		$db['dbname'] = 'wrong-database';
 		Mysql::instance('mysql3')->connect($db);
 
@@ -70,28 +73,28 @@ class MysqlTest extends \PHPUnit_Framework_TestCase {
 
 	/** @return Mysql */
 	static function startWrongUser() {
-		require 'app/config/database.php';
+		require static::$dbFile;
 		$db['user'] = 'this-user-do-not-exist';
 		Mysql::instance()->connect($db);
 	}
 
 	/** @return Mysql */
 	static function startWrongPassword() {
-		require 'app/config/database.php';
+		require static::$dbFile;
 		$db['password'] = 'this-pass-is-wrong';
 		Mysql::instance()->connect($db);
 	}
 
 	/** @return Mysql */
 	static function startWrongDatabase() {
-		require 'app/config/database.php';
+		require static::$dbFile;
 		$db['dbname'] = 'invalid-database';
 		Mysql::instance()->connect($db);
 	}
 
 	/** @return Mysql */
 	static function startValidConnection() {
-		require 'app/config/database.php';
+		require static::$dbFile;
 		$db['dbname'] = 'mysql';
 		Mysql::instance()->connect($db);
 	}
@@ -100,5 +103,5 @@ class MysqlTest extends \PHPUnit_Framework_TestCase {
 		Url::instance()->setUrl('index');
 		new Application();
 	}
-
+ 
 }
