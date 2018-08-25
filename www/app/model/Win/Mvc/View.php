@@ -83,7 +83,7 @@ class View {
 	 * @param string $file
 	 */
 	private function setFile($file) {
-		$filePath = static::$dir .DIRECTORY_SEPARATOR. $file;
+		$filePath = static::$dir . DIRECTORY_SEPARATOR . $file;
 
 		if (!is_null(Template::instance()->getTheme())):
 			$filePath = Template::instance()->getFilePath($file);

@@ -28,6 +28,11 @@ class Directory {
 	}
 
 	/** @return string */
+	public function __toString() {
+		return $this->getPath();
+	}
+
+	/** @return string */
 	public function getRelativePath() {
 		return str_replace(BASE_PATH . DIRECTORY_SEPARATOR, '', $this->path);
 	}
@@ -95,7 +100,9 @@ class Directory {
 	 */
 	public function create($chmod = 0755) {
 		if (!$this->exists()) {
-			@mkdir($this->path, $chmod, (boolean) STREAM_MKDIR_RECURSIVE);
+			if (@mkdir($this->path, $chmod, (boolean) STREAM_MKDIR_RECURSIVE) === false) {
+				throw new Exception('The directory ' . $this->path . ' could not be created.');
+			}
 			$this->chmod($chmod);
 		}
 		return $this->exists();

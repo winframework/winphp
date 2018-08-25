@@ -9,7 +9,7 @@ use Win\Data\Data;
  */
 class Header extends Data {
 
-	private static $headers = [];
+	protected static $headers = [];
 
 	public static function getAll() {
 		return static::$headers;

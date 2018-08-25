@@ -3,6 +3,7 @@
 namespace Win\Mvc;
 
 use Win\Html\Seo\Title;
+use Win\Request\Url;
 
 /**
  * Paginas de Erro
@@ -57,7 +58,7 @@ class ErrorPage {
 	private static function stopControllerIf403($errorCode) {
 		$app = Application::app();
 		if ($errorCode == 403 && $app->getParam(0) !== (string) $errorCode):
-			$app->redirect(403 . '/index/' . $app->getUrl());
+			Url::instance()->redirect(403 . '/index/' . $app->getUrl());
 		endif;
 	}
 

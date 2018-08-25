@@ -201,7 +201,7 @@ class User {
 			if (!$dao->objExists($user)) {
 				$user->logout();
 				new AlertError('Sua sessão foi finalizada, tente realizar o login novamente.');
-				Application::app()->refresh();
+				Url::instance()->redirect('login');
 			}
 		}
 	}

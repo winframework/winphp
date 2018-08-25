@@ -184,13 +184,12 @@ class Email {
 	 * @return boolean
 	 */
 	private function saveOnDisk() {
-		return true;
-		/*$file = new File();
+		$file = new File();
 		$file->setDirectory('data/email');
 
 		$fileName = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 		$file->setName($fileName);
-		return $file->write($this->layout->toString());*/
+		return $file->write($this->layout->toString());
 	}
 
 }
