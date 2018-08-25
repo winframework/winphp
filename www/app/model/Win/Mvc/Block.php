@@ -9,6 +9,6 @@ namespace Win\Mvc;
  */
 class Block extends View {
 
-	public static $dir = '/app/block/';
+	public static $dir = '/app/block';
 
 }

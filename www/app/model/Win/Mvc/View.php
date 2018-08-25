@@ -11,7 +11,7 @@ use Win\Html\Seo\Title;
  */
 class View {
 
-	public static $dir = '/app/view/';
+	public static $dir = '/app/view';
 
 	/**
 	 * Ponteiro para Aplicação Principal
@@ -83,7 +83,7 @@ class View {
 	 * @param string $file
 	 */
 	private function setFile($file) {
-		$filePath = static::$dir . $file;
+		$filePath = static::$dir .DIRECTORY_SEPARATOR. $file;
 
 		if (!is_null(Template::instance()->getTheme())):
 			$filePath = Template::instance()->getFilePath($file);

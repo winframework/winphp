@@ -17,7 +17,7 @@ class Template {
 
 	use Singleton;
 
-	protected static $dir = 'app/template/';
+	protected static $dir = '/app/template';
 	protected static $themeDefault = 'default';
 
 	/**
@@ -53,11 +53,11 @@ class Template {
 	 */
 	public function getFilePath($file) {
 		$viewDir = str_replace('app/', '', View::$dir);
-		$path = '/' . self::$dir . self::$theme . $viewDir;
+		$path = self::$dir . DIRECTORY_SEPARATOR . self::$theme . $viewDir . DIRECTORY_SEPARATOR;
 		if (file_exists(BASE_PATH . $path . $file . '.phtml')) {
 			return $path . $file;
 		}
-		return self::$dir . self::$themeDefault . $viewDir . $file;
+		return self::$dir . DIRECTORY_SEPARATOR . self::$themeDefault . $viewDir . DIRECTORY_SEPARATOR . $file;
 	}
 
 }
