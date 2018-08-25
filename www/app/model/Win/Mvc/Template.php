@@ -18,7 +18,7 @@ class Template {
 	use Singleton;
 
 	protected static $dir = '/app/template';
-	protected static $themeDefault = 'default';
+	const THEME_DEFAULT = 'default';
 
 	/**
 	 * Nome do Tema atual
@@ -57,7 +57,7 @@ class Template {
 		if (file_exists(BASE_PATH . $path . $file . '.phtml')) {
 			return $path . $file;
 		}
-		return self::$dir . DIRECTORY_SEPARATOR . self::$themeDefault . $viewDir . DIRECTORY_SEPARATOR . $file;
+		return self::$dir . DIRECTORY_SEPARATOR . self::THEME_DEFAULT . $viewDir . DIRECTORY_SEPARATOR . $file;
 	}
 
 }
