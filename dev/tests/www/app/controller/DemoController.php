@@ -31,12 +31,12 @@ class DemoController extends Controller {
 		return new View('my-view/invalid');
 	}
 
-
-	public function tryRedirect(){
+	public function tryRedirect() {
 		$this->redirect('exemplo');
 	}
 
-	public function tryRefresh(){
+	public function tryRefresh() {
 		$this->refresh();
 	}
+
 }
