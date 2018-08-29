@@ -1,6 +1,1 @@
-*
-!.gitignore
-!/upload
-/upload/*/*
-!/upload/*/default.png
-!/.htaccess
+email/*
