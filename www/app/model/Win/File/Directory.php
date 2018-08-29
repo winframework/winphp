@@ -14,6 +14,8 @@ class Directory {
 	/** @var string */
 	private $path;
 
+	const VALIDATE_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
+
 	/**
 	 * Instância um diretório
 	 * @param string $path
@@ -43,8 +45,8 @@ class Directory {
 	 * @return string
 	 */
 	public static function toAbsolutePath($relativePath) {
-		if (!preg_match('@^(([a-z0-9._\-][\/]?))+$@', $relativePath . DIRECTORY_SEPARATOR)) {
-			throw new Exception($relativePath . ' is a invalid path.');
+		if (!preg_match(static::VALIDATE_PATH, $relativePath . DIRECTORY_SEPARATOR)) {
+			throw new Exception($relativePath . ' is a invalid directory path.');
 		}
 		return BASE_PATH . DIRECTORY_SEPARATOR . $relativePath;
 	}
