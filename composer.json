@@ -1,0 +1,7 @@
+{
+    "name": "winframework/winphp",
+    "description": "Framework PHP MVC",
+    "require-dev": {
+        "phpunit/phpunit": "5.7.*"
+    }
+}
