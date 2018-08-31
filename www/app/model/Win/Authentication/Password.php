@@ -3,15 +3,15 @@
 namespace Win\Authentication;
 
 /**
- * Auxilia manipular senhas
+ * Manipulação de Senhas
  */
 abstract class Password {
 
 	private static $salt = 'E50H%gDui#';
 
 	/**
-	 * Retorna uma senha aleatoria
-	 * A senha tem sempre pelo menos: 1 caracter especial e 2 numeros;
+	 * Retorna uma senha aleatória
+	 * A senha gerada terá sempre pelo menos: 1 caracter especial e 2 números
 	 * @param int $length
 	 * @return string
 	 */
