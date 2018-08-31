@@ -138,4 +138,13 @@ class Directory {
 		return substr(decoct(fileperms($this->path)), 2);
 	}
 
+	/**
+	 * Converte uma string para um nome de diretório válido
+	 * @param string $string
+	 * @return string
+	 */
+	public static function strToDirectoryName($string) {
+		return trim(strToURL($string), '-');
+	}
+
 }

@@ -185,6 +185,10 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->file->rename('invalid/name');
 	}
 
+	public function testStrToFilePath() {
+		$this->assertEquals('produtos-de-otima-qualidade-2', File::strToFileName('.Produtos-de_óti?ma q.ualida@"de/2-'));
+	}
+
 	private function initExistentFile() {
 		$this->file = new File('data/file/exist.html');
 	}

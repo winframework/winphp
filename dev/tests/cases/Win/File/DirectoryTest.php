@@ -13,7 +13,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('my-sample-directory', $dir->getRelativePath());
 	}
 
-		public function testToString() {
+	public function testToString() {
 		$dir = new Directory('my-string-directory');
 		$this->assertContains('my-string-directory', $dir->toString());
 		$this->assertContains('my-string-directory', $dir->__toString());
@@ -133,6 +133,10 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$dir->create();
 		$dir->delete();
 		$this->assertFalse($dir->exists());
+	}
+
+	public function testStrToFilePath() {
+		$this->assertEquals('sample-dir-7', Directory::strToDirectoryName('_Sam.plE_/diR._7/'));
 	}
 
 	public static function tearDownAfterClass() {

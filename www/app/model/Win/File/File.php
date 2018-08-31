@@ -157,4 +157,13 @@ class File {
 		return rename($oldPath, $this->getPath());
 	}
 
+	/**
+	 * Converte uma string para um nome de arquivo válido
+	 * @param string $string
+	 * @return string
+	 */
+	public static function strToFileName($string) {
+		return trim(strToURL($string), '-');
+	}
+
 }

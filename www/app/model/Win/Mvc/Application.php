@@ -12,7 +12,7 @@ use Win\Request\Url;
  * Framework em PHP baseado em MVC
  * Esta classe é responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.2.6
+ * @version 1.3
  */
 class Application {
 
