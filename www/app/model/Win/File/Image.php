@@ -31,7 +31,7 @@ class Image extends File {
 
 	/**
 	 * @param int $param
-	 * @return string|null
+	 * @return int|null
 	 */
 	protected function getImageSize($param) {
 		$size = null;
