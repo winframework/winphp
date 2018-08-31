@@ -141,11 +141,11 @@ class DateCalc {
 	}
 
 	/**
-	 * Converte segundos em outra unidade
+	 * Converte segundos em outro formato/unidade
 	 * @param int $seconds
 	 * @param string $format [d,m,Y,H,i]
 	 */
-	public static function convertSeconds($seconds = 0, $format = 'i') {
+	public static function secondsToFormat($seconds = 0, $format = 'i') {
 		$dt1 = new DateTime("@0");
 		$dt2 = new DateTime("@$seconds");
 		return $dt1->diff($dt2)->format('%' . $format);
@@ -164,20 +164,20 @@ class DateCalc {
 			if ($time === 0) {
 				$timeAgo = 'agora mesmo';
 			} elseif ($time > 0) {
-				$timeAgo = static::getTime($time) . ' atrás';
+				$timeAgo = static::toHighestUnit($time) . ' atrás';
 			} else {
-				$timeAgo = 'daqui a ' . static::getTime($time * (-1));
+				$timeAgo = 'daqui a ' . static::toHighestUnit($time * (-1));
 			}
 		}
 		return $timeAgo;
 	}
 
 	/**
-	 * Retorna a data em unidade de tempo Humana
+	 * Converte a quantidade de segundos para a maior possível
 	 * @param int $seconds
-	 * @return string Ex: 15 horas
+	 * @return string
 	 */
-	protected static function getTime($seconds) {
+	protected static function toHighestUnit($seconds) {
 		$units = array_reverse(DateCalc::$units);
 		$time = 0;
 		foreach ($units as $unitName => $unitInfo) {

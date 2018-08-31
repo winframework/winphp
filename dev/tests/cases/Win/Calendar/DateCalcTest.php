@@ -82,29 +82,29 @@ class DateCalcTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testConvertSecondsToMinutes() {
-		$this->assertEquals(DateCalc::convertSeconds(59), 0);
-		$this->assertEquals(DateCalc::convertSeconds(60), 1);
-		$this->assertEquals(DateCalc::convertSeconds(130), 2);
-		$this->assertEquals(DateCalc::convertSeconds(130, 'i'), 2);
+		$this->assertEquals(DateCalc::secondsToFormat(59), 0);
+		$this->assertEquals(DateCalc::secondsToFormat(60), 1);
+		$this->assertEquals(DateCalc::secondsToFormat(130), 2);
+		$this->assertEquals(DateCalc::secondsToFormat(130, 'i'), 2);
 	}
 
 	public function testConvertSecondsToHour() {
-		$this->assertEquals(DateCalc::convertSeconds(60 * 59, 'H'), 0);
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60, 'H'), 1);
-		$this->assertEquals(DateCalc::convertSeconds(60 * 130, 'H'), 2);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 59, 'H'), 0);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60, 'H'), 1);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 130, 'H'), 2);
 	}
 
 	public function testConvertSecondsToDays() {
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60 * 5, 'Y'), 0);
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60 * 24, 'd'), 1);
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60 * 25, 'd'), 1);
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60 * 72, 'd'), 3);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 5, 'Y'), 0);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24, 'd'), 1);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 25, 'd'), 1);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 72, 'd'), 3);
 	}
 
 	public function testConvertSecondsToYears() {
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60 * 24 * 364, 'Y'), 0);
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60 * 24 * 365, 'Y'), 1);
-		$this->assertEquals(DateCalc::convertSeconds(60 * 60 * 24 * 365 * 2, 'Y'), 2);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24 * 364, 'Y'), 0);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24 * 365, 'Y'), 1);
+		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24 * 365 * 2, 'Y'), 2);
 	}
 
 }

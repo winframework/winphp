@@ -13,6 +13,12 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('my-sample-directory', $dir->getRelativePath());
 	}
 
+		public function testToString() {
+		$dir = new Directory('my-string-directory');
+		$this->assertContains('my-string-directory', $dir->toString());
+		$this->assertContains('my-string-directory', $dir->__toString());
+	}
+
 	public function testValidComplexPath() {
 		new Directory('m');
 		new Directory('1my-sample1');
@@ -61,10 +67,21 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$dir->create();
 		$this->assertTrue($dir->exists());
 		$this->assertEquals('0755', $dir->getPermission());
+	}
 
+	public function testCreate_SetPermission() {
 		$sub = new Directory('data/dir/sub');
 		$sub->create(0611);
 		$this->assertEquals('0611', $sub->getPermission());
+	}
+
+	/** @expectedException Exception */
+	public function testCreate_NoPermission() {
+		$dir = new Directory('data/dir/not-permited');
+		$dir->create(0611);
+
+		$sub = new Directory('data/dir/not-permited/sub');
+		$sub->create();
 	}
 
 	public function testRename() {
@@ -78,10 +95,29 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($old->exists());
 	}
 
-	public function testScan() {
+	public function testScan_TwoContents() {
 		$dir = new Directory('data/dir');
-		$content = $dir->scan();
-		$this->assertTrue(count($content) == 2);
+		$dir->delete();
+		$dir->create();
+		$sub1 = new Directory('data/dir/sub1');
+		$sub1->create();
+		$sub2 = new Directory('data/dir/sub2');
+		$sub2->create();
+
+		$this->assertEquals(2, count($dir->scan()));
+	}
+
+	public function testDeleteContent() {
+		$dir = new Directory('data/dir');
+		$dir->delete();
+		$dir->create();
+		$sub1 = new Directory('data/dir/sub1');
+		$sub1->create();
+		$this->assertEquals(1, count($dir->scan()));
+
+		$dir->deleteContent();
+		$this->assertEquals(0, count($dir->scan()));
+		$this->assertTrue($dir->exists());
 	}
 
 	public function testChmod() {
@@ -93,9 +129,15 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testDelete() {
-		$dir = new Directory('data/dir');
+		$dir = new Directory('data/dir/sub');
+		$dir->create();
 		$dir->delete();
 		$this->assertFalse($dir->exists());
+	}
+
+	public static function tearDownAfterClass() {
+		$dir = new Directory('data/dir');
+		$dir->delete();
 	}
 
 }

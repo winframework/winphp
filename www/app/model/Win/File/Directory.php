@@ -31,6 +31,11 @@ class Directory {
 
 	/** @return string */
 	public function __toString() {
+		return $this->toString();
+	}
+
+	/** @return string */
+	public function toString() {
 		return $this->getPath();
 	}
 
@@ -84,7 +89,7 @@ class Directory {
 	/**
 	 * Exclui o conteúdo do diretório
 	 */
-	protected function deleteContent() {
+	public function deleteContent() {
 		foreach ($this->scan() as $content) {
 			if (is_dir($this->path . DIRECTORY_SEPARATOR . $content)) {
 				$subDirectory = new Directory($this->getRelativePath() . DIRECTORY_SEPARATOR . $content);

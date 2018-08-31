@@ -24,6 +24,7 @@ class File {
 	public static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
 
 	const VALIDATE_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
+	const VALIDATE_NAME = '@^(([a-z0-9._\-]?))+$@';
 
 	/**
 	 * Instância um novo arquivo
@@ -82,6 +83,11 @@ class File {
 				DIRECTORY_SEPARATOR . $this->toString());
 	}
 
+	/** @return string */
+	public function getRelativePath() {
+		return $this->getDirectory()->getRelativePath() . DIRECTORY_SEPARATOR . $this->toString();
+	}
+
 	/** @return boolean */
 	public function exists() {
 		return is_file($this->getPath());
@@ -124,6 +130,31 @@ class File {
 			$content = file_get_contents($this->getPath());
 		}
 		return $content;
+	}
+
+	/**
+	 * Move o arquivo para um novo diretório
+	 * @param Directory $newDirectory
+	 * @return boolean
+	 */
+	public function move(Directory $newDirectory) {
+		$oldPath = $this->getPath();
+		$this->directory = $newDirectory;
+		return rename($oldPath, $this->getPath());
+	}
+
+	/**
+	 * Renomeia o arquivo
+	 * @param string $newName
+	 * @return boolean
+	 */
+	public function rename($newName) {
+		if (!preg_match(static::VALIDATE_NAME, $newName)) {
+			throw new Exception($newName . ' is a invalid file name.');
+		}
+		$oldPath = $this->getPath();
+		$this->name = $newName;
+		return rename($oldPath, $this->getPath());
 	}
 
 }

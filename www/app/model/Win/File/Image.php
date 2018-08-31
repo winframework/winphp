@@ -8,54 +8,37 @@ namespace Win\File;
  */
 class Image extends File {
 
-	protected static $validExtensions = ['jpg', 'jpeg', 'gif', 'png'];
+	public static $validExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
-	/* @overwrite */
+	const SIZE_WIDTH = 0;
+	const SIZE_HEIGHT = 1;
 
-	public function upload($newName = '') {
-		$error = parent::upload($newName);
-		if ($this->uploadPrepared && is_null($error)) {
-			$error = $this->saveThumb();
-		}
-		return $error;
+	/**
+	 * Retorna a largura da imagem
+	 * @return int|null
+	 */
+	public function getWidth() {
+		return $this->getImageSize(static::SIZE_WIDTH);
 	}
 
-	public function saveThumb() {
-		return false;
+	/**
+	 * Retorna a altura da imagem
+	 * @return int|null
+	 */
+	public function getHeight() {
+		return $this->getImageSize(static::SIZE_HEIGHT);
 	}
 
-	public function __toString() {
-		if ($this->getName() != '') {
-			return parent::__toString();
-		} else {
-			return $this->getFullName();
-		}
-	}
-
-	public function getFullName() {
-		if ($this->getName() != '') {
-			return parent::getFullName();
-		} else {
-			return $this->getDirectory() . 'default.png';
-		}
-	}
-
-	public function removeOld() {
-		$this->clearCache($this->getOldName());
-		parent::removeOld();
-	}
-
-	public function remove() {
-		$this->clearCache($this->getFullName());
-		parent::remove();
-	}
-
-	/** Limpa imagens em cache */
-	public function clearCache($name) {
+	/**
+	 * @param int $param
+	 * @return string|null
+	 */
+	protected function getImageSize($param) {
+		$size = null;
 		if ($this->exists()) {
-			$dir = 'data/cache/thumb/*/*/';
-			File::removeRegExp($dir . $name);
+			$size = getimagesize($this->getPath())[$param];
 		}
+		return $size;
 	}
 
 }

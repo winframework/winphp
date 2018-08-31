@@ -73,6 +73,13 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('', $this->file->getExtension());
 	}
 
+	public function testGetPath() {
+		$this->initExistentFile();
+		$this->assertContains('data/file/exist.html', $this->file->getPath());
+		$this->assertNotEquals('data/file/exist.html', $this->file->getPath());
+		$this->assertEquals('data/file/exist.html', $this->file->getRelativePath());
+	}
+
 	public function testToString() {
 		$this->initExistentFile();
 		$this->assertEquals('exist.html', $this->file->__toString());
@@ -144,6 +151,38 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->file->delete();
 		$this->assertFalse($this->file->exists());
 		$this->assertFalse($this->file->getSize());
+	}
+
+	public function testMove() {
+		$this->file = new File('data/file/to-be-moved.txt');
+		$this->file->write('my content');
+		$this->file->move(new Directory('data'));
+
+		$this->assertEquals('data', $this->file->getDirectory()->getRelativePath());
+		$this->assertTrue($this->file->exists());
+		$this->file->delete();
+	}
+
+	public function testRename() {
+		$this->file = new File('data/file/to-be-rename.txt');
+		$this->file->write('I will receive a new name');
+		$this->file->rename('renamed-file');
+
+		$this->assertEquals('data/file', $this->file->getDirectory()->getRelativePath());
+		$this->assertTrue($this->file->exists());
+		$this->file->delete();
+	}
+
+	/** @expectedException Exception */
+	public function testRename_SpecialChar() {
+		$this->file = new File('data/file/to-be-rename.txt');
+		$this->file->rename('renamed-special*-file');
+	}
+
+	/** @expectedException Exception */
+	public function testRename_Slash() {
+		$this->file = new File('data/file/to-be-rename.txt');
+		$this->file->rename('invalid/name');
 	}
 
 	private function initExistentFile() {
