@@ -8,4 +8,4 @@ before_script:
 
 script:
   - mkdir -p build/logs
-  - php vendor/bin/phpunit -c dev/tests/phpunit.xml
+  - php vendor/bin/phpunit "--bootstrap" "dev/tests/bootstrap.php" "--configuration" "dev/tests/phpunit.xml"
