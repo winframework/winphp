@@ -128,7 +128,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->initExistentFile();
 		$this->assertTrue($this->file->exists());
 		$this->assertNotFalse($this->file->read());
-		$this->assertContains('Este arquivo existe', $this->file->read());
+		$this->assertContains('content', $this->file->read());
 	}
 
 	public function testWrite_NotExist() {

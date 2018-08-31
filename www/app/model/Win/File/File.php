@@ -107,7 +107,7 @@ class File {
 	 * @param string $mode
 	 * @return boolean
 	 */
-	public function write($content, $mode = 'a') {
+	public function write($content, $mode = 'w') {
 		$return = false;
 		if (strlen($this->getName()) > 0) {
 			$this->directory->create();
