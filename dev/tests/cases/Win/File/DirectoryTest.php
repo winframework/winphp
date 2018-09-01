@@ -7,16 +7,21 @@ use PHPMailer\PHPMailer\Exception;
 class DirectoryTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetPath() {
-		$dir = new Directory('my-sample-directory');
-		$this->assertContains('my-sample-directory', $dir->getPath());
-		$this->assertNotEquals('my-sample-directory', $dir->getPath());
-		$this->assertEquals('my-sample-directory', $dir->getRelativePath());
+		$dir = new Directory('my-sample/directory');
+		$this->assertContains('my-sample/directory', $dir->getAbsolutePath());
+		$this->assertNotEquals('my-sample/directory', $dir->getAbsolutePath());
+		$this->assertEquals('my-sample/directory', $dir->getPath());
 	}
 
 	public function testToString() {
-		$dir = new Directory('my-string-directory');
-		$this->assertContains('my-string-directory', $dir->toString());
-		$this->assertContains('my-string-directory', $dir->__toString());
+		$dir = new Directory('my-string/directory');
+		$this->assertEquals('directory', $dir->toString());
+		$this->assertEquals('directory', $dir->__toString());
+	}
+
+	public function testGetName() {
+		$dir = new Directory('my/string/directory');
+		$this->assertEquals('directory', $dir->getName());
 	}
 
 	public function testValidComplexPath() {
@@ -104,19 +109,28 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$sub2 = new Directory('data/dir/sub2');
 		$sub2->create();
 
-		$this->assertEquals(2, count($dir->scan()));
+		$content = $dir->getItemsName();
+		$this->assertEquals('sub1', $content[0]);
+		$this->assertEquals('sub2', $content[1]);
+		$this->assertEquals(2, count($dir->getItemsName()));
 	}
-
+	public function testIsEmpty() {
+		$dir = new Directory('data/dir');
+		$sub1 = new Directory('data/dir/sub1');
+		
+		$this->assertFalse($dir->isEmpty());
+		$this->assertTrue($sub1->isEmpty());
+	}
 	public function testDeleteContent() {
 		$dir = new Directory('data/dir');
 		$dir->delete();
 		$dir->create();
 		$sub1 = new Directory('data/dir/sub1');
 		$sub1->create();
-		$this->assertEquals(1, count($dir->scan()));
+		$this->assertEquals(1, count($dir->getItemsName()));
 
-		$dir->deleteContent();
-		$this->assertEquals(0, count($dir->scan()));
+		$dir->clear();
+		$this->assertEquals(0, count($dir->getItemsName()));
 		$this->assertTrue($dir->exists());
 	}
 

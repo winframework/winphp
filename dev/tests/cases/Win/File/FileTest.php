@@ -75,15 +75,25 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetPath() {
 		$this->initExistentFile();
-		$this->assertContains('data/file/exist.html', $this->file->getPath());
-		$this->assertNotEquals('data/file/exist.html', $this->file->getPath());
-		$this->assertEquals('data/file/exist.html', $this->file->getRelativePath());
+		$this->assertContains('data/file/exist.html', $this->file->getAbsolutePath());
+		$this->assertNotEquals('data/file/exist.html', $this->file->getAbsolutePath());
+		$this->assertEquals('data/file/exist.html', $this->file->getPath());
 	}
 
 	public function testToString() {
 		$this->initExistentFile();
 		$this->assertEquals('exist.html', $this->file->__toString());
 		$this->assertEquals('exist.html', $this->file->toString());
+	}
+
+	public function testGetDirectory() {
+		$this->initExistentFile();
+		$this->assertEquals('file', $this->file->getDirectory()->getName());
+	}
+
+	public function testGetDirectory_NotExist() {
+		$this->initExistentFile();
+		$this->assertEquals('file', $this->file->getDirectory()->getName());
 	}
 
 	public function testGetSize() {
@@ -158,7 +168,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->file->write('my content');
 		$this->file->move(new Directory('data'));
 
-		$this->assertEquals('data', $this->file->getDirectory()->getRelativePath());
+		$this->assertEquals('data/file', $this->file->getDirectory()->getPath());
 		$this->assertTrue($this->file->exists());
 		$this->file->delete();
 	}
@@ -168,7 +178,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->file->write('I will receive a new name');
 		$this->file->rename('renamed-file');
 
-		$this->assertEquals('data/file', $this->file->getDirectory()->getRelativePath());
+		$this->assertEquals('data/file', $this->file->getDirectory()->getPath());
 		$this->assertTrue($this->file->exists());
 		$this->file->delete();
 	}

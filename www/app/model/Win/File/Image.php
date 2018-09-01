@@ -36,7 +36,7 @@ class Image extends File {
 	protected function getImageSize($param) {
 		$size = null;
 		if ($this->exists()) {
-			$size = getimagesize($this->getPath())[$param];
+			$size = getimagesize($this->getAbsolutePath())[$param];
 		}
 		return $size;
 	}

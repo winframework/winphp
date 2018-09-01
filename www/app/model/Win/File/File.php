@@ -9,34 +9,22 @@ use const BASE_PATH;
  * Arquivos
  *
  */
-class File {
+class File implements DirectoryItemInterface {
 
-	/** @var Directory */
-	private $directory;
-
-	/** @var string */
-	private $name;
-
-	/** @var string */
-	private $extension;
+	private $path;
 
 	/** @var string[] */
 	public static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
 
-	const VALIDATE_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
-	const VALIDATE_NAME = '@^(([a-z0-9._\-]?))+$@';
+	const REGEXP_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
+	const REGEXP_NAME = '@^(([a-z0-9._\-]?))+$@';
 
 	/**
 	 * Instância um novo arquivo
-	 * @param string $path
+	 * @param string $path Caminho relativo
 	 */
 	public function __construct($path) {
-		if (!preg_match(static::VALIDATE_PATH, $path)) {
-			throw new Exception($path . ' is a invalid file path.');
-		}
-		$this->directory = new Directory(dirname($path));
-		$this->extension = pathinfo($path, PATHINFO_EXTENSION);
-		$this->name = basename(BASE_PATH . DIRECTORY_SEPARATOR . $path, '.' . $this->extension);
+		$this->setPath($path);
 	}
 
 	/** @return string */
@@ -44,28 +32,51 @@ class File {
 		return $this->toString();
 	}
 
-	/** @return string */
-	public function toString() {
-		if ($this->extension) {
-			return $this->name . '.' . $this->extension;
+	/**
+	 * @param string $path Caminho relativo
+	 * @throws Exception
+	 */
+	public function setPath($path) {
+		if (!preg_match(static::REGEXP_PATH, $path)) {
+			throw new Exception($path . ' is a invalid directory path.');
 		}
-		return $this->name;
+		$this->path = $path;
+	}
+
+	/** @return string */
+	public function getPath() {
+		return $this->path;
+	}
+
+	/** @return string */
+	public function getAbsolutePath() {
+		return BASE_PATH . DIRECTORY_SEPARATOR . $this->path;
 	}
 
 	/** @return string */
 	public function getName() {
+		$this->name = pathinfo($this->getAbsolutePath(), PATHINFO_FILENAME);
 		return $this->name;
 	}
 
 	/** @return string */
 	public function getExtension() {
+		$this->extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
 		return $this->extension;
+	}
+
+	/** @return string */
+	public function toString() {
+		if ($this->getExtension()) {
+			return $this->getName() . '.' . $this->getExtension();
+		}
+		return $this->getName();
 	}
 
 	/** @return int|false */
 	public function getSize() {
 		if ($this->exists()) {
-			$size = filesize($this->getPath());
+			$size = filesize($this->getAbsolutePath());
 		} else {
 			$size = false;
 		}
@@ -74,23 +85,13 @@ class File {
 
 	/** @return Directory */
 	public function getDirectory() {
+		$this->directory = new Directory(pathinfo($this->getPath(), PATHINFO_DIRNAME));
 		return $this->directory;
-	}
-
-	/** @return string */
-	public function getPath() {
-		return (BASE_PATH . DIRECTORY_SEPARATOR . $this->getDirectory()->getRelativePath() .
-				DIRECTORY_SEPARATOR . $this->toString());
-	}
-
-	/** @return string */
-	public function getRelativePath() {
-		return $this->getDirectory()->getRelativePath() . DIRECTORY_SEPARATOR . $this->toString();
 	}
 
 	/** @return boolean */
 	public function exists() {
-		return is_file($this->getPath());
+		return is_file($this->getAbsolutePath());
 	}
 
 	/**
@@ -98,7 +99,7 @@ class File {
 	 * @return boolean
 	 */
 	public function delete() {
-		return unlink($this->getPath());
+		return unlink($this->getAbsolutePath());
 	}
 
 	/**
@@ -110,8 +111,8 @@ class File {
 	public function write($content, $mode = 'w') {
 		$return = false;
 		if (strlen($this->getName()) > 0) {
-			$this->directory->create();
-			$fp = fopen($this->getPath(), $mode);
+			$this->getDirectory()->create();
+			$fp = fopen($this->getAbsolutePath(), $mode);
 			if ($fp !== false) {
 				fwrite($fp, $content);
 				$return = fclose($fp);
@@ -127,7 +128,7 @@ class File {
 	public function read() {
 		$content = false;
 		if ($this->exists()) {
-			$content = file_get_contents($this->getPath());
+			$content = file_get_contents($this->getAbsolutePath());
 		}
 		return $content;
 	}
@@ -138,9 +139,9 @@ class File {
 	 * @return boolean
 	 */
 	public function move(Directory $newDirectory) {
-		$oldPath = $this->getPath();
+		$oldPath = $this->getAbsolutePath();
 		$this->directory = $newDirectory;
-		return rename($oldPath, $this->getPath());
+		return rename($oldPath, $this->getAbsolutePath());
 	}
 
 	/**
@@ -149,12 +150,12 @@ class File {
 	 * @return boolean
 	 */
 	public function rename($newName) {
-		if (!preg_match(static::VALIDATE_NAME, $newName)) {
+		if (!preg_match(static::REGEXP_NAME, $newName)) {
 			throw new Exception($newName . ' is a invalid file name.');
 		}
-		$oldPath = $this->getPath();
+		$oldPath = $this->getAbsolutePath();
 		$this->name = $newName;
-		return rename($oldPath, $this->getPath());
+		return rename($oldPath, $this->getAbsolutePath());
 	}
 
 	/**
