@@ -3,8 +3,8 @@
 namespace Win\File;
 
 /**
- * Itens que estão dentro do diretório
- * São outros Diretórios, Arquivos, etc
+ * Interface: Item dentro do Diretório
+ * São outros diretório, arquivos, etc
  */
 interface DirectoryItemInterface {
 
@@ -31,4 +31,10 @@ interface DirectoryItemInterface {
 
 	/** @return boolean */
 	public function exists();
+
+	/** @return boolean */
+	public function delete();
+
+	/** @return boolean */
+	public function rename($newName);
 }

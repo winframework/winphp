@@ -9,9 +9,7 @@ use const BASE_PATH;
  * Arquivos
  *
  */
-class File implements DirectoryItemInterface {
-
-	private $path;
+class File extends DirectoryItem {
 
 	/** @var string[] */
 	public static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
@@ -27,42 +25,25 @@ class File implements DirectoryItemInterface {
 		$this->setPath($path);
 	}
 
-	/** @return string */
-	public function __toString() {
-		return $this->toString();
-	}
-
 	/**
 	 * @param string $path Caminho relativo
 	 * @throws Exception
 	 */
-	public function setPath($path) {
+	protected function setPath($path) {
 		if (!preg_match(static::REGEXP_PATH, $path)) {
 			throw new Exception($path . ' is a invalid directory path.');
 		}
-		$this->path = $path;
-	}
-
-	/** @return string */
-	public function getPath() {
-		return $this->path;
-	}
-
-	/** @return string */
-	public function getAbsolutePath() {
-		return BASE_PATH . DIRECTORY_SEPARATOR . $this->path;
+		parent::setPath($path);
 	}
 
 	/** @return string */
 	public function getName() {
-		$this->name = pathinfo($this->getAbsolutePath(), PATHINFO_FILENAME);
-		return $this->name;
+		return pathinfo($this->getAbsolutePath(), PATHINFO_FILENAME);
 	}
 
 	/** @return string */
 	public function getExtension() {
-		$this->extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
-		return $this->extension;
+		return pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
 	}
 
 	/** @return string */
@@ -81,12 +62,6 @@ class File implements DirectoryItemInterface {
 			$size = false;
 		}
 		return $size;
-	}
-
-	/** @return Directory */
-	public function getDirectory() {
-		$this->directory = new Directory(pathinfo($this->getPath(), PATHINFO_DIRNAME));
-		return $this->directory;
 	}
 
 	/** @return boolean */
@@ -133,16 +108,7 @@ class File implements DirectoryItemInterface {
 		return $content;
 	}
 
-	/**
-	 * Move o arquivo para um novo diretório
-	 * @param Directory $newDirectory
-	 * @return boolean
-	 */
-	public function move(Directory $newDirectory) {
-		$oldPath = $this->getAbsolutePath();
-		$this->directory = $newDirectory;
-		return rename($oldPath, $this->getAbsolutePath());
-	}
+
 
 	/**
 	 * Renomeia o arquivo
@@ -153,18 +119,7 @@ class File implements DirectoryItemInterface {
 		if (!preg_match(static::REGEXP_NAME, $newName)) {
 			throw new Exception($newName . ' is a invalid file name.');
 		}
-		$oldPath = $this->getAbsolutePath();
-		$this->name = $newName;
-		return rename($oldPath, $this->getAbsolutePath());
-	}
-
-	/**
-	 * Converte uma string para um nome de arquivo válido
-	 * @param string $string
-	 * @return string
-	 */
-	public static function strToFileName($string) {
-		return trim(strToURL($string), '-');
+		parent::rename($newName);
 	}
 
 }

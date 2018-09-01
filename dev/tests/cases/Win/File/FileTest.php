@@ -166,11 +166,23 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	public function testMove() {
 		$this->file = new File('data/file/to-be-moved.txt');
 		$this->file->write('my content');
-		$this->file->move(new Directory('data'));
 
-		$this->assertEquals('data/file', $this->file->getDirectory()->getPath());
+		$this->file->move(new Directory('data'));
+		$this->assertEquals('data', $this->file->getDirectory()->getPath());
 		$this->assertTrue($this->file->exists());
 		$this->file->delete();
+	}
+
+	public function testMove_DirectoryNotExist() {
+		$this->file = new File('data/file/to-be-moved2.txt');
+		$this->file->write('my content');
+
+		$inexist = new Directory('data/inexist');
+		$this->file->move($inexist);
+		$this->assertEquals('data/inexist', $this->file->getDirectory()->getPath());
+		$this->assertTrue($this->file->exists());
+		$this->file->delete();
+		$inexist->delete();
 	}
 
 	public function testRename() {
@@ -196,7 +208,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testStrToFilePath() {
-		$this->assertEquals('produtos-de-otima-qualidade-2', File::strToFileName('.Produtos-de_óti?ma q.ualida@"de/2-'));
+		$this->assertEquals('produtos-de-otima-qualidade-2', File::strToValidName('.Produtos-de_óti?ma q.ualida@"de/2-'));
 	}
 
 	private function initExistentFile() {

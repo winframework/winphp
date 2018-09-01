@@ -1,3 +1,288 @@
+Win\Data\Config
+ [x] Get
+ [x] Get array
+ [x] Set
+
+Win\Mvc\Application
+ [x] Get instance app
+ [x] Get name
+ [x] Get title
+ [x] Get title error page
+ [x] Get page
+ [x] Get param default
+ [x] Get action
+ [x] Get param
+ [x] Is error page
+ [x] Is home page
+ [x] Is not home page
+ [x] Is local host
+ [x] Run
+ [x] Get url
+ [x] Get url with routes
+ [x] Validate page 404
+
+Win\Mvc\Block
+ [x] Exist
+ [x] Do not exist
+ [x] Data
+ [x] Data do not exist
+ [x] Get title
+ [x] To string
+ [x] To string empty
+ [x] Merge data
+
+Win\Mvc\ControllerFactory
+ [x] Controller not found
+ [x] Create controller
+ [x] Create controller with index action
+ [x] Create controller with custom action
+ [x] Create controller with invalid view
+ [x] Create controller with invalid action
+ [x] Load with view
+
+Win\Mvc\Controller
+ [x] Extends controller
+ [x] Get action
+ [x] Get data
+ [x] Set title
+ [x] Action not found
+ [x] Call init on load
+ [x] Reload
+ [x] Return invalid view
+ [x] Return valid view
+ [x] Redirect
+ [x] Refresh
+
+Win\Mvc\DefaultController
+ [x] Create
+
+Win\Mvc\ErrorPage
+ [x] Is not error page
+ [x] Is error page
+ [x] Dinamic title
+
+Win\Mvc\Layout
+ [x] Exits
+ [x] Do not exits
+ [x] To string
+
+Win\Mvc\Router
+ [x] No custom url
+ [x] No custom url by file
+ [x] No custom url by invalid file
+ [x] No custom url by load
+ [x] Custom url by load
+ [x] Custom url by file
+
+Win\Mvc\Template
+ [x] Get theme
+ [x] Get file path
+ [x] View set file
+ [x] View set file invalid
+
+Win\Mvc\ViewFactory
+ [x] Create view
+ [x] Create view with params
+
+Win\Mvc\View
+ [x] Do not exist
+ [x] Exists
+ [x] Get file
+ [x] To string
+ [x] To html
+ [x] Param data
+ [x] Add data
+ [x] Merge data
+ [x] Add data and merge data
+ [x] Param merge and add data
+
+Win\Html\Form\Checkbox
+ [x] Is active one param
+ [x] Is active
+ [x] Is not active
+
+Win\Html\Form\ReCaptcha
+ [x] Valid without keys
+ [x] Invalid with keys
+
+Win\Html\Form\Select
+ [x] Is active
+ [x] Is not active
+ [x] To string
+ [x] Count options
+
+Win\Html\Navigation\Menu
+ [x] Active
+ [x] Active param
+ [x] Multi active
+
+Win\Html\Seo\Description
+ [x] Otimize default
+ [x] Otimize
+
+Win\Html\Seo\Keywords
+ [x] To keys
+ [x] To keys controller
+
+Win\Html\Seo\Title
+ [x] Otimize
+ [x] Otimize prefix
+ [x] Otimize sufix
+ [x] Otimize sufix and prefix
+ [x] Set title
+
+Win\Connection\Mysql
+ [x] Not valid wrong user
+ [x] Not valid wrong password
+ [x] Not valid wrong database
+ [x] Valid
+ [x] Get pdo
+ [x] Validate does nothing
+ [x] Validate redirects
+ [x] Multiple instance
+
+Win\DesignPattern\DependenceInjector
+ [x] Get class di
+ [x] Custom get class di
+
+Win\DesignPattern\Singleton
+ [x] Instance
+ [x] Get class di
+ [x] Get overwrite class di
+ [x] Super get value
+ [x] Get value
+ [x] Alias
+
+Win\Mailer\Email
+ [x] Get subject
+ [x] Get from
+ [x] Get from name
+ [x] Add address
+ [x] Reply to
+ [x] Content string
+ [x] Content nof found block
+ [x] Content block
+ [x] Not found layout
+ [x] Default layout
+ [x] Customt layout
+ [x] Layout with content
+ [x] Send
+ [x] Send error local host
+
+Win\Authentication\Password
+ [x] Encrypt
+ [x] Encrypt Compare
+ [x] Generate Lenght
+ [x] Generate IsUnique
+
+Win\Request\Header
+ [x] Get
+
+Win\Request\Input
+ [x] Protocol
+ [x] File
+ [x] Post
+ [x] Post default
+ [x] Post array
+ [x] Post file
+ [x] Get
+ [x] Get default
+ [x] Server
+
+Win\Request\Server
+ [x] Get name
+ [x] Is localhost
+
+Win\Request\Session
+ [x] Get
+ [x] Get array
+
+Win\Request\Url
+ [x] Format
+ [x] Format extension
+ [x] Get url
+ [x] Get url null
+ [x] Get fragments
+
+Win\Alert\AlertDefault
+ [x] Get type
+
+Win\Alert\AlertError
+ [x] Get type
+
+Win\Alert\AlertInfo
+ [x] Get type
+
+Win\Alert\AlertSuccess
+ [x] Get type
+
+Win\Alert\Alert
+ [x] Get message
+ [x] To string
+ [x] Get type
+ [x] Load
+ [x] Create alert with error
+ [x] Create no error
+ [x] Is type
+ [x] Is group
+ [x] S
+
+Win\Alert\Session
+ [x] Count alerts
+ [x] Has alert
+ [x] Has no alert
+ [x] Set auto save
+ [x] Get alerts value
+ [x] Show one alert
+ [x] Show nothing
+ [x] Show by type
+ [x] Get alerts
+
+Win\Calendar\DateCalc
+ [x] Time ago after
+ [x] Time ago now
+ [x] Time ago false
+ [x] Time ago before
+ [x] Sum time
+ [x] Sub time
+ [x] Convert seconds to minutes
+ [x] Convert seconds to hour
+ [x] Convert seconds to days
+ [x] Convert seconds to years
+
+Win\Calendar\DateTime
+ [x] Construct default
+ [x] Construct s q l date time
+ [x] Construct b r date time
+ [x] Construct b r date
+ [x] Construct s q l date
+ [x] Construct u s
+ [x] Is empty
+ [x] Is not empty
+ [x] Get age
+ [x] Get month name
+ [x] Get month abbre
+ [x] To html
+ [x] To string
+ [x] To s q l
+ [x] Is valid
+ [x] Is not valid
+ [x] Wrong format
+ [x] Limit time
+ [x] Limit days
+ [x] Limit month
+ [x] Create empty
+
+Win\Calendar\Month
+ [x] Construct
+ [x] Create
+ [x] Get name
+ [x] Get name abree
+
+Win\Calendar\Timer
+ [x] Time
+ [x] Reset
+
 Win\File\Directory
  [x] Get path
  [x] To string
@@ -13,7 +298,8 @@ Win\File\Directory
  [x] Create SetPermission
  [x] Create NoPermission
  [x] Rename
- [x] Scan TwoContents
+ [x] GetItemsName TwoValues
+ [x] Get items
  [x] Is empty
  [x] Delete content
  [x] Chmod
@@ -51,6 +337,7 @@ Win\File\File
  [x] Write Exist
  [x] Delete
  [x] Move
+ [x] Move DirectoryNotExist
  [x] Rename
  [x] Rename SpecialChar
  [x] Rename Slash

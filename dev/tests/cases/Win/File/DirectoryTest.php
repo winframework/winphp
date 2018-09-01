@@ -95,12 +95,12 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($dir->exists());
 
 		$old = clone $dir;
-		$dir->rename('data/dir/teste3');
+		$dir->rename('teste3');
 		$this->assertTrue($dir->exists());
 		$this->assertFalse($old->exists());
 	}
 
-	public function testScan_TwoContents() {
+	public function testGetItemsName_TwoValues() {
 		$dir = new Directory('data/dir');
 		$dir->delete();
 		$dir->create();
@@ -114,13 +114,33 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('sub2', $content[1]);
 		$this->assertEquals(2, count($dir->getItemsName()));
 	}
+
+	public function testGetItems() {
+		$dir = new Directory('data/dir');
+		$file = new File('data/dir/file.txt');
+		$file->write('file content');
+
+		$items = $dir->getItems();
+		$this->assertInstanceOf(DirectoryItem::class, $items[0]);
+		$this->assertInstanceOf(DirectoryItem::class, $items[1]);
+
+		$this->assertInstanceOf(File::class, $items[0]);
+		$this->assertInstanceOf(Directory::class, $items[1]);
+		
+
+
+		$this->assertEquals('file', $items[0]->getName());
+		$this->assertEquals('sub1', $items[1]->getName());
+	}
+
 	public function testIsEmpty() {
 		$dir = new Directory('data/dir');
 		$sub1 = new Directory('data/dir/sub1');
-		
+
 		$this->assertFalse($dir->isEmpty());
 		$this->assertTrue($sub1->isEmpty());
 	}
+
 	public function testDeleteContent() {
 		$dir = new Directory('data/dir');
 		$dir->delete();
@@ -150,7 +170,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testStrToFilePath() {
-		$this->assertEquals('sample-dir-7', Directory::strToDirectoryName('_Sam.plE_/diR._7/'));
+		$this->assertEquals('sample-dir-7', Directory::strToValidName('_Sam.plE_/diR._7/'));
 	}
 
 	public static function tearDownAfterClass() {

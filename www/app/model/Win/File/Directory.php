@@ -10,7 +10,7 @@ use function strToURL;
  * Diretório de Arquivos
  *
  */
-class Directory implements DirectoryItemInterface {
+class Directory extends DirectoryItem {
 
 	/** @var string Caminho relativo */
 	private $path;
@@ -67,17 +67,6 @@ class Directory implements DirectoryItemInterface {
 	}
 
 	/**
-	 * Renomeia o diretório
-	 * @param string $newPath Caminho para o novo diretório
-	 * @return boolean
-	 */
-	public function rename($newPath) {
-		$oldPath = $this->getAbsolutePath();
-		$this->setPath($newPath);
-		return rename($oldPath, $this->getAbsolutePath());
-	}
-
-	/**
 	 * Exclui o diretório e o seu conteúdo
 	 * @return boolean
 	 */
@@ -88,6 +77,15 @@ class Directory implements DirectoryItemInterface {
 			$success = rmdir($this->getAbsolutePath());
 		}
 		return $success;
+	}
+
+	/**
+	 * Renomeia o diretório
+	 * @param string $newPath
+	 * @return boolean
+	 */
+	public function rename($newPath) {
+		parent::rename($newPath);
 	}
 
 	/**
@@ -126,7 +124,7 @@ class Directory implements DirectoryItemInterface {
 	}
 
 	/**
-	 * Retorna o conteúdo do diretório
+	 * Retorna nome dos itens dentro do diretório (em ordem alfabética)
 	 * @return string[]
 	 */
 	public function getItemsName() {
@@ -134,14 +132,14 @@ class Directory implements DirectoryItemInterface {
 	}
 
 	/**
-	 * Retorna o conteúdo do diretório em Objetos
+	 * Retorna os itens dentro do diretório (em ordem alfabética)
 	 * @return Directory[]|File[]
 	 */
 	public function getItems() {
 		$items = [];
 		foreach ($this->getItemsName() as $itemName) {
 			$itemPath = $this->getPath() . DIRECTORY_SEPARATOR . $itemName;
-			if (is_dir($itemPath)) {
+			if (is_dir(BASE_PATH . DIRECTORY_SEPARATOR . $itemPath)) {
 				$items[] = new Directory($itemPath);
 			} else {
 				$items[] = new File($itemPath);
@@ -170,7 +168,7 @@ class Directory implements DirectoryItemInterface {
 	 * @param string $string
 	 * @return string
 	 */
-	public static function strToDirectoryName($string) {
+	public static function strToValidName($string) {
 		return trim(strToURL($string), '-');
 	}
 
