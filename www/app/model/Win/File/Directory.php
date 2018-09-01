@@ -4,16 +4,12 @@ namespace Win\File;
 
 use Exception;
 use const BASE_PATH;
-use function strToURL;
 
 /**
  * Diretório de Arquivos
  *
  */
 class Directory extends DirectoryItem {
-
-	/** @var string Caminho relativo */
-	private $path;
 
 	const REGEXP_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
 
@@ -38,22 +34,12 @@ class Directory extends DirectoryItem {
 		if (!preg_match(static::REGEXP_PATH, $path . DIRECTORY_SEPARATOR)) {
 			throw new Exception($path . ' is a invalid directory path.');
 		}
-		$this->path = $path;
-	}
-
-	/** @return string */
-	public function getPath() {
-		return $this->path;
-	}
-
-	/** @return string */
-	public function getAbsolutePath() {
-		return BASE_PATH . DIRECTORY_SEPARATOR . $this->path;
+		parent::setPath($path);
 	}
 
 	/** @return string */
 	public function getName() {
-		return pathinfo($this->path, PATHINFO_BASENAME);
+		return pathinfo($this->getPath(), PATHINFO_BASENAME);
 	}
 
 	/** @return string */
@@ -111,7 +97,7 @@ class Directory extends DirectoryItem {
 	public function create($chmod = 0755) {
 		if (!$this->exists()) {
 			if (@mkdir($this->getAbsolutePath(), $chmod, (boolean) STREAM_MKDIR_RECURSIVE) === false) {
-				throw new Exception('The directory ' . $this->path . ' could not be created.');
+				throw new Exception('The directory ' . $this->getPath() . ' could not be created.');
 			}
 			$this->chmod($chmod);
 		}
@@ -146,30 +132,6 @@ class Directory extends DirectoryItem {
 			}
 		}
 		return $items;
-	}
-
-	/**
-	 * Define a permissão ao diretório
-	 * @param int $chmod
-	 * @return boolean
-	 */
-	public function chmod($chmod = 0755) {
-		return @chmod($this->getAbsolutePath(), $chmod);
-	}
-
-	/** @return string */
-	public function getPermission() {
-		clearstatcache();
-		return substr(decoct(fileperms($this->getAbsolutePath())), 2);
-	}
-
-	/**
-	 * Converte uma string para um nome de diretório válido
-	 * @param string $string
-	 * @return string
-	 */
-	public static function strToValidName($string) {
-		return trim(strToURL($string), '-');
 	}
 
 }

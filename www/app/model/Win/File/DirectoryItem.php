@@ -2,6 +2,9 @@
 
 namespace Win\File;
 
+use const BASE_PATH;
+use function strToURL;
+
 /**
  * Item dentro do Diretório
  * São outros diretório, arquivos, etc
@@ -31,7 +34,10 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 		return BASE_PATH . DIRECTORY_SEPARATOR . $this->path;
 	}
 
-	/** @return Directory */
+	/**
+	 * Retorna o diretório pai
+	 * @return Directory
+	 */
 	public function getDirectory() {
 		return new Directory(pathinfo($this->getPath(), PATHINFO_DIRNAME));
 	}
@@ -70,6 +76,21 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	 */
 	public static function strToValidName($string) {
 		return trim(strToURL($string), '-');
+	}
+
+	/**
+	 * Define a permissão ao diretório
+	 * @param int $chmod
+	 * @return boolean
+	 */
+	public function chmod($chmod = 0755) {
+		return @chmod($this->getAbsolutePath(), $chmod);
+	}
+
+	/** @return string */
+	public function getPermission() {
+		clearstatcache();
+		return substr(decoct(fileperms($this->getAbsolutePath())), 2);
 	}
 
 }

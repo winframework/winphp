@@ -36,5 +36,8 @@ interface DirectoryItemInterface {
 	public function delete();
 
 	/** @return boolean */
+	public function move(Directory $newDirectory);
+
+	/** @return boolean */
 	public function rename($newName);
 }
