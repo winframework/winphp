@@ -23,6 +23,9 @@ interface DirectoryItemInterface {
 	/** @return string Nome sem complemento */
 	public function getName();
 
+	/** @return Directory */
+	public function getDirectory();
+
 	/** @return string Nome com complemento */
 	public function __toString();
 
@@ -40,4 +43,14 @@ interface DirectoryItemInterface {
 
 	/** @return boolean */
 	public function rename($newName);
+
+	/**
+	 * Define a permissão ao diretório
+	 * @param int $chmod
+	 * @return boolean
+	 */
+	public function setChmod($chmod = 0755);
+
+	/** @return string */
+	public function getChmod();
 }

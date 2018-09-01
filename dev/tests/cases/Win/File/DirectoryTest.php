@@ -71,13 +71,13 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$dir->delete();
 		$dir->create();
 		$this->assertTrue($dir->exists());
-		$this->assertEquals('0755', $dir->getPermission());
+		$this->assertEquals('0755', $dir->getChmod());
 	}
 
 	public function testCreate_SetPermission() {
 		$sub = new Directory('data/dir/sub');
 		$sub->create(0611);
-		$this->assertEquals('0611', $sub->getPermission());
+		$this->assertEquals('0611', $sub->getChmod());
 	}
 
 	/** @expectedException Exception */
@@ -156,10 +156,10 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 
 	public function testChmod() {
 		$dir = new Directory('data/dir');
-		$dir->chmod(0744);
-		$this->assertEquals('744', $dir->getPermission());
-		$dir->chmod(0755);
-		$this->assertEquals('755', $dir->getPermission());
+		$dir->setChmod(0744);
+		$this->assertEquals('744', $dir->getChmod());
+		$dir->setChmod(0755);
+		$this->assertEquals('755', $dir->getChmod());
 	}
 
 	public function testDelete() {

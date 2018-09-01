@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1535834766">
-  <project timestamp="1535834766">
+<coverage generated="1535835029">
+  <project timestamp="1535835029">
     <package name="Win\Alert">
       <file name="/home/wanderson/www/wanderson/winphp/www/app/model/Win/Alert/Alert.php">
         <class name="Alert" namespace="Win\Alert">
@@ -748,9 +748,9 @@
         <line num="69" type="stmt" count="2"/>
         <line num="77" type="method" name="strToValidName" visibility="public" complexity="1" crap="1" count="2"/>
         <line num="78" type="stmt" count="2"/>
-        <line num="86" type="method" name="chmod" visibility="public" complexity="1" crap="1" count="9"/>
+        <line num="86" type="method" name="setChmod" visibility="public" complexity="1" crap="1" count="9"/>
         <line num="87" type="stmt" count="9"/>
-        <line num="91" type="method" name="getPermission" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="91" type="method" name="getChmod" visibility="public" complexity="1" crap="1" count="3"/>
         <line num="92" type="stmt" count="3"/>
         <line num="93" type="stmt" count="3"/>
         <metrics loc="96" ncloc="62" classes="1" methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="20" elements="30" coveredelements="30"/>
@@ -822,7 +822,7 @@
       </file>
     </package>
     <file name="/home/wanderson/www/wanderson/winphp/www/app/model/Win/File/DirectoryItemInterface.php">
-      <metrics loc="43" ncloc="26" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      <metrics loc="56" ncloc="32" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Win\Html\Form">
       <file name="/home/wanderson/www/wanderson/winphp/www/app/model/Win/Html/Form/Checkbox.php">
@@ -1382,6 +1382,6 @@
         <metrics loc="109" ncloc="73" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="31" elements="39" coveredelements="39"/>
       </file>
     </package>
-    <metrics files="52" loc="3453" ncloc="2255" classes="43" methods="259" coveredmethods="208" conditionals="0" coveredconditionals="0" statements="791" coveredstatements="550" elements="1050" coveredelements="758"/>
+    <metrics files="52" loc="3466" ncloc="2261" classes="43" methods="259" coveredmethods="208" conditionals="0" coveredconditionals="0" statements="791" coveredstatements="550" elements="1050" coveredelements="758"/>
   </project>
 </coverage>

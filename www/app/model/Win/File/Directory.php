@@ -99,7 +99,7 @@ class Directory extends DirectoryItem {
 			if (@mkdir($this->getAbsolutePath(), $chmod, (boolean) STREAM_MKDIR_RECURSIVE) === false) {
 				throw new Exception('The directory ' . $this->getPath() . ' could not be created.');
 			}
-			$this->chmod($chmod);
+			$this->setChmod($chmod);
 		}
 		return $this->exists();
 	}

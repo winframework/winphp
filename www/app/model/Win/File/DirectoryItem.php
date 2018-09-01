@@ -83,12 +83,12 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	 * @param int $chmod
 	 * @return boolean
 	 */
-	public function chmod($chmod = 0755) {
+	public function setChmod($chmod = 0755) {
 		return @chmod($this->getAbsolutePath(), $chmod);
 	}
 
 	/** @return string */
-	public function getPermission() {
+	public function getChmod() {
 		clearstatcache();
 		return substr(decoct(fileperms($this->getAbsolutePath())), 2);
 	}
