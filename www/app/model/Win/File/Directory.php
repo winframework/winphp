@@ -72,9 +72,9 @@ class Directory implements DirectoryItemInterface {
 	 * @return boolean
 	 */
 	public function rename($newPath) {
-		$old = clone $this;
+		$oldPath = $this->getAbsolutePath();
 		$this->setPath($newPath);
-		return rename($old->getAbsolutePath(), $this->getAbsolutePath());
+		return rename($oldPath, $this->getAbsolutePath());
 	}
 
 	/**

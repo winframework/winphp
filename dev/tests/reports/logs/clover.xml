@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1535830952">
-  <project timestamp="1535830952">
+<coverage generated="1535831076">
+  <project timestamp="1535831076">
     <package name="Win\Alert">
       <file name="/home/wanderson/www/wanderson/winphp/www/app/model/Win/Alert/Alert.php">
         <class name="Alert" namespace="Win\Alert">
