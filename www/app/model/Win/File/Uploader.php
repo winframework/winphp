@@ -44,7 +44,6 @@ class Uploader {
 			$this->file = clone $this->temp;
 			if ($newName) {
 				$this->file->rename($newName);
-				var_dump($this->file->getPath());
 			}
 		}
 		return $success;
