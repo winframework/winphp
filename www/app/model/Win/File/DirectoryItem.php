@@ -3,7 +3,6 @@
 namespace Win\File;
 
 use const BASE_PATH;
-use function strToURL;
 
 /**
  * Item dentro do Diretório
@@ -11,8 +10,14 @@ use function strToURL;
  */
 abstract class DirectoryItem implements DirectoryItemInterface {
 
+	const REGEXP_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
+	const REGEXP_NAME = '@^(([a-z0-9._\-]?))+$@';
+
 	/** @var string */
 	private $path;
+
+	/** @var Directory */
+	private $directory;
 
 	/** @return string */
 	public function __toString() {
@@ -22,11 +27,6 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	/** @return string */
 	public function getPath() {
 		return $this->path;
-	}
-
-	/** @param string $path */
-	protected function setPath($path) {
-		$this->path = $path;
 	}
 
 	/** @return string */
@@ -39,7 +39,27 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	 * @return Directory
 	 */
 	public function getDirectory() {
-		return new Directory(pathinfo($this->getPath(), PATHINFO_DIRNAME));
+		if (is_null($this->directory)) {
+			$this->directory = new Directory(pathinfo($this->getPath(), PATHINFO_DIRNAME));
+		}
+		return $this->directory;
+	}
+
+	/** @param string $path */
+	protected function setPath($path) {
+		$this->path = $path;
+	}
+
+	protected function setDirectory(Directory $directory) {
+		$this->directory = $directory;
+		$path = $directory->getPath() . DIRECTORY_SEPARATOR . $this->toString();
+		$this->setPath($path);
+	}
+
+	/** @param string */
+	protected function setName($name) {
+		$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $name;
+		$this->setPath($path);
 	}
 
 	/**
@@ -49,8 +69,7 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	 */
 	public function rename($newName) {
 		$oldPath = $this->getAbsolutePath();
-		$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $newName;
-		$this->setPath($path);
+		$this->setName($newName);
 		return rename($oldPath, $this->getAbsolutePath());
 	}
 
@@ -61,21 +80,11 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	 */
 	public function move(Directory $newDirectory) {
 		$oldPath = $this->getAbsolutePath();
-		$path = $newDirectory->getPath() . DIRECTORY_SEPARATOR . $this->toString();
-		$this->setPath($path);
-		if (!$newDirectory->exists()) {
-			$newDirectory->create();
+		$this->setDirectory($newDirectory);
+		if (!$this->getDirectory()->exists()) {
+			$this->getDirectory()->create();
 		}
 		return rename($oldPath, $this->getAbsolutePath());
-	}
-
-	/**
-	 * Converte uma string para um nome válido
-	 * @param string $string
-	 * @return string
-	 */
-	public static function strToValidName($string) {
-		return trim(strToURL($string), '-');
 	}
 
 	/**

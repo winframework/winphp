@@ -304,7 +304,6 @@ Win\File\Directory
  [x] Delete content
  [x] Chmod
  [x] Delete
- [x] Str to file path
 
 Win\File\File
  [x] Path Empty
@@ -320,6 +319,8 @@ Win\File\File
  [x] Path FullPath
  [x] Get name
  [x] Get extension
+ [x] Get extension do
+ [x] Get type
  [x] GetExtension Empty
  [x] Get path
  [x] To string
@@ -339,12 +340,24 @@ Win\File\File
  [x] Move
  [x] Move DirectoryNotExist
  [x] Rename
+ [x] Rename dot
+ [x] Rename WithExtension
  [x] Rename SpecialChar
  [x] Rename Slash
- [x] Str to file path
 
 Win\File\Image
  [x] Exist
  [x] Get width
  [x] Get height
+
+Win\File\Str
+ [x] O valid name
+
+Win\File\Uploader
+ [x] Prepare
+ [x] Prepare Fail
+ [x] Prepare Empty
+ [x] Upload Exist
+ [x] Upload NotExist
+ [x] Upload Rename
 

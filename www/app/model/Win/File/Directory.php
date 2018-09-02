@@ -11,8 +11,6 @@ use const BASE_PATH;
  */
 class Directory extends DirectoryItem {
 
-	const REGEXP_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
-
 	/**
 	 * Instância um diretório
 	 * @param string $path Caminho relativo
@@ -63,15 +61,6 @@ class Directory extends DirectoryItem {
 			$success = rmdir($this->getAbsolutePath());
 		}
 		return $success;
-	}
-
-	/**
-	 * Renomeia o diretório
-	 * @param string $newPath
-	 * @return boolean
-	 */
-	public function rename($newPath) {
-		parent::rename($newPath);
 	}
 
 	/**

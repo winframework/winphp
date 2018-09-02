@@ -7,6 +7,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	/** @var File */
 	private $file;
 
+
 	/** @expectedException \Exception */
 	public function testPath_Empty() {
 		$this->file = new File('');
@@ -66,6 +67,16 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	public function testGetExtension() {
 		$this->initExistentFile();
 		$this->assertEquals('html', $this->file->getExtension());
+	}
+
+	public function testGetExtensionDo() {
+		$this->initExistentFile();
+		$this->assertEquals('.html', $this->file->getExtensionDot());
+	}
+
+	public function testGetType() {
+		$this->initExistentFile();
+		$this->assertEquals('text/plain', $this->file->getType());
 	}
 
 	public function testGetExtension_Empty() {
@@ -190,7 +201,27 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->file->write('I will receive a new name');
 		$this->file->rename('renamed-file');
 
-		$this->assertEquals('data/file', $this->file->getDirectory()->getPath());
+		$this->assertEquals('data/file/renamed-file.txt', $this->file->getPath());
+		$this->assertTrue($this->file->exists());
+		$this->file->delete();
+	}
+
+	public function testRenameDot() {
+		$this->file = new File('data/file/to-be-rename.txt');
+		$this->file->write('I will receive a new name');
+		$this->file->rename('renamed.file');
+
+		$this->assertEquals('data/file/renamed.file.txt', $this->file->getPath());
+		$this->assertTrue($this->file->exists());
+		$this->file->delete();
+	}
+
+	public function testRename_WithExtension() {
+		$this->file = new File('data/file/to-be-rename.txt');
+		$this->file->write('I will receive a new name');
+		$this->file->rename('renamed-file', 'html');
+
+		$this->assertEquals('data/file/renamed-file.html', $this->file->getPath());
 		$this->assertTrue($this->file->exists());
 		$this->file->delete();
 	}
@@ -205,10 +236,6 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	public function testRename_Slash() {
 		$this->file = new File('data/file/to-be-rename.txt');
 		$this->file->rename('invalid/name');
-	}
-
-	public function testStrToFilePath() {
-		$this->assertEquals('produtos-de-otima-qualidade-2', File::strToValidName('.Produtos-de_óti?ma q.ualida@"de/2-'));
 	}
 
 	private function initExistentFile() {

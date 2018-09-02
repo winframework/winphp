@@ -169,10 +169,6 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($dir->exists());
 	}
 
-	public function testStrToFilePath() {
-		$this->assertEquals('sample-dir-7', Directory::strToValidName('_Sam.plE_/diR._7/'));
-	}
-
 	public static function tearDownAfterClass() {
 		$dir = new Directory('data/dir');
 		$dir->delete();

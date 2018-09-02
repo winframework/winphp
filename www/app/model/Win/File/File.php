@@ -3,7 +3,6 @@
 namespace Win\File;
 
 use Exception;
-use const BASE_PATH;
 
 /**
  * Arquivos
@@ -14,26 +13,12 @@ class File extends DirectoryItem {
 	/** @var string[] */
 	public static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
 
-	const REGEXP_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
-	const REGEXP_NAME = '@^(([a-z0-9._\-]?))+$@';
-
 	/**
 	 * Instância um novo arquivo
 	 * @param string $path Caminho relativo
 	 */
 	public function __construct($path) {
 		$this->setPath($path);
-	}
-
-	/**
-	 * @param string $path Caminho relativo
-	 * @throws Exception
-	 */
-	protected function setPath($path) {
-		if (!preg_match(static::REGEXP_PATH, $path)) {
-			throw new Exception($path . ' is a invalid directory path.');
-		}
-		parent::setPath($path);
 	}
 
 	/** @return string */
@@ -47,11 +32,13 @@ class File extends DirectoryItem {
 	}
 
 	/** @return string */
-	public function toString() {
-		if ($this->getExtension()) {
-			return $this->getName() . '.' . $this->getExtension();
-		}
-		return $this->getName();
+	public function getExtensionDot() {
+		return $this->getExtension() ? '.' . $this->getExtension() : '';
+	}
+
+	/** @return string */
+	public function getType() {
+		return mime_content_type($this->getAbsolutePath());
 	}
 
 	/** @return int|false */
@@ -64,9 +51,25 @@ class File extends DirectoryItem {
 		return $size;
 	}
 
+	/** @return string */
+	public function toString() {
+		return $this->getName() . $this->getExtensionDot();
+	}
+
 	/** @return boolean */
 	public function exists() {
 		return is_file($this->getAbsolutePath());
+	}
+
+	/**
+	 * @param string $path Caminho relativo
+	 * @throws Exception
+	 */
+	protected function setPath($path) {
+		if (!preg_match(static::REGEXP_PATH, $path)) {
+			throw new Exception($path . ' is a invalid directory path.');
+		}
+		parent::setPath($path);
 	}
 
 	/**
@@ -108,18 +111,18 @@ class File extends DirectoryItem {
 		return $content;
 	}
 
-
-
 	/**
 	 * Renomeia o arquivo
-	 * @param string $newName
+	 * @param string $newName [optional]
+	 * @param string $newExtension [optional]
 	 * @return boolean
 	 */
-	public function rename($newName) {
+	public function rename($newName = null, $newExtension = null) {
+		$newName .= ($newExtension) ? '.' . $newExtension : $this->getExtensionDot();
 		if (!preg_match(static::REGEXP_NAME, $newName)) {
 			throw new Exception($newName . ' is a invalid file name.');
 		}
-		parent::rename($newName);
+		return parent::rename($newName);
 	}
 
 }
