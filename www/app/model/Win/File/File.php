@@ -8,7 +8,7 @@ use Exception;
  * Arquivos
  *
  */
-class File extends DirectoryItem implements DirectoryItemInterface {
+class File extends DirectoryItem implements UploadbleInterface {
 
 	/** @var string[] */
 	public static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
@@ -66,9 +66,15 @@ class File extends DirectoryItem implements DirectoryItemInterface {
 	 */
 	protected function setPath($path) {
 		if (!preg_match(static::REGEXP_PATH, $path)) {
-			throw new Exception($path . ' is a invalid directory path.');
+			throw new Exception($path . ' is a invalid file path.');
 		}
 		parent::setPath($path);
+	}
+
+	/** @param string */
+	public function setName($name) {
+		$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $name . $this->getExtensionDot();
+		$this->setPath($path);
 	}
 
 	/**

@@ -8,16 +8,20 @@ namespace Win\File;
 class Uploader {
 
 	/** @var Directory */
-	protected $directory;
+	protected $destination;
+
+	/** @var UploadbleInterface */
+	protected $temp;
 
 	/** @var File */
 	protected $file;
 
-	/** @var File */
-	protected $temp;
-
-	public function __construct(Directory $directory) {
-		$this->directory = $directory;
+	/**
+	 * Instância um arquivo temporário
+	 * @param Directory $destination
+	 */
+	public function __construct(Directory $destination) {
+		$this->destination = $destination;
 	}
 
 	/** @return File */
@@ -25,28 +29,50 @@ class Uploader {
 		return $this->file;
 	}
 
-	public function prepare($file) {
+	/**
+	 * Prepara o upload
+	 * @param UploadbleInterface $temp
+	 * @return boolean
+	 */
+	public function prepare(UploadbleInterface $temp) {
 		$success = false;
 		$this->temp = null;
-		if (isset($_FILES[$file]) && isset($_FILES[$file]['name'])) {
+		if ($temp->exists()) {
 			$success = true;
-			$this->temp = new File($_FILES[$file]['tmp_name']);
+			$this->temp = $temp;
 		}
 		return $success;
 	}
 
-	public function upload($newName = null) {
+	/**
+	 * Faz o upload para o diretório final
+	 * @param $name
+	 * @return boolean
+	 */
+	public function upload($name = null) {
 		$success = false;
-		$this->file = null;
-		if (!is_null($this->temp) && $this->temp->exists()) {
-			$success = true;
-			$this->temp->move($this->directory);
-			$this->file = clone $this->temp;
-			if ($newName) {
-				$this->file->rename($newName);
-			}
+		if (!is_null($this->temp)) {
+			$this->temp->setName($name);
+			$success = $this->moveTempToDestination();
 		}
 		return $success;
+	}
+
+	/**
+	 * Move o arquivo temporário para o destino final
+	 * @return boolean
+	 */
+	protected function moveTempToDestination() {
+		return $this->temp->move($this->destination);
+	}
+
+	/**
+	 * Gera um nome aleatório antes de realizar o upload
+	 * @return this
+	 */
+	public function genarateName() {
+		$this->temp->setName((string) time());
+		return $this;
 	}
 
 }

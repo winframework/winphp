@@ -77,12 +77,12 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 
 	/**
 	 * Move para um novo diretório
-	 * @param Directory $newDirectory
+	 * @param Directory $destination
 	 * @return boolean
 	 */
-	public function move(Directory $newDirectory) {
+	public function move(Directory $destination) {
 		$oldPath = $this->getAbsolutePath();
-		$this->setDirectory($newDirectory);
+		$this->setDirectory($destination);
 		if (!$this->getDirectory()->exists()) {
 			$this->getDirectory()->create();
 		}
