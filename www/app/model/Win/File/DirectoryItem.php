@@ -41,11 +41,12 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 		return $this->directory;
 	}
 
-	/** @return Date */
-	public function getLastModifiedDate(){
+	/** @return DateTime */
+	public function getLastModifiedDate() {
 		$ts = filemtime($this->getAbsolutePath());
-		return new \DateTime("@$ts");
+		return new DateTime("@$ts");
 	}
+
 	/** @param string $path */
 	protected function setPath($path) {
 		$this->path = $path;
