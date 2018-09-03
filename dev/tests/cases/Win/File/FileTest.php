@@ -7,7 +7,6 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	/** @var File */
 	private $file;
 
-
 	/** @expectedException \Exception */
 	public function testPath_Empty() {
 		$this->file = new File('');
@@ -32,7 +31,6 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->file = new File('valid-name/');
 		$this->assertEquals('', $this->file->getExtension());
 		$this->assertEquals('valid-name', $this->file->getName());
-		$this->assertEquals('valid-name', $this->file->toString());
 	}
 
 	public function testPath_Number() {
@@ -93,8 +91,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 
 	public function testToString() {
 		$this->initExistentFile();
-		$this->assertEquals('exist.html', $this->file->__toString());
-		$this->assertEquals('exist.html', $this->file->toString());
+		$this->assertEquals('exist.html', (string) $this->file);
 	}
 
 	public function testGetDirectory() {

@@ -6,22 +6,33 @@ use PHPMailer\PHPMailer\Exception;
 
 class DirectoryTest extends \PHPUnit_Framework_TestCase {
 
+	public static $dirInexistent;
+	public static $dir;
+	public static $sub;
+
+	public static function setUpBeforeClass() {
+		static::$dirInexistent = new Directory('my-sample/directory');
+		static::$dir = new Directory('data/dir');
+		static::$sub = new Directory('data/dir/sub1');
+	}
+
+	public static function tearDownAfterClass() {
+		$dir = new Directory('data/dir');
+		$dir->delete();
+	}
+
 	public function testGetPath() {
-		$dir = new Directory('my-sample/directory');
-		$this->assertContains('my-sample/directory', $dir->getAbsolutePath());
-		$this->assertNotEquals('my-sample/directory', $dir->getAbsolutePath());
-		$this->assertEquals('my-sample/directory', $dir->getPath());
+		$this->assertContains('my-sample/directory', static::$dirInexistent->getAbsolutePath());
+		$this->assertNotEquals('my-sample/directory', static::$dirInexistent->getAbsolutePath());
+		$this->assertEquals('my-sample/directory', static::$dirInexistent->getPath());
 	}
 
 	public function testToString() {
-		$dir = new Directory('my-string/directory');
-		$this->assertEquals('directory', $dir->toString());
-		$this->assertEquals('directory', $dir->__toString());
+		$this->assertEquals('dir', (string) static::$dir);
 	}
 
 	public function testGetName() {
-		$dir = new Directory('my/string/directory');
-		$this->assertEquals('directory', $dir->getName());
+		$this->assertEquals('dir', static::$dir->getName());
 	}
 
 	public function testValidComplexPath() {
@@ -58,20 +69,25 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		new Directory('my-sAmple');
 	}
 
-	public function testDoNotExits() {
-		$dir = new Directory('inexist');
-		$this->assertFalse($dir->exists());
+	public function testExits() {
+		$dir = new Directory('data');
+		$this->assertTrue($dir->exists());
+	}
 
+	public function testExits_False() {
+		$this->assertFalse(static::$dirInexistent->exists());
+	}
+
+	public function testExist_File_False() {
 		$dirFile = new Directory('index.php');
 		$this->assertFalse($dirFile->exists());
 	}
 
 	public function testCreate() {
-		$dir = new Directory('data/dir');
-		$dir->delete();
-		$dir->create();
-		$this->assertTrue($dir->exists());
-		$this->assertEquals('0755', $dir->getChmod());
+		static::$dir->delete();
+		static::$dir->create();
+		$this->assertTrue(static::$dir->exists());
+		$this->assertEquals('0755', static::$dir->getChmod());
 	}
 
 	public function testCreate_SetPermission() {
@@ -101,77 +117,66 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetItemsName_TwoValues() {
-		$dir = new Directory('data/dir');
-		$dir->delete();
-		$dir->create();
-		$sub1 = new Directory('data/dir/sub1');
-		$sub1->create();
+		static::$dir->delete();
+		static::$dir->create();
+		static::$sub->create();
 		$sub2 = new Directory('data/dir/sub2');
 		$sub2->create();
 
-		$content = $dir->getItemsName();
+		$content = static::$dir->getItemsName();
 		$this->assertEquals('sub1', $content[0]);
 		$this->assertEquals('sub2', $content[1]);
-		$this->assertEquals(2, count($dir->getItemsName()));
+		$this->assertEquals(2, count(static::$dir->getItemsName()));
 	}
 
 	public function testGetItems() {
-		$dir = new Directory('data/dir');
 		$file = new File('data/dir/file.txt');
 		$file->write('file content');
 
-		$items = $dir->getItems();
+		$items = static::$dir->getItems();
 		$this->assertInstanceOf(DirectoryItem::class, $items[0]);
 		$this->assertInstanceOf(DirectoryItem::class, $items[1]);
 
 		$this->assertInstanceOf(File::class, $items[0]);
 		$this->assertInstanceOf(Directory::class, $items[1]);
-		
-
 
 		$this->assertEquals('file', $items[0]->getName());
 		$this->assertEquals('sub1', $items[1]->getName());
 	}
 
 	public function testIsEmpty() {
-		$dir = new Directory('data/dir');
-		$sub1 = new Directory('data/dir/sub1');
-
-		$this->assertFalse($dir->isEmpty());
-		$this->assertTrue($sub1->isEmpty());
+		$this->assertFalse(static::$dir->isEmpty());
+		$this->assertTrue(static::$sub->isEmpty());
 	}
 
 	public function testDeleteContent() {
-		$dir = new Directory('data/dir');
-		$dir->delete();
-		$dir->create();
-		$sub1 = new Directory('data/dir/sub1');
-		$sub1->create();
-		$this->assertEquals(1, count($dir->getItemsName()));
+		static::$dir->delete();
+		static::$dir->create();
+		static::$sub->create();
+		$this->assertEquals(1, count(static::$dir->getItemsName()));
 
-		$dir->clear();
-		$this->assertEquals(0, count($dir->getItemsName()));
-		$this->assertTrue($dir->exists());
+		static::$dir->clear();
+		$this->assertEquals(0, count(static::$dir->getItemsName()));
+		$this->assertTrue(static::$dir->exists());
 	}
 
 	public function testChmod() {
-		$dir = new Directory('data/dir');
-		$dir->setChmod(0744);
-		$this->assertEquals('744', $dir->getChmod());
-		$dir->setChmod(0755);
-		$this->assertEquals('755', $dir->getChmod());
+		static::$dir->setChmod(0744);
+		$this->assertEquals('744', static::$dir->getChmod());
+		static::$dir->setChmod(0755);
+		$this->assertEquals('755', static::$dir->getChmod());
 	}
 
 	public function testDelete() {
-		$dir = new Directory('data/dir/sub');
-		$dir->create();
-		$dir->delete();
-		$this->assertFalse($dir->exists());
+		static::$sub->create();
+		static::$sub->delete();
+		$this->assertFalse(static::$sub->exists());
 	}
 
-	public static function tearDownAfterClass() {
-		$dir = new Directory('data/dir');
-		$dir->delete();
+	public function testGetLastModifiedDate() {
+		$ts = filemtime(BASE_PATH . '/data/dir');
+		$this->assertEquals($ts, static::$dir->getLastModifiedDate()->getTimestamp());
+		$this->assertEquals(date('i'), static::$dir->getLastModifiedDate()->format('i'));
 	}
 
 }

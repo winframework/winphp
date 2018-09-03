@@ -21,7 +21,17 @@ class Directory extends DirectoryItem {
 
 	/** @return string */
 	public function __toString() {
-		return $this->toString();
+		return $this->getName();
+	}
+
+	/** @return string */
+	public function getName() {
+		return pathinfo($this->getPath(), PATHINFO_BASENAME);
+	}
+
+	/** @return boolean */
+	public function exists() {
+		return is_dir($this->getAbsolutePath());
 	}
 
 	/**
@@ -33,21 +43,6 @@ class Directory extends DirectoryItem {
 			throw new Exception($path . ' is a invalid directory path.');
 		}
 		parent::setPath($path);
-	}
-
-	/** @return string */
-	public function getName() {
-		return pathinfo($this->getPath(), PATHINFO_BASENAME);
-	}
-
-	/** @return string */
-	public function toString() {
-		return $this->getName();
-	}
-
-	/** @return boolean */
-	public function exists() {
-		return is_dir($this->getAbsolutePath());
 	}
 
 	/**

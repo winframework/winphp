@@ -2,6 +2,7 @@
 
 namespace Win\File;
 
+use Win\Calendar\DateTime;
 use const BASE_PATH;
 
 /**
@@ -18,11 +19,6 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 
 	/** @var Directory */
 	private $directory;
-
-	/** @return string */
-	public function __toString() {
-		return $this->toString();
-	}
 
 	/** @return string */
 	public function getPath() {
@@ -45,6 +41,11 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 		return $this->directory;
 	}
 
+	/** @return Date */
+	public function getLastModifiedDate(){
+		$ts = filemtime($this->getAbsolutePath());
+		return new \DateTime("@$ts");
+	}
 	/** @param string $path */
 	protected function setPath($path) {
 		$this->path = $path;
@@ -52,7 +53,7 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 
 	protected function setDirectory(Directory $directory) {
 		$this->directory = $directory;
-		$path = $directory->getPath() . DIRECTORY_SEPARATOR . $this->toString();
+		$path = $directory->getPath() . DIRECTORY_SEPARATOR . $this->__toString();
 		$this->setPath($path);
 	}
 

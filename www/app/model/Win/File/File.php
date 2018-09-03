@@ -8,7 +8,7 @@ use Exception;
  * Arquivos
  *
  */
-class File extends DirectoryItem {
+class File extends DirectoryItem implements DirectoryItemInterface {
 
 	/** @var string[] */
 	public static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
@@ -19,6 +19,11 @@ class File extends DirectoryItem {
 	 */
 	public function __construct($path) {
 		$this->setPath($path);
+	}
+
+	/** @return string */
+	public function __toString() {
+		return $this->getName() . $this->getExtensionDot();
 	}
 
 	/** @return string */
@@ -43,17 +48,11 @@ class File extends DirectoryItem {
 
 	/** @return int|false */
 	public function getSize() {
+		$size = false;
 		if ($this->exists()) {
 			$size = filesize($this->getAbsolutePath());
-		} else {
-			$size = false;
 		}
 		return $size;
-	}
-
-	/** @return string */
-	public function toString() {
-		return $this->getName() . $this->getExtensionDot();
 	}
 
 	/** @return boolean */

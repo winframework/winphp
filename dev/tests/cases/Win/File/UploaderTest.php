@@ -13,7 +13,7 @@ class UploaderTest extends \PHPUnit_Framework_TestCase {
 		$_FILES = array(
 			'file' => array(
 				'tmp_name' => $file->getPath(),
-				'name' => $file->toString(),
+				'name' => $file->__toString(),
 				'type' => $file->getType(),
 				'size' => $file->getSize(),
 				'error' => 0,

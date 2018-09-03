@@ -14,6 +14,9 @@ interface DirectoryItemInterface {
 	 */
 	public function __construct($path);
 
+	/** @return string Nome com complemento */
+	public function __toString();
+
 	/** @return string Caminho relativo */
 	public function getPath();
 
@@ -25,12 +28,6 @@ interface DirectoryItemInterface {
 
 	/** @return Directory */
 	public function getDirectory();
-
-	/** @return string Nome com complemento */
-	public function __toString();
-
-	/** @return string Nome com complemento */
-	public function toString();
 
 	/** @return boolean */
 	public function exists();
