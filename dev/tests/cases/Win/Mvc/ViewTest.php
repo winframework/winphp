@@ -2,9 +2,11 @@
 
 namespace Win\Mvc;
 
+use PHPUnit_Framework_TestCase;
 use Win\Mvc\View;
+use Win\Request\Url;
 
-class ViewTest extends \PHPUnit_Framework_TestCase {
+class ViewTest extends PHPUnit_Framework_TestCase {
 
 	public function getValidView() {
 		return new View('my-view');
@@ -14,15 +16,20 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
 		return new View('this-view-doesnt-exist');
 	}
 
+	/**
+	 * @expectedException \Win\Mvc\HttpException
+	 */
 	public function testDoNotExist() {
 		$view = $this->getInValidView();
 		$this->assertFalse($view->exists());
+		$view->validate();
 	}
 
 	public function testExists() {
 		$view = $this->getValidView();
 		$this->assertTrue($view->exists());
 		$this->assertTrue(strlen($view->toString()) > 2);
+		$view->validate();
 	}
 
 	public function testGetFile() {
@@ -83,6 +90,18 @@ class ViewTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($view->getData('a'), 10);
 		$this->assertEquals($view->getData('b'), 20);
 		$this->assertEquals($view->getData('c'), 30);
+	}
+
+	public function testGetTitle_Manual() {
+		$view = new View('index', ['title' => 'My title']);
+		$this->assertEquals('My title', $view->getTitle());
+	}
+
+	public function testGetTitle_Automatic() {
+		Url::instance()->setUrl('my-page/my-subpage');
+		new Application();
+		$view = new View('index');
+		$this->assertEquals('My Page', $view->getTitle());
 	}
 
 }

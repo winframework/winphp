@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\File;
+namespace Win\File\Type;
 
 class ImageTest extends \PHPUnit_Framework_TestCase {
 

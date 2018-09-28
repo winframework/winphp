@@ -29,6 +29,11 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 		$this->assertContains('my-page/subpage', $url);
 	}
 
+		public function testRedirect() {
+		Url::instance()->redirect('teste');
+		$this->assertContains('teste', Header::instance()->get('location'));
+	}
+
 	public function testGetUrlNull() {
 		Url::instance('new')->setSufix('');
 		$_SERVER['HTTP_HOST'] = true;

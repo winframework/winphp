@@ -1,6 +1,8 @@
 <?php
 
-namespace Win\File;
+namespace Win\File\Type;
+
+use Win\File\File;
 
 /**
  * Arquivos de Imagem

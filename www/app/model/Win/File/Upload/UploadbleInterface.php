@@ -1,6 +1,8 @@
 <?php
 
-namespace Win\File;
+namespace Win\File\Upload;
+
+use Win\File\Directory;
 
 /**
  * Arquivos aceitos no upload

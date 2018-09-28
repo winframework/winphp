@@ -6,7 +6,7 @@ use Win\Request\Url;
 
 /**
  * Controllers
- * 
+ *
  * São responsáveis por processar as requisições e definir as Views
  */
 abstract class Controller {
@@ -77,6 +77,13 @@ abstract class Controller {
 		$this->action = $this->toCamelCase($action);
 	}
 
+	/** @param View $view */
+	protected function setView($view) {
+		if ($view instanceof View) {
+			$this->app->view = $view;
+		}
+	}
+
 	/**
 	 * Retorna o nome do Action em camelCase
 	 * @param string $action
@@ -104,19 +111,8 @@ abstract class Controller {
 		$this->init();
 		$action = $this->action;
 		$view = $this->$action();
-		if ($view instanceof View && !$this->app->isErrorPage()):
-			$this->app->view = $view;
-		endif;
-
-		if (!$this->app->isErrorPage()):
-			$this->app->view->mergeData($this->data);
-			$this->app->view->validate();
-		endif;
-	}
-
-	public function reload() {
-		$this->init();
-		$this->index();
+		$this->setView($view);
+		$this->app->view->validate();
 		$this->app->view->mergeData($this->data);
 	}
 
@@ -125,9 +121,7 @@ abstract class Controller {
 	 * @codeCoverageIgnore
 	 */
 	protected function backToIndex() {
-		if (!$this->app->isErrorPage()):
-			Url::instance()->redirect($this->app->getPage());
-		endif;
+		Url::instance()->redirect($this->app->getPage());
 	}
 
 	/**
@@ -138,7 +132,9 @@ abstract class Controller {
 	/**
 	 * Este método é chamado sempre que o Controller é carregado
 	 */
-	abstract protected function init();
+	protected function init() {
+		
+	}
 
 	/**
 	 * Redireciona para a URL
@@ -157,13 +153,15 @@ abstract class Controller {
 	}
 
 	/**
-	 * Evita chamada de um método que não exista
+	 * Ao chamar um método inexistente retorna um 404
 	 * @param string $name
 	 * @param mixed[] $arguments
 	 * @return boolean
 	 */
 	public function __call($name, $arguments) {
-		$this->app->pageNotFound();
+		if ($this->app->getPage() !== '404') {
+			$this->app->pageNotFound();
+		}
 	}
 
 }

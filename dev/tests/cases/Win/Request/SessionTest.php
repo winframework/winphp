@@ -2,31 +2,44 @@
 
 namespace Win\Request;
 
-use Win\Data\Config;
+use PHPUnit_Framework_TestCase;
 
-class SessionTest extends \PHPUnit_Framework_TestCase {
+class SessionTest extends PHPUnit_Framework_TestCase {
 
-	public function testGet() {
-		Session::set('a', 1);
-		Session::set('b', 2);
+	public function testSet() {
+		$session = Session::instance();
+		$session->set('a', 1);
 
-		$this->assertEquals(1, Session::get('a'));
-		$this->assertEquals(2, Session::get('b', 3));
-		$this->assertEquals(null, Session::get('c'));
-		$this->assertEquals(3, Session::get('c', 3));
+		$this->assertEquals(1, $session->get('a'));
+		$this->assertEquals(null, $session->get('b'));
+	}
+
+	public function testSuperGlobal() {
+		$_SESSION['default']['a'] = 1;
+		$session = Session::instance();
+		$session->set('b', 2);
+
+		$this->assertEquals(1, $session->get('a'));
+		$this->assertEquals(2, $session->get('b', 3));
 	}
 
 	public function testGetArray() {
-		$b = ['first' => 21, 'second' => 22];
-		Session::set('a', 1);
-		Config::set('a', 11);
-		Session::set('b', $b);
+		$_SESSION['default']['a']['b'] = 12;
+		$session = Session::instance();
+		$session->set('b', 2);
 
-		$this->assertEquals(1, Session::get('a'));
-		$this->assertEquals(21, Session::get('b.first'));
-		$this->assertEquals(22, Session::get('b.second'));
-		$this->assertEquals(null, Session::get('b.third'));
-		$this->assertEquals(100, Session::get('b.third', 100));
+		$this->assertEquals(12, $session->get('a.b'));
+	}
+
+	public function testGet_MultiInstance() {
+		$_SESSION['default']['a']['b'] = 1;
+		$_SESSION['user']['a']['b'] = 2;
+		$session = Session::instance();
+		Session::instance('user')->set('b', 3);
+
+		$this->assertEquals(1, $session->get('a.b'));
+		$this->assertEquals(2, Session::instance('user')->get('a.b'));
+		$this->assertEquals(3, Session::instance('user')->get('b'));
 	}
 
 }

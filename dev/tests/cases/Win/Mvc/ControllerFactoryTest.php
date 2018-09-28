@@ -32,27 +32,31 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCreateControllerWithCustomAction() {
-		new Application();
+		$app = new Application();
+		$app->view = new View('index');
 		$controller = ControllerFactory::create('demo', 'return-five');
+		var_dump($controller->getAction());
 		$controller->load();
 
 		$this->assertEquals('returnFive', $controller->getAction());
 	}
 
+	/**
+	 * @expectedException Win\Mvc\HttpException
+	 */
 	public function testCreateControllerWithInvalidView() {
-		$app = new Application();
 		$controller = ControllerFactory::create('demo', 'return-invalid-view');
 		$controller->load();
-
-		$this->assertFalse($app->view->exists());
 	}
 
+	/**
+	 * @expectedException Win\Mvc\HttpException
+	 */
 	public function testCreateControllerWithInvalidAction() {
 		$app = new Application();
 		$controller = ControllerFactory::create('demo', 'invalid');
 		$controller->load();
 		$this->assertEquals('invalid', $controller->getAction());
-		$this->assertEquals(404, $app->getPage());
 		$this->assertFalse($app->view->exists());
 	}
 

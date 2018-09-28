@@ -34,8 +34,8 @@ class Application {
 	 */
 	public function __construct($config = []) {
 		static::$app = $this;
-		Config::load($config);
-		$this->name = (string) Config::get('name', '');
+		Config::instance()->load($config);
+		$this->name = (string) Config::instance()->get('name', '');
 
 		$this->setParamList(Url::instance()->getFragments());
 		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));
@@ -47,9 +47,7 @@ class Application {
 		endif;
 
 		$this->setPage($this->getParam(0));
-		$this->view = ViewFactory::create($this->getParam(0), $this->paramList);
-
-		ErrorPage::validate();
+		$this->view = ViewFactory::create($this->getParam(0), $this->getParam(1));
 	}
 
 	/**
@@ -66,7 +64,7 @@ class Application {
 	 */
 	public function run() {
 		$this->controller->load();
-		Header::run();
+		Header::instance()->run();
 		$layout = new Layout($this->controller->layout);
 		$layout->load();
 	}
@@ -99,12 +97,12 @@ class Application {
 	 * @return string
 	 */
 	public function getPage() {
-		return $this->page;
+		return (string) $this->page;
 	}
 
 	/** @param string $page */
 	public function setPage($page) {
-		$this->page = $page;
+		$this->page = (string) $page;
 	}
 
 	/**
@@ -120,7 +118,7 @@ class Application {
 	 * @return boolean
 	 */
 	public function isErrorPage() {
-		return ErrorPage::isErrorPage();
+		return HttpException::isErrorCode($this->getPage());
 	}
 
 	/**
@@ -132,7 +130,7 @@ class Application {
 	}
 
 	/**
-	 * Define os parâmetros.
+	 * Define os parâmetros
 	 * Se estiver vazio, utiliza os parâmetros padrão.
 	 * @param string[] $paramList
 	 */
@@ -150,17 +148,22 @@ class Application {
 		return (key_exists($position, $this->paramList)) ? $this->paramList[$position] : '';
 	}
 
-	/** Define a página como 404 */
+	/**
+	 * Define a página como 404
+	 * @codeCoverageIgnore
+	 */
 	public function pageNotFound() {
 		$this->errorPage(404);
 	}
 
 	/**
 	 * Define a página atual como algum erro
-	 * @param int $errorCode [401, 404, 500, etc]
+	 * @param int $code
+	 * @param string $message
+	 * @throws HttpException
 	 */
-	public function errorPage($errorCode) {
-		ErrorPage::setError($errorCode);
+	public function errorPage($code, $message = '') {
+		throw new HttpException($code, $message);
 	}
 
 }

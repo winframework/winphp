@@ -7,12 +7,14 @@ use Win\Mvc\View;
 
 class DemoController extends Controller {
 
-	public function init() {
+	protected function init() {
+		parent::init();
 		$this->addData('init', 10);
 	}
 
 	public function index() {
 		$this->setTitle('My Index Action');
+		return new View('index');
 	}
 
 	public function returnFive() {

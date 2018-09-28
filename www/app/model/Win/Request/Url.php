@@ -2,7 +2,7 @@
 
 namespace Win\Request;
 
-use Win\DesignPattern\Singleton;
+use Win\DesignPattern\SingletonTrait;
 
 /**
  * Gerenciador de URL
@@ -10,7 +10,7 @@ use Win\DesignPattern\Singleton;
  */
 class Url {
 
-	use Singleton;
+	use SingletonTrait;
 
 	protected $base = null;
 	protected $url = null;
@@ -42,7 +42,7 @@ class Url {
 		if (strpos($url, '://') === false) {
 			$url = $this->getBaseUrl() . $url;
 		}
-		Header::set('location', $url);
+		Header::instance()->set('location', $url);
 	}
 
 	/**

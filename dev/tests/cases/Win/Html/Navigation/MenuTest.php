@@ -14,7 +14,7 @@ class MenuTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals('active', Menu::active('index'));
 
-		Application::app()->pageNotFound();
+		Application::app()->setPage('404');
 		$this->assertEquals('active', Menu::active('404'));
 	}
 

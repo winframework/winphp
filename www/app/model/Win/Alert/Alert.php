@@ -2,78 +2,37 @@
 
 namespace Win\Alert;
 
-use Win\Mvc\Block;
-
 /**
  * Alertas
- * São mensagens armazenadas na sessão e exibidas ao usuárioTYPE
  */
-abstract class Alert {
+class Alert {
 
-	public $type;
-	public $group;
-	public $message;
-	protected static $file = 'layout/html/alert';
-
-	const TYPE = '';
-
-	/**
-	 * Cria um novo alerta
-	 * @param string $message
-	 * @param string $group
-	 */
-	public function __construct($message, $group = '') {
+	public function __construct(Session $message, $type = 'default') {
 		$this->message = $message;
-		$this->type = static::TYPE;
-		$this->group = $group;
-		Session::addAlert($this);
 	}
 
-	/** @return string */
-	public function __toString() {
-		return $this->getBlock()->toString();
+	public function get($type) {
+		return [];
 	}
 
-	/** Exibe o conteúdo HTML do alerta */
-	public function load() {
-		return $this->getBlock()->load();
+	public static function all() {
+		return [];
 	}
 
-	/** @return Block */
-	protected function getBlock() {
-		return new Block(static::$file, ['alert' => $this]);
+	public static function success($message) {
+		return new Alert($message, 'success');
 	}
 
-	/**
-	 * Cria um alerta de erro ou sucesso, dependendo dos parâmetros
-	 * Possibilitando criar um "AlertError" ou "AlertSuccess" em um único método
-	 * @param string|null $error
-	 * @param string $success
-	 * @param string $group
-	 * @return Alert
-	 */
-	public static function create($error, $success, $group = '') {
-		if (!is_null($error)) {
-			return new AlertError($error, $group);
-		} else {
-			return new AlertSuccess($success, $group);
-		}
+	public static function error($message) {
+		return new Alert($message, 'danger');
 	}
 
-	/**
-	 * @param string $group
-	 * @return boolean
-	 */
-	public function isGroup($group) {
-		return ($group == '' || $group == $this->group);
+	public static function info($message) {
+		return new Alert($message, 'info');
 	}
 
-	/**
-	 * @param string $type
-	 * @return boolean
-	 */
-	public function isType($type) {
-		return ($type == '' || $type == $this->type);
+	public static function toHtml() {
+		echo new Block('layout/html/alert');
 	}
 
 }

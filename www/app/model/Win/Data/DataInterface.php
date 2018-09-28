@@ -7,12 +7,36 @@ namespace Win\Data;
  */
 interface DataInterface {
 
-	/** @return mixed[] */
-	public static function getAll();
+	/**
+	 * Retorna todos os dados
+	 * @return mixed[]
+	 */
+	public function all();
 
 	/**
+	 * Define um dado
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	public static function set($key, $value);
+	public function set($key, $value);
+
+	/**
+	 * Retorna um dado
+	 * @return mixed
+	 * @param string $key
+	 * @param mixed $default
+	 */
+	public function get($key, $default);
+
+	/*
+	 * Limpa os dados
+	 */
+
+	public function clear();
+
+	/**
+	 * Exclui os dados
+	 * @param string $key
+	 */
+	public function delete($key);
 }

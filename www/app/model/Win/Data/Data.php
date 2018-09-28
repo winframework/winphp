@@ -2,27 +2,54 @@
 
 namespace Win\Data;
 
+use Win\DesignPattern\SingletonTrait;
+
 /**
  * Dados
  */
-abstract class Data implements DataInterface {
+class Data implements DataInterface {
+
+	use SingletonTrait;
+
+	protected $data = [];
 
 	/**
-	 * Retorna valor da sessão
-	 * @param string $key Nome da configuração
-	 * @param string $default Valor default, caso esta configuração esteja em branco
+	 * Retorna valor
+	 * @param string $key
+	 * @param string $default Valor default, caso a $key não exista
 	 */
-	public static function get($key, $default = '') {
+	public function get($key, $default = '') {
+		$data = $this->data;
 		$keys = explode('.', $key);
-		$config = static::getAll();
 		foreach ($keys as $k) {
-			if (is_array($config) && array_key_exists($k, $config)) {
-				$config = $config[$k];
+			if (is_array($data) && array_key_exists($k, $data)) {
+				$data = $data[$k];
 			} else {
 				return $default;
 			}
 		}
-		return $config;
+		return $data;
+	}
+
+	public function all() {
+		return $this->data;
+	}
+
+	public function set($key, $value) {
+		$p = &$this->data;
+		$keys = explode('.', $key);
+		foreach ($keys as $key) {
+			$p = &$p[$key];
+		}
+		$p = $value;
+	}
+
+	public function clear() {
+		$this->data = [];
+	}
+
+	public function delete($key) {
+		unset($this->data[$key]);
 	}
 
 }

@@ -17,8 +17,8 @@ class ExemploController extends Controller {
 	public function index() {
 
 		if (isset($_POST['submit'])) {
-
-			$uploader = new Uploader(new Directory('data/upload'));
+			$dir = new Directory('data/upload');
+			$uploader = new Uploader($dir);
 
 
 			$uploader->prepare(new TempFile($_FILES['upload']));

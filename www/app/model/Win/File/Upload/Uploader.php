@@ -1,6 +1,9 @@
 <?php
 
-namespace Win\File;
+namespace Win\File\Upload;
+
+use Win\File\Directory;
+use Win\File\File;
 
 /**
  * Auxilia fazer upload de Arquivos
@@ -22,6 +25,7 @@ class Uploader {
 	 */
 	public function __construct(Directory $destination) {
 		$this->destination = $destination;
+		$this->destination->create(0777);
 	}
 
 	/** @return File */

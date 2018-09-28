@@ -4,7 +4,7 @@ namespace Win\Connection;
 
 use PDO;
 use PDOException;
-use Win\DesignPattern\Singleton;
+use Win\DesignPattern\SingletonTrait;
 use Win\Mvc\Application;
 
 /**
@@ -13,7 +13,7 @@ use Win\Mvc\Application;
  */
 abstract class Database {
 
-	use Singleton;
+	use SingletonTrait;
 
 	/** @var PDO */
 	protected $pdo;
@@ -60,8 +60,7 @@ abstract class Database {
 	 */
 	public function validate() {
 		if (!is_null($this->pdoException)):
-			Application::app()->errorPage(503);
-			Application::app()->view->addData('error', $this->pdoException->getMessage());
+			Application::app()->errorPage(503, $this->pdoException->getMessage());
 		endif;
 	}
 

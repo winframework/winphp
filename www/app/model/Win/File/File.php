@@ -3,6 +3,7 @@
 namespace Win\File;
 
 use Exception;
+use Win\File\Upload\UploadbleInterface;
 
 /**
  * Arquivos
@@ -71,10 +72,23 @@ class File extends DirectoryItem implements UploadbleInterface {
 		parent::setPath($path);
 	}
 
-	/** @param string */
+	/** @param string $name */
 	public function setName($name) {
-		$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $name . $this->getExtensionDot();
-		$this->setPath($path);
+		if ($name) {
+			if (!preg_match(static::REGEXP_NAME, $name)) {
+				throw new Exception($name . ' is a invalid file name.');
+			}
+			$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $name . $this->getExtensionDot();
+			$this->setPath($path);
+		}
+	}
+
+	/** @param string $extension */
+	protected function setExtension($extension) {
+		if ($extension) {
+			$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $this->getName() . '.' . $extension;
+			$this->setPath($path);
+		}
 	}
 
 	/**
@@ -123,11 +137,10 @@ class File extends DirectoryItem implements UploadbleInterface {
 	 * @return boolean
 	 */
 	public function rename($newName = null, $newExtension = null) {
-		$newName .= ($newExtension) ? '.' . $newExtension : $this->getExtensionDot();
-		if (!preg_match(static::REGEXP_NAME, $newName)) {
-			throw new Exception($newName . ' is a invalid file name.');
-		}
-		return parent::rename($newName);
+		$oldPath = $this->getAbsolutePath();
+		$this->setExtension($newExtension);
+		$this->setName($newName);
+		return rename($oldPath, $this->getAbsolutePath());
 	}
 
 }

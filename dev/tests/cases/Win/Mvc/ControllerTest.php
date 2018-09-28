@@ -44,6 +44,9 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('My title page', $controller->getData('title'));
 	}
 
+	/**
+	 * @expectedException Win\Mvc\HttpException
+	 */
 	public function testActionNotFound() {
 		$index = new IndexController('index');
 		$index->thisActionDoentExist();
@@ -51,21 +54,19 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCallInitOnLoad() {
-		$demo = new DemoController();
+		$demo = ControllerFactory::create('Demo', 'index');
 		$demo->index();
 		$this->assertNotEquals(10, $demo->getData('init'));
 		$demo->load();
 		$this->assertEquals(10, $demo->getData('init'));
 	}
 
-	public function testReload() {
-		$demo = new DemoController();
-		$demo->addData('a', 10);
-		$demo->load();
-		$demo->setTitle('My title 1');
-		$demo->reload();
-		$this->assertEquals('My Index Action', $demo->getData('title'));
-		$this->assertEquals(10, $demo->getData('a'));
+
+	public function testCall_Current404() {
+		$app = new Application();
+		$app->setPage(404);
+		$demo = new DemoController('index');
+		$demo->teste();
 	}
 
 	public function testReturnInvalidView() {

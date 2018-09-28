@@ -44,7 +44,6 @@ class TitleTest extends \PHPUnit_Framework_TestCase {
 
 	public function testSetTitle() {
 		$app = new Application();
-		$app->controller->load();
 		$app->controller->setTitle('My old page Title');
 		Title::$prefix = '.:: ';
 		Title::$sufix = ' ::.';

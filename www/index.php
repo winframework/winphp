@@ -1,5 +1,8 @@
 <?php
 
+use Win\Mvc\Application;
+use Win\Mvc\HttpException;
+
 /**
  * Para editar o código HTML do layout, procure em:
  * app/block/layout/
@@ -11,6 +14,11 @@ require 'lib/functions/strings.php';
 require 'app/config/app.php';
 
 session_start();
-$app = new Win\Mvc\Application($config);
 
-$app->run();
+try {
+	$app = new Application($config);
+	$app->run();
+} catch (HttpException $e) {
+	$e->run();
+}
+

@@ -33,33 +33,15 @@ class BlockTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($b->getData('b'), 2);
 	}
 
-	public function testGetTitle() {
-		$b = new Block(static::$validFile);
-		$b->addData('title', 'My Title');
-		$this->assertEquals($b->getTitle(), 'My Title');
-	}
-
 	public function testToString() {
 		$b = new Block(static::$validFile);
 		$this->assertEquals($b->toString(), 'My custom block HTML');
+		$this->assertEquals((string) $b, 'My custom block HTML');
 	}
 
 	public function testToStringEmpty() {
 		$b = new Block(static::$invalidFile);
 		$this->assertEquals($b->toString(), '');
-	}
-
-	public function testMergeData() {
-		$b = new Block(static::$validFile);
-		$b->addData('a', 1);
-		$b->addData('b', 2);
-		$this->assertEquals($b->getData('a'), 1);
-		$this->assertEquals($b->getData('b'), 2);
-
-		$b->mergeData(['a' => 11, 'c' => 3]);
-		$this->assertEquals($b->getData('a'), 11);
-		$this->assertEquals($b->getData('b'), 2);
-		$this->assertEquals($b->getData('c'), 3);
 	}
 
 }

@@ -23,41 +23,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($app->getName(), $app->getName());
 	}
 
-	public function testGetTitle() {
-		Url::instance()->setUrl('');
-		$app = new Application();
-		$app->controller->setTitle('Index');
-		$this->assertEquals('Index', $app->view->getTitle());
-
-		Url::instance()->setUrl('my-custom-page');
-		$app2 = new Application();
-		$this->assertEquals('My Custom Page', $app2->view->getTitle());
-
-		Url::instance()->setUrl('my-custom-page/my-action');
-		$app3 = new Application();
-		$app3->controller->load();
-		$this->assertNotEquals('My Custom Page', $app3->view->getTitle());
-
-		$app->controller->setTitle('My Custom Test Title Controller');
-		$app->view->addData('title', 'My Custom Test Title');
-		$this->assertEquals('My Custom Test Title', $app->view->getTitle());
-	}
-
-	public function testGetTitle404() {
-		$app = new Application();
-		$app->controller->setTitle('Old title');
-		$app->pageNotFound();
-		$this->assertNotEquals('Old titlee', $app->view->getTitle());
-	}
-
-	public function testGetTitleErrorPage() {
-		$app = new Application();
-		ErrorPage::$pages[404] = 'Ops! Not found';
-		$app->controller->setTitle('Old title');
-		$app->pageNotFound();
-		$this->assertEquals('Ops! Not found', $app->view->getTitle());
-	}
-
 	public function testGetPage() {
 		Url::instance()->setUrl('my-page/my-action/first-param/2nd-param/3rd-param');
 		$app = new Application();
@@ -91,15 +56,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('', $app->getParam(4));
 	}
 
-	public function testIsErrorPage() {
-		Url::instance()->setUrl('index');
-		$app = new Application();
-		$this->assertFalse($app->isErrorPage());
-
-		$app->pageNotFound();
-		$this->assertTrue($app->isErrorPage());
-	}
-
 	public function testIsHomePage() {
 		Url::instance()->setUrl('');
 		$app = new Application();
@@ -111,11 +67,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testIsNotHomePage() {
-		Url::instance()->setUrl('index');
-		$app = new Application();
-		$app->pageNotFound();
-		$this->assertFalse($app->isHomePage());
-
 		Url::instance()->setUrl('other-page');
 		$app2 = new Application();
 		$this->assertFalse($app2->isHomePage());
@@ -123,20 +74,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 
 	public function testIsLocalHost() {
 		$this->assertEquals(true, Server::isLocalHost());
-	}
-
-	public function testRun() {
-		Url::instance()->setUrl('this-page-doesnt-exist');
-		$app = new Application();
-		$this->assertNotEquals('404', $app->getPage());
-
-		Url::instance()->setUrl('this-page-doesnt-exist');
-		$app2 = new Application();
-
-		ob_start();
-		$app2->run();
-		ob_end_clean();
-		$this->assertEquals('404', $app2->getPage());
 	}
 
 	public function testGetUrl() {
@@ -148,7 +85,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 		$this->assertContains($currentUrl, $app->getFullUrl());
 	}
 
-		public function testGetUrlWithRoutes() {
+	public function testGetUrlWithRoutes() {
 		$currentUrl = Url::instance()->format('other-page/params/');
 		Url::instance()->setUrl($currentUrl);
 		$app = new Application();
@@ -157,15 +94,39 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 		$this->assertContains('other-page/params/', $app->getFullUrl());
 	}
 
-	public function testValidatePage404() {
-		Url::instance()->setUrl('this-url-doent-exist');
+	public function testRun() {
+		Url::instance()->setUrl('index');
 		$app = new Application();
-		$this->assertEquals('This Url Doent Exist', $app->view->getTitle());
-
-		Url::instance()->setUrl('404');
-		$app2 = new Application();
-		$this->assertNotEquals('404', $app2->view->getTitle());
+		$app->run();
+		$this->assertFalse($app->isErrorPage());
 	}
 
+	/**
+	 * @expectedException Win\Mvc\HttpException
+	 */
+	public function testIsErrorPage() {
+		Url::instance()->setUrl('404');
+		$app = new Application();
+		$app->run();
+		$this->assertTrue($app->isErrorPage());
+	}
+
+	/**
+	 * @expectedException Win\Mvc\HttpException
+	 */
+	public function testErrorPage_500() {
+		$app = new Application();
+		$app->errorPage(500);
+		$this->assertEquals('500', $app->getPage());
+	}
+
+	/**
+	 * @expectedException Win\Mvc\HttpException
+	 */
+	public function testPageNotFound() {
+		$app = new Application();
+		$app->pageNotFound();
+		$this->assertEquals('404', $app->getPage());
+	}
 
 }

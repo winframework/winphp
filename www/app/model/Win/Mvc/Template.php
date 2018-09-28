@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\DesignPattern\Singleton;
+use Win\DesignPattern\SingletonTrait;
 use const BASE_PATH;
 
 /**
@@ -15,7 +15,7 @@ use const BASE_PATH;
  */
 class Template {
 
-	use Singleton;
+	use SingletonTrait;
 
 	protected static $dir = '/app/template';
 	const THEME_DEFAULT = 'default';

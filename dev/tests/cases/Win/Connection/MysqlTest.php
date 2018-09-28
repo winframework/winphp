@@ -2,13 +2,12 @@
 
 namespace Win\Connection;
 
-use Win\Request\Url;
 use Win\Mvc\Application;
+use Win\Request\Url;
 
 class MysqlTest extends \PHPUnit_Framework_TestCase {
 
 	protected static $dbFile = BASE_PATH . '/app/config/database.php';
-
 
 	public function testNotValidWrongUser() {
 		static::newApplication();
@@ -46,11 +45,13 @@ class MysqlTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('index', Application::app()->getPage());
 	}
 
+	/**
+	 * @expectedException \Win\Mvc\HttpException
+	 */
 	public function testValidateRedirects() {
 		static::newApplication();
 		static::startWrongDatabase();
 		Mysql::instance()->validate();
-		$this->assertEquals(503, Application::app()->getPage());
 	}
 
 	public function testMultipleInstance() {
@@ -103,5 +104,5 @@ class MysqlTest extends \PHPUnit_Framework_TestCase {
 		Url::instance()->setUrl('index');
 		new Application();
 	}
- 
+
 }

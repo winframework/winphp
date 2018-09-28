@@ -4,7 +4,7 @@ namespace Win\DesignPattern;
 
 class SuperDemoSingleton {
 
-	use Singleton;
+	use SingletonTrait;
 
 	public $value = 10;
 

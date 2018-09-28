@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\DesignPattern\Singleton;
+use Win\DesignPattern\SingletonTrait;
 use Win\Request\Url;
 
 /**
@@ -13,7 +13,7 @@ use Win\Request\Url;
  */
 class Router {
 
-	use Singleton;
+	use SingletonTrait;
 
 	/** @var string[] */
 	private $routes = [];

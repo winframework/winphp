@@ -9,14 +9,10 @@ use Win\Data\Data;
  */
 class Session extends Data {
 
-	const TYPE = 'default';
-
-	public static function getAll() {
-		return $_SESSION;
-	}
-
-	public static function set($key, $value) {
-		$_SESSION[$key] = $value;
+	public static function instance($alias = 'default') {
+		$instance = parent::instance($alias);
+		$instance->data = &$_SESSION[$alias];
+		return $instance;
 	}
 
 }
