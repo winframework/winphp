@@ -2,37 +2,101 @@
 
 namespace Win\Alert;
 
+use Win\Mvc\Block;
+use Win\Request\Session;
+
 /**
  * Alertas
  */
 class Alert {
 
-	public function __construct(Session $message, $type = 'default') {
-		$this->message = $message;
+	/** @var Session */
+	private $session;
+
+	/** @var static */
+	static $instance = null;
+
+	/** @param string $session */
+	public function __construct($session = 'default') {
+		$this->session = Session::instance($session);
 	}
 
+	/**
+	 * @return static
+	 * @param string $group
+	 */
+	public static function instance($group = 'default') {
+		static::$instance = new Alert($group);
+		return static::$instance;
+	}
+
+	/**
+	 * @param string $message
+	 * @param string $type
+	 */
+	public function alert($message, $type = 'default') {
+		$messages = $this->session->get($type, []);
+		array_push($messages, $message);
+		$this->session->set($type, $messages);
+	}
+
+	/** @return mixed[] */
+	public function all() {
+		return $this->session->all(true);
+	}
+
+	/**
+	 * @return mixed[]
+	 * @param string $type
+	 */
 	public function get($type) {
-		return [];
+		return $this->session->get($type, null, true);
 	}
 
-	public static function all() {
-		return [];
+	/** Limpa mensagens */
+	public function clear() {
+		$this->session->clear();
 	}
 
+	/**
+	 * Exibe html dos alertas
+	 * @return Block
+	 */
+	public function show() {
+		return new Block('layout/html/alerts', ['alerts' => $this->session->all(true)]);
+	}
+
+	/** @param string $message */
 	public static function success($message) {
-		return new Alert($message, 'success');
+		static::instance()->alert($message, 'success');
 	}
 
+	/** @param string $message */
 	public static function error($message) {
-		return new Alert($message, 'danger');
+		static::instance()->alert($message, 'danger');
 	}
 
+	/** @param string $message */
 	public static function info($message) {
-		return new Alert($message, 'info');
+		static::instance()->alert($message, 'info');
 	}
 
-	public static function toHtml() {
-		echo new Block('layout/html/alert');
+	/** @param string $message */
+	public static function warning($message) {
+		static::instance()->alert($message, 'warning');
+	}
+
+	/**
+	 * Cria um alerta de erro ou sucesso em um único método
+	 * @param string|null $error
+	 * @param string $success
+	 */
+	public static function create($error, $success) {
+		if (!is_null($error)) {
+			static::error($error);
+		} else {
+			static::success($success);
+		}
 	}
 
 }

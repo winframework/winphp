@@ -1,0 +1,9 @@
+<?php
+/* @var $this Win\Mvc\Block */
+/* @var $alerts string[] */
+?>
+<?php foreach ($alerts as $type => $message): ?>
+	<div class="alert alert-<?= $type; ?>">
+		<?= implode('<br />', $message); ?>
+	</div>
+<?php endforeach; ?>

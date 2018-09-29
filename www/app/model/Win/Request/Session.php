@@ -15,4 +15,27 @@ class Session extends Data {
 		return $instance;
 	}
 
+	public function all($clear = false) {
+		$values = parent::all();
+		if ($clear) {
+			$this->clear();
+		}
+		return $values;
+	}
+
+	public function get($key, $default = '', $delete = false) {
+		$value = parent::get($key, $default);
+		if ($delete) {
+			$this->delete($key);
+		}
+		return $value;
+	}
+
+	/** @return boolean */
+	public function has($key) {
+		return (!is_null($this->get($key, null)));
+	}
+
+
+
 }
