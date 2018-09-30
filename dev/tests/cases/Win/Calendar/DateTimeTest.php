@@ -2,6 +2,9 @@
 
 namespace Win\Calendar;
 
+setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+date_default_timezone_set('America/Sao_Paulo');
+
 class DateTimeTest extends \PHPUnit_Framework_TestCase {
 
 	private $dateSQL = '1991-09-07 12:15:01';
@@ -61,15 +64,15 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase {
 	public function testGetMonthName() {
 		$date1 = DateTime::create(DateTime::BR_DATE_TIME, $this->dateBR);
 		$date2 = DateTime::create(DateTime::BR_DATE_TIME, '25/11/2000 00:00:01');
-		$this->assertEquals($date1->getMonthName(), 'Setembro');
-		$this->assertEquals($date2->getMonthName(), 'Novembro');
+		$this->assertEquals($date1->getMonthName(), 'setembro');
+		$this->assertEquals($date2->getMonthName(), 'novembro');
 	}
 
 	public function testGetMonthAbbre() {
 		$date1 = DateTime::create(DateTime::BR_DATE_TIME, $this->dateBR);
 		$date2 = DateTime::create(DateTime::BR_DATE_TIME, '25/11/2000 00:00:01');
-		$this->assertEquals($date1->getMonthAbbre(), 'SET');
-		$this->assertEquals($date2->getMonthAbbre(), 'NOV');
+		$this->assertEquals($date1->getMonthAbbre(), 'set');
+		$this->assertEquals($date2->getMonthAbbre(), 'nov');
 	}
 
 	public function testToHtml() {
