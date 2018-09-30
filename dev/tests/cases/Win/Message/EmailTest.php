@@ -1,13 +1,13 @@
 <?php
 
-namespace Win\Mailer;
+namespace Win\Message;
 
+use PHPUnit_Framework_TestCase;
 use Win\File\Directory;
-use Win\Mailer\Email;
 use Win\Mvc\Block;
 use Win\Request\Server;
 
-class EmailTest extends \PHPUnit_Framework_TestCase {
+class EmailTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetSubject() {
 		$email = new Email();
@@ -120,11 +120,11 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		Email::$sendOnLocalHost = false;
 	}
 
-	/*public function testSendSaveFile() {
+	public function testSendSaveFile() {
 		$dir = new Directory('data/email');
-		$dir->remove();
+		$dir->delete();
 		$dir->create();
-		$this->assertEquals(0, count($dir->getFiles()));
+		$this->assertEquals(0, count($dir->getItems()));
 
 		Email::$sendOnLocalHost = false;
 		$email = new Email();
@@ -132,9 +132,9 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		$email->send();
 
 		if (Server::isLocalHost()) {
-			$this->assertEquals(1, count($dir->getFiles()));
+			$this->assertEquals(1, count($dir->getItems()));
 		}
-	}*/
+	}
 
 	/** @return boolean */
 	private function findString($s1, $s2) {

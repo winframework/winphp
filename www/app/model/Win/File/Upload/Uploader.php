@@ -13,7 +13,7 @@ class Uploader {
 	/** @var Directory */
 	protected $destination;
 
-	/** @var UploadbleInterface */
+	/** @var TempFile */
 	protected $temp;
 
 	/** @var File */
@@ -35,10 +35,10 @@ class Uploader {
 
 	/**
 	 * Prepara o upload
-	 * @param UploadbleInterface $temp
+	 * @param TempFile $temp
 	 * @return boolean
 	 */
-	public function prepare(UploadbleInterface $temp) {
+	public function prepare(TempFile $temp) {
 		$success = false;
 		$this->temp = null;
 		if ($temp->exists()) {
@@ -50,33 +50,18 @@ class Uploader {
 
 	/**
 	 * Faz o upload para o diretório final
-	 * @param $name
+	 * @param string $name
 	 * @return boolean
 	 */
-	public function upload($name = null) {
+	public function upload($name = '') {
 		$success = false;
 		if (!is_null($this->temp)) {
-			$this->temp->setName($name);
-			$success = $this->moveTempToDestination();
+			$success = $this->temp->move($this->destination, $name);
+		}
+		if ($success) {
+			$this->file = $this->temp;
 		}
 		return $success;
-	}
-
-	/**
-	 * Move o arquivo temporário para o destino final
-	 * @return boolean
-	 */
-	protected function moveTempToDestination() {
-		return $this->temp->move($this->destination);
-	}
-
-	/**
-	 * Gera um nome aleatório antes de realizar o upload
-	 * @return this
-	 */
-	public function genarateName() {
-		$this->temp->setName((string) time());
-		return $this;
 	}
 
 }

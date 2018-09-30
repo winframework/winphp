@@ -2,8 +2,8 @@
 /* @var $this Win\Mvc\Block */
 /* @var $alerts string[] */
 ?>
-<?php foreach ($alerts as $type => $message): ?>
+<?php foreach ($alerts as $type => $messages): ?>
 	<div class="alert alert-<?= $type; ?>">
-		<?= implode('<br />', $message); ?>
+		<?= implode('<br />', $messages); ?>
 	</div>
 <?php endforeach; ?>

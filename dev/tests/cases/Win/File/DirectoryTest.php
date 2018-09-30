@@ -176,7 +176,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	public function testGetLastModifiedDate() {
 		$ts = filemtime(BASE_PATH . '/data/dir');
 		$this->assertEquals($ts, static::$dir->getLastModifiedDate()->getTimestamp());
-		$this->assertEquals(date('i'), static::$dir->getLastModifiedDate()->format('i'));
+		$this->assertEquals(date('m'), static::$dir->getLastModifiedDate()->format('m'));
 	}
 
 }

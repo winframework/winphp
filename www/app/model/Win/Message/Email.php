@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Mailer;
+namespace Win\Message;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\File\File;

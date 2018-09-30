@@ -23,6 +23,22 @@ class SessionTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(2, $session->get('b', 3));
 	}
 
+	public function testHas() {
+		$session = Session::instance();
+		$session->clear();
+		$session->set('a.b', 2);
+		$this->assertTrue($session->has('a'));
+		$this->assertTrue($session->has('a.b'));
+	}
+
+	public function testNotHas() {
+		$session = Session::instance();
+		$session->clear();
+		$session->set('a.b', 2);
+		$this->assertFalse($session->has('c'));
+		$this->assertFalse($session->has('a.c'));
+	}
+
 	public function testGetArray() {
 		$_SESSION['default']['a']['b'] = 12;
 		$session = Session::instance();

@@ -12,16 +12,25 @@ class ImageTest extends \PHPUnit_Framework_TestCase {
 
 	public function testExist() {
 		$this->assertTrue(static::$img->exists());
+	}
+
+	public function testNotExist() {
 		$this->assertFalse(static::$imgInexistent->exists());
 	}
 
 	public function testGetWidth() {
 		$this->assertEquals(200, static::$img->getWidth());
+	}
+
+	public function testGetWith_Null() {
 		$this->assertEquals(null, static::$imgInexistent->getWidth());
 	}
 
 	public function testGetHeight() {
 		$this->assertEquals(166, static::$img->getHeight());
+	}
+
+	public function testGetHeight_Null() {
 		$this->assertEquals(null, static::$imgInexistent->getHeight());
 	}
 

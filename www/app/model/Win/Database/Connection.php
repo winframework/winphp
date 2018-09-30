@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Connection;
+namespace Win\Database;
 
 use PDO;
 use PDOException;
@@ -11,7 +11,7 @@ use Win\Mvc\Application;
  * Conexão com banco de dados
  *
  */
-abstract class Database {
+abstract class Connection {
 
 	use SingletonTrait;
 

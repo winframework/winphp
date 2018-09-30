@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Alert;
+namespace Win\Message;
 
 use Win\Mvc\Block;
 use Win\Request\Session;
@@ -62,7 +62,7 @@ class Alert {
 	 * Exibe html dos alertas
 	 * @return Block
 	 */
-	public function show() {
+	public function html() {
 		return new Block('layout/html/alerts', ['alerts' => $this->session->all(true)]);
 	}
 

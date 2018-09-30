@@ -15,7 +15,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(3, $config->get('c', 3));
 	}
 
-	public function testLoad_MultiInstance() {
+	public function testLoad_Inheritance() {
 		$config = Config::instance();
 		$config->set('a', 1);
 

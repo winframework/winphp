@@ -19,7 +19,7 @@ class Select {
 	 * @param mixed $value2
 	 * @return string
 	 */
-	public static function active($value1, $value2 = true) {
+	public static function selected($value1, $value2 = true) {
 		return ($value1 == $value2) ? 'selected' : '';
 	}
 
@@ -40,7 +40,7 @@ class Select {
 	public function __toString() {
 		$html = '';
 		foreach ($this->options as $option):
-			$html .= '<option ' . static::active($option, $this->current) . ' value="' . $option . '">' . $option . '</option>';
+			$html .= '<option ' . static::selected($option, $this->current) . ' value="' . $option . '">' . $option . '</option>';
 		endforeach;
 		return $html;
 	}

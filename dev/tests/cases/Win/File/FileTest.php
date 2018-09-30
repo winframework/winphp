@@ -8,52 +8,52 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	private $file;
 
 	/** @expectedException \Exception */
-	public function testPath_Empty() {
+	public function testConstruct_Empty() {
 		$this->file = new File('');
 	}
 
 	/** @expectedException \Exception */
-	public function testPath_SpecialChar() {
+	public function testConstruct_SpecialChar() {
 		$this->file = new File('inva$lidâ');
 	}
 
 	/** @expectedException \Exception */
-	public function testPath_Space() {
+	public function testConstruct_Space() {
 		$this->file = new File('invalid name');
 	}
 
 	/** @expectedException \Exception */
-	public function testPath_DirectoryInvalid() {
+	public function testConstruct_DirectoryInvalid() {
 		$this->file = new File('inva$lidâ/my-file');
 	}
 
-	public function testPath_RemoveEndSlash() {
+	public function testConstruct_RemoveEndSlash() {
 		$this->file = new File('valid-name/');
 		$this->assertEquals('', $this->file->getExtension());
 		$this->assertEquals('valid-name', $this->file->getName());
 	}
 
-	public function testPath_Number() {
+	public function testConstruct_Number() {
 		$this->file = new File('7valid10name3');
 	}
 
-	public function testPath_UnderscoreHiphen() {
+	public function testConstruct_UnderscoreHiphen() {
 		$this->file = new File('_valid-name-');
 	}
 
-	public function testPath_Slash() {
+	public function testConstruct_Slash() {
 		$this->file = new File('valid-name/d');
 	}
 
-	public function testPath_Dot() {
+	public function testConstruct_Dot() {
 		$this->file = new File('.my-file.teste.');
 	}
 
-	public function testPath_WithExtension() {
+	public function testConstruct_WithExtension() {
 		$this->file = new File('7valid_-10name3.jpg');
 	}
 
-	public function testPath_FullPath() {
+	public function testConstruct_FullPath() {
 		$this->file = new File('my-directory/sub-directory/7valid_-10name3.jpg');
 	}
 
@@ -67,7 +67,12 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('html', $this->file->getExtension());
 	}
 
-	public function testGetExtensionDo() {
+	public function testGetExtension_Empty() {
+		$this->file = new File('my-file/without/extension');
+		$this->assertEquals('', $this->file->getExtension());
+	}
+
+	public function testGetExtensionDot() {
 		$this->initExistentFile();
 		$this->assertEquals('.html', $this->file->getExtensionDot());
 	}
@@ -75,11 +80,6 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	public function testGetType() {
 		$this->initExistentFile();
 		$this->assertEquals('text/plain', $this->file->getType());
-	}
-
-	public function testGetExtension_Empty() {
-		$this->file = new File('my-file/without/extension');
-		$this->assertEquals('', $this->file->getExtension());
 	}
 
 	public function testGetPath() {

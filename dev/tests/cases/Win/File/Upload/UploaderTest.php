@@ -12,23 +12,11 @@ class UploaderTest extends PHPUnit_Framework_TestCase {
 	public static $uploader;
 
 	public static function setUpBeforeClass() {
-		$file = tmpfile();
-		$path = stream_get_meta_data($file)['uri'];
-
-		$_FILES = array(
-			'file' => array(
-				'tmp_name' => $path,
-				'name' => 'meu-arquivo.txt',
-				'type' => 'txt',
-				'size' => 10,
-				'error' => 0,
-			),
-			'empty' => array()
-		);
+		TempFileTest::createTempFile();
 	}
 
 	public static function prepare() {
-		return static::$uploader->prepare(TempFile::fromFiles('file'));
+		return static::$uploader->prepare(TempFile::create('00'));
 	}
 
 	public function setUp() {
@@ -48,52 +36,20 @@ class UploaderTest extends PHPUnit_Framework_TestCase {
 
 	public function testPrepare() {
 		$prepared = static::prepare();
-		//$this->assertTrue($prepared);
+		$this->assertTrue($prepared);
 	}
 
-	public function testPrepare_Fail() {
-		$prepared = static::$uploader->prepare(TempFile::fromFiles('not-extist'));
-		//$this->assertFalse($prepared);
-	}
-
-	public function testPrepare_Empty() {
-		$prepared = static::$uploader->prepare(TempFile::fromFiles('empty'));
-		//$this->assertFalse($prepared);
-	}
-
-	public function testUpload_NotExist() {
-		static::prepare();
-		$success = static::$uploader->upload();
-
-		//$this->assertFalse($success);
-		//$this->assertNull(static::$uploader->getFile());
+	public function testPrepare_NotExist() {
+		$prepared = static::$uploader->prepare(TempFile::fromFiles('not-exist'));
+		$this->assertFalse($prepared);
 	}
 
 	public function testUpload() {
 		static::prepare();
-		$success = static::$uploader->upload();
+		$success = static::$uploader->upload('test-upload');
 
-		//$this->assertTrue($success);
-		//$this->assertInstanceOf(File::class, static::$uploader->getFile());
-		//$this->assertEquals('data/upload/test-upload.md', static::$uploader->getFile()->getPath());
-	}
-
-	public function testUpload_Rename() {
-		static::prepare();
-		$success = static::$uploader->upload('novo-nome');
-
-		//$this->assertTrue($success);
-		//$this->assertInstanceOf(File::class, static::$uploader->getFile());
-		//$this->assertEquals('data/upload/novo-nome.md', static::$uploader->getFile()->getPath());
-	}
-
-	public function testUpload_GenerateName() {
-		static::prepare();
-		//$success = static::$uploader->genarateName()->upload();
-
-		//$this->assertTrue($success);
-		//$this->assertInstanceOf(File::class, static::$uploader->getFile());
-		//$this->assertNotEquals('data/upload/test-upload.md', static::$uploader->getFile()->getPath());
+		$this->assertTrue($success);
+		$this->assertEquals('test-upload', static::$uploader->getFile()->getName());
 	}
 
 }

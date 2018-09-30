@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Alert;
+namespace Win\Message;
 
 use PHPUnit_Framework_TestCase;
 
@@ -57,11 +57,29 @@ class AlertTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(['Error msg'], Alert::instance()->get('danger'));
 	}
 
-	public function testLoad() {
+	public function testHtml() {
 		Alert::error('Error msg');
 		Alert::success('Success msg');
-		$result = Alert::instance()->show()->toString();
+		$result = Alert::instance()->html()->toString();
 		$this->assertContains('alert-success', $result);
+	}
+
+	public function testClear() {
+		Alert::error('Error msg');
+		Alert::instance()->clear();
+		$this->assertEquals([], Alert::instance()->all());
+	}
+
+	public function testCreate_Error() {
+		Alert::instance()->clear();
+		Alert::create('Error msg', 'Success');
+		$this->assertEquals(['danger' => ['Error msg']], Alert::instance()->all());
+	}
+
+	public function testCreate_Success() {
+		Alert::instance()->clear();
+		Alert::create(null, 'Success');
+		$this->assertEquals(['success' => ['Success']], Alert::instance()->all());
 	}
 
 }

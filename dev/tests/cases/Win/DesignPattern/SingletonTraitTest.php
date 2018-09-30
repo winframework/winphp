@@ -43,7 +43,7 @@ class SingletonTraitTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(SuperDemoSingleton::instance()->value, 10);
 	}
 
-	public function testAlias() {
+	public function testMultiInstance() {
 		SuperDemoSingleton::instance()->value = 10;
 		SuperDemoSingleton::instance('super1')->value = 20;
 		SuperDemoSingleton::instance('super2')->value = 30;

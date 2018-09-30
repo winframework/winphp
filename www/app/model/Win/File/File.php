@@ -73,7 +73,7 @@ class File extends DirectoryItem implements UploadbleInterface {
 	}
 
 	/** @param string $name */
-	public function setName($name) {
+	protected function setName($name) {
 		if ($name) {
 			if (!preg_match(static::REGEXP_NAME, $name)) {
 				throw new Exception($name . ' is a invalid file name.');

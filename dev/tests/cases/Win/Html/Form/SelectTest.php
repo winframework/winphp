@@ -4,30 +4,28 @@ namespace Win\Html\Form;
 
 class SelectTest extends \PHPUnit_Framework_TestCase {
 
-	private static $active = 'selected';
+	private static $selected = 'selected';
 
-	public function testIsActive() {
-		$this->assertContains(static::$active, Select::active(true));
-		$this->assertContains(static::$active, Select::active(1));
-		$this->assertContains(static::$active, Select::active('teste', 'teste'));
+	public function testSelected() {
+		$this->assertContains(static::$selected, Select::selected(true));
+		$this->assertContains(static::$selected, Select::selected(1));
+		$this->assertContains(static::$selected, Select::selected('teste', 'teste'));
 	}
 
-	public function testIsNotActive() {
-		$this->assertNotContains(static::$active, Select::active(false));
-		$this->assertNotContains(static::$active, Select::active(0));
-		$this->assertNotContains(static::$active, Select::active('teste', 'wrong'));
+	public function testNotSelected() {
+		$this->assertNotContains(static::$selected, Select::selected(false));
+		$this->assertNotContains(static::$selected, Select::selected(0));
+		$this->assertNotContains(static::$selected, Select::selected('teste', 'wrong'));
 	}
 
-	public function testToString() {
-		$options = ['Abacaxi', 'Maça', 'Tomate'];
-		$select = new Select($options, 'Tomate');
-		$this->assertTrue($this->hasSelected($select));
+	public function testToString_Selected() {
+		$select = new Select(['Abacaxi', 'Maça', 'Tomate'], 'Maça');
+		$this->assertContains(static::$selected, (string) $select);
+	}
 
-		$select2 = new Select($options, 'Uva');
-		$this->assertNotTrue($this->hasSelected($select2));
-
-		$select3 = new Select($options);
-		$this->assertNotTrue($this->hasSelected($select3));
+	public function testToString_NotSelected() {
+		$select = new Select(['Abacaxi', 'Maça', 'Tomate']);
+		$this->assertNotContains(static::$selected, (string) $select);
 	}
 
 	public function testCountOptions() {
@@ -39,10 +37,6 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
 
 		$select3 = new Select(['Abacaxi', 'Maça', 'Tomate'], 'Tomate');
 		$this->assertEquals($this->countOptions($select3), 3);
-	}
-
-	private function hasSelected($select) {
-		return (strpos((string) $select, 'selected') > 0);
 	}
 
 	private function countOptions($select) {

@@ -16,6 +16,7 @@ class TempFile extends File implements UploadbleInterface {
 
 	protected $name;
 	protected $extension;
+	protected $newName;
 
 	/**
 	 * Instância o arquivo temporário
@@ -37,26 +38,46 @@ class TempFile extends File implements UploadbleInterface {
 		return $this->extension;
 	}
 
-	/** @return string */
-	public function getAbsolutePath() {
-		return $this->getPath();
-	}
-
 	/** @param string $name */
 	public function setName($name) {
-		if ($name) {
-			$this->name = $name;
+		$this->name = ($name) ? $name : $this->randomName();
+	}
+
+	/** @param string $extension */
+	public function setExtension($extension) {
+		$this->extension = $extension;
+	}
+
+	/** @return string */
+	public function getAbsolutePath() {
+		if ($this->isTemporary()) {
+			return $this->getPath();
+		} else {
+			return parent::getAbsolutePath();
 		}
 	}
 
+	/** @return boolean */
+	public function isTemporary() {
+		return (strpos($this->getPath(), sys_get_temp_dir()) === 0);
+	}
+
+	/** Retorna um nome aleatório */
+	protected function randomName() {
+		return md5($this->newName . '_' . time());
+	}
+
 	/**
-	 * Move o arquivo temporário para o destino final
-	 * @param Directory $directory
+	 * @param Directory $destination
+	 * @param string $name
 	 * @return boolean
 	 */
-	public function move(Directory $directory) {
-		$path = $directory->getAbsolutePath() . DIRECTORY_SEPARATOR . $this->getName() . $this->getExtensionDot();
-		return move_uploaded_file($this->getPath(), $path);
+	public function move(Directory $destination, $name = '') {
+		$this->setName($name);
+		$oldPath = $this->getAbsolutePath();
+		$newPath = $destination->getPath() . DIRECTORY_SEPARATOR . $this->getName() . $this->getExtensionDot();
+		$this->setPath($newPath);
+		return move_uploaded_file($oldPath, $this->getAbsolutePath());
 	}
 
 	/**
@@ -67,9 +88,10 @@ class TempFile extends File implements UploadbleInterface {
 	public static function fromFiles($name) {
 		if (key_exists($name, $_FILES) && key_exists('tmp_name', $_FILES[$name])) {
 			$tmp = new static($_FILES[$name]['tmp_name']);
-			$tmp->setExtension(pathinfo($name, PATHINFO_EXTENSION));
+			$tmp->newName = $_FILES[$name]['name'];
+			$tmp->setExtension(pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION));
 		} else {
-			$tmp = new TempFile('/tmp/000');
+			$tmp = new TempFile('error');
 		}
 		return $tmp;
 	}
@@ -77,13 +99,10 @@ class TempFile extends File implements UploadbleInterface {
 	/**
 	 * Cria um arquivo no diretório temporário
 	 * @param string $prefixName prefixName
-	 * @param string $content
 	 * @return static
 	 */
-	public static function create($prefixName, $content = '') {
-		$tmpfname = tempnam('/tmp', $prefixName);
-		$handle = fopen($tmpfname, 'w');
-		fwrite($handle, $content);
+	public static function create($prefixName = '') {
+		$tmpfname = tempnam(null, $prefixName);
 		return new static($tmpfname);
 	}
 

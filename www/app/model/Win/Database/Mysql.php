@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Connection;
+namespace Win\Database;
 
 use PDO;
 
@@ -8,7 +8,7 @@ use PDO;
  * Conexão com banco de dados MySQL
  * 
  */
-class Mysql extends Database {
+class Mysql extends Connection {
 
 	/** Cria conexão via PDO */
 	protected function createPdo(&$dbConfig) {
