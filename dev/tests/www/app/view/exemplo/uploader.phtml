@@ -11,7 +11,14 @@ use Win\Mvc\View;
 
 	<form method="post" enctype="multipart/form-data">
 		<?php if ($image && $image->exists()): ?>
-			<img src="<?= $image; ?>" width="<?= $image->getWidth(); ?>" height="<?= $image->getHeight(); ?>" />
+			name: <?= $image->getBaseName(); ?><br/>
+			width: <?= $image->getWidth(); ?><br/>
+			height: <?= $image->getHeight(); ?><br/>
+			size: <?= $image->getSize(); ?><br/>
+
+			<div style="max-width: 300px; text-align: center;">
+				<img class="thumbnail" src="<?= $image; ?>" style="max-width: 100%;" />
+			</div>
 		<?php endif; ?>
 
 		<input type="file" name="upload" />

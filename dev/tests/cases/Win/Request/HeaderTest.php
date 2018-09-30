@@ -2,6 +2,10 @@
 
 namespace Win\Request;
 
+function header() {
+	return Header::instance()->clear();
+}
+
 use PHPUnit_Framework_TestCase;
 
 class HeaderTest extends PHPUnit_Framework_TestCase {

@@ -4,9 +4,6 @@ namespace Win\Request;
 
 use Win\Data\Data;
 
-function header(){
-	return Header::instance()->clear();
-}
 /**
  * Header HTTP
  */
@@ -21,7 +18,7 @@ class Header extends Data {
 			header($key . ':' . $value);
 		}
 		if ($this->get('location')) {
-			//die();
+			die();
 		}
 	}
 
