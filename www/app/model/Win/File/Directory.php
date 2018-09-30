@@ -19,16 +19,6 @@ class Directory extends DirectoryItem {
 		$this->setPath($path);
 	}
 
-	/** @return string */
-	public function __toString() {
-		return $this->getName();
-	}
-
-	/** @return string */
-	public function getName() {
-		return pathinfo($this->getPath(), PATHINFO_BASENAME);
-	}
-
 	/** @return boolean */
 	public function exists() {
 		return is_dir($this->getAbsolutePath());

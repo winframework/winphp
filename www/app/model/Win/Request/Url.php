@@ -101,7 +101,7 @@ class Url {
 	 * Retorna o array de fragmentos da URL
 	 * @return string[]
 	 */
-	public function getFragments() {
+	public function getSegments() {
 		$url = rtrim($this->getUrl(), $this->sufix);
 		return explode('/', $url);
 	}

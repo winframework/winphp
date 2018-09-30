@@ -16,11 +16,11 @@ use Win\Request\Url;
  */
 class Application {
 
-	protected static $app = null;
+	protected static $instance = null;
 	private $name;
 	private $page;
 	private $homePage = 'index';
-	private $paramList;
+	private $params;
 
 	/** @var Controller */
 	public $controller;
@@ -33,16 +33,22 @@ class Application {
 	 * @param mixed[] $config
 	 */
 	public function __construct($config = []) {
-		static::$app = $this;
+		static::$instance = $this;
 		Config::instance()->load($config);
 		$this->name = (string) Config::instance()->get('name', '');
+		$this->init();
+	}
 
-		$this->setParamList(Url::instance()->getFragments());
+	/**
+	 * Inicia com as configurações básicas
+	 */
+	protected function init() {
+		$this->setParams(Url::instance()->getSegments());
 		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));
 
 		Router::instance()->load();
 		if (Router::instance()->run()):
-			$this->setParamList(Router::instance()->getCustomUrl());
+			$this->setParams(Router::instance()->getCustomUrl());
 			$this->controller = Router::instance()->createController();
 		endif;
 
@@ -55,7 +61,7 @@ class Application {
 	 * @return static
 	 */
 	public static function app() {
-		return static::$app;
+		return static::$instance;
 	}
 
 	/**
@@ -89,7 +95,7 @@ class Application {
 	 * @return string
 	 */
 	public function getUrl() {
-		return Url::instance()->format(implode('/', $this->getParamList()));
+		return Url::instance()->format(implode('/', $this->getParams()));
 	}
 
 	/**
@@ -125,18 +131,18 @@ class Application {
 	 * Retorna um todos os parâmetros da URL
 	 * @return string[]
 	 */
-	protected function getParamList() {
-		return $this->paramList;
+	protected function getParams() {
+		return $this->params;
 	}
 
 	/**
 	 * Define os parâmetros
 	 * Se estiver vazio, utiliza os parâmetros padrão.
-	 * @param string[] $paramList
+	 * @param string[] $params
 	 */
-	private function setParamList($paramList) {
+	private function setParams($params) {
 		$paramDefaulf = [$this->homePage, 'index'];
-		$this->paramList = array_replace($paramDefaulf, array_filter($paramList));
+		$this->params = array_replace($paramDefaulf, array_filter($params));
 	}
 
 	/**
@@ -145,7 +151,7 @@ class Application {
 	 * @return string
 	 */
 	public function getParam($position) {
-		return (key_exists($position, $this->paramList)) ? $this->paramList[$position] : '';
+		return (key_exists($position, $this->params)) ? $this->params[$position] : '';
 	}
 
 	/**

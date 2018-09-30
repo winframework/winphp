@@ -10,6 +10,9 @@ use Win\File\File;
  */
 class Uploader {
 
+	/** @var string[] */
+	protected static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
+
 	/** @var Directory */
 	protected $destination;
 
@@ -17,10 +20,10 @@ class Uploader {
 	protected $temp;
 
 	/** @var File */
-	protected $file;
+	protected $uploaded;
 
 	/**
-	 * Instância um arquivo temporário
+	 * Inicializa o upload para o diretorio de destino
 	 * @param Directory $destination
 	 */
 	public function __construct(Directory $destination) {
@@ -28,9 +31,12 @@ class Uploader {
 		$this->destination->create(0777);
 	}
 
-	/** @return File */
-	public function getFile() {
-		return $this->file;
+	/**
+	 * Retorna a instância do arquivo que foi enviado
+	 * @return File
+	 */
+	public function getUploaded() {
+		return $this->uploaded;
 	}
 
 	/**
@@ -59,7 +65,7 @@ class Uploader {
 			$success = $this->temp->move($this->destination, $name);
 		}
 		if ($success) {
-			$this->file = $this->temp;
+			$this->uploaded = new File($this->temp->getPath());
 		}
 		return $success;
 	}

@@ -26,7 +26,7 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCreateControllerWithIndexAction() {
-		$controller = ControllerFactory::create('demo', 'index');
+		$controller = ControllerFactory::create('demo');
 		$this->assertFalse($controller instanceof IndexController);
 		$this->assertTrue($controller instanceof DemoController);
 	}
@@ -35,7 +35,6 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 		$app = new Application();
 		$app->view = new View('index');
 		$controller = ControllerFactory::create('demo', 'return-five');
-		var_dump($controller->getAction());
 		$controller->load();
 
 		$this->assertEquals('returnFive', $controller->getAction());

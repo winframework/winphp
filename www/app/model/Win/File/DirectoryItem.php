@@ -11,8 +11,8 @@ use const BASE_PATH;
  */
 abstract class DirectoryItem implements DirectoryItemInterface {
 
-	const REGEXP_PATH = '@^(([a-z0-9._\-][\/]?))+$@';
-	const REGEXP_NAME = '@^(([a-z0-9._\-]?))+$@';
+	const REGEXP_PATH = '@^(([a-zA-Z0-9._\-][\/]?))+$@';
+	const REGEXP_NAME = '@^(([a-zA-Z0-9._\-]?))+$@';
 
 	/** @var string */
 	private $path;
@@ -30,6 +30,11 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 		return BASE_PATH . DIRECTORY_SEPARATOR . $this->path;
 	}
 
+	/** @return string */
+	public function __toString() {
+		return $this->getPath();
+	}
+
 	/**
 	 * Retorna o diretório pai
 	 * @return Directory
@@ -39,6 +44,16 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 			$this->directory = new Directory(pathinfo($this->getPath(), PATHINFO_DIRNAME));
 		}
 		return $this->directory;
+	}
+
+	/** @return string */
+	public function getName() {
+		return pathinfo($this->getAbsolutePath(), PATHINFO_FILENAME);
+	}
+
+	/** @return string */
+	public function getBaseName() {
+		return pathinfo($this->getAbsolutePath(), PATHINFO_BASENAME);
 	}
 
 	/** @return DateTime */
@@ -54,7 +69,7 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 
 	protected function setDirectory(Directory $directory) {
 		$this->directory = $directory;
-		$path = $directory->getPath() . DIRECTORY_SEPARATOR . $this->__toString();
+		$path = $directory->getPath() . DIRECTORY_SEPARATOR . $this->getBaseName();
 		$this->setPath($path);
 	}
 

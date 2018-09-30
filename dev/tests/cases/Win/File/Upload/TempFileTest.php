@@ -102,7 +102,6 @@ class TempFileTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($moved);
 		$this->assertTrue($temp->exists());
 		$this->assertContains('data/upload', $temp->getAbsolutePath());
-		var_dump($temp->getAbsolutePath());
 		$this->assertEquals(static::$destination->getAbsolutePath(), $temp->getDirectory()->getAbsolutePath());
 	}
 
@@ -113,7 +112,6 @@ class TempFileTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertTrue($moved);
 		$this->assertTrue($temp->exists());
-		var_dump($temp->getAbsolutePath());
 		$this->assertContains('data/upload/new-name.txt', $temp->getAbsolutePath());
 	}
 

@@ -62,6 +62,11 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('exist', $this->file->getName());
 	}
 
+	public function testGetBaseName() {
+		$this->initExistentFile();
+		$this->assertEquals('exist.html', $this->file->getBaseName());
+	}
+
 	public function testGetExtension() {
 		$this->initExistentFile();
 		$this->assertEquals('html', $this->file->getExtension());
@@ -70,11 +75,6 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 	public function testGetExtension_Empty() {
 		$this->file = new File('my-file/without/extension');
 		$this->assertEquals('', $this->file->getExtension());
-	}
-
-	public function testGetExtensionDot() {
-		$this->initExistentFile();
-		$this->assertEquals('.html', $this->file->getExtensionDot());
 	}
 
 	public function testGetType() {
@@ -91,7 +91,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 
 	public function testToString() {
 		$this->initExistentFile();
-		$this->assertEquals('exist.html', (string) $this->file);
+		$this->assertEquals('data/file/exist.html', (string) $this->file);
 	}
 
 	public function testGetDirectory() {

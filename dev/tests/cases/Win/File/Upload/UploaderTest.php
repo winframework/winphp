@@ -49,7 +49,7 @@ class UploaderTest extends PHPUnit_Framework_TestCase {
 		$success = static::$uploader->upload('test-upload');
 
 		$this->assertTrue($success);
-		$this->assertEquals('test-upload', static::$uploader->getFile()->getName());
+		$this->assertEquals('test-upload', static::$uploader->getUploaded()->getName());
 	}
 
 }

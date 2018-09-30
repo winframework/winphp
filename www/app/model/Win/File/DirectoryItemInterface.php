@@ -23,11 +23,14 @@ interface DirectoryItemInterface {
 	/** @return string Caminho absoluto */
 	public function getAbsolutePath();
 
+	/** @return Directory */
+	public function getDirectory();
+
 	/** @return string Nome sem complemento */
 	public function getName();
 
-	/** @return Directory */
-	public function getDirectory();
+	/** @return string Caminho relativo */
+	public function getBaseName();
 
 	/** @return boolean */
 	public function exists();

@@ -45,7 +45,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
 	public function testGetFragments() {
 		Url::instance()->setSufix('/');
 		Url::instance()->setUrl('my-page/subpage');
-		$fragments = Url::instance()->getFragments();
+		$fragments = Url::instance()->getSegments();
 
 		$this->assertEquals('my-page', $fragments[0]);
 		$this->assertEquals('subpage', $fragments[1]);

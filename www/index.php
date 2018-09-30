@@ -1,12 +1,13 @@
 <?php
 
-use Win\Mvc\Application;
-use Win\Mvc\HttpException;
-
-/**
+/*
  * Para editar o código HTML do layout, procure em:
  * app/block/layout/
  */
+
+use Win\Mvc\Application;
+use Win\Mvc\HttpException;
+
 define('BASE_PATH', __DIR__);
 
 require 'lib/autoload.php';
@@ -21,4 +22,3 @@ try {
 } catch (HttpException $e) {
 	$e->run();
 }
-

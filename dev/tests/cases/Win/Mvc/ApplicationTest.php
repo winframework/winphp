@@ -8,68 +8,76 @@ use Win\Request\Server;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase {
 
-	public function testGetInstanceApp() {
-		Url::instance()->setUrl('index');
-		$app = new Application();
-		$this->assertTrue($app instanceof Application);
+	const URL = 'my-page/my-action/second-param/3rd-param/';
+
+	/** @var Application */
+	private static $app;
+
+	public static function setUpBeforeClass() {
+		static::$app = static::newApp(static::URL);
+	}
+
+	public static function newApp($url = 'index') {
+		Url::instance()->setUrl($url);
+		return new Application();
+	}
+
+	public function testApp() {
+		$this->assertTrue(static::$app instanceof Application);
 		$this->assertTrue(Application::app() instanceof Application);
 	}
 
 	public function testGetName() {
 		$config = ['name' => 'My custom Application Name'];
 		$app = new Application($config);
-
 		$this->assertEquals('My custom Application Name', $app->getName());
-		$this->assertEquals($app->getName(), $app->getName());
+	}
+
+	public function testNewConstruct() {
+		$app = new Application(['name' => 'Other']);
+		$this->assertNotEquals($app->getName(), static::$app->getName());
 	}
 
 	public function testGetPage() {
-		Url::instance()->setUrl('my-page/my-action/first-param/2nd-param/3rd-param');
-		$app = new Application();
-
-		$this->assertEquals('my-page', $app->getPage());
+		$this->assertEquals('my-page', static::$app->getPage());
 	}
 
-	public function testGetParamDefault() {
-		Url::instance()->setUrl('my-page');
-		$app = new Application();
-
-		$this->assertEquals('index', $app->getParam(1));
-		$this->assertNotEquals('', $app->getParam(1));
+	public function testGetPage_Index() {
+		$app = static::newApp('index');
+		$this->assertEquals('index', $app->getPage());
 	}
 
 	public function testGetAction() {
-		Url::instance()->setUrl('my-page/my-action/first-param/2nd-param/3rd-param');
-		$app = new Application();
+		$this->assertEquals('myAction', static::$app->controller->getAction());
+	}
 
-		$this->assertEquals('myAction', $app->controller->getAction());
+	public function testGetAction_Index() {
+		$app = static::newApp('contato');
+		$this->assertEquals('index', $app->controller->getAction());
 	}
 
 	public function testGetParam() {
-		Url::instance()->setUrl('my-page/my-action/second-param/3rd-param');
-		$app = new Application();
-
-		$this->assertEquals('my-page', $app->getParam(0));
-		$this->assertEquals('my-action', $app->getParam(1));
-		$this->assertEquals('second-param', $app->getParam(2));
-		$this->assertEquals('3rd-param', $app->getParam(3));
-		$this->assertEquals('', $app->getParam(4));
+		$this->assertEquals(static::$app->getPage(), static::$app->getParam(0));
+		$this->assertEquals('my-action', static::$app->getParam(1));
+		$this->assertEquals('second-param', static::$app->getParam(2));
+		$this->assertEquals('3rd-param', static::$app->getParam(3));
+		$this->assertEquals('', static::$app->getParam(4));
 	}
 
-	public function testIsHomePage() {
-		Url::instance()->setUrl('');
-		$app = new Application();
-		$this->assertTrue($app->isHomePage());
-
-		Url::instance()->setUrl('index');
-		$app2 = new Application();
-		$this->assertTrue($app2->isHomePage());
+	public function testGetParam_Default() {
+		$app = static::newApp('');
+		$this->assertEquals('index', $app->getParam(1));
+		$this->assertNotEquals('', $app->getParam(1));
+		$this->assertEquals('', $app->getParam(2));
 	}
 
 	public function testIsNotHomePage() {
-		Url::instance()->setUrl('other-page');
-		$app2 = new Application();
-		$this->assertFalse($app2->isHomePage());
+		$this->assertFalse(static::$app->isHomePage());
+	}
+
+	public function testIsHomePage() {
+		$app = static::newApp('index');
+		$this->assertTrue($app->isHomePage());
 	}
 
 	public function testIsLocalHost() {
@@ -77,56 +85,49 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetUrl() {
-		$currentUrl = Url::instance()->format('my-page/my-action/param1/param2');
-		Url::instance()->setUrl($currentUrl);
-		$app = new Application();
-		$this->assertEquals($currentUrl, $app->getUrl());
-		$this->assertNotEquals($currentUrl, $app->getFullUrl());
-		$this->assertContains($currentUrl, $app->getFullUrl());
+		static::newApp(static::URL);
+		$this->assertEquals(static::URL, static::$app->getUrl());
+		$this->assertNotEquals(static::URL, static::$app->getFullUrl());
+		$this->assertContains(static::URL, static::$app->getFullUrl());
 	}
 
 	public function testGetUrlWithRoutes() {
-		$currentUrl = Url::instance()->format('other-page/params/');
-		Url::instance()->setUrl($currentUrl);
-		$app = new Application();
+		$app = static::newApp('other-page/params/');
 		$this->assertEquals('exemplo/index/params/', $app->getUrl());
 		$this->assertNotEquals('exemplo/index/params/', $app->getFullUrl());
 		$this->assertContains('other-page/params/', $app->getFullUrl());
 	}
 
 	public function testRun() {
-		Url::instance()->setUrl('index');
-		$app = new Application();
+		ob_start();
+		$app = static::newApp('index/index');
 		$app->run();
-		$this->assertFalse($app->isErrorPage());
+		$this->assertEquals('index', $app->getPage());
+		ob_end_clean();
 	}
 
 	/**
 	 * @expectedException Win\Mvc\HttpException
 	 */
-	public function testIsErrorPage() {
-		Url::instance()->setUrl('404');
-		$app = new Application();
-		$app->run();
-		$this->assertTrue($app->isErrorPage());
+	public function testRun_404() {
+		static::$app->run();
+		$this->assertTrue(static::$app->isErrorPage());
 	}
 
 	/**
 	 * @expectedException Win\Mvc\HttpException
 	 */
-	public function testErrorPage_500() {
-		$app = new Application();
-		$app->errorPage(500);
-		$this->assertEquals('500', $app->getPage());
+	public function dtestErrorPage_500() {
+		static::$app->errorPage(500);
+		$this->assertEquals('500', static::$app->getPage());
 	}
 
 	/**
 	 * @expectedException Win\Mvc\HttpException
 	 */
-	public function testPageNotFound() {
-		$app = new Application();
-		$app->pageNotFound();
-		$this->assertEquals('404', $app->getPage());
+	public function dtestPageNotFound() {
+		static::$app->pageNotFound();
+		$this->assertEquals('404', static::$app->getPage());
 	}
 
 }

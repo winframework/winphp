@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * Para editar o código HTML do layout, procure em:
  * app/block/layout/
  */

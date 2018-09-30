@@ -2,7 +2,17 @@
 
 namespace Win\Mvc;
 
-class newTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit_Framework_TestCase;
+use Win\Request\Url;
+
+class newTest extends PHPUnit_Framework_TestCase {
+
+	public static function setUpBeforeClass() {
+		Url::instance()->setUrl('index/index');
+		new Application();
+		Application::app()->controller = new \controller\IndexController('index');
+		Application::app()->view = new View('index');
+	}
 
 	public function testGetCode() {
 		$e = new HttpException(402);
@@ -14,12 +24,13 @@ class newTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('Hãm?', $e->getMessage());
 	}
 
-	public function testRun() {
-		$app = new Application();
-		$app->controller = new \controller\DemoController();
+	public function testRun_Index() {
 		$e = new HttpException(402);
+		ob_start();
 		$e->run();
-		$this->assertEquals('404', $app->getPage());
+		ob_end_clean();
+		$this->assertEquals('404', Application::app()->getPage());
+		$this->assertTrue(Application::app()->isErrorPage());
 	}
 
 	public function testIsErrorCode() {

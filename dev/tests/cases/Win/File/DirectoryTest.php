@@ -28,15 +28,20 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testToString() {
-		$this->assertEquals('dir', (string) static::$dir);
+		$this->assertEquals('data/dir', (string) static::$dir);
 	}
 
 	public function testGetName() {
 		$this->assertEquals('dir', static::$dir->getName());
 	}
 
+	public function testGetBaseName() {
+		$this->assertEquals('dir', static::$dir->getName());
+	}
+
 	public function testValidComplexPath() {
 		new Directory('m');
+		new Directory('my-sAmple');
 		new Directory('1my-sample1');
 		new Directory('_my_-sample-');
 		new Directory('7_my_-sam3ple-6');
@@ -62,11 +67,6 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	/** @expectedException Exception */
 	public function testPath_Space() {
 		new Directory('my sample');
-	}
-
-	/** @expectedException Exception */
-	public function testPath_Uppercase() {
-		new Directory('my-sAmple');
 	}
 
 	public function testExits() {

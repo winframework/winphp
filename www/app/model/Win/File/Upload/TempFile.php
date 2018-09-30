@@ -15,6 +15,7 @@ class TempFile extends File implements UploadbleInterface {
 	const REGEXP_NAME = '@^(([a-zA-Z0-9._\-]?))+$@';
 
 	protected $name;
+	protected $baseName;
 	protected $extension;
 	protected $newName;
 
@@ -31,6 +32,11 @@ class TempFile extends File implements UploadbleInterface {
 	/** @return string */
 	public function getName() {
 		return $this->name;
+	}
+
+	/** @return string */
+	public function getBaseName() {
+		return $this->getName() . $this->getExtensionDot();
 	}
 
 	/** @return string */
@@ -75,7 +81,7 @@ class TempFile extends File implements UploadbleInterface {
 	public function move(Directory $destination, $name = '') {
 		$this->setName($name);
 		$oldPath = $this->getAbsolutePath();
-		$newPath = $destination->getPath() . DIRECTORY_SEPARATOR . $this->getName() . $this->getExtensionDot();
+		$newPath = $destination->getPath() . DIRECTORY_SEPARATOR . $this->getBaseName();
 		$this->setPath($newPath);
 		return move_uploaded_file($oldPath, $this->getAbsolutePath());
 	}

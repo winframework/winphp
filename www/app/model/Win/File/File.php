@@ -11,9 +11,6 @@ use Win\File\Upload\UploadbleInterface;
  */
 class File extends DirectoryItem implements UploadbleInterface {
 
-	/** @var string[] */
-	public static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
-
 	/**
 	 * Instância um novo arquivo
 	 * @param string $path Caminho relativo
@@ -23,13 +20,8 @@ class File extends DirectoryItem implements UploadbleInterface {
 	}
 
 	/** @return string */
-	public function __toString() {
-		return $this->getName() . $this->getExtensionDot();
-	}
-
-	/** @return string */
-	public function getName() {
-		return pathinfo($this->getAbsolutePath(), PATHINFO_FILENAME);
+	public function getBaseName() {
+		return pathinfo($this->getAbsolutePath(), PATHINFO_BASENAME);
 	}
 
 	/** @return string */
@@ -38,7 +30,7 @@ class File extends DirectoryItem implements UploadbleInterface {
 	}
 
 	/** @return string */
-	public function getExtensionDot() {
+	protected function getExtensionDot() {
 		return $this->getExtension() ? '.' . $this->getExtension() : '';
 	}
 
