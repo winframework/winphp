@@ -6,8 +6,13 @@ use PHPMailer\PHPMailer\Exception;
 
 class DirectoryTest extends \PHPUnit_Framework_TestCase {
 
+	/** @var Directory */
 	public static $dirInexistent;
+
+	/** @var Directory */
 	public static $dir;
+
+	/** @var Directory */
 	public static $sub;
 
 	public static function setUpBeforeClass() {
@@ -36,7 +41,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetBaseName() {
-		$this->assertEquals('dir', static::$dir->getName());
+		$this->assertEquals('dir', static::$dir->getBaseName());
 	}
 
 	public function testValidComplexPath() {

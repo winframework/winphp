@@ -20,11 +20,6 @@ class File extends DirectoryItem implements UploadbleInterface {
 	}
 
 	/** @return string */
-	public function getBaseName() {
-		return pathinfo($this->getAbsolutePath(), PATHINFO_BASENAME);
-	}
-
-	/** @return string */
 	public function getExtension() {
 		return pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
 	}
