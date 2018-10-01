@@ -18,7 +18,7 @@ class Header extends Data {
 			header($key . ':' . $value);
 		}
 		if ($this->get('location')) {
-			die();
+			throw new Exception('Redirect fail!');
 		}
 	}
 
