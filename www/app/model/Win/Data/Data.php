@@ -31,15 +31,21 @@ class Data implements DataInterface {
 		return $data;
 	}
 
+	/** @return mixed[] */
 	public function all() {
 		return $this->data;
 	}
 
+	/**
+	 * Define um valor
+	 * @param string $key
+	 * @param mixed $value
+	 */
 	public function set($key, $value) {
 		$p = &$this->data;
 		$keys = explode('.', $key);
-		foreach ($keys as $key) {
-			$p = &$p[$key];
+		foreach ($keys as $k) {
+			$p = &$p[$k];
 		}
 		if ($value) {
 			$p = $value;
@@ -50,6 +56,7 @@ class Data implements DataInterface {
 		$this->data = [];
 	}
 
+	/** @param string $key */
 	public function delete($key) {
 		unset($this->data[$key]);
 	}
