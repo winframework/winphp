@@ -50,13 +50,13 @@ class Url {
 	 * @return string
 	 */
 	public function getBaseUrl() {
-		if (is_null($this->base)):
+		if (is_null($this->base)) {
 			$protocol = $this->getProtocol();
 			$host = Input::server('HTTP_HOST');
 			$script = Input::server('SCRIPT_NAME');
 			$basePath = preg_replace('@/+$@', '', dirname($script)) . '/';
 			$this->base = $protocol . '://' . $host . $basePath;
-		endif;
+		}
 		return $this->base;
 	}
 
@@ -65,9 +65,9 @@ class Url {
 	 * @return string (http|https)
 	 */
 	public function getProtocol() {
-		if (is_null($this->protocol)):
+		if (is_null($this->protocol)) {
 			$this->protocol = Input::protocol();
-		endif;
+		}
 		return $this->protocol;
 	}
 
@@ -76,17 +76,17 @@ class Url {
 	 * @return string
 	 */
 	public function getUrl() {
-		if (is_null($this->url)):
+		if (is_null($this->url)) {
 			$host = Input::server('HTTP_HOST');
 			$url = '';
-			if ($host):
+			if ($host) {
 				$requestUri = explode('?', Input::server('REQUEST_URI'));
 				$context = explode($host, $this->getBaseUrl());
 				$uri = (explode(end($context), $requestUri[0], 2));
 				$url = end($uri);
-			endif;
+			}
 			$this->url = $this->format($url);
-		endif;
+		}
 		return $this->url;
 	}
 

@@ -37,9 +37,9 @@ class Menu {
 	 */
 	public static function multiActive($linkList) {
 		foreach ($linkList as $link) {
-			if (static::active($link) === 'active'):
+			if (static::active($link) === 'active') {
 				return 'active';
-			endif;
+			}
 		}
 		return '';
 	}

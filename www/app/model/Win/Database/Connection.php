@@ -59,9 +59,9 @@ abstract class Connection {
 	 * Redireciona para 503 caso a conexão tenha falhado
 	 */
 	public function validate() {
-		if (!is_null($this->pdoException)):
+		if (!is_null($this->pdoException)) {
 			Application::app()->errorPage(503, $this->pdoException->getMessage());
-		endif;
+		}
 	}
 
 }

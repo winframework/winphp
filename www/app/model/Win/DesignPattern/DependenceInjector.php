@@ -24,9 +24,9 @@ class DependenceInjector {
 	 * @return string
 	 */
 	public static function getClassDi($class) {
-		if (key_exists($class, static::$container)):
+		if (key_exists($class, static::$container)) {
 			$class = static::$container[$class];
-		endif;
+		}
 		return $class;
 	}
 

@@ -22,11 +22,11 @@ trait SingletonTrait {
 	 */
 	public static function instance($alias = 'default') {
 		$class = get_called_class();
-		if (!isset(static::$instance[$class][$alias])):
+		if (!isset(static::$instance[$class][$alias])) {
 			$classDi = static::getClassDi();
 			$instance = new $classDi();
 			static::$instance[$class][$alias] = $instance;
-		endif;
+		}
 		return static::$instance[$class][$alias];
 	}
 

@@ -47,10 +47,10 @@ class Application {
 		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));
 
 		Router::instance()->load();
-		if (Router::instance()->run()):
+		if (Router::instance()->run()) {
 			$this->setParams(Router::instance()->getCustomUrl());
 			$this->controller = Router::instance()->createController();
-		endif;
+		}
 
 		$this->setPage($this->getParam(0));
 		$this->view = ViewFactory::create($this->getParam(0), $this->getParam(1));

@@ -39,9 +39,9 @@ class Select {
 	 */
 	public function __toString() {
 		$html = '';
-		foreach ($this->options as $option):
+		foreach ($this->options as $option) {
 			$html .= '<option ' . static::selected($option, $this->current) . ' value="' . $option . '">' . $option . '</option>';
-		endforeach;
+		}
 		return $html;
 	}
 

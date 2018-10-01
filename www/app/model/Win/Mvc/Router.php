@@ -69,13 +69,13 @@ class Router {
 	protected function createCustomUrl() {
 		$search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
 		$matches = [];
-		foreach ($this->routes as $url => $route):
+		foreach ($this->routes as $url => $route) {
 			$exists = preg_match('@' . Url::instance()->format($url) . '$@', Url::instance()->getUrl(), $matches) == 1;
-			if ($exists):
+			if ($exists) {
 				$route = str_replace($search, $matches, $route) . '/';
 				return explode('/', $route);
-			endif;
-		endforeach;
+			}
+		}
 		return [null, null];
 	}
 
