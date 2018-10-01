@@ -4,9 +4,13 @@ namespace Win\Mvc;
 
 use controller\DemoController;
 use controller\IndexController;
+use PHPUnit_Framework_TestCase;
+use Win\Mvc\HttpException;
+use Win\Request\Header;
 use Win\Request\Url;
 
-class ControllerTest extends \PHPUnit_Framework_TestCase {
+
+class ControllerTest extends PHPUnit_Framework_TestCase {
 
 	public function testExtendsController() {
 		new Application();
@@ -45,7 +49,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\HttpException
 	 */
 	public function testActionNotFound() {
 		$index = new IndexController('index');
@@ -60,7 +64,6 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 		$demo->load();
 		$this->assertEquals(10, $demo->getData('init'));
 	}
-
 
 	public function testCall_Current404() {
 		$app = new Application();
@@ -83,11 +86,13 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testRedirect() {
 		$demo = new DemoController();
 		$demo->tryRedirect();
+		return Header::instance()->clear();
 	}
 
 	public function testRefresh() {
 		$demo = new DemoController();
 		$demo->tryRefresh();
+		return Header::instance()->clear();
 	}
 
 }

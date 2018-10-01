@@ -2,15 +2,16 @@
 
 namespace Win\Mvc;
 
+use controller\IndexController;
 use PHPUnit_Framework_TestCase;
 use Win\Request\Url;
 
-class newTest extends PHPUnit_Framework_TestCase {
+class ErrorExceptionTest extends PHPUnit_Framework_TestCase {
 
 	public static function setUpBeforeClass() {
 		Url::instance()->setUrl('index/index');
 		new Application();
-		Application::app()->controller = new \controller\IndexController('index');
+		Application::app()->controller = new IndexController('index');
 		Application::app()->view = new View('index');
 	}
 
