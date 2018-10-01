@@ -2,6 +2,7 @@
 
 namespace Win\Mvc;
 
+use Win\Format\Str;
 use Win\Request\Url;
 
 /**
@@ -74,7 +75,7 @@ abstract class Controller {
 		if (empty($action)) {
 			$action = $this->app->getParam(1);
 		}
-		$this->action = $this->toCamelCase($action);
+		$this->action = Str::toCamel($action);
 	}
 
 	/** @param View $view */
@@ -84,19 +85,6 @@ abstract class Controller {
 		}
 	}
 
-	/**
-	 * Retorna o nome do Action em camelCase
-	 * @param string $action
-	 * @return string
-	 */
-	private function toCamelCase($action) {
-		if (strpos($action, '-') !== false) {
-			$camelCaseName = str_replace(' ', '', ucwords(str_replace('-', ' ', $action)));
-			$camelCaseName[0] = strtolower($camelCaseName[0]);
-			$action = $camelCaseName;
-		}
-		return $action;
-	}
 
 	/** @return string */
 	public function getAction() {

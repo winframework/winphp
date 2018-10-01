@@ -7,27 +7,7 @@
  * Funções de conversão deve ter o nome no formato: [...]To[...]
  */
 
-/**
- * Corta um texto, sem cortar a última palavra.
- * @param string $string [string a ser cortada]
- * @param int $length [tamanho da string cortada]
- * @param bool $rep [define se corta antes ou depois do tamanho maximo]
- * @return string $string [string resumida ]
- */
-function strTruncate($string, $length, $rep = false) {
-	if (strlen($string) <= $length) {
-		return $string;
-	}
 
-	if ($rep === true) {
-		$oc = strrpos(substr($string, 0, $length), ' ');
-	} else {
-		$oc = strpos(substr($string, $length), ' ') + $length;
-	}
-
-	$string = substr($string, 0, $oc) . '...';
-	return $string;
-}
 
 /**
  * Limpa a string de caracteres inválidos
