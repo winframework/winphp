@@ -41,7 +41,9 @@ class Data implements DataInterface {
 		foreach ($keys as $key) {
 			$p = &$p[$key];
 		}
-		$p = $value;
+		if ($value) {
+			$p = $value;
+		}
 	}
 
 	public function clear() {
