@@ -10,7 +10,7 @@ use Exception;
  */
 class HttpException extends Exception {
 
-	private static $controller = 'errors';
+	protected static $controller = 'errors';
 
 	/**
 	 * @param int $code

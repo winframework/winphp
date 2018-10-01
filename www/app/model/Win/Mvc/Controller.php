@@ -75,10 +75,10 @@ abstract class Controller {
 		if (empty($action)) {
 			$action = $this->app->getParam(1);
 		}
-		$this->action = Str::toCamel($action);
+		$this->action = Str::camel($action);
 	}
 
-	/** @param View $view */
+	/** @param View|mixed $view */
 	protected function setView($view) {
 		if ($view instanceof View) {
 			$this->app->view = $view;

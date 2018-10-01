@@ -12,7 +12,7 @@ class Arr {
 		return ($i == 0);
 	}
 
-	public static function isLast($i, &$array) {
+	public static function isLast($i, $array) {
 		return ($i == count($array) - 1);
 	}
 

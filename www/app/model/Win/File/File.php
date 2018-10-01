@@ -94,7 +94,7 @@ class File extends DirectoryItem implements UploadbleInterface {
 	 */
 	public function write($content, $mode = 'w') {
 		$return = false;
-		if (strlen($this->getName()) > 0) {
+		if (!empty($this->getName())) {
 			$this->getDirectory()->create();
 			$fp = fopen($this->getAbsolutePath(), $mode);
 			if ($fp !== false) {

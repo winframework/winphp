@@ -2,12 +2,13 @@
 
 namespace Win\Html\Seo;
 
+use Win\Format\Str;
+
 /**
  * Auxilia a criar o Description otimizado para SEO
  */
 class Description {
 
-	public static $MAX_LENGTH = 150;
 	public static $DEFAULT = '';
 
 	/**
@@ -15,9 +16,9 @@ class Description {
 	 * @param string $description
 	 * @return string
 	 */
-	public static function otimize($description) {
-		if (strlen($description) > 0) {
-			return strTruncate($description, static::$MAX_LENGTH, true);
+	public static function otimize($description, $maxLength = 150) {
+		if (Str::length($description) > 0) {
+			return Str::truncate($description, $maxLength);
 		} else {
 			return static::$DEFAULT;
 		}

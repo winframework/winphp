@@ -4,25 +4,24 @@ namespace Win\Html\Seo;
 
 class DescriptionTest extends \PHPUnit_Framework_TestCase {
 
-	public function testOtimizeDefault() {
+	public function testOtimize_Default() {
 		Description::$DEFAULT = 'My Default';
-		$description = Description::otimize('');
-		$this->assertEquals($description, 'My Default');
+		$this->assertEquals('My Default', Description::otimize(''));
 	}
 
-	public function testOtimize() {
+	public function testOtimize_NotDefault() {
 		Description::$DEFAULT = 'My Default';
-		$description = Description::otimize('My Short Description');
-		$this->assertEquals($description, 'My Short Description');
+		$this->assertEquals('My Short Description', Description::otimize('My Short Description'));
+	}
 
-		Description::$MAX_LENGTH = 20;
-		$description2 = Description::otimize('My Long Description of Test of Many characters');
-		$this->assertEquals($description2, 'My Long Description...');
+	public function testOtimize_20() {
+		$string = Description::otimize('My Long Description of Test of Many characters', 20);
+		$this->assertEquals('My Long Description...', $string);
+	}
 
-
-		Description::$MAX_LENGTH = 15;
-		$description3 = Description::otimize('My Long Description of Test of Many characters');
-		$this->assertEquals($description3, 'My Long...');
+	public function testOtimize_15() {
+		$string = Description::otimize('My Long Description of Test of Many characters', 15);
+		$this->assertEquals('My Long...', $string);
 	}
 
 }

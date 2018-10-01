@@ -28,7 +28,7 @@ class ViewTest extends PHPUnit_Framework_TestCase {
 	public function testExists() {
 		$view = $this->getValidView();
 		$this->assertTrue($view->exists());
-		$this->assertTrue(strlen($view->toString()) > 2);
+		$this->assertFalse(empty($view->toString()));
 		$view->validate();
 	}
 
@@ -41,10 +41,10 @@ class ViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testToString() {
 		$viewEmpty = $this->getInValidView();
-		$this->assertEquals(0, strlen($viewEmpty->toString()));
+		$this->assertTrue(empty($viewEmpty->toString()));
 
 		$viewNotEmpty = $this->getValidView();
-		$this->assertNotEquals(0, strlen($viewNotEmpty->toString()));
+		$this->assertFalse(empty($viewNotEmpty->toString()));
 	}
 
 	public function testToHtml() {

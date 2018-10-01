@@ -23,7 +23,39 @@ class Str {
 	 * @param string $string
 	 * @return string
 	 */
-	public static function toCamel($string) {
+	public static function toFileName($string) {
+		return static::toUrl($string);
+	}
+
+	/**
+	 * @param string $string
+	 * @return int
+	 */
+	public static function length($string) {
+		return mb_strlen($string);
+	}
+
+	/**
+	 * @param string $string
+	 * @return string
+	 */
+	public static function lower($string) {
+		return mb_strtolower($string);
+	}
+
+	/**
+	 * @param string $string
+	 * @return string
+	 */
+	public static function upper($string) {
+		return mb_strtoupper($string);
+	}
+
+	/**
+	 * @param string $string
+	 * @return string
+	 */
+	public static function camel($string) {
 		$ucwords = ucwords(strtolower(str_replace(['_', '-'], ' ', $string)));
 		$camel = lcfirst(preg_replace("/[^a-zA-Z0-9]/", '', $ucwords));
 		return $camel;
@@ -32,20 +64,39 @@ class Str {
 	/**
 	 * Retorna a string resumida, sem cortar a última palavra
 	 * @param string $string
-	 * @param int $limit tamanho máximo permitido
-	 * @param bool $after define se corta depois do tamanho máximo
+	 * @param int $limit tamanho máximo
+	 * @param bool $after define se corta depois do limit
 	 * @return string
 	 */
 	public static function truncate($string, $limit, $after = false) {
-		if (strlen($string) > $limit) {
+		if (mb_strlen($string) > $limit) {
 			if ($after === false) {
-				$lenght = strrpos(substr($string, 0, $limit), ' ');
+				$oc = mb_strrpos(mb_substr($string, 0, $limit + 1), ' ');
 			} else {
-				$lenght = strpos(substr($string, $limit), ' ') + $limit;
+				$oc = mb_strpos(mb_substr($string, $limit), ' ') + $limit;
 			}
-			$string = rtrim(rtrim(substr($string, 0, $lenght), ','), '.') . '...';
+			$string = rtrim(rtrim(rtrim(mb_substr($string, 0, $oc), ','), '.')) . '...';
 		}
 		return $string;
+	}
+
+	/**
+	 * Limpa a string, retirando espaços e tags html
+	 * @param string $string
+	 * @return string
+	 */
+	public static function strip($string) {
+		return trim(strip_tags($string));
+	}
+
+	/**
+	 * Formata o número com zeros à esquerda
+	 * @param int $int
+	 * @param int $length
+	 * @return string
+	 */
+	public static function zeroOnLeft($int = 0, $length = 2) {
+		return str_pad($int, $length, "0", STR_PAD_LEFT);
 	}
 
 }

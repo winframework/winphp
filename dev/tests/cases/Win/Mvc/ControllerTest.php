@@ -17,7 +17,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetAction() {
 		$controller = new IndexController('myAction');
-		$this->assertEquals('myAction', $controller->getAction());
+		$this->assertEquals('myaction', $controller->getAction());
 
 		$controller2 = new IndexController('my-action');
 		$this->assertEquals('myAction', $controller2->getAction());

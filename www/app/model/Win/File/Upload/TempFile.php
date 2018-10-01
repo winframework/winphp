@@ -88,8 +88,8 @@ class TempFile extends File implements UploadbleInterface {
 
 	/**
 	 * Cria uma instância a partir da variável $_FILES
-	 * @param type $name
-	 * @return static|null
+	 * @param string $name
+	 * @return static
 	 */
 	public static function fromFiles($name) {
 		if (key_exists($name, $_FILES) && key_exists('tmp_name', $_FILES[$name])) {
