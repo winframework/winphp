@@ -107,7 +107,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\HttpException
 	 */
 	public function testRun_404() {
 		static::$app->run();
@@ -115,17 +115,17 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\HttpException
 	 */
-	public function dtestErrorPage_500() {
+	public function testErrorPage_500() {
 		static::$app->errorPage(500);
 		$this->assertEquals('500', static::$app->getPage());
 	}
 
 	/**
-	 * @expectedException Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\HttpException
 	 */
-	public function dtestPageNotFound() {
+	public function testPageNotFound() {
 		static::$app->pageNotFound();
 		$this->assertEquals('404', static::$app->getPage());
 	}
