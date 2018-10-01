@@ -2,6 +2,7 @@
 
 namespace Win\Request;
 
+use Exception;
 use Win\Data\Data;
 
 /**
