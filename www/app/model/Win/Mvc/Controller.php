@@ -2,7 +2,6 @@
 
 namespace Win\Mvc;
 
-use Win\Format\Str;
 use Win\Request\Url;
 
 /**
@@ -36,9 +35,9 @@ abstract class Controller {
 	 * Cria o Controller, definindo o Action
 	 * @param string $action
 	 */
-	public function __construct($action = '') {
+	public function __construct($action = 'index') {
 		$this->app = Application::app();
-		$this->setAction($action);
+		$this->action = $action;
 	}
 
 	/** @param string $title */
@@ -67,24 +66,12 @@ abstract class Controller {
 		return null;
 	}
 
-	/**
-	 * Define o Action
-	 * @param string $action
-	 */
-	private function setAction($action = '') {
-		if (empty($action)) {
-			$action = $this->app->getParam(1);
-		}
-		$this->action = Str::camel($action);
-	}
-
 	/** @param View|mixed $view */
 	protected function setView($view) {
 		if ($view instanceof View) {
 			$this->app->view = $view;
 		}
 	}
-
 
 	/** @return string */
 	public function getAction() {

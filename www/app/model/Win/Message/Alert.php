@@ -2,6 +2,7 @@
 
 namespace Win\Message;
 
+use Win\DesignPattern\SingletonTrait;
 use Win\Mvc\Block;
 use Win\Request\Session;
 
@@ -13,12 +14,8 @@ class Alert {
 	/** @var Session */
 	private $session;
 
-	/** @var static */
-	static $instance = null;
-
-	/** @param string $session */
-	public function __construct($session = 'default') {
-		$this->session = Session::instance($session);
+	use SingletonTrait {
+		instance as instanceSingleton;
 	}
 
 	/**
@@ -26,15 +23,17 @@ class Alert {
 	 * @param string $group
 	 */
 	public static function instance($group = 'default') {
-		static::$instance = new Alert($group);
-		return static::$instance;
+		$instance = static::instanceSingleton();
+		$instance->session = Session::instance('alerts.' . $group);
+		return $instance;
 	}
 
 	/**
+	 * Adiciona um mensagem de alerta
 	 * @param string $message
 	 * @param string $type
 	 */
-	public function alert($message, $type = 'default') {
+	public function add($message, $type = 'default') {
 		$messages = $this->session->get($type, []);
 		array_push($messages, $message);
 		$this->session->set($type, $messages);
@@ -46,6 +45,7 @@ class Alert {
 	}
 
 	/**
+	 * Retorna os alertas por $type
 	 * @return mixed[]
 	 * @param string $type
 	 */
@@ -67,23 +67,28 @@ class Alert {
 	}
 
 	/** @param string $message */
+	public static function alert($message) {
+		static::instance()->add($message, 'default');
+	}
+
+	/** @param string $message */
 	public static function success($message) {
-		static::instance()->alert($message, 'success');
+		static::instance()->add($message, 'success');
 	}
 
 	/** @param string $message */
 	public static function error($message) {
-		static::instance()->alert($message, 'danger');
+		static::instance()->add($message, 'danger');
 	}
 
 	/** @param string $message */
 	public static function info($message) {
-		static::instance()->alert($message, 'info');
+		static::instance()->add($message, 'info');
 	}
 
 	/** @param string $message */
 	public static function warning($message) {
-		static::instance()->alert($message, 'warning');
+		static::instance()->add($message, 'warning');
 	}
 
 	/**

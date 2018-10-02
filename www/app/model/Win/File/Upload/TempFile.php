@@ -9,7 +9,7 @@ use Win\File\File;
  * Arquivos Temporários
  *
  */
-class TempFile extends File implements UploadbleInterface {
+class TempFile extends File {
 
 	const REGEXP_PATH = '@^(([a-zA-Z0-9._\-\/]))+$@';
 	const REGEXP_NAME = '@^(([a-zA-Z0-9._\-]?))+$@';

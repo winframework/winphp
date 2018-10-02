@@ -1,13 +1,12 @@
 <?php
 
-/**
- * Checkbox
- * Auxilia nas <input type="checkbox">
- *
- */
-
 namespace Win\Html\Form;
 
+/**
+ * Checkbox
+ * <input type="checkbox">
+ *
+ */
 class Checkbox {
 
 	/**
@@ -16,8 +15,8 @@ class Checkbox {
 	 * @param mixed $value2
 	 * @return string
 	 */
-	public static function active($value1, $value2 = true) {
-		return ($value1 == $value2) ? 'checked' : '';
+	public static function check($value1, $value2 = true) {
+		return ($value1 == $value2) ? 'checked ' : '';
 	}
 
 }

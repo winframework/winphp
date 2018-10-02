@@ -1,17 +1,18 @@
 <?php
 
-/**
- * Select
- * Auxilia ao utilizar <select>
- *
- */
-
 namespace Win\Html\Form;
 
-class Select {
+use Win\Html\Html;
+
+/**
+ * Select
+ * <select>
+ *
+ */
+class Select extends Html {
 
 	protected $options;
-	private $current;
+	protected $value;
 
 	/**
 	 * Retorna "selected" se os valores são iguais
@@ -19,28 +20,59 @@ class Select {
 	 * @param mixed $value2
 	 * @return string
 	 */
-	public static function selected($value1, $value2 = true) {
-		return ($value1 == $value2) ? 'selected' : '';
+	public static function select($value1, $value2 = true) {
+		return ($value1 == $value2) ? 'selected ' : '';
 	}
 
 	/**
-	 * Cria um <select> com <options>, selecionando automático
+	 * Cria um <select>
+	 * @param string $name
 	 * @param string[] $options
-	 * @param string $current
+	 * @param string|int $value
+	 * @param string[] $attributes
 	 */
-	public function __construct($options, $current = '') {
+	public function __construct($name, $options, $value = null, $attributes = []) {
+		if (in_array($value, $options)) {
+			$value = array_search($value, $options);
+		}
 		$this->options = $options;
-		$this->current = $current;
+		$this->value = $value;
+		parent::__construct($name, $attributes);
+	}
+
+	/** @return string */
+	public function getValue() {
+		$value = '';
+		if (key_exists($this->value, $this->options)) {
+			$value = $this->options[$this->value];
+		}
+		return $value;
+	}
+
+	/** @return string */
+	public function html() {
+		return '<select name="' . $this->name . '" ' . $this->attributes() . '> '
+				. $this->htmlContent()
+				. '</select>';
 	}
 
 	/**
-	 * Exibe os <options> do <select>
+	 * Retorna o HTML dos <options>
 	 * @return string
 	 */
-	public function __toString() {
+	public function htmlContent() {
+		return $this->htmlOptions($this->options);
+	}
+
+	/** @return string */
+	protected function htmlOptions($options = []) {
 		$html = '';
-		foreach ($this->options as $option) {
-			$html .= '<option ' . static::selected($option, $this->current) . ' value="' . $option . '">' . $option . '</option>';
+		foreach ($options as $value => $option) {
+			if (is_string($option)) {
+				$html .= '<option ' . static::select($value, $this->value) . 'value="' . $value . '">' . $option . '</option> ';
+			} else {
+				$html .= '<optgroup label="' . $value . '"> ' . $this->htmlOptions($option) . '</optgroup>';
+			}
 		}
 		return $html;
 	}

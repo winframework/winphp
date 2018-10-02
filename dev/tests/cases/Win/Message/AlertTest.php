@@ -7,44 +7,41 @@ use PHPUnit_Framework_TestCase;
 class AlertTest extends PHPUnit_Framework_TestCase {
 
 	public function testInstance() {
-		$alert = new Alert();
+		$alert = Alert::instance();
 		$this->assertInstanceOf(Alert::class, $alert);
 	}
 
-	public function testAlert() {
-		$alert = new Alert();
-		$alert->alert('My first msg');
-		$this->assertEquals(['default' => ['My first msg']], $alert->all());
-	}
-
 	public function testAlert_Instance() {
-		$alert = new Alert();
-		$alert->alert('My first msg');
-		Alert::instance('product')->alert('My second msg');
+		Alert::instance()->add('My first msg');
+		Alert::instance('product')->add('My product msg');
+		Alert::instance()->add('My second msg', 'success');
+		Alert::instance('other')->add('My other msg');
 
-		$this->assertEquals(['default' => ['My first msg']], Alert::instance()->all());
-		$this->assertEquals(['default' => ['My second msg']], Alert::instance('product')->all());
+		$this->assertEquals(['default' => ['My first msg'], 'success' => ['My second msg']], Alert::instance()->all());
+		$this->assertEquals(['default' => ['My product msg']], Alert::instance('product')->all());
+		$this->assertEquals(['default' => ['My other msg']], Alert::instance('other')->all());
 	}
 
 	public function testAlert_Success() {
-		$alert = new Alert();
-		$alert->alert('My success msg', 'success');
+		$alert = Alert::instance();
+		$alert->add('My success msg', 'success');
 		$this->assertEquals(['success' => ['My success msg']], $alert->all());
 	}
 
 	public function testAlert_Many() {
-		Alert::instance()->alert('01');
-		Alert::instance()->alert('02');
-		Alert::instance()->alert('03', 'success');
+		Alert::instance()->add('01');
+		Alert::instance()->add('02');
+		Alert::instance()->add('03', 'success');
 		$this->assertEquals(['default' => ['01', '02'], 'success' => ['03']], Alert::instance()->all());
 	}
 
 	public function testStaticConstructors() {
+		Alert::alert('Default msg');
 		Alert::error('Error msg');
 		Alert::info('Info msg');
 		Alert::success('Success msg');
 		Alert::warning('Warning msg');
-
+		var_dump($_SESSION);
 		$this->assertEquals(['Success msg'], Alert::instance()->all()['success']);
 	}
 

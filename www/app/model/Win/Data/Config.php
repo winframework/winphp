@@ -7,6 +7,10 @@ namespace Win\Data;
  */
 class Config extends Data {
 
+	/**
+	 * Define todos os valores
+	 * @param mixed[] $values
+	 */
 	public function load($values) {
 		$this->data = $values;
 	}

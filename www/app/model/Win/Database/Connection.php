@@ -24,6 +24,7 @@ abstract class Connection {
 	/**
 	 * Cria e retorna conexão PDO
 	 * @param string[] $dbConfig
+	 * @throws PDOException
 	 * @return PDO
 	 */
 	abstract protected function createPdo(&$dbConfig);

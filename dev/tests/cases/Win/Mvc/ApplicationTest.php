@@ -8,7 +8,7 @@ use Win\Request\Server;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase {
 
-	const URL = 'my-page/my-action/second-param/3rd-param/';
+	const URL = 'demo/my-action/second-param/3rd-param/';
 
 	/** @var Application */
 	private static $app;
@@ -39,7 +39,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetPage() {
-		$this->assertEquals('my-page', static::$app->getPage());
+		$this->assertEquals('demo', static::$app->getPage());
 	}
 
 	public function testGetPage_Index() {
@@ -50,6 +50,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase {
 	public function testGetAction() {
 		$this->assertEquals('myAction', static::$app->controller->getAction());
 	}
+
+
 
 	public function testGetAction_Index() {
 		$app = static::newApp('contato');

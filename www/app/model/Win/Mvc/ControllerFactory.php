@@ -2,6 +2,7 @@
 
 namespace Win\Mvc;
 
+use Win\Format\Str;
 use Win\Mvc\DefaultController;
 
 /**
@@ -18,18 +19,32 @@ class ControllerFactory {
 	 * @return Controller
 	 */
 	public static function create($page, $action = null) {
-		$class = static::getControllerClass($page);
+		$class = static::formatClass($page);
 		if (class_exists($class)) {
+			$action = static::formatAction($action);
 			return new $class($action);
 		}
 		return new DefaultController();
 	}
 
 	/**
+	 * Retorna nome de um Action válido
+	 * @param string $string
+	 * @return string
+	 */
+	protected static function formatAction($string) {
+		if (empty($string)) {
+			$string = Application::app()->getParam(1);
+		}
+		return Str::camel($string);
+	}
+
+	/**
+	 * Retorna nome de um Controller válido
 	 * @param string $page
 	 * @return string
 	 */
-	protected static function getControllerClass($page) {
+	protected static function formatClass($page) {
 		return 'controller\\' . str_replace(' ', '', ucwords(str_replace('-', ' ', $page) . 'Controller'));
 	}
 

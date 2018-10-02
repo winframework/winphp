@@ -18,4 +18,9 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(true, $controller->thisActionDoentExist());
 	}
 
+	public function testGetAction() {
+			$controller = ControllerFactory::create('inexist', 'ops');
+		$this->assertEquals('index', $controller->getAction());
+	}
+
 }

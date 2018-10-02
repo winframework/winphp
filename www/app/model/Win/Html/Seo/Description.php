@@ -9,7 +9,7 @@ use Win\Format\Str;
  */
 class Description {
 
-	public static $DEFAULT = '';
+	public static $default = '';
 
 	/**
 	 * Retorna a 'description' com tamanho ideal
@@ -20,7 +20,7 @@ class Description {
 		if (Str::length($description) > 0) {
 			return Str::truncate($description, $maxLength);
 		} else {
-			return static::$DEFAULT;
+			return static::$default;
 		}
 	}
 

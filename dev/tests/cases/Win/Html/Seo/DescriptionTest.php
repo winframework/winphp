@@ -5,12 +5,12 @@ namespace Win\Html\Seo;
 class DescriptionTest extends \PHPUnit_Framework_TestCase {
 
 	public function testOtimize_Default() {
-		Description::$DEFAULT = 'My Default';
+		Description::$default = 'My Default';
 		$this->assertEquals('My Default', Description::otimize(''));
 	}
 
 	public function testOtimize_NotDefault() {
-		Description::$DEFAULT = 'My Default';
+		Description::$default = 'My Default';
 		$this->assertEquals('My Short Description', Description::otimize('My Short Description'));
 	}
 

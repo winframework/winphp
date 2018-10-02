@@ -26,11 +26,11 @@ class HttpException extends Exception {
 		$app->setPage($this->code);
 		$app->view = new View($this->code, ['exception' => $this]);
 		$controller = ControllerFactory::create(static::$controller, '_' . $this->code);
-
+		
 		if (get_class($controller) !== get_class($app->controller)) {
 			$app->controller = $controller;
 		}
-		//var_dump('response error: ' . $this->code);
+		
 		http_response_code($this->code);
 		$this->retry();
 	}

@@ -7,6 +7,7 @@ namespace Win\Authentication;
  */
 abstract class Password {
 
+	/** @var string */
 	private static $salt = 'E50H%gDui#';
 
 	/**

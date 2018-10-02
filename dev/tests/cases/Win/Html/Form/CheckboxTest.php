@@ -7,17 +7,17 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase {
 	private static $active = 'checked';
 
 	public function testIsActive() {
-		$this->assertContains(static::$active, Checkbox::active('teste', 'teste'));
+		$this->assertContains(static::$active, Checkbox::check('teste', 'teste'));
 	}
 
 	public function testIsActive_OneParam() {
-		$this->assertContains(static::$active, Checkbox::active(true));
-		$this->assertContains(static::$active, Checkbox::active(1));
-		$this->assertContains(static::$active, Checkbox::active('teste'));
+		$this->assertContains(static::$active, Checkbox::check(true));
+		$this->assertContains(static::$active, Checkbox::check(1));
+		$this->assertContains(static::$active, Checkbox::check('teste'));
 	}
 
 	public function testIsNotActive() {
-		$this->assertNotContains(static::$active, Checkbox::active('teste', 'errado'));
+		$this->assertNotContains(static::$active, Checkbox::check('teste', 'errado'));
 	}
 
 }

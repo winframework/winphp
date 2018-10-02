@@ -9,7 +9,7 @@ use Win\Format\Str;
  */
 class Keywords {
 
-	public static $DEFAULT = [];
+	public static $default = [];
 
 	/**
 	 * Retorna uma string em minúscula, separada por virgula
@@ -17,7 +17,7 @@ class Keywords {
 	 * @return string
 	 */
 	public static function otimize($keys, $maxLength = 100) {
-		return Str::lower(str_replace([',...', '...'], '', Str::truncate(implode(', ', array_filter(array_merge($keys, static::$DEFAULT))), $maxLength)));
+		return Str::lower(str_replace([',...', '...'], '', Str::truncate(implode(', ', array_filter(array_merge($keys, static::$default))), $maxLength)));
 	}
 
 }

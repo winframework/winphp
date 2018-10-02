@@ -56,9 +56,9 @@ class Str {
 	 * @return string
 	 */
 	public static function camel($string) {
-		$ucwords = ucwords(strtolower(str_replace(['_', '-'], ' ', $string)));
-		$camel = lcfirst(preg_replace("/[^a-zA-Z0-9]/", '', $ucwords));
-		return $camel;
+		preg_match("/^_*/", $string, $begin);
+		return $begin[0] . preg_replace("/[^a-zA-Z0-9]/", ''
+						, (lcfirst(ucwords(strtolower(trim(str_replace(['-', '_'], ' ', $string)))))));
 	}
 
 	/**

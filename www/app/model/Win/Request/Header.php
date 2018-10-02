@@ -11,7 +11,8 @@ use Win\Data\Data;
 class Header extends Data {
 
 	/**
-	 * Adiciona no 'HTTP Header' os valores que foram adicionados
+	 * Enviar por 'HTTP Header' os valores que foram incluídos no Header
+	 * @throws Exception
 	 * @codeCoverageIgnore
 	 */
 	public function run() {

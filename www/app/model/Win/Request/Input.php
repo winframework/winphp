@@ -5,13 +5,12 @@ namespace Win\Request;
 /**
  * Manipula variáveis globais ($_REQUEST, $_POST, $_GET, etc)
  * 
- * Esta classe fornece uma camada de segurança maior do que manipular as variáveis globais diretamente.
+ * Fornecendo uma camada de segurança maior do que manipulá-las diretamente.
  */
 class Input {
 
 	/**
 	 * Retorna variável $_POST
-	 *
 	 * @param string $name
 	 * @param int $filter
 	 * @param mixed $default
@@ -34,7 +33,6 @@ class Input {
 
 	/**
 	 * Retorna variável $_SERVER
-	 * 
 	 * @param string $name
 	 * @param int $filter
 	 * @return mixed
@@ -57,7 +55,8 @@ class Input {
 	}
 
 	/**
-	 * Retorna variável $_FILE
+	 * Retorna variável $_FILES
+	 * @return string[]
 	 */
 	public static function file($name) {
 		if (key_exists($name, $_FILES)) {

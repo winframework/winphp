@@ -66,8 +66,9 @@ class StrTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCamel() {
-		$string = Str::camel('Lorem ipsum dolor sit amet');
-		$this->assertEquals('loremIpsumDolorSitAmet', $string);
+		$string = Str::camel('_Lôrem ipsum dolor_sit-amet');
+		$this->assertEquals('_lremIpsumDolorSitAmet', $string);
+		$this->assertEquals('__callStatic', Str::camel('__Call sTatic'));
 	}
 
 	public function testCamel_lower() {

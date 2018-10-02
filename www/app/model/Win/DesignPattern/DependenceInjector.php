@@ -13,13 +13,13 @@ namespace Win\DesignPattern;
 class DependenceInjector {
 
 	/**
-	 * Lista com nomes das classes extendidas
+	 * Armazena os nomes das classes extendidas
 	 * @var string[]
 	 */
 	public static $container = [];
 
 	/**
-	 * Irá retornar a classe personalizada salva em DependenceInjector::$container
+	 * Retorna o nome da classe extendida
 	 * @param string $class
 	 * @return string
 	 */

@@ -25,13 +25,17 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($controller instanceof DemoController);
 	}
 
-	public function testCreateControllerWithIndexAction() {
+	public function testCreateController_IndexAction() {
 		$controller = ControllerFactory::create('demo');
-		$this->assertFalse($controller instanceof IndexController);
-		$this->assertTrue($controller instanceof DemoController);
+		$this->assertEquals('index', $controller->getAction());
 	}
 
-	public function testCreateControllerWithCustomAction() {
+	public function testCreateController_UnderscoreAction() {
+		$controller = ControllerFactory::create('demo', '_test');
+		$this->assertEquals('_test', $controller->getAction());
+	}
+
+	public function testCreateController_CustomAction() {
 		$app = new Application();
 		$app->view = new View('index');
 		$controller = ControllerFactory::create('demo', 'return-five');
@@ -43,15 +47,7 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException Win\Mvc\HttpException
 	 */
-	public function testCreateControllerWithInvalidView() {
-		$controller = ControllerFactory::create('demo', 'return-invalid-view');
-		$controller->load();
-	}
-
-	/**
-	 * @expectedException Win\Mvc\HttpException
-	 */
-	public function testCreateControllerWithInvalidAction() {
+	public function testCreateController_InvalidAction() {
 		$app = new Application();
 		$controller = ControllerFactory::create('demo', 'invalid');
 		$controller->load();
@@ -59,7 +55,15 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($app->view->exists());
 	}
 
-	public function testLoadWithView() {
+	/**
+	 * @expectedException Win\Mvc\HttpException
+	 */
+	public function testCreateController_InvalidView() {
+		$controller = ControllerFactory::create('demo', 'return-invalid-view');
+		$controller->load();
+	}
+
+	public function testLoad_View() {
 		Url::instance()->setUrl('index');
 		$app = new Application();
 		$controller = ControllerFactory::create('demo', 'return-valid-view');

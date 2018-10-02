@@ -5,10 +5,8 @@ namespace Win\Mvc;
 use controller\DemoController;
 use controller\IndexController;
 use PHPUnit_Framework_TestCase;
-use Win\Mvc\HttpException;
 use Win\Request\Header;
 use Win\Request\Url;
-
 
 class ControllerTest extends PHPUnit_Framework_TestCase {
 
@@ -21,15 +19,17 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetAction() {
 		$controller = new IndexController('myAction');
-		$this->assertEquals('myaction', $controller->getAction());
+		$this->assertEquals('myAction', $controller->getAction());
 
 		$controller2 = new IndexController('my-action');
-		$this->assertEquals('myAction', $controller2->getAction());
+		$this->assertEquals('my-action', $controller2->getAction());
+	}
 
+	public function testGetAction_Empty() {
 		Url::instance()->setUrl('my-page/example-action');
 		new Application();
 		$controller3 = new IndexController();
-		$this->assertEquals('exampleAction', $controller3->getAction());
+		$this->assertEquals('index', $controller3->getAction());
 	}
 
 	public function testGetData() {

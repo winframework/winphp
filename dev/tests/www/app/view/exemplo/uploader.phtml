@@ -1,6 +1,7 @@
 <?php
 
 use Win\File\Type\Image;
+use Win\Html\Form\Select;
 use Win\Mvc\View;
 
 /* @var $this View */
@@ -10,6 +11,12 @@ use Win\Mvc\View;
 	<h1>Uploader</h1>
 
 	<form method="post" enctype="multipart/form-data">
+
+		<select>
+			<?=  (new Select('animal', ['spaniel' => 'Spaniel', 'luke' => 'Luke']))->htmlContent(); ?>
+		</select>
+
+
 		<?php if ($image && $image->exists()): ?>
 			name: <?= $image->getBaseName(); ?><br/>
 			width: <?= $image->getWidth(); ?><br/>

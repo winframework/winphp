@@ -2,45 +2,84 @@
 
 namespace Win\Html\Form;
 
-class SelectTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit_Framework_TestCase;
 
-	private static $selected = 'selected';
+class SelectTest extends PHPUnit_Framework_TestCase {
+
+	/** @var string */
+	private static $options = ['S', 'M', 'B'];
+
+	/** @var string[] */
+	private static $optionsAssoc = ['s' => 'small', 'm' => 'medium', 'b' => 'big'];
 
 	public function testSelected() {
-		$this->assertContains(static::$selected, Select::selected(true));
-		$this->assertContains(static::$selected, Select::selected(1));
-		$this->assertContains(static::$selected, Select::selected('teste', 'teste'));
+		$this->assertContains('selected', Select::select(true));
+		$this->assertContains('selected', Select::select(1));
+		$this->assertContains('selected', Select::select('teste', 'teste'));
 	}
 
-	public function testNotSelected() {
-		$this->assertNotContains(static::$selected, Select::selected(false));
-		$this->assertNotContains(static::$selected, Select::selected(0));
-		$this->assertNotContains(static::$selected, Select::selected('teste', 'wrong'));
+	public function testConstruct() {
+		$select = new Select('size', static::$options);
+		$this->assertInstanceOf(Select::class, $select);
 	}
 
-	public function testToString_Selected() {
-		$select = new Select(['Abacaxi', 'Maça', 'Tomate'], 'Maça');
-		$this->assertContains(static::$selected, (string) $select);
+	public function testConstruct_Attributes() {
+		$attr = ['class' => 'form-control', 'id' => 'size_select'];
+		$select = new Select('size', static::$options, 'm', $attr);
+		$this->assertInstanceOf(Select::class, $select);
 	}
 
-	public function testToString_NotSelected() {
-		$select = new Select(['Abacaxi', 'Maça', 'Tomate']);
-		$this->assertNotContains(static::$selected, (string) $select);
+	public function testGetValue_Key() {
+		$select = new Select('size', static::$options, 1);
+		$this->assertEquals('M', $select->getValue());
 	}
 
-	public function testCountOptions() {
-		$select0 = new Select([], 'Tomate');
-		$this->assertEquals($this->countOptions($select0), 0);
-
-		$select1 = new Select(['Abacaxi'], 'Tomate');
-		$this->assertEquals($this->countOptions($select1), 1);
-
-		$select3 = new Select(['Abacaxi', 'Maça', 'Tomate'], 'Tomate');
-		$this->assertEquals($this->countOptions($select3), 3);
+	public function testGetValue_Value() {
+		$select = new Select('size', static::$options, 'M');
+		$this->assertEquals('M', $select->getValue());
 	}
 
-	private function countOptions($select) {
-		return substr_count((string) $select, '<option');
+	public function testGetValue_Invalid() {
+		$select = new Select('size', static::$options, 'XG');
+		$this->assertEquals(null, $select->getValue());
+	}
+
+	public function testGetValue_Assoc() {
+		$select = new Select('size', static::$optionsAssoc, 'm');
+		$this->assertEquals('medium', $select->getValue());
+	}
+
+	public function testHtmlContent() {
+		$select = new Select('size', static::$options, 1);
+		$this->assertContains('<option selected value="1"', $select->htmlContent());
+	}
+
+	public function testHtmlContent_Value() {
+		$select = new Select('size', static::$options, 'M');
+		$this->assertContains('<option selected value="1"', $select->htmlContent());
+	}
+
+	public function testHtmlContent_Assoc() {
+		$select = new Select('size', static::$optionsAssoc, 'm');
+		$this->assertContains('<option selected value="m"', $select->htmlContent());
+	}
+
+	public function testHtml() {
+		$attr = ['id' => 'size_select', 'class' => 'form-control'];
+		$select = new Select('size', static::$optionsAssoc, 'm', $attr);
+		$this->assertContains('<select name="size" id="size_select" class="form-control" >', $select->html());
+		$this->assertContains('<option selected value="m"', $select->html());
+		$this->assertEquals($select->html(), (string) $select);
+	}
+
+	public function testHtml_OptionGroup() {
+
+		$select = new Select('animal', [
+			'Cats' => ['leopard' => 'Leopard'],
+			'Dogs' => ['spaniel' => 'Spaniel', 'luke' => 'Luke']
+				], 'spaniel');
+		$this->assertContains('<optgroup label="Cats"> <option', $select->html());
+		$this->assertContains('<option selected value="spaniel">Spaniel', $select->html());
 	}
 
 }

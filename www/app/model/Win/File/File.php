@@ -3,13 +3,12 @@
 namespace Win\File;
 
 use Exception;
-use Win\File\Upload\UploadbleInterface;
 
 /**
  * Arquivos
  *
  */
-class File extends DirectoryItem implements UploadbleInterface {
+class File extends DirectoryItem {
 
 	/**
 	 * Instância um novo arquivo
@@ -107,7 +106,7 @@ class File extends DirectoryItem implements UploadbleInterface {
 
 	/**
 	 * Retorna o conteúdo do arquivo
-	 * @param string|false $content
+	 * @return string|false
 	 */
 	public function read() {
 		$content = false;
@@ -119,8 +118,8 @@ class File extends DirectoryItem implements UploadbleInterface {
 
 	/**
 	 * Renomeia o arquivo
-	 * @param string $newName [optional]
-	 * @param string $newExtension [optional]
+	 * @param string $newName
+	 * @param string $newExtension
 	 * @return boolean
 	 */
 	public function rename($newName = null, $newExtension = null) {
