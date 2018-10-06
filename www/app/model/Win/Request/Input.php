@@ -16,7 +16,7 @@ class Input {
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	public static function post($name, $filter = FILTER_DEFAULT, $default = null) {
+	public static function post($name, $filter = FILTER_SANITIZE_STRING, $default = null) {
 		$post = filter_input(INPUT_POST, $name, $filter);
 		return !is_null($post) ? $post : $default;
 	}
@@ -27,7 +27,7 @@ class Input {
 	 * @param int $filter
 	 * @return mixed[]
 	 */
-	public static function postArray($name, $filter = FILTER_DEFAULT) {
+	public static function postArray($name, $filter = FILTER_SANITIZE_STRING) {
 		return (array) filter_input(INPUT_POST, $name, $filter, FILTER_REQUIRE_ARRAY);
 	}
 
@@ -49,7 +49,7 @@ class Input {
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	public static function get($name, $filter = FILTER_DEFAULT, $default = null) {
+	public static function get($name, $filter = FILTER_SANITIZE_STRING, $default = null) {
 		$get = filter_input(INPUT_GET, $name, $filter);
 		return !is_null($get) ? $get : $default;
 	}

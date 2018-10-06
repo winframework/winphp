@@ -38,7 +38,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase {
 		$app->controller->setTitle('My old page Title');
 		Title::$prefix = '.:: ';
 		Title::$sufix = ' ::.';
-		Title::setTitleOtimized('My custom and longest Title and longest Title and longest Title and longest Title and longest Title and longest Title');
+		Title::setTitle('My custom and longest Title and longest Title and longest Title and longest Title and longest Title and longest Title');
 		$title = $app->controller->getData('title');
 
 		$this->assertEquals('.:: My custom and longest Title and longest Title and longest... ::.', $title);

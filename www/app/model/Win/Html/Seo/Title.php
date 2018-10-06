@@ -28,7 +28,7 @@ class Title {
 	 * Define o título, otimizando
 	 * @param string $title
 	 */
-	public static function setTitleOtimized($title) {
+	public static function setTitle($title) {
 		Application::app()->controller->setTitle(static::otimize($title));
 	}
 
