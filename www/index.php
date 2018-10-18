@@ -11,7 +11,6 @@ use Win\Mvc\HttpException;
 define('BASE_PATH', __DIR__);
 
 require 'lib/autoload.php';
-require 'lib/functions/strings.php';
 require 'app/config/app.php';
 
 session_start();
