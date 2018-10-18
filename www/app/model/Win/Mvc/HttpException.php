@@ -46,6 +46,7 @@ class HttpException extends Exception {
 		}
 	}
 
+	/** @return boolean */
 	private function is404() {
 		return (Application::app()->getPage() == '404');
 	}

@@ -55,7 +55,7 @@ class Str {
 	 * @param string $string
 	 * @return string
 	 */
-	public static function camel($string) {
+	public static function lowerCamel($string) {
 		preg_match("/^_*/", $string, $begin);
 		return $begin[0] . preg_replace("/[^a-zA-Z0-9]/", ''
 						, (lcfirst(ucwords(strtolower(trim(str_replace(['-', '_'], ' ', $string)))))));

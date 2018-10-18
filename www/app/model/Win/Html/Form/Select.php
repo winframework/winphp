@@ -32,7 +32,7 @@ class Select extends Html {
 	 * @param string[] $attributes
 	 */
 	public function __construct($name, $options, $value = null, $attributes = []) {
-		if (in_array($value, $options)) {
+		if (is_string($value) && in_array($value, $options)) {
 			$value = array_search($value, $options);
 		}
 		$this->options = $options;

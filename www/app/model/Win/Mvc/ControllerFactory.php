@@ -36,7 +36,7 @@ class ControllerFactory {
 		if (empty($string)) {
 			$string = Application::app()->getParam(1);
 		}
-		return Str::camel($string);
+		return Str::lowerCamel($string);
 	}
 
 	/**

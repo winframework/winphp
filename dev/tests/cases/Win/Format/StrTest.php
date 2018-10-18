@@ -66,18 +66,18 @@ class StrTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCamel() {
-		$string = Str::camel('_Lôrem ipsum dolor_sit-amet');
+		$string = Str::lowerCamel('_Lôrem ipsum dolor_sit-amet');
 		$this->assertEquals('_lremIpsumDolorSitAmet', $string);
-		$this->assertEquals('__callStatic', Str::camel('__Call sTatic'));
+		$this->assertEquals('__callStatic', Str::lowerCamel('__Call sTatic'));
 	}
 
 	public function testCamel_lower() {
-		$string = Str::camel('lorem ipsum dolor sit amet');
+		$string = Str::lowerCamel('lorem ipsum dolor sit amet');
 		$this->assertEquals('loremIpsumDolorSitAmet', $string);
 	}
 
 	public function testCamel_upper() {
-		$string = Str::camel('LOREM IPSUM DOLOR SIT AMET');
+		$string = Str::lowerCamel('LOREM IPSUM DOLOR SIT AMET');
 		$this->assertEquals('loremIpsumDolorSitAmet', $string);
 	}
 
