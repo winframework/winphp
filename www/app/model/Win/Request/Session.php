@@ -22,7 +22,7 @@ class Session extends Data {
 
 	/**
 	 * Retorna todas variáveis da sessão
-	 * @param string $clear TRUE irá também remover todas as variáveis
+	 * @param boolean $clear TRUE irá também limpar a sessão
 	 * @return mixed[]
 	 */
 	public function all($clear = false) {
