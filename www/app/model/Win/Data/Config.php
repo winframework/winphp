@@ -7,19 +7,12 @@ namespace Win\Data;
  */
 class Config extends Data {
 
-	/** @var mixed[] */
-	protected static $config;
-
-	final public static function load($config) {
-		static::$config = $config;
-	}
-
-	protected static function getAll() {
-		return static::$config;
-	}
-
-	public static function set($key, $value) {
-		static::$config[$key] = $value;
+	/**
+	 * Define todos os valores
+	 * @param mixed[] $values
+	 */
+	public function load($values) {
+		$this->data = $values;
 	}
 
 }

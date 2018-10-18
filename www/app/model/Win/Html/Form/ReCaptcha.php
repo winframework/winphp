@@ -2,7 +2,7 @@
 
 namespace Win\Html\Form;
 
-use Win\Request\Input;
+use Win\Request\Input as RequestInput;
 
 /**
  * Utiliza o ReCaptcha do Google
@@ -19,8 +19,8 @@ class ReCaptcha {
 	 */
 	public static function isValid() {
 		if (static::$siteKey && static::$secretKey) {
-			$captcha = Input::post('g-recaptcha-response');
-			$response = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . static::$secretKey . "&response=" . $captcha . "&remoteip=" . Input::server('REMOTE_ADDR')), true);
+			$captcha = RequestInput::post('g-recaptcha-response');
+			$response = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . static::$secretKey . "&response=" . $captcha . "&remoteip=" . RequestInput::server('REMOTE_ADDR')), true);
 			return (boolean) $response['success'];
 		} else {
 			return true;

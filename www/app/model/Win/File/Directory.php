@@ -3,105 +3,109 @@
 namespace Win\File;
 
 use Exception;
-use Win\Request\Server;
+use const BASE_PATH;
 
 /**
- * Diretório de arquivos
+ * Diretório de Arquivos
+ *
  */
-class Directory {
+class Directory extends DirectoryItem {
 
-	/** @var string */
-	private $path;
-
-	/** @param string $path */
+	/**
+	 * Instância um diretório
+	 * @param string $path Caminho relativo
+	 */
 	public function __construct($path) {
-		$this->path = str_replace(['///', '//'], ['/', '/'], $path . '/');
+		$this->setPath($path);
 	}
 
-	public function __toString() {
-		return $this->path;
-	}
-
-	public function getPath() {
-		return $this->path;
-	}
-
-	public function setPath($path) {
-		$this->path = $path;
+	/** @return boolean */
+	public function exists() {
+		return is_dir($this->getAbsolutePath());
 	}
 
 	/**
-	 * Cria o diretório para salvar a imagem
-	 * @param string $pathetorio Caminho do novo diretório
-	 * @param int $chmod permissões deste diretório
-	 * @return boolean Retorna TRUE caso obtenha algum sucesso
+	 * @param string $path Caminho relativo
+	 * @throws Exception
+	 */
+	protected function setPath($path) {
+		if (!preg_match(static::REGEXP_PATH, $path . DIRECTORY_SEPARATOR)) {
+			throw new Exception($path . ' is a invalid directory path.');
+		}
+		parent::setPath($path);
+	}
+
+	/**
+	 * Exclui o diretório e o seu conteúdo
+	 * @return boolean
+	 */
+	public function delete() {
+		$success = false;
+		if ($this->exists()) {
+			$this->clear();
+			$success = rmdir($this->getAbsolutePath());
+		}
+		return $success;
+	}
+
+	/**
+	 * Exclui apenas o conteúdo do diretório
+	 */
+	public function clear() {
+		foreach ($this->getItemsName() as $content) {
+			if (is_dir($this->getAbsolutePath() . DIRECTORY_SEPARATOR . $content)) {
+				$subDirectory = new Directory($this->getPath() . DIRECTORY_SEPARATOR . $content);
+				$subDirectory->delete();
+			} else {
+				unlink($this->getAbsolutePath() . DIRECTORY_SEPARATOR . $content);
+			}
+		}
+	}
+
+	/**
+	 * Cria o diretório
+	 * @param int $chmod
+	 * @return boolean
+	 * @throws Exception
 	 */
 	public function create($chmod = 0755) {
-		if (!file_exists($this->path)) {
-			$success = @mkdir($this->path, $chmod, (boolean) STREAM_MKDIR_RECURSIVE);
-			return $success;
-		}
-		if (Server::isLocalHost()) {
-			$success = @chmod($this->path, 0777);
-			if (!$success) {
-				throw new Exception('Changing permission (chmod) is not allowed on directory: "' .
-				$this->path . '". Remove this directory and try again.');
+		if (!$this->exists()) {
+			if (@mkdir($this->getAbsolutePath(), $chmod, (boolean) STREAM_MKDIR_RECURSIVE) === false) {
+				throw new Exception('The directory ' . $this->getPath() . ' could not be created.');
 			}
+			$this->setChmod($chmod);
 		}
-		return false;
+		return $this->exists();
+	}
+
+	/** @return boolean */
+	public function isEmpty() {
+		return (count($this->getItemsName()) == 0);
 	}
 
 	/**
-	 * Renomeia o diretório
-	 * @param string $newName Caminho para o novo diretório
-	 * @return boolean
+	 * Retorna nome dos itens dentro do diretório (em ordem alfabética)
+	 * @return string[]
 	 */
-	public function rename($newName) {
-		if ($this->path != $newName) {
-			rename($this->path, $newName);
-			return true;
-		}
-		return false;
+	public function getItemsName() {
+		return array_values(array_diff(scandir($this->getAbsolutePath()), ['.', '..']));
 	}
 
 	/**
-	 * Exclui o diretório e os arquivos dentro dele
-	 * @return boolean
+	 * Retorna os itens dentro do diretório (em ordem alfabética)
+	 * @return Directory[]|File[]
 	 */
-	public function remove() {
-		$path = str_replace('//', '/', $this->path);
-		if (is_dir($path)) {
-			$this->removeAllFiles();
-			return rmdir($path);
-		} else {
-			return false;
-		}
-	}
-
-	/** Exclui os arquivos deste diretório */
-	protected function removeAllFiles() {
-		$path = str_replace('//', '/', $this->path);
-		$files = array_diff(scandir($path), ['.', '..']);
-		foreach ($files as $file) {
-			if (is_dir($path . '/' . $file)) {
-				$subDirectory = new Directory($path . '/' . $file);
-				$subDirectory->remove();
+	public function getItems() {
+		$items = [];
+		foreach ($this->getItemsName() as $itemName) {
+			$itemPath = $this->getPath() . DIRECTORY_SEPARATOR . $itemName;
+			if (is_dir(BASE_PATH . DIRECTORY_SEPARATOR . $itemPath)) {
+				$items[] = new Directory($itemPath);
 			} else {
-				unlink($path . '/' . $file);
+				$items[] = new File($itemPath);
 			}
 		}
-	}
-
-	/** @return string[] */
-	public function getFiles() {
-		$path = str_replace('//', '/', $this->path);
-		$files = array_diff(scandir($path), ['.', '..']);
-		foreach ($files as $i => $file) {
-			if (is_dir($path . '/' . $file)) {
-				unset($files[$i]);
-			}
-		}
-		return $files;
+		return $items;
 	}
 
 }

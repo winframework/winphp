@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\DesignPattern\Singleton;
+use Win\DesignPattern\SingletonTrait;
 use Win\Request\Url;
 
 /**
@@ -13,7 +13,7 @@ use Win\Request\Url;
  */
 class Router {
 
-	use Singleton;
+	use SingletonTrait;
 
 	/** @var string[] */
 	private $routes = [];
@@ -47,12 +47,8 @@ class Router {
 	 * @return boolean
 	 */
 	public function run() {
-		$this->load();
-		if (count($this->routes)) {
-			static::$customUrl = $this->createCustomUrl();
-			return $this->hasCustomUrl();
-		}
-		return false;
+		static::$customUrl = $this->createCustomUrl();
+		return $this->hasCustomUrl();
 	}
 
 	/**
@@ -73,13 +69,13 @@ class Router {
 	protected function createCustomUrl() {
 		$search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
 		$matches = [];
-		foreach ($this->routes as $url => $route):
+		foreach ($this->routes as $url => $route) {
 			$exists = preg_match('@' . Url::instance()->format($url) . '$@', Url::instance()->getUrl(), $matches) == 1;
-			if ($exists):
+			if ($exists) {
 				$route = str_replace($search, $matches, $route) . '/';
 				return explode('/', $route);
-			endif;
-		endforeach;
+			}
+		}
 		return [null, null];
 	}
 

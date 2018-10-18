@@ -3,6 +3,7 @@
 namespace Win\Mvc;
 
 use Win\Data\Config;
+use Win\Request\Header;
 use Win\Request\Url;
 
 /**
@@ -11,15 +12,15 @@ use Win\Request\Url;
  * Framework em PHP baseado em MVC
  * Esta classe é responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.2.5
+ * @version 1.3
  */
 class Application {
 
-	protected static $app = null;
+	protected static $instance = null;
 	private $name;
 	private $page;
 	private $homePage = 'index';
-	private $paramList;
+	private $params;
 
 	/** @var Controller */
 	public $controller;
@@ -32,22 +33,27 @@ class Application {
 	 * @param mixed[] $config
 	 */
 	public function __construct($config = []) {
-		static::$app = $this;
-		Config::load($config);
-		$this->name = (string) Config::get('name', '');
+		static::$instance = $this;
+		Config::instance()->load($config);
+		$this->name = (string) Config::instance()->get('name', '');
+		$this->init();
+	}
 
-		$this->setParamList(Url::instance()->getFragments());
+	/**
+	 * Inicia com as configurações básicas
+	 */
+	protected function init() {
+		$this->setParams(Url::instance()->getSegments());
 		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));
 
-		if (Router::instance()->run()):
-			$this->setParamList(Router::instance()->getCustomUrl());
+		Router::instance()->load();
+		if (Router::instance()->run()) {
+			$this->setParams(Router::instance()->getCustomUrl());
 			$this->controller = Router::instance()->createController();
-		endif;
+		}
 
 		$this->setPage($this->getParam(0));
-		$this->view = ViewFactory::create($this->getParam(0), $this->paramList);
-
-		ErrorPage::validate();
+		$this->view = ViewFactory::create($this->getParam(0), $this->getParam(1));
 	}
 
 	/**
@@ -55,7 +61,7 @@ class Application {
 	 * @return static
 	 */
 	public static function app() {
-		return static::$app;
+		return static::$instance;
 	}
 
 	/**
@@ -64,6 +70,7 @@ class Application {
 	 */
 	public function run() {
 		$this->controller->load();
+		Header::instance()->run();
 		$layout = new Layout($this->controller->layout);
 		$layout->load();
 	}
@@ -88,7 +95,7 @@ class Application {
 	 * @return string
 	 */
 	public function getUrl() {
-		return Url::instance()->format(implode('/', $this->getParamList()));
+		return Url::instance()->format(implode('/', $this->getParams()));
 	}
 
 	/**
@@ -96,12 +103,12 @@ class Application {
 	 * @return string
 	 */
 	public function getPage() {
-		return $this->page;
+		return (string) $this->page;
 	}
 
 	/** @param string $page */
 	public function setPage($page) {
-		$this->page = $page;
+		$this->page = (string) $page;
 	}
 
 	/**
@@ -117,25 +124,25 @@ class Application {
 	 * @return boolean
 	 */
 	public function isErrorPage() {
-		return ErrorPage::isErrorPage();
+		return HttpException::isErrorCode($this->getPage());
 	}
 
 	/**
 	 * Retorna um todos os parâmetros da URL
 	 * @return string[]
 	 */
-	protected function getParamList() {
-		return $this->paramList;
+	protected function getParams() {
+		return $this->params;
 	}
 
 	/**
-	 * Define os parâmetros.
+	 * Define os parâmetros
 	 * Se estiver vazio, utiliza os parâmetros padrão.
-	 * @param string[] $paramList
+	 * @param string[] $params
 	 */
-	private function setParamList($paramList) {
+	private function setParams($params) {
 		$paramDefaulf = [$this->homePage, 'index'];
-		$this->paramList = array_replace($paramDefaulf, array_filter($paramList));
+		$this->params = array_replace($paramDefaulf, array_filter($params));
 	}
 
 	/**
@@ -144,36 +151,25 @@ class Application {
 	 * @return string
 	 */
 	public function getParam($position) {
-		return (key_exists($position, $this->paramList)) ? $this->paramList[$position] : '';
+		return (key_exists($position, $this->params)) ? $this->params[$position] : '';
 	}
 
 	/**
-	 * Redireciona para a URL
-	 * @param string $url
+	 * Define a página como 404
+	 * @codeCoverageIgnore
 	 */
-	public function redirect($url = '') {
-		Url::instance()->redirect($url);
-	}
-
-	/**
-	 * Atualiza a mesma página
-	 * @param string $url
-	 */
-	public function refresh() {
-		Url::instance()->redirect($this->getUrl());
-	}
-
-	/** Define a página como 404 */
 	public function pageNotFound() {
 		$this->errorPage(404);
 	}
 
 	/**
 	 * Define a página atual como algum erro
-	 * @param int $errorCode [401, 404, 500, etc]
+	 * @param int $code
+	 * @param string $message
+	 * @throws HttpException
 	 */
-	public function errorPage($errorCode) {
-		ErrorPage::setError($errorCode);
+	public function errorPage($code, $message = '') {
+		throw new HttpException($code, $message);
 	}
 
 }

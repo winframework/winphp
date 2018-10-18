@@ -141,11 +141,11 @@ class DateCalc {
 	}
 
 	/**
-	 * Converte segundos em outra unidade
+	 * Converte segundos em outro formato/unidade
 	 * @param int $seconds
 	 * @param string $format [d,m,Y,H,i]
 	 */
-	public static function convertSeconds($seconds = 0, $format = 'i') {
+	public static function secondsToFormat($seconds = 0, $format = 'i') {
 		$dt1 = new DateTime("@0");
 		$dt2 = new DateTime("@$seconds");
 		return $dt1->diff($dt2)->format('%' . $format);
@@ -157,37 +157,38 @@ class DateCalc {
 	 * @return string (ex: 4 horas atrás), (ex: daqui a 5 dias)
 	 */
 	public static function toTimeAgo($date) {
-		if ($date === false) {
-			return 'indisponível';
-		}
-		$time = time() - strtotime($date->format(DateTime::SQL_DATE_TIME));
+		$timeAgo = 'indisponível';
+		if ($date !== false) {
+			$time = time() - strtotime($date->format(DateTime::SQL_DATE_TIME));
 
-		if ($time == 0) {
-			return 'agora mesmo';
+			if ($time === 0) {
+				$timeAgo = 'agora mesmo';
+			} elseif ($time > 0) {
+				$timeAgo = static::toHighestUnit($time) . ' atrás';
+			} else {
+				$timeAgo = 'daqui a ' . static::toHighestUnit($time * (-1));
+			}
 		}
-		if ($time > 0) {
-			return static::getTime($time) . ' atrás';
-		}
-		if ($time < 0) {
-			return 'daqui a ' . static::getTime($time * (-1));
-		}
+		return $timeAgo;
 	}
 
 	/**
-	 * Retorna a data em unidade de tempo Humana
+	 * Converte a quantidade de segundos para a maior possível
 	 * @param int $seconds
-	 * @return string Ex: 15 horas
+	 * @return string
 	 */
-	protected static function getTime($seconds) {
+	protected static function toHighestUnit($seconds) {
 		$units = array_reverse(DateCalc::$units);
+		$time = 0;
 		foreach ($units as $unitName => $unitInfo) {
 			if ($seconds >= $unitInfo[2]) {
 				$timeTotal = floor($seconds / $unitInfo[2]);
 				$isPlural = ($timeTotal > 1);
-				return $timeTotal . ' ' . self::$units[$unitName][$isPlural];
+				$time = $timeTotal . ' ' . self::$units[$unitName][$isPlural];
+				break;
 			}
 		}
-		return 0;
+		return $time;
 	}
 
 }

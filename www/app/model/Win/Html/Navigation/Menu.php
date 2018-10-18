@@ -16,8 +16,8 @@ class Menu {
 	 *
 	 * Retorna 'active' se o link informado for a página atual
 	 * ou se o link for idêntico ao início da URL
-	 * @param string|string[] $link href do link/botão
-	 * @return string 'active'|''
+	 * @param string|string[] $link 
+	 * @return string
 	 */
 	public static function active($link) {
 		if (is_array($link)) {
@@ -32,14 +32,14 @@ class Menu {
 
 	/**
 	 * Usado para ativar múltiplos Links
-	 * @param string[] $linkList
-	 * @return string 'active'|''
+	 * @param string[]
+	 * @return string
 	 */
-	public static function multiActive($linkList) {
-		foreach ($linkList as $link) {
-			if (static::active($link) === 'active'):
+	public static function multiActive($links) {
+		foreach ($links as $link) {
+			if (static::active($link) === 'active') {
 				return 'active';
-			endif;
+			}
 		}
 		return '';
 	}

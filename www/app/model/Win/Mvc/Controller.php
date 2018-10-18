@@ -6,12 +6,12 @@ use Win\Request\Url;
 
 /**
  * Controllers
- * 
+ *
  * São responsáveis por processar as requisições e definir as Views
  */
 abstract class Controller {
 
-	public static $dir = '/app/controller/';
+	public static $dir = '/app/controller';
 
 	/**
 	 * Ponteiro para Aplicação Principal
@@ -35,9 +35,9 @@ abstract class Controller {
 	 * Cria o Controller, definindo o Action
 	 * @param string $action
 	 */
-	public function __construct($action = '') {
+	public function __construct($action = 'index') {
 		$this->app = Application::app();
-		$this->setAction($action);
+		$this->action = $action;
 	}
 
 	/** @param string $title */
@@ -66,29 +66,11 @@ abstract class Controller {
 		return null;
 	}
 
-	/**
-	 * Define o Action
-	 * @param string $action
-	 */
-	private function setAction($action = '') {
-		if (empty($action)) {
-			$action = $this->app->getParam(1);
+	/** @param View|mixed $view */
+	protected function setView($view) {
+		if ($view instanceof View) {
+			$this->app->view = $view;
 		}
-		$this->action = $this->toCamelCase($action);
-	}
-
-	/**
-	 * Retorna o nome do Action em camelCase
-	 * @param string $action
-	 * @return string
-	 */
-	private function toCamelCase($action) {
-		if (strpos($action, '-') !== false) {
-			$camelCaseName = str_replace(' ', '', ucwords(str_replace('-', ' ', $action)));
-			$camelCaseName[0] = strtolower($camelCaseName[0]);
-			$action = $camelCaseName;
-		}
-		return $action;
 	}
 
 	/** @return string */
@@ -104,29 +86,17 @@ abstract class Controller {
 		$this->init();
 		$action = $this->action;
 		$view = $this->$action();
-		if ($view instanceof View && !$this->app->isErrorPage()):
-			$this->app->view = $view;
-		endif;
-
-		if (!$this->app->isErrorPage()):
-			$this->app->view->mergeData($this->data);
-			$this->app->view->validate();
-		endif;
-	}
-
-	public function reload() {
-		$this->init();
-		$this->index();
+		$this->setView($view);
+		$this->app->view->validate();
 		$this->app->view->mergeData($this->data);
 	}
 
 	/**
 	 * Volta para o método index da pagina atual
+	 * @codeCoverageIgnore
 	 */
 	protected function backToIndex() {
-		if (!$this->app->isErrorPage()):
-			Url::instance()->redirect($this->app->getPage());
-		endif;
+		Url::instance()->redirect($this->app->getPage());
 	}
 
 	/**
@@ -142,13 +112,31 @@ abstract class Controller {
 	}
 
 	/**
-	 * Evita chamada de um método que não exista
+	 * Redireciona para a URL
+	 * @param string $url
+	 */
+	public function redirect($url) {
+		Url::instance()->redirect($url);
+	}
+
+	/**
+	 * Atualiza a mesma página
+	 * @param string $url
+	 */
+	public function refresh() {
+		Url::instance()->redirect(Url::instance()->getUrl());
+	}
+
+	/**
+	 * Ao chamar um método inexistente retorna um 404
 	 * @param string $name
 	 * @param mixed[] $arguments
 	 * @return boolean
 	 */
 	public function __call($name, $arguments) {
-		$this->app->pageNotFound();
+		if ($this->app->getPage() !== '404') {
+			$this->app->pageNotFound();
+		}
 	}
 
 }

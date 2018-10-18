@@ -14,14 +14,18 @@ class ViewFactory {
 	/**
 	 * Cria uma View com base na página e parâmetros
 	 * @param string $page
-	 * @param mixed[] $paramList
+	 * @param string $action
 	 * @return View
 	 */
-	public static function create($page, $paramList = []) {
-		$view = new View($page);
-		if (!$view->exists()):
-			$view = new View(implode('/', $paramList));
-		endif;
+	public static function create($page, $action = null) {
+		if (HttpException::isErrorCode($page)) {
+			$view = new View('');
+		} else {
+			$view = new View($page);
+			if (!$view->exists()) {
+				$view = new View($page . '/' . $action);
+			}
+		}
 		return $view;
 	}
 
