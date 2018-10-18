@@ -1,0 +1,11 @@
+## Desabilita a Listagem de Pasta
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	## URL Amigavel
+	RewriteCond %{SCRIPT_FILENAME} !-f
+	RewriteCond %{SCRIPT_FILENAME} !-d
+	RewriteRule . index.php [L]
+</IfModule>

@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\DesignPattern\Singleton;
+use Win\DesignPattern\SingletonTrait;
 use const BASE_PATH;
 
 /**
@@ -15,10 +15,10 @@ use const BASE_PATH;
  */
 class Template {
 
-	use Singleton;
+	use SingletonTrait;
 
-	protected static $dir = 'app/template/';
-	protected static $themeDefault = 'default';
+	protected static $dir = '/app/template';
+	const THEME_DEFAULT = 'default';
 
 	/**
 	 * Nome do Tema atual
@@ -48,17 +48,16 @@ class Template {
 	 * Retorna o Novo caminho completo do arquivo
 	 * (incluindo o diretório do template atual)
 	 * 
-	 * @param string $dir diretório atual da View
 	 * @param string $file Arquivo atual da View
 	 * @return string Novo caminho completo da View
 	 */
-	public function getFilePath($dir, $file) {
-		$appDir = BASE_PATH . '/app/';
-		$newDir = str_replace($appDir, '', $dir);
-		if (file_exists(self::$dir . self::$theme . '/' . $newDir . $file . '.phtml')) {
-			return self::$dir . self::$theme . '/' . $newDir . $file;
+	public function getFilePath($file) {
+		$viewDir = str_replace('app/', '', View::$dir);
+		$path = self::$dir . DIRECTORY_SEPARATOR . self::$theme . $viewDir . DIRECTORY_SEPARATOR;
+		if (file_exists(BASE_PATH . $path . $file . '.phtml')) {
+			return $path . $file;
 		}
-		return self::$dir . self::$themeDefault . '/' . $newDir . $file;
+		return self::$dir . DIRECTORY_SEPARATOR . self::THEME_DEFAULT . $viewDir . DIRECTORY_SEPARATOR . $file;
 	}
 
 }

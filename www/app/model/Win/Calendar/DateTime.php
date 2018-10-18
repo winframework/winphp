@@ -20,14 +20,22 @@ class DateTime extends DateTimePHP {
 		return (boolean) ($this->format('y') < 0);
 	}
 
-	/** @return string|false */
+	/** @return string */
 	public function getMonthName() {
-		return Month::create($this->format('m'))->getName();
+		return $this->formatF('%B');
 	}
 
-	/** @return string|false */
+	/** @return string */
 	public function getMonthAbbre() {
-		return Month::create($this->format('m'))->getNameAbbre();
+		return $this->formatF('%b');
+	}
+
+	/**
+	 * Retorna a data no formato utilizado por strftime
+	 * @return string
+	 */
+	public function formatF($format) {
+		return strftime($format, $this->getTimestamp());
 	}
 
 	/** @return int */

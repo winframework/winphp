@@ -2,7 +2,7 @@
 
 namespace Win\Request;
 
-use Win\DesignPattern\Singleton;
+use Win\DesignPattern\SingletonTrait;
 
 /**
  * Gerenciador de URL
@@ -10,7 +10,7 @@ use Win\DesignPattern\Singleton;
  */
 class Url {
 
-	use Singleton;
+	use SingletonTrait;
 
 	protected $base = null;
 	protected $url = null;
@@ -31,8 +31,7 @@ class Url {
 	 * @return string
 	 */
 	public function format($url) {
-		$url = rtrim($url, $this->sufix) . $this->sufix;
-		return $url;
+		return rtrim($url, $this->sufix) . $this->sufix;
 	}
 
 	/**
@@ -43,8 +42,7 @@ class Url {
 		if (strpos($url, '://') === false) {
 			$url = $this->getBaseUrl() . $url;
 		}
-		header('location:' . $this->format($url));
-		die();
+		Header::instance()->set('location', $url);
 	}
 
 	/**
@@ -52,13 +50,13 @@ class Url {
 	 * @return string
 	 */
 	public function getBaseUrl() {
-		if (is_null($this->base)):
+		if (is_null($this->base)) {
 			$protocol = $this->getProtocol();
 			$host = Input::server('HTTP_HOST');
 			$script = Input::server('SCRIPT_NAME');
 			$basePath = preg_replace('@/+$@', '', dirname($script)) . '/';
 			$this->base = $protocol . '://' . $host . $basePath;
-		endif;
+		}
 		return $this->base;
 	}
 
@@ -67,9 +65,9 @@ class Url {
 	 * @return string (http|https)
 	 */
 	public function getProtocol() {
-		if (is_null($this->protocol)):
+		if (is_null($this->protocol)) {
 			$this->protocol = Input::protocol();
-		endif;
+		}
 		return $this->protocol;
 	}
 
@@ -78,17 +76,17 @@ class Url {
 	 * @return string
 	 */
 	public function getUrl() {
-		if (is_null($this->url)):
+		if (is_null($this->url)) {
 			$host = Input::server('HTTP_HOST');
 			$url = '';
-			if ($host):
+			if ($host) {
 				$requestUri = explode('?', Input::server('REQUEST_URI'));
 				$context = explode($host, $this->getBaseUrl());
 				$uri = (explode(end($context), $requestUri[0], 2));
 				$url = end($uri);
-			endif;
+			}
 			$this->url = $this->format($url);
-		endif;
+		}
 		return $this->url;
 	}
 
@@ -103,7 +101,7 @@ class Url {
 	 * Retorna o array de fragmentos da URL
 	 * @return string[]
 	 */
-	public function getFragments() {
+	public function getSegments() {
 		$url = rtrim($this->getUrl(), $this->sufix);
 		return explode('/', $url);
 	}

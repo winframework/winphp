@@ -2,26 +2,22 @@
 
 namespace Win\Html\Seo;
 
-use Win\Mvc\Application;
+use Win\Format\Str;
 
 /**
  * Auxilia gerenciamento de Keywords
  */
 class Keywords {
 
-	public static $MAX_LENGTH = 100;
+	public static $default = [];
 
 	/**
 	 * Retorna uma string em minúscula, separada por virgula
-	 * @param string[] $array1
-	 * @param string[] $array2
+	 * @param string[] $keys
 	 * @return string
 	 */
-	public static function toKeys($array1, $array2 = []) {
-		if (empty($array2)) {
-			$array2 = [Application::app()->controller->getData('keywords')];
-		}
-		return strLower(str_replace([',...', '...'], '', strTruncate(implode(', ', array_filter(array_merge($array1, $array2))), static::$MAX_LENGTH)));
+	public static function otimize($keys, $maxLength = 100) {
+		return Str::lower(str_replace([',...', '...'], '', Str::truncate(implode(', ', array_filter(array_merge($keys, static::$default))), $maxLength)));
 	}
 
 }

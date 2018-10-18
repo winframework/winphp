@@ -9,14 +9,47 @@ use Win\Data\Data;
  */
 class Session extends Data {
 
-	const TYPE = 'default';
-
-	protected static function getAll() {
-		return $_SESSION;
+	/**
+	 * Retorna instância de Session
+	 * @param string $alias
+	 * @return
+	 */
+	public static function instance($alias = 'default') {
+		$instance = parent::instance($alias);
+		$instance->data = &$_SESSION[$alias];
+		return $instance;
 	}
 
-	public static function set($key, $value) {
-		$_SESSION[$key] = $value;
+	/**
+	 * Retorna todas variáveis da sessão
+	 * @param boolean $clear TRUE irá também limpar a sessão
+	 * @return mixed[]
+	 */
+	public function all($clear = false) {
+		$values = parent::all();
+		if ($clear) {
+			$this->clear();
+		}
+		return $values;
+	}
+
+	/**
+	 * @param string $key
+	 * @param mixed $default
+	 * @param boolean $delete TRUE também irá remover a variável
+	 * @return mixed
+	 */
+	public function get($key, $default = '', $delete = false) {
+		$value = parent::get($key, $default);
+		if ($delete) {
+			$this->delete($key);
+		}
+		return $value;
+	}
+
+	/** @return boolean */
+	public function has($key) {
+		return (!is_null($this->get($key, null)));
 	}
 
 }

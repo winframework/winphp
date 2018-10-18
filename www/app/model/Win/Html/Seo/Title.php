@@ -2,6 +2,7 @@
 
 namespace Win\Html\Seo;
 
+use Win\Format\Str;
 use Win\Mvc\Application;
 
 /**
@@ -9,7 +10,6 @@ use Win\Mvc\Application;
  */
 class Title {
 
-	public static $MAX_LENGTH = 70;
 	public static $prefix = '';
 	public static $sufix = '';
 
@@ -19,9 +19,9 @@ class Title {
 	 * @param string $title
 	 * @return string
 	 */
-	public static function otimize($title) {
-		$maxLenght = static::$MAX_LENGTH - strLength(static::$prefix) - strLength(static::$sufix) - 3;
-		return static::$prefix . strTruncate($title, $maxLenght, true) . static::$sufix;
+	public static function otimize($title, $maxLength = 70) {
+		$maxLenght = $maxLength - Str::length(static::$prefix) - Str::length(static::$sufix);
+		return static::$prefix . Str::truncate($title, $maxLenght, false) . static::$sufix;
 	}
 
 	/**

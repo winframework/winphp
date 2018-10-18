@@ -2,35 +2,65 @@
 
 namespace Win\Data;
 
+use Win\DesignPattern\SingletonTrait;
+
 /**
  * Dados
  */
-abstract class Data {
+class Data implements DataInterface {
+
+	use SingletonTrait;
+
+	/** @var mixed[] */
+	protected $data = [];
+
+	/** @return mixed[] */
+	public function all() {
+		return $this->data;
+	}
+
+	/** Exclui todos os dados */
+	public function clear() {
+		$this->data = [];
+	}
 
 	/**
-	 * Retorna valor da sessão
-	 * @param string $key Nome da configuração
-	 * @param string $default Valor default, caso esta configuração esteja em branco
+	 * Define um valor
+	 * @param string $key
+	 * @param mixed $value
 	 */
-	public static function get($key, $default = '') {
+	public function set($key, $value) {
+		$p = &$this->data;
 		$keys = explode('.', $key);
-		$config = static::getAll();
 		foreach ($keys as $k) {
-			if (is_array($config) && array_key_exists($k, $config)) {
-				$config = $config[$k];
+			$p = &$p[$k];
+		}
+		if ($value) {
+			$p = $value;
+		}
+	}
+
+	/**
+	 * Retorna um valor
+	 * @param string $key
+	 * @param string $default Valor default, caso a $key não exista
+	 */
+	public function get($key, $default = '') {
+		$data = $this->data;
+		$keys = explode('.', $key);
+		foreach ($keys as $k) {
+			if (is_array($data) && array_key_exists($k, $data)) {
+				$data = $data[$k];
 			} else {
 				return $default;
 			}
 		}
-		return $config;
+		return $data;
 	}
 
-	/** @return mixed[] */
-	abstract protected static function getAll();
+	/** @param string $key */
+	public function delete($key) {
+		unset($this->data[$key]);
+	}
 
-	/**
-	 * @param string $key
-	 * @param mixed $value
-	 */
-	abstract public static function set($key, $value);
 }

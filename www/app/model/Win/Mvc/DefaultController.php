@@ -13,8 +13,12 @@ final class DefaultController extends Controller {
 		
 	}
 
-	public function init() {
+	protected function init() {
 
+	}
+
+	public function __construct() {
+		parent::__construct('index');
 	}
 
 	public function __call($name, $arguments) {
