@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Html\Form;
+namespace Win\Html\Form\Input;
 
 class CheckboxTest extends \PHPUnit_Framework_TestCase {
 

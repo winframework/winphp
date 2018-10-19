@@ -1,6 +1,8 @@
 <?php
 
-namespace Win\Html\Form;
+namespace Win\Html\Form\Input;
+
+use Win\Html\Form\Input;
 
 /**
  * Input de Texto

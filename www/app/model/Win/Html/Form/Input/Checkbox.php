@@ -1,13 +1,15 @@
 <?php
 
-namespace Win\Html\Form;
+namespace Win\Html\Form\Input;
+
+use Win\Request\Input;
 
 /**
  * Checkbox
  * <input type="checkbox">
  *
  */
-class Checkbox {
+class Checkbox extends Input{
 
 	/**
 	 * Retorna "checked" se os valores são iguais
