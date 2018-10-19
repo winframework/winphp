@@ -1,8 +1,9 @@
 <?php
 
-namespace Win\Database;
+namespace Win\Database\Connection;
 
 use PDO;
+use Win\Database\Connection;
 
 /**
  * Conexão com banco de dados MySQL

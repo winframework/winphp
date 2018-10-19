@@ -1,10 +1,9 @@
 <?php
 
-namespace Win\Database;
+namespace Win\Database\Connection;
 
 use PDO;
 use PHPUnit_Framework_TestCase;
-use Win\Database\Mysql;
 use Win\Mvc\Application;
 use Win\Request\Url;
 use const BASE_PATH;

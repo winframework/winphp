@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Html\Form;
+namespace Win\Html\Form\Input;
 
 use PHPUnit_Framework_TestCase;
 
