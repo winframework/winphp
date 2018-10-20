@@ -9,7 +9,7 @@ use Win\Request\Input;
  * <input type="checkbox">
  *
  */
-class Checkbox extends Input{
+class Checkbox extends Input {
 
 	/**
 	 * Retorna "checked" se os valores são iguais
