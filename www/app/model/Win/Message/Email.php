@@ -186,6 +186,7 @@ class Email {
 	private function saveOnDisk() {
 		$fileName = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 		$file = new File('data/email/' . $fileName);
+		$file->getDirectory()->create(0777);
 		return $file->write($this->layout->toString());
 	}
 
