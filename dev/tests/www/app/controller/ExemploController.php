@@ -3,12 +3,13 @@
 namespace controller;
 
 use Win\File\Directory;
-use Win\File\Type\Image;
+use Win\File\File\Image;
 use Win\File\Upload\TempFile;
 use Win\File\Upload\Uploader;
 use Win\Message\Alert;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
+use Win\Request\Input;
 
 class ExemploController extends Controller {
 
@@ -33,9 +34,9 @@ class ExemploController extends Controller {
 	}
 
 	public function uploader() {
-
 		$image = null;
-		if (isset($_POST['submit'])) {
+		
+		if (!is_null(Input::post('submit'))) {
 			$dir = new Directory('data/upload');
 			$dir->delete();
 			$uploader = new Uploader($dir);
@@ -44,11 +45,10 @@ class ExemploController extends Controller {
 			$success = $uploader->upload('my-file');
 			if ($success) {
 				Alert::success('Imagem salva');
+				$image = new Image($uploader->getUploaded()->getPath());
 			} else {
 				Alert::error('Imagem com erro');
 			}
-
-			$image = new Image($uploader->getUploaded()->getPath());
 		}
 
 		$this->addData('image', $image);
