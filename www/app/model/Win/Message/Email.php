@@ -161,7 +161,7 @@ class Email {
 	/**
 	 * Envia o E-mail
 	 *
-	 * @return null|string Retorna null ou string de erro
+	 * @return boolean
 	 */
 	public function send() {
 		$send = false;
