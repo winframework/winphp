@@ -14,10 +14,9 @@ $routes = [];
  * Exemplos de rotas personalizadas
  * @example
  * <code>
- * $routes['home'] = 'index/index';
- * $routes['foo'] = 'example/foo';
- * $routes['product/(.*)'] = 'example/bar/$1';
- * $routes['category/(.*)'] = 'not-found/because-this-file/doesnt-exist';
+ * $routes['^home'] = 'index/index';
+ * $routes['^foo'] = 'example/foo';
+ * $routes['^product/(.*)'] = 'product/detail/$1';
  * </code>
  */
 return $routes;

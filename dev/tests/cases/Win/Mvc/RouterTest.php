@@ -63,6 +63,30 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('index', Router::instance()->getCustomUrl()[1]);
 	}
 
+	public function testCustomUrlBegin() {
+		Url::instance()->setUrl('my-pager/haha');
+		$routes = ["^my-pager/(.*)" => "exemplo/index/$1"];
+		Router::instance()->load($routes);
+		Router::instance()->run();
+		$this->assertTrue(Router::instance()->hasCustomUrl());
+	}
+
+	public function testCustomUrlEnd() {
+		Url::instance()->setUrl('test-my-pager/haha');
+		$routes = ["my-pager/(.*)" => "exemplo/index/$1"];
+		Router::instance()->load($routes);
+		Router::instance()->run();
+		$this->assertTrue(Router::instance()->hasCustomUrl());
+	}
+
+	public function testNoCustomUrlEnd() {
+		Url::instance()->setUrl('test-my-pager/haha');
+		$routes = ["^my-pager/(.*)" => "exemplo/index/$1"];
+		Router::instance()->load($routes);
+		Router::instance()->run();
+		$this->assertFalse(Router::instance()->hasCustomUrl());
+	}
+
 	public function testCustomUrlByFile() {
 		Url::instance()->setUrl('other-page/test/');
 		Router::$file = '/app/config/routes.php';
