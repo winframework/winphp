@@ -1,0 +1,27 @@
+<?php
+
+namespace Win\Database\Dao\Query;
+
+/**
+ * ORDER BY id DESC
+ */
+class OrderBy {
+
+	private $orderBy;
+
+	public function __construct() {
+		$this->orderBy = 'id DESC';
+	}
+
+	public function __toString() {
+		if ($this->orderBy) {
+			return ' ORDER BY ' . $this->orderBy;
+		}
+		return '';
+	}
+
+	public function set($orderBy) {
+		$this->orderBy = $orderBy;
+	}
+
+}

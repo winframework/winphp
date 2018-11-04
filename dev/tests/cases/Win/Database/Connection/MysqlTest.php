@@ -15,8 +15,8 @@ class MysqlTest extends PHPUnit_Framework_TestCase {
 	public function testNotValid_WrongUser() {
 		static::newApplication();
 		$this->connectNotValid_WrongUser();
-		$this->assertNull(Mysql::instance()->getPDO());
-		$this->assertFalse(Mysql::instance()->getPDO() instanceof PDO);
+		$this->assertNull(Mysql::instance()->getPdo());
+		$this->assertFalse(Mysql::instance()->getPdo() instanceof PDO);
 	}
 
 	public function testNotValid_WrongPassword() {
@@ -38,7 +38,7 @@ class MysqlTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetPdo() {
 		static::connectValid();
-		$this->assertTrue(Mysql::instance()->getPDO() instanceof PDO);
+		$this->assertTrue(Mysql::instance()->getPdo() instanceof PDO);
 	}
 
 	public function testValidate_DoesNothing() {
@@ -97,7 +97,7 @@ class MysqlTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/** @return Mysql */
-	private static function connectValid() {
+	public static function connectValid() {
 		require static::$dbFile;
 		$db['dbname'] = 'mysql';
 		Mysql::instance()->connect($db);
