@@ -54,7 +54,6 @@ abstract class Dao {
 	 * @return mixed[]
 	 */
 	public static function select($query) {
-		var_dump((string)$query);
 		$result = static::getPdo()->query($query);
 		$rows = [];
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -67,8 +66,16 @@ abstract class Dao {
 	 * @param string $query
 	 * @return boolean
 	 */
-	public static function insert($query) {
+	public static function query($query) {
 		return (boolean) static::getPdo()->exec($query);
+	}
+
+	/**
+	 * @param string $query
+	 * @return boolean
+	 */
+	public static function insert($query) {
+		return static::query($query);
 	}
 
 	/**
@@ -76,7 +83,7 @@ abstract class Dao {
 	 * @return boolean
 	 */
 	public static function update($query) {
-		return (boolean) static::getPdo()->exec($query);
+		return static::query($query);
 	}
 
 	/**
@@ -84,14 +91,7 @@ abstract class Dao {
 	 * @return boolean
 	 */
 	public static function delete($query) {
-		return (boolean) static::getPdo()->exec($query);
-	}
-
-	/**
-	 * Retorna todos os registros
-	 */
-	public function all() {
-		return $this->get();
+		return static::query($query);
 	}
 
 	/**
@@ -124,9 +124,8 @@ abstract class Dao {
 
 	/**
 	 * Retorna todos os registro da query
-	 * @return mixed[]
 	 */
-	public function get() {
+	public function all() {
 		$rows = static::select($this->select);
 		$this->flush();
 		$all = [];
@@ -134,6 +133,11 @@ abstract class Dao {
 			$all[] = $this->mapObject($row);
 		}
 		return $all;
+	}
+
+	public function latest() {
+		$this->select->orderBy->set('id DESC');
+		return $this->all();
 	}
 
 	/**
@@ -144,6 +148,17 @@ abstract class Dao {
 		$rows = static::select($this->select);
 		$this->flush();
 		return $this->mapObject($rows[0]);
+	}
+
+	/**
+	 * Retorna o último registro da query
+	 * @return mixed[]
+	 */
+	public function last() {
+		$rows = static::select($this->select);
+		$this->flush();
+		$row = end($rows);
+		return $this->mapObject($row);
 	}
 
 }

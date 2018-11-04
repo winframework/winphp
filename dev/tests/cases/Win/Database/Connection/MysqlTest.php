@@ -85,7 +85,7 @@ class MysqlTest extends PHPUnit_Framework_TestCase {
 	/** @return Mysql */
 	private static function connectNotValid_WrongPassword() {
 		require static::$dbFile;
-		$db['password'] = 'this-pass-is-wrong';
+		$db['pass'] = 'this-pass-is-wrong';
 		Mysql::instance()->connect($db);
 	}
 

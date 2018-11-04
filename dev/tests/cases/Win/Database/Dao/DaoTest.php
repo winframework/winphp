@@ -13,6 +13,8 @@ class DaoTest extends PHPUnit_Framework_TestCase {
 
 	public static function setUpBeforeClass() {
 		static::connect();
+		PageDaoTest::createTable();
+		PageDaoTest::importTable();
 	}
 
 	public static function connect() {
