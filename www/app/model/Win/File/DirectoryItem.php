@@ -21,6 +21,11 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	private $directory;
 
 	/** @return string */
+	public function __toString() {
+		return $this->getPath();
+	}
+
+	/** @return string */
 	public function getPath() {
 		return $this->path;
 	}
@@ -28,11 +33,6 @@ abstract class DirectoryItem implements DirectoryItemInterface {
 	/** @return string */
 	public function getAbsolutePath() {
 		return BASE_PATH . DIRECTORY_SEPARATOR . $this->path;
-	}
-
-	/** @return string */
-	public function __toString() {
-		return $this->getPath();
 	}
 
 	/**

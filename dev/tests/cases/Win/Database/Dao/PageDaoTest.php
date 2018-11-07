@@ -3,19 +3,21 @@
 namespace Win\Database\Dao;
 
 use PHPUnit_Framework_TestCase;
+use Win\Database\Connection\Mysql;
 use Win\Database\Dao\Page\PageDao;
+use Win\Database\DbConfig;
 
 class PageDaoTest extends PHPUnit_Framework_TestCase {
 
 	public static function setUpBeforeClass() {
-		DaoTest::connect();
+		DbConfig::connect();
 		static::createTable();
 		static::importTable();
 	}
 
 	public static function createTable() {
-		Dao::query("DROP TABLE `page` ");
-		Dao::query("CREATE TABLE `page` (
+		Mysql::instance()->query("DROP TABLE `page` ");
+		Mysql::instance()->query("CREATE TABLE `page` (
 			`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			`title` varchar(75) NOT NULL,
 			`description` text NOT NULL,
@@ -27,7 +29,7 @@ class PageDaoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public static function importTable() {
-		Dao::query("INSERT INTO `page` (`id`, `title`, `description`, `created_at`) VALUES
+		Mysql::instance()->query("INSERT INTO `page` (`id`, `title`, `description`, `created_at`) VALUES
 			(1, 'First Page', 'About us', '2018-11-04 10:46:03'),
 			(2, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
 			(3, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');"
@@ -69,9 +71,9 @@ class PageDaoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGet_Filter() {
-		//$page = PageDao::instance()->filter(['id = ?', 2])->get();
-		//$this->assertEquals($page->getId(), 2);
-		//$this->assertEquals($page->getTitle(), 'contact us');
+		$page = PageDao::instance()->filter('id', '=', 2)->first();
+		$this->assertEquals($page->getId(), 2);
+		$this->assertEquals($page->getTitle(), 'Second Page');
 	}
 
 }

@@ -15,6 +15,11 @@ class DateTime extends DateTimePHP {
 	const SQL_DATE_TIME = 'Y-m-d H:i:s';
 	const ZERO_DATE_TIME = '00/00/0000 00:00:00';
 
+	/** @return string */
+	public function __toString() {
+		return $this->format(static::BR_DATE);
+	}
+
 	/** @return boolean */
 	public function isEmpty() {
 		return (boolean) ($this->format('y') < 0);
@@ -46,11 +51,6 @@ class DateTime extends DateTimePHP {
 	/** @return string */
 	public function toHtml() {
 		return $this->format(static::BR_DATE_TIME);
-	}
-
-	/** @return string */
-	public function __toString() {
-		return $this->format(static::BR_DATE);
 	}
 
 	/** @return string */

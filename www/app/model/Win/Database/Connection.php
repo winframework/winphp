@@ -65,4 +65,49 @@ abstract class Connection {
 		}
 	}
 
+	/**
+	 * @param string $query
+	 * @return mixed[]
+	 */
+	public function select($query) {
+		$result = $this->getPdo()->query($query);
+		$rows = [];
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$rows[] = $row;
+		}
+		return $rows;
+	}
+
+	/**
+	 * @param string $query
+	 * @return boolean
+	 */
+	public function query($query) {
+		return (boolean) $this->getPdo()->exec($query);
+	}
+
+	/**
+	 * @param string $query
+	 * @return boolean
+	 */
+	public function insert($query) {
+		return $this->query($query);
+	}
+
+	/**
+	 * @param string $query
+	 * @return boolean
+	 */
+	public function update($query) {
+		return $this->query($query);
+	}
+
+	/**
+	 * @param string $query
+	 * @return boolean
+	 */
+	public function delete($query) {
+		return $this->query($query);
+	}
+
 }

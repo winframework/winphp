@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Dao\Query;
+namespace Win\Database\Sql;
 
 /**
  * WHERE id = ?
@@ -15,13 +15,13 @@ class Where {
 
 	public function __toString() {
 		if (count($this->filters)) {
-			return ' WHERE ' . implode(' ', $this->filters);
+			return ' WHERE ' . implode(' AND ', $this->filters);
 		}
 		return '';
 	}
 
-	public function add($filter) {
-		$this->filters[] = $filter;
+	public function add($collumn, $operator, $value) {
+		$this->filters[] = $collumn . $operator . $value;
 	}
 
 }

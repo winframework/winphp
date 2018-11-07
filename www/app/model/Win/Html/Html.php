@@ -27,17 +27,17 @@ abstract class Html {
 	}
 
 	/** @return string */
+	public function __toString() {
+		return $this->html();
+	}
+
+	/** @return string */
 	protected function attributes() {
 		$html = '';
 		foreach ($this->attributes as $name => $value) {
 			$html .= $name . '="' . $value . '" ';
 		}
 		return $html;
-	}
-
-	/** @return string */
-	public function __toString() {
-		return $this->html();
 	}
 
 }

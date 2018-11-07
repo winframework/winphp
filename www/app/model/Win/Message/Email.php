@@ -40,6 +40,11 @@ class Email {
 		$this->mailer->IsHTML(true);
 	}
 
+	/** @return string */
+	public function __toString() {
+		return $this->layout->toString();
+	}
+
 	/**
 	 * Adiciona um Destinatário
 	 * @param string $address E-mail destinatário
@@ -76,11 +81,6 @@ class Email {
 	public function setLayout($layout) {
 		$file = 'email/' . $layout;
 		$this->layout = new Block($file, ['email' => $this]);
-	}
-
-	/** @return string */
-	public function __toString() {
-		return $this->layout->toString();
 	}
 
 	/**

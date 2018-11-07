@@ -2,9 +2,9 @@
 
 namespace Win\Database\Dao;
 
-use PDO;
+use Win\Database\Connection;
 use Win\Database\Connection\Mysql;
-use Win\Database\Dao\Query\Select;
+use Win\Database\Sql\Select;
 use Win\DesignPattern\SingletonTrait;
 
 /**
@@ -15,91 +15,44 @@ abstract class Dao {
 	protected $name = null;
 	protected $table = null;
 
+	/** @var Connection */
+	protected $connection = null;
+
 	use SingletonTrait {
 		__construct as finalConstruct;
 	}
-
-	/** @var PDO */
-	static protected $pdo = null;
 
 	/** @var Select */
 	private $select;
 
 	public function __construct() {
-		$this->flush();
+		$this->flushSelect();
+		$this->connection = Mysql::instance();
 	}
 
-	private function flush() {
-		$this->select = new Select($this->table);
+	/** @param Connection $connection */
+	public function setConnection(Connection $connection) {
+		$this->connection = $connection;
 	}
 
 	/** @param string[] $row */
 	abstract public function mapObject($row);
-
-	/** @return PDO */
-	public static function getPdo() {
-		if (is_null(self::$pdo)) {
-			self::$pdo = Mysql::instance()->getPdo();
-		}
-		return self::$pdo;
-	}
-
-	/** @param PDO $pdo */
-	public static function setPdo(PDO $pdo) {
-		self::$pdo = $pdo;
-	}
-
-	/**
-	 * @param string $query
-	 * @return mixed[]
-	 */
-	public static function select($query) {
-		$result = static::getPdo()->query($query);
-		$rows = [];
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$rows[] = $row;
-		}
-		return $rows;
-	}
-
-	/**
-	 * @param string $query
-	 * @return boolean
-	 */
-	public static function query($query) {
-		return (boolean) static::getPdo()->exec($query);
-	}
-
-	/**
-	 * @param string $query
-	 * @return boolean
-	 */
-	public static function insert($query) {
-		return static::query($query);
-	}
-
-	/**
-	 * @param string $query
-	 * @return boolean
-	 */
-	public static function update($query) {
-		return static::query($query);
-	}
-
-	/**
-	 * @param string $query
-	 * @return boolean
-	 */
-	public static function delete($query) {
-		return static::query($query);
-	}
 
 	/**
 	 * Retorna um registro pelo id
 	 * @param int $id
 	 */
 	public function find($id) {
-		$this->select->where->add('id = ' . $id);
+		return $this->findBy('id', $id);
+	}
+
+	/**
+	 * Retorna um registro pelo campo
+	 * @param string $collumn
+	 * @param mixed $value
+	 */
+	protected function findBy($collumn, $value) {
+		$this->filter($collumn, '=', $value);
 		return $this->first();
 	}
 
@@ -107,8 +60,8 @@ abstract class Dao {
 	 * Adiciona filtros para busca
 	 * @return self
 	 */
-	public function filter($filter, $values) {
-		$this->select->where->add($filter, $values);
+	public function filter($collumn, $operator, $value) {
+		$this->select->where->add($collumn, $operator, $value);
 		return $this;
 	}
 
@@ -122,12 +75,20 @@ abstract class Dao {
 		return $this;
 	}
 
-	/**
-	 * Retorna todos os registro da query
-	 */
+	/** Limpa o select sql */
+	private function flushSelect() {
+		$this->select = new Select($this->table);
+	}
+
+	/** @param string $collumns */
+	public function select($collumns) {
+		$this->select->collumns = $collumns;
+	}
+
+	/** Retorna todos os registro da query */
 	public function all() {
-		$rows = static::select($this->select);
-		$this->flush();
+		$rows = $this->connection->select($this->select);
+		$this->flushSelect();
 		$all = [];
 		foreach ($rows as $row) {
 			$all[] = $this->mapObject($row);
@@ -135,28 +96,23 @@ abstract class Dao {
 		return $all;
 	}
 
+	/** Retorna todos por ordem decrescente */
 	public function latest() {
 		$this->select->orderBy->set('id DESC');
 		return $this->all();
 	}
 
-	/**
-	 * Retorna o primeiro registro da query
-	 * @return mixed[]
-	 */
+	/** Retorna o primeiro registro da query */
 	public function first() {
-		$rows = static::select($this->select);
-		$this->flush();
+		$rows = $this->connection->select($this->select);
+		$this->flushSelect();
 		return $this->mapObject($rows[0]);
 	}
 
-	/**
-	 * Retorna o último registro da query
-	 * @return mixed[]
-	 */
+	/** Retorna o último registro da query */
 	public function last() {
-		$rows = static::select($this->select);
-		$this->flush();
+		$rows = $this->connection->select($this->select);
+		$this->flushSelect();
 		$row = end($rows);
 		return $this->mapObject($row);
 	}

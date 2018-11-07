@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Dao\Query;
+namespace Win\Database\Sql;
 
 /**
  * ORDER BY id DESC

@@ -5,9 +5,8 @@ namespace Win\Database\Dao\Page;
 use Win\Calendar\DateTime;
 
 /**
- * Usado por Page dao
+ * Página
  *
- * @property string $description
  */
 class Page {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Dao\Query;
+namespace Win\Database\Sql;
 
 /**
  * SELECT * FROM
@@ -8,6 +8,7 @@ namespace Win\Database\Dao\Query;
 class Select {
 
 	private $table = '';
+	public $collumns = '*';
 
 	/** @var Where */
 	public $where;
@@ -22,7 +23,7 @@ class Select {
 	}
 
 	public function __toString() {
-		return 'SELECT * FROM ' . $this->table . $this->where . $this->orderBy;
+		return 'SELECT ' . $this->collumns . ' FROM ' . $this->table . $this->where . $this->orderBy;
 	}
 
 }
