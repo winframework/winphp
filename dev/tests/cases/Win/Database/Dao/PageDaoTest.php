@@ -5,7 +5,6 @@ namespace Win\Database\Dao;
 use PHPUnit_Framework_TestCase;
 use Win\Database\Connection\Mysql;
 use Win\Database\Dao\Page\Page;
-use Win\Database\Dao\Page\PageDao;
 use Win\Database\DbConfig;
 
 class PageDaoTest extends PHPUnit_Framework_TestCase {
@@ -38,62 +37,72 @@ class PageDaoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFind() {
-		$page = PageDao::instance()->find(2)->result();
+		$page = Page::dao()->find(2)->result();
 		$this->assertEquals($page->getId(), 2);
 		$this->assertEquals($page->getTitle(), 'Second Page');
 	}
 
 	public function testFirst() {
-		$page = PageDao::instance()->older()->result();
+		$page = Page::dao()->older()->result();
 		$this->assertEquals($page->getId(), 1);
 	}
 
 	public function testLast() {
-		$page = PageDao::instance()->newer()->result();
+		$page = Page::dao()->newer()->result();
 		$this->assertEquals($page->getId(), 3);
 	}
 
 	public function testAll() {
-		$pages = PageDao::instance()->results();
+		$pages = Page::dao()->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals($pages[0]->getTitle(), 'First Page');
 	}
 
-	public function testLatest() {
-		$pages = PageDao::instance()->newer()->results();
+	public function testRecent() {
+		$pages = Page::dao()->newer()->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals($pages[0]->getTitle(), 'Third Page');
 	}
 
 	public function testOrderBy() {
-		$pages = PageDao::instance()->orderBy('title ASC')->results();
+		$pages = Page::dao()->orderBy('title ASC')->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals($pages[0]->getTitle(), 'First Page');
 	}
 
 	public function testFilter() {
-		$page = PageDao::instance()->filter('id', '=', 2)->result();
+		$page = Page::dao()->filter('id', '=', 2)->result();
 		$this->assertEquals($page->getId(), 2);
 		$this->assertEquals($page->getTitle(), 'Second Page');
 	}
 
-	public function testFilterLatest() {
-		$pages = PageDao::instance()->filter('id', '>', 1)->filter('id', '<', 3)->newer()->results();
+	public function testFilterRecent() {
+		$pages = Page::dao()->filter('id', '>', 1)->filter('id', '<', 3)->newer()->results();
 		$this->assertCount(1, $pages);
 		$this->assertEquals($pages[0]->getTitle(), 'Second Page');
 	}
 
 	public function testLimit() {
-		$pages = PageDao::instance()->limit(2)->results();
+		$pages = Page::dao()->limit(2)->results();
 		$this->assertCount(2, $pages);
 	}
 
 	public function testFlush() {
-		$pages = PageDao::instance()->filter('id', '>', 1)->results();
-		$pages2 = PageDao::instance()->filter('id', '>', 0)->results();
+		Page::dao()->debug();
+		$pages = Page::dao()->filter('id', '>', 1)->results();
+		$pages2 = Page::dao()->filter('id', '>', 0)->results();
 
 		$this->assertCount(2, $pages);
 		$this->assertCount(3, $pages2);
+	}
+
+	public function testDelete() {
+		$pagesTotal = count(Page::dao()->results());
+		$page = Page::dao()->find(1)->result();
+		$success = Page::dao()->delete($page);
+
+		$this->assertTrue($success);
+		$this->assertCount($pagesTotal - 1, Page::dao()->results());
 	}
 
 }

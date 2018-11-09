@@ -32,7 +32,7 @@ abstract class Connection {
 	abstract protected function createPdo(&$dbConfig);
 
 	/** @return PDO */
-	final public function getPdo() {
+	public function getPdo() {
 		return $this->pdo;
 	}
 

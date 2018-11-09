@@ -3,7 +3,8 @@
 namespace Win\Database\Dao;
 
 use Win\Database\Connection;
-use Win\Database\Sql\Select;
+use Win\Database\Sql\Query\Delete;
+use Win\Database\Sql\Query\Select;
 use Win\DesignPattern\SingletonTrait;
 
 /**
@@ -13,6 +14,9 @@ abstract class Dao {
 
 	protected $model = null;
 	protected $table = null;
+
+	/** @var boolean */
+	protected $debug = 0;
 
 	/** @var Connection */
 	protected static $connection = null;
@@ -41,11 +45,17 @@ abstract class Dao {
 		$this->query = new Select($this->table);
 	}
 
+	/** @param boolean $debug */
+	public function debug($debug = true) {
+		$this->debug = $debug;
+	}
+
 	/**
 	 * Retorna o primeiro resultado da consulta
 	 * @return object
 	 */
 	public function result() {
+		$this->query->showDebug($this->debug);
 		$rows = static::$connection->select($this->query);
 		$this->flushQuery();
 		return $this->mapObject($rows[0]);
@@ -56,6 +66,7 @@ abstract class Dao {
 	 * return array
 	 */
 	public function results() {
+		$this->query->showDebug($this->debug);
 		$rows = static::$connection->select($this->query);
 		$this->flushQuery();
 		$all = [];
@@ -121,14 +132,34 @@ abstract class Dao {
 
 	/** Ordena pelos mais novos */
 	public function newer() {
-		$this->query->orderBy->set('id DESC');
+		$this->orderBy('id DESC');
 		return $this;
 	}
 
 	/** Ordena pelos mais antigos */
 	public function older() {
-		$this->query->orderBy->set('id ASC');
+		$this->orderBy('id ASC');
 		return $this;
+	}
+
+	public function update() {
+
+	}
+
+	public function save() {
+
+	}
+
+	/**
+	 * Exlui o registro do banco
+	 * @param Model $model
+	 * @return boolean
+	 */
+	public function delete(Model $model) {
+		$delete = new Delete($this->table);
+		$delete->showDebug($this->debug);
+		$delete->where->add('id', '=', $model->getId());
+		return static::$connection->delete($delete);
 	}
 
 }

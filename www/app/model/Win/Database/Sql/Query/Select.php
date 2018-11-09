@@ -1,29 +1,24 @@
 <?php
 
-namespace Win\Database\Sql;
+namespace Win\Database\Sql\Query;
+
+use Win\Database\Sql\OrderBy;
+use Win\Database\Sql\Query;
 
 /**
  * SELECT * FROM
  */
-class Select {
+class Select extends Query {
 
-	private $table = '';
+	/** @var string */
 	public $collumns = '*';
-
-	/** @var Where */
-	public $where;
 
 	/** @var OrderBy */
 	public $orderBy;
 
-	/** @var Limit */
-	public $limit;
-
 	public function __construct($table) {
-		$this->table = $table;
-		$this->where = new Where();
+		parent::__construct($table);
 		$this->orderBy = new OrderBy();
-		$this->limit = new Limit();
 	}
 
 	public function __toString() {

@@ -3,12 +3,13 @@
 namespace Win\Database\Dao\Page;
 
 use Win\Calendar\DateTime;
+use Win\Database\Dao\Model;
 
 /**
  * Página
  *
  */
-class Page {
+class Page implements Model {
 
 	public $id;
 	public $title;
