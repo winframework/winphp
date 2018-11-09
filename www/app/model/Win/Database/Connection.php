@@ -4,6 +4,8 @@ namespace Win\Database;
 
 use PDO;
 use PDOException;
+use Win\Database\ActiveRecord\Model;
+use Win\Database\Dao\Dao;
 use Win\DesignPattern\SingletonTrait;
 use Win\Mvc\Application;
 
@@ -43,6 +45,8 @@ abstract class Connection {
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec("set names utf8");
 			$this->pdoException = null;
+			Model::setConnection($this);
+			Dao::setConnection($this);
 		} catch (PDOException $ex) {
 			$this->pdoException = $ex;
 		}

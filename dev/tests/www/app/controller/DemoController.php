@@ -2,6 +2,8 @@
 
 namespace controller;
 
+use Win\Database\Connection\Mysql;
+use Win\Database\Dao\Page\PageDao;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Dao\Page;
+namespace Win\Database\ActiveRecord\Page;
 
 use Win\Calendar\DateTime;
 
@@ -8,14 +8,14 @@ use Win\Calendar\DateTime;
  * Página
  *
  */
-class Page {
+class Page extends \Win\Database\ActiveRecord\Model {
 
-	public $id;
-	public $title;
-	public $description;
+	private $id;
+	private $title;
+	private $description;
 
 	/** @var DateTime */
-	public $createdAt;
+	private $createdAt;
 
 	/** Construtor */
 	public function __construct() {
@@ -57,9 +57,15 @@ class Page {
 		$this->createdAt = $createdAt;
 	}
 
-	/** @return PageDao */
-	public static function dao() {
-		return PageDao::instance();
+	protected static $model = 'Páginas';
+	protected static $table = 'page';
+
+	public function mapObject($row) {
+		$page = new Page();
+		$page->setId($row['id']);
+		$page->setTitle($row['title']);
+		$page->setDescription($row['description']);
+		return $page;
 	}
 
 }

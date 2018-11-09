@@ -7,17 +7,15 @@ use Win\Database\Dao\Dao;
 /**
  * Página DAO
  *
- * @method Page[] all
- * @method Page[] latest
- * @method Page find(int $id)
- * @method Page first
- * @method Page last
+ * @method Page result
+ * @method Page[] results
  */
 class PageDao extends Dao {
 
-	protected $name = 'Páginas';
+	protected $model = 'Páginas';
 	protected $table = 'page';
 
+	/** @return Page */
 	public function mapObject($row) {
 		$page = new Page();
 		$page->setId($row['id']);
