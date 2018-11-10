@@ -1,21 +1,22 @@
 <?php
 
-namespace Win\Database\ActiveRecord\Page;
+namespace Win\Database\Orm\Page;
 
 use Win\Calendar\DateTime;
+use Win\Database\Orm\Model;
 
 /**
  * Página
  *
  */
-class Page extends \Win\Database\ActiveRecord\Model {
+class Page implements Model {
 
-	private $id;
-	private $title;
-	private $description;
+	public $id;
+	public $title;
+	public $description;
 
 	/** @var DateTime */
-	private $createdAt;
+	public $createdAt;
 
 	/** Construtor */
 	public function __construct() {
@@ -57,15 +58,9 @@ class Page extends \Win\Database\ActiveRecord\Model {
 		$this->createdAt = $createdAt;
 	}
 
-	protected static $model = 'Páginas';
-	protected static $table = 'page';
-
-	public function mapObject($row) {
-		$page = new Page();
-		$page->setId($row['id']);
-		$page->setTitle($row['title']);
-		$page->setDescription($row['description']);
-		return $page;
+	/** @return PageRepo */
+	public static function repo() {
+		return PageRepo::instance();
 	}
 
 }

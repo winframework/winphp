@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql\Query;
 
-use Win\Database\Dao\Dao;
+use Win\Database\Orm\Repository;
 use Win\Database\Sql\Limit;
 use Win\Database\Sql\OrderBy;
 use Win\Database\Sql\Query;
@@ -25,8 +25,8 @@ class Select extends Query {
 	/** @var OrderBy */
 	public $orderBy;
 
-	public function __construct(Dao $dao) {
-		parent::__construct($dao);
+	public function __construct(Repository $orm) {
+		parent::__construct($orm);
 		$this->where = new Where();
 		$this->limit = new Limit();
 		$this->orderBy = new OrderBy();

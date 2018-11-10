@@ -2,25 +2,25 @@
 
 namespace Win\Database\Sql;
 
-use Win\Database\Dao\Dao;
+use Win\Database\Orm\Repository;
 
 /**
  * SELECT, UPDATE, DELETE, etc
  */
 abstract class Query {
 
-	/** @var Dao */
-	protected $dao;
+	/** @var Repository */
+	protected $orm;
 
 	/** @var string */
 	protected $table;
 
 	/**
-	 * @param Dao $dao
+	 * @param Repository $orm
 	 */
-	public function __construct(Dao $dao) {
-		$this->dao = $dao;
-		$this->table = $this->dao->getTable();
+	public function __construct(Repository $orm) {
+		$this->orm = $orm;
+		$this->table = $this->orm->getTable();
 	}
 
 	/** @return string */
@@ -28,7 +28,7 @@ abstract class Query {
 
 	/** @return string */
 	public function __toString() {
-		if ($this->dao->getDebugMode()) {
+		if ($this->orm->getDebugMode()) {
 			$this->debug();
 		}
 		return $this->toString();

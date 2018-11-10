@@ -12,9 +12,9 @@ class Insert extends Query {
 	/** @var mixed[] */
 	protected $mapRow;
 
-	public function __construct($dao) {
-		parent::__construct($dao);
-		$this->mapRow = $dao->mapRow($dao->getModel());
+	public function __construct($orm) {
+		parent::__construct($orm);
+		$this->mapRow = $orm->mapRow($orm->getModel());
 	}
 
 	public function toString() {

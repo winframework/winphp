@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Dao;
+namespace Win\Database\Orm;
 
 interface Model {
 
@@ -10,6 +10,6 @@ interface Model {
 	/** @param int $id */
 	public function setId($id);
 
-	/** @return Dao */
-	public static function dao();
+	/** @return Repository */
+	public static function repo();
 }

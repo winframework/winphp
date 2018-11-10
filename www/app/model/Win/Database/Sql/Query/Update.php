@@ -12,9 +12,9 @@ class Update extends Query {
 	/** @var mixed[] */
 	protected $mapRow;
 
-	public function __construct($dao) {
-		parent::__construct($dao);
-		$this->mapRow = $dao->mapRow($dao->getModel());
+	public function __construct($orm) {
+		parent::__construct($orm);
+		$this->mapRow = $orm->mapRow($orm->getModel());
 	}
 
 	public function toString() {
@@ -30,7 +30,7 @@ class Update extends Query {
 
 	public function getValues() {
 		$values = array_values($this->mapRow);
-		$values[] = $this->dao->getModel()->getId();
+		$values[] = $this->orm->getModel()->getId();
 		return $values;
 	}
 

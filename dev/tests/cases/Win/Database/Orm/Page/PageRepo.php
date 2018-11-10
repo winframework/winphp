@@ -1,16 +1,16 @@
 <?php
 
-namespace Win\Database\Dao\Page;
+namespace Win\Database\Orm\Page;
 
-use Win\Database\Dao\Dao;
+use Win\Database\Orm\Repository;
 
 /**
- * Página DAO
+ * Página ORM
  *
  * @method Page result
  * @method Page[] results
  */
-class PageDao extends Dao {
+class PageRepo extends Repository {
 
 	protected $model = 'Páginas';
 	protected $table = 'page';

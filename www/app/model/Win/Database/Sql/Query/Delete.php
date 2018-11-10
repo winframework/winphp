@@ -17,8 +17,8 @@ class Delete extends Query {
 	/** @var Limit */
 	public $limit;
 
-	public function __construct($dao) {
-		parent::__construct($dao);
+	public function __construct($orm) {
+		parent::__construct($orm);
 		$this->where = new Where();
 		$this->limit = new Limit();
 	}

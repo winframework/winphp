@@ -1,13 +1,13 @@
 <?php
 
-namespace Win\Database\Dao;
+namespace Win\Database\Orm;
 
 use PHPUnit_Framework_TestCase;
 use Win\Database\Connection\Mysql;
-use Win\Database\Dao\Page\Page;
+use Win\Database\Orm\Page\Page;
 use Win\Database\DbConfig;
 
-class PageDaoTest extends PHPUnit_Framework_TestCase {
+class PageRepoTest extends PHPUnit_Framework_TestCase {
 
 	public static function setUpBeforeClass() {
 		DbConfig::connect();
@@ -37,117 +37,117 @@ class PageDaoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFind() {
-		$page = Page::dao()->find(2)->result();
+		$page = Page::repo()->find(2)->result();
 		$this->assertEquals($page->getId(), 2);
 		$this->assertEquals($page->getTitle(), 'Second Page');
 	}
 
 	public function testFirst() {
-		$page = Page::dao()->older()->result();
+		$page = Page::repo()->older()->result();
 		$this->assertEquals($page->getId(), 1);
 	}
 
 	public function testLast() {
-		$page = Page::dao()->newer()->result();
+		$page = Page::repo()->newer()->result();
 		$this->assertEquals($page->getId(), 3);
 	}
 
 	public function testAll() {
-		$pages = Page::dao()->results();
+		$pages = Page::repo()->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals($pages[0]->getTitle(), 'First Page');
 	}
 
 	public function testRecent() {
-		$pages = Page::dao()->newer()->results();
+		$pages = Page::repo()->newer()->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals($pages[0]->getTitle(), 'Third Page');
 	}
 
 	public function testOrderBy() {
-		$pages = Page::dao()->orderBy('title ASC')->results();
+		$pages = Page::repo()->orderBy('title ASC')->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals($pages[0]->getTitle(), 'First Page');
 	}
 
 	public function testFilter() {
-		$page = Page::dao()->filter('id', '=', 2)->result();
+		$page = Page::repo()->filter('id', '=', 2)->result();
 		$this->assertEquals($page->getId(), 2);
 		$this->assertEquals($page->getTitle(), 'Second Page');
 	}
 
 	public function testFilterRecent() {
-		$pages = Page::dao()->filter('id', '>', 1)->filter('id', '<', 3)->newer()->results();
+		$pages = Page::repo()->filter('id', '>', 1)->filter('id', '<', 3)->newer()->results();
 		$this->assertCount(1, $pages);
 		$this->assertEquals($pages[0]->getTitle(), 'Second Page');
 	}
 
 	public function testLimit() {
-		$pages = Page::dao()->limit(2)->results();
+		$pages = Page::repo()->limit(2)->results();
 		$this->assertCount(2, $pages);
 	}
 
 	public function testFlush() {
-		$pages = Page::dao()->filter('id', '>', 1)->results();
-		$pages2 = Page::dao()->filter('id', '>', 0)->results();
+		$pages = Page::repo()->filter('id', '>', 1)->results();
+		$pages2 = Page::repo()->filter('id', '>', 0)->results();
 
 		$this->assertCount(2, $pages);
 		$this->assertCount(3, $pages2);
 	}
 
 	public function testDelete() {
-		$pagesTotal = count(Page::dao()->results());
-		$page = Page::dao()->find(1)->result();
-		$success = Page::dao()->delete($page);
+		$pagesTotal = count(Page::repo()->results());
+		$page = Page::repo()->find(1)->result();
+		$success = Page::repo()->delete($page);
 
 		$this->assertTrue($success);
-		$this->assertCount($pagesTotal - 1, Page::dao()->results());
+		$this->assertCount($pagesTotal - 1, Page::repo()->results());
 	}
 
 	public function testDebug() {
-		Page::dao()->debug();
+		Page::repo()->debug();
 		ob_start();
-		Page::dao()->results();
+		Page::repo()->results();
 		$result = ob_get_clean();
 		$this->assertContains('SELECT * FROM', $result);
 	}
 
 	public function testDebug_Off() {
-		Page::dao()->debug();
+		Page::repo()->debug();
 		ob_start();
-		Page::dao()->debug(false);
-		Page::dao()->results();
+		Page::repo()->debug(false);
+		Page::repo()->results();
 		$empty = ob_get_clean();
 		$this->assertEmpty($empty);
 	}
 
 	public function testInsert() {
-		$pagesTotal = count(Page::dao()->results());
+		$pagesTotal = count(Page::repo()->results());
 
 		$page = new Page();
 		$page->setTitle('Fourth Page');
 		$page->setDescription('Inserted by save method');
-		$success = Page::dao()->save($page);
+		$success = Page::repo()->save($page);
 
 		$this->assertTrue($success);
 		$this->assertGreaterThan(0, $page->getId());
-		$this->assertCount($pagesTotal + 1, Page::dao()->results());
+		$this->assertCount($pagesTotal + 1, Page::repo()->results());
 	}
 
 	public function testUpdate() {
-		Page::dao()->debug();
-		$pagesTotal = count(Page::dao()->results());
+		Page::repo()->debug();
+		$pagesTotal = count(Page::repo()->results());
 
-		$page = Page::dao()->newer()->result();
+		$page = Page::repo()->newer()->result();
 		$page->setTitle('New Title');
 		$page->setDescription('Updated by save method');
-		$success = Page::dao()->save($page);
-		$pageUpdated = Page::dao()->newer()->result();
+		$success = Page::repo()->save($page);
+		$pageUpdated = Page::repo()->newer()->result();
 
 		$this->assertTrue($success);
 		$this->assertEquals('New Title', $pageUpdated->getTitle());
 		$this->assertEquals('Updated by save method', $pageUpdated->getDescription());
-		$this->assertCount($pagesTotal, Page::dao()->results());
+		$this->assertCount($pagesTotal, Page::repo()->results());
 	}
 
 }

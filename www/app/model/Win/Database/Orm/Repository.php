@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Dao;
+namespace Win\Database\Orm;
 
 use Win\Database\Connection;
 use Win\Database\Sql\Query\Delete;
@@ -10,9 +10,9 @@ use Win\Database\Sql\Query\Update;
 use Win\DesignPattern\SingletonTrait;
 
 /**
- * Database Access Object
+ * Object Relational Mapping
  */
-abstract class Dao {
+abstract class Repository {
 
 	/** @var string */
 	protected $table = null;
@@ -112,7 +112,7 @@ abstract class Dao {
 	 * Define as colunas do resultado
 	 * @param string $collumns
 	 */
-	public function select($collumns) {
+	public function collumns($collumns) {
 		$this->query->collumns = $collumns;
 		return $this;
 	}
