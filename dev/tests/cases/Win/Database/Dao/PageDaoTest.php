@@ -88,7 +88,6 @@ class PageDaoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFlush() {
-		Page::dao()->debug();
 		$pages = Page::dao()->filter('id', '>', 1)->results();
 		$pages2 = Page::dao()->filter('id', '>', 0)->results();
 
@@ -103,6 +102,52 @@ class PageDaoTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertTrue($success);
 		$this->assertCount($pagesTotal - 1, Page::dao()->results());
+	}
+
+	public function testDebug() {
+		Page::dao()->debug();
+		ob_start();
+		Page::dao()->results();
+		$result = ob_get_clean();
+		$this->assertContains('SELECT * FROM', $result);
+	}
+
+	public function testDebug_Off() {
+		Page::dao()->debug();
+		ob_start();
+		Page::dao()->debug(false);
+		Page::dao()->results();
+		$empty = ob_get_clean();
+		$this->assertEmpty($empty);
+	}
+
+	public function testInsert() {
+		$pagesTotal = count(Page::dao()->results());
+
+		$page = new Page();
+		$page->setTitle('Fourth Page');
+		$page->setDescription('Inserted by save method');
+		$success = Page::dao()->save($page);
+
+		$this->assertTrue($success);
+		$this->assertGreaterThan(0, $page->getId());
+		$this->assertCount($pagesTotal + 1, Page::dao()->results());
+	}
+
+	public function testUpdate() {
+		Page::dao()->debug();
+		$pagesTotal = count(Page::dao()->results());
+
+		$page = Page::dao()->newer()->result();
+		$page->setTitle('New Title');
+		$page->setDescription('Updated by save method');
+		$success = Page::dao()->save($page);
+		$pageUpdated = Page::dao()->newer()->result();
+
+		$this->assertTrue($success);
+		$this->assertEquals('New Title', $pageUpdated->getTitle());
+		$this->assertEquals('Updated by save method', $pageUpdated->getDescription());
+		$this->assertCount($pagesTotal, Page::dao()->results());
 	}
 
 }

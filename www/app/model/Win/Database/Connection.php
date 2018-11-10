@@ -92,10 +92,12 @@ abstract class Connection {
 
 	/**
 	 * @param string $query
+	 * @param mixed[] $values
 	 * @return boolean
 	 */
-	public function insert($query) {
-		return $this->query($query);
+	public function insert($query, $values) {
+		$stmt = $this->pdo->prepare($query);
+		return $stmt->execute($values);
 	}
 
 	/**
@@ -112,6 +114,11 @@ abstract class Connection {
 	 */
 	public function delete($query) {
 		return $this->query($query);
+	}
+
+	/** @return int */
+	public function getLastInsertId() {
+		return $this->pdo->lastInsertId();
 	}
 
 }

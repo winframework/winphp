@@ -16,12 +16,21 @@ class PageDao extends Dao {
 	protected $table = 'page';
 
 	/** @return Page */
-	public function mapObject($row) {
+	public function mapModel($row) {
 		$page = new Page();
 		$page->setId($row['id']);
 		$page->setTitle($row['title']);
 		$page->setDescription($row['description']);
 		return $page;
+	}
+
+	/** @param Page $model */
+	public function mapRow($model) {
+		$row = [];
+		$row['id'] = $model->getId();
+		$row['title'] = $model->getTitle();
+		$row['description'] = $model->getDescription();
+		return $row;
 	}
 
 }

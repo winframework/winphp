@@ -2,6 +2,7 @@
 
 namespace Win\Database\Sql\Query;
 
+use Win\Database\Dao\Dao;
 use Win\Database\Sql\Limit;
 use Win\Database\Sql\OrderBy;
 use Win\Database\Sql\Query;
@@ -24,14 +25,14 @@ class Select extends Query {
 	/** @var OrderBy */
 	public $orderBy;
 
-	public function __construct($table) {
-		parent::__construct($table);
+	public function __construct(Dao $dao) {
+		parent::__construct($dao);
 		$this->where = new Where();
 		$this->limit = new Limit();
 		$this->orderBy = new OrderBy();
 	}
 
-	public function __toString() {
+	public function toString() {
 		return 'SELECT ' . $this->collumns . ' FROM '
 				. $this->table
 				. $this->where

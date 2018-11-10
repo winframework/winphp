@@ -4,7 +4,9 @@ namespace Win\Database\Dao;
 
 use Win\Database\Connection;
 use Win\Database\Sql\Query\Delete;
+use Win\Database\Sql\Query\Insert;
 use Win\Database\Sql\Query\Select;
+use Win\Database\Sql\Query\Update;
 use Win\DesignPattern\SingletonTrait;
 
 /**
@@ -12,14 +14,17 @@ use Win\DesignPattern\SingletonTrait;
  */
 abstract class Dao {
 
-	protected $model = null;
+	/** @var string */
 	protected $table = null;
 
+	/** @var Model */
+	protected $model = null;
+
 	/** @var boolean */
-	protected $debug = 0;
+	protected $debug = false;
 
 	/** @var Connection */
-	protected static $connection = null;
+	protected static $db = null;
 
 	use SingletonTrait {
 		__construct as finalConstruct;
@@ -32,17 +37,26 @@ abstract class Dao {
 		$this->flushQuery();
 	}
 
-	/** @param Connection $connection */
-	public static function setConnection(Connection $connection) {
-		static::$connection = $connection;
+	/** @param Connection $db */
+	public static function setConnection(Connection $db) {
+		static::$db = $db;
 	}
 
-	/** @param string[] $row */
-	abstract public function mapObject($row);
+	/**
+	 * @param mixed[] $row
+	 * @return Model
+	 */
+	abstract public function mapModel($row);
+
+	/**
+	 * @param Model $model
+	 * @return mixed[]
+	 */
+	abstract public function mapRow($model);
 
 	/** Limpa o select sql */
 	private function flushQuery() {
-		$this->query = new Select($this->table);
+		$this->query = new Select($this);
 	}
 
 	/** @param boolean $debug */
@@ -50,28 +64,46 @@ abstract class Dao {
 		$this->debug = $debug;
 	}
 
+	/** @return string */
+	public function getTable() {
+		return $this->table;
+	}
+
+	/** @return Model */
+	public function getModel() {
+		return $this->model;
+	}
+
+	/** @return boolean */
+	public function getDebugMode() {
+		return $this->debug;
+	}
+
+	/** @return boolean */
+	public function modelExists() {
+		return ($this->model->getId() > 0);
+	}
+
 	/**
 	 * Retorna o primeiro resultado da consulta
-	 * @return object
+	 * @return Model
 	 */
 	public function result() {
-		$this->query->showDebug($this->debug);
-		$rows = static::$connection->select($this->query);
+		$rows = static::$db->select($this->query);
 		$this->flushQuery();
-		return $this->mapObject($rows[0]);
+		return $this->mapModel($rows[0]);
 	}
 
 	/**
 	 * Retorna todos os resultado da consulta
-	 * return array
+	 * @return Model[]
 	 */
 	public function results() {
-		$this->query->showDebug($this->debug);
-		$rows = static::$connection->select($this->query);
+		$rows = static::$db->select($this->query);
 		$this->flushQuery();
 		$all = [];
 		foreach ($rows as $row) {
-			$all[] = $this->mapObject($row);
+			$all[] = $this->mapModel($row);
 		}
 		return $all;
 	}
@@ -142,12 +174,38 @@ abstract class Dao {
 		return $this;
 	}
 
-	public function update() {
-
+	/**
+	 * @param Model $model
+	 * @return boolean
+	 */
+	public function save(Model $model) {
+		$this->model = $model;
+		return $this->insertOrUpdate();
 	}
 
-	public function save() {
+	/** @return boolean */
+	private function insertOrUpdate() {
+		if (!$this->modelExists()) {
+			$success = $this->insert();
+		} else {
+			$success = $this->update();
+		}
+		return $success;
+	}
 
+	/** @return boolean */
+	private function insert() {
+		$query = new Insert($this);
+		$success = static::$db->insert($query, $query->getValues());
+		$this->model->setId(static::$db->getLastInsertId());
+		return $success;
+	}
+
+	/** @return boolean */
+	public function update() {
+		$mapRow = $this->mapRow($this->model);
+		$query = new Update($this, $mapRow);
+		return static::$db->insert($query, $query->getValues());
 	}
 
 	/**
@@ -156,10 +214,9 @@ abstract class Dao {
 	 * @return boolean
 	 */
 	public function delete(Model $model) {
-		$delete = new Delete($this->table);
-		$delete->showDebug($this->debug);
-		$delete->where->add('id', '=', $model->getId());
-		return static::$connection->delete($delete);
+		$query = new Delete($this);
+		$query->where->add('id', '=', $model->getId());
+		return static::$db->delete($query);
 	}
 
 }

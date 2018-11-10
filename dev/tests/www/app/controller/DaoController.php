@@ -20,8 +20,15 @@ class DaoController extends Controller {
 		Mysql::instance()->connect($db);
 
 		Page::dao()->debug();
-		$pages = Page::dao()->results();
-		var_dump($pages);
+		$pagesTotal = count(Page::dao()->results());
+
+		$page = new Page();
+		$page->setTitle('Fourth Page');
+		$page->setDescription('Inserted by save method');
+		$success = Page::dao()->save($page);
+
+		$this->assertTrue($success);
+		$this->assertCount($pagesTotal + 1, Page::dao()->results());
 	}
 
 }

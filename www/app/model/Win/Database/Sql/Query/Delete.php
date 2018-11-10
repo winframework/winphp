@@ -17,13 +17,13 @@ class Delete extends Query {
 	/** @var Limit */
 	public $limit;
 
-	public function __construct($table) {
-		parent::__construct($table);
+	public function __construct($dao) {
+		parent::__construct($dao);
 		$this->where = new Where();
 		$this->limit = new Limit();
 	}
 
-	public function __toString() {
+	public function toString() {
 		return 'DELETE FROM '
 				. $this->table
 				. $this->where
