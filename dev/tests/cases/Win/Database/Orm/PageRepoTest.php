@@ -36,50 +36,55 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testNumRows() {
+		$count = Page::repo()->filter('id', '>', 1)->numRows();
+		$this->assertEquals(2, $count);
+	}
+
 	public function testFind() {
 		$page = Page::repo()->find(2)->result();
-		$this->assertEquals($page->getId(), 2);
-		$this->assertEquals($page->getTitle(), 'Second Page');
+		$this->assertEquals(2, $page->getId());
+		$this->assertEquals('Second Page', $page->getTitle());
 	}
 
 	public function testFirst() {
 		$page = Page::repo()->older()->result();
-		$this->assertEquals($page->getId(), 1);
+		$this->assertEquals(1, $page->getId());
 	}
 
 	public function testLast() {
 		$page = Page::repo()->newer()->result();
-		$this->assertEquals($page->getId(), 3);
+		$this->assertEquals(3, $page->getId());
 	}
 
 	public function testAll() {
 		$pages = Page::repo()->results();
 		$this->assertTrue(count($pages) > 1);
-		$this->assertEquals($pages[0]->getTitle(), 'First Page');
+		$this->assertEquals('First Page', $pages[0]->getTitle());
 	}
 
 	public function testRecent() {
 		$pages = Page::repo()->newer()->results();
 		$this->assertTrue(count($pages) > 1);
-		$this->assertEquals($pages[0]->getTitle(), 'Third Page');
+		$this->assertEquals('Third Page', $pages[0]->getTitle());
 	}
 
 	public function testOrderBy() {
 		$pages = Page::repo()->orderBy('title ASC')->results();
 		$this->assertTrue(count($pages) > 1);
-		$this->assertEquals($pages[0]->getTitle(), 'First Page');
+		$this->assertEquals('First Page', $pages[0]->getTitle());
 	}
 
 	public function testFilter() {
 		$page = Page::repo()->filter('id', '=', 2)->result();
 		$this->assertEquals($page->getId(), 2);
-		$this->assertEquals($page->getTitle(), 'Second Page');
+		$this->assertEquals('Second Page', $page->getTitle());
 	}
 
 	public function testFilterRecent() {
 		$pages = Page::repo()->filter('id', '>', 1)->filter('id', '<', 3)->newer()->results();
 		$this->assertCount(1, $pages);
-		$this->assertEquals($pages[0]->getTitle(), 'Second Page');
+		$this->assertEquals('Second Page', $pages[0]->getTitle());
 	}
 
 	public function testLimit() {

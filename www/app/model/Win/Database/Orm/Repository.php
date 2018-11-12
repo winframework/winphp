@@ -108,6 +108,14 @@ abstract class Repository {
 		return $all;
 	}
 
+	/** @return int */
+	public function numRows() {
+		$this->query->collumns = 'count(*)';
+		$count = static::$db->count($this->query);
+		$this->flushQuery();
+		return $count;
+	}
+
 	/**
 	 * Define as colunas do resultado
 	 * @param string $collumns

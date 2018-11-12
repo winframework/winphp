@@ -71,23 +71,43 @@ abstract class Connection {
 
 	/**
 	 * @param string $query
-	 * @return mixed[]
+	 * @param string $values
+	 * @return boolean
 	 */
-	public function select($query) {
-		$result = $this->getPdo()->query($query);
-		$rows = [];
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$rows[] = $row;
-		}
-		return $rows;
+	public function query($query, $values = []) {
+		$stmt = $this->pdo->prepare($query);
+		return $stmt->execute($values);
 	}
 
 	/**
 	 * @param string $query
-	 * @return boolean
+	 * @param string $values
+	 * @return \PDOStatement
 	 */
-	public function query($query) {
-		return (boolean) $this->getPdo()->exec($query);
+	public function stmt($query, $values = []) {
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute($values);
+		return $stmt;
+	}
+
+	/**
+	 * @param string $query
+	 * @param mixed[] $values
+	 * @return mixed[]
+	 */
+	public function select($query, $values = []) {
+		$stmt = $this->stmt($query, $values);
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * @param string $query
+	 * @param mixed[] $values
+	 * @return mixed[]
+	 */
+	public function count($query, $values) {
+		$stmt = $this->stmt($query, $values);
+		return $stmt->fetchColumn();
 	}
 
 	/**
@@ -95,25 +115,25 @@ abstract class Connection {
 	 * @param mixed[] $values
 	 * @return boolean
 	 */
-	public function insert($query, $values) {
-		$stmt = $this->pdo->prepare($query);
-		return $stmt->execute($values);
+	public function insert($query, $values = []) {
+		return $this->query($query, $values);
 	}
 
 	/**
 	 * @param string $query
 	 * @return boolean
 	 */
-	public function update($query) {
-		return $this->query($query);
+	public function update($query, $values = []) {
+		return $this->query($query, $values);
 	}
 
 	/**
 	 * @param string $query
+	 * @param mixed[] $values
 	 * @return boolean
 	 */
-	public function delete($query) {
-		return $this->query($query);
+	public function delete($query, $values = []) {
+		return $this->query($query, $values);
 	}
 
 	/** @return int */

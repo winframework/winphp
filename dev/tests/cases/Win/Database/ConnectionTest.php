@@ -103,25 +103,31 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse($success);
 	}
 
+	public function testTruncate() {
+		$query = 'TRUNCATE TABLE child';
+		$success = static::$connection->query($query);
+		$this->assertTrue($success);
+	}
+
 	public function testInsert() {
-		$query = 'INSERT INTO child VALUES(10)';
-		$success = static::$connection->insert($query);
+		$query = 'INSERT INTO child VALUES(?)';
+		$success = static::$connection->insert($query, [10]);
 		$this->assertTrue($success);
 	}
 
 	public function testSelect() {
 		$this->testInsert();
-		$query = 'SELECT * FROM child WHERE age = 10';
-		$rows = static::$connection->select($query);
+		$query = 'SELECT * FROM child WHERE age = ?';
+		$rows = static::$connection->select($query, [10]);
 		$this->assertCount(2, $rows);
 		$this->assertEquals(10, $rows[0]['age']);
 	}
 
 	public function testUpdate() {
 		$this->testInsert();
-		$query = 'UPDATE child SET age = 1 WHERE age = 10 LIMIT 1';
-		$success = static::$connection->update($query);
-		$rows = static::$connection->select('SELECT * FROM child WHERE age = 1');
+		$query = 'UPDATE child SET age = ? WHERE age = ? LIMIT 1';
+		$success = static::$connection->update($query, [1, 10]);
+		$rows = static::$connection->select('SELECT * FROM child WHERE age = ?', [1]);
 
 		$this->assertTrue($success);
 		$this->assertCount(1, $rows);
@@ -129,10 +135,17 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDelete() {
-		$success = static::$connection->delete('DELETE FROM child');
+		$success = static::$connection->delete('DELETE FROM child WHERE age = ? LIMIT 1', [10]);
 		$rows = static::$connection->select('SELECT * FROM child');
 		$this->assertTrue($success);
-		$this->assertCount(0, $rows);
+		$this->assertCount(2, $rows);
+	}
+
+	public function testNumRows() {
+		$count1 = static::$connection->count('SELECT count(*) FROM child WHERE age = ?', [1]);
+		$count2 = static::$connection->count('SELECT count(*) FROM child WHERE age >= ?', [1]);
+		$this->assertEquals(1, $count1);
+		$this->assertEquals(2, $count2);
 	}
 
 }
