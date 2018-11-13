@@ -119,10 +119,19 @@ abstract class Repository {
 
 	/**
 	 * Define as colunas do resultado
-	 * @param string $collumns
+	 * @param string[] $collumns
 	 */
-	public function collumns($collumns) {
+	public function setCollumns($collumns) {
 		$this->query->collumns = $collumns;
+		return $this;
+	}
+
+	/**
+	 * Adiciona uma coluna do resultado
+	 * @param string $collumn
+	 */
+	public function addCollumn($collumn) {
+		$this->query->collumns[] = $collumn;
 		return $this;
 	}
 

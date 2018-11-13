@@ -13,7 +13,7 @@ use Win\Database\Sql\Query;
  */
 class Select extends Query {
 
-	/** @var string */
+	/** @var string[] */
 	public $collumns;
 
 	/** @var Where */
@@ -25,13 +25,13 @@ class Select extends Query {
 	/** @var OrderBy */
 	public $orderBy;
 
-	public function __construct(Repository $orm) {
-		parent::__construct($orm);
-		$this->flush();
+	public function __construct(Repository $repo) {
+		parent::__construct($repo);
+		$this->init();
 	}
 
-	protected function flush() {
-		$this->collumns = '*';
+	protected function init() {
+		$this->collumns = ['*'];
 		$this->where = new Where();
 		$this->limit = new Limit();
 		$this->orderBy = new OrderBy();
@@ -39,7 +39,7 @@ class Select extends Query {
 
 	/** @return string */
 	public function toString() {
-		return 'SELECT ' . $this->collumns . ' FROM '
+		return 'SELECT ' . implode(',', $this->collumns) . ' FROM '
 				. $this->table
 				. $this->where
 				. $this->orderBy
@@ -53,16 +53,16 @@ class Select extends Query {
 
 	/** @return int */
 	public function count() {
-		$this->collumns = 'count(*)';
+		$this->collumns = ['count(*)'];
 		$stmt = $this->connection->stmt($this, $this->getValues());
-		$this->flush();
+		$this->init();
 		return $stmt->fetchColumn();
 	}
 
 	/** @return mixed[] */
 	public function execute() {
 		$all = $this->connection->fetchAll($this, $this->getValues());
-		$this->flush();
+		$this->init();
 		return $all;
 	}
 
