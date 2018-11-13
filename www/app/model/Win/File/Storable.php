@@ -6,10 +6,10 @@ use Win\Calendar\DateTime;
 use const BASE_PATH;
 
 /**
- * Item dentro do Diretório
+ * Item armazenável dentro do Diretório
  * São outros diretório, arquivos, etc
  */
-abstract class DirectoryItem implements DirectoryItemInterface {
+abstract class Storable {
 
 	const REGEXP_PATH = '@^(([a-zA-Z0-9._\-][\/]?))+$@';
 	const REGEXP_NAME = '@^(([a-zA-Z0-9._\-]?))+$@';

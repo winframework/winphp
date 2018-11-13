@@ -4,6 +4,7 @@ namespace Win\Database;
 
 use PDO;
 use PDOException;
+use PDOStatement;
 use Win\Database\ActiveRecord\Model;
 use Win\Database\Orm\Repository;
 use Win\DesignPattern\SingletonTrait;
@@ -82,7 +83,7 @@ abstract class Connection {
 	/**
 	 * @param string $query
 	 * @param string $values
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
 	public function stmt($query, $values = []) {
 		$stmt = $this->pdo->prepare($query);
@@ -92,10 +93,10 @@ abstract class Connection {
 
 	/**
 	 * @param string $query
-	 * @param mixed[] $values
+	 * @param string $values
 	 * @return mixed[]
 	 */
-	public function select($query, $values = []) {
+	public function fetchAll($query, $values = []) {
 		$stmt = $this->stmt($query, $values);
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -103,37 +104,11 @@ abstract class Connection {
 	/**
 	 * @param string $query
 	 * @param mixed[] $values
-	 * @return mixed[]
+	 * @return int
 	 */
-	public function count($query, $values) {
+	public function fetchCount($query, $values) {
 		$stmt = $this->stmt($query, $values);
 		return $stmt->fetchColumn();
-	}
-
-	/**
-	 * @param string $query
-	 * @param mixed[] $values
-	 * @return boolean
-	 */
-	public function insert($query, $values = []) {
-		return $this->query($query, $values);
-	}
-
-	/**
-	 * @param string $query
-	 * @return boolean
-	 */
-	public function update($query, $values = []) {
-		return $this->query($query, $values);
-	}
-
-	/**
-	 * @param string $query
-	 * @param mixed[] $values
-	 * @return boolean
-	 */
-	public function delete($query, $values = []) {
-		return $this->query($query, $values);
 	}
 
 	/** @return int */

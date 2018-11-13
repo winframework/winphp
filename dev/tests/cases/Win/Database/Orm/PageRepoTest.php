@@ -37,8 +37,15 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNumRows() {
+		Page::repo()->debug();
 		$count = Page::repo()->filter('id', '>', 1)->numRows();
 		$this->assertEquals(2, $count);
+	}
+
+	public function testAll() {
+		$pages = Page::repo()->results();
+		$this->assertTrue(count($pages) > 1);
+		$this->assertEquals('First Page', $pages[0]->getTitle());
 	}
 
 	public function testFind() {
@@ -55,12 +62,6 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	public function testLast() {
 		$page = Page::repo()->newer()->result();
 		$this->assertEquals(3, $page->getId());
-	}
-
-	public function testAll() {
-		$pages = Page::repo()->results();
-		$this->assertTrue(count($pages) > 1);
-		$this->assertEquals('First Page', $pages[0]->getTitle());
 	}
 
 	public function testRecent() {

@@ -9,7 +9,7 @@ use const BASE_PATH;
  * Diretório de Arquivos
  *
  */
-class Directory extends DirectoryItem {
+class Directory extends Storable {
 
 	/**
 	 * Instância um diretório

@@ -8,7 +8,7 @@ use Exception;
  * Arquivos
  *
  */
-class File extends DirectoryItem {
+class File extends Storable {
 
 	/**
 	 * Instância um novo arquivo

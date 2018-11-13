@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Html\Form\Input;
+namespace Win\Html\Form;
 
 use Win\Request\Input;
 

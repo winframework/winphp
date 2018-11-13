@@ -139,8 +139,8 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$file->write('file content');
 
 		$items = static::$dir->getItems();
-		$this->assertInstanceOf(DirectoryItem::class, $items[0]);
-		$this->assertInstanceOf(DirectoryItem::class, $items[1]);
+		$this->assertInstanceOf(Storable::class, $items[0]);
+		$this->assertInstanceOf(Storable::class, $items[1]);
 
 		$this->assertInstanceOf(File::class, $items[0]);
 		$this->assertInstanceOf(Directory::class, $items[1]);

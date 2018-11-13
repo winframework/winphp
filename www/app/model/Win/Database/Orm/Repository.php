@@ -3,10 +3,10 @@
 namespace Win\Database\Orm;
 
 use Win\Database\Connection;
-use Win\Database\Sql\Query\Delete;
-use Win\Database\Sql\Query\Insert;
-use Win\Database\Sql\Query\Select;
-use Win\Database\Sql\Query\Update;
+use Win\Database\Sql\Delete;
+use Win\Database\Sql\Insert;
+use Win\Database\Sql\Select;
+use Win\Database\Sql\Update;
 use Win\DesignPattern\SingletonTrait;
 
 /**
@@ -34,12 +34,17 @@ abstract class Repository {
 	private $query;
 
 	public function __construct() {
-		$this->flushQuery();
+		$this->query = new Select($this);
 	}
 
 	/** @param Connection $db */
 	public static function setConnection(Connection $db) {
 		static::$db = $db;
+	}
+
+	/** @return Connection */
+	public static function getConnection() {
+		return static::$db;
 	}
 
 	/**
@@ -54,9 +59,9 @@ abstract class Repository {
 	 */
 	abstract public function mapRow($model);
 
-	/** Limpa o select sql */
-	private function flushQuery() {
-		$this->query = new Select($this);
+	/** @return mixed[] */
+	public function getRowValues() {
+		return $this->mapRow($this->getModel());
 	}
 
 	/** @param boolean $debug */
@@ -89,8 +94,7 @@ abstract class Repository {
 	 * @return Model
 	 */
 	public function result() {
-		$rows = static::$db->select($this->query);
-		$this->flushQuery();
+		$rows = $this->query->execute();
 		return $this->mapModel($rows[0]);
 	}
 
@@ -99,8 +103,7 @@ abstract class Repository {
 	 * @return Model[]
 	 */
 	public function results() {
-		$rows = static::$db->select($this->query);
-		$this->flushQuery();
+		$rows = $this->query->execute();
 		$all = [];
 		foreach ($rows as $row) {
 			$all[] = $this->mapModel($row);
@@ -110,9 +113,7 @@ abstract class Repository {
 
 	/** @return int */
 	public function numRows() {
-		$this->query->collumns = 'count(*)';
-		$count = static::$db->count($this->query);
-		$this->flushQuery();
+		$count = $this->query->count();
 		return $count;
 	}
 
@@ -204,16 +205,15 @@ abstract class Repository {
 	/** @return boolean */
 	private function insert() {
 		$query = new Insert($this);
-		$success = static::$db->insert($query, $query->getValues());
+		$success = $query->execute();
 		$this->model->setId(static::$db->getLastInsertId());
 		return $success;
 	}
 
 	/** @return boolean */
 	public function update() {
-		$mapRow = $this->mapRow($this->model);
-		$query = new Update($this, $mapRow);
-		return static::$db->insert($query, $query->getValues());
+		$query = new Update($this);
+		return $query->execute();
 	}
 
 	/**
@@ -224,7 +224,7 @@ abstract class Repository {
 	public function delete(Model $model) {
 		$query = new Delete($this);
 		$query->where->add('id', '=', $model->getId());
-		return static::$db->delete($query);
+		return $query->execute();
 	}
 
 }

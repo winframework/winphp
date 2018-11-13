@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Sql;
+namespace Win\Database\Sql\Clause;
 
 /**
  * WHERE id = ?
@@ -8,6 +8,7 @@ namespace Win\Database\Sql;
 class Where {
 
 	private $filters;
+	private $values;
 
 	public function __construct() {
 		$this->filters = [];
@@ -21,7 +22,12 @@ class Where {
 	}
 
 	public function add($collumn, $operator, $value) {
-		$this->filters[] = $collumn . $operator . $value;
+		$this->filters[] = $collumn . $operator . '?';
+		$this->values[] = $value;
+	}
+
+	public function values() {
+		return $this->values;
 	}
 
 }

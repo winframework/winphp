@@ -111,14 +111,14 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 
 	public function testInsert() {
 		$query = 'INSERT INTO child VALUES(?)';
-		$success = static::$connection->insert($query, [10]);
+		$success = static::$connection->query($query, [10]);
 		$this->assertTrue($success);
 	}
 
 	public function testSelect() {
 		$this->testInsert();
 		$query = 'SELECT * FROM child WHERE age = ?';
-		$rows = static::$connection->select($query, [10]);
+		$rows = static::$connection->fetchAll($query, [10]);
 		$this->assertCount(2, $rows);
 		$this->assertEquals(10, $rows[0]['age']);
 	}
@@ -126,8 +126,8 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	public function testUpdate() {
 		$this->testInsert();
 		$query = 'UPDATE child SET age = ? WHERE age = ? LIMIT 1';
-		$success = static::$connection->update($query, [1, 10]);
-		$rows = static::$connection->select('SELECT * FROM child WHERE age = ?', [1]);
+		$success = static::$connection->query($query, [1, 10]);
+		$rows = static::$connection->fetchAll('SELECT * FROM child WHERE age = ?', [1]);
 
 		$this->assertTrue($success);
 		$this->assertCount(1, $rows);
@@ -135,15 +135,15 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDelete() {
-		$success = static::$connection->delete('DELETE FROM child WHERE age = ? LIMIT 1', [10]);
-		$rows = static::$connection->select('SELECT * FROM child');
+		$success = static::$connection->query('DELETE FROM child WHERE age = ? LIMIT 1', [10]);
+		$rows = static::$connection->fetchAll('SELECT * FROM child');
 		$this->assertTrue($success);
 		$this->assertCount(2, $rows);
 	}
 
 	public function testNumRows() {
-		$count1 = static::$connection->count('SELECT count(*) FROM child WHERE age = ?', [1]);
-		$count2 = static::$connection->count('SELECT count(*) FROM child WHERE age >= ?', [1]);
+		$count1 = static::$connection->fetchCount('SELECT count(*) FROM child WHERE age = ?', [1]);
+		$count2 = static::$connection->fetchCount('SELECT count(*) FROM child WHERE age >= ?', [1]);
 		$this->assertEquals(1, $count1);
 		$this->assertEquals(2, $count2);
 	}
