@@ -4,7 +4,7 @@ namespace Win\Database;
 
 use PDO;
 use PHPUnit_Framework_TestCase;
-use Win\Database\Connection\Mysql;
+use Win\Database\Mysql;
 use Win\Database\DbConfig;
 use Win\Mvc\Application;
 use Win\Mvc\ApplicationTest;

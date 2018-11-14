@@ -3,7 +3,7 @@
 namespace Win\Database\Orm;
 
 use PHPUnit_Framework_TestCase;
-use Win\Database\Connection\Mysql;
+use Win\Database\Mysql;
 use Win\Database\Orm\Page\Page;
 use Win\Database\DbConfig;
 
@@ -22,9 +22,7 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 			`title` varchar(75) NOT NULL,
 			`description` text NOT NULL,
 			`created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-"
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
 		);
 	}
 

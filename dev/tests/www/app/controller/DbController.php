@@ -2,7 +2,7 @@
 
 namespace controller;
 
-use Win\Database\Connection\Mysql;
+use Win\Database\Mysql;
 use Win\Database\Orm\Page\Page;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
