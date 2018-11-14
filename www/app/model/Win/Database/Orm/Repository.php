@@ -64,9 +64,14 @@ abstract class Repository {
 		return $this->mapRow($this->getModel());
 	}
 
-	/** @param boolean $debug */
-	public function debug($debug = true) {
-		$this->debug = $debug;
+	/** Liga o debug */
+	public function debugOn() {
+		$this->debug = true;
+	}
+
+	/** Desliga o debug */
+	public function debugOff() {
+		$this->debug = false;
 	}
 
 	/** @return string */

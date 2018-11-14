@@ -35,7 +35,7 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNumRows() {
-		Page::repo()->debug();
+		Page::repo()->debugOn();
 		$count = Page::repo()->filter('id', '>', 1)->numRows();
 		$this->assertEquals(2, $count);
 	}
@@ -109,7 +109,7 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDebug() {
-		Page::repo()->debug();
+		Page::repo()->debugOn();
 		ob_start();
 		Page::repo()->results();
 		$result = ob_get_clean();
@@ -117,9 +117,9 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDebug_Off() {
-		Page::repo()->debug();
+		Page::repo()->debugOn();
 		ob_start();
-		Page::repo()->debug(false);
+		Page::repo()->debugOff();
 		Page::repo()->results();
 		$empty = ob_get_clean();
 		$this->assertEmpty($empty);
@@ -139,7 +139,7 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdate() {
-		Page::repo()->debug();
+		Page::repo()->debugOn();
 		$pagesTotal = count(Page::repo()->results());
 
 		$page = Page::repo()->newer()->result();
