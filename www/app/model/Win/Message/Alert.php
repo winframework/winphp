@@ -34,14 +34,12 @@ class Alert {
 	 * @param string $type
 	 */
 	public function add($message, $type = 'default') {
-		$messages = $this->session->get($type, []);
-		array_push($messages, $message);
-		$this->session->set($type, $messages);
+		$this->session->add($type, $message);
 	}
 
 	/** @return mixed[] */
 	public function all() {
-		return $this->session->all(true);
+		return $this->session->popAll();
 	}
 
 	/**
@@ -50,7 +48,7 @@ class Alert {
 	 * @param string $type
 	 */
 	public function get($type) {
-		return $this->session->get($type, null, true);
+		return $this->session->pop($type, null);
 	}
 
 	/** Limpa mensagens */
@@ -63,7 +61,7 @@ class Alert {
 	 * @return Block
 	 */
 	public function html() {
-		return new Block('layout/html/alerts', ['alerts' => $this->session->all(true)]);
+		return new Block('layout/html/alerts', ['alerts' => $this->all()]);
 	}
 
 	/** @param string $message */

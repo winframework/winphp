@@ -91,4 +91,29 @@ class DataTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(null, $data->get('a.b.b'));
 	}
 
+	public function testHas() {
+		$session = Data::instance();
+		$session->clear();
+		$session->set('a.b', 2);
+		$this->assertTrue($session->has('a'));
+		$this->assertTrue($session->has('a.b'));
+	}
+
+	public function testNotHas() {
+		$session = Data::instance();
+		$session->clear();
+		$session->set('a.b', 2);
+		$this->assertFalse($session->has('c'));
+		$this->assertFalse($session->has('a.c'));
+	}
+
+	public function testAdd() {
+		$session = Data::instance();
+		$session->clear();
+		$session->set('a', 2);
+		$session->add('a', 3);
+		$session->add('a', 4);
+		$this->assertCount(3, $session->get('a'));
+	}
+
 }

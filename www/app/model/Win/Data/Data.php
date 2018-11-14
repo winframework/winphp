@@ -14,7 +14,10 @@ class Data implements DataInterface {
 	/** @var mixed[] */
 	protected $data = [];
 
-	/** @return mixed[] */
+	/**
+	 * Retorna todas as variáveis
+	 * @return mixed[]
+	 */
 	public function all() {
 		return $this->data;
 	}
@@ -41,6 +44,17 @@ class Data implements DataInterface {
 	}
 
 	/**
+	 * Adiciona um valor ao array
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	public function add($key, $value) {
+		$values = $this->getArray($key);
+		array_push($values, $value);
+		$this->set($key, $values);
+	}
+
+	/**
 	 * Retorna um valor
 	 * @param string $key
 	 * @param string $default Valor default, caso a $key não exista
@@ -58,9 +72,27 @@ class Data implements DataInterface {
 		return $data;
 	}
 
+	/**
+	 * Retorna sempre um array
+	 * @param mixed $key
+	 * @return mixed[]
+	 */
+	private function getArray($key) {
+		$values = $this->get($key, []);
+		if (!is_array($values) && $this->has($key)) {
+			$values = [$this->get($key)];
+		}
+		return $values;
+	}
+
 	/** @param string $key */
 	public function delete($key) {
 		unset($this->data[$key]);
+	}
+
+	/** @return boolean */
+	public function has($key) {
+		return (!is_null($this->get($key, null)));
 	}
 
 }

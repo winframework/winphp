@@ -15,16 +15,16 @@ use Win\DesignPattern\SingletonTrait;
 abstract class Repository {
 
 	/** @var string */
-	protected $table = null;
+	protected $table;
 
 	/** @var Model */
-	protected $model = null;
+	protected $model;
 
 	/** @var boolean */
-	protected $debug = false;
+	protected $debug;
 
 	/** @var Connection */
-	protected static $db = null;
+	protected static $db;
 
 	use SingletonTrait {
 		__construct as finalConstruct;

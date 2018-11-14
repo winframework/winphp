@@ -21,35 +21,25 @@ class Session extends Data {
 	}
 
 	/**
-	 * Retorna todas variáveis da sessão
-	 * @param boolean $clear TRUE irá também limpar a sessão
+	 * Retorna todas variáveis da sessão e limpa a sessão
 	 * @return mixed[]
 	 */
-	public function all($clear = false) {
-		$values = parent::all();
-		if ($clear) {
-			$this->clear();
-		}
+	public function popAll() {
+		$values = $this->all();
+		$this->clear();
 		return $values;
 	}
 
 	/**
+	 * Retorna a variável da sessão e a remove
 	 * @param string $key
 	 * @param mixed $default
-	 * @param boolean $delete TRUE também irá remover a variável
 	 * @return mixed
 	 */
-	public function get($key, $default = '', $delete = false) {
-		$value = parent::get($key, $default);
-		if ($delete) {
-			$this->delete($key);
-		}
+	public function pop($key, $default = '') {
+		$value = $this->get($key, $default);
+		$this->delete($key);
 		return $value;
-	}
-
-	/** @return boolean */
-	public function has($key) {
-		return (!is_null($this->get($key, null)));
 	}
 
 }
