@@ -81,7 +81,12 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFilterRecent() {
-		$pages = Page::repo()->filter('id', '>', 1)->filter('id', '<', 3)->newer()->results();
+		$repo = Page::repo();
+		$repo->filter('id', '>', 1);
+		$repo->filter('id', '<', 3);
+		$repo->newer();
+
+		$pages = $repo->results();
 		$this->assertCount(1, $pages);
 		$this->assertEquals('Second Page', $pages[0]->getTitle());
 	}

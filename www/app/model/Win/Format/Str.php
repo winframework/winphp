@@ -2,6 +2,9 @@
 
 namespace Win\Format;
 
+define('Win\Format\TRUNCATE_BEFORE', 0);
+define('Win\Format\TRUNCATE_AFTER', 1);
+
 /**
  * Manipulador de Strings
  */
@@ -57,27 +60,47 @@ class Str {
 	 */
 	public static function lowerCamel($string) {
 		preg_match("/^_*/", $string, $begin);
-		return $begin[0] . preg_replace("/[^a-zA-Z0-9]/", ''
-						, (lcfirst(ucwords(strtolower(trim(str_replace(['-', '_'], ' ', $string)))))));
+		return $begin[0] . lcfirst(static::camel($string));
+	}
+
+	/**
+	 * @param string $string
+	 * @return string
+	 */
+	public static function camel($string) {
+		return preg_replace("/[^a-zA-Z0-9]/", '', ucwords(strtolower(trim(str_replace(['-', '_'], ' ', $string)))));
 	}
 
 	/**
 	 * Retorna a string resumida, sem cortar a última palavra
 	 * @param string $string
 	 * @param int $limit tamanho máximo
-	 * @param bool $after define se corta depois do limit
+	 * @param bool $mode TRUNCATE_BEFORE | TRUNCATE_AFTER
 	 * @return string
 	 */
-	public static function truncate($string, $limit, $after = false) {
+	public static function truncate($string, $limit, $mode = TRUNCATE_BEFORE) {
 		if (mb_strlen($string) > $limit) {
-			if ($after === false) {
-				$oc = mb_strrpos(mb_substr($string, 0, $limit + 1), ' ');
-			} else {
-				$oc = mb_strpos(mb_substr($string, $limit), ' ') + $limit;
-			}
-			$string = rtrim(rtrim(rtrim(mb_substr($string, 0, $oc), ','), '.')) . '...';
+			$string = strip_tags($string);
+			$limit = static::calcLimit($string, $limit, $mode);
+			$string = rtrim(mb_substr($string, 0, $limit), ' ,.!?') . '...';
 		}
 		return $string;
+	}
+
+	/**
+	 * Calcula o limite ideal
+	 * @param string $string
+	 * @param int $limit
+	 * @param int $mode
+	 * @return int
+	 */
+	protected static function calcLimit($string, $limit, $mode) {
+		if ($mode === TRUNCATE_BEFORE) {
+			$limit = mb_strrpos(mb_substr($string, 0, $limit + 1), ' ');
+		} elseif ($mode === TRUNCATE_AFTER) {
+			$limit = mb_strpos(mb_substr($string, $limit), ' ') + $limit;
+		}
+		return $limit;
 	}
 
 	/**
@@ -87,16 +110,6 @@ class Str {
 	 */
 	public static function strip($string) {
 		return trim(strip_tags($string));
-	}
-
-	/**
-	 * Formata o número com zeros à esquerda
-	 * @param int $int
-	 * @param int $length
-	 * @return string
-	 */
-	public static function zeroOnLeft($int = 0, $length = 2) {
-		return str_pad($int, $length, "0", STR_PAD_LEFT);
 	}
 
 }
