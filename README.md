@@ -7,7 +7,7 @@
 
 **Framework em PHP baseado em MVC**
 
-Responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
+Responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC.
 Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...
 
 
