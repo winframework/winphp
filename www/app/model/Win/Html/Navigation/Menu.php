@@ -6,13 +6,13 @@ use Win\Request\Url;
 use Win\Mvc\Application;
 
 /**
- * Auxilia com funcionalidades em Menus de Navegação
+ * Auxilia a criar Menus de Navegação
  *
  */
 class Menu {
 
 	/**
-	 * Usado para ativar Links (aceita arrays)
+	 * Usado para ativar Links (aceita array)
 	 *
 	 * Retorna 'active' se o link informado for a página atual
 	 * ou se o link for idêntico ao início da URL

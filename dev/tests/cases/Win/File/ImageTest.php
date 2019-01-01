@@ -2,7 +2,7 @@
 
 namespace Win\File;
 
-class ImageTest extends \PHPUnit_Framework_TestCase {
+class ImageTest extends \PHPUnit\Framework\TestCase {
 
 	/** @var Image */
 	public static $img;

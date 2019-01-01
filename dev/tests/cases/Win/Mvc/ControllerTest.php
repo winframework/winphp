@@ -4,11 +4,11 @@ namespace Win\Mvc;
 
 use controller\DemoController;
 use controller\IndexController;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\Request\Header;
 use Win\Request\Url;
 
-class ControllerTest extends PHPUnit_Framework_TestCase {
+class ControllerTest extends TestCase {
 
 	public function testExtendsController() {
 		new Application();

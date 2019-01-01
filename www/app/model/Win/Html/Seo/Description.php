@@ -5,7 +5,7 @@ namespace Win\Html\Seo;
 use Win\Format\Str;
 
 /**
- * Auxilia a criar o Description otimizado para SEO
+ * Auxilia a criar 'Description' otimizado para SEO
  */
 class Description {
 

@@ -4,6 +4,6 @@
 $db = [
 	'host' => 'localhost',
 	'user' => 'root',
-	'pass' => 'wcorp@mysql',
+	'pass' => 'wcorp@2014Mysql',
 	'dbname' => 'winphp_demo'
 ];

@@ -7,7 +7,8 @@ use Win\Mvc\Block;
 use Win\Request\Session;
 
 /**
- * Alertas
+ * Alerta
+ * Armazena e exibe mensagens de alerta
  */
 class Alert {
 

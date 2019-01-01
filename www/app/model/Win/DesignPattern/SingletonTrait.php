@@ -7,7 +7,7 @@ namespace Win\DesignPattern;
  *
  * Ao utilizar o método instance(), DependenceInjector irá buscar a classe correspondente
  * @see DependenceInjector
- * Isso possibilita criar classes extendidas sem comprometer as dependências da classe original
+ * Isso possibilita criar sub-classes sem comprometer as dependências da classe original
  */
 trait SingletonTrait {
 

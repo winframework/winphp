@@ -2,9 +2,10 @@
 
 namespace Win\Request;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Win\Request\Session;
 
-class SessionTest extends PHPUnit_Framework_TestCase {
+class SessionTest extends TestCase {
 
 	public function testSet() {
 		$session = Session::instance();
@@ -15,6 +16,7 @@ class SessionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSuperGlobal() {
+		session_unset();
 		$_SESSION['default']['a'] = 1;
 		$session = Session::instance();
 		$session->set('b', 2);
@@ -24,6 +26,7 @@ class SessionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetArray() {
+		session_unset();
 		$_SESSION['default']['a']['b'] = 12;
 		$session = Session::instance();
 		$session->set('b', 2);
@@ -32,6 +35,7 @@ class SessionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGet_MultiInstance() {
+		session_unset();
 		$_SESSION['default']['a']['b'] = 1;
 		$_SESSION['user']['a']['b'] = 2;
 		$session = Session::instance();

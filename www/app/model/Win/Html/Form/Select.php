@@ -5,7 +5,7 @@ namespace Win\Html\Form;
 use Win\Html\Html;
 
 /**
- * Select
+ * Campo de Seleção
  * <select>
  *
  */
@@ -15,7 +15,7 @@ class Select extends Html {
 	protected $value;
 
 	/**
-	 * Retorna "selected" se os valores são iguais
+	 * Retorna 'selected' se os valores são iguais
 	 * @param mixed $value1
 	 * @param mixed $value2
 	 * @return string

@@ -2,7 +2,7 @@
 
 namespace Win\Html\Form;
 
-class CheckboxTest extends \PHPUnit_Framework_TestCase {
+class CheckboxTest extends \PHPUnit\Framework\TestCase {
 
 	private static $active = 'checked';
 

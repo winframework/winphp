@@ -2,12 +2,12 @@
 
 namespace Win\Message;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\File\Directory;
 use Win\Mvc\Block;
 use Win\Request\Server;
 
-class EmailTest extends PHPUnit_Framework_TestCase {
+class EmailTest extends TestCase {
 
 	public function testGetSubject() {
 		$email = new Email();

@@ -2,7 +2,7 @@
 
 namespace Win\Request;
 
-class UrlTest extends \PHPUnit_Framework_TestCase {
+class UrlTest extends \PHPUnit\Framework\TestCase {
 
 	public function testFormat() {
 		Url::instance()->setSufix('/');

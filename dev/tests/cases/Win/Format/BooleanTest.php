@@ -2,9 +2,9 @@
 
 namespace Win\Format;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class BooleanTest extends PHPUnit_Framework_TestCase {
+class BooleanTest extends TestCase {
 
 	public function testToString_Sim() {
 		$this->assertEquals('sim', Boolean::toString(true));

@@ -3,7 +3,7 @@
 namespace Win\Request;
 
 /**
- * Manipula variáveis globais ($_REQUEST, $_POST, $_GET, etc)
+ * Manipulador de variáveis globais ($_REQUEST, $_POST, $_GET, etc)
  * 
  * Fornecendo uma camada de segurança maior do que manipulá-las diretamente.
  */

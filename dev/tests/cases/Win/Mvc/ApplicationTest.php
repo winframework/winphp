@@ -6,7 +6,7 @@ use Win\Request\Url;
 use Win\Mvc\Application;
 use Win\Request\Server;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase {
+class ApplicationTest extends \PHPUnit\Framework\TestCase {
 
 	const URL = 'demo/my-action/second-param/3rd-param/';
 

@@ -2,9 +2,9 @@
 
 namespace Win\Message;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AlertTest extends PHPUnit_Framework_TestCase {
+class AlertTest extends TestCase {
 
 	public function testInstance() {
 		$alert = Alert::instance();
@@ -41,7 +41,6 @@ class AlertTest extends PHPUnit_Framework_TestCase {
 		Alert::info('Info msg');
 		Alert::success('Success msg');
 		Alert::warning('Warning msg');
-		var_dump($_SESSION);
 		$this->assertEquals(['Success msg'], Alert::instance()->all()['success']);
 	}
 

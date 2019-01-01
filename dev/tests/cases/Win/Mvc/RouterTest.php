@@ -6,7 +6,7 @@ use controller\ExemploController;
 use Win\Mvc\Router;
 use Win\Request\Url;
 
-class RouterTest extends \PHPUnit_Framework_TestCase {
+class RouterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testNoCustomUrl() {
 		new Application();

@@ -2,7 +2,7 @@
 
 namespace Win\File\Upload;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\File\Directory;
 use Win\File\File;
 
@@ -11,7 +11,7 @@ function move_uploaded_file($filename, $destination) {
 	return copy($filename, $destination);
 }
 
-class TempFileTest extends PHPUnit_Framework_TestCase {
+class TempFileTest extends TestCase {
 
 	/** @var TempFile */
 	public static $temp;

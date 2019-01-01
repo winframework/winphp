@@ -3,10 +3,10 @@
 namespace Win\Mvc;
 
 use controller\IndexController;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\Request\Url;
 
-class ErrorExceptionTest extends PHPUnit_Framework_TestCase {
+class ErrorExceptionTest extends TestCase {
 
 	public static function setUpBeforeClass() {
 		Url::instance()->setUrl('index/index');

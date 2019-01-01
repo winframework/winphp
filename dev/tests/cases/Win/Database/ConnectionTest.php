@@ -3,13 +3,13 @@
 namespace Win\Database;
 
 use PDO;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\Database\Mysql;
 use Win\Database\DbConfig;
 use Win\Mvc\Application;
 use Win\Mvc\ApplicationTest;
 
-class ConnectionTest extends PHPUnit_Framework_TestCase {
+class ConnectionTest extends TestCase {
 
 	/** @var Mysql */
 	private static $connection = null;

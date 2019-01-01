@@ -5,7 +5,7 @@ namespace Win\File;
 use Win\File\File;
 
 /**
- * Arquivos de Imagem
+ * Arquivo de Imagem
  *
  */
 class Image extends File {

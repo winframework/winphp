@@ -7,7 +7,7 @@ use const BASE_PATH;
 
 /**
  * Item armazenável dentro do Diretório
- * São outros diretório, arquivos, etc
+ * Podendo ser outro diretório, arquivos, etc
  */
 abstract class Storable {
 

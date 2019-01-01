@@ -2,12 +2,12 @@
 
 namespace Win\Database\Orm;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\Database\Mysql;
 use Win\Database\Orm\Page\Page;
 use Win\Database\DbConfig;
 
-class PageRepoTest extends PHPUnit_Framework_TestCase {
+class PageRepoTest extends TestCase {
 
 	public static function setUpBeforeClass() {
 		DbConfig::connect();
@@ -35,7 +35,6 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNumRows() {
-		Page::repo()->debugOn();
 		$count = Page::repo()->filter('id', '>', 1)->numRows();
 		$this->assertEquals(2, $count);
 	}
@@ -144,7 +143,6 @@ class PageRepoTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdate() {
-		Page::repo()->debugOn();
 		$pagesTotal = count(Page::repo()->results());
 
 		$page = Page::repo()->newer()->result();

@@ -2,9 +2,9 @@
 
 namespace Win\Format;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class StrTest extends PHPUnit_Framework_TestCase {
+class StrTest extends TestCase {
 
 	const LOREM = 'Lôrém ípsüm dolor sit amét, consectetur adipiscing elit.'
 			. 'Cras euismod a erat ac faucibus. Vivamus faucibus malesuada est, eget '
@@ -19,27 +19,27 @@ class StrTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('produtos-de-otima-qualidade-2', Str::toFileName('.Produtos-de_óti?ma q.ualida@"de/²-'));
 	}
 
-	public function testTruncate_Equals() {
+	public function testTruncateEquals() {
 		$truncated = Str::truncate('Minhâ stríng curta', 20);
-		$truncated2 = Str::truncate('Minhâ stríng curta', 20, TRUNCATE_BEFORE);
+		$truncated2 = Str::truncate('Minhâ stríng curta', 20, Str::TRUNCATE_BEFORE);
 		$this->assertEquals('Minhâ stríng curta', $truncated);
 		$this->assertEquals('Minhâ stríng curta', $truncated2);
 	}
 
-	public function testTruncate_WhiteSpace() {
+	public function testTruncateWhiteSpace() {
 		$this->assertEquals('1inha string...', Str::truncate('1inha string curta', 13));
 		$this->assertEquals('2inha string...', Str::truncate('2inha string curta', 12));
 		$this->assertEquals('3inha...', Str::truncate('3inha string curta', 11));
 	}
 
-	public function testTruncate_Simbol() {
+	public function testTruncateSimbol() {
 		$this->assertEquals('1inha string...', Str::truncate('1inha string, curta', 14));
 		$this->assertEquals('1inha string...', Str::truncate('1inha string, curta', 13));
 		$this->assertEquals('1inha...', Str::truncate('1inha string, curta', 12));
 		$this->assertEquals('2inha string...', Str::truncate('2inha string , curta', 14));
 	}
 
-	public function testTruncate_Special() {
+	public function testTruncateSpecial() {
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate(static::LOREM, 14));
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate(static::LOREM, 13));
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate(static::LOREM, 12));
@@ -47,12 +47,12 @@ class StrTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Lôrém...', Str::truncate(static::LOREM, 10));
 	}
 
-	public function testTruncate_Html() {
+	public function testTruncateHtml() {
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate('Lôrém <b>ípsüm <span class="text-center">dolor</span> sit</b> amét', 14));
 	}
 
-	public function testTruncate_After() {
-		$truncated = Str::truncate(static::LOREM, 30, TRUNCATE_AFTER);
+	public function testTruncateAfter() {
+		$truncated = Str::truncate(static::LOREM, 30, Str::TRUNCATE_AFTER);
 		$this->assertEquals('Lôrém ípsüm dolor sit amét, consectetur...', $truncated);
 	}
 
@@ -76,12 +76,12 @@ class StrTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('LremIpsumDolorSitAmet', $string);
 	}
 
-	public function testCamel_lower() {
+	public function testCamelLower() {
 		$string = Str::camel('lorem ipsum dolor sit amet');
 		$this->assertEquals('LoremIpsumDolorSitAmet', $string);
 	}
 
-	public function testCamel_upper() {
+	public function testCamelUpper() {
 		$string = Str::camel('LOREM IPSUM DOLOR SIT AMET');
 		$this->assertEquals('LoremIpsumDolorSitAmet', $string);
 	}

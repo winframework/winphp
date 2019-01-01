@@ -2,10 +2,10 @@
 
 namespace Win\Html\Seo;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\Mvc\Application;
 
-class KeywordsTest extends PHPUnit_Framework_TestCase {
+class KeywordsTest extends TestCase {
 
 	public static function setUpBeforeClass() {
 		new Application();

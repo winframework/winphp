@@ -4,7 +4,7 @@ namespace Win\Html\Seo;
 
 use Win\Mvc\Application;
 
-class TitleTest extends \PHPUnit_Framework_TestCase {
+class TitleTest extends \PHPUnit\Framework\TestCase {
 
 	public function testOtimize() {
 		$this->assertEquals('My custom Title', Title::otimize('My custom Title', 100));

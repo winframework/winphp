@@ -2,7 +2,7 @@
 
 namespace Win\Calendar;
 
-class TimerTest extends \PHPUnit_Framework_TestCase {
+class TimerTest extends \PHPUnit\Framework\TestCase {
 
 	public function testTime() {
 		$t = new Timer();

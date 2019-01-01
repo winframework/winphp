@@ -5,9 +5,9 @@ namespace Win\Mvc;
 use Win\Html\Seo\Title;
 
 /**
- * Views
+ * View
  *
- * São responsáveis por criar o visual da página
+ * Responsável por criar o visual da página
  */
 class View extends Block {
 

@@ -4,7 +4,7 @@ namespace Win\File;
 
 use PHPMailer\PHPMailer\Exception;
 
-class DirectoryTest extends \PHPUnit_Framework_TestCase {
+class DirectoryTest extends \PHPUnit\Framework\TestCase {
 
 	/** @var Directory */
 	public static $dirInexistent;

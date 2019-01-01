@@ -2,7 +2,7 @@
 
 namespace Win\Request;
 
-class InputTest extends \PHPUnit_Framework_TestCase {
+class InputTest extends \PHPUnit\Framework\TestCase {
 
 	public function testProtocol() {
 		$this->assertEquals('http', Input::protocol());

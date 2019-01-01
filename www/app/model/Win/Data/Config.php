@@ -3,7 +3,7 @@
 namespace Win\Data;
 
 /**
- * Configurações
+ * Armazena Configurações
  */
 class Config extends Data {
 

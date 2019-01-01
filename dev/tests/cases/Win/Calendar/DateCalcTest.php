@@ -2,7 +2,7 @@
 
 namespace Win\Calendar;
 
-class DateCalcTest extends \PHPUnit_Framework_TestCase {
+class DateCalcTest extends \PHPUnit\Framework\TestCase {
 
 	public function testTimeAgoAfter() {
 		$date = new DateTime();

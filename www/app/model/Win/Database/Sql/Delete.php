@@ -38,8 +38,6 @@ class Delete extends Query {
 
 	/** @return boolean */
 	public function execute() {
-		var_dump('?');
-		var_dump($this->table);
 		return $this->connection->query($this, $this->getValues());
 	}
 

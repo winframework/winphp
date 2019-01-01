@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-class LayoutTest extends \PHPUnit_Framework_TestCase {
+class LayoutTest extends \PHPUnit\Framework\TestCase {
 
 	public function testExits() {
 		$layout = new Layout('main');

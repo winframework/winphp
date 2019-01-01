@@ -3,7 +3,7 @@
 namespace Win\Authentication;
 
 /**
- * Manipulação de Senhas
+ * Manipulador de Senhas
  */
 abstract class Password {
 

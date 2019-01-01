@@ -7,9 +7,9 @@ use Win\Request\Url;
 
 /**
  * Rota de URL
- * 
+ *
  * Redireciona a requisição para um outro Controller.
- * Veja as rotas em "config/routes.php"
+ * @see "/app/config/routes.php"
  */
 class Router {
 

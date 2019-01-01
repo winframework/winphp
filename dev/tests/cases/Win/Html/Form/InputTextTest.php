@@ -2,9 +2,9 @@
 
 namespace Win\Html\Form;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class InputTextTest extends PHPUnit_Framework_TestCase {
+class InputTextTest extends TestCase {
 
 	public function testGetValue_Empty() {
 		$input = new InputText('music_name');

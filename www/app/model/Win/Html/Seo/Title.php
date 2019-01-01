@@ -6,7 +6,7 @@ use Win\Format\Str;
 use Win\Mvc\Application;
 
 /**
- * Auxilia a criar o titulo otimizado para SEO
+ * Auxilia a criar o título otimizado para SEO
  */
 class Title {
 

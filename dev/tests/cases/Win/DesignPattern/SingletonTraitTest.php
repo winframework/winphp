@@ -4,7 +4,7 @@ namespace Win\DesignPattern;
 
 use Win\Mvc\Application;
 
-class SingletonTraitTest extends \PHPUnit_Framework_TestCase {
+class SingletonTraitTest extends \PHPUnit\Framework\TestCase {
 
 	public function testInstance() {
 		$instance = SuperDemoSingleton::instance();

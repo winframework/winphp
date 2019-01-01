@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-class BlockTest extends \PHPUnit_Framework_TestCase {
+class BlockTest extends \PHPUnit\Framework\TestCase {
 
 	protected static $validFile = 'custom-block';
 	protected static $invalidFile = 'this-file-doesnt-exit';

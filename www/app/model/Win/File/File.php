@@ -5,7 +5,7 @@ namespace Win\File;
 use Exception;
 
 /**
- * Arquivos
+ * Arquivo
  *
  */
 class File extends Storable {

@@ -3,9 +3,9 @@
 namespace Win\Mvc;
 
 /**
- * Blocos
+ * Bloco
  * Ver arquivos em: "app/block/"
- * São pequenos arquivos .phtml que são chamados em views, emails, modulos, etc
+ * Pequeno arquivo em .phtml que é chamado em views, emails, módulos, etc
  */
 class Block {
 

@@ -9,7 +9,7 @@ use Win\Mvc\ControllerFactory;
 use Win\Mvc\DefaultController;
 use Win\Request\Url;
 
-class ControllerFactoryTest extends \PHPUnit_Framework_TestCase {
+class ControllerFactoryTest extends \PHPUnit\Framework\TestCase {
 
 	public function testControllerNotFound() {
 		new Application();

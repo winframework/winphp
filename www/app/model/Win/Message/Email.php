@@ -8,9 +8,9 @@ use Win\Mvc\Block;
 use Win\Request\Server;
 
 /**
- * Envio de E-mails
+ * Envio de Emails
  *
- * Responsável por enviar E-mails, simplificando a forma de envio
+ * Responsável por enviar Emails, simplificando a forma de envio
  */
 class Email {
 

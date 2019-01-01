@@ -2,11 +2,11 @@
 
 namespace Win\Mvc;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\Mvc\View;
 use Win\Request\Url;
 
-class ViewTest extends PHPUnit_Framework_TestCase {
+class ViewTest extends TestCase {
 
 	public function getValidView() {
 		return new View('my-view');

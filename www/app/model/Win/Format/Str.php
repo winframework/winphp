@@ -2,13 +2,13 @@
 
 namespace Win\Format;
 
-define('Win\Format\TRUNCATE_BEFORE', 0);
-define('Win\Format\TRUNCATE_AFTER', 1);
-
 /**
  * Manipulador de Strings
  */
 class Str {
+
+	const TRUNCATE_BEFORE = 0;
+	const TRUNCATE_AFTER = 1;
 
 	/**
 	 * @param string $string
@@ -78,7 +78,7 @@ class Str {
 	 * @param bool $mode TRUNCATE_BEFORE | TRUNCATE_AFTER
 	 * @return string
 	 */
-	public static function truncate($string, $limit, $mode = TRUNCATE_BEFORE) {
+	public static function truncate($string, $limit, $mode = self::TRUNCATE_BEFORE) {
 		if (mb_strlen($string) > $limit) {
 			$string = strip_tags($string);
 			$limit = static::calcLimit($string, $limit, $mode);
@@ -95,9 +95,9 @@ class Str {
 	 * @return int
 	 */
 	protected static function calcLimit($string, $limit, $mode) {
-		if ($mode === TRUNCATE_BEFORE) {
+		if ($mode === static::TRUNCATE_BEFORE) {
 			$limit = mb_strrpos(mb_substr($string, 0, $limit + 1), ' ');
-		} elseif ($mode === TRUNCATE_AFTER) {
+		} elseif ($mode === static::TRUNCATE_AFTER) {
 			$limit = mb_strpos(mb_substr($string, $limit), ' ') + $limit;
 		}
 		return $limit;

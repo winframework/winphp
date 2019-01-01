@@ -5,7 +5,7 @@ namespace Win\Calendar;
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
-class DateTimeTest extends \PHPUnit_Framework_TestCase {
+class DateTimeTest extends \PHPUnit\Framework\TestCase {
 
 	private $dateSQL = '1991-09-07 12:15:01';
 	private $dateUS = '09-07-1991 12:15:01';

@@ -5,7 +5,7 @@ namespace Win\Mvc;
 use Win\Mvc\View;
 
 /**
- * Fábrica de Views
+ * Fábrica de View
  * 
  * Cria a View de acordo com a URL
  */

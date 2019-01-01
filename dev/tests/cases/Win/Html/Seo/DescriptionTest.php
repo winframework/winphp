@@ -2,7 +2,7 @@
 
 namespace Win\Html\Seo;
 
-class DescriptionTest extends \PHPUnit_Framework_TestCase {
+class DescriptionTest extends \PHPUnit\Framework\TestCase {
 
 	public function testOtimize_Default() {
 		Description::$default = 'My Default';

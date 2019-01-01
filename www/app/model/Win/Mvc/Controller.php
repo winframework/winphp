@@ -5,9 +5,9 @@ namespace Win\Mvc;
 use Win\Request\Url;
 
 /**
- * Controllers
+ * Controller
  *
- * São responsáveis por processar as requisições e definir as Views
+ * Responsável por processar as requisições e definir a View
  */
 abstract class Controller {
 
@@ -108,7 +108,7 @@ abstract class Controller {
 	 * Este método é chamado sempre que o Controller é carregado
 	 */
 	protected function init() {
-		
+
 	}
 
 	/**

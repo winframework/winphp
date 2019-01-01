@@ -32,7 +32,7 @@ class Timer {
 	}
 
 	/**
-	 * Retorna o tempo gasto (em microsegundos)
+	 * Retorna o tempo gasto (em microssegundos)
 	 * @return float
 	 */
 	private function getMicroTime() {

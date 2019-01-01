@@ -6,9 +6,9 @@ function header() {
 	return Header::instance()->clear();
 }
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class HeaderTest extends PHPUnit_Framework_TestCase {
+class HeaderTest extends TestCase {
 
 	public function testGet() {
 		Header::instance()->set('location', 'test');

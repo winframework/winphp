@@ -5,7 +5,7 @@ namespace Win\Html\Seo;
 use Win\Format\Str;
 
 /**
- * Auxilia gerenciamento de Keywords
+ * Auxilia a criar 'Keywords'
  */
 class Keywords {
 

@@ -21,9 +21,9 @@ class DbController extends Controller {
 	}
 
 	public function results() {
-		Page::repo()->debugOn();
-		$pages = Page::repo()->results();
-		var_dump($pages);
+		$pageOrm = Page::repo();
+		$pageOrm->debugOn();
+		$pageOrm->results();
 	}
 
 }

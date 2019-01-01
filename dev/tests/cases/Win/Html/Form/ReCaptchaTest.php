@@ -2,7 +2,7 @@
 
 namespace Win\Html\Form;
 
-class ReCaptchaTest extends \PHPUnit_Framework_TestCase {
+class ReCaptchaTest extends \PHPUnit\Framework\TestCase {
 
 	public function testValid_NoSecretKey() {
 		ReCaptcha::$secretKey = false;

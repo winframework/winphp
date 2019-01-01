@@ -2,7 +2,7 @@
 
 namespace Win\DesignPattern;
 
-class DependenceInjectorTest extends \PHPUnit_Framework_TestCase {
+class DependenceInjectorTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetClassDi() {
 		$class = DependenceInjector::getClassDi(static::class);

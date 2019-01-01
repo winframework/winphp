@@ -5,7 +5,7 @@ namespace Win\Data;
 use Win\DesignPattern\SingletonTrait;
 
 /**
- * Dados
+ * Armazena Dados
  */
 class Data implements DataInterface {
 

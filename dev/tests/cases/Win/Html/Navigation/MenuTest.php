@@ -6,7 +6,7 @@ use Win\Mvc\Application;
 use Win\Request\Url;
 use Win\Html\Navigation\Menu;
 
-class MenuTest extends \PHPUnit_Framework_TestCase {
+class MenuTest extends \PHPUnit\Framework\TestCase {
 
 	public function testActive() {
 		Url::instance()->setUrl('index');

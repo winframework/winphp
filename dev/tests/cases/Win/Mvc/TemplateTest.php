@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-class TemplateTest extends \PHPUnit_Framework_TestCase {
+class TemplateTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetTheme() {
 		$template = Template::instance();

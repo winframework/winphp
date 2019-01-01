@@ -2,9 +2,9 @@
 
 namespace Win\Format;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ArrTest extends PHPUnit_Framework_TestCase {
+class ArrTest extends TestCase {
 
 	public function testIsFirst() {
 		$this->assertTrue(Arr::isFirst(0));

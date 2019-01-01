@@ -2,7 +2,7 @@
 
 namespace Win\Data;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase {
+class ConfigTest extends \PHPUnit\Framework\TestCase {
 
 	public function testLoad() {
 		$values = ['a' => 1, 'b' => 2];

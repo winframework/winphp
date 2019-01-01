@@ -5,7 +5,7 @@ namespace Win\Calendar;
 use DateInterval;
 
 /**
- * Calculo de Datas
+ * Cálculo de Datas
  */
 class DateCalc {
 

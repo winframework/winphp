@@ -2,11 +2,11 @@
 
 namespace Win\File\Upload;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Win\File\Directory;
 use Win\File\File;
 
-class UploaderTest extends PHPUnit_Framework_TestCase {
+class UploaderTest extends TestCase {
 
 	/** @var Uploader */
 	public static $uploader;

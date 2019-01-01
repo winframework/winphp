@@ -2,9 +2,9 @@
 
 namespace Win\Html\Form;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class SelectTest extends PHPUnit_Framework_TestCase {
+class SelectTest extends TestCase {
 
 	/** @var string */
 	private static $options = ['S', 'M', 'B'];
