@@ -11,6 +11,21 @@
 - Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...
 
 
+**Funcionalidades**
+
+- Views automáticas;
+- Título de Página;
+- Rotas Personalizadas;
+- Sistema de Layouts;
+- Envio de Emails;
+- Manipulador de Datas;
+- Cálculo de Datas;
+- Manipulador de Arquivos;
+- Manipulador de Tipos Variáveis (Boolean, String, Array, etc);
+- Manipulador de Variáveis Globais (Input, Server, etc);
+- Alertas;
+- Sessão;
+- Conexão com Banco de Dados;
 
 ---
 
