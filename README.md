@@ -5,7 +5,9 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/winframework/winphp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/winframework/winphp/?branch=master)
 
 
-Estrutura PHP baseada em MVC, para gerenciar de forma dinâmica como as páginas são chamadas. Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...
+**Framework em PHP baseado em MVC**
+Responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
+Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...
 
 
 
