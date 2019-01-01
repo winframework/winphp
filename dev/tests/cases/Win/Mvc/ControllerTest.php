@@ -18,17 +18,14 @@ class ControllerTest extends TestCase {
 	}
 
 	public function testGetAction() {
-		$controller = new IndexController('myAction');
-		$this->assertEquals('myAction', $controller->getAction());
-
-		$controller2 = new IndexController('my-action');
-		$this->assertEquals('my-action', $controller2->getAction());
-	}
-
-	public function testGetAction_Empty() {
 		Url::instance()->setUrl('my-page/example-action');
 		new Application();
+		$controller = new IndexController('myAction');
+		$controller2 = new IndexController('my-action');
 		$controller3 = new IndexController();
+
+		$this->assertEquals('myAction', $controller->getAction());
+		$this->assertEquals('my-action', $controller2->getAction());
 		$this->assertEquals('index', $controller3->getAction());
 	}
 
