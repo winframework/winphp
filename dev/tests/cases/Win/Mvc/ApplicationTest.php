@@ -40,9 +40,7 @@ class ApplicationTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetPage() {
 		$this->assertEquals('demo', static::$app->getPage());
-	}
 
-	public function testGetPage_Index() {
 		$app = static::newApp('index');
 		$this->assertEquals('index', $app->getPage());
 	}
@@ -50,8 +48,6 @@ class ApplicationTest extends \PHPUnit\Framework\TestCase {
 	public function testGetAction() {
 		$this->assertEquals('myAction', static::$app->controller->getAction());
 	}
-
-
 
 	public function testGetAction_Index() {
 		$app = static::newApp('contato');

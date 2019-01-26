@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 use Win\Request\Url;
 
 /**
@@ -70,7 +70,8 @@ class Router {
 		$search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
 		$matches = [];
 		foreach ($this->routes as $url => $route) {
-			$exists = preg_match('@' . Url::instance()->format($url) . '$@', Url::instance()->getUrl(), $matches) == 1;
+			$pattern = '@' . Url::instance()->format($url) . '$@';
+			$exists = preg_match($pattern, Url::instance()->getUrl(), $matches) == 1;
 			if ($exists) {
 				$route = str_replace($search, $matches, $route) . '/';
 				return explode('/', $route);

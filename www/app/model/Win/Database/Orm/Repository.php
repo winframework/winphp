@@ -7,7 +7,7 @@ use Win\Database\Sql\Delete;
 use Win\Database\Sql\Insert;
 use Win\Database\Sql\Select;
 use Win\Database\Sql\Update;
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 
 /**
  * Object Relational Mapping
@@ -124,19 +124,19 @@ abstract class Repository {
 
 	/**
 	 * Define as colunas do resultado
-	 * @param string[] $collumns
+	 * @param string[] $columns
 	 */
-	public function setCollumns($collumns) {
-		$this->query->collumns = $collumns;
+	public function setColumns($columns) {
+		$this->query->columns = $columns;
 		return $this;
 	}
 
 	/**
 	 * Adiciona uma coluna do resultado
-	 * @param string $collumn
+	 * @param string $column
 	 */
-	public function addCollumn($collumn) {
-		$this->query->collumns[] = $collumn;
+	public function addColumn($column) {
+		$this->query->columns[] = $column;
 		return $this;
 	}
 
@@ -151,19 +151,19 @@ abstract class Repository {
 
 	/**
 	 * Filtra pelo campo
-	 * @param string $collumn
+	 * @param string $column
 	 * @param mixed $value
 	 */
-	public function filterBy($collumn, $value) {
-		$this->filter($collumn, '=', $value);
+	public function filterBy($column, $value) {
+		$this->filter($column, '=', $value);
 		return $this;
 	}
 
 	/**
 	 * Adiciona filtros para busca
 	 */
-	public function filter($collumn, $operator, $value) {
-		$this->query->where->add($collumn, $operator, $value);
+	public function filter($column, $operator, $value) {
+		$this->query->where->add($column, $operator, $value);
 		return $this;
 	}
 
@@ -231,7 +231,7 @@ abstract class Repository {
 	}
 
 	/**
-	 * Exlui o registro do banco
+	 * Remove o registro do banco
 	 * @param Model $model
 	 * @return boolean
 	 */

@@ -1,18 +1,19 @@
 <?php
 
-namespace Win\File;
+namespace Win\Filesystem;
 
 use Win\Calendar\DateTime;
 use const BASE_PATH;
 
 /**
- * Item armazenável dentro do Diretório
+ * Item dentro do Diretório
  * Podendo ser outro diretório, arquivos, etc
  */
 abstract class Storable {
 
 	const REGEXP_PATH = '@^(([a-zA-Z0-9._\-][\/]?))+$@';
 	const REGEXP_NAME = '@^(([a-zA-Z0-9._\-]?))+$@';
+	const DS = DIRECTORY_SEPARATOR;
 
 	/** @var string */
 	private $path;
@@ -32,7 +33,7 @@ abstract class Storable {
 
 	/** @return string */
 	public function getAbsolutePath() {
-		return BASE_PATH . DIRECTORY_SEPARATOR . $this->path;
+		return BASE_PATH . static::DS . $this->path;
 	}
 
 	/**
@@ -41,7 +42,8 @@ abstract class Storable {
 	 */
 	public function getDirectory() {
 		if (is_null($this->directory)) {
-			$this->directory = new Directory(pathinfo($this->getPath(), PATHINFO_DIRNAME));
+			$path = pathinfo($this->getPath(), PATHINFO_DIRNAME);
+			$this->directory = new Directory($path);
 		}
 		return $this->directory;
 	}
@@ -69,13 +71,13 @@ abstract class Storable {
 
 	protected function setDirectory(Directory $directory) {
 		$this->directory = $directory;
-		$path = $directory->getPath() . DIRECTORY_SEPARATOR . $this->getBaseName();
+		$path = $directory->getPath() . static::DS . $this->getBaseName();
 		$this->setPath($path);
 	}
 
 	/** @param string */
 	protected function setName($name) {
-		$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $name;
+		$path = $this->getDirectory()->getPath() . static::DS . $name;
 		$this->setPath($path);
 	}
 

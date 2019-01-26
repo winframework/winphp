@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\DesignPattern;
+namespace Win\Singleton;
 
 /**
  * Implementa Design Pattern Singleton

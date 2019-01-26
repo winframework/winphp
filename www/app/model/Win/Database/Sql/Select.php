@@ -14,7 +14,7 @@ use Win\Database\Sql\Query;
 class Select extends Query {
 
 	/** @var string[] */
-	public $collumns;
+	public $columns;
 
 	/** @var Where */
 	public $where;
@@ -31,7 +31,7 @@ class Select extends Query {
 	}
 
 	protected function init() {
-		$this->collumns = ['*'];
+		$this->columns = ['*'];
 		$this->where = new Where();
 		$this->limit = new Limit();
 		$this->orderBy = new OrderBy();
@@ -39,7 +39,7 @@ class Select extends Query {
 
 	/** @return string */
 	public function toString() {
-		return 'SELECT ' . implode(',', $this->collumns) . ' FROM '
+		return 'SELECT ' . implode(',', $this->columns) . ' FROM '
 				. $this->table
 				. $this->where
 				. $this->orderBy
@@ -53,7 +53,7 @@ class Select extends Query {
 
 	/** @return int */
 	public function count() {
-		$this->collumns = ['count(*)'];
+		$this->columns = ['count(*)'];
 		$stmt = $this->connection->stmt($this, $this->getValues());
 		$this->init();
 		return $stmt->fetchColumn();

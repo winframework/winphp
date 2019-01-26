@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Message;
+namespace Win\Message\Type;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\File\File;
@@ -10,7 +10,7 @@ use Win\Request\Server;
 /**
  * Envio de Emails
  *
- * Responsável por enviar Emails, simplificando a forma de envio
+ * Responsável por enviar Emails
  */
 class Email {
 
@@ -125,7 +125,7 @@ class Email {
 	}
 
 	/** @return string[] */
-	public function getAdresses() {
+	public function getAddresses() {
 		return $this->mailer->getAllRecipientAddresses();
 	}
 

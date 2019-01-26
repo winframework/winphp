@@ -7,7 +7,7 @@ use PDOException;
 use PDOStatement;
 use Win\Database\ActiveRecord\Model;
 use Win\Database\Orm\Repository;
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 use Win\Mvc\Application;
 
 /**

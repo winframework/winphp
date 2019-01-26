@@ -12,7 +12,7 @@ abstract class Password {
 
 	/**
 	 * Retorna uma senha aleatória
-	 * A senha gerada terá sempre pelo menos: 1 caracter especial e 2 números
+	 * A senha gerada terá sempre pelo menos: 1 símbolo e 2 números
 	 * @param int $length
 	 * @return string
 	 */

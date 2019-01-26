@@ -1,8 +1,8 @@
 <?php
 
-namespace Win\Message;
+namespace Win\Message\Type;
 
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 use Win\Mvc\Block;
 use Win\Request\Session;
 
@@ -62,7 +62,7 @@ class Alert {
 	 * @return Block
 	 */
 	public function html() {
-		return new Block('layout/html/alerts', ['alerts' => $this->all()]);
+		return new Block('layout/message/alerts', ['alerts' => $this->all()]);
 	}
 
 	/** @param string $message */

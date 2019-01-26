@@ -21,8 +21,8 @@ class Where {
 		return '';
 	}
 
-	public function add($collumn, $operator, $value) {
-		$this->filters[] = $collumn . $operator . '?';
+	public function add($column, $operator, $value) {
+		$this->filters[] = $column . $operator . '?';
 		$this->values[] = $value;
 	}
 

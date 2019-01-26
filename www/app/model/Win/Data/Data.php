@@ -2,7 +2,7 @@
 
 namespace Win\Data;
 
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 
 /**
  * Armazena Dados

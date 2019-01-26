@@ -43,9 +43,16 @@ class View extends Block {
 	/** @return string */
 	public function getTitle() {
 		if (empty($this->getData('title'))) {
-			$this->addData('title', Title::otimize(ucwords(str_replace('-', ' ', $this->app->getPage()))));
+			$this->addData('title', $this->getDinamicTitle());
 		}
 		return $this->getData('title');
+	}
+
+	/**
+	 * @return string
+	 */
+	private function getDinamicTitle() {
+		return Title::otimize(ucwords(str_replace('-', ' ', $this->app->getPage())));
 	}
 
 }

@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 use const BASE_PATH;
 
 /**

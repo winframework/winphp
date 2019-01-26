@@ -68,7 +68,8 @@ class Str {
 	 * @return string
 	 */
 	public static function camel($string) {
-		return preg_replace("/[^a-zA-Z0-9]/", '', ucwords(strtolower(trim(str_replace(['-', '_'], ' ', $string)))));
+		$string = ucwords(strtolower(trim(str_replace(['-', '_'], ' ', $string))));
+		return preg_replace("/[^a-zA-Z0-9]/", '', $string);
 	}
 
 	/**

@@ -5,7 +5,7 @@ namespace Win\Mvc;
 /**
  * Sistema de Layout
  *
- * Gerencia qual será o arquivo principal de Layout
+ * Define qual será o arquivo principal de Layout
  *
  * É possível criar vários arquivos de Layout e então escolher no Controller
  * qual Layout será carregado.

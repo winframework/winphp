@@ -5,7 +5,7 @@ namespace Win\Html\Form;
 use Win\Request\Input as RequestInput;
 
 /**
- * Utiliza o ReCaptcha do Google
+ * ReCaptcha do Google
  * Validando se o usuário não é um robô
  */
 class ReCaptcha {
@@ -19,12 +19,22 @@ class ReCaptcha {
 	 */
 	public static function isValid() {
 		if (static::$siteKey && static::$secretKey) {
-			$captcha = RequestInput::post('g-recaptcha-response');
-			$response = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . static::$secretKey . "&response=" . $captcha . "&remoteip=" . RequestInput::server('REMOTE_ADDR')), true);
+			$response = json_decode(file_get_contents(static::getValidationUrl()), true);
 			return (boolean) $response['success'];
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * Retorna a URL de validação
+	 * @return string
+	 */
+	public static function getValidationUrl() {
+		return 'https://www.google.com/recaptcha/api/siteverify'
+			. "?secret=" . static::$secretKey
+			. "&response=" . RequestInput::post('g-recaptcha-response')
+			. "&remoteip=" . RequestInput::server('REMOTE_ADDR');
 	}
 
 }

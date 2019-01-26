@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\File;
+namespace Win\Filesystem\File\Type;
 
 use Win\File\File;
 

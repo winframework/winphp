@@ -10,7 +10,7 @@ use Win\Request\Url;
  * Application (WinPHP Framework)
  *
  * Framework em PHP baseado em MVC
- * Responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC
+ * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
  * @version 1.4.0
  */
@@ -44,7 +44,8 @@ class Application {
 	 */
 	protected function init() {
 		$this->setParams(Url::instance()->getSegments());
-		$this->controller = ControllerFactory::create($this->getParam(0), $this->getParam(1));
+		$params = $this->getParams();
+		$this->controller = ControllerFactory::create($params[0], $params[1]);
 
 		Router::instance()->load();
 		if (Router::instance()->run()) {
@@ -52,8 +53,8 @@ class Application {
 			$this->controller = Router::instance()->createController();
 		}
 
-		$this->setPage($this->getParam(0));
-		$this->view = ViewFactory::create($this->getParam(0), $this->getParam(1));
+		$this->setPage($params[0]);
+		$this->view = ViewFactory::create($params[0], $params[1]);
 	}
 
 	/**
@@ -141,8 +142,8 @@ class Application {
 	 * @param string[] $params
 	 */
 	private function setParams($params) {
-		$paramDefaulf = [$this->homePage, 'index'];
-		$this->params = array_replace($paramDefaulf, array_filter($params));
+		$defaultParam = [$this->homePage, 'index'];
+		$this->params = array_replace($defaultParam, array_filter($params));
 	}
 
 	/**

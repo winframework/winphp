@@ -44,21 +44,21 @@ class Timer {
 	 * @return string
 	 */
 	public function time() {
-		$segs = $this->getMicroTime();
-		$days = floor($segs / 86400);
-		$segs -= $days * 86400;
-		$hours = floor($segs / 3600);
-		$segs -= $hours * 3600;
-		$minutes = floor($segs / 60);
-		$segs -= $minutes * 60;
-		$microsegs = ($segs - floor($segs)) * 1000;
+		$secs = $this->getMicroTime();
+		$days = floor($secs / 86400);
+		$secs -= $days * 86400;
+		$hours = floor($secs / 3600);
+		$secs -= $hours * 3600;
+		$minutes = floor($secs / 60);
+		$secs -= $minutes * 60;
+		$microSecs = ($secs - floor($secs)) * 1000;
 
 		return
 				(empty($days) ? '' : $days . 'd ') .
 				(empty($hours) ? '' : $hours . 'h ') .
 				(empty($minutes) ? '' : $minutes . 'm ') .
-				floor($segs) . 's ' .
-				$microsegs . 'ms';
+				floor($secs) . 's ' .
+				$microSecs . 'ms';
 	}
 
 }

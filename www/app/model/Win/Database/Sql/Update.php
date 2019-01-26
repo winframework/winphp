@@ -27,10 +27,10 @@ class Update extends Query {
 
 	/** @return string[] */
 	protected function getParams() {
-		$collumns = array_keys($this->values);
+		$columns = array_keys($this->values);
 		$params = [];
-		foreach ($collumns as $collumn) {
-			$params[] = $collumn . ' = ?';
+		foreach ($columns as $column) {
+			$params[] = $column . ' = ?';
 		}
 		return $params;
 	}

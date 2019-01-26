@@ -1,12 +1,12 @@
 <?php
 
-namespace Win\File\Upload;
+namespace Win\Filesystem\Upload;
 
 use Win\File\Directory;
 use Win\File\File;
 
 /**
- * Arquivos Temporários
+ * Arquivo Temporário
  *
  */
 class TempFile extends File {
@@ -81,7 +81,7 @@ class TempFile extends File {
 	public function move(Directory $destination, $name = '') {
 		$this->setName($name);
 		$oldPath = $this->getAbsolutePath();
-		$newPath = $destination->getPath() . DIRECTORY_SEPARATOR . $this->getBaseName();
+		$newPath = $destination->getPath() . static::DS . $this->getBaseName();
 		$this->setPath($newPath);
 		return move_uploaded_file($oldPath, $this->getAbsolutePath());
 	}
@@ -108,8 +108,8 @@ class TempFile extends File {
 	 * @return static
 	 */
 	public static function create($prefixName = '') {
-		$tmpfname = tempnam(null, $prefixName);
-		return new static($tmpfname);
+		$fileName = tempnam(null, $prefixName);
+		return new static($fileName);
 	}
 
 }

@@ -3,3 +3,4 @@ package.json
 gulpfile.js
 /nbproject/private/
 /vendor
+.history/

@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\File;
+namespace Win\Filesystem;
 
 use Exception;
 
@@ -64,16 +64,16 @@ class File extends Storable {
 			if (!preg_match(static::REGEXP_NAME, $name)) {
 				throw new Exception($name . ' is a invalid file name.');
 			}
-			$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $name . $this->getExtensionDot();
-			$this->setPath($path);
+			$relativePath = static::DS . $name . $this->getExtensionDot();
+			$this->setPath($this->getDirectory()->getPath(). $relativePath);
 		}
 	}
 
 	/** @param string $extension */
 	protected function setExtension($extension) {
 		if ($extension) {
-			$path = $this->getDirectory()->getPath() . DIRECTORY_SEPARATOR . $this->getName() . '.' . $extension;
-			$this->setPath($path);
+			$relativePath = static::DS . $this->getName() . '.' . $extension;
+			$this->setPath($this->getDirectory()->getPath() . $relativePath);
 		}
 	}
 

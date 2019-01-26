@@ -25,7 +25,8 @@ class HttpException extends Exception {
 		$app = Application::app();
 		$app->setPage($this->code);
 		$app->view = new View($this->code, ['exception' => $this]);
-		$controller = ControllerFactory::create(static::$controller, '_' . $this->code);
+		$action = '_' . $this->code;
+		$controller = ControllerFactory::create(static::$controller, $action);
 
 		if (get_class($controller) !== get_class($app->controller)) {
 			$app->controller = $controller;

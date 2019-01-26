@@ -24,7 +24,11 @@ class Menu {
 			return static::multiActive($link);
 		}
 		$app = Application::app();
-		if ($link === $app->getPage() || strpos(Url::instance()->getUrl(), Url::instance()->format($link)) === 0) {
+		if ($link === $app->getPage()) {
+			return 'active';
+		}
+		$url = Url::instance();
+		if (strpos($url->getUrl(), $url->format($link)) === 0) {
 			return 'active';
 		}
 		return '';

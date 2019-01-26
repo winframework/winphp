@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\File;
+namespace Win\Filesystem;
 
 use Exception;
 use const BASE_PATH;
@@ -10,6 +10,8 @@ use const BASE_PATH;
  *
  */
 class Directory extends Storable {
+
+	const MKDIR_MODE = STREAM_MKDIR_RECURSIVE;
 
 	/**
 	 * Instância um diretório
@@ -29,7 +31,7 @@ class Directory extends Storable {
 	 * @throws Exception
 	 */
 	protected function setPath($path) {
-		if (!preg_match(static::REGEXP_PATH, $path . DIRECTORY_SEPARATOR)) {
+		if (!preg_match(static::REGEXP_PATH, $path . static::DS)) {
 			throw new Exception($path . ' is a invalid directory path.');
 		}
 		parent::setPath($path);
@@ -53,11 +55,11 @@ class Directory extends Storable {
 	 */
 	public function clear() {
 		foreach ($this->getItemsName() as $content) {
-			if (is_dir($this->getAbsolutePath() . DIRECTORY_SEPARATOR . $content)) {
-				$subDirectory = new Directory($this->getPath() . DIRECTORY_SEPARATOR . $content);
+			if (is_dir($this->getAbsolutePath() . static::DS . $content)) {
+				$subDirectory = new Directory($this->getPath() . static::DS . $content);
 				$subDirectory->delete();
 			} else {
-				unlink($this->getAbsolutePath() . DIRECTORY_SEPARATOR . $content);
+				unlink($this->getAbsolutePath() . static::DS . $content);
 			}
 		}
 	}
@@ -70,8 +72,10 @@ class Directory extends Storable {
 	 */
 	public function create($chmod = 0755) {
 		if (!$this->exists()) {
-			if (@mkdir($this->getAbsolutePath(), $chmod, (boolean) STREAM_MKDIR_RECURSIVE) === false) {
-				throw new Exception('The directory ' . $this->getPath() . ' could not be created.');
+			$success = @mkdir($this->getAbsolutePath(), $chmod, static::MKDIR_MODE);
+			if (!$success) {
+				$message = 'The directory ' . $this->getPath() . ' could not be created.';
+				throw new Exception($message);
 			}
 			$this->setChmod($chmod);
 		}
@@ -88,18 +92,19 @@ class Directory extends Storable {
 	 * @return string[]
 	 */
 	public function getItemsName() {
-		return array_values(array_diff(scandir($this->getAbsolutePath()), ['.', '..']));
+		$items = scandir($this->getAbsolutePath());
+		return array_values(array_diff($items, ['.', '..']));
 	}
 
 	/**
 	 * Retorna os itens dentro do diretório (em ordem alfabética)
-	 * @return Directory[]|File[]
+	 * @return Storable[]
 	 */
 	public function getItems() {
 		$items = [];
 		foreach ($this->getItemsName() as $itemName) {
-			$itemPath = $this->getPath() . DIRECTORY_SEPARATOR . $itemName;
-			if (is_dir(BASE_PATH . DIRECTORY_SEPARATOR . $itemPath)) {
+			$itemPath = $this->getPath() . static::DS . $itemName;
+			if (is_dir(BASE_PATH . static::DS . $itemPath)) {
 				$items[] = new Directory($itemPath);
 			} else {
 				$items[] = new File($itemPath);

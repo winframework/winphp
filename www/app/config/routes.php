@@ -20,4 +20,3 @@ $routes = [];
  * </code>
  */
 return $routes;
-

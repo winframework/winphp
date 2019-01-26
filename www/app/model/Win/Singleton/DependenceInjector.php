@@ -1,14 +1,16 @@
 <?php
 
-namespace Win\DesignPattern;
+namespace Win\Singleton;
 
 /**
  * Dependence Injector
  *
  * Auxilia a Injetar dependências
  * As classes ficam salvas em $container, então poderão ser sobrescritas
- * desde que todas as chamadas das classes estejam utilizando o intance() do Singleton
+ * desde que todas as chamadas das classes estejam utilizando o Singleton
  * ao invés de instanciar a classe.
+ * 
+ * @see SingletonTrait
  */
 class DependenceInjector {
 

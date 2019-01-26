@@ -4,7 +4,7 @@ namespace Win\Database\ActiveRecord;
 
 use Win\Database\Connection;
 use Win\Database\Sql\Select;
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 
 /**
  * Active Record Model
@@ -52,11 +52,11 @@ abstract class Model {
 
 	/**
 	 * Retorna um registro pelo campo
-	 * @param string $collumn
+	 * @param string $column
 	 * @param mixed $value
 	 */
-	protected function findBy($collumn, $value) {
-		$this->filter($collumn, '=', $value);
+	protected function findBy($column, $value) {
+		$this->filter($column, '=', $value);
 		return $this->first();
 	}
 
@@ -64,8 +64,8 @@ abstract class Model {
 	 * Adiciona filtros para busca
 	 * @return self
 	 */
-	public function filter($collumn, $operator, $value) {
-		static::$select->where->add($collumn, $operator, $value);
+	public function filter($column, $operator, $value) {
+		static::$select->where->add($column, $operator, $value);
 		return $this;
 	}
 
@@ -94,9 +94,9 @@ abstract class Model {
 		static::$select = new Select(static::$table);
 	}
 
-	/** @param string $collumns */
-	public function select($collumns) {
-		static::$select->collumns = $collumns;
+	/** @param string $columns */
+	public function select($columns) {
+		static::$select->columns = $columns;
 	}
 
 	/**

@@ -11,7 +11,7 @@ use Win\Mvc\Application;
 class Title {
 
 	public static $prefix = '';
-	public static $sufix = '';
+	public static $suffix = '';
 
 	/**
 	 * Retorna o título com o nome da aplicação no final
@@ -20,8 +20,9 @@ class Title {
 	 * @return string
 	 */
 	public static function otimize($title, $maxLength = 70) {
-		$maxLenght = $maxLength - Str::length(static::$prefix) - Str::length(static::$sufix);
-		return static::$prefix . Str::truncate($title, $maxLenght) . static::$sufix;
+		$staticLength = Str::length(static::$prefix) - Str::length(static::$suffix);
+		$maxLength = $maxLength - $staticLength;
+		return static::$prefix . Str::truncate($title, $maxLength) . static::$suffix;
 	}
 
 	/**

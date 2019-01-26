@@ -19,11 +19,11 @@ class Insert extends Query {
 
 	/** @return string */
 	public function toString() {
-		$collumns = array_keys($this->values);
+		$columns = array_keys($this->values);
 		$params = $this->getParams();
 		return 'INSERT INTO ' .
 				$this->table .
-				' (' . implode(',', $collumns) . ')' .
+				' (' . implode(',', $columns) . ')' .
 				' VALUES (' . implode(', ', $params) . ')';
 	}
 

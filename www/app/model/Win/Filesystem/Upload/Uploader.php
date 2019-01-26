@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\File\Upload;
+namespace Win\Filesystem\Upload;
 
 use Win\File\Directory;
 use Win\File\File;
@@ -23,7 +23,7 @@ class Uploader {
 	protected $uploaded;
 
 	/**
-	 * Inicializa o upload para o diretorio de destino
+	 * Inicializa o upload para o diretório de destino
 	 * @param Directory $destination
 	 */
 	public function __construct(Directory $destination) {

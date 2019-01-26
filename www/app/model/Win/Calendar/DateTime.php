@@ -31,7 +31,7 @@ class DateTime extends DateTimePHP {
 	}
 
 	/** @return string */
-	public function getMonthAbbre() {
+	public function getMonthShortName() {
 		return $this->formatF('%b');
 	}
 

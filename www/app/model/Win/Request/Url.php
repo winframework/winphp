@@ -2,10 +2,10 @@
 
 namespace Win\Request;
 
-use Win\DesignPattern\SingletonTrait;
+use Win\Singleton\SingletonTrait;
 
 /**
- * Gerenciador de URL
+ * Manipulador de URLs
  * 
  */
 class Url {
@@ -14,15 +14,15 @@ class Url {
 
 	protected $base = null;
 	protected $url = null;
-	protected $sufix = '/';
+	protected $suffix = '/';
 	protected $protocol = null;
 
 	/**
 	 * Define um novo sufixo de URL
-	 * @param string $sufix
+	 * @param string $suffix
 	 */
-	public function setSufix($sufix) {
-		$this->sufix = $sufix;
+	public function setSuffix($suffix) {
+		$this->suffix = $suffix;
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Url {
 	 * @return string
 	 */
 	public function format($url) {
-		return rtrim($url, $this->sufix) . $this->sufix;
+		return rtrim($url, $this->suffix) . $this->suffix;
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Url {
 	 * @return string[]
 	 */
 	public function getSegments() {
-		$url = rtrim($this->getUrl(), $this->sufix);
+		$url = rtrim($this->getUrl(), $this->suffix);
 		return explode('/', $url);
 	}
 

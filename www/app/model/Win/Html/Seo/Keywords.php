@@ -17,7 +17,9 @@ class Keywords {
 	 * @return string
 	 */
 	public static function otimize($keys, $maxLength = 100) {
-		return Str::lower(str_replace([',...', '...'], '', Str::truncate(implode(', ', array_filter(array_merge($keys, static::$default))), $maxLength)));
+		$keys = array_merge($keys, static::$default);
+		$keys = Str::truncate(implode(', ', array_filter($keys)), $maxLength);
+		return Str::lower(str_replace([',...', '...'], '', $keys));
 	}
 
 }

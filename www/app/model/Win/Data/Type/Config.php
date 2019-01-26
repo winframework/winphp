@@ -1,6 +1,8 @@
 <?php
 
-namespace Win\Data;
+namespace Win\Data\Type;
+
+use Win\Data\Data;
 
 /**
  * Armazena Configurações
