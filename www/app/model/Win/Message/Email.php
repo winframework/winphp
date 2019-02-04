@@ -1,9 +1,9 @@
 <?php
 
-namespace Win\Message\Type;
+namespace Win\Message;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use Win\File\File;
+use Win\Filesystem\File;
 use Win\Mvc\Block;
 use Win\Request\Server;
 

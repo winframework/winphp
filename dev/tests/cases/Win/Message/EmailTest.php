@@ -3,7 +3,7 @@
 namespace Win\Message;
 
 use PHPUnit\Framework\TestCase;
-use Win\File\Directory;
+use Win\Filesystem\Directory;
 use Win\Mvc\Block;
 use Win\Request\Server;
 
@@ -32,7 +32,7 @@ class EmailTest extends TestCase {
 		$email = new Email();
 		$email->addAddress('first@email.com', 'First Name');
 		$email->addAddress('second@email.com', 'Second Name');
-		$addresses = $email->getAdresses();
+		$addresses = $email->getAddresses();
 
 		$this->assertEquals(2, count($addresses));
 		$this->assertTrue(key_exists('first@email.com', $addresses));

@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Data\Config;
+use Win\Data\Type\Config;
 use Win\Request\Header;
 use Win\Request\Url;
 

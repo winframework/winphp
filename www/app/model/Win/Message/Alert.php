@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Message\Type;
+namespace Win\Message;
 
 use Win\Singleton\SingletonTrait;
 use Win\Mvc\Block;

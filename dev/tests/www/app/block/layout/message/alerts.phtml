@@ -1,8 +1,12 @@
 <?php
-/* @var $this Win\Mvc\Block */
-/* @var $alerts string[] */
+
+use Win\Mvc\Block;
+use Win\Calendar\DateCalc;
+
+/** @var Block $this */
+/** @var string[] $alerts */
 ?>
-<?php foreach ($alerts as $type => $messages): ?>
+<?php foreach ($alerts as $type => $messages) : ?>
 	<div class="alert alert-<?= $type; ?>">
 		<?= implode('<br />', $messages); ?>
 	</div>

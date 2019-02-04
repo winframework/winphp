@@ -68,11 +68,11 @@ class DateTimeTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals($date2->getMonthName(), 'novembro');
 	}
 
-	public function testGetMonthAbbre() {
+	public function testGetMonthShortName() {
 		$date1 = DateTime::create(DateTime::BR_DATE_TIME, $this->dateBR);
 		$date2 = DateTime::create(DateTime::BR_DATE_TIME, '25/11/2000 00:00:01');
-		$this->assertEquals($date1->getMonthAbbre(), 'set');
-		$this->assertEquals($date2->getMonthAbbre(), 'nov');
+		$this->assertEquals($date1->getMonthShortName(), 'set');
+		$this->assertEquals($date2->getMonthShortName(), 'nov');
 	}
 
 	public function testToHtml() {

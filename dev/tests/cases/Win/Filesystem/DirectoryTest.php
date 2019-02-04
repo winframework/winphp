@@ -1,8 +1,7 @@
 <?php
 
-namespace Win\File;
+namespace Win\Filesystem;
 
-use PHPMailer\PHPMailer\Exception;
 
 class DirectoryTest extends \PHPUnit\Framework\TestCase {
 

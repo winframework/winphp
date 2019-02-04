@@ -2,7 +2,7 @@
 
 namespace Win\Filesystem\File\Type;
 
-use Win\File\File;
+use Win\Filesystem\File;
 
 /**
  * Arquivo de Imagem

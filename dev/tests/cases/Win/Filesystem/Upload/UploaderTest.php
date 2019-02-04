@@ -1,10 +1,10 @@
 <?php
 
-namespace Win\File\Upload;
+namespace Win\Filesystem\Upload;
 
 use PHPUnit\Framework\TestCase;
-use Win\File\Directory;
-use Win\File\File;
+use Win\Filesystem\Directory;
+use Win\Filesystem\File;
 
 class UploaderTest extends TestCase {
 

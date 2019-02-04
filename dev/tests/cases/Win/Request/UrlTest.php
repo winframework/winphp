@@ -5,7 +5,7 @@ namespace Win\Request;
 class UrlTest extends \PHPUnit\Framework\TestCase {
 
 	public function testFormat() {
-		Url::instance()->setSufix('/');
+		Url::instance()->setSuffix('/');
 		$link = 'my-custom-link';
 		$formatedLink = Url::instance()->format($link);
 		$this->assertEquals('my-custom-link/', $formatedLink);
@@ -16,14 +16,14 @@ class UrlTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testFormatExtension() {
-		Url::instance()->setSufix('.html');
+		Url::instance()->setSuffix('.html');
 		$link2 = 'my-custom-link-with-extension';
 		$formatedLink2 = Url::instance()->format($link2);
 		$this->assertEquals('my-custom-link-with-extension.html', $formatedLink2);
 	}
 
 	public function testGetUrl() {
-		Url::instance()->setSufix('/');
+		Url::instance()->setSuffix('/');
 		Url::instance()->setUrl('my-page/subpage');
 		$url = Url::instance()->getUrl();
 		$this->assertContains('my-page/subpage', $url);
@@ -35,7 +35,7 @@ class UrlTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetUrlNull() {
-		Url::instance('new')->setSufix('');
+		Url::instance('new')->setSuffix('');
 		$_SERVER['HTTP_HOST'] = true;
 
 		$url = Url::instance('new')->getUrl();
@@ -43,7 +43,7 @@ class UrlTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetFragments() {
-		Url::instance()->setSufix('/');
+		Url::instance()->setSuffix('/');
 		Url::instance()->setUrl('my-page/subpage');
 		$fragments = Url::instance()->getSegments();
 

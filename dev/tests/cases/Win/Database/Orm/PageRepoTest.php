@@ -3,7 +3,7 @@
 namespace Win\Database\Orm;
 
 use PHPUnit\Framework\TestCase;
-use Win\Database\Mysql;
+use Win\Database\Connection\Type\Mysql;
 use Win\Database\Orm\Page\Page;
 use Win\Database\DbConfig;
 

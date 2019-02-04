@@ -2,7 +2,7 @@
 
 namespace Win\Database;
 
-use Win\Database\Mysql;
+use Win\Database\Connection\Type\Mysql;
 use const BASE_PATH;
 
 /**

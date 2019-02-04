@@ -19,7 +19,7 @@ class PasswordTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(Password::encrypt($string), Password::encrypt($string));
 	}
 
-	public function testGenerate_Lenght() {
+	public function testGenerate_Length() {
 		$this->assertEquals(6, strlen(Password::generate()));
 		$this->assertEquals(4, strlen(Password::generate(4)));
 		$this->assertEquals(10, strlen(Password::generate(10)));

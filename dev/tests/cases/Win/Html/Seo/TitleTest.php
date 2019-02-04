@@ -9,25 +9,28 @@ class TitleTest extends \PHPUnit\Framework\TestCase {
 	public function testOtimize() {
 		$this->assertEquals('My custom Title', Title::otimize('My custom Title', 100));
 		$this->assertEquals('My custom...', Title::otimize('My custom Title', 11));
+		$this->assertEquals('My custom...', Title::otimize('My custom Title', 10));
+		$this->assertEquals('My custom...', Title::otimize('My custom Title', 9));
+		$this->assertEquals('My...', Title::otimize('My custom Title', 8));
 	}
 
 	public function testOtimizePrefix() {
 		Title::$prefix = '|| ';
-		Title::$sufix = '';
+		Title::$suffix = '';
 		$this->assertEquals('|| My custom Title', Title::otimize('My custom Title', 100));
 		$this->assertEquals('|| My...', Title::otimize('My custom Title', 11));
 	}
 
-	public function testOtimizeSufix() {
+	public function testOtimizeSuffix() {
 		Title::$prefix = '';
-		Title::$sufix = ' ||';
+		Title::$suffix = ' ||';
 		$this->assertEquals('My custom Title ||', Title::otimize('My custom Title', 100));
 		$this->assertEquals('My... ||', Title::otimize('My custom Title', 11));
 	}
 
-	public function testOtimizeSufixAndPrefix() {
+	public function testOtimizeSuffixAndPrefix() {
 		Title::$prefix = '|| ';
-		Title::$sufix = ' ||';
+		Title::$suffix = ' ||';
 		$this->assertEquals('|| My custom Title ||', Title::otimize('My custom Title', 100));
 		$this->assertEquals('|| My... ||', Title::otimize('My custom Title', 13));
 		$this->assertEquals('|| ... ||', Title::otimize('My custom Title', 7));
@@ -37,7 +40,7 @@ class TitleTest extends \PHPUnit\Framework\TestCase {
 		$app = new Application();
 		$app->controller->setTitle('My old page Title');
 		Title::$prefix = '.:: ';
-		Title::$sufix = ' ::.';
+		Title::$suffix = ' ::.';
 		Title::setTitle('My custom and longest Title and longest Title and longest Title and longest Title and longest Title and longest Title');
 		$title = $app->controller->getData('title');
 

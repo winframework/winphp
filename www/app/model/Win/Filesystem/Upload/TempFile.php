@@ -2,8 +2,8 @@
 
 namespace Win\Filesystem\Upload;
 
-use Win\File\Directory;
-use Win\File\File;
+use Win\Filesystem\Directory;
+use Win\Filesystem\File;
 
 /**
  * Arquivo Temporário

@@ -20,7 +20,7 @@ class Title {
 	 * @return string
 	 */
 	public static function otimize($title, $maxLength = 70) {
-		$staticLength = Str::length(static::$prefix) - Str::length(static::$suffix);
+		$staticLength = Str::length(static::$prefix) + Str::length(static::$suffix);
 		$maxLength = $maxLength - $staticLength;
 		return static::$prefix . Str::truncate($title, $maxLength) . static::$suffix;
 	}

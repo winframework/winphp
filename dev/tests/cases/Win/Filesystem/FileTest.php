@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\File;
+namespace Win\Filesystem;
 
 class FileTest extends \PHPUnit\Framework\TestCase {
 

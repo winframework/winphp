@@ -5,6 +5,7 @@ namespace Win\Mvc;
 use PHPUnit\Framework\TestCase;
 use Win\Mvc\View;
 use Win\Request\Url;
+use Win\Html\Seo\Title;
 
 class ViewTest extends TestCase {
 
@@ -101,6 +102,8 @@ class ViewTest extends TestCase {
 		Url::instance()->setUrl('my-page/my-subpage');
 		new Application();
 		$view = new View('index');
+		Title::$prefix = '';
+		Title::$suffix = '';
 		$this->assertEquals('My Page', $view->getTitle());
 	}
 

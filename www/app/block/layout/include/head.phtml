@@ -1,9 +1,13 @@
 <?php
-/* @var $this Win\Mvc\Block */
+
+use Win\Mvc\Block;
+
+/** @var Block $this */
 ?>
+
 <head>
-	<base href="<?php echo $this->app->getBaseUrl(); ?>" />
-	<title><?php echo $this->app->view->getTitle(); ?></title>
+	<base href="<?= $this->app->getBaseUrl() ?>" />
+	<title><?= $this->app->view->getTitle() ?></title>
 
 	<!-- Meta Tags -->
 	<meta charset="UTF-8" />
