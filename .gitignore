@@ -4,3 +4,4 @@ gulpfile.js
 /nbproject/private/
 /vendor
 .history/
+.vscode/sftp.json
