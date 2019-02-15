@@ -2,8 +2,8 @@
 
 namespace Win\Mvc;
 
-use controller\DemoController;
-use controller\IndexController;
+use controllers\DemoController;
+use controllers\IndexController;
 use Win\Mvc\Application;
 use Win\Mvc\ControllerFactory;
 use Win\Mvc\DefaultController;

@@ -70,7 +70,7 @@ class EmailTest extends TestCase {
 
 	public function testContentBlock() {
 		$email = new Email();
-		$body = new Block('email/content/first');
+		$body = new Block('email/contents/first');
 		$email->setContent($body);
 
 		$this->assertTrue($email->getContent() instanceof Block);
@@ -97,7 +97,7 @@ class EmailTest extends TestCase {
 	public function testLayoutWithContent() {
 		$email = new Email();
 		$email->setLayout('main');
-		$email->setContent(new Block('email/content/first'));
+		$email->setContent(new Block('email/contents/first'));
 		$this->assertTrue($this->findString($email->__toString(), 'My first content'));
 	}
 

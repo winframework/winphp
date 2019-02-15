@@ -46,7 +46,7 @@ class ControllerFactory {
 	 */
 	protected static function formatClass($page) {
 		$controllerName = ucwords(str_replace('-', ' ', $page) . 'Controller');
-		return 'controller\\' . str_replace(' ', '', $controllerName);
+		return 'controllers\\' . str_replace(' ', '', $controllerName);
 	}
 
 }

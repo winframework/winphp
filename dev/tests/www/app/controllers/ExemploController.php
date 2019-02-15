@@ -1,6 +1,6 @@
 <?php
 
-namespace controller;
+namespace controllers;
 
 use Win\File\Directory;
 use Win\File\File\Image;

@@ -1,6 +1,6 @@
 <?php
 
-namespace controller;
+namespace controllers;
 
 class IndexController extends \Win\Mvc\Controller {
 

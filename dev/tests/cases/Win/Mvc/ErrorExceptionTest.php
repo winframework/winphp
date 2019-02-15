@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use controller\IndexController;
+use controllers\IndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Request\Url;
 

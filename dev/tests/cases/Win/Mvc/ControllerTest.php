@@ -2,8 +2,8 @@
 
 namespace Win\Mvc;
 
-use controller\DemoController;
-use controller\IndexController;
+use controllers\DemoController;
+use controllers\IndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Request\Header;
 use Win\Request\Url;

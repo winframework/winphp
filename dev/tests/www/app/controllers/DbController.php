@@ -1,6 +1,6 @@
 <?php
 
-namespace controller;
+namespace controllers;
 
 use Win\Database\Mysql;
 use Win\Database\Orm\Page\Page;

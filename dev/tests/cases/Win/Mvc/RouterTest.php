@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use controller\ExemploController;
+use controllers\ExemploController;
 use Win\Mvc\Router;
 use Win\Request\Url;
 

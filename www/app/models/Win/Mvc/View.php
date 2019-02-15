@@ -11,7 +11,7 @@ use Win\Html\Seo\Title;
  */
 class View extends Block {
 
-	public static $dir = '/app/view';
+	public static $dir = '/app/views';
 
 	/**
 	 * Cria uma View com base no arquivo escolhido

@@ -11,7 +11,7 @@ use Win\Request\Url;
  */
 abstract class Controller {
 
-	public static $dir = '/app/controller';
+	public static $dir = '/app/controllers';
 
 	/**
 	 * Ponteiro para Aplicação Principal

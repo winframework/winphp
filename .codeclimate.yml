@@ -3,5 +3,5 @@ languages:
 exclude_paths:
  - dev/tests/
  - www/lib/vendor/
- - www/app/model/PHPMailer/
+ - www/app/models/PHPMailer/
  - spec/

@@ -1,6 +1,6 @@
 <?php
 
-namespace controller;
+namespace controllers;
 
 use Win\Mvc\Controller;
 use Win\Mvc\View;

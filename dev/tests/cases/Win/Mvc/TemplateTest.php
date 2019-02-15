@@ -15,10 +15,10 @@ class TemplateTest extends \PHPUnit\Framework\TestCase {
 		$template = Template::instance();
 		$template->setTheme('custom');
 
-		$this->assertContains('custom/view/exemplo', $template->getFilePath('exemplo'));
-		$this->assertContains('default/view/file-not-found', $template->getFilePath('file-not-found'));
+		$this->assertContains('custom/views/exemplo', $template->getFilePath('exemplo'));
+		$this->assertContains('default/views/file-not-found', $template->getFilePath('file-not-found'));
 		$template->setTheme('theme-not-found');
-		$this->assertContains('default/view/exemplo', $template->getFilePath('exemplo'));
+		$this->assertContains('default/views/exemplo', $template->getFilePath('exemplo'));
 		$template->setTheme(null);
 	}
 
@@ -27,7 +27,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase {
 		$template->setTheme('custom');
 		$view = new View('exemplo');
 
-		$this->assertContains('app/template/custom/view/exemplo.phtml', $view->getFile());
+		$this->assertContains('app/template/custom/views/exemplo.phtml', $view->getFile());
 		$this->assertTrue($view->exists());
 		$template->setTheme(null);
 	}
@@ -37,7 +37,7 @@ class TemplateTest extends \PHPUnit\Framework\TestCase {
 		$template->setTheme('custom');
 		$view = new View('doesnt-exist');
 
-		$this->assertContains('app/template/default/view/doesnt-exist.phtml', $view->getFile());
+		$this->assertContains('app/template/default/views/doesnt-exist.phtml', $view->getFile());
 		$this->assertFalse($view->exists());
 		$template->setTheme(null);
 	}
