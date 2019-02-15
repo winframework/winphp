@@ -2,7 +2,7 @@
 
 namespace Win\Html\Seo;
 
-use Win\Format\Str;
+use Win\Format\Type\Str;
 use Win\Mvc\Application;
 
 /**

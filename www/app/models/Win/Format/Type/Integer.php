@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Format;
+namespace Win\Format\Type;
 
 /**
  * Manipulador de Inteiros

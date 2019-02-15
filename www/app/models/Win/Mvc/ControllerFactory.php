@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Format\Str;
+use Win\Format\Type\Str;
 use Win\Mvc\DefaultController;
 
 /**
