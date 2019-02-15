@@ -1,6 +1,6 @@
 *
 !.gitignore
-!/upload
+!/uploads
 /uploads/*/*
 !/uploads/*/default.png
 !/.htaccess
