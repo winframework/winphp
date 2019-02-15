@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Message;
+namespace Win\FlashMessage;
 
 use PHPUnit\Framework\TestCase;
 

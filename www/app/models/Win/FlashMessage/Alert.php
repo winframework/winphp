@@ -1,10 +1,11 @@
 <?php
 
-namespace Win\Message;
+namespace Win\FlashMessage;
 
 use Win\Singleton\SingletonTrait;
 use Win\Mvc\Block;
 use Win\Request\Session;
+use Win\Mailer\Email;
 
 /**
  * Alerta
