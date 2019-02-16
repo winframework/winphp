@@ -2,14 +2,14 @@
 
 namespace Win\Html\Form;
 
-use Win\Html\Html;
+use Win\Html\Tag;
 
 /**
  * Campo de Seleção
  * <select>
  *
  */
-class Select extends Html {
+class Select extends Tag {
 
 	protected $options;
 	protected $value;

@@ -23,14 +23,14 @@ class UploaderTest extends TestCase {
 		$file = new File('data/tmp/test-upload.md');
 		$file->write('content');
 
-		static::$uploader = new Uploader(new Directory('data/upload'));
+		static::$uploader = new Uploader(new Directory('data/uploads'));
 	}
 
 	public static function tearDownAfterClass() {
 		$tmp = new Directory('data/tmp');
 		$tmp->delete();
 
-		$upload = new Directory('data/upload');
+		$upload = new Directory('data/uploads');
 		$upload->delete();
 	}
 

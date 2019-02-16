@@ -15,6 +15,14 @@ class Data implements DataInterface {
 	protected $data = [];
 
 	/**
+	 * Define todos os valores
+	 * @param mixed[] $values
+	 */
+	public function load($values) {
+		$this->data = $values;
+	}
+
+	/**
 	 * Retorna todas as variáveis
 	 * @return mixed[]
 	 */

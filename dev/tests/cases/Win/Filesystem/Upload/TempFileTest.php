@@ -22,7 +22,7 @@ class TempFileTest extends TestCase {
 	const TMP_NAME = 'xA0i90';
 
 	public static function setUpBeforeClass() {
-		static::$destination = new Directory('data/upload');
+		static::$destination = new Directory('data/uploads');
 		static::$destination->create();
 		static::createTempFile();
 	}
@@ -90,9 +90,9 @@ class TempFileTest extends TestCase {
 	}
 
 	public function setGetAbsolutePath_NotTemporary() {
-		$file = new File('data/file/not-temporary');
+		$file = new File('data/files/not-temporary');
 		$file->write('content');
-		$this->assertEquals('/tmp/not-temporary', new TempFile('data/file/not-temporary'));
+		$this->assertEquals('/tmp/not-temporary', new TempFile('data/files/not-temporary'));
 	}
 
 	public function testMove() {
@@ -101,7 +101,7 @@ class TempFileTest extends TestCase {
 
 		$this->assertTrue($moved);
 		$this->assertTrue($temp->exists());
-		$this->assertContains('data/upload', $temp->getAbsolutePath());
+		$this->assertContains('data/uploads', $temp->getAbsolutePath());
 		$this->assertEquals(static::$destination->getAbsolutePath(), $temp->getDirectory()->getAbsolutePath());
 	}
 
@@ -112,7 +112,7 @@ class TempFileTest extends TestCase {
 
 		$this->assertTrue($moved);
 		$this->assertTrue($temp->exists());
-		$this->assertContains('data/upload/new-name.txt', $temp->getAbsolutePath());
+		$this->assertContains('data/uploads/new-name.txt', $temp->getAbsolutePath());
 	}
 
 }

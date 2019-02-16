@@ -2,13 +2,13 @@
 
 namespace Win\Html\Form;
 
-use Win\Html\Html;
+use Win\Html\Tag;
 
 /**
  * Input Abstrato
  * <input>
  */
-abstract class Input extends Html {
+abstract class Input extends Tag {
 
 	/** @var string */
 	protected $type;

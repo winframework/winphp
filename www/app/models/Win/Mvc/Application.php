@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Data\Type\Config;
+use Win\Data\Data;
 use Win\Request\Header;
 use Win\Request\Url;
 
@@ -30,17 +30,17 @@ class Application {
 
 	/**
 	 * Cria a aplicação principal
-	 * @param mixed[] $config
+	 * @param mixed[] $data
 	 */
-	public function __construct($config = []) {
+	public function __construct($data = []) {
 		static::$instance = $this;
-		Config::instance()->load($config);
-		$this->name = (string) Config::instance()->get('name', '');
+		Data::instance()->load($data);
+		$this->name = (string) $this->data()->get('name', '');
 		$this->init();
 	}
 
 	/**
-	 * Inicia com as configurações básicas
+	 * Inicia com as Configurações básicas
 	 */
 	protected function init() {
 		$this->setParams(Url::instance()->getSegments());
@@ -63,6 +63,11 @@ class Application {
 	 */
 	public static function app() {
 		return static::$instance;
+	}
+
+	/** @return Data */
+	public function data() {
+		return Data::instance();
 	}
 
 	/**
@@ -148,11 +153,11 @@ class Application {
 
 	/**
 	 * Retorna uma parte da URL
-	 * @param int $position Parte escolhida
+	 * @param int $index Parte escolhida
 	 * @return string
 	 */
-	public function getParam($position) {
-		return (key_exists($position, $this->params)) ? $this->params[$position] : '';
+	public function getParam($index) {
+		return (key_exists($index, $this->params)) ? $this->params[$index] : '';
 	}
 
 	/**

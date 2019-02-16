@@ -2,11 +2,11 @@
 
 namespace controllers;
 
-use Win\File\Directory;
-use Win\File\File\Image;
-use Win\File\Upload\TempFile;
-use Win\File\Upload\Uploader;
-use Win\Message\Alert;
+use Win\Filesystem\Directory;
+use Win\Filesystem\Image;
+use Win\Filesystem\Upload\TempFile;
+use Win\Filesystem\Upload\Uploader;
+use Win\FlashMessage\Alert;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 use Win\Request\Input;
@@ -37,7 +37,7 @@ class ExemploController extends Controller {
 		$image = null;
 		
 		if (!is_null(Input::post('submit'))) {
-			$dir = new Directory('data/upload');
+			$dir = new Directory('data/uploads');
 			$dir->delete();
 			$uploader = new Uploader($dir);
 

@@ -68,8 +68,8 @@ class Block {
 	protected function setFile($file) {
 		$filePath = static::$dir . DIRECTORY_SEPARATOR . $file;
 
-		if (!is_null(Template::instance()->getTheme())) {
-			$filePath = Template::instance()->getFilePath($file);
+		if (!is_null(Theme::instance()->get())) {
+			$filePath = Theme::instance()->getFilePath($file);
 		}
 
 		$this->file = BASE_PATH . $filePath . '.phtml';

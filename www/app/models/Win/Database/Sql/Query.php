@@ -3,7 +3,7 @@
 namespace Win\Database\Sql;
 
 use Win\Database\Connection;
-use Win\Database\Orm\Repository;
+use Win\Database\Orm\Orm;
 
 /**
  * SELECT, UPDATE, DELETE, etc
@@ -13,19 +13,19 @@ abstract class Query {
 	/** @var Connection */
 	protected $connection;
 
-	/** @var Repository */
-	protected $repo;
+	/** @var Orm */
+	protected $orm;
 
 	/** @var string */
 	protected $table;
 
 	/**
-	 * @param Repository $repo
+	 * @param Orm $orm
 	 */
-	public function __construct(Repository $repo) {
-		$this->repo = $repo;
-		$this->table = $this->repo->getTable();
-		$this->connection = $repo::getConnection();
+	public function __construct(Orm $orm) {
+		$this->orm = $orm;
+		$this->table = $this->orm->getTable();
+		$this->connection = $orm::getConnection();
 	}
 
 	/** @return string */
@@ -35,7 +35,7 @@ abstract class Query {
 
 	/** @return string */
 	public function __toString() {
-		if ($this->repo->getDebugMode()) {
+		if ($this->orm->getDebugMode()) {
 			$this->debug();
 		}
 		return $this->toString();

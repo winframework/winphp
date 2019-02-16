@@ -3,9 +3,9 @@
 namespace Win\Database\Orm;
 
 use PHPUnit\Framework\TestCase;
-use Win\Database\Connection\Type\Mysql;
+use Win\Database\Connection\MysqlConnection as Mysql;
 use Win\Database\Orm\Page\Page;
-use Win\Database\DbConfig;
+use Win\Database\Connection\DbConfig;
 
 class PageRepoTest extends TestCase {
 
@@ -35,52 +35,52 @@ class PageRepoTest extends TestCase {
 	}
 
 	public function testNumRows() {
-		$count = Page::repo()->filter('id', '>', 1)->numRows();
+		$count = Page::orm()->filter('id', '>', 1)->numRows();
 		$this->assertEquals(2, $count);
 	}
 
 	public function testAll() {
-		$pages = Page::repo()->results();
+		$pages = Page::orm()->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('First Page', $pages[0]->getTitle());
 	}
 
 	public function testFind() {
-		$page = Page::repo()->find(2)->result();
+		$page = Page::orm()->find(2)->result();
 		$this->assertEquals(2, $page->getId());
 		$this->assertEquals('Second Page', $page->getTitle());
 	}
 
 	public function testFirst() {
-		$page = Page::repo()->older()->result();
+		$page = Page::orm()->older()->result();
 		$this->assertEquals(1, $page->getId());
 	}
 
 	public function testLast() {
-		$page = Page::repo()->newer()->result();
+		$page = Page::orm()->newer()->result();
 		$this->assertEquals(3, $page->getId());
 	}
 
 	public function testRecent() {
-		$pages = Page::repo()->newer()->results();
+		$pages = Page::orm()->newer()->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('Third Page', $pages[0]->getTitle());
 	}
 
 	public function testOrderBy() {
-		$pages = Page::repo()->orderBy('title ASC')->results();
+		$pages = Page::orm()->orderBy('title ASC')->results();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('First Page', $pages[0]->getTitle());
 	}
 
 	public function testFilter() {
-		$page = Page::repo()->filter('id', '=', 2)->result();
+		$page = Page::orm()->filter('id', '=', 2)->result();
 		$this->assertEquals($page->getId(), 2);
 		$this->assertEquals('Second Page', $page->getTitle());
 	}
 
 	public function testFilterRecent() {
-		$repo = Page::repo();
+		$repo = Page::orm();
 		$repo->filter('id', '>', 1);
 		$repo->filter('id', '<', 3);
 		$repo->newer();
@@ -91,70 +91,70 @@ class PageRepoTest extends TestCase {
 	}
 
 	public function testLimit() {
-		$pages = Page::repo()->limit(2)->results();
+		$pages = Page::orm()->limit(2)->results();
 		$this->assertCount(2, $pages);
 	}
 
 	public function testFlush() {
-		$pages = Page::repo()->filter('id', '>', 1)->results();
-		$pages2 = Page::repo()->filter('id', '>', 0)->results();
+		$pages = Page::orm()->filter('id', '>', 1)->results();
+		$pages2 = Page::orm()->filter('id', '>', 0)->results();
 
 		$this->assertCount(2, $pages);
 		$this->assertCount(3, $pages2);
 	}
 
 	public function testDelete() {
-		$pagesTotal = count(Page::repo()->results());
-		$page = Page::repo()->find(1)->result();
-		$success = Page::repo()->delete($page);
+		$pagesTotal = count(Page::orm()->results());
+		$page = Page::orm()->find(1)->result();
+		$success = Page::orm()->delete($page);
 
 		$this->assertTrue($success);
-		$this->assertCount($pagesTotal - 1, Page::repo()->results());
+		$this->assertCount($pagesTotal - 1, Page::orm()->results());
 	}
 
 	public function testDebug() {
-		Page::repo()->debugOn();
+		Page::orm()->debugOn();
 		ob_start();
-		Page::repo()->results();
+		Page::orm()->results();
 		$result = ob_get_clean();
 		$this->assertContains('SELECT * FROM', $result);
 	}
 
 	public function testDebug_Off() {
-		Page::repo()->debugOn();
+		Page::orm()->debugOn();
 		ob_start();
-		Page::repo()->debugOff();
-		Page::repo()->results();
+		Page::orm()->debugOff();
+		Page::orm()->results();
 		$empty = ob_get_clean();
 		$this->assertEmpty($empty);
 	}
 
 	public function testInsert() {
-		$pagesTotal = count(Page::repo()->results());
+		$pagesTotal = count(Page::orm()->results());
 
 		$page = new Page();
 		$page->setTitle('Fourth Page');
 		$page->setDescription('Inserted by save method');
-		$success = Page::repo()->save($page);
+		$success = Page::orm()->save($page);
 
 		$this->assertTrue($success);
 		$this->assertGreaterThan(0, $page->getId());
-		$this->assertCount($pagesTotal + 1, Page::repo()->results());
+		$this->assertCount($pagesTotal + 1, Page::orm()->results());
 	}
 
 	public function testUpdate() {
-		$pagesTotal = count(Page::repo()->results());
+		$pagesTotal = count(Page::orm()->results());
 
-		$page = Page::repo()->newer()->result();
+		$page = Page::orm()->newer()->result();
 		$page->setTitle('New Title');
 		$page->setDescription('Updated by save method');
-		$success = Page::repo()->save($page);
-		$pageUpdated = Page::repo()->newer()->result();
+		$success = Page::orm()->save($page);
+		$pageUpdated = Page::orm()->newer()->result();
 
 		$this->assertTrue($success);
 		$this->assertEquals('New Title', $pageUpdated->getTitle());
 		$this->assertEquals('Updated by save method', $pageUpdated->getDescription());
-		$this->assertCount($pagesTotal, Page::repo()->results());
+		$this->assertCount($pagesTotal, Page::orm()->results());
 	}
 
 }

@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql;
 
-use Win\Database\Orm\Repository;
+use Win\Database\Orm\Orm;
 
 /**
  * UPDATE SET
@@ -12,9 +12,9 @@ class Update extends Query {
 	/** @var mixed[] */
 	protected $values;
 
-	public function __construct(Repository $repo) {
-		parent::__construct($repo);
-		$this->values = $repo->getRowValues();
+	public function __construct(Orm $orm) {
+		parent::__construct($orm);
+		$this->values = $orm->getRowValues();
 	}
 
 	/** @return string */
@@ -38,7 +38,7 @@ class Update extends Query {
 	/** @return mixed[] */
 	public function getValues() {
 		$values = array_values($this->values);
-		$values[] = $this->repo->getModel()->getId();
+		$values[] = $this->orm->getModel()->getId();
 		return $values;
 	}
 

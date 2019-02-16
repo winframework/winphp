@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql;
 
-use Win\Database\Orm\Repository;
+use Win\Database\Orm\Orm;
 
 /**
  * INSERT INTO
@@ -12,9 +12,9 @@ class Insert extends Query {
 	/** @var mixed[] */
 	protected $values;
 
-	public function __construct(Repository $repo) {
-		parent::__construct($repo);
-		$this->values = $repo->getRowValues();
+	public function __construct(Orm $orm) {
+		parent::__construct($orm);
+		$this->values = $orm->getRowValues();
 	}
 
 	/** @return string */

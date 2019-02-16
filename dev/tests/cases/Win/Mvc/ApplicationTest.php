@@ -2,9 +2,10 @@
 
 namespace Win\Mvc;
 
-use Win\Request\Url;
+use Win\Data\Data;
 use Win\Mvc\Application;
 use Win\Request\Server;
+use Win\Request\Url;
 
 class ApplicationTest extends \PHPUnit\Framework\TestCase {
 
@@ -25,6 +26,14 @@ class ApplicationTest extends \PHPUnit\Framework\TestCase {
 	public function testApp() {
 		$this->assertTrue(static::$app instanceof Application);
 		$this->assertTrue(Application::app() instanceof Application);
+	}
+
+	public function testData(){
+		$name = Application::app()->getName();
+		Data::instance()->set('a',10);
+
+		$this->assertEquals($name, Application::app()->data()->get('name'));
+		$this->assertEquals(10, Application::app()->data()->get('a'));
 	}
 
 	public function testGetName() {

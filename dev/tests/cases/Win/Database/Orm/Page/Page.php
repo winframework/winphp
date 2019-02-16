@@ -3,7 +3,7 @@
 namespace Win\Database\Orm\Page;
 
 use Win\Calendar\DateTime;
-use Win\Database\Orm\Model;
+use Win\Contracts\Database\Orm\Model;
 
 /**
  * Página
@@ -58,9 +58,9 @@ class Page implements Model {
 		$this->createdAt = $createdAt;
 	}
 
-	/** @return PageRepo */
-	public static function repo() {
-		return PageRepo::instance();
+	/** @return PageOrm */
+	public static function orm() {
+		return PageOrm::instance();
 	}
 
 }

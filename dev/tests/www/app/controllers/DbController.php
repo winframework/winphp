@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use Win\Database\Mysql;
+use Win\Database\Connection\Type\Mysql;
 use Win\Database\Orm\Page\Page;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
@@ -21,9 +21,10 @@ class DbController extends Controller {
 	}
 
 	public function results() {
-		$pageOrm = Page::repo();
+		$pageOrm = Page::orm();
 		$pageOrm->debugOn();
-		$pageOrm->results();
+		var_dump($pageOrm->results());
+		return new View('index');
 	}
 
 }

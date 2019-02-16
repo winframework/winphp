@@ -2,7 +2,7 @@
 
 namespace Win\Html\Seo;
 
-use Win\Format\Type\Str;
+use Win\Formats\Str;
 
 /**
  * Auxilia a criar 'Description' otimizado para SEO
