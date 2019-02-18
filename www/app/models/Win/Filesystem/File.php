@@ -94,7 +94,7 @@ class File extends Storable {
 	public function write($content, $mode = 'w') {
 		$return = false;
 		if (!empty($this->getName())) {
-			$this->getDirectory()->create();
+			$this->getDirectory()->create(0777);
 			$fp = fopen($this->getAbsolutePath(), $mode);
 			if ($fp !== false) {
 				fwrite($fp, $content);

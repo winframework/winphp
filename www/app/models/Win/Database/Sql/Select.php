@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql;
 
-use Win\Database\Orm\Orm;
+use Win\Database\Orm;
 use Win\Database\Sql\Clause\Limit;
 use Win\Database\Sql\Clause\OrderBy;
 use Win\Database\Sql\Clause\Where;

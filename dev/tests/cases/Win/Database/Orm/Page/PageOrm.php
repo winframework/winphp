@@ -2,7 +2,7 @@
 
 namespace Win\Database\Orm\Page;
 
-use Win\Database\Orm\Orm;
+use Win\Database\Orm;
 
 /**
  * Página ORM

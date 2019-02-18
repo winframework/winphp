@@ -3,37 +3,20 @@
 namespace controllers;
 
 use Win\Filesystem\Directory;
-use Win\Filesystem\Image;
+use Win\Filesystem\Files\Image;
 use Win\Filesystem\Upload\TempFile;
 use Win\Filesystem\Upload\Uploader;
 use Win\FlashMessage\Alert;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 use Win\Request\Input;
+use Win\Filesystem\File;
+use Win\Mail\Email;
+use Win\Calendar\Timer;
 
-class ExemploController extends Controller {
-
-	protected function init() {
-		
-	}
+class UploaderController extends Controller {
 
 	public function index() {
-		return new View('exemplo/index');
-	}
-
-	public function alert() {
-		Alert::error('Ops! Um erro');
-		Alert::error('Outro erro');
-		Alert::success('Parabéns');
-
-		$this->redirect('exemplo/show-alert');
-	}
-
-	public function showAlert() {
-		return new View('exemplo/show-alert');
-	}
-
-	public function uploader() {
 		$image = null;
 		
 		if (!is_null(Input::post('submit'))) {

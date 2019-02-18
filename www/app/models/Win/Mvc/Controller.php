@@ -85,10 +85,23 @@ abstract class Controller {
 	public function load() {
 		$this->init();
 		$action = $this->action;
-		$view = $this->$action();
-		$this->setView($view);
-		$this->app->view->validate();
-		$this->app->view->mergeData($this->data);
+		if (method_exists($this, $action)){
+			$view = $this->$action();
+			$this->setView($view);
+			$this->app->view->validate();
+			$this->app->view->mergeData($this->data);
+		} else {
+			$this->actionNotFound();
+		}
+	}
+
+	/**
+	 * Define Página como 404
+	 */
+	protected function actionNotFound() {
+		if ($this->app->getPage() !== '404') {
+			$this->app->pageNotFound();
+		}
 	}
 
 	/**
@@ -125,18 +138,6 @@ abstract class Controller {
 	 */
 	public function refresh() {
 		Url::instance()->redirect(Url::instance()->getUrl());
-	}
-
-	/**
-	 * Ao chamar um método inexistente retorna um 404
-	 * @param string $name
-	 * @param mixed[] $arguments
-	 * @return boolean
-	 */
-	public function __call($name, $arguments) {
-		if ($this->app->getPage() !== '404') {
-			$this->app->pageNotFound();
-		}
 	}
 
 }

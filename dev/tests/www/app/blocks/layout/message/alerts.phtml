@@ -8,6 +8,6 @@ use Win\Calendar\DateCalc;
 ?>
 <?php foreach ($alerts as $type => $messages) : ?>
 	<div class="alert alert-<?= $type; ?>">
-		<?= implode('<br />', $messages); ?>
+		<?= implode('<br />', $messages) ?>
 	</div>
 <?php endforeach; ?>

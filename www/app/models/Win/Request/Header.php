@@ -3,7 +3,7 @@
 namespace Win\Request;
 
 use Exception;
-use Win\Data\Data;
+use Win\Formats\Arr\Data;
 
 /**
  * Header HTTP

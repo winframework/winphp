@@ -24,8 +24,8 @@ class ViewFactoryTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse($view->exists());
 	}
 
-	public function testCreate_Exemplo_Index() {
-		$view = ViewFactory::create('exemplo', 'index');
+	public function testCreate_Demo_Index() {
+		$view = ViewFactory::create('demo', 'index');
 		$this->assertTrue($view->exists());
 	}
 

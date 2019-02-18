@@ -1,8 +1,8 @@
 <?php
 
-namespace Win\Database\Connection;
+namespace Win\Database;
 
-use Win\Database\Connection\MysqlConnection;
+use Win\Database\Connections\MysqlConnection;
 use const BASE_PATH;
 
 /**

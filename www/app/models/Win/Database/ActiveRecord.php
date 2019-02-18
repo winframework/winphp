@@ -1,8 +1,8 @@
 <?php
 
-namespace Win\Database\ActiveRecord;
+namespace Win\Database;
 
-use Win\Database\Connection\Connection;
+use Win\Database\Connection;
 use Win\Database\Sql\Select;
 use Win\Singleton\SingletonTrait;
 

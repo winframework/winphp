@@ -6,6 +6,9 @@ use Win\Mvc\View;
 
 /** @var View $this */
 /** @var View $image Image */
+
+$animals = ['spaniel' => 'Spaniel', 'luke' => 'Luke'];
+
 ?>
 <main>
 	<h1>Uploader</h1>
@@ -13,7 +16,7 @@ use Win\Mvc\View;
 	<form method="post" enctype="multipart/form-data">
 
 		<select>
-			<?=  (new Select('animal', ['spaniel' => 'Spaniel', 'luke' => 'Luke']))->htmlContent(); ?>
+			<?= (new Select('animal', $animals))->htmlContent() ?>
 		</select>
 
 
@@ -31,5 +34,4 @@ use Win\Mvc\View;
 		<input type="file" name="upload" required />
 		<input type="submit" name="submit" value="Enviar arquivo" />
 	</form>
-
 </main>

@@ -5,6 +5,9 @@ namespace controllers;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 
+/**
+ * Usado pelo PHPUnit
+ */
 class DemoController extends Controller {
 
 	protected function init() {
@@ -14,7 +17,7 @@ class DemoController extends Controller {
 
 	public function index() {
 		$this->setTitle('My Index Action');
-		return new View('index');
+		return new View('demo');
 	}
 
 	public function returnFive() {
@@ -34,7 +37,7 @@ class DemoController extends Controller {
 	}
 
 	public function tryRedirect() {
-		$this->redirect('exemplo');
+		$this->redirect('index');
 	}
 
 	public function tryRefresh() {

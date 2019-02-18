@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql;
 
-use Win\Database\Orm\Orm;
+use Win\Database\Orm;
 
 /**
  * INSERT INTO

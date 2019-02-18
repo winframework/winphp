@@ -49,8 +49,8 @@ class ControllerTest extends TestCase {
 	 * @expectedException \Win\Mvc\HttpException
 	 */
 	public function testActionNotFound() {
-		$index = new IndexController('index');
-		$index->thisActionDoentExist();
+		$index = new IndexController('index','invalid-action');
+		$index->load();
 		$this->assertEquals('404', $index->app->getPage());
 	}
 
@@ -60,13 +60,6 @@ class ControllerTest extends TestCase {
 		$this->assertNotEquals(10, $demo->getData('init'));
 		$demo->load();
 		$this->assertEquals(10, $demo->getData('init'));
-	}
-
-	public function testCall_Current404() {
-		$app = new Application();
-		$app->setPage(404);
-		$demo = new DemoController('index');
-		$demo->teste();
 	}
 
 	public function testReturnInvalidView() {

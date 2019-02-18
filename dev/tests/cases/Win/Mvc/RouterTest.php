@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use controllers\ExemploController;
+use controllers\DemoController;
 use Win\Mvc\Router;
 use Win\Request\Url;
 
@@ -53,19 +53,19 @@ class RouterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCustomUrlByLoad() {
 		Url::instance()->setUrl('my-pager/haha');
-		$routes = ["my-pager/(.*)" => "exemplo/index/$1"];
+		$routes = ["my-pager/(.*)" => "demo/index/$1"];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 
 		$this->assertTrue(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof ExemploController);
-		$this->assertEquals('exemplo', Router::instance()->getCustomUrl()[0]);
+		$this->assertTrue(Router::instance()->createController() instanceof DemoController);
+		$this->assertEquals('demo', Router::instance()->getCustomUrl()[0]);
 		$this->assertEquals('index', Router::instance()->getCustomUrl()[1]);
 	}
 
 	public function testCustomUrlBegin() {
 		Url::instance()->setUrl('my-pager/haha');
-		$routes = ["^my-pager/(.*)" => "exemplo/index/$1"];
+		$routes = ["^my-pager/(.*)" => "demo/index/$1"];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 		$this->assertTrue(Router::instance()->hasCustomUrl());
@@ -73,7 +73,7 @@ class RouterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCustomUrlEnd() {
 		Url::instance()->setUrl('test-my-pager/haha');
-		$routes = ["my-pager/(.*)" => "exemplo/index/$1"];
+		$routes = ["my-pager/(.*)" => "demo/index/$1"];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 		$this->assertTrue(Router::instance()->hasCustomUrl());
@@ -81,7 +81,7 @@ class RouterTest extends \PHPUnit\Framework\TestCase {
 
 	public function testNoCustomUrlEnd() {
 		Url::instance()->setUrl('test-my-pager/haha');
-		$routes = ["^my-pager/(.*)" => "exemplo/index/$1"];
+		$routes = ["^my-pager/(.*)" => "demo/index/$1"];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 		$this->assertFalse(Router::instance()->hasCustomUrl());
@@ -94,7 +94,7 @@ class RouterTest extends \PHPUnit\Framework\TestCase {
 		Router::instance()->run();
 
 		$this->assertTrue(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof ExemploController);
+		$this->assertTrue(Router::instance()->createController() instanceof DemoController);
 	}
 
 }

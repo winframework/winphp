@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Data\Data;
+use Win\Formats\Arr\Data;
 use Win\Mvc\Application;
 use Win\Request\Server;
 use Win\Request\Url;
@@ -100,8 +100,8 @@ class ApplicationTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetUrlWithRoutes() {
 		$app = static::newApp('other-page/params/');
-		$this->assertEquals('exemplo/index/params/', $app->getUrl());
-		$this->assertNotEquals('exemplo/index/params/', $app->getFullUrl());
+		$this->assertEquals('demo/index/params/', $app->getUrl());
+		$this->assertNotEquals('demo/index/params/', $app->getFullUrl());
 		$this->assertContains('other-page/params/', $app->getFullUrl());
 	}
 

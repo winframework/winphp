@@ -2,7 +2,7 @@
 
 namespace Win\Request;
 
-use Win\Data\Data;
+use Win\Formats\Arr\Data;
 
 /**
  * Variáveis de $_SESSION

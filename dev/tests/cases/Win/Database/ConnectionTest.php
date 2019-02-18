@@ -4,10 +4,9 @@ namespace Win\Database;
 
 use PDO;
 use PHPUnit\Framework\TestCase;
-use Win\Database\Connection\DbConfig;
 use Win\Mvc\Application;
 use Win\Mvc\ApplicationTest;
-use Win\Database\Connection\MysqlConnection as Connection;
+use Win\Database\Connections\MysqlConnection as Connection;
 
 class ConnectionTest extends TestCase {
 

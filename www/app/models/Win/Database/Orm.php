@@ -1,9 +1,9 @@
 <?php
 
-namespace Win\Database\Orm;
+namespace Win\Database;
 
 use Win\Contracts\Database\Orm\Model;
-use Win\Database\Connection\Connection;
+use Win\Database\Connection;
 use Win\Database\Sql\Delete;
 use Win\Database\Sql\Insert;
 use Win\Database\Sql\Select;

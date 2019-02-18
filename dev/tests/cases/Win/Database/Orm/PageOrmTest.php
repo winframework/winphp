@@ -3,11 +3,11 @@
 namespace Win\Database\Orm;
 
 use PHPUnit\Framework\TestCase;
-use Win\Database\Connection\MysqlConnection as Mysql;
+use Win\Database\Connections\MysqlConnection as Mysql;
 use Win\Database\Orm\Page\Page;
-use Win\Database\Connection\DbConfig;
+use Win\Database\DbConfig;
 
-class PageRepoTest extends TestCase {
+class PageOrmTest extends TestCase {
 
 	public static function setUpBeforeClass() {
 		DbConfig::connect();

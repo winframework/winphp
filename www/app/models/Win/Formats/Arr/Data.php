@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Data;
+namespace Win\Formats\Arr;
 
 use Win\Singleton\SingletonTrait;
 

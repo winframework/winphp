@@ -3,7 +3,7 @@
 namespace Win\Database\Sql;
 
 use Win\Database\Connection;
-use Win\Database\Orm\Orm;
+use Win\Database\Orm;
 
 /**
  * SELECT, UPDATE, DELETE, etc

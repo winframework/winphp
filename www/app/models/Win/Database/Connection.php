@@ -1,14 +1,14 @@
 <?php
 
-namespace Win\Database\Connection;
+namespace Win\Database;
 
 use PDO;
 use PDOException;
 use PDOStatement;
-use Win\Database\Orm\Orm;
+use Win\Database\Orm;
 use Win\Singleton\SingletonTrait;
 use Win\Mvc\Application;
-use Win\Database\ActiveRecord\ActiveRecord;
+use Win\Database\ActiveRecord;
 
 /**
  * Conexão com banco de dados

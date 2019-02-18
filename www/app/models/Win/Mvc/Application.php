@@ -2,7 +2,7 @@
 
 namespace Win\Mvc;
 
-use Win\Data\Data;
+use Win\Formats\Arr\Data;
 use Win\Request\Header;
 use Win\Request\Url;
 

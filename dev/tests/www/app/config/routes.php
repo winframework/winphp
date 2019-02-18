@@ -1,3 +1,3 @@
 <?php
 
-return ["other-page/(.*)" => "exemplo/index/$1"];
+return ["other-page/(.*)" => "demo/index/$1"];
