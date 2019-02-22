@@ -6,13 +6,12 @@ use Win\Database\Orm;
 use Win\Database\Sql\Clause\Limit;
 use Win\Database\Sql\Clause\OrderBy;
 use Win\Database\Sql\Clause\Where;
-use Win\Database\Sql\Query;
 
 /**
  * SELECT * FROM
  */
-class Select extends Query {
-
+class Select extends Query
+{
 	/** @var string[] */
 	public $columns;
 
@@ -25,12 +24,14 @@ class Select extends Query {
 	/** @var OrderBy */
 	public $orderBy;
 
-	public function __construct(Orm $orm) {
+	public function __construct(Orm $orm)
+	{
 		parent::__construct($orm);
 		$this->init();
 	}
 
-	protected function init() {
+	protected function init()
+	{
 		$this->columns = ['*'];
 		$this->where = new Where();
 		$this->limit = new Limit();
@@ -38,7 +39,8 @@ class Select extends Query {
 	}
 
 	/** @return string */
-	public function toString() {
+	public function toString()
+	{
 		return 'SELECT ' . implode(',', $this->columns) . ' FROM '
 				. $this->table
 				. $this->where
@@ -47,23 +49,27 @@ class Select extends Query {
 	}
 
 	/** @return mixed[] */
-	public function getValues() {
+	public function getValues()
+	{
 		return $this->where->values();
 	}
 
 	/** @return int */
-	public function count() {
+	public function count()
+	{
 		$this->columns = ['count(*)'];
 		$stmt = $this->connection->stmt($this, $this->getValues());
 		$this->init();
+
 		return $stmt->fetchColumn();
 	}
 
 	/** @return mixed[] */
-	public function execute() {
+	public function execute()
+	{
 		$all = $this->connection->fetchAll($this, $this->getValues());
 		$this->init();
+
 		return $all;
 	}
-
 }

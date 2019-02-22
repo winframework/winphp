@@ -6,10 +6,9 @@ use Win\Singleton\SingletonTrait;
 
 /**
  * Manipulador de URLs
- * 
  */
-class Url {
-
+class Url
+{
 	use SingletonTrait;
 
 	protected $base = null;
@@ -21,7 +20,8 @@ class Url {
 	 * Define um novo sufixo de URL
 	 * @param string $suffix
 	 */
-	public function setSuffix($suffix) {
+	public function setSuffix($suffix)
+	{
 		$this->suffix = $suffix;
 	}
 
@@ -30,7 +30,8 @@ class Url {
 	 * @param string $url
 	 * @return string
 	 */
-	public function format($url) {
+	public function format($url)
+	{
 		return rtrim($url, $this->suffix) . $this->suffix;
 	}
 
@@ -38,8 +39,9 @@ class Url {
 	 * Redireciona para a URL escolhida
 	 * @param string $url URL relativa ou absoluta
 	 */
-	public function redirect($url = '') {
-		if (strpos($url, '://') === false) {
+	public function redirect($url = '')
+	{
+		if (false === strpos($url, '://')) {
 			$url = $this->getBaseUrl() . $url;
 		}
 		Header::instance()->set('location', $url);
@@ -49,7 +51,8 @@ class Url {
 	 * Retorna a URL base
 	 * @return string
 	 */
-	public function getBaseUrl() {
+	public function getBaseUrl()
+	{
 		if (is_null($this->base)) {
 			$protocol = $this->getProtocol();
 			$host = Input::server('HTTP_HOST');
@@ -57,6 +60,7 @@ class Url {
 			$basePath = preg_replace('@/+$@', '', dirname($script)) . '/';
 			$this->base = $protocol . '://' . $host . $basePath;
 		}
+
 		return $this->base;
 	}
 
@@ -64,10 +68,12 @@ class Url {
 	 * Retorna o protocolo atual
 	 * @return string (http|https)
 	 */
-	public function getProtocol() {
+	public function getProtocol()
+	{
 		if (is_null($this->protocol)) {
 			$this->protocol = Input::protocol();
 		}
+
 		return $this->protocol;
 	}
 
@@ -75,7 +81,8 @@ class Url {
 	 * Retorna a URL atual
 	 * @return string
 	 */
-	public function getUrl() {
+	public function getUrl()
+	{
 		if (is_null($this->url)) {
 			$host = Input::server('HTTP_HOST');
 			$url = '';
@@ -87,13 +94,15 @@ class Url {
 			}
 			$this->url = $this->format($url);
 		}
+
 		return $this->url;
 	}
 
 	/**
 	 * @param string $url
 	 */
-	public function setUrl($url) {
+	public function setUrl($url)
+	{
 		$this->url = $this->format($url . '/');
 	}
 
@@ -101,9 +110,10 @@ class Url {
 	 * Retorna o array de fragmentos da URL
 	 * @return string[]
 	 */
-	public function getSegments() {
+	public function getSegments()
+	{
 		$url = rtrim($this->getUrl(), $this->suffix);
+
 		return explode('/', $url);
 	}
-
 }

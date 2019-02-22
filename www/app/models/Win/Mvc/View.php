@@ -9,8 +9,8 @@ use Win\Html\Seo\Title;
  *
  * Responsável por criar o visual da página
  */
-class View extends Block {
-
+class View extends Block
+{
 	public static $dir = '/app/views';
 
 	/**
@@ -18,7 +18,8 @@ class View extends Block {
 	 * @param string $file arquivo da View
 	 * @param mixed[] $data Variáveis
 	 */
-	public function __construct($file, $data = []) {
+	public function __construct($file, $data = [])
+	{
 		parent::__construct($file, $data);
 	}
 
@@ -26,7 +27,8 @@ class View extends Block {
 	 * Executa o ErrorPage caso a view não exista
 	 * @throws HttpException
 	 */
-	public function validate() {
+	public function validate()
+	{
 		if (!$this->exists()) {
 			throw new HttpException(404);
 		}
@@ -36,23 +38,24 @@ class View extends Block {
 	 * Adiciona um array de variáveis para usar na View
 	 * @param mixed[] $data
 	 */
-	public function mergeData(array $data) {
+	public function mergeData(array $data)
+	{
 		$this->data = array_merge($this->data, $data);
 	}
 
 	/** @return string */
-	public function getTitle() {
+	public function getTitle()
+	{
 		if (empty($this->getData('title'))) {
-			$this->addData('title', $this->getDinamicTitle());
+			$this->addData('title', $this->getDynamicTitle());
 		}
+
 		return $this->getData('title');
 	}
 
-	/**
-	 * @return string
-	 */
-	private function getDinamicTitle() {
+	/** @return string */
+	private function getDynamicTitle()
+	{
 		return Title::otimize(ucwords(str_replace('-', ' ', $this->app->getPage())));
 	}
-
 }

@@ -9,22 +9,24 @@ use Win\Database\Sql\Clause\Where;
 /**
  * DELETE FROM
  */
-class Delete extends Query {
-
+class Delete extends Query
+{
 	/** @var Where */
 	public $where;
 
 	/** @var Limit */
 	public $limit;
 
-	public function __construct(Orm $orm) {
+	public function __construct(Orm $orm)
+	{
 		parent::__construct($orm);
 		$this->where = new Where();
 		$this->limit = new Limit();
 	}
 
 	/** @return string */
-	public function toString() {
+	public function toString()
+	{
 		return 'DELETE FROM '
 				. $this->table
 				. $this->where
@@ -32,13 +34,14 @@ class Delete extends Query {
 	}
 
 	/** @return mixed[] */
-	public function getValues() {
+	public function getValues()
+	{
 		return $this->where->values();
 	}
 
-	/** @return boolean */
-	public function execute() {
+	/** @return bool */
+	public function execute()
+	{
 		return $this->connection->query($this, $this->getValues());
 	}
-
 }

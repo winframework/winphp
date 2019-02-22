@@ -12,8 +12,8 @@ use Win\Request\Server;
  *
  * Responsável por enviar Emails
  */
-class Email {
-
+class Email
+{
 	/** @var Block */
 	private $layout;
 
@@ -30,7 +30,8 @@ class Email {
 	/**
 	 * Cria uma mensagem de E-mail
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		$this->setLayout('main');
 
 		$this->mailer = new PHPMailer();
@@ -41,7 +42,8 @@ class Email {
 	}
 
 	/** @return string */
-	public function __toString() {
+	public function __toString()
+	{
 		return $this->layout->toString();
 	}
 
@@ -50,7 +52,8 @@ class Email {
 	 * @param string $address E-mail destinatário
 	 * @param string $name Nome destinatário
 	 */
-	public function addAddress($address, $name = '') {
+	public function addAddress($address, $name = '')
+	{
 		$this->mailer->AddAddress($address, $name);
 	}
 
@@ -59,7 +62,8 @@ class Email {
 	 * @param string $address
 	 * @param string $name
 	 */
-	public function addReplyTo($address, $name = '') {
+	public function addReplyTo($address, $name = '')
+	{
 		$this->mailer->AddReplyTo($address, $name);
 	}
 
@@ -68,7 +72,8 @@ class Email {
 	 * @param string $address E-mail remetente
 	 * @param string $name Nome remetente
 	 */
-	public function setFrom($address, $name = '') {
+	public function setFrom($address, $name = '')
+	{
 		$this->mailer->SetFrom($address, $name);
 		$this->mailer->ClearReplyTos();
 	}
@@ -78,7 +83,8 @@ class Email {
 	 *
 	 * @param string $layout Nome do arquivo de layout
 	 */
-	public function setLayout($layout) {
+	public function setLayout($layout)
+	{
 		$file = 'email/' . $layout;
 		$this->layout = new Block($file, ['email' => $this]);
 	}
@@ -88,7 +94,8 @@ class Email {
 	 * que pode ser uma string ou um bloco
 	 * @param string|Block $content
 	 */
-	public function setContent($content) {
+	public function setContent($content)
+	{
 		$this->content = $content;
 	}
 
@@ -96,7 +103,8 @@ class Email {
 	 * Define o Assunto
 	 * @param string $subject
 	 */
-	public function setSubject($subject) {
+	public function setSubject($subject)
+	{
 		$this->mailer->Subject = $subject;
 	}
 
@@ -104,7 +112,8 @@ class Email {
 	 * Define o idioma
 	 * @param string $lang
 	 */
-	public function setLanguage($lang) {
+	public function setLanguage($lang)
+	{
 		$this->mailer->SetLanguage($lang);
 	}
 
@@ -112,7 +121,8 @@ class Email {
 	 * Retorna o E-mail do Destinatário
 	 * @return string
 	 */
-	public function getFrom() {
+	public function getFrom()
+	{
 		return $this->mailer->From;
 	}
 
@@ -120,17 +130,20 @@ class Email {
 	 * Retorna o Nome do destinatário
 	 * @return string
 	 */
-	public function getFromName() {
+	public function getFromName()
+	{
 		return $this->mailer->FromName;
 	}
 
 	/** @return string[] */
-	public function getAddresses() {
+	public function getAddresses()
+	{
 		return $this->mailer->getAllRecipientAddresses();
 	}
 
 	/** @return string[] */
-	public function getReplyToAddresses() {
+	public function getReplyToAddresses()
+	{
 		return $this->mailer->getReplyToAddresses();
 	}
 
@@ -138,7 +151,8 @@ class Email {
 	 * Retorna o conteúdo do E-mail
 	 * @return string
 	 */
-	public function getContent() {
+	public function getContent()
+	{
 		return $this->content;
 	}
 
@@ -146,7 +160,8 @@ class Email {
 	 * Retorna o Assunto
 	 * @return string
 	 */
-	public function getSubject() {
+	public function getSubject()
+	{
 		return $this->mailer->Subject;
 	}
 
@@ -154,16 +169,18 @@ class Email {
 	 * Retorna o erro caso 'send()' tenha retornado FALSE
 	 * @return string|null
 	 */
-	public function getError() {
+	public function getError()
+	{
 		return $this->error;
 	}
 
 	/**
 	 * Envia o E-mail
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
-	public function send() {
+	public function send()
+	{
 		$send = false;
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
 			$this->mailer->Body = $this->layout->toString();
@@ -171,23 +188,26 @@ class Email {
 			$this->mailer->ClearAllRecipients();
 			$this->mailer->ClearAttachments();
 			if (!$send) {
-				$this->error = 'Houve um erro ao enviar o e-mail.<br /><span style="display:none">' . $this->mailer->ErrorInfo . '</span>';
+				$this->error = 'Houve um erro ao enviar o e-mail.<br />'
+				. '<span style="display:none">' . $this->mailer->ErrorInfo . '</span>';
 			}
 		} else {
 			$send = $this->saveOnDisk();
 		}
+
 		return $send;
 	}
 
 	/**
 	 * Salva o E-mail em um arquivo
-	 * @return boolean
+	 * @return bool
 	 */
-	private function saveOnDisk() {
+	private function saveOnDisk()
+	{
 		$name = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 		$file = new File('data/emails/' . $name);
 		$file->getDirectory()->create(0777);
+
 		return $file->write($this->layout->toString());
 	}
-
 }

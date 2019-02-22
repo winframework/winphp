@@ -3,7 +3,6 @@
 namespace Win\Database;
 
 use Win\Contracts\Database\Orm\Model;
-use Win\Database\Connection;
 use Win\Database\Sql\Delete;
 use Win\Database\Sql\Insert;
 use Win\Database\Sql\Select;
@@ -13,15 +12,15 @@ use Win\Singleton\SingletonTrait;
 /**
  * Object Relational Mapping
  */
-abstract class Orm {
-
+abstract class Orm
+{
 	/** @var string */
 	protected $table;
 
 	/** @var Model */
 	protected $model;
 
-	/** @var boolean */
+	/** @var bool */
 	protected $debug;
 
 	/** @var Connection */
@@ -34,17 +33,20 @@ abstract class Orm {
 	/** @var Select */
 	private $query;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->query = new Select($this);
 	}
 
 	/** @param Connection $db */
-	public static function setConnection(Connection $db) {
+	public static function setConnection(Connection $db)
+	{
 		static::$db = $db;
 	}
 
 	/** @return Connection */
-	public static function getConnection() {
+	public static function getConnection()
+	{
 		return static::$db;
 	}
 
@@ -61,63 +63,76 @@ abstract class Orm {
 	abstract public function mapRow($model);
 
 	/** @return mixed[] */
-	public function getRowValues() {
+	public function getRowValues()
+	{
 		return $this->mapRow($this->getModel());
 	}
 
 	/** Liga o debug */
-	public function debugOn() {
+	public function debugOn()
+	{
 		$this->debug = true;
 	}
 
 	/** Desliga o debug */
-	public function debugOff() {
+	public function debugOff()
+	{
 		$this->debug = false;
 	}
 
 	/** @return string */
-	public function getTable() {
+	public function getTable()
+	{
 		return $this->table;
 	}
 
 	/** @return Model */
-	public function getModel() {
+	public function getModel()
+	{
 		return $this->model;
 	}
 
-	/** @return boolean */
-	public function getDebugMode() {
+	/** @return bool */
+	public function getDebugMode()
+	{
 		return $this->debug;
 	}
 
-	/** @return boolean */
-	public function modelExists() {
-		return ($this->model->getId() > 0);
+	/** @return bool */
+	public function modelExists()
+	{
+		return $this->model->getId() > 0;
 	}
 
 	/**
 	 * Retorna o primeiro resultado da consulta
 	 */
-	public function one() {
+	public function one()
+	{
 		$rows = $this->query->execute();
+
 		return $this->mapModel($rows[0]);
 	}
 
 	/**
 	 * Retorna todos os resultado da consulta
 	 */
-	public function all() {
+	public function all()
+	{
 		$rows = $this->query->execute();
 		$all = [];
 		foreach ($rows as $row) {
 			$all[] = $this->mapModel($row);
 		}
+
 		return $all;
 	}
 
 	/** @return int */
-	public function numRows() {
+	public function numRows()
+	{
 		$count = $this->query->count();
+
 		return $count;
 	}
 
@@ -126,8 +141,10 @@ abstract class Orm {
 	 * @param string[] $columns
 	 * @return static
 	 */
-	public function setColumns($columns) {
+	public function setColumns($columns)
+	{
 		$this->query->columns = $columns;
+
 		return $this;
 	}
 
@@ -136,8 +153,10 @@ abstract class Orm {
 	 * @param string $column
 	 * @return static
 	 */
-	public function addColumn($column) {
+	public function addColumn($column)
+	{
 		$this->query->columns[] = $column;
+
 		return $this;
 	}
 
@@ -146,8 +165,10 @@ abstract class Orm {
 	 * @param int $id
 	 * @return static
 	 */
-	public function find($id) {
+	public function find($id)
+	{
 		$this->filterBy('id', $id);
+
 		return $this;
 	}
 
@@ -157,8 +178,10 @@ abstract class Orm {
 	 * @param mixed $value
 	 * @return static
 	 */
-	public function filterBy($column, $value) {
+	public function filterBy($column, $value)
+	{
 		$this->filter($column, '=', $value);
+
 		return $this;
 	}
 
@@ -166,8 +189,10 @@ abstract class Orm {
 	 * Adiciona filtros para busca
 	 * @return static
 	 */
-	public function filter($column, $operator, $value) {
+	public function filter($column, $operator, $value)
+	{
 		$this->query->where->add($column, $operator, $value);
+
 		return $this;
 	}
 
@@ -176,8 +201,10 @@ abstract class Orm {
 	 * @param string $orderBy
 	 * @return static
 	 */
-	public function orderBy($orderBy) {
+	public function orderBy($orderBy)
+	{
 		$this->query->orderBy->set($orderBy);
+
 		return $this;
 	}
 
@@ -186,8 +213,10 @@ abstract class Orm {
 	 * @param int $limit
 	 * @return static
 	 */
-	public function limit($limit) {
+	public function limit($limit)
+	{
 		$this->query->limit->set($limit);
+
 		return $this;
 	}
 
@@ -195,8 +224,10 @@ abstract class Orm {
 	 * Ordena pelos mais novos
 	 * @return static
 	 */
-	public function newer() {
+	public function newer()
+	{
 		$this->orderBy('id DESC');
+
 		return $this;
 	}
 
@@ -204,53 +235,64 @@ abstract class Orm {
 	 * Ordena pelos mais antigos
 	 * @return static
 	 */
-	public function older() {
+	public function older()
+	{
 		$this->orderBy('id ASC');
+
 		return $this;
 	}
 
 	/**
 	 * @param Model $model
-	 * @return boolean
+	 * @return bool
 	 */
-	public function save(Model $model) {
+	public function save(Model $model)
+	{
 		$this->model = $model;
+
 		return $this->insertOrUpdate();
 	}
 
-	/** @return boolean */
-	private function insertOrUpdate() {
+	/** @return bool */
+	private function insertOrUpdate()
+	{
 		if (!$this->modelExists()) {
 			$success = $this->insert();
 		} else {
 			$success = $this->update();
 		}
+
 		return $success;
 	}
 
-	/** @return boolean */
-	private function insert() {
+	/** @return bool */
+	private function insert()
+	{
 		$query = new Insert($this);
 		$success = $query->execute();
 		$this->model->setId(static::$db->getLastInsertId());
+
 		return $success;
 	}
 
-	/** @return boolean */
-	public function update() {
+	/** @return bool */
+	public function update()
+	{
 		$query = new Update($this);
+
 		return $query->execute();
 	}
 
 	/**
 	 * Remove o registro do banco
 	 * @param Model $model
-	 * @return boolean
+	 * @return bool
 	 */
-	public function delete(Model $model) {
+	public function delete(Model $model)
+	{
 		$query = new Delete($this);
 		$query->where->add('id', '=', $model->getId());
+
 		return $query->execute();
 	}
-
 }

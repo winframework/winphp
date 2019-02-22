@@ -5,14 +5,14 @@ namespace Win\Formats;
 /**
  * Manipulador de Booleanos
  */
-class Boolean {
-
+class Boolean
+{
 	/**
-	 * @param boolean $boolean
+	 * @param bool $boolean
 	 * @return string
 	 */
-	public static function toString($boolean) {
+	public static function toString($boolean)
+	{
 		return ($boolean) ? 'sim' : 'não';
 	}
-
 }

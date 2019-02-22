@@ -7,8 +7,8 @@ use Win\Singleton\SingletonTrait;
 /**
  * Armazena Dados
  */
-class Data implements DataInterface {
-
+class Data implements DataInterface
+{
 	use SingletonTrait;
 
 	/** @var mixed[] */
@@ -18,7 +18,8 @@ class Data implements DataInterface {
 	 * Define todos os valores
 	 * @param mixed[] $values
 	 */
-	public function load($values) {
+	public function load($values)
+	{
 		$this->data = $values;
 	}
 
@@ -26,12 +27,14 @@ class Data implements DataInterface {
 	 * Retorna todas as variáveis
 	 * @return mixed[]
 	 */
-	public function all() {
+	public function all()
+	{
 		return $this->data;
 	}
 
 	/** Exclui todos os dados */
-	public function clear() {
+	public function clear()
+	{
 		$this->data = [];
 	}
 
@@ -40,7 +43,8 @@ class Data implements DataInterface {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	public function set($key, $value) {
+	public function set($key, $value)
+	{
 		$p = &$this->data;
 		$keys = explode('.', $key);
 		foreach ($keys as $k) {
@@ -56,7 +60,8 @@ class Data implements DataInterface {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	public function add($key, $value) {
+	public function add($key, $value)
+	{
 		$values = $this->getArray($key);
 		array_push($values, $value);
 		$this->set($key, $values);
@@ -67,7 +72,8 @@ class Data implements DataInterface {
 	 * @param string $key
 	 * @param mixed $default Valor default, caso a $key não exista
 	 */
-	public function get($key, $default = null) {
+	public function get($key, $default = null)
+	{
 		$data = $this->data;
 		$keys = explode('.', $key);
 		foreach ($keys as $k) {
@@ -77,6 +83,7 @@ class Data implements DataInterface {
 				return $default;
 			}
 		}
+
 		return $data;
 	}
 
@@ -85,22 +92,25 @@ class Data implements DataInterface {
 	 * @param string $key
 	 * @return mixed
 	 */
-	private function getArray($key) {
+	private function getArray($key)
+	{
 		$values = $this->get($key, []);
 		if (!is_array($values) && $this->has($key)) {
 			$values = [$this->get($key)];
 		}
+
 		return $values;
 	}
 
 	/** @param string $key */
-	public function delete($key) {
+	public function delete($key)
+	{
 		unset($this->data[$key]);
 	}
 
-	/** @return boolean */
-	public function has($key) {
-		return (!is_null($this->get($key, null)));
+	/** @return bool */
+	public function has($key)
+	{
+		return !is_null($this->get($key, null));
 	}
-
 }

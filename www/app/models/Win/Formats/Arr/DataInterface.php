@@ -5,8 +5,8 @@ namespace Win\Formats\Arr;
 /**
  * Interface para Dados
  */
-interface DataInterface {
-
+interface DataInterface
+{
 	/**
 	 * Retorna todos os dados
 	 * @return mixed[]

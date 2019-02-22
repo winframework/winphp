@@ -8,8 +8,8 @@ use Win\Database\Orm;
 /**
  * SELECT, UPDATE, DELETE, etc
  */
-abstract class Query {
-
+abstract class Query
+{
 	/** @var Connection */
 	protected $connection;
 
@@ -22,7 +22,8 @@ abstract class Query {
 	/**
 	 * @param Orm $orm
 	 */
-	public function __construct(Orm $orm) {
+	public function __construct(Orm $orm)
+	{
 		$this->orm = $orm;
 		$this->table = $this->orm->getTable();
 		$this->connection = $orm::getConnection();
@@ -34,18 +35,20 @@ abstract class Query {
 	abstract public function execute();
 
 	/** @return string */
-	public function __toString() {
+	public function __toString()
+	{
 		if ($this->orm->getDebugMode()) {
 			$this->debug();
 		}
+
 		return $this->toString();
 	}
 
 	/** Exibe informações de debug */
-	public function debug() {
+	public function debug()
+	{
 		print_r('<pre>');
 		print_r((string) $this->toString());
 		print_r('</pre>');
 	}
-
 }

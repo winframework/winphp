@@ -2,24 +2,24 @@
 
 namespace Win\Html\Navigation;
 
-use Win\Request\Url;
 use Win\Mvc\Application;
+use Win\Request\Url;
 
 /**
  * Auxilia a criar Menus de Navegação
- *
  */
-class Menu {
-
+class Menu
+{
 	/**
 	 * Usado para ativar Links (aceita array)
 	 *
 	 * Retorna 'active' se o link informado for a página atual
 	 * ou se o link for idêntico ao início da URL
-	 * @param string|string[] $link 
+	 * @param string|string[] $link
 	 * @return string
 	 */
-	public static function active($link) {
+	public static function active($link)
+	{
 		if (is_array($link)) {
 			return static::multiActive($link);
 		}
@@ -28,9 +28,10 @@ class Menu {
 			return 'active';
 		}
 		$url = Url::instance();
-		if (strpos($url->getUrl(), $url->format($link)) === 0) {
+		if (0 === strpos($url->getUrl(), $url->format($link))) {
 			return 'active';
 		}
+
 		return '';
 	}
 
@@ -39,13 +40,14 @@ class Menu {
 	 * @param string[]
 	 * @return string
 	 */
-	public static function multiActive($links) {
+	public static function multiActive($links)
+	{
 		foreach ($links as $link) {
-			if (static::active($link) === 'active') {
+			if ('active' === static::active($link)) {
 				return 'active';
 			}
 		}
+
 		return '';
 	}
-
 }

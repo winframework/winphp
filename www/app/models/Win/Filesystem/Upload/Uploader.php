@@ -8,10 +8,13 @@ use Win\Filesystem\File;
 /**
  * Auxilia fazer upload de Arquivos
  */
-class Uploader {
-
+class Uploader
+{
 	/** @var string[] */
-	protected static $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx', 'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg'];
+	protected static $validExtensions = [
+		'jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx',
+		'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg',
+	];
 
 	/** @var Directory */
 	protected $destination;
@@ -26,7 +29,8 @@ class Uploader {
 	 * Inicializa o upload para o diretório de destino
 	 * @param Directory $destination
 	 */
-	public function __construct(Directory $destination) {
+	public function __construct(Directory $destination)
+	{
 		$this->destination = $destination;
 		$this->destination->create(0777);
 	}
@@ -35,31 +39,35 @@ class Uploader {
 	 * Retorna a instância do arquivo que foi enviado
 	 * @return File
 	 */
-	public function getUploaded() {
+	public function getUploaded()
+	{
 		return $this->uploaded;
 	}
 
 	/**
 	 * Prepara o upload
 	 * @param TempFile $temp
-	 * @return boolean
+	 * @return bool
 	 */
-	public function prepare(TempFile $temp) {
+	public function prepare(TempFile $temp)
+	{
 		$success = false;
 		$this->temp = null;
 		if ($temp->exists()) {
 			$success = true;
 			$this->temp = $temp;
 		}
+
 		return $success;
 	}
 
 	/**
 	 * Faz o upload para o diretório final
 	 * @param string $name
-	 * @return boolean
+	 * @return bool
 	 */
-	public function upload($name = '') {
+	public function upload($name = '')
+	{
 		$success = false;
 		if (!is_null($this->temp)) {
 			$success = $this->temp->move($this->destination, $name);
@@ -67,7 +75,7 @@ class Uploader {
 		if ($success) {
 			$this->uploaded = new File($this->temp->getPath());
 		}
+
 		return $success;
 	}
-
 }

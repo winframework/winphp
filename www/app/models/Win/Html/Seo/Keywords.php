@@ -7,8 +7,8 @@ use Win\Formats\Str;
 /**
  * Auxilia a criar 'Keywords'
  */
-class Keywords {
-
+class Keywords
+{
 	public static $default = [];
 
 	/**
@@ -16,10 +16,11 @@ class Keywords {
 	 * @param string[] $keys
 	 * @return string
 	 */
-	public static function otimize($keys, $maxLength = 100) {
+	public static function otimize($keys, $maxLength = 100)
+	{
 		$keys = array_merge($keys, static::$default);
 		$keys = Str::truncate(implode(', ', array_filter($keys)), $maxLength);
+
 		return Str::lower(str_replace([',...', '...'], '', $keys));
 	}
-
 }

@@ -2,22 +2,21 @@
 
 namespace Win\Mvc;
 
-use Win\Mvc\View;
-
 /**
  * Fábrica de View
- * 
+ *
  * Cria a View de acordo com a URL
  */
-class ViewFactory {
-
+class ViewFactory
+{
 	/**
 	 * Cria uma View com base na página e parâmetros
 	 * @param string $page
 	 * @param string $action
 	 * @return View
 	 */
-	public static function create($page, $action = null) {
+	public static function create($page, $action = null)
+	{
 		if (HttpException::isErrorCode($page)) {
 			$view = new View('');
 		} else {
@@ -26,7 +25,7 @@ class ViewFactory {
 				$view = new View($page . '/' . $action);
 			}
 		}
+
 		return $view;
 	}
-
 }

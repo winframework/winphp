@@ -6,10 +6,9 @@ use Win\Filesystem\File;
 
 /**
  * Arquivo de Imagem
- *
  */
-class Image extends File {
-
+class Image extends File
+{
 	public static $validExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
 	const SIZE_WIDTH = 0;
@@ -19,7 +18,8 @@ class Image extends File {
 	 * Retorna a largura da imagem
 	 * @return int|null
 	 */
-	public function getWidth() {
+	public function getWidth()
+	{
 		return $this->getImageSize(static::SIZE_WIDTH);
 	}
 
@@ -27,7 +27,8 @@ class Image extends File {
 	 * Retorna a altura da imagem
 	 * @return int|null
 	 */
-	public function getHeight() {
+	public function getHeight()
+	{
 		return $this->getImageSize(static::SIZE_HEIGHT);
 	}
 
@@ -35,12 +36,13 @@ class Image extends File {
 	 * @param int $param
 	 * @return int|null
 	 */
-	protected function getImageSize($param) {
+	protected function getImageSize($param)
+	{
 		$size = null;
 		if ($this->exists()) {
 			$size = getimagesize($this->getAbsolutePath())[$param];
 		}
+
 		return $size;
 	}
-
 }

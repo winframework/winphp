@@ -8,14 +8,15 @@ use Win\Formats\Arr\Data;
 /**
  * Header HTTP
  */
-class Header extends Data {
-
+class Header extends Data
+{
 	/**
 	 * Enviar por 'HTTP Header' os valores que foram incluídos no Header
 	 * @throws Exception
 	 * @codeCoverageIgnore
 	 */
-	public function run() {
+	public function run()
+	{
 		foreach ($this->all() as $key => $value) {
 			header($key . ':' . $value);
 		}
@@ -23,5 +24,4 @@ class Header extends Data {
 			throw new Exception('Redirect fail!');
 		}
 	}
-
 }

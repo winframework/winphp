@@ -7,10 +7,9 @@ use Win\Html\Tag;
 /**
  * Campo de Seleção
  * <select>
- *
  */
-class Select extends Tag {
-
+class Select extends Tag
+{
 	protected $options;
 	protected $value;
 
@@ -20,7 +19,8 @@ class Select extends Tag {
 	 * @param mixed $value2
 	 * @return string
 	 */
-	public static function select($value1, $value2 = true) {
+	public static function select($value1, $value2 = true)
+	{
 		return ($value1 == $value2) ? 'selected ' : '';
 	}
 
@@ -31,7 +31,8 @@ class Select extends Tag {
 	 * @param string|int $value
 	 * @param string[] $attributes
 	 */
-	public function __construct($name, $options, $value = null, $attributes = []) {
+	public function __construct($name, $options, $value = null, $attributes = [])
+	{
 		if (is_string($value) && in_array($value, $options)) {
 			$value = array_search($value, $options);
 		}
@@ -41,16 +42,19 @@ class Select extends Tag {
 	}
 
 	/** @return string */
-	public function getValue() {
+	public function getValue()
+	{
 		$value = '';
 		if (key_exists($this->value, $this->options)) {
 			$value = $this->options[$this->value];
 		}
+
 		return $value;
 	}
 
 	/** @return string */
-	public function html() {
+	public function html()
+	{
 		return '<select name="' . $this->name . '" ' . $this->attributes() . '> '
 				. $this->htmlContent()
 				. '</select>';
@@ -60,21 +64,25 @@ class Select extends Tag {
 	 * Retorna o HTML dos <options>
 	 * @return string
 	 */
-	public function htmlContent() {
+	public function htmlContent()
+	{
 		return $this->htmlOptions($this->options);
 	}
 
 	/** @return string */
-	protected function htmlOptions($options = []) {
+	protected function htmlOptions($options = [])
+	{
 		$html = '';
 		foreach ($options as $value => $option) {
 			if (is_string($option)) {
-				$html .= '<option ' . static::select($value, $this->value) . 'value="' . $value . '">' . $option . '</option> ';
+				$html .= '<option ' . static::select($value, $this->value)
+				. 'value="' . $value . '">' . $option . '</option> ';
 			} else {
-				$html .= '<optgroup label="' . $value . '"> ' . $this->htmlOptions($option) . '</optgroup>';
+				$html .= '<optgroup label="' . $value . '"> '
+				. $this->htmlOptions($option) . '</optgroup>';
 			}
 		}
+
 		return $html;
 	}
-
 }

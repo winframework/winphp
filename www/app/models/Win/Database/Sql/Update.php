@@ -8,44 +8,51 @@ use Win\Database
 /**
  * UPDATE SET
  */
-class Update extends Query {
-
+class Update extends Query
+{
 	/** @var mixed[] */
 	protected $values;
 
-	public function __construct(Orm $orm) {
+	public function __construct(Orm $orm)
+	{
 		parent::__construct($orm);
 		$this->values = $orm->getRowValues();
 	}
 
 	/** @return string */
-	public function toString() {
+	public function toString()
+	{
 		$params = $this->getParams();
+
 		return 'UPDATE ' . $this->table
 				. ' SET ' . implode(', ', $params)
 				. ' WHERE id = ? ';
 	}
 
 	/** @return string[] */
-	protected function getParams() {
+	protected function getParams()
+	{
 		$columns = array_keys($this->values);
 		$params = [];
 		foreach ($columns as $column) {
 			$params[] = $column . ' = ?';
 		}
+
 		return $params;
 	}
 
 	/** @return mixed[] */
-	public function getValues() {
+	public function getValues()
+	{
 		$values = array_values($this->values);
 		$values[] = $this->orm->getModel()->getId();
+
 		return $values;
 	}
 
-	/** @return boolean */
-	public function execute() {
+	/** @return bool */
+	public function execute()
+	{
 		return $this->connection->query($this, $this->getValues());
 	}
-
 }

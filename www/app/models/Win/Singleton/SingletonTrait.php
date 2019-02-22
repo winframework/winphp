@@ -9,8 +9,8 @@ namespace Win\Singleton;
  * @see DependenceInjector
  * Isso possibilita criar sub-classes sem comprometer as dependências da classe original
  */
-trait SingletonTrait {
-
+trait SingletonTrait
+{
 	protected static $instance = [];
 
 	/**
@@ -19,13 +19,15 @@ trait SingletonTrait {
 	 * @param string $alias
 	 * @return static
 	 */
-	public static function instance($alias = 'default') {
+	public static function instance($alias = 'default')
+	{
 		$class = get_called_class();
 		if (!isset(static::$instance[$class][$alias])) {
 			$classDi = static::getClassDi();
 			$instance = new $classDi();
 			static::$instance[$class][$alias] = $instance;
 		}
+
 		return static::$instance[$class][$alias];
 	}
 
@@ -33,15 +35,16 @@ trait SingletonTrait {
 	 * Retorna o nome a classe que deverá ser usada no $instance
 	 * @return string
 	 */
-	protected static function getClassDi() {
+	protected static function getClassDi()
+	{
 		return DependenceInjector::getClassDi(get_called_class());
 	}
 
 	/**
 	 * Não se deve usar o construtor de um objeto Singleton
 	 */
-	private final function __construct() {
+	final private function __construct()
+	{
 		/* its not possible */
 	}
-
 }

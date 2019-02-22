@@ -7,10 +7,9 @@ use Win\Filesystem\File;
 
 /**
  * Arquivo Temporário
- *
  */
-class TempFile extends File {
-
+class TempFile extends File
+{
 	const REGEXP_PATH = '@^(([a-zA-Z0-9._\-\/]))+$@';
 	const REGEXP_NAME = '@^(([a-zA-Z0-9._\-]?))+$@';
 
@@ -24,38 +23,45 @@ class TempFile extends File {
 	 * @param string $path
 	 * @param string $name
 	 */
-	public function __construct($path) {
+	public function __construct($path)
+	{
 		$this->name = pathinfo($path, PATHINFO_FILENAME);
 		parent::__construct($path);
 	}
 
 	/** @return string */
-	public function getName() {
+	public function getName()
+	{
 		return $this->name;
 	}
 
 	/** @return string */
-	public function getBaseName() {
+	public function getBaseName()
+	{
 		return $this->getName() . $this->getExtensionDot();
 	}
 
 	/** @return string */
-	public function getExtension() {
+	public function getExtension()
+	{
 		return $this->extension;
 	}
 
 	/** @param string $name */
-	public function setName($name) {
+	public function setName($name)
+	{
 		$this->name = ($name) ? $name : $this->randomName();
 	}
 
 	/** @param string $extension */
-	public function setExtension($extension) {
+	public function setExtension($extension)
+	{
 		$this->extension = $extension;
 	}
 
 	/** @return string */
-	public function getAbsolutePath() {
+	public function getAbsolutePath()
+	{
 		if ($this->isTemporary()) {
 			return $this->getPath();
 		} else {
@@ -63,26 +69,30 @@ class TempFile extends File {
 		}
 	}
 
-	/** @return boolean */
-	public function isTemporary() {
-		return (strpos($this->getPath(), sys_get_temp_dir()) === 0);
+	/** @return bool */
+	public function isTemporary()
+	{
+		return 0 === strpos($this->getPath(), sys_get_temp_dir());
 	}
 
 	/** Retorna um nome aleatório */
-	protected function randomName() {
+	protected function randomName()
+	{
 		return md5($this->newName . '_' . time());
 	}
 
 	/**
 	 * @param Directory $destination
 	 * @param string $name
-	 * @return boolean
+	 * @return bool
 	 */
-	public function move(Directory $destination, $name = '') {
+	public function move(Directory $destination, $name = '')
+	{
 		$this->setName($name);
 		$oldPath = $this->getAbsolutePath();
 		$newPath = $destination->getPath() . static::DS . $this->getBaseName();
 		$this->setPath($newPath);
+
 		return move_uploaded_file($oldPath, $this->getAbsolutePath());
 	}
 
@@ -91,7 +101,8 @@ class TempFile extends File {
 	 * @param string $name
 	 * @return static
 	 */
-	public static function fromFiles($name) {
+	public static function fromFiles($name)
+	{
 		if (key_exists($name, $_FILES) && key_exists('tmp_name', $_FILES[$name])) {
 			$tmp = new static($_FILES[$name]['tmp_name']);
 			$tmp->newName = $_FILES[$name]['name'];
@@ -99,6 +110,7 @@ class TempFile extends File {
 		} else {
 			$tmp = new TempFile('error');
 		}
+
 		return $tmp;
 	}
 
@@ -107,9 +119,10 @@ class TempFile extends File {
 	 * @param string $prefixName prefixName
 	 * @return static
 	 */
-	public static function create($prefixName = '') {
+	public static function create($prefixName = '')
+	{
 		$fileName = tempnam(null, $prefixName);
+
 		return new static($fileName);
 	}
-
 }

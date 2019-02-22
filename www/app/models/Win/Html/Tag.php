@@ -5,8 +5,8 @@ namespace Win\Html;
 /**
  * Tag Html
  */
-abstract class Tag {
-
+abstract class Tag
+{
 	/** @var string */
 	protected $name;
 
@@ -21,23 +21,26 @@ abstract class Tag {
 	 * @param string $name
 	 * @param string[] $attributes
 	 */
-	public function __construct($name, $attributes) {
+	public function __construct($name, $attributes)
+	{
 		$this->name = $name;
 		$this->attributes = $attributes;
 	}
 
 	/** @return string */
-	public function __toString() {
+	public function __toString()
+	{
 		return $this->html();
 	}
 
 	/** @return string */
-	protected function attributes() {
+	protected function attributes()
+	{
 		$html = '';
 		foreach ($this->attributes as $name => $value) {
 			$html .= $name . '="' . $value . '" ';
 		}
+
 		return $html;
 	}
-
 }

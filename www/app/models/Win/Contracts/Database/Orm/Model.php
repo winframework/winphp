@@ -4,8 +4,8 @@ namespace Win\Contracts\Database\Orm;
 
 use Win\Database\Orm\Orm;
 
-interface Model {
-
+interface Model
+{
 	/** @return int */
 	public function getId();
 

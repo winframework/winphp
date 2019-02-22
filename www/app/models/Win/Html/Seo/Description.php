@@ -7,8 +7,8 @@ use Win\Formats\Str;
 /**
  * Auxilia a criar 'Description' otimizado para SEO
  */
-class Description {
-
+class Description
+{
 	public static $default = '';
 
 	/**
@@ -16,12 +16,12 @@ class Description {
 	 * @param string $description
 	 * @return string
 	 */
-	public static function otimize($description, $maxLength = 150) {
+	public static function otimize($description, $maxLength = 150)
+	{
 		if (Str::length($description) > 0) {
 			return Str::truncate($description, $maxLength);
 		} else {
 			return static::$default;
 		}
 	}
-
 }

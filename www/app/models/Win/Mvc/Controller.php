@@ -9,8 +9,8 @@ use Win\Request\Url;
  *
  * Responsável por processar as requisições e definir a View
  */
-abstract class Controller {
-
+abstract class Controller
+{
 	public static $dir = '/app/controllers';
 
 	/**
@@ -35,13 +35,15 @@ abstract class Controller {
 	 * Cria o Controller, definindo o Action
 	 * @param string $action
 	 */
-	public function __construct($action = 'index') {
+	public function __construct($action = 'index')
+	{
 		$this->app = Application::app();
 		$this->action = $action;
 	}
 
 	/** @param string $title */
-	public function setTitle($title) {
+	public function setTitle($title)
+	{
 		$this->addData('title', $title);
 	}
 
@@ -50,7 +52,8 @@ abstract class Controller {
 	 * @param string $name
 	 * @param mixed $value
 	 */
-	public function addData($name, $value) {
+	public function addData($name, $value)
+	{
 		$this->data[$name] = $value;
 	}
 
@@ -59,22 +62,26 @@ abstract class Controller {
 	 * @param string $name
 	 * @return mixed|null
 	 */
-	public function getData($name) {
+	public function getData($name)
+	{
 		if (key_exists($name, $this->data)) {
 			return $this->data[$name];
 		}
+
 		return null;
 	}
 
 	/** @param View|mixed $view */
-	protected function setView($view) {
+	protected function setView($view)
+	{
 		if ($view instanceof View) {
 			$this->app->view = $view;
 		}
 	}
 
 	/** @return string */
-	public function getAction() {
+	public function getAction()
+	{
 		return $this->action;
 	}
 
@@ -82,10 +89,11 @@ abstract class Controller {
 	 * Carrega o Controller,
 	 * executando o Action atual
 	 */
-	public function load() {
+	public function load()
+	{
 		$this->init();
 		$action = $this->action;
-		if (method_exists($this, $action)){
+		if (method_exists($this, $action)) {
 			$view = $this->$action();
 			$this->setView($view);
 			$this->app->view->validate();
@@ -98,8 +106,9 @@ abstract class Controller {
 	/**
 	 * Define Página como 404
 	 */
-	protected function actionNotFound() {
-		if ($this->app->getPage() !== '404') {
+	protected function actionNotFound()
+	{
+		if ('404' !== $this->app->getPage()) {
 			$this->app->pageNotFound();
 		}
 	}
@@ -108,7 +117,8 @@ abstract class Controller {
 	 * Volta para o método index da pagina atual
 	 * @codeCoverageIgnore
 	 */
-	protected function backToIndex() {
+	protected function backToIndex()
+	{
 		Url::instance()->redirect($this->app->getPage());
 	}
 
@@ -120,15 +130,16 @@ abstract class Controller {
 	/**
 	 * Este método é chamado sempre que o Controller é carregado
 	 */
-	protected function init() {
-
+	protected function init()
+	{
 	}
 
 	/**
 	 * Redireciona para a URL
 	 * @param string $url
 	 */
-	public function redirect($url) {
+	public function redirect($url)
+	{
 		Url::instance()->redirect($url);
 	}
 
@@ -136,8 +147,8 @@ abstract class Controller {
 	 * Atualiza a mesma página
 	 * @param string $url
 	 */
-	public function refresh() {
+	public function refresh()
+	{
 		Url::instance()->redirect(Url::instance()->getUrl());
 	}
-
 }

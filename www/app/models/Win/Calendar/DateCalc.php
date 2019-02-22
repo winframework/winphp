@@ -7,8 +7,8 @@ use DateInterval;
 /**
  * Cálculo de Datas
  */
-class DateCalc {
-
+class DateCalc
+{
 	const SECONDS = 'seconds';
 	const MINUTES = 'minutes';
 	const HOURS = 'hours';
@@ -18,21 +18,22 @@ class DateCalc {
 	const YEARS = 'years';
 
 	/** @var string[] Unidades de tempo */
-	static private $units = array(
+	private static $units = [
 		self::SECONDS => ['segundo', 'segundos', 1],
 		self::MINUTES => ['minuto', 'minutos', 60],
 		self::HOURS => ['hora', 'horas', 60 * 60],
 		self::DAYS => ['dia', 'dias', 24 * 60 * 60],
 		self::WEEKS => ['semana', 'semanas', 7 * 24 * 60 * 60],
 		self::MONTHS => ['mês', 'meses', 30 * 24 * 60 * 60],
-		self::YEARS => ['ano', 'anos', 365 * 24 * 60 * 60]
-	);
+		self::YEARS => ['ano', 'anos', 365 * 24 * 60 * 60],
+	];
 
 	/**
 	 * @param DateTime $dateTime
 	 * @param int $minutes
 	 */
-	public static function sumSeconds(DateTime $dateTime, $minutes = 1) {
+	public static function sumSeconds(DateTime $dateTime, $minutes = 1)
+	{
 		$interval = DateInterval::createFromDateString($minutes . ' ' . static::SECONDS);
 		$dateTime->add($interval);
 	}
@@ -41,7 +42,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $minutes
 	 */
-	public static function sumMinutes(DateTime $dateTime, $minutes = 1) {
+	public static function sumMinutes(DateTime $dateTime, $minutes = 1)
+	{
 		$interval = DateInterval::createFromDateString($minutes . ' ' . static::MINUTES);
 		$dateTime->add($interval);
 	}
@@ -50,7 +52,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $hours
 	 */
-	public static function sumHours(DateTime $dateTime, $hours = 1) {
+	public static function sumHours(DateTime $dateTime, $hours = 1)
+	{
 		$interval = DateInterval::createFromDateString($hours . ' ' . static::HOURS);
 		$dateTime->add($interval);
 	}
@@ -59,7 +62,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $days
 	 */
-	public static function sumDays(DateTime $dateTime, $days = 1) {
+	public static function sumDays(DateTime $dateTime, $days = 1)
+	{
 		$interval = DateInterval::createFromDateString($days . ' ' . static::DAYS);
 		$dateTime->add($interval);
 	}
@@ -68,7 +72,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $weeks
 	 */
-	public static function sumWeeks(DateTime $dateTime, $weeks = 1) {
+	public static function sumWeeks(DateTime $dateTime, $weeks = 1)
+	{
 		$interval = DateInterval::createFromDateString($weeks . ' ' . static::WEEKS);
 		$dateTime->add($interval);
 	}
@@ -77,7 +82,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $months
 	 */
-	public static function sumMonths(DateTime $dateTime, $months = 1) {
+	public static function sumMonths(DateTime $dateTime, $months = 1)
+	{
 		$interval = DateInterval::createFromDateString($months . ' ' . static::MONTHS);
 		$dateTime->add($interval);
 	}
@@ -86,7 +92,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $years
 	 */
-	public static function sumYears(DateTime $dateTime, $years = 1) {
+	public static function sumYears(DateTime $dateTime, $years = 1)
+	{
 		$interval = DateInterval::createFromDateString($years . ' ' . static::YEARS);
 		$dateTime->add($interval);
 	}
@@ -95,7 +102,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $minutes
 	 */
-	public static function subSeconds(DateTime $dateTime, $minutes = 1) {
+	public static function subSeconds(DateTime $dateTime, $minutes = 1)
+	{
 		$interval = DateInterval::createFromDateString($minutes . ' ' . static::SECONDS);
 		$dateTime->sub($interval);
 	}
@@ -104,7 +112,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $minutes
 	 */
-	public static function subMinutes(DateTime $dateTime, $minutes = 1) {
+	public static function subMinutes(DateTime $dateTime, $minutes = 1)
+	{
 		$interval = DateInterval::createFromDateString($minutes . ' ' . static::MINUTES);
 		$dateTime->sub($interval);
 	}
@@ -113,7 +122,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $hours
 	 */
-	public static function subHours(DateTime $dateTime, $hours = 1) {
+	public static function subHours(DateTime $dateTime, $hours = 1)
+	{
 		$interval = DateInterval::createFromDateString($hours . ' ' . static::HOURS);
 		$dateTime->sub($interval);
 	}
@@ -122,7 +132,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $days
 	 */
-	public static function subDays(DateTime $dateTime, $days = 1) {
+	public static function subDays(DateTime $dateTime, $days = 1)
+	{
 		$dateTime->sub(DateInterval::createFromDateString($days . ' ' . static::DAYS));
 	}
 
@@ -130,7 +141,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $weeks
 	 */
-	public static function subWeeks(DateTime $dateTime, $weeks = 1) {
+	public static function subWeeks(DateTime $dateTime, $weeks = 1)
+	{
 		$interval = DateInterval::createFromDateString($weeks . ' ' . static::WEEKS);
 		$dateTime->sub($interval);
 	}
@@ -139,7 +151,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $months
 	 */
-	public static function subMonths(DateTime $dateTime, $months = 1) {
+	public static function subMonths(DateTime $dateTime, $months = 1)
+	{
 		$interval = DateInterval::createFromDateString($months . ' ' . static::MONTHS);
 		$dateTime->sub($interval);
 	}
@@ -148,7 +161,8 @@ class DateCalc {
 	 * @param DateTime $dateTime
 	 * @param int $years
 	 */
-	public static function subYears(DateTime $dateTime, $years = 1) {
+	public static function subYears(DateTime $dateTime, $years = 1)
+	{
 		$interval = DateInterval::createFromDateString($years . ' ' . static::YEARS);
 		$dateTime->sub($interval);
 	}
@@ -158,23 +172,26 @@ class DateCalc {
 	 * @param int $seconds
 	 * @param string $format [d,m,Y,H,i]
 	 */
-	public static function secondsToFormat($seconds = 0, $format = 'i') {
-		$dt1 = new DateTime("@0");
+	public static function secondsToFormat($seconds = 0, $format = 'i')
+	{
+		$dt1 = new DateTime('@0');
 		$dt2 = new DateTime("@$seconds");
+
 		return $dt1->diff($dt2)->format('%' . $format);
 	}
 
 	/**
 	 * Retorna a data no formato humano
-	 * @param DateTime|boolean $date
+	 * @param DateTime|bool $date
 	 * @return string (ex: 4 horas atrás), (ex: daqui a 5 dias)
 	 */
-	public static function toTimeAgo($date) {
+	public static function toTimeAgo($date)
+	{
 		$timeAgo = 'indisponível';
-		if ($date !== false) {
+		if (false !== $date) {
 			$time = time() - strtotime($date->format(DateTime::SQL_DATE_TIME));
 
-			if ($time === 0) {
+			if (0 === $time) {
 				$timeAgo = 'agora mesmo';
 			} elseif ($time > 0) {
 				$timeAgo = static::toHighestUnit($time) . ' atrás';
@@ -182,6 +199,7 @@ class DateCalc {
 				$timeAgo = 'daqui a ' . static::toHighestUnit($time * (-1));
 			}
 		}
+
 		return $timeAgo;
 	}
 
@@ -190,7 +208,8 @@ class DateCalc {
 	 * @param int $seconds
 	 * @return string
 	 */
-	protected static function toHighestUnit($seconds) {
+	protected static function toHighestUnit($seconds)
+	{
 		$units = array_reverse(DateCalc::$units);
 		$time = 0;
 		foreach ($units as $unitName => $unitInfo) {
@@ -201,7 +220,7 @@ class DateCalc {
 				break;
 			}
 		}
+
 		return $time;
 	}
-
 }

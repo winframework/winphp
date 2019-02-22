@@ -11,8 +11,7 @@ namespace Win\Mvc;
  * qual Layout será carregado.
  * Ex: 'main', 'empty', '2-column', '3-column'
  */
-class Layout extends Block {
-
+class Layout extends Block
+{
 	public static $dir = '/app/blocks/layout';
-
 }

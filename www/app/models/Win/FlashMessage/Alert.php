@@ -2,17 +2,16 @@
 
 namespace Win\FlashMessage;
 
-use Win\Singleton\SingletonTrait;
 use Win\Mvc\Block;
 use Win\Request\Session;
-use Win\Mailer\Email;
+use Win\Singleton\SingletonTrait;
 
 /**
  * Alerta
  * Armazena e exibe mensagens de alerta
  */
-class Alert {
-
+class Alert
+{
 	/** @var Session */
 	private $session;
 
@@ -24,9 +23,11 @@ class Alert {
 	 * @return static
 	 * @param string $group
 	 */
-	public static function instance($group = 'default') {
+	public static function instance($group = 'default')
+	{
 		$instance = static::instanceSingleton();
 		$instance->session = Session::instance('alerts.' . $group);
+
 		return $instance;
 	}
 
@@ -35,12 +36,14 @@ class Alert {
 	 * @param string $message
 	 * @param string $type
 	 */
-	public function add($message, $type = 'default') {
+	public function add($message, $type = 'default')
+	{
 		$this->session->add($type, $message);
 	}
 
 	/** @return mixed[] */
-	public function all() {
+	public function all()
+	{
 		return $this->session->popAll();
 	}
 
@@ -49,12 +52,14 @@ class Alert {
 	 * @return mixed[]
 	 * @param string $type
 	 */
-	public function get($type) {
+	public function get($type)
+	{
 		return $this->session->pop($type, null);
 	}
 
 	/** Limpa mensagens */
-	public function clear() {
+	public function clear()
+	{
 		$this->session->clear();
 	}
 
@@ -62,32 +67,38 @@ class Alert {
 	 * Exibe html dos alertas
 	 * @return Block
 	 */
-	public function html() {
+	public function html()
+	{
 		return new Block('layout/message/alerts', ['alerts' => $this->all()]);
 	}
 
 	/** @param string $message */
-	public static function alert($message) {
+	public static function alert($message)
+	{
 		static::instance()->add($message, 'default');
 	}
 
 	/** @param string $message */
-	public static function success($message) {
+	public static function success($message)
+	{
 		static::instance()->add($message, 'success');
 	}
 
 	/** @param string $message */
-	public static function error($message) {
+	public static function error($message)
+	{
 		static::instance()->add($message, 'danger');
 	}
 
 	/** @param string $message */
-	public static function info($message) {
+	public static function info($message)
+	{
 		static::instance()->add($message, 'info');
 	}
 
 	/** @param string $message */
-	public static function warning($message) {
+	public static function warning($message)
+	{
 		static::instance()->add($message, 'warning');
 	}
 
@@ -96,12 +107,12 @@ class Alert {
 	 * @param string|null $error
 	 * @param string $success
 	 */
-	public static function create($error, $success) {
+	public static function create($error, $success)
+	{
 		if (!is_null($error)) {
 			static::error($error);
 		} else {
 			static::success($success);
 		}
 	}
-
 }

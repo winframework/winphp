@@ -14,8 +14,8 @@ use Win\Request\Url;
  * @author winPHP Framework <http://github.com/winframework/winphp/>
  * @version 1.4.0
  */
-class Application {
-
+class Application
+{
 	protected static $instance = null;
 	private $name;
 	private $page;
@@ -32,7 +32,8 @@ class Application {
 	 * Cria a aplicação principal
 	 * @param mixed[] $data
 	 */
-	public function __construct($data = []) {
+	public function __construct($data = [])
+	{
 		static::$instance = $this;
 		Data::instance()->load($data);
 		$this->name = (string) $this->data()->get('name', '');
@@ -42,7 +43,8 @@ class Application {
 	/**
 	 * Inicia com as Configurações básicas
 	 */
-	protected function init() {
+	protected function init()
+	{
 		$this->setParams(Url::instance()->getSegments());
 		$params = $this->getParams();
 		$this->controller = ControllerFactory::create($params[0], $params[1]);
@@ -61,12 +63,14 @@ class Application {
 	 * Retorna o ponteiro para a aplicação principal
 	 * @return static
 	 */
-	public static function app() {
+	public static function app()
+	{
 		return static::$instance;
 	}
 
 	/** @return Data */
-	public function data() {
+	public function data()
+	{
 		return Data::instance();
 	}
 
@@ -74,7 +78,8 @@ class Application {
 	 * Roda a aplicação
 	 * Executando o Controller e criando o Layout que contem a View
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->controller->load();
 		Header::instance()->run();
 		$layout = new Layout($this->controller->layout);
@@ -82,17 +87,20 @@ class Application {
 	}
 
 	/** @return string */
-	public function getName() {
+	public function getName()
+	{
 		return $this->name;
 	}
 
 	/** @return string */
-	public function getFullUrl() {
+	public function getFullUrl()
+	{
 		return Url::instance()->getBaseUrl() . Url::instance()->getUrl();
 	}
 
 	/** @return string */
-	public function getBaseUrl() {
+	public function getBaseUrl()
+	{
 		return Url::instance()->getBaseUrl();
 	}
 
@@ -100,7 +108,8 @@ class Application {
 	 * Retorna a URL Atual
 	 * @return string
 	 */
-	public function getUrl() {
+	public function getUrl()
+	{
 		return Url::instance()->format(implode('/', $this->getParams()));
 	}
 
@@ -108,28 +117,32 @@ class Application {
 	 * Retorna a página atual
 	 * @return string
 	 */
-	public function getPage() {
+	public function getPage()
+	{
 		return (string) $this->page;
 	}
 
 	/** @param string $page */
-	public function setPage($page) {
+	public function setPage($page)
+	{
 		$this->page = (string) $page;
 	}
 
 	/**
 	 * Retorna TRUE se está na página inicial
-	 * @return boolean
+	 * @return bool
 	 */
-	public function isHomePage() {
-		return (boolean) ($this->page === $this->homePage);
+	public function isHomePage()
+	{
+		return (bool) ($this->page === $this->homePage);
 	}
 
 	/**
 	 * Retorna TRUE se está em alguma página de erro (404, 403, 503, etc)
-	 * @return boolean
+	 * @return bool
 	 */
-	public function isErrorPage() {
+	public function isErrorPage()
+	{
 		return HttpException::isErrorCode($this->getPage());
 	}
 
@@ -137,7 +150,8 @@ class Application {
 	 * Retorna um todos os parâmetros da URL
 	 * @return string[]
 	 */
-	protected function getParams() {
+	protected function getParams()
+	{
 		return $this->params;
 	}
 
@@ -146,7 +160,8 @@ class Application {
 	 * Se estiver vazio, utiliza os parâmetros padrão.
 	 * @param string[] $params
 	 */
-	private function setParams($params) {
+	private function setParams($params)
+	{
 		$defaultParam = [$this->homePage, 'index'];
 		$this->params = array_replace($defaultParam, array_filter($params));
 	}
@@ -156,7 +171,8 @@ class Application {
 	 * @param int $index Parte escolhida
 	 * @return string
 	 */
-	public function getParam($index) {
+	public function getParam($index)
+	{
 		return (key_exists($index, $this->params)) ? $this->params[$index] : '';
 	}
 
@@ -164,7 +180,8 @@ class Application {
 	 * Define a página como 404
 	 * @codeCoverageIgnore
 	 */
-	public function pageNotFound() {
+	public function pageNotFound()
+	{
 		$this->errorPage(404);
 	}
 
@@ -174,8 +191,8 @@ class Application {
 	 * @param string $message
 	 * @throws HttpException
 	 */
-	public function errorPage($code, $message = '') {
+	public function errorPage($code, $message = '')
+	{
 		throw new HttpException($code, $message);
 	}
-
 }

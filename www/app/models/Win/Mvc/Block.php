@@ -7,8 +7,8 @@ namespace Win\Mvc;
  * Ver arquivos em: "app/blocks/"
  * Pequeno arquivo em .phtml que é chamado em views, emails, módulos, etc
  */
-class Block {
-
+class Block
+{
 	public static $dir = '/app/blocks';
 
 	/**
@@ -34,7 +34,8 @@ class Block {
 	 * @param string $file Nome do arquivo da View
 	 * @param mixed[] $data Array de variáveis
 	 */
-	public function __construct($file, $data = []) {
+	public function __construct($file, $data = [])
+	{
 		$this->app = Application::app();
 		$this->setFile($file);
 		$this->data = $data;
@@ -45,7 +46,8 @@ class Block {
 	 * @param string $name
 	 * @param mixed $value
 	 */
-	public function addData($name, $value) {
+	public function addData($name, $value)
+	{
 		$this->data[$name] = $value;
 	}
 
@@ -54,10 +56,12 @@ class Block {
 	 * @param string $name
 	 * @return mixed|null
 	 */
-	public function getData($name) {
+	public function getData($name)
+	{
 		if (key_exists($name, $this->data)) {
 			return $this->data[$name];
 		}
+
 		return null;
 	}
 
@@ -65,7 +69,8 @@ class Block {
 	 * Define o arquivo da View
 	 * @param string $file
 	 */
-	protected function setFile($file) {
+	protected function setFile($file)
+	{
 		$filePath = static::$dir . DIRECTORY_SEPARATOR . $file;
 
 		if (!is_null(Theme::instance()->get())) {
@@ -76,23 +81,26 @@ class Block {
 	}
 
 	/** @return string */
-	public function getFile() {
+	public function getFile()
+	{
 		return $this->file;
 	}
 
 	/**
 	 * Retorna TRUE se a View existe
-	 * @return boolean
+	 * @return bool
 	 */
-	public function exists() {
-		return (file_exists($this->file));
+	public function exists()
+	{
+		return file_exists($this->file);
 	}
 
 	/**
 	 * Retorna o HTML da View
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		return $this->toString();
 	}
 
@@ -100,16 +108,19 @@ class Block {
 	 * Retorna o HTML da View
 	 * @return string
 	 */
-	public function toString() {
+	public function toString()
+	{
 		ob_start();
 		$this->toHtml();
+
 		return ob_get_clean();
 	}
 
 	/**
 	 * Exibe o conteúdo HTML da View
 	 */
-	public function toHtml() {
+	public function toHtml()
+	{
 		$this->load();
 	}
 
@@ -117,11 +128,11 @@ class Block {
 	 * Exibe o conteúdo HTML da View
 	 * @return string
 	 */
-	public function load() {
+	public function load()
+	{
 		if (isset($this->file) && $this->exists()) {
 			extract($this->data);
 			include $this->file;
 		}
 	}
-
 }

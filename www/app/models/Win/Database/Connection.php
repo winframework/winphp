@@ -5,17 +5,14 @@ namespace Win\Database;
 use PDO;
 use PDOException;
 use PDOStatement;
-use Win\Database\Orm;
-use Win\Singleton\SingletonTrait;
 use Win\Mvc\Application;
-use Win\Database\ActiveRecord;
+use Win\Singleton\SingletonTrait;
 
 /**
  * Conexão com banco de dados
- *
  */
-abstract class Connection {
-
+abstract class Connection
+{
 	use SingletonTrait;
 
 	/** @var PDO */
@@ -33,7 +30,8 @@ abstract class Connection {
 	abstract protected function createPdo(&$dbConfig);
 
 	/** @return PDO */
-	public function getPdo() {
+	public function getPdo()
+	{
 		return $this->pdo;
 	}
 
@@ -41,10 +39,11 @@ abstract class Connection {
 	 * Cria uma conexão com um banco de dados
 	 * @param string[] $dbConfig
 	 */
-	public function connect($dbConfig) {
+	public function connect($dbConfig)
+	{
 		try {
 			$this->pdo = $this->createPdo($dbConfig);
-			$this->pdo->exec("set names utf8");
+			$this->pdo->exec('set names utf8');
 			$this->pdoException = null;
 			Orm::setConnection($this);
 		} catch (PDOException $ex) {
@@ -54,16 +53,18 @@ abstract class Connection {
 
 	/**
 	 * Retorna TRUE caso a conexão tenha sido bem sucedida
-	 * @return boolean
+	 * @return bool
 	 */
-	public function isValid() {
-		return (is_null($this->pdoException) && $this->pdo instanceof \PDO);
+	public function isValid()
+	{
+		return is_null($this->pdoException) && $this->pdo instanceof \PDO;
 	}
 
 	/**
 	 * Redireciona para 503 caso a conexão tenha falhado
 	 */
-	public function validate() {
+	public function validate()
+	{
 		if (!is_null($this->pdoException)) {
 			Application::app()->errorPage(503, $this->pdoException->getMessage());
 		}
@@ -72,10 +73,12 @@ abstract class Connection {
 	/**
 	 * @param string $query
 	 * @param string $values
-	 * @return boolean
+	 * @return bool
 	 */
-	public function query($query, $values = []) {
+	public function query($query, $values = [])
+	{
 		$stmt = $this->pdo->prepare($query);
+
 		return $stmt->execute($values);
 	}
 
@@ -84,9 +87,11 @@ abstract class Connection {
 	 * @param string $values
 	 * @return PDOStatement|null
 	 */
-	public function stmt($query, $values = []) {
+	public function stmt($query, $values = [])
+	{
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute($values);
+
 		return $stmt;
 	}
 
@@ -95,8 +100,10 @@ abstract class Connection {
 	 * @param string $values
 	 * @return mixed[]
 	 */
-	public function fetchAll($query, $values = []) {
+	public function fetchAll($query, $values = [])
+	{
 		$stmt = $this->stmt($query, $values);
+
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
@@ -105,14 +112,16 @@ abstract class Connection {
 	 * @param mixed[] $values
 	 * @return int
 	 */
-	public function fetchCount($query, $values) {
+	public function fetchCount($query, $values)
+	{
 		$stmt = $this->stmt($query, $values);
+
 		return $stmt->fetchColumn();
 	}
 
 	/** @return string */
-	public function getLastInsertId() {
+	public function getLastInsertId()
+	{
 		return $this->pdo->lastInsertId();
 	}
-
 }
