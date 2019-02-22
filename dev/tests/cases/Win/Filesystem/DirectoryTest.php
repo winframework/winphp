@@ -2,9 +2,10 @@
 
 namespace Win\Filesystem;
 
+use PHPUnit\Framework\TestCase;
 
-class DirectoryTest extends \PHPUnit\Framework\TestCase {
-
+class DirectoryTest extends TestCase
+{
 	/** @var Directory */
 	public static $dirInexistent;
 
@@ -14,36 +15,44 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase {
 	/** @var Directory */
 	public static $sub;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass()
+	{
 		static::$dirInexistent = new Directory('my-sample/directory');
 		static::$dir = new Directory('data/dir');
 		static::$sub = new Directory('data/dir/sub1');
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass()
+	{
 		$dir = new Directory('data/dir');
 		$dir->delete();
 	}
 
-	public function testGetPath() {
-		$this->assertContains('my-sample/directory', static::$dirInexistent->getAbsolutePath());
-		$this->assertNotEquals('my-sample/directory', static::$dirInexistent->getAbsolutePath());
-		$this->assertEquals('my-sample/directory', static::$dirInexistent->getPath());
+	public function testGetPath()
+	{
+		$dir = 'my-sample/directory';
+		$this->assertContains($dir, static::$dirInexistent->getAbsolutePath());
+		$this->assertNotEquals($dir, static::$dirInexistent->getAbsolutePath());
+		$this->assertEquals($dir, static::$dirInexistent->getPath());
 	}
 
-	public function testToString() {
+	public function testToString()
+	{
 		$this->assertEquals('data/dir', (string) static::$dir);
 	}
 
-	public function testGetName() {
+	public function testGetName()
+	{
 		$this->assertEquals('dir', static::$dir->getName());
 	}
 
-	public function testGetBaseName() {
+	public function testGetBaseName()
+	{
 		$this->assertEquals('dir', static::$dir->getBaseName());
 	}
 
-	public function testValidComplexPath() {
+	public function testValidComplexPath()
+	{
 		new Directory('m');
 		new Directory('my-sAmple');
 		new Directory('1my-sample1');
@@ -54,54 +63,56 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/** @expectedException Exception */
-	public function testPath_MultiSlash() {
+	public function testPathWithMultiSlash()
+	{
 		new Directory('my//sample');
 	}
 
 	/** @expectedException Exception */
-	public function testPath_EndSlash() {
+	public function testPathWithEndSlash()
+	{
 		new Directory('my-sample/');
 	}
 
 	/** @expectedException Exception */
-	public function testPath_SpecialChar() {
+	public function testPathWithSpecialChar()
+	{
 		new Directory('my-sãmple');
 	}
 
 	/** @expectedException Exception */
-	public function testPath_Space() {
+	public function testPathWithSpace()
+	{
 		new Directory('my sample');
 	}
 
-	public function testExits() {
+	public function testExist()
+	{
 		$dir = new Directory('data');
+		$dirFile = new Directory('index.php');
 		$this->assertTrue($dir->exists());
-	}
-
-	public function testExits_False() {
+		$this->assertFalse($dirFile->exists());
 		$this->assertFalse(static::$dirInexistent->exists());
 	}
 
-	public function testExist_File_False() {
-		$dirFile = new Directory('index.php');
-		$this->assertFalse($dirFile->exists());
-	}
-
-	public function testCreate() {
+	public function testCreate()
+	{
 		static::$dir->delete();
 		static::$dir->create();
 		$this->assertTrue(static::$dir->exists());
 		$this->assertEquals('0755', static::$dir->getChmod());
 	}
 
-	public function testCreate_SetPermission() {
+	public function testCreateSetPermission()
+	{
 		$sub = new Directory('data/dir/sub');
 		$sub->create(0611);
 		$this->assertEquals('0611', $sub->getChmod());
 	}
 
 	/** @expectedException Exception */
-	public function testCreate_NoPermission() {
+	public function testCreateNoPermission()
+	{
 		$dir = new Directory('data/dir/not-permited');
 		$dir->create(0611);
 
@@ -109,7 +120,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase {
 		$sub->create();
 	}
 
-	public function testRename() {
+	public function testRename()
+	{
 		$dir = new Directory('data/dir/teste2');
 		$dir->create();
 		$this->assertTrue($dir->exists());
@@ -120,7 +132,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse($old->exists());
 	}
 
-	public function testGetItemsName_TwoValues() {
+	public function testGetItemsNameTwoValues()
+	{
 		static::$dir->delete();
 		static::$dir->create();
 		static::$sub->create();
@@ -133,7 +146,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(2, count(static::$dir->getItemsName()));
 	}
 
-	public function testGetItems() {
+	public function testGetItems()
+	{
 		$file = new File('data/dir/file.txt');
 		$file->write('file content');
 
@@ -148,12 +162,14 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals('sub1', $items[1]->getName());
 	}
 
-	public function testIsEmpty() {
+	public function testIsEmpty()
+	{
 		$this->assertFalse(static::$dir->isEmpty());
 		$this->assertTrue(static::$sub->isEmpty());
 	}
 
-	public function testDeleteContent() {
+	public function testDeleteContent()
+	{
 		static::$dir->delete();
 		static::$dir->create();
 		static::$sub->create();
@@ -164,23 +180,26 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue(static::$dir->exists());
 	}
 
-	public function testChmod() {
+	public function testChmod()
+	{
 		static::$dir->setChmod(0744);
 		$this->assertEquals('744', static::$dir->getChmod());
 		static::$dir->setChmod(0755);
 		$this->assertEquals('755', static::$dir->getChmod());
 	}
 
-	public function testDelete() {
+	public function testDelete()
+	{
 		static::$sub->create();
 		static::$sub->delete();
 		$this->assertFalse(static::$sub->exists());
 	}
 
-	public function testGetLastModifiedDate() {
+	public function testGetLastModifiedDate()
+	{
 		$ts = filemtime(BASE_PATH . '/data/dir');
-		$this->assertEquals($ts, static::$dir->getLastModifiedDate()->getTimestamp());
-		$this->assertEquals(date('m'), static::$dir->getLastModifiedDate()->format('m'));
+		$modifiedAt = static::$dir->getLastModifiedDate();
+		$this->assertEquals($ts, $modifiedAt->getTimestamp());
+		$this->assertEquals(date('m'), $modifiedAt->format('m'));
 	}
-
 }

@@ -2,22 +2,18 @@
 
 namespace Win\Html\Form;
 
-class CheckboxTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
-	private static $active = 'checked';
+class CheckboxTest extends TestCase
+{
+	const ACTIVE = 'checked';
 
-	public function testIsActive() {
-		$this->assertContains(static::$active, Checkbox::check('teste', 'teste'));
+	public function testIsActive()
+	{
+		$this->assertNotContains(static::ACTIVE, Checkbox::check('teste', 'errado'));
+		$this->assertContains(static::ACTIVE, Checkbox::check('teste', 'teste'));
+		$this->assertContains(static::ACTIVE, Checkbox::check(true));
+		$this->assertContains(static::ACTIVE, Checkbox::check(1));
+		$this->assertContains(static::ACTIVE, Checkbox::check('teste'));
 	}
-
-	public function testIsActive_OneParam() {
-		$this->assertContains(static::$active, Checkbox::check(true));
-		$this->assertContains(static::$active, Checkbox::check(1));
-		$this->assertContains(static::$active, Checkbox::check('teste'));
-	}
-
-	public function testIsNotActive() {
-		$this->assertNotContains(static::$active, Checkbox::check('teste', 'errado'));
-	}
-
 }

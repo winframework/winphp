@@ -2,46 +2,43 @@
 
 namespace Win\Mvc;
 
-class BlockTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
-	protected static $validFile = 'custom-block';
-	protected static $invalidFile = 'this-file-doesnt-exit';
+class BlockTest extends TestCase
+{
+	const VALID = 'custom-block';
+	const INVALID = 'this-file-doesnt-exit';
 
-	public function testExist() {
-		$b = new Block(static::$validFile);
-		$this->assertTrue($b->exists());
+	public function testExist()
+	{
+		$this->assertTrue((new Block(static::VALID))->exists());
+		$this->assertFalse((new Block(static::INVALID))->exists());
 	}
 
-	public function testDoNotExist() {
-		$b = new Block((static::$invalidFile));
-		$this->assertFalse($b->exists());
-	}
-
-	public function testData() {
-		$b = new Block(static::$validFile);
+	public function testData()
+	{
+		$b = new Block(static::VALID);
 		$b->addData('a', 1);
 		$b->addData('b', 2);
-		$this->assertEquals($b->getData('a'), 1);
-		$this->assertEquals($b->getData('b'), 2);
+		$this->assertEquals(1, $b->getData('a'));
+		$this->assertEquals(2, $b->getData('b'));
 	}
 
-	public function testDataDoNotExist() {
-		$b = new Block((static::$invalidFile));
+	public function testDataDoNotExist()
+	{
+		$b = new Block((static::INVALID));
 		$b->addData('a', 1);
 		$b->addData('b', 2);
-		$this->assertEquals($b->getData('a'), 1);
-		$this->assertEquals($b->getData('b'), 2);
+		$this->assertEquals(1, $b->getData('a'));
+		$this->assertEquals(2, $b->getData('b'));
 	}
 
-	public function testToString() {
-		$b = new Block(static::$validFile);
-		$this->assertEquals($b->toString(), 'My custom block HTML');
-		$this->assertEquals((string) $b, 'My custom block HTML');
+	public function testToString()
+	{
+		$b = new Block(static::VALID);
+		$c = new Block(static::INVALID);
+		$this->assertEquals('My custom block HTML', $b->toString());
+		$this->assertEquals('My custom block HTML', (string) $b);
+		$this->assertEquals('', $c->toString());
 	}
-
-	public function testToStringEmpty() {
-		$b = new Block(static::$invalidFile);
-		$this->assertEquals($b->toString(), '');
-	}
-
 }

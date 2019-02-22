@@ -4,42 +4,48 @@ namespace Win\Formats;
 
 use PHPUnit\Framework\TestCase;
 
-class StrTest extends TestCase {
-
+class StrTest extends TestCase
+{
 	const LOREM = 'Lôrém ípsüm dolor sit amét, consectetur adipiscing elit.'
 			. 'Cras euismod a erat ac faucibus. Vivamus faucibus malesuada est, eget '
 			. 'ullamcorper leo fringilla viverra.';
 
-	public function testToUrl() {
+	public function testToUrl()
+	{
 		$url = Str::toUrl('Mi.nh@-+=$tring]!/ c0m₂² A"©&ntuaçãoβ ');
 		$this->assertEquals('minh-tring-c0m22-acntuacao', $url);
 	}
 
-	public function testToFileName() {
+	public function testToFileName()
+	{
 		$this->assertEquals('produtos-de-otima-qualidade-2', Str::toFileName('.Produtos-de_óti?ma q.ualida@"de/²-'));
 	}
 
-	public function testTruncateEquals() {
+	public function testTruncateEquals()
+	{
 		$truncated = Str::truncate('Minhâ stríng curta', 20);
 		$truncated2 = Str::truncate('Minhâ stríng curta', 20, Str::TRUNCATE_BEFORE);
 		$this->assertEquals('Minhâ stríng curta', $truncated);
 		$this->assertEquals('Minhâ stríng curta', $truncated2);
 	}
 
-	public function testTruncateWhiteSpace() {
+	public function testTruncateWhiteSpace()
+	{
 		$this->assertEquals('1inha string...', Str::truncate('1inha string curta', 13));
 		$this->assertEquals('2inha string...', Str::truncate('2inha string curta', 12));
 		$this->assertEquals('3inha...', Str::truncate('3inha string curta', 11));
 	}
 
-	public function testTruncateSimbol() {
+	public function testTruncateSimbol()
+	{
 		$this->assertEquals('1inha string...', Str::truncate('1inha string, curta', 14));
 		$this->assertEquals('1inha string...', Str::truncate('1inha string, curta', 13));
 		$this->assertEquals('1inha...', Str::truncate('1inha string, curta', 12));
 		$this->assertEquals('2inha string...', Str::truncate('2inha string , curta', 14));
 	}
 
-	public function testTruncateSpecial() {
+	public function testTruncateSpecial()
+	{
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate(static::LOREM, 14));
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate(static::LOREM, 13));
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate(static::LOREM, 12));
@@ -47,55 +53,64 @@ class StrTest extends TestCase {
 		$this->assertEquals('Lôrém...', Str::truncate(static::LOREM, 10));
 	}
 
-	public function testTruncateHtml() {
+	public function testTruncateHtml()
+	{
 		$this->assertEquals('Lôrém ípsüm...', Str::truncate('Lôrém <b>ípsüm <span class="text-center">dolor</span> sit</b> amét', 14));
 	}
 
-	public function testTruncateAfter() {
+	public function testTruncateAfter()
+	{
 		$truncated = Str::truncate(static::LOREM, 30, Str::TRUNCATE_AFTER);
 		$this->assertEquals('Lôrém ípsüm dolor sit amét, consectetur...', $truncated);
 	}
 
-	public function testLower() {
+	public function testLower()
+	{
 		$string = Str::lower('Lôrém ípsüm dolor sit AMÉT');
 		$this->assertEquals('lôrém ípsüm dolor sit amét', $string);
 	}
 
-	public function testLength() {
+	public function testLength()
+	{
 		$length = Str::length('Lôrém ípsüm dolor sit AMÉT');
 		$this->assertEquals(26, $length);
 	}
 
-	public function testUpper() {
+	public function testUpper()
+	{
 		$string = Str::upper('LÔrem ipsum dolor sit AMÉT');
 		$this->assertEquals('LÔREM IPSUM DOLOR SIT AMÉT', $string);
 	}
 
-	public function testCamel() {
+	public function testCamel()
+	{
 		$string = Str::camel('Lôrem ipsum dolor_sit-amet');
 		$this->assertEquals('LremIpsumDolorSitAmet', $string);
 	}
 
-	public function testCamelLower() {
+	public function testCamelLower()
+	{
 		$string = Str::camel('lorem ipsum dolor sit amet');
 		$this->assertEquals('LoremIpsumDolorSitAmet', $string);
 	}
 
-	public function testCamelUpper() {
+	public function testCamelUpper()
+	{
 		$string = Str::camel('LOREM IPSUM DOLOR SIT AMET');
 		$this->assertEquals('LoremIpsumDolorSitAmet', $string);
 	}
 
-	public function testLowerCamel() {
+	public function testLowerCamel()
+	{
 		$string = Str::lowerCamel('_Lôrem ipsum dolor_sit-amet');
 		$this->assertEquals('_lremIpsumDolorSitAmet', $string);
 		$this->assertEquals('__callStatic', Str::lowerCamel('__Call sTatic'));
 		$this->assertEquals('lremIpsum', Str::lowerCamel('Lôrem ipsum'));
 	}
 
-	public function testStrip() {
+	public function testStrip()
+	{
 		$string = Str::strip(' LOREM <b>IPSUM</b> DOLOR     ');
 		$this->assertEquals('LOREM IPSUM DOLOR', $string);
 	}
-
 }

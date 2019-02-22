@@ -2,7 +2,9 @@
 
 namespace Win\Mvc;
 
-class DefaultControllerTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
+
+class DefaultControllerTest extends TestCase {
 
 	public function testLoad() {
 		$app = new Application();

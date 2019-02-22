@@ -46,7 +46,6 @@ abstract class Connection {
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec("set names utf8");
 			$this->pdoException = null;
-			ActiveRecord::setConnection($this);
 			Orm::setConnection($this);
 		} catch (PDOException $ex) {
 			$this->pdoException = $ex;
@@ -83,7 +82,7 @@ abstract class Connection {
 	/**
 	 * @param string $query
 	 * @param string $values
-	 * @return PDOStatement
+	 * @return PDOStatement|null
 	 */
 	public function stmt($query, $values = []) {
 		$stmt = $this->pdo->prepare($query);
@@ -111,7 +110,7 @@ abstract class Connection {
 		return $stmt->fetchColumn();
 	}
 
-	/** @return int */
+	/** @return string */
 	public function getLastInsertId() {
 		return $this->pdo->lastInsertId();
 	}

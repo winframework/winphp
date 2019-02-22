@@ -5,8 +5,8 @@ namespace Win\Authentication;
 /**
  * Manipulador de Senhas
  */
-abstract class Password {
-
+abstract class Password
+{
 	/** @var string */
 	private static $salt = 'E50H%gDui#';
 
@@ -16,7 +16,8 @@ abstract class Password {
 	 * @param int $length
 	 * @return string
 	 */
-	public static function generate($length = 6) {
+	public static function generate($length = 6)
+	{
 		$letters = str_shuffle('abcdefghijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXY');
 		$numbers = str_shuffle('23456789');
 		$specials = str_shuffle('@#&');
@@ -32,8 +33,8 @@ abstract class Password {
 	 * Adiciona maior segurança a senha
 	 * @param string $password
 	 */
-	public static function encrypt($password) {
+	public static function encrypt($password)
+	{
 		return md5($password . self::$salt);
 	}
-
 }

@@ -3,11 +3,11 @@
 namespace Win\Request;
 
 use PHPUnit\Framework\TestCase;
-use Win\Request\Session;
 
-class SessionTest extends TestCase {
-
-	public function testSet() {
+class SessionTest extends TestCase
+{
+	public function testSet()
+	{
 		$session = Session::instance();
 		$session->set('a', 1);
 
@@ -15,7 +15,8 @@ class SessionTest extends TestCase {
 		$this->assertEquals(null, $session->get('b'));
 	}
 
-	public function testSuperGlobal() {
+	public function testSuperGlobal()
+	{
 		session_unset();
 		$_SESSION['default']['a'] = 1;
 		$session = Session::instance();
@@ -25,7 +26,8 @@ class SessionTest extends TestCase {
 		$this->assertEquals(2, $session->get('b', 3));
 	}
 
-	public function testGetArray() {
+	public function testGetArray()
+	{
 		session_unset();
 		$_SESSION['default']['a']['b'] = 12;
 		$session = Session::instance();
@@ -34,7 +36,8 @@ class SessionTest extends TestCase {
 		$this->assertEquals(12, $session->get('a.b'));
 	}
 
-	public function testGet_MultiInstance() {
+	public function testGetMultiInstance()
+	{
 		session_unset();
 		$_SESSION['default']['a']['b'] = 1;
 		$_SESSION['user']['a']['b'] = 2;
@@ -46,7 +49,8 @@ class SessionTest extends TestCase {
 		$this->assertEquals(3, Session::instance('user')->get('b'));
 	}
 
-	public function testPop() {
+	public function testPop()
+	{
 		$data = Session::instance();
 		$data->clear();
 		$data->set('a', 1);
@@ -58,7 +62,8 @@ class SessionTest extends TestCase {
 		$this->assertEquals(2, $data->get('b'));
 	}
 
-	public function testPopAll() {
+	public function testPopAll()
+	{
 		$data = Session::instance();
 		$data->clear();
 		$data->set('a', 1);
@@ -68,5 +73,4 @@ class SessionTest extends TestCase {
 		$this->assertFalse($data->has('a'));
 		$this->assertFalse($data->has('b'));
 	}
-
 }

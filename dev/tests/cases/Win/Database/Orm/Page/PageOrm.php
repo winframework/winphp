@@ -7,8 +7,8 @@ use Win\Database\Orm;
 /**
  * Página ORM
  *
- * @method Page result
- * @method Page[] results
+ * @method Page one
+ * @method Page[] all
  */
 class PageOrm extends Orm {
 

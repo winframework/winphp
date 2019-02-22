@@ -2,36 +2,43 @@
 
 namespace Win\Calendar;
 
-class DateCalcTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
-	public function testTimeAgoAfter() {
+class DateCalcTest extends TestCase
+{
+	public function testTimeAgoAfter()
+	{
 		$date = new DateTime();
 		DateCalc::sumSeconds($date, 1);
-		$this->assertEquals(DateCalc::toTimeAgo($date), 'daqui a 1 segundo');
+		$this->assertEquals('daqui a 1 segundo', DateCalc::toTimeAgo($date));
 
 		DateCalc::sumYears($date, 50);
-		$this->assertEquals(DateCalc::toTimeAgo($date), 'daqui a 50 anos');
+		$this->assertEquals('daqui a 50 anos', DateCalc::toTimeAgo($date));
 	}
 
-	public function testTimeAgoNow() {
+	public function testTimeAgoNow()
+	{
 		$date = new DateTime();
-		$this->assertEquals(DateCalc::toTimeAgo($date), 'agora mesmo');
+		$this->assertEquals('agora mesmo', DateCalc::toTimeAgo($date));
 	}
 
-	public function testTimeAgoFalse() {
-		$this->assertEquals(DateCalc::toTimeAgo(false), 'indisponível');
+	public function testTimeAgoFalse()
+	{
+		$this->assertEquals('indisponível', DateCalc::toTimeAgo(false));
 	}
 
-	public function testTimeAgoBefore() {
+	public function testTimeAgoBefore()
+	{
 		$date = new DateTime();
 		DateCalc::subSeconds($date, 2);
-		$this->assertEquals(DateCalc::toTimeAgo($date), '2 segundos atrás');
+		$this->assertEquals('2 segundos atrás', DateCalc::toTimeAgo($date));
 
 		DateCalc::subMonths($date, 1);
-		$this->assertEquals(DateCalc::toTimeAgo($date), '1 mês atrás');
+		$this->assertEquals('1 mês atrás', DateCalc::toTimeAgo($date));
 	}
 
-	public function testSumTime() {
+	public function testSumTime()
+	{
 		$dateTime = new DateTime('30-01-2018 12:59:55');
 
 		DateCalc::sumSeconds($dateTime, 1);
@@ -56,7 +63,8 @@ class DateCalcTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(2028, $dateTime->format('Y'));
 	}
 
-	public function testSubTime() {
+	public function testSubTime()
+	{
 		$dateTime = new DateTime('30-01-2018 12:59:55');
 
 		DateCalc::subSeconds($dateTime, 1);
@@ -81,30 +89,34 @@ class DateCalcTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(2007, $dateTime->format('Y'));
 	}
 
-	public function testConvertSecondsToMinutes() {
-		$this->assertEquals(DateCalc::secondsToFormat(59), 0);
-		$this->assertEquals(DateCalc::secondsToFormat(60), 1);
-		$this->assertEquals(DateCalc::secondsToFormat(130), 2);
-		$this->assertEquals(DateCalc::secondsToFormat(130, 'i'), 2);
+	public function testConvertSecondsToMinutes()
+	{
+		$this->assertEquals(0, DateCalc::secondsToFormat(59));
+		$this->assertEquals(1, DateCalc::secondsToFormat(60));
+		$this->assertEquals(2, DateCalc::secondsToFormat(130));
+		$this->assertEquals(2, DateCalc::secondsToFormat(130, 'i'));
 	}
 
-	public function testConvertSecondsToHour() {
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 59, 'H'), 0);
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60, 'H'), 1);
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 130, 'H'), 2);
+	public function testConvertSecondsToHour()
+	{
+		$this->assertEquals(0, DateCalc::secondsToFormat(60 * 59, 'H'));
+		$this->assertEquals(1, DateCalc::secondsToFormat(60 * 60, 'H'));
+		$this->assertEquals(2, DateCalc::secondsToFormat(60 * 130, 'H'));
 	}
 
-	public function testConvertSecondsToDays() {
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 5, 'Y'), 0);
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24, 'd'), 1);
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 25, 'd'), 1);
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 72, 'd'), 3);
+	public function testConvertSecondsToDays()
+	{
+		$this->assertEquals(0, DateCalc::secondsToFormat(60 * 60 * 5, 'Y'));
+		$this->assertEquals(1, DateCalc::secondsToFormat(60 * 60 * 24, 'd'));
+		$this->assertEquals(1, DateCalc::secondsToFormat(60 * 60 * 25, 'd'));
+		$this->assertEquals(3, DateCalc::secondsToFormat(60 * 60 * 72, 'd'));
 	}
 
-	public function testConvertSecondsToYears() {
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24 * 364, 'Y'), 0);
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24 * 365, 'Y'), 1);
-		$this->assertEquals(DateCalc::secondsToFormat(60 * 60 * 24 * 365 * 2, 'Y'), 2);
+	public function testConvertSecondsToYears()
+	{
+		$dayTime = 60 * 60 * 24;
+		$this->assertEquals(0, DateCalc::secondsToFormat($dayTime * 364, 'Y'));
+		$this->assertEquals(1, DateCalc::secondsToFormat($dayTime * 365, 'Y'));
+		$this->assertEquals(2, DateCalc::secondsToFormat($dayTime * 365 * 2, 'Y'));
 	}
-
 }

@@ -71,14 +71,14 @@ class ConnectionTest extends TestCase {
 		$this->assertNull(static::$connectionWrongUser->getPdo());
 	}
 
-	public function testValidate_DoesNothing() {
+	public function testValidateIsValid() {
 		ApplicationTest::newApp();
 		static::$connection->validate();
 		$this->assertEquals('index', Application::app()->getPage());
 	}
 
 	/** @expectedException \Win\Mvc\HttpException */
-	public function testValidate_ThrowException() {
+	public function testValidateThrowException() {
 		ApplicationTest::newApp();
 		static::$connectionWrongDb->validate();
 	}

@@ -2,13 +2,14 @@
 
 namespace Win\Html\Navigation;
 
+use PHPUnit\Framework\TestCase;
 use Win\Mvc\Application;
 use Win\Request\Url;
-use Win\Html\Navigation\Menu;
 
-class MenuTest extends \PHPUnit\Framework\TestCase {
-
-	public function testActive() {
+class MenuTest extends TestCase
+{
+	public function testActive()
+	{
 		Url::instance()->setUrl('index');
 		new Application();
 
@@ -18,7 +19,8 @@ class MenuTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals('active', Menu::active('404'));
 	}
 
-	public function testActiveParam() {
+	public function testActiveParam()
+	{
 		Url::instance()->setUrl('my-page/my-action/my-last-param');
 		new Application();
 
@@ -33,7 +35,8 @@ class MenuTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals('', Menu::active('my-page/my-action/my-last'));
 	}
 
-	public function testMultiActive() {
+	public function testMultiActive()
+	{
 		Url::instance()->setUrl('my-page/my-action/my-last-param');
 		new Application();
 
@@ -43,5 +46,4 @@ class MenuTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals('', Menu::active(['first-page', 'my-page/other-action', 'last-page']));
 		$this->assertEquals('', Menu::active(['first-page', 'second-page', 'last-page']));
 	}
-
 }

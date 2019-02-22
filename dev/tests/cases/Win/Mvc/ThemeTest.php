@@ -2,7 +2,9 @@
 
 namespace Win\Mvc;
 
-class ThemeTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
+
+class ThemeTest extends TestCase {
 
 	public function testget() {
 		$theme = Theme::instance();

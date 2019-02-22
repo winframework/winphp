@@ -4,38 +4,37 @@ namespace Win\Mvc;
 
 use controllers\DemoController;
 use controllers\IndexController;
-use Win\Mvc\Application;
-use Win\Mvc\ControllerFactory;
-use Win\Mvc\DefaultController;
+use PHPUnit\Framework\TestCase;
 use Win\Request\Url;
 
-class ControllerFactoryTest extends \PHPUnit\Framework\TestCase {
-
-	public function testControllerNotFound() {
+class ControllerFactoryTest extends TestCase
+{
+	public function testControllerNotFound()
+	{
 		new Application();
 		$controller = ControllerFactory::create('this-controller-doent-exit');
 		$notFound = $controller instanceof DefaultController || $controller instanceof Error404Controller;
 		$this->assertTrue($notFound);
 	}
 
-	public function testCreateController() {
+	public function testCreateController()
+	{
 		new Application();
 		$controller = ControllerFactory::create('demo');
-		$this->assertFalse($controller instanceof IndexController);
-		$this->assertTrue($controller instanceof DemoController);
+		$this->assertNotInstanceOf(IndexController::class, $controller);
+		$this->assertInstanceOf(DemoController::class, $controller);
 	}
 
-	public function testCreateController_IndexAction() {
+	public function testAction()
+	{
 		$controller = ControllerFactory::create('demo');
 		$this->assertEquals('index', $controller->getAction());
-	}
-
-	public function testCreateController_UnderscoreAction() {
 		$controller = ControllerFactory::create('demo', '_test');
 		$this->assertEquals('_test', $controller->getAction());
 	}
 
-	public function testCreateController_CustomAction() {
+	public function testCustomAction()
+	{
 		$app = new Application();
 		$app->view = new View('index');
 		$controller = ControllerFactory::create('demo', 'return-five');
@@ -45,9 +44,10 @@ class ControllerFactoryTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @expectedException Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\HttpException
 	 */
-	public function testCreateController_InvalidAction() {
+	public function testInvalidAction()
+	{
 		$app = new Application();
 		$controller = ControllerFactory::create('demo', 'invalid');
 		$controller->load();
@@ -56,19 +56,20 @@ class ControllerFactoryTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @expectedException Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\HttpException
 	 */
-	public function testCreateController_InvalidView() {
+	public function testInvalidView()
+	{
 		$controller = ControllerFactory::create('demo', 'return-invalid-view');
 		$controller->load();
 	}
 
-	public function testLoad_View() {
+	public function testLoadView()
+	{
 		Url::instance()->setUrl('index');
 		$app = new Application();
 		$controller = ControllerFactory::create('demo', 'return-valid-view');
 		$controller->load();
 		$this->assertTrue($app->view->exists());
 	}
-
 }

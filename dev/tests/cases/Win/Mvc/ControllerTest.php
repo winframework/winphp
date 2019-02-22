@@ -8,16 +8,18 @@ use PHPUnit\Framework\TestCase;
 use Win\Request\Header;
 use Win\Request\Url;
 
-class ControllerTest extends TestCase {
-
-	public function testExtendsController() {
+class ControllerTest extends TestCase
+{
+	public function testExtendsController()
+	{
 		new Application();
 		$controller = new DemoController();
 		$five = $controller->returnFive();
 		$this->assertEquals($five, 5);
 	}
 
-	public function testGetAction() {
+	public function testGetAction()
+	{
 		Url::instance()->setUrl('my-page/example-action');
 		new Application();
 		$controller = new IndexController('myAction');
@@ -29,7 +31,8 @@ class ControllerTest extends TestCase {
 		$this->assertEquals('index', $controller3->getAction());
 	}
 
-	public function testGetData() {
+	public function testGetData()
+	{
 		$controller = new DefaultController();
 		$controller->addData('a', 1);
 		$controller->addData('b', 2);
@@ -39,7 +42,8 @@ class ControllerTest extends TestCase {
 		$this->assertEquals(null, $controller->getData('c'));
 	}
 
-	public function testSetTitle() {
+	public function testSetTitle()
+	{
 		$controller = new DefaultController();
 		$controller->setTitle('My title page');
 		$this->assertEquals('My title page', $controller->getData('title'));
@@ -48,13 +52,15 @@ class ControllerTest extends TestCase {
 	/**
 	 * @expectedException \Win\Mvc\HttpException
 	 */
-	public function testActionNotFound() {
-		$index = new IndexController('index','invalid-action');
+	public function testActionNotFound()
+	{
+		$index = new IndexController('index', 'invalid-action');
 		$index->load();
 		$this->assertEquals('404', $index->app->getPage());
 	}
 
-	public function testCallInitOnLoad() {
+	public function testCallInitOnLoad()
+	{
 		$demo = ControllerFactory::create('Demo', 'index');
 		$demo->index();
 		$this->assertNotEquals(10, $demo->getData('init'));
@@ -62,27 +68,32 @@ class ControllerTest extends TestCase {
 		$this->assertEquals(10, $demo->getData('init'));
 	}
 
-	public function testReturnInvalidView() {
+	public function testReturnInvalidView()
+	{
 		$demo = new DemoController();
 		$this->assertFalse($demo->returnInvalidView()->exists());
 		$this->assertFalse($demo->returnInvalidView2()->exists());
 	}
 
-	public function testReturnValidView() {
+	public function testReturnValidView()
+	{
 		$demo = new DemoController();
 		$this->assertTrue($demo->returnValidView()->exists());
 	}
 
-	public function testRedirect() {
+	public function testRedirect()
+	{
 		$demo = new DemoController();
 		$demo->tryRedirect();
+
 		return Header::instance()->clear();
 	}
 
-	public function testRefresh() {
+	public function testRefresh()
+	{
 		$demo = new DemoController();
 		$demo->tryRefresh();
+
 		return Header::instance()->clear();
 	}
-
 }

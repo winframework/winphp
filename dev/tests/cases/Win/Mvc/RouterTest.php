@@ -5,8 +5,9 @@ namespace Win\Mvc;
 use controllers\DemoController;
 use Win\Mvc\Router;
 use Win\Request\Url;
+use PHPUnit\Framework\TestCase;
 
-class RouterTest extends \PHPUnit\Framework\TestCase {
+class RouterTest extends TestCase {
 
 	public function testNoCustomUrl() {
 		new Application();

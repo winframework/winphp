@@ -2,7 +2,9 @@
 
 namespace Win\Request;
 
-class ServerTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
+
+class ServerTest extends TestCase {
 
 	public function testGetName() {
 		$this->assertTrue(is_string(Server::getName()));

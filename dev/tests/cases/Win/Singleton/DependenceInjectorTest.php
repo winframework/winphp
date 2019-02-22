@@ -2,17 +2,17 @@
 
 namespace Win\Singleton;
 
-class DependenceInjectorTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
-	public function testGetClassDi() {
+class DependenceInjectorTest extends TestCase
+{
+	public function testGetClassDi()
+	{
 		$class = DependenceInjector::getClassDi(static::class);
 		$this->assertEquals($class, static::class);
-	}
 
-	public function testCustomGetClassDi() {
 		DependenceInjector::$container[static::class] = 'My\Test';
 		$class = DependenceInjector::getClassDi(static::class);
 		$this->assertEquals($class, 'My\Test');
 	}
-
 }

@@ -2,7 +2,9 @@
 
 namespace Win\Mvc;
 
-class ViewFactoryTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
+
+class ViewFactoryTest extends TestCase {
 
 	public function testCreate_Index() {
 		$defaultView = ViewFactory::create('index');

@@ -26,6 +26,7 @@
 - Alertas;
 - Sessão;
 - Conexão com Banco de Dados;
+- ORM;
 
 ---
 

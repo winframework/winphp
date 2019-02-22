@@ -2,17 +2,20 @@
 
 namespace Win\Calendar;
 
-class TimerTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
-	public function testTime() {
+class TimerTest extends TestCase
+{
+	public function testTime()
+	{
 		$t = new Timer();
-		$this->assertFalse(empty($t->time()));
+		$this->assertGreaterThan(0, strlen($t->time()));
 	}
 
-	public function testReset() {
+	public function testReset()
+	{
 		$t = new Timer();
 		$t->reset();
-		$this->assertFalse(empty($t->time()));
+		$this->assertGreaterThan(0, strlen($t->time()));
 	}
-
 }

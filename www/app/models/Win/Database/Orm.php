@@ -97,18 +97,16 @@ abstract class Orm {
 
 	/**
 	 * Retorna o primeiro resultado da consulta
-	 * @return Model
 	 */
-	public function result() {
+	public function one() {
 		$rows = $this->query->execute();
 		return $this->mapModel($rows[0]);
 	}
 
 	/**
 	 * Retorna todos os resultado da consulta
-	 * @return Model[]
 	 */
-	public function results() {
+	public function all() {
 		$rows = $this->query->execute();
 		$all = [];
 		foreach ($rows as $row) {
@@ -126,6 +124,7 @@ abstract class Orm {
 	/**
 	 * Define as colunas do resultado
 	 * @param string[] $columns
+	 * @return static
 	 */
 	public function setColumns($columns) {
 		$this->query->columns = $columns;
@@ -135,6 +134,7 @@ abstract class Orm {
 	/**
 	 * Adiciona uma coluna do resultado
 	 * @param string $column
+	 * @return static
 	 */
 	public function addColumn($column) {
 		$this->query->columns[] = $column;
@@ -144,6 +144,7 @@ abstract class Orm {
 	/**
 	 * Filtra pelo id
 	 * @param int $id
+	 * @return static
 	 */
 	public function find($id) {
 		$this->filterBy('id', $id);
@@ -154,6 +155,7 @@ abstract class Orm {
 	 * Filtra pelo campo
 	 * @param string $column
 	 * @param mixed $value
+	 * @return static
 	 */
 	public function filterBy($column, $value) {
 		$this->filter($column, '=', $value);
@@ -162,6 +164,7 @@ abstract class Orm {
 
 	/**
 	 * Adiciona filtros para busca
+	 * @return static
 	 */
 	public function filter($column, $operator, $value) {
 		$this->query->where->add($column, $operator, $value);
@@ -171,6 +174,7 @@ abstract class Orm {
 	/**
 	 * Ordena por um campo
 	 * @param string $orderBy
+	 * @return static
 	 */
 	public function orderBy($orderBy) {
 		$this->query->orderBy->set($orderBy);
@@ -180,19 +184,26 @@ abstract class Orm {
 	/**
 	 * Limita os resultados
 	 * @param int $limit
+	 * @return static
 	 */
 	public function limit($limit) {
 		$this->query->limit->set($limit);
 		return $this;
 	}
 
-	/** Ordena pelos mais novos */
+	/**
+	 * Ordena pelos mais novos
+	 * @return static
+	 */
 	public function newer() {
 		$this->orderBy('id DESC');
 		return $this;
 	}
 
-	/** Ordena pelos mais antigos */
+	/**
+	 * Ordena pelos mais antigos
+	 * @return static
+	 */
 	public function older() {
 		$this->orderBy('id ASC');
 		return $this;

@@ -65,7 +65,7 @@ class File extends Storable {
 				throw new Exception($name . ' is a invalid file name.');
 			}
 			$relativePath = static::DS . $name . $this->getExtensionDot();
-			$this->setPath($this->getDirectory()->getPath(). $relativePath);
+			$this->setPath($this->getDirectory()->getPath() . $relativePath);
 		}
 	}
 

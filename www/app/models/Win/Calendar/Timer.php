@@ -13,21 +13,23 @@ namespace Win\Calendar;
  * echo $t->time();
  * </code>
  */
-class Timer {
-
+class Timer
+{
 	private $startTime;
 
 	/**
 	 * Inicia a contagem de tempo
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		$this->startTime = microtime(true);
 	}
 
 	/**
 	 * Reinicia a contagem de tempo
 	 */
-	public function reset() {
+	public function reset()
+	{
 		$this->startTime = microtime(true);
 	}
 
@@ -35,7 +37,8 @@ class Timer {
 	 * Retorna o tempo gasto (em microssegundos)
 	 * @return float
 	 */
-	private function getMicroTime() {
+	private function getMicroTime()
+	{
 		return microtime(true) - $this->startTime;
 	}
 
@@ -43,7 +46,8 @@ class Timer {
 	 * Retorna o tempo gasto (na unidade correta)
 	 * @return string
 	 */
-	public function time() {
+	public function time()
+	{
 		$secs = $this->getMicroTime();
 		$days = floor($secs / 86400);
 		$secs -= $days * 86400;
@@ -60,5 +64,4 @@ class Timer {
 				floor($secs) . 's ' .
 				$microSecs . 'ms';
 	}
-
 }

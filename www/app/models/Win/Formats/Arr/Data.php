@@ -65,9 +65,9 @@ class Data implements DataInterface {
 	/**
 	 * Retorna um valor
 	 * @param string $key
-	 * @param string $default Valor default, caso a $key não exista
+	 * @param mixed $default Valor default, caso a $key não exista
 	 */
-	public function get($key, $default = '') {
+	public function get($key, $default = null) {
 		$data = $this->data;
 		$keys = explode('.', $key);
 		foreach ($keys as $k) {
@@ -82,8 +82,8 @@ class Data implements DataInterface {
 
 	/**
 	 * Retorna sempre um array
-	 * @param mixed $key
-	 * @return mixed[]
+	 * @param string $key
+	 * @return mixed
 	 */
 	private function getArray($key) {
 		$values = $this->get($key, []);

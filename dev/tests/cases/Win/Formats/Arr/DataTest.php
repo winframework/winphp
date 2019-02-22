@@ -2,9 +2,12 @@
 
 namespace Win\Formats\Arr;
 
-class DataTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
-	public function testGet() {
+class DataTest extends TestCase
+{
+	public function testGet()
+	{
 		$data = Data::instance();
 		$data->set('a', 1);
 		$data->set('b', 2);
@@ -13,7 +16,8 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(2, $data->get('b'));
 	}
 
-	public function testGet_MultiInstance() {
+	public function testGetMultiInstance()
+	{
 		$data = Data::instance();
 		$data->set('a', 1);
 		$data->set('b', 2);
@@ -26,7 +30,8 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(null, Data::instance('second')->get('b'));
 	}
 
-	public function testGetDefault() {
+	public function testGetDefault()
+	{
 		$data = Data::instance();
 		$data->set('a', 1);
 		$data->set('b', 2);
@@ -36,7 +41,8 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(3, $data->get('c', 3));
 	}
 
-	public function testAll() {
+	public function testAll()
+	{
 		$data = Data::instance();
 		$data->set('a', 1);
 		$data->set('b', 2);
@@ -44,7 +50,8 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(['a' => 1, 'b' => 2], $data->all());
 	}
 
-	public function testClear() {
+	public function testClear()
+	{
 		$data = Data::instance();
 		$data->set('a', 1);
 
@@ -53,7 +60,8 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(null, $data->get('a'));
 	}
 
-	public function testDelete() {
+	public function testDelete()
+	{
 		$data = Data::instance();
 		$data->set('a', 1);
 		$data->set('b', 2);
@@ -65,21 +73,24 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(2, $data->get('b'));
 	}
 
-	public function testGetArray() {
+	public function testGetArray()
+	{
 		$data = Data::instance();
 		$data->clear();
 		$data->set('a', ['a' => 11]);
 		$this->assertEquals(11, $data->get('a.a'));
 	}
 
-	public function testSetArray() {
+	public function testSetArray()
+	{
 		$data = Data::instance();
 		$data->clear();
 		$data->set('a.a', 11);
 		$this->assertEquals(11, $data->get('a.a'));
 	}
 
-	public function testArrayMultiLevel() {
+	public function testArrayMultiLevel()
+	{
 		$data = Data::instance();
 		$data->clear();
 		$data->set('a.a.a', 111);
@@ -91,23 +102,19 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(null, $data->get('a.b.b'));
 	}
 
-	public function testHas() {
+	public function testHas()
+	{
 		$session = Data::instance();
 		$session->clear();
 		$session->set('a.b', 2);
 		$this->assertTrue($session->has('a'));
 		$this->assertTrue($session->has('a.b'));
-	}
-
-	public function testNotHas() {
-		$session = Data::instance();
-		$session->clear();
-		$session->set('a.b', 2);
 		$this->assertFalse($session->has('c'));
 		$this->assertFalse($session->has('a.c'));
 	}
 
-	public function testAdd() {
+	public function testAdd()
+	{
 		$session = Data::instance();
 		$session->clear();
 		$session->set('a', 2);
@@ -115,5 +122,4 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$session->add('a', 4);
 		$this->assertCount(3, $session->get('a'));
 	}
-
 }

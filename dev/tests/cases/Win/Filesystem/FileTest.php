@@ -2,168 +2,179 @@
 
 namespace Win\Filesystem;
 
-class FileTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
+class FileTest extends TestCase
+{
 	/** @var File */
 	private $file;
 
 	/** @expectedException \Exception */
-	public function testConstruct_Empty() {
+	public function testNameEmpty()
+	{
 		$this->file = new File('');
 	}
 
 	/** @expectedException \Exception */
-	public function testConstruct_SpecialChar() {
+	public function testNameWithSpecialChar()
+	{
 		$this->file = new File('inva$lidâ');
 	}
 
 	/** @expectedException \Exception */
-	public function testConstruct_Space() {
+	public function testNameWithSpace()
+	{
 		$this->file = new File('invalid name');
 	}
 
 	/** @expectedException \Exception */
-	public function testConstruct_DirectoryInvalid() {
+	public function testDirectoryInvalid()
+	{
 		$this->file = new File('inva$lidâ/my-file');
 	}
 
-	public function testConstruct_RemoveEndSlash() {
+	public function testDirectoryValid()
+	{
+		$this->file = new File('valid-name/d');
+	}
+
+	public function testNameWithSlash()
+	{
 		$this->file = new File('valid-name/');
 		$this->assertEquals('', $this->file->getExtension());
 		$this->assertEquals('valid-name', $this->file->getName());
 	}
 
-	public function testConstruct_Number() {
+	public function testNameWithNumber()
+	{
 		$this->file = new File('7valid10name3');
 	}
 
-	public function testConstruct_UnderscoreHiphen() {
+	public function testNameWithUnderscoreHiphen()
+	{
 		$this->file = new File('_valid-name-');
 	}
 
-	public function testConstruct_Slash() {
-		$this->file = new File('valid-name/d');
-	}
-
-	public function testConstruct_Dot() {
+	public function testNameWithDot()
+	{
 		$this->file = new File('.my-file.teste.');
 	}
 
-	public function testConstruct_WithExtension() {
+	public function testNameWithExtension()
+	{
 		$this->file = new File('7valid_-10name3.jpg');
 	}
 
-	public function testConstruct_FullPath() {
+	public function testNameFullPath()
+	{
 		$this->file = new File('my-directory/sub-directory/7valid_-10name3.jpg');
 	}
 
-	public function testGetName() {
-		$this->initExistentFile();
+	public function testGetName()
+	{
+		$this->initExistFile();
 		$this->assertEquals('exist', $this->file->getName());
 	}
 
-	public function testGetBaseName() {
-		$this->initExistentFile();
+	public function testGetBaseName()
+	{
+		$this->initExistFile();
 		$this->assertEquals('exist.html', $this->file->getBaseName());
 	}
 
-	public function testGetExtension() {
-		$this->initExistentFile();
+	public function testGetExtension()
+	{
+		$this->initExistFile();
 		$this->assertEquals('html', $this->file->getExtension());
-	}
-
-	public function testGetExtension_Empty() {
 		$this->file = new File('my-file/without/extension');
 		$this->assertEquals('', $this->file->getExtension());
 	}
 
-	public function testGetType() {
-		$this->initExistentFile();
+	public function testGetType()
+	{
+		$this->initExistFile();
 		$this->assertEquals('text/plain', $this->file->getType());
 	}
 
-	public function testGetPath() {
-		$this->initExistentFile();
-		$this->assertContains('data/files/exist.html', $this->file->getAbsolutePath());
-		$this->assertNotEquals('data/files/exist.html', $this->file->getAbsolutePath());
-		$this->assertEquals('data/files/exist.html', $this->file->getPath());
+	public function testGetPath()
+	{
+		$this->initExistFile();
+		$path = 'data/files/exist.html';
+		$this->assertContains($path, $this->file->getAbsolutePath());
+		$this->assertNotEquals($path, $this->file->getAbsolutePath());
+		$this->assertEquals($path, $this->file->getPath());
 	}
 
-	public function testToString() {
-		$this->initExistentFile();
+	public function testToString()
+	{
+		$this->initExistFile();
 		$this->assertEquals('data/files/exist.html', (string) $this->file);
 	}
 
-	public function testGetDirectory() {
-		$this->initExistentFile();
+	public function testGetDirectory()
+	{
+		$this->initExistFile();
 		$this->assertEquals('files', $this->file->getDirectory()->getName());
 	}
 
-	public function testGetDirectory_NotExist() {
-		$this->initExistentFile();
-		$this->assertEquals('files', $this->file->getDirectory()->getName());
-	}
-
-	public function testGetSize() {
-		$this->initExistentFile();
+	public function testGetSize()
+	{
+		$this->initExistFile();
 		$this->assertTrue($this->file->getSize() > 1);
-	}
-
-	public function testGetSize_Empty() {
 		$this->initEmptyFile();
 		$this->assertEquals(0, $this->file->getSize());
-	}
-
-	public function testGetSize_NotExist() {
 		$this->file = new File('data/files/doesnt-exist.html');
-		$this->assertFalse($this->file->exists());
 		$this->assertEquals(false, $this->file->getSize());
 	}
 
-	public function testExists() {
-		$this->initExistentFile();
+	public function testExists()
+	{
+		$this->initExistFile();
 		$this->assertTrue($this->file->exists());
-	}
-
-	public function testNotExist() {
-		$this->initInexistentFile();
+		$this->initDontExistFile();
 		$this->assertFalse($this->file->exists());
 	}
 
-	public function testRead_NotExist() {
-		$this->initInexistentFile();
+	public function testReadNotExist()
+	{
+		$this->initDontExistFile();
 		$this->assertFalse($this->file->read());
 	}
 
-	public function testRead_Empty() {
+	public function testReadEmpty()
+	{
 		$this->initEmptyFile();
 		$this->assertTrue($this->file->exists());
 		$this->assertNotFalse($this->file->read());
 		$this->assertEquals('', $this->file->read());
 	}
 
-	public function testRead_Exist() {
-		$this->initExistentFile();
+	public function testReadExist()
+	{
+		$this->initExistFile();
 		$this->assertTrue($this->file->exists());
 		$this->assertNotFalse($this->file->read());
 		$this->assertContains('content', $this->file->read());
 	}
 
-	public function testWrite_NotExist() {
-		$this->initInexistentFile();
+	public function testWriteNotExist()
+	{
+		$this->initDontExistFile();
 		$this->assertTrue($this->file->write('My first content\n'));
 		$this->assertContains('My first content', $this->file->read());
 		$this->file->delete();
 	}
 
-	public function testWrite_Exist() {
-		$this->initExistentFile();
+	public function testWriteExist()
+	{
+		$this->initExistFile();
 		$this->assertTrue($this->file->write('My second content\n'));
 		$this->assertContains('My second content', $this->file->read());
 	}
 
-	public function testDelete() {
-		$this->initInexistentFile();
+	public function testDelete()
+	{
+		$this->initDontExistFile();
 		$this->assertTrue($this->file->write('content'));
 		$this->assertTrue($this->file->exists());
 		$this->file->delete();
@@ -171,7 +182,8 @@ class FileTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse($this->file->getSize());
 	}
 
-	public function testMove() {
+	public function testMove()
+	{
 		$this->file = new File('data/files/to-be-moved.txt');
 		$this->file->write('my content');
 
@@ -181,7 +193,8 @@ class FileTest extends \PHPUnit\Framework\TestCase {
 		$this->file->delete();
 	}
 
-	public function testMove_DirectoryNotExist() {
+	public function testMoveWithDirectoryNotExist()
+	{
 		$this->file = new File('data/files/to-be-moved2.txt');
 		$this->file->write('my content');
 
@@ -193,7 +206,8 @@ class FileTest extends \PHPUnit\Framework\TestCase {
 		$inexist->delete();
 	}
 
-	public function testRename() {
+	public function testRename()
+	{
 		$this->file = new File('data/files/to-be-rename.txt');
 		$this->file->write('I will receive a new name');
 		$this->file->rename('renamed-file');
@@ -203,7 +217,8 @@ class FileTest extends \PHPUnit\Framework\TestCase {
 		$this->file->delete();
 	}
 
-	public function testRenameDot() {
+	public function testRenameDot()
+	{
 		$this->file = new File('data/files/to-be-rename.txt');
 		$this->file->write('I will receive a new name');
 		$this->file->rename('renamed.file');
@@ -213,7 +228,8 @@ class FileTest extends \PHPUnit\Framework\TestCase {
 		$this->file->delete();
 	}
 
-	public function testRename_WithExtension() {
+	public function testRenameWithExtension()
+	{
 		$this->file = new File('data/files/to-be-rename.txt');
 		$this->file->write('I will receive a new name');
 		$this->file->rename('renamed-file', 'html');
@@ -224,27 +240,31 @@ class FileTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/** @expectedException Exception */
-	public function testRename_SpecialChar() {
+	public function testRenameWithSpecialChar()
+	{
 		$this->file = new File('data/files/to-be-rename.txt');
 		$this->file->rename('renamed-special*-file');
 	}
 
 	/** @expectedException Exception */
-	public function testRename_Slash() {
+	public function testRenameWithSlash()
+	{
 		$this->file = new File('data/files/to-be-rename.txt');
 		$this->file->rename('invalid/name');
 	}
 
-	private function initExistentFile() {
+	private function initExistFile()
+	{
 		$this->file = new File('data/files/exist.html');
 	}
 
-	private function initInexistentFile() {
+	private function initDontExistFile()
+	{
 		$this->file = new File('data/files/not-exist.html');
 	}
 
-	private function initEmptyFile() {
+	private function initEmptyFile()
+	{
 		$this->file = new File('data/files/empty.html');
 	}
-
 }

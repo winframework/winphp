@@ -2,12 +2,11 @@
 
 namespace Win\Database;
 
-use Win\Database\Sql\Clause\OrderBy;
 use PHPUnit\Framework\TestCase;
+use Win\Database\Sql\Clause\OrderBy;
 
 class OrderByTest extends TestCase
 {
-
 	public function testConstructor()
 	{
 		$order = new OrderBy();
@@ -23,6 +22,4 @@ class OrderByTest extends TestCase
 		$order->set(null);
 		$this->assertEquals('', (string) $order);
 	}
-
-
 }

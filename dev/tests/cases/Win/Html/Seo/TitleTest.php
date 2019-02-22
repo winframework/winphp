@@ -3,10 +3,12 @@
 namespace Win\Html\Seo;
 
 use Win\Mvc\Application;
+use PHPUnit\Framework\TestCase;
 
-class TitleTest extends \PHPUnit\Framework\TestCase {
-
-	public function testOtimize() {
+class TitleTest extends TestCase
+{
+	public function testOtimize()
+	{
 		$this->assertEquals('My custom Title', Title::otimize('My custom Title', 100));
 		$this->assertEquals('My custom...', Title::otimize('My custom Title', 11));
 		$this->assertEquals('My custom...', Title::otimize('My custom Title', 10));
@@ -14,21 +16,24 @@ class TitleTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals('My...', Title::otimize('My custom Title', 8));
 	}
 
-	public function testOtimizePrefix() {
+	public function testOtimizePrefix()
+	{
 		Title::$prefix = '|| ';
 		Title::$suffix = '';
 		$this->assertEquals('|| My custom Title', Title::otimize('My custom Title', 100));
 		$this->assertEquals('|| My...', Title::otimize('My custom Title', 11));
 	}
 
-	public function testOtimizeSuffix() {
+	public function testOtimizeSuffix()
+	{
 		Title::$prefix = '';
 		Title::$suffix = ' ||';
 		$this->assertEquals('My custom Title ||', Title::otimize('My custom Title', 100));
 		$this->assertEquals('My... ||', Title::otimize('My custom Title', 11));
 	}
 
-	public function testOtimizeSuffixAndPrefix() {
+	public function testOtimizeSuffixAndPrefix()
+	{
 		Title::$prefix = '|| ';
 		Title::$suffix = ' ||';
 		$this->assertEquals('|| My custom Title ||', Title::otimize('My custom Title', 100));
@@ -36,7 +41,8 @@ class TitleTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals('|| ... ||', Title::otimize('My custom Title', 7));
 	}
 
-	public function testSetTitle() {
+	public function testSetTitle()
+	{
 		$app = new Application();
 		$app->controller->setTitle('My old page Title');
 		Title::$prefix = '.:: ';
@@ -46,5 +52,4 @@ class TitleTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertEquals('.:: My custom and longest Title and longest Title and longest... ::.', $title);
 	}
-
 }
