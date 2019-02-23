@@ -257,7 +257,7 @@ abstract class Orm
 	private function insertOrUpdate()
 	{
 		if (!$this->modelExists()) {
-			$success = $this->insert();
+			return $this->insert();
 		} else {
 			$success = $this->update();
 		}
