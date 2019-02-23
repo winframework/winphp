@@ -4,16 +4,18 @@ namespace Win\Mvc;
 
 use PHPUnit\Framework\TestCase;
 
-class ThemeTest extends TestCase {
-
-	public function testget() {
+class ThemeTest extends TestCase
+{
+	public function testget()
+	{
 		$theme = Theme::instance();
 		$theme->set('my-test');
 		$this->assertEquals($theme->get(), 'my-test');
 		$theme->set(null);
 	}
 
-	public function testGetFilePath() {
+	public function testGetFilePath()
+	{
 		$theme = Theme::instance();
 		$theme->set('custom');
 
@@ -24,7 +26,8 @@ class ThemeTest extends TestCase {
 		$theme->set(null);
 	}
 
-	public function testViewSetFile() {
+	public function testViewSetFile()
+	{
 		$theme = Theme::instance();
 		$theme->set('custom');
 		$view = new View('exemplo');
@@ -34,7 +37,8 @@ class ThemeTest extends TestCase {
 		$theme->set(null);
 	}
 
-	public function testViewSetFileInvalid() {
+	public function testViewSetFileInvalid()
+	{
 		$theme = Theme::instance();
 		$theme->set('custom');
 		$view = new View('doesnt-exist');
@@ -43,5 +47,4 @@ class ThemeTest extends TestCase {
 		$this->assertFalse($view->exists());
 		$theme->set(null);
 	}
-
 }

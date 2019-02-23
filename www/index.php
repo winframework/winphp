@@ -1,10 +1,8 @@
 <?php
-
 /*
- * Para editar o código HTML do layout, procure em:
- * app/block/layout/
+ * Para editar o código HTML do layout, procure em layout/
+ * @see app/block/layout/
  */
-
 use Win\Mvc\Application;
 use Win\Mvc\HttpException;
 

@@ -7,13 +7,14 @@ namespace Win\Authentication;
  */
 abstract class Password
 {
-	/** @var string */
 	private static $salt = 'E50H%gDui#';
 
 	/**
 	 * Retorna uma senha aleatória
 	 * A senha gerada terá sempre pelo menos: 1 símbolo e 2 números
+	 *
 	 * @param int $length
+	 *
 	 * @return string
 	 */
 	public static function generate($length = 6)
@@ -31,6 +32,7 @@ abstract class Password
 
 	/**
 	 * Adiciona maior segurança a senha
+	 *
 	 * @param string $password
 	 */
 	public static function encrypt($password)

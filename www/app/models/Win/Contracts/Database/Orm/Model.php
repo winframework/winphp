@@ -2,7 +2,7 @@
 
 namespace Win\Contracts\Database\Orm;
 
-use Win\Database\Orm\Orm;
+use Win\Database\Orm;
 
 interface Model
 {

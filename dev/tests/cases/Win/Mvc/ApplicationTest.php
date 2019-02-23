@@ -2,10 +2,10 @@
 
 namespace Win\Mvc;
 
+use PHPUnit\Framework\TestCase;
 use Win\Formats\Arr\Data;
 use Win\Request\Server;
 use Win\Request\Url;
-use PHPUnit\Framework\TestCase;
 
 class ApplicationTest extends TestCase
 {
@@ -65,10 +65,6 @@ class ApplicationTest extends TestCase
 	public function testGetAction()
 	{
 		$this->assertEquals('myAction', static::$app->controller->getAction());
-	}
-
-	public function testGetAction_Index()
-	{
 		$app = static::newApp('contato');
 		$this->assertEquals('index', $app->controller->getAction());
 	}
@@ -80,10 +76,7 @@ class ApplicationTest extends TestCase
 		$this->assertEquals('second-param', static::$app->getParam(2));
 		$this->assertEquals('3rd-param', static::$app->getParam(3));
 		$this->assertEquals('', static::$app->getParam(4));
-	}
 
-	public function testGetParam_Default()
-	{
 		$app = static::newApp('');
 		$this->assertEquals('index', $app->getParam(1));
 		$this->assertNotEquals('', $app->getParam(1));
@@ -134,7 +127,7 @@ class ApplicationTest extends TestCase
 	/**
 	 * @expectedException \Win\Mvc\HttpException
 	 */
-	public function testRun_404()
+	public function testRun404()
 	{
 		static::$app->run();
 		$this->assertTrue(static::$app->isErrorPage());
@@ -143,7 +136,7 @@ class ApplicationTest extends TestCase
 	/**
 	 * @expectedException \Win\Mvc\HttpException
 	 */
-	public function testErrorPage_500()
+	public function testErrorPage500()
 	{
 		static::$app->errorPage(500);
 		$this->assertEquals('500', static::$app->getPage());

@@ -72,7 +72,7 @@ abstract class Connection
 
 	/**
 	 * @param string $query
-	 * @param string $values
+	 * @param mixed[] $values
 	 * @return bool
 	 */
 	public function query($query, $values = [])
@@ -84,8 +84,8 @@ abstract class Connection
 
 	/**
 	 * @param string $query
-	 * @param string $values
-	 * @return PDOStatement|null
+	 * @param mixed[] $values
+	 * @return PDOStatement|bool
 	 */
 	public function stmt($query, $values = [])
 	{
@@ -97,7 +97,7 @@ abstract class Connection
 
 	/**
 	 * @param string $query
-	 * @param string $values
+	 * @param mixed[] $values
 	 * @return mixed[]
 	 */
 	public function fetchAll($query, $values = [])

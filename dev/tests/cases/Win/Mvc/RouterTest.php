@@ -3,13 +3,13 @@
 namespace Win\Mvc;
 
 use controllers\DemoController;
-use Win\Mvc\Router;
-use Win\Request\Url;
 use PHPUnit\Framework\TestCase;
+use Win\Request\Url;
 
-class RouterTest extends TestCase {
-
-	public function testNoCustomUrl() {
+class RouterTest extends TestCase
+{
+	public function testNoCustomUrl()
+	{
 		new Application();
 		Url::instance()->setUrl('my-page/test/');
 		Router::$file = 'file-inexistent.php';
@@ -22,7 +22,8 @@ class RouterTest extends TestCase {
 		$this->assertEquals(null, Router::instance()->getCustomUrl()[1]);
 	}
 
-	public function testNoCustomUrlByFile() {
+	public function testNoCustomUrlByFile()
+	{
 		Url::instance()->setUrl('test-page/test/');
 		Router::$file = '/app/config/routes.php';
 		Router::instance()->load();
@@ -32,7 +33,8 @@ class RouterTest extends TestCase {
 		$this->assertTrue(Router::instance()->createController() instanceof DefaultController);
 	}
 
-	public function testNoCustomUrlByInvalidFile() {
+	public function testNoCustomUrlByInvalidFile()
+	{
 		Url::instance()->setUrl('other-page/test/');
 		Router::$file = '/app/config/invalid.php';
 		Router::instance()->load();
@@ -42,9 +44,10 @@ class RouterTest extends TestCase {
 		$this->assertTrue(Router::instance()->createController() instanceof DefaultController);
 	}
 
-	public function testNoCustomUrlByLoad() {
+	public function testNoCustomUrlByLoad()
+	{
 		Url::instance()->setUrl('mytest/haha');
-		$routes = ["my-pager/(.*)" => "exemplo/index/$1"];
+		$routes = ['my-pager/(.*)' => 'exemplo/index/$1'];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 
@@ -52,9 +55,10 @@ class RouterTest extends TestCase {
 		$this->assertTrue(Router::instance()->createController() instanceof DefaultController);
 	}
 
-	public function testCustomUrlByLoad() {
+	public function testCustomUrlByLoad()
+	{
 		Url::instance()->setUrl('my-pager/haha');
-		$routes = ["my-pager/(.*)" => "demo/index/$1"];
+		$routes = ['my-pager/(.*)' => 'demo/index/$1'];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 
@@ -64,31 +68,35 @@ class RouterTest extends TestCase {
 		$this->assertEquals('index', Router::instance()->getCustomUrl()[1]);
 	}
 
-	public function testCustomUrlBegin() {
+	public function testCustomUrlBegin()
+	{
 		Url::instance()->setUrl('my-pager/haha');
-		$routes = ["^my-pager/(.*)" => "demo/index/$1"];
+		$routes = ['^my-pager/(.*)' => 'demo/index/$1'];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 		$this->assertTrue(Router::instance()->hasCustomUrl());
 	}
 
-	public function testCustomUrlEnd() {
+	public function testCustomUrlEnd()
+	{
 		Url::instance()->setUrl('test-my-pager/haha');
-		$routes = ["my-pager/(.*)" => "demo/index/$1"];
+		$routes = ['my-pager/(.*)' => 'demo/index/$1'];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 		$this->assertTrue(Router::instance()->hasCustomUrl());
 	}
 
-	public function testNoCustomUrlEnd() {
+	public function testNoCustomUrlEnd()
+	{
 		Url::instance()->setUrl('test-my-pager/haha');
-		$routes = ["^my-pager/(.*)" => "demo/index/$1"];
+		$routes = ['^my-pager/(.*)' => 'demo/index/$1'];
 		Router::instance()->load($routes);
 		Router::instance()->run();
 		$this->assertFalse(Router::instance()->hasCustomUrl());
 	}
 
-	public function testCustomUrlByFile() {
+	public function testCustomUrlByFile()
+	{
 		Url::instance()->setUrl('other-page/test/');
 		Router::$file = '/app/config/routes.php';
 		Router::instance()->load();
@@ -97,5 +105,4 @@ class RouterTest extends TestCase {
 		$this->assertTrue(Router::instance()->hasCustomUrl());
 		$this->assertTrue(Router::instance()->createController() instanceof DemoController);
 	}
-
 }
