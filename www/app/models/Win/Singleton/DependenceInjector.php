@@ -20,8 +20,6 @@ class DependenceInjector
 	 */
 	public static $container = [];
 
-	private $demo_teste = 19; 
-
 	/**
 	 * Retorna o nome da classe
 	 * @param string $class
