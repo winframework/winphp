@@ -86,7 +86,7 @@ class Str
 	 * Retorna a string resumida, sem cortar a última palavra
 	 * @param string $string
 	 * @param int $limit tamanho máximo
-	 * @param bool $mode TRUNCATE_BEFORE | TRUNCATE_AFTER
+	 * @param int $mode TRUNCATE_BEFORE | TRUNCATE_AFTER
 	 * @return string
 	 */
 	public static function truncate($string, $limit, $mode = self::TRUNCATE_BEFORE)

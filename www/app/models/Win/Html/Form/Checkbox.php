@@ -2,8 +2,6 @@
 
 namespace Win\Html\Form;
 
-use Win\Request\Input;
-
 /**
  * Checkbox
  * <input type="checkbox">

@@ -270,7 +270,7 @@ abstract class Orm
 	{
 		$query = new Insert($this);
 		$success = $query->execute();
-		$this->model->setId(static::$db->getLastInsertId());
+		$this->model->setId((int) static::$db->getLastInsertId());
 
 		return $success;
 	}
