@@ -1,11 +1,12 @@
 <?php
 
-namespace Win\Database\Sql;
+namespace Win\Database\Sql\Queries;
 
 use Win\Database\Orm;
-use Win\Database\Sql\Clause\Limit;
-use Win\Database\Sql\Clause\OrderBy;
-use Win\Database\Sql\Clause\Where;
+use Win\Database\Sql\Clauses\Limit;
+use Win\Database\Sql\Clauses\OrderBy;
+use Win\Database\Sql\Clauses\Where;
+use Win\Database\Sql\Query;
 
 /**
  * SELECT * FROM

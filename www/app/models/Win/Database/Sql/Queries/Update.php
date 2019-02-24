@@ -1,9 +1,9 @@
 <?php
 
-namespace Win\Database\Sql;
+namespace Win\Database\Sql\Queries;
 
-use Win\Database
-\Orm;
+use Win\Database\Orm;
+use Win\Database\Sql\Query;
 
 /**
  * UPDATE SET

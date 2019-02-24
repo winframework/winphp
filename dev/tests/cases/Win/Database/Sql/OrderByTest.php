@@ -3,7 +3,7 @@
 namespace Win\Database;
 
 use PHPUnit\Framework\TestCase;
-use Win\Database\Sql\Clause\OrderBy;
+use Win\Database\Sql\Clauses\OrderBy;
 
 class OrderByTest extends TestCase
 {

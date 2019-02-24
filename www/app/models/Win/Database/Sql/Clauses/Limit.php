@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Sql\Clause;
+namespace Win\Database\Sql\Clauses;
 
 /**
  * Limit 10
