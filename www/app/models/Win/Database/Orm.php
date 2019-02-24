@@ -2,6 +2,7 @@
 
 namespace Win\Database;
 
+use Win\Database\Orm\Model;
 use Win\Database\Orm\Traits\DebugTrait;
 use Win\Database\Orm\Traits\OrderTrait;
 use Win\Database\Orm\Traits\ReadTrait;
