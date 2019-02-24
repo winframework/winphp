@@ -16,4 +16,10 @@ class CheckboxTest extends TestCase
 		$this->assertContains(static::ACTIVE, Checkbox::check(1));
 		$this->assertContains(static::ACTIVE, Checkbox::check('teste'));
 	}
+
+	public function testHtml()
+	{
+		$checkbox = new Checkbox('agree', 1);
+		$this->assertContains('type="checkbox"', $checkbox->html());
+	}
 }

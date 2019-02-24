@@ -1,4 +1,4 @@
-<img src="https://rawgit.com/winframework/winphp/master/www/public/img/image-readme.png"/>
+<img src="https://rawgit.com/winframework/winphp/master/www/public/images/image-readme.png"/>
 
 [![Code Climate](https://codeclimate.com/github/winframework/winphp.png)](https://codeclimate.com/github/winframework/winphp)
 [![Build Status](https://scrutinizer-ci.com/g/winframework/winphp/badges/build.png?b=master)](https://scrutinizer-ci.com/g/winframework/winphp/build-status/master)

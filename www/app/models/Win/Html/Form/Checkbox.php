@@ -19,6 +19,16 @@ class Checkbox extends Input
 		return ($value1 == $value2) ? 'checked ' : '';
 	}
 
+	/**
+	 * @param string $name
+	 * @param mixed $value
+	 * @param string[] $attributes
+	 */
+	public function __construct($name, $value = '', $attributes = [])
+	{
+		parent::__construct('checkbox', $name, $value, $attributes);
+	}
+
 	/** @return string */
 	public function html()
 	{

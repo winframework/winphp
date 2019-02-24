@@ -94,15 +94,15 @@ class EmailTest extends TestCase
 
 	public function testDefaultLayout()
 	{
-		$email = new Email();
-		$this->assertEquals($email->__toString(), 'My default main (with content) ');
+		$string = (new Email())->__toString();
+		$this->assertEquals($string, 'My default main (with content) ');
 	}
 
 	public function testCustomtLayout()
 	{
 		$email = new Email();
 		$email->setLayout('custom-layout');
-		$this->assertTrue($this->findString($email->__toString(), 'My custom layout'));
+		$this->assertContains('My custom layout', $email->__toString());
 	}
 
 	public function testLayoutWithContent()
@@ -110,7 +110,7 @@ class EmailTest extends TestCase
 		$email = new Email();
 		$email->setLayout('main');
 		$email->setContent(new Block('email/contents/first'));
-		$this->assertTrue($this->findString($email->__toString(), 'My first content'));
+		$this->assertContains('My first content', $email->__toString());
 	}
 
 	public function testSend()
@@ -149,11 +149,5 @@ class EmailTest extends TestCase
 		if (Server::isLocalHost()) {
 			$this->assertEquals(1, count($dir->getItems()));
 		}
-	}
-
-	/** @return bool */
-	private function findString($s1, $s2)
-	{
-		return false !== strpos($s1, $s2);
 	}
 }

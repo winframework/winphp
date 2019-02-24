@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use Win\Database\Connection\MysqlConnection;
+use Win\Database\Connections\MysqlConnection;
 use Win\Database\Orm\Page\Page;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
@@ -19,7 +19,7 @@ class DatabaseController extends Controller {
 		$this->setTitle('Database Tests');
 		$pageOrm = Page::orm();
 		$pageOrm->debugOn();
-		var_dump($pageOrm->results());
+		var_dump($pageOrm->all());
 		return new View('demo');
 	}
 

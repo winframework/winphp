@@ -9,6 +9,22 @@ class BlockTest extends TestCase
 	const VALID = 'custom-block';
 	const INVALID = 'this-file-doesnt-exit';
 
+	public function testGetFile()
+	{
+		$block = new Block('layout/main');
+		$this->assertContains('main.phtml', $block->getFile());
+		$block2 = new Block('layout/main/not-exists');
+		$this->assertContains('layout/main/not-exists.phtml', $block2->getFile());
+	}
+
+	public function testParamData()
+	{
+		$block = new Block('index', ['a' => 5]);
+		$this->assertEquals(5, $block->getData('a'));
+		$block = new Block('index');
+		$this->assertNotEquals(5, $block->getData('a'));
+	}
+
 	public function testExist()
 	{
 		$this->assertTrue((new Block(static::VALID))->exists());

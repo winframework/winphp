@@ -6,6 +6,16 @@ use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
+	public function testLoad()
+	{
+		$data = Data::instance();
+		$data->load(['a' => 1]);
+		$data->set('b', 2);
+
+		$this->assertEquals(1, $data->get('a'));
+		$this->assertEquals(2, $data->get('b'));
+	}
+
 	public function testGet()
 	{
 		$data = Data::instance();

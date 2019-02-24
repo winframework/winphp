@@ -12,7 +12,7 @@ class Session extends Data
 	/**
 	 * Retorna instância de Session
 	 * @param string $alias
-	 * @return
+	 * @return static
 	 */
 	public static function instance($alias = 'default')
 	{

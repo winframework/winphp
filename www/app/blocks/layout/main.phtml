@@ -13,7 +13,7 @@ use Win\Mvc\Block;
 	<header>
 		<nav class="main-nav">
 			<a id="logo" href="<?= $this->app->getBaseUrl(); ?>">
-				<img src="public/img/win.svg" alt="<?= $this->app->getName(); ?>" />
+				<img src="public/images/win.svg" alt="<?= $this->app->getName(); ?>" />
 			</a>
 			<input type="checkbox" id="menu-toggle" />
 			<label for="menu-toggle"></label>
@@ -34,12 +34,10 @@ use Win\Mvc\Block;
 		</nav>
 	</header>
 
-	<?php if (1 == $this->getData('ta')): ?>
 	<div class="middle">
 		<?php $this->app->view->load(); ?>
 		<br />
 	</div>
-	<?php endif; ?>
 
 	<footer>
 		Made with <span class="heart"></span> by

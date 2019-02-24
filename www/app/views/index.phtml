@@ -4,9 +4,9 @@ use Win\Mvc\View;
 
 /** @var View $this */
 ?>
-<main>
-	<h1>Bem-vindo ao <?= $this->app->getName() ?></h1>
+<h1>Bem-vindo ao <b><?= $this->app->getName(); ?></b></h1>
 
+<main>
 	<div class="row">
 		<h2>Título</h2>
 		<p>
@@ -78,5 +78,4 @@ use Win\Mvc\View;
 			</p>
 		</div>
 	</div>
-
 </main>

@@ -4,26 +4,33 @@ namespace Win\Html\Seo;
 
 use PHPUnit\Framework\TestCase;
 
-class DescriptionTest extends TestCase {
+class DescriptionTest extends TestCase
+{
+	const LONG_STRING = 'My Long Description of Test of Many characters';
 
-	public function testOtimize_Default() {
+	public function testOtimizeDefault()
+	{
 		Description::$default = 'My Default';
-		$this->assertEquals('My Default', Description::otimize(''));
+		$this->assertEquals(
+			'My Default',
+			Description::otimize('')
+		);
+		$this->assertEquals(
+			'My Short Description',
+			Description::otimize('My Short Description')
+		);
 	}
 
-	public function testOtimize_NotDefault() {
-		Description::$default = 'My Default';
-		$this->assertEquals('My Short Description', Description::otimize('My Short Description'));
-	}
+	public function testOtimize()
+	{
+		$this->assertEquals(
+			'My Long Description...',
+			Description::otimize(static::LONG_STRING, 20)
+		);
 
-	public function testOtimize_20() {
-		$string = Description::otimize('My Long Description of Test of Many characters', 20);
-		$this->assertEquals('My Long Description...', $string);
+		$this->assertEquals(
+			'My Long...',
+			Description::otimize(static::LONG_STRING, 15)
+		);
 	}
-
-	public function testOtimize_15() {
-		$string = Description::otimize('My Long Description of Test of Many characters', 15);
-		$this->assertEquals('My Long...', $string);
-	}
-
 }

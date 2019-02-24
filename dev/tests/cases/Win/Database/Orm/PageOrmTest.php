@@ -147,7 +147,7 @@ class PageOrmTest extends TestCase
 		$this->assertCount($pagesTotal - 1, Page::orm()->all());
 	}
 
-	public function testDebug()
+	public function testDebugOn()
 	{
 		Page::orm()->debugOn();
 		ob_start();
@@ -156,7 +156,7 @@ class PageOrmTest extends TestCase
 		$this->assertContains('SELECT * FROM', $result);
 	}
 
-	public function testDebug_Off()
+	public function testDebugOff()
 	{
 		Page::orm()->debugOn();
 		ob_start();

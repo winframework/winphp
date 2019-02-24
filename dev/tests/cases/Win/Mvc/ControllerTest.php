@@ -68,15 +68,11 @@ class ControllerTest extends TestCase
 		$this->assertEquals(10, $demo->getData('init'));
 	}
 
-	public function testReturnInvalidView()
+	public function testReturnView()
 	{
 		$demo = new DemoController();
 		$this->assertFalse($demo->returnInvalidView()->exists());
 		$this->assertFalse($demo->returnInvalidView2()->exists());
-	}
-
-	public function testReturnValidView()
-	{
 		$demo = new DemoController();
 		$this->assertTrue($demo->returnValidView()->exists());
 	}

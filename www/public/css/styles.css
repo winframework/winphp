@@ -493,7 +493,7 @@ form fieldset {
 	margin-top: 60%;
 }
 
-.page-error h1 {
+.page-404 h1 {
 	display: none;
 }
 
@@ -674,7 +674,7 @@ form fieldset {
 		margin-top: 180px;
 	}
 
-	.page-error h1 {
+	.page-404 h1 {
 		display: block;
 	}
 

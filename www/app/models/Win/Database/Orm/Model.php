@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Contracts\Database\Orm;
+namespace Win\Database\Orm;
 
 use Win\Database\Orm;
 

@@ -83,13 +83,9 @@ class ApplicationTest extends TestCase
 		$this->assertEquals('', $app->getParam(2));
 	}
 
-	public function testIsNotHomePage()
-	{
-		$this->assertFalse(static::$app->isHomePage());
-	}
-
 	public function testIsHomePage()
 	{
+		$this->assertFalse(static::$app->isHomePage());
 		$app = static::newApp('index');
 		$this->assertTrue($app->isHomePage());
 	}

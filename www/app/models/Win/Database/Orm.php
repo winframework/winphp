@@ -2,7 +2,7 @@
 
 namespace Win\Database;
 
-use Win\Contracts\Database\Orm\Model;
+use Win\Database\Orm\Model;
 use Win\Database\Sql\Delete;
 use Win\Database\Sql\Insert;
 use Win\Database\Sql\Select;
@@ -131,9 +131,7 @@ abstract class Orm
 	/** @return int */
 	public function numRows()
 	{
-		$count = $this->query->count();
-
-		return $count;
+		return $this->query->count();
 	}
 
 	/**

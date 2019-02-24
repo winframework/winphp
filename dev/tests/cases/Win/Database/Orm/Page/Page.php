@@ -3,7 +3,7 @@
 namespace Win\Database\Orm\Page;
 
 use Win\Calendar\DateTime;
-use Win\Contracts\Database\Orm\Model;
+use Win\Database\Orm\Model;
 
 /**
  * Página

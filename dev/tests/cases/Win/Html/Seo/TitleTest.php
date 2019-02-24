@@ -2,11 +2,15 @@
 
 namespace Win\Html\Seo;
 
-use Win\Mvc\Application;
 use PHPUnit\Framework\TestCase;
+use Win\Mvc\Application;
 
 class TitleTest extends TestCase
 {
+	const LONGEST_TITLE = 'My custom and longest Title and longest '
+	. 'Title and longest Title and longest Title and longest '
+	. 'Title and longest Title';
+
 	public function testOtimize()
 	{
 		$this->assertEquals('My custom Title', Title::otimize('My custom Title', 100));
@@ -20,7 +24,10 @@ class TitleTest extends TestCase
 	{
 		Title::$prefix = '|| ';
 		Title::$suffix = '';
-		$this->assertEquals('|| My custom Title', Title::otimize('My custom Title', 100));
+		$this->assertEquals(
+			'|| My custom Title',
+			Title::otimize('My custom Title', 100)
+		);
 		$this->assertEquals('|| My...', Title::otimize('My custom Title', 11));
 	}
 
@@ -28,7 +35,10 @@ class TitleTest extends TestCase
 	{
 		Title::$prefix = '';
 		Title::$suffix = ' ||';
-		$this->assertEquals('My custom Title ||', Title::otimize('My custom Title', 100));
+		$this->assertEquals(
+			'My custom Title ||',
+			Title::otimize('My custom Title', 100)
+		);
 		$this->assertEquals('My... ||', Title::otimize('My custom Title', 11));
 	}
 
@@ -36,7 +46,10 @@ class TitleTest extends TestCase
 	{
 		Title::$prefix = '|| ';
 		Title::$suffix = ' ||';
-		$this->assertEquals('|| My custom Title ||', Title::otimize('My custom Title', 100));
+		$this->assertEquals(
+			'|| My custom Title ||',
+			Title::otimize('My custom Title', 100)
+		);
 		$this->assertEquals('|| My... ||', Title::otimize('My custom Title', 13));
 		$this->assertEquals('|| ... ||', Title::otimize('My custom Title', 7));
 	}
@@ -47,9 +60,12 @@ class TitleTest extends TestCase
 		$app->controller->setTitle('My old page Title');
 		Title::$prefix = '.:: ';
 		Title::$suffix = ' ::.';
-		Title::setTitle('My custom and longest Title and longest Title and longest Title and longest Title and longest Title and longest Title');
+		Title::setTitle(static::LONGEST_TITLE);
 		$title = $app->controller->getData('title');
 
-		$this->assertEquals('.:: My custom and longest Title and longest Title and longest... ::.', $title);
+		$this->assertEquals(
+			'.:: My custom and longest Title and longest Title and longest... ::.',
+			$title
+		);
 	}
 }

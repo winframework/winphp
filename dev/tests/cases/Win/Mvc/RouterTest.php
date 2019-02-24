@@ -17,7 +17,10 @@ class RouterTest extends TestCase
 		Router::instance()->run();
 
 		$this->assertFalse(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof DefaultController);
+		$this->assertInstanceOf(
+			DefaultController::class,
+			Router::instance()->createController()
+		);
 		$this->assertEquals(null, Router::instance()->getCustomUrl()[0]);
 		$this->assertEquals(null, Router::instance()->getCustomUrl()[1]);
 	}
@@ -30,7 +33,10 @@ class RouterTest extends TestCase
 		Router::instance()->run();
 
 		$this->assertFalse(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof DefaultController);
+		$this->assertInstanceOf(
+			DefaultController::class,
+			Router::instance()->createController()
+		);
 	}
 
 	public function testNoCustomUrlByInvalidFile()
@@ -41,7 +47,10 @@ class RouterTest extends TestCase
 		Router::instance()->run();
 
 		$this->assertFalse(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof DefaultController);
+		$this->assertInstanceOf(
+			DefaultController::class,
+			Router::instance()->createController()
+		);
 	}
 
 	public function testNoCustomUrlByLoad()
@@ -52,7 +61,10 @@ class RouterTest extends TestCase
 		Router::instance()->run();
 
 		$this->assertFalse(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof DefaultController);
+		$this->assertInstanceOf(
+			DefaultController::class,
+			Router::instance()->createController()
+		);
 	}
 
 	public function testCustomUrlByLoad()
@@ -63,7 +75,10 @@ class RouterTest extends TestCase
 		Router::instance()->run();
 
 		$this->assertTrue(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof DemoController);
+		$this->assertInstanceOf(
+			DemoController::class,
+			Router::instance()->createController()
+		);
 		$this->assertEquals('demo', Router::instance()->getCustomUrl()[0]);
 		$this->assertEquals('index', Router::instance()->getCustomUrl()[1]);
 	}
@@ -103,6 +118,9 @@ class RouterTest extends TestCase
 		Router::instance()->run();
 
 		$this->assertTrue(Router::instance()->hasCustomUrl());
-		$this->assertTrue(Router::instance()->createController() instanceof DemoController);
+		$this->assertInstanceOf(
+			DemoController::class,
+			Router::instance()->createController()
+		);
 	}
 }

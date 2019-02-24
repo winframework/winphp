@@ -55,7 +55,13 @@ class StrTest extends TestCase
 
 	public function testTruncateHtml()
 	{
-		$this->assertEquals('Lôrém ípsüm...', Str::truncate('Lôrém <b>ípsüm <span class="text-center">dolor</span> sit</b> amét', 14));
+		$string = 'Lôrém <b>ípsüm <span class="text-center">dolor</span>'
+		. ' sit</b> amét';
+
+		$this->assertEquals(
+			'Lôrém ípsüm...',
+			Str::truncate($string, 14)
+		);
 	}
 
 	public function testTruncateAfter()

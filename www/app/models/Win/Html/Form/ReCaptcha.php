@@ -15,7 +15,6 @@ class ReCaptcha
 
 	/**
 	 * Retorna TRUE se usuário marcou "Não sou um robô"
-	 *
 	 * @return bool
 	 */
 	public static function isValid()
@@ -31,7 +30,6 @@ class ReCaptcha
 
 	/**
 	 * Retorna a URL de validação
-	 *
 	 * @return string
 	 */
 	public static function getValidationUrl()

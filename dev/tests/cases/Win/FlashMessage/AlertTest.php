@@ -76,7 +76,8 @@ class AlertTest extends TestCase
 			['Success msg'],
 			Alert::instance()->get('success')
 		);
-		$this->assertEquals(null,
+		$this->assertEquals(
+			null,
 			Alert::instance()->get('success')
 		);
 		$this->assertEquals(

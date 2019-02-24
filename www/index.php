@@ -1,6 +1,6 @@
 <?php
 /*
- * Para editar o código HTML do layout, procure em layout/
+ * Para editar o código HTML do layout, procure em: app/blocks/layout/
  * @see app/blocks/layout/
  */
 use Win\Mvc\Application;

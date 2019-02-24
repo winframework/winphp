@@ -4,6 +4,7 @@ namespace Win\Singleton;
 
 use PHPUnit\Framework\TestCase;
 use Win\Mvc\Application;
+use Win\Singleton\DependenceInjector as DI;
 
 class SingletonTraitTest extends TestCase
 {
@@ -25,10 +26,10 @@ class SingletonTraitTest extends TestCase
 
 	public function testGetOverwriteClassDi()
 	{
-		DependenceInjector::$container[SuperDemoSingleton::class] = 'My\Teste';
+		DI::$container[SuperDemoSingleton::class] = 'My\Teste';
 		$class = SuperDemoSingleton::instance()->getMyClass();
 		$this->assertEquals($class, 'My\Teste');
-		DependenceInjector::$container = [];
+		DI::$container = [];
 	}
 
 	public function testSuperGetValue()
