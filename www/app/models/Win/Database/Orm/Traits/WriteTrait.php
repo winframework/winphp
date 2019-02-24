@@ -2,6 +2,7 @@
 
 namespace Win\Database\Orm\Traits;
 
+use Win\Database\Connection;
 use Win\Database\Orm\Model;
 use Win\Database\Sql\Queries\Delete;
 use Win\Database\Sql\Queries\Insert;
@@ -9,10 +10,14 @@ use Win\Database\Sql\Queries\Update;
 
 trait WriteTrait
 {
-	use ModelMapperTrait;
+	/** @var Connection */
+	protected static $db;
 
 	/** @var Model */
 	protected $model;
+
+	/** @return bool */
+	abstract public function modelExists();
 
 	/**
 	 * @param Model $model

@@ -2,13 +2,26 @@
 
 namespace Win\Database\Orm\Traits;
 
+use Win\Database\Connection;
+use Win\Database\Orm\Model;
+use Win\Database\Sql\Queries\Select;
+
 trait ReadTrait
 {
+	/** @var Connection */
+	protected static $db;
+
 	/** @var Select */
 	private $query;
 
 	/**
-	 * Retorna o primeiro resultado da consulta
+	 * @param mixed[] $row
+	 * @return Model
+	 */
+	abstract public function mapModel($row);
+
+	/**
+	 * Retorna o primeiro resultado da busca
 	 */
 	public function one()
 	{
@@ -18,7 +31,7 @@ trait ReadTrait
 	}
 
 	/**
-	 * Retorna todos os resultado da consulta
+	 * Retorna todos os resultado da busca
 	 */
 	public function all()
 	{
@@ -31,14 +44,17 @@ trait ReadTrait
 		return $all;
 	}
 
-	/** @return int */
+	/**
+	 * Retorna o total de registros da busca
+	 * @return int
+	 */
 	public function numRows()
 	{
 		return $this->query->count();
 	}
 
 	/**
-	 * Define as colunas do resultado
+	 * Define as colunas da busca
 	 * @param string[] $columns
 	 * @return static
 	 */
@@ -50,7 +66,7 @@ trait ReadTrait
 	}
 
 	/**
-	 * Adiciona uma coluna do resultado
+	 * Adiciona uma coluna à busca
 	 * @param string $column
 	 * @return static
 	 */
@@ -87,7 +103,7 @@ trait ReadTrait
 	}
 
 	/**
-	 * Adiciona filtros para busca
+	 * Adiciona filtros à busca
 	 * @return static
 	 */
 	public function filter($column, $operator, $value)
@@ -98,7 +114,7 @@ trait ReadTrait
 	}
 
 	/**
-	 * Limita os resultados
+	 * Limita os resultados da busca
 	 * @param int $limit
 	 * @return static
 	 */

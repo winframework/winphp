@@ -2,6 +2,8 @@
 
 namespace Win\Database\Orm\Traits;
 
+use Win\Database\Sql\Queries\Select;
+
 trait OrderTrait
 {
 	/** @var Select */

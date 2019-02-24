@@ -14,12 +14,6 @@ use Win\Singleton\SingletonTrait;
  */
 abstract class Orm
 {
-	/** @var string */
-	protected $table;
-
-	/** @var Connection */
-	protected static $db;
-
 	use SingletonTrait {
 		__construct as finalConstruct;
 	}
@@ -28,6 +22,15 @@ abstract class Orm
 	use DebugTrait;
 	use ReadTrait;
 	use WriteTrait;
+
+	/** @var Connection */
+	protected static $db;
+
+	/** @var string */
+	protected $table;
+
+	/** @var Model */
+	protected $model;
 
 	/** @var Select */
 	private $query;
@@ -50,16 +53,16 @@ abstract class Orm
 	}
 
 	/**
-	 * @param mixed[] $row
-	 * @return Model
-	 */
-	abstract public function mapModel($row);
-
-	/**
 	 * @param Model $model
 	 * @return mixed[]
 	 */
 	abstract public function mapRow($model);
+
+	/**
+	 * @param mixed[] $row
+	 * @return Model
+	 */
+	abstract public function mapModel($row);
 
 	/** @return mixed[] */
 	public function getRowValues()
@@ -71,5 +74,17 @@ abstract class Orm
 	public function getTable()
 	{
 		return $this->table;
+	}
+
+	/** @return Model */
+	public function getModel()
+	{
+		return $this->model;
+	}
+
+	/** @return bool */
+	public function modelExists()
+	{
+		return $this->model->getId() > 0;
 	}
 }
