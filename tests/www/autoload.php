@@ -27,7 +27,7 @@ spl_autoload_register(function($className) {
  * Autoload Model
  */
 spl_autoload_register(function($className) {
-	$file = BASE_PATH . '/../../../www/app/models/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+	$file = BASE_PATH . '/../../www/app/models/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
 	if (file_exists($file)):
 		return require $file;
 	endif;
