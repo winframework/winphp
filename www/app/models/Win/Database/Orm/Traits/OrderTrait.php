@@ -13,10 +13,6 @@ trait OrderTrait
 	 */
 	public function orderBy($orderBy)
 	{
-		/** @var Select $select */
-		$select = $this->query;
-		$select->orderBy->set($orderBy);
-
 		return $this;
 	}
 
