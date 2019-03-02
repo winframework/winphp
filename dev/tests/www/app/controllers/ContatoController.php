@@ -53,14 +53,26 @@ class ContatoController extends \Win\Mvc\Controller
 	 */
 	protected function clearData()
 	{
-		$data = [];
-		$data['name'] = '';
-		$data['phone'] = '';
-		$data['email'] = '';
-		$data['subject'] = '';
-		$data['message'] = '';
+		return [
+			'name' => '',
+			'phone' => '',
+			'email' => '',
+			'subject' => '',
+			'message' => '',
+		];
+	}
 
-		return $data;
+	/**
+	 * Retorna erro ao validar
+	 * @param mixed[] $data
+	 * @return string|null
+	 */
+	protected function validate(&$data)
+	{
+		$validator = Validator::create($data);
+		$validator->validate($this->validations);
+
+		return $validator->getError();
 	}
 
 	/**
@@ -69,19 +81,14 @@ class ContatoController extends \Win\Mvc\Controller
 	public function index()
 	{
 		$this->setTitle('Contato | ' . $this->app->getName());
-
-		/* Pega campos via POST */
 		$error = null;
 		$data = $this->prepareData();
 
-		/* Se clicou em Enviar */
+		// Se clicou em Enviar
 		if (!empty($data['submit'])) {
-			/* Valida os Campos */
-			$validator = Validator::create($data);
-			$data = $validator->validate($this->validations);
-			$error = $validator->getError();
+			$error = $this->validate($data);
 
-			/* Envia Email */
+			// Envia Email
 			if (is_null($error)) {
 				$mail = new Email();
 				$mail->setSubject('Contato efetuado pelo site ' . $this->app->getName());

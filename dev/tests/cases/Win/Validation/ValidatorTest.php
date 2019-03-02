@@ -3,7 +3,6 @@
 namespace Win\Validation;
 
 use PHPUnit\Framework\TestCase;
-use Win\Html\Form\ReCaptcha;
 
 class ValidatorTest extends TestCase
 {
@@ -140,12 +139,10 @@ class ValidatorTest extends TestCase
 		$this->assertEquals('O campo E-mail precisa ser um e-mail válido.', $error);
 	}
 
-	public function testValidateRecaptcha()
+	public function testValidateChecked()
 	{
-		ReCaptcha::$siteKey = 'habilitado';
-
 		$data = $this->defaultData;
-		$data['recaptcha'] = ReCaptcha::isValid();
+		$data['recaptcha'] = false;
 
 		$validationsReCaptcha = $this->validations;
 		$validationsReCaptcha['recaptcha'] = [
