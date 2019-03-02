@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql\Queries;
 
-use Win\Database\Orm;
+use Win\Database\RepositoryInterface;
 use Win\Database\Sql\Clauses\Limit;
 use Win\Database\Sql\Clauses\Where;
 use Win\Database\Sql\Query;
@@ -18,9 +18,9 @@ class Delete extends Query
 	/** @var Limit */
 	public $limit;
 
-	public function __construct(Orm $orm)
+	public function __construct(RepositoryInterface $repository)
 	{
-		parent::__construct($orm);
+		parent::__construct($repository);
 		$this->where = new Where();
 		$this->limit = new Limit();
 	}

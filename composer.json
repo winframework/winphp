@@ -3,6 +3,7 @@
 		"version": "1.4",
     "description": "Framework PHP MVC",
     "require-dev": {
-        "phpunit/phpunit": "6.5.*"
+        "phpunit/phpunit": "6.5.*",
+        "apigen/apigen": "^4.1"
     }
 }

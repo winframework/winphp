@@ -13,7 +13,7 @@ use Win\Singleton\SingletonTrait;
 /**
  * Object Relational Mapping
  */
-abstract class Orm
+abstract class Orm implements RepositoryInterface
 {
 	use SingletonTrait {
 		__construct as finalConstruct;
@@ -25,7 +25,7 @@ abstract class Orm
 	use WriteTrait;
 
 	/** @var Connection */
-	protected static $db;
+	protected static $conn;
 
 	/** @var string */
 	protected $table;
@@ -34,23 +34,29 @@ abstract class Orm
 	protected $model;
 
 	/** @var Select */
-	private $query;
+	protected $query;
 
 	public function __construct()
 	{
 		$this->query = new Select($this);
 	}
 
-	/** @param Connection $db */
-	public static function setConnection(Connection $db)
+	/** @return Orm */
+	protected function orm()
 	{
-		static::$db = $db;
+		return $this;
+	}
+
+	/** @param Connection $conn */
+	public static function setConnection(Connection $conn)
+	{
+		static::$conn = $conn;
 	}
 
 	/** @return Connection */
 	public static function getConnection()
 	{
-		return static::$db;
+		return static::$conn;
 	}
 
 	/**

@@ -2,17 +2,16 @@
 
 namespace Win\Database\Orm\Traits;
 
-use Win\Database\Connection;
 use Win\Database\Orm\Model;
 use Win\Database\Sql\Queries\Select;
 
 trait ReadTrait
 {
 	/** @var Connection */
-	protected static $db;
+	protected static $conn;
 
 	/** @var Select */
-	private $query;
+	protected $query;
 
 	/**
 	 * @param mixed[] $row
@@ -107,7 +106,8 @@ trait ReadTrait
 	 */
 	public function filter($column, $operator, $value)
 	{
-		$this->query->where->add($column, $operator, $value);
+		$query = $this->query;
+		$query->where->add($column, $operator, $value);
 
 		return $this;
 	}

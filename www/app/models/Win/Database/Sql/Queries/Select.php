@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql\Queries;
 
-use Win\Database\Orm;
+use Win\Database\RepositoryInterface;
 use Win\Database\Sql\Clauses\Limit;
 use Win\Database\Sql\Clauses\OrderBy;
 use Win\Database\Sql\Clauses\Where;
@@ -25,9 +25,9 @@ class Select extends Query
 	/** @var OrderBy */
 	public $orderBy;
 
-	public function __construct(Orm $orm)
+	public function __construct(RepositoryInterface $repository)
 	{
-		parent::__construct($orm);
+		parent::__construct($repository);
 		$this->init();
 	}
 

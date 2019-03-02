@@ -2,7 +2,7 @@
 
 namespace Win\Database\Sql\Queries;
 
-use Win\Database\Orm;
+use Win\Database\RepositoryInterface;
 use Win\Database\Sql\Query;
 
 /**
@@ -13,10 +13,10 @@ class Insert extends Query
 	/** @var mixed[] */
 	protected $values;
 
-	public function __construct(Orm $orm)
+	public function __construct(RepositoryInterface $repository)
 	{
-		parent::__construct($orm);
-		$this->values = $orm->getRowValues();
+		parent::__construct($repository);
+		$this->values = $repository->getRowValues();
 	}
 
 	/** @return string */

@@ -6,8 +6,8 @@ use Win\Database\Sql\Queries\Select;
 
 trait OrderTrait
 {
-	/** @var Select */
-	private $query;
+	/** @var Select $query */
+	protected $query;
 
 	/**
 	 * Ordena por um campo
@@ -16,7 +16,8 @@ trait OrderTrait
 	 */
 	public function orderBy($orderBy)
 	{
-		$this->query->orderBy->set($orderBy);
+		$order = $this->query->orderBy;
+		$order->set($orderBy);
 
 		return $this;
 	}
