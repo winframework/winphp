@@ -16,7 +16,7 @@ class Delete extends Query
 	protected $where;
 
 	/** @var Limit */
-	public $limit;
+	protected $limit;
 
 	public function __construct(RepositoryInterface $repository)
 	{
@@ -50,5 +50,11 @@ class Delete extends Query
 	public function where()
 	{
 		return $this->where;
+	}
+
+	/** @return Limit */
+	public function limit()
+	{
+		return $this->limit;
 	}
 }

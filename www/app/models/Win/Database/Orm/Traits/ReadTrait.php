@@ -108,7 +108,7 @@ trait ReadTrait
 	public function filter($column, $operator, $value)
 	{
 		$query = $this->query;
-		$query->where->add($column, $operator, $value);
+		$query->where()->add($column, $operator, $value);
 
 		return $this;
 	}
@@ -120,7 +120,7 @@ trait ReadTrait
 	 */
 	public function limit($limit)
 	{
-		$this->query->limit->set($limit);
+		$this->query->limit()->set($limit);
 
 		return $this;
 	}

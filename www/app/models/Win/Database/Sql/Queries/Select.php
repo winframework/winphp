@@ -17,10 +17,10 @@ class Select extends Query
 	public $columns;
 
 	/** @var Where */
-	public $where;
+	protected $where;
 
 	/** @var Limit */
-	public $limit;
+	protected $limit;
 
 	/** @var OrderBy */
 	protected $orderBy;
@@ -78,5 +78,17 @@ class Select extends Query
 	public function orderBy($orderBy)
 	{
 		$this->orderBy->set($orderBy);
+	}
+
+	/** @return Where */
+	public function where()
+	{
+		return $this->where;
+	}
+
+	/** @return Limit */
+	public function limit()
+	{
+		return $this->limit;
 	}
 }
