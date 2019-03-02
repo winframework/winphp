@@ -63,8 +63,9 @@ class Validator
 	protected function getMessage($rule, $validation)
 	{
 		if (key_exists(self::INDEX_MESSAGES, $validation)) {
-			if (key_exists($rule, $validation[self::INDEX_MESSAGES])) {
-				return $validation[self::INDEX_MESSAGES][$rule];
+			$messages = $validation[self::INDEX_MESSAGES];
+			if (key_exists($rule, $messages)) {
+				return $messages[$rule];
 			}
 		}
 

@@ -4,7 +4,7 @@ namespace Win\Validation;
 
 class Rules
 {
-	private static $error;
+	protected static $error;
 
 	public static function isValid($value, $rule)
 	{
