@@ -32,7 +32,7 @@ class Validator
 
 	/**
 	 * Retorna nome da validação
-	 * @param string[] $validation
+	 * @param mixed[] $validation
 	 * @return string
 	 */
 	protected function getName($validation)
@@ -42,7 +42,7 @@ class Validator
 
 	/**
 	 * Retorna as regras da validação
-	 * @param string[] $validation
+	 * @param mixed[] $validation
 	 * @return string[]
 	 */
 	protected function getRules($validation)
@@ -56,7 +56,7 @@ class Validator
 
 	/**
 	 * Retorna a mensagem personalizada desta validação
-	 * @param string[] $validation
+	 * @param mixed[] $validation
 	 * @param string $rule
 	 * @return string|null
 	 */
@@ -74,7 +74,7 @@ class Validator
 
 	/**
 	 * Valida e retorna os dados válidos
-	 * @param string[] $validations
+	 * @param mixed[] $validations
 	 * @return mixed[]
 	 */
 	public function validate($validations)
