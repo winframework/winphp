@@ -86,9 +86,9 @@ class Select extends Query
 		return $this->where;
 	}
 
-	/** @return Limit */
-	public function limit()
+	/** @param int Limit */
+	public function limit($limit)
 	{
-		return $this->limit;
+		$this->limit->set($limit);
 	}
 }

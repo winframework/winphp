@@ -120,7 +120,7 @@ trait ReadTrait
 	 */
 	public function limit($limit)
 	{
-		$this->query->limit()->set($limit);
+		$this->query->limit($limit);
 
 		return $this;
 	}
