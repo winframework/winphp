@@ -5,7 +5,6 @@ namespace Win\Validation;
 class Validator
 {
 	private $data = [];
-	private $outputData = [];
 	private $errors = [];
 
 	const INDEX_NAME = 0;
@@ -29,7 +28,6 @@ class Validator
 	public function __construct($data)
 	{
 		$this->data = $data;
-		$this->outputData = $data;
 	}
 
 	/**
@@ -92,7 +90,7 @@ class Validator
 			}
 		}
 
-		return $this->outputData;
+		return $this->data;
 	}
 
 	/**
