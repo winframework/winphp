@@ -25,7 +25,7 @@ class Rules
 	protected static function required($value)
 	{
 		if (strlen($value) < 1) {
-			static::error('O campo :name é obrigatório.');
+			static::setError('O campo :name é obrigatório.');
 		}
 	}
 
@@ -36,7 +36,7 @@ class Rules
 	protected static function email($email)
 	{
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			static::error('O campo :name precisa ser um e-mail válido.');
+			static::setError('O campo :name precisa ser um e-mail válido.');
 		}
 	}
 
@@ -47,7 +47,7 @@ class Rules
 	protected static function int($value)
 	{
 		if (!is_int($value)) {
-			static::error('O campo :name precisa ser um número.');
+			static::setError('O campo :name precisa ser um número.');
 		}
 	}
 
@@ -59,7 +59,9 @@ class Rules
 	protected static function min($value, $min)
 	{
 		if ($value < $min) {
-			static::error('O campo :name precisa ser maior do que ' . $min . '.');
+			static::setError(
+				'O campo :name precisa ser maior do que ' . $min . '.'
+			);
 		}
 	}
 
@@ -71,7 +73,9 @@ class Rules
 	protected static function max($value, $max)
 	{
 		if ($value > $max) {
-			static::error('O campo :name precisa ser menor do que ' . $max . '.');
+			static::setError(
+				'O campo :name precisa ser menor do que ' . $max . '.'
+			);
 		}
 	}
 
@@ -82,7 +86,7 @@ class Rules
 	protected static function checked($value)
 	{
 		if (false === (bool) $value) {
-			static::error('Marque a opção ":name".');
+			static::setError('Marque a opção ":name".');
 		}
 	}
 
@@ -99,7 +103,7 @@ class Rules
 	 * Atribui o erro
 	 * @param string $error
 	 */
-	protected static function error($error)
+	protected static function setError($error)
 	{
 		static::$error = $error;
 	}
