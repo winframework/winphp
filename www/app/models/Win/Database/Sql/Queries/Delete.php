@@ -13,7 +13,7 @@ use Win\Database\Sql\Query;
 class Delete extends Query
 {
 	/** @var Where */
-	public $where;
+	protected $where;
 
 	/** @var Limit */
 	public $limit;
@@ -44,5 +44,11 @@ class Delete extends Query
 	public function execute()
 	{
 		return $this->conn->query($this, $this->getValues());
+	}
+
+	/** @return Where */
+	public function where()
+	{
+		return $this->where;
 	}
 }

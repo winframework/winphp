@@ -72,7 +72,7 @@ trait WriteTrait
 	public function delete(Model $model)
 	{
 		$query = new Delete($this->orm());
-		$query->where->add('id', '=', $model->getId());
+		$query->where()->add('id', '=', $model->getId());
 
 		return $query->execute();
 	}
