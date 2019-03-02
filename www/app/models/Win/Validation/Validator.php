@@ -7,7 +7,6 @@ class Validator
 	private $data = [];
 	private $outputData = [];
 	private $errors = [];
-	private $messages = [];
 
 	const INDEX_NAME = 0;
 	const INDEX_RULES = 1;
@@ -46,13 +45,15 @@ class Validator
 	/**
 	 * Retorna as regras da validação
 	 * @param string[] $validation
-	 * @return string
+	 * @return string[]
 	 */
 	protected function getRules($validation)
 	{
 		if (key_exists(self::INDEX_RULES, $validation)) {
 			return explode('|', $validation[self::INDEX_RULES]);
 		}
+
+		return [];
 	}
 
 	/**

@@ -48,7 +48,17 @@ class ValidatorTest extends TestCase
 		$data = $this->defaultData;
 		$validator = Validator::create($data);
 		$data = $validator->validate($this->validations);
-		$error = $validator->getError();
+
+		$this->assertFalse($validator->hasError());
+		$this->assertNull($validator->getError());
+		$this->assertCount(3, $data);
+	}
+
+	public function testValidateNoRules()
+	{
+		$data = $this->defaultData;
+		$validator = Validator::create($data);
+		$data = $validator->validate(['nome' => ['Nome']]);
 
 		$this->assertFalse($validator->hasError());
 		$this->assertCount(3, $data);
@@ -100,6 +110,18 @@ class ValidatorTest extends TestCase
 
 		$this->assertTrue($validator->hasError());
 		$this->assertEquals('O campo Idade é obrigatório.', $error);
+	}
+
+	public function testValidateIsInt()
+	{
+		$data = $this->defaultData;
+		$data['age'] = 'teste';
+		$validator = Validator::create($data);
+		$validator->validate($this->validations);
+		$error = $validator->getError();
+
+		$this->assertTrue($validator->hasError());
+		$this->assertEquals('O campo Idade precisa ser um número.', $error);
 	}
 
 	public function testValidateAgeMin()
