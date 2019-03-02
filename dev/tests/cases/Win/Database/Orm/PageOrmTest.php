@@ -35,9 +35,9 @@ class PageOrmTest extends TestCase
 			(3, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
 	}
 
-	public function testNumRows()
+	public function testCount()
 	{
-		$count = Page::orm()->filter('id', '>', 1)->numRows();
+		$count = Page::orm()->filter('id', '>', 1)->count();
 		$this->assertEquals(2, $count);
 	}
 
@@ -50,26 +50,26 @@ class PageOrmTest extends TestCase
 
 	public function testFind()
 	{
-		$page = Page::orm()->find(2)->one();
+		$page = Page::orm()->find(2);
 		$this->assertEquals(2, $page->getId());
 		$this->assertEquals('Second Page', $page->getTitle());
 	}
 
-	public function testOlder()
+	public function testOrderByOlder()
 	{
-		$page = Page::orm()->older()->one();
+		$page = Page::orm()->order('asc')->one();
 		$this->assertEquals(1, $page->getId());
 	}
 
-	public function testNewer()
+	public function testOrderByNewer()
 	{
-		$page = Page::orm()->newer()->one();
+		$page = Page::orm()->order('desc')->one();
 		$this->assertEquals(3, $page->getId());
 	}
 
 	public function testRecents()
 	{
-		$pages = Page::orm()->newer()->all();
+		$pages = Page::orm()->order()->all();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('Third Page', $pages[0]->getTitle());
 	}
@@ -79,6 +79,12 @@ class PageOrmTest extends TestCase
 		$pages = Page::orm()->orderBy('title ASC')->all();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('First Page', $pages[0]->getTitle());
+	}
+
+	public function testFilterBy()
+	{
+		$page = Page::orm()->filterBy('title', 'Second Page')->one();
+		$this->assertEquals(2, $page->getId());
 	}
 
 	public function testFilter()
@@ -93,7 +99,7 @@ class PageOrmTest extends TestCase
 		$repo = Page::orm();
 		$repo->filter('id', '>', 1);
 		$repo->filter('id', '<', 3);
-		$repo->newer();
+		$repo->order('desc');
 
 		$pages = $repo->all();
 		$this->assertCount(1, $pages);
@@ -140,7 +146,7 @@ class PageOrmTest extends TestCase
 	public function testDelete()
 	{
 		$pagesTotal = count(Page::orm()->all());
-		$page = Page::orm()->find(1)->one();
+		$page = Page::orm()->find(1);
 		$success = Page::orm()->delete($page);
 
 		$this->assertTrue($success);
@@ -185,11 +191,11 @@ class PageOrmTest extends TestCase
 		$pagesTotal = count(Page::orm()->all());
 		$description = 'Updated by save method';
 
-		$page = Page::orm()->newer()->one();
+		$page = Page::orm()->order()->one();
 		$page->setTitle('New Title');
 		$page->setDescription($description);
 		$success = Page::orm()->save($page);
-		$pageUpdated = Page::orm()->newer()->one();
+		$pageUpdated = Page::orm()->order()->one();
 
 		$this->assertTrue($success);
 		$this->assertEquals('New Title', $pageUpdated->getTitle());

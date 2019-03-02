@@ -9,6 +9,7 @@ use Win\Database\Orm;
  *
  * @method Page one
  * @method Page[] all
+ * @method Page find
  */
 class PageOrm extends Orm
 {

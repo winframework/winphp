@@ -22,23 +22,12 @@ trait OrderTrait
 	}
 
 	/**
-	 * Ordena pelos mais novos
+	 * Ordena pelo id
 	 * @return static
 	 */
-	public function newer()
+	public function order($mode = 'DESC')
 	{
-		$this->orderBy('id DESC');
-
-		return $this;
-	}
-
-	/**
-	 * Ordena pelos mais antigos
-	 * @return static
-	 */
-	public function older()
-	{
-		$this->orderBy('id ASC');
+		$this->orderBy('id ' . $mode);
 
 		return $this;
 	}

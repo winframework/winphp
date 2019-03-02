@@ -48,7 +48,7 @@ trait ReadTrait
 	 * Retorna o total de registros da busca
 	 * @return int
 	 */
-	public function numRows()
+	public function count()
 	{
 		return $this->query->count();
 	}
@@ -80,13 +80,12 @@ trait ReadTrait
 	/**
 	 * Filtra pelo id
 	 * @param int $id
-	 * @return static
 	 */
 	public function find($id)
 	{
 		$this->filterBy('id', $id);
 
-		return $this;
+		return $this->one();
 	}
 
 	/**

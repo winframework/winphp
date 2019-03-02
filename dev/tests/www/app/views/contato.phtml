@@ -1,0 +1,43 @@
+<?php
+
+use Win\Html\Form\ReCaptcha;
+use Win\Mvc\View;
+
+/* @var $this View */
+?>
+<main>
+	<h1>Exemplo de Formulário de Contato</h1>
+
+	<form method="post">
+
+		<?php if (!$submit): ?>
+		<div class="alert-default">Preencha os campos baixo:</div>
+		<?php elseif ($error): ?>
+		<div class="alert-danger"><?= $error; ?>
+		</div>
+		<?php else: ?>
+		<div class="alert-success">Sua mensagem foi enviada com sucesso!</div>
+		<!--<meta http-equiv="refresh" content="10;url=index" />-->
+		<?php endif; ?>
+
+		<fieldset>
+			<input type="text" name="name" value="<?= $name; ?>" placeholder="Nome" maxlength="75" />
+			<input type="text" name="email" value="<?= $email; ?>" placeholder="E-mail" maxlength="45" />
+			<input type="text" name="phone" value="<?= $phone; ?>" placeholder="Telefone" maxlength="45" />
+			<input type="text" name="subject" value="<?= $subject; ?>" placeholder="Assunto" maxlength="45" />
+			<textarea name="message" placeholder="Mensagem" rows="6"><?= $message; ?></textarea>
+		</fieldset>
+
+		<fieldset>
+			<div class="g-recaptcha" data-sitekey="<?= ReCaptcha::$siteKey; ?>"></div>
+		</fieldset>
+
+		<div class="form-buttons">
+			<button type="reset" name="reset" class="btn btn-default">Cancelar</button>
+			<button type="submit" name="submit" class="btn submit" value="1">Enviar</button>
+		</div>
+
+	</form>
+</main>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
