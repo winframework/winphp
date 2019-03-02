@@ -51,10 +51,4 @@ class Delete extends Query
 	{
 		return $this->where;
 	}
-
-	/** @return Limit */
-	public function limit()
-	{
-		return $this->limit;
-	}
 }
