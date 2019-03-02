@@ -2,6 +2,7 @@
 
 namespace Win\Database\Orm\Traits;
 
+use Win\Database\Connection;
 use Win\Database\Orm\Model;
 use Win\Database\Sql\Queries\Select;
 

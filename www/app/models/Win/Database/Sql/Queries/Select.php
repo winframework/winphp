@@ -59,7 +59,7 @@ class Select extends Query
 	public function count()
 	{
 		$this->columns = ['count(*)'];
-		$stmt = $this->connection->stmt($this, $this->getValues());
+		$stmt = $this->conn->stmt($this, $this->getValues());
 		$this->init();
 
 		return $stmt->fetchColumn();
@@ -68,7 +68,7 @@ class Select extends Query
 	/** @return mixed[] */
 	public function execute()
 	{
-		$all = $this->connection->fetchAll($this, $this->getValues());
+		$all = $this->conn->fetchAll($this, $this->getValues());
 		$this->init();
 
 		return $all;

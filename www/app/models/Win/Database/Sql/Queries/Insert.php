@@ -49,6 +49,6 @@ class Insert extends Query
 	/** @return bool */
 	public function execute()
 	{
-		return $this->connection->query($this, $this->getValues());
+		return $this->conn->query($this, $this->getValues());
 	}
 }

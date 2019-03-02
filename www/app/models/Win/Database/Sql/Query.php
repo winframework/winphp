@@ -26,7 +26,7 @@ abstract class Query
 	{
 		$this->repository = $repository;
 		$this->table = $this->repository->getTable();
-		$this->connection = $repository::getConnection();
+		$this->conn = $repository::getConnection();
 	}
 
 	/** @return string */
