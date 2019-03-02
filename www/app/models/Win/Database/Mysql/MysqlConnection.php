@@ -11,12 +11,12 @@ use Win\Database\Connection;
 class MysqlConnection extends Connection
 {
 	/** Cria conexão via PDO */
-	protected function createPdo(&$dbConfig)
+	protected function createPdo(&$db)
 	{
 		return new PDO(
-			'mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
-			$dbConfig['user'],
-			$dbConfig['pass'],
+			'mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'],
+			$db['user'],
+			$db['pass'],
 			[]
 		);
 	}
