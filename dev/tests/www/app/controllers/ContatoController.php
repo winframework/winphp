@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use Win\FlashMessage\Alert;
 use Win\Html\Form\ReCaptcha;
 use Win\Mail\Email;
 use Win\Mvc\Block;
@@ -28,14 +29,14 @@ class ContatoController extends \Win\Mvc\Controller
 		// ReCaptcha::$siteKey = '';
 	}
 
-	public function index()
+	/**
+	 * Retorna os dados informados
+	 * @return mixed[]
+	 */
+	protected function prepareData()
 	{
-		$this->setTitle('Contato | ' . $this->app->getName());
-
-		/* Pega campos via POST */
-		$error = null;
 		$data = [];
-		$submit = Input::post('submit');
+		$data['submit'] = Input::post('submit');
 		$data['name'] = trim(Input::post('name'));
 		$data['phone'] = trim(Input::post('phone'));
 		$data['email'] = trim(Input::post('email'));
@@ -43,8 +44,38 @@ class ContatoController extends \Win\Mvc\Controller
 		$data['message'] = trim(Input::post('message'));
 		$data['recaptcha'] = ReCaptcha::isValid();
 
+		return $data;
+	}
+
+	/**
+	 * Retorna os dados vazios
+	 * @return mixed[]
+	 */
+	protected function clearData()
+	{
+		$data = [];
+		$data['name'] = '';
+		$data['phone'] = '';
+		$data['email'] = '';
+		$data['subject'] = '';
+		$data['message'] = '';
+
+		return $data;
+	}
+
+	/**
+	 * Exibe formulário de contato
+	 */
+	public function index()
+	{
+		$this->setTitle('Contato | ' . $this->app->getName());
+
+		/* Pega campos via POST */
+		$error = null;
+		$data = $this->prepareData();
+
 		/* Se clicou em Enviar */
-		if (!empty($submit)) {
+		if (!empty($data['submit'])) {
 			/* Valida os Campos */
 			$validator = Validator::create($data);
 			$data = $validator->validate($this->validations);
@@ -62,19 +93,13 @@ class ContatoController extends \Win\Mvc\Controller
 				$mail->setContent($content);
 				$mail->send();
 				$error = $mail->getError();
-
-				/* Limpa dados */
-				$data['name'] = '';
-				$data['phone'] = '';
-				$data['email'] = '';
-				$data['subject'] = '';
-				$data['message'] = '';
+				$data = $this->clearData();
 			}
-		}
 
-		/* Envia dados para View */
-		$data['error'] = $error;
-		$data['submit'] = $submit;
+			Alert::create($error, 'Sua mensagem foi enviada com sucesso!');
+		} else {
+			Alert::alert('Preencha os campos baixo:');
+		}
 
 		return new View('contato', $data);
 	}

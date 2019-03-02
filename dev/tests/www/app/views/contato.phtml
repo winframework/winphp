@@ -1,5 +1,6 @@
 <?php
 
+use Win\FlashMessage\Alert;
 use Win\Html\Form\ReCaptcha;
 use Win\Mvc\View;
 
@@ -10,15 +11,7 @@ use Win\Mvc\View;
 
 	<form method="post">
 
-		<?php if (!$submit): ?>
-		<div class="alert-default">Preencha os campos baixo:</div>
-		<?php elseif ($error): ?>
-		<div class="alert-danger"><?= $error; ?>
-		</div>
-		<?php else: ?>
-		<div class="alert-success">Sua mensagem foi enviada com sucesso!</div>
-		<!--<meta http-equiv="refresh" content="10;url=index" />-->
-		<?php endif; ?>
+		<?= Alert::instance()->html(); ?>
 
 		<fieldset>
 			<input type="text" name="name" value="<?= $name; ?>" placeholder="Nome" maxlength="75" />
