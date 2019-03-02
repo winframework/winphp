@@ -23,7 +23,7 @@ class Select extends Query
 	public $limit;
 
 	/** @var OrderBy */
-	public $orderBy;
+	protected $orderBy;
 
 	public function __construct(RepositoryInterface $repository)
 	{
@@ -72,5 +72,11 @@ class Select extends Query
 		$this->init();
 
 		return $all;
+	}
+
+	/** @param string $orderBy */
+	public function orderBy($orderBy)
+	{
+		$this->orderBy->set($orderBy);
 	}
 }
