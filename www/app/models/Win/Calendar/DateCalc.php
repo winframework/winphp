@@ -181,7 +181,7 @@ class DateCalc
 	}
 
 	/**
-	 * Retorna a data no formato humano
+	 * Retorna a data aproximada no formato humano
 	 * @param DateTime|bool $date
 	 * @return string (ex: 4 horas atrás), (ex: daqui a 5 dias)
 	 */

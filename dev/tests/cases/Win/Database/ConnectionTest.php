@@ -4,7 +4,7 @@ namespace Win\Database;
 
 use PDO;
 use PHPUnit\Framework\TestCase;
-use Win\Database\Connections\MysqlConnection as Connection;
+use Win\Database\Mysql\MysqlConnection as Connection;
 use Win\Mvc\Application;
 use Win\Mvc\ApplicationTest;
 
@@ -38,10 +38,10 @@ class ConnectionTest extends TestCase
 	/** Instancia */
 	public static function instance()
 	{
-		static::$connection = connection::instance();
-		static::$connectionWrongUser = connection::instance('wrongUser');
-		static::$connectionWrongDb = connection::instance('wrongDb');
-		static::$connectionWrongPass = connection::instance('wrongPass');
+		static::$connection = Connection::instance();
+		static::$connectionWrongUser = Connection::instance('wrongUser');
+		static::$connectionWrongDb = Connection::instance('wrongDb');
+		static::$connectionWrongPass = Connection::instance('wrongPass');
 	}
 
 	/** Conexões */

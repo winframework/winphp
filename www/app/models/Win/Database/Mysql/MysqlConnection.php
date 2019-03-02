@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Connections;
+namespace Win\Database\Mysql;
 
 use PDO;
 use Win\Database\Connection;
@@ -16,7 +16,8 @@ class MysqlConnection extends Connection
 		return new PDO(
 			'mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
 			$dbConfig['user'],
-			$dbConfig['pass']
+			$dbConfig['pass'],
+			[]
 		);
 	}
 }

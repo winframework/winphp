@@ -27,14 +27,22 @@ class DateCalcTest extends TestCase
 		$this->assertEquals('indisponível', DateCalc::toTimeAgo(false));
 	}
 
+	/**
+	 * Fevereiro não conta como 30 dias
+	 */
 	public function testTimeAgoBefore()
 	{
 		$date = new DateTime();
 		DateCalc::subSeconds($date, 2);
 		$this->assertEquals('2 segundos atrás', DateCalc::toTimeAgo($date));
 
-		DateCalc::subMonths($date, 1);
-		$this->assertEquals('1 mês atrás', DateCalc::toTimeAgo($date));
+		$date2 = new DateTime();
+		DateCalc::subMonths($date2, 1);
+		
+		$this->assertContains(
+			DateCalc::toTimeAgo($date2),
+			['1 mês atrás', '4 semanas atrás']
+		);
 	}
 
 	public function testSumTime()
