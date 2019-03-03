@@ -4,7 +4,6 @@ namespace Win\Calendar;
 
 use DateTime as DateTimePHP;
 use DateTimeInterface;
-use Nette\Utils\DateTime;
 
 /**
  * Data e Hora
@@ -53,7 +52,7 @@ class DateTime extends DateTimePHP
 
 	/**
 	 * Retorna a idade
-	 * @param DateTimeInterface|null $date
+	 * @param DateTimeInterface $date
 	 * @return int
 	 */
 	public function getAge($date = null)
