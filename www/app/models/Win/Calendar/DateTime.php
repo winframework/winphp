@@ -59,7 +59,7 @@ class DateTime extends DateTimePHP
 	public function getAge($date = null)
 	{
 		if (is_null($date)) {
-			$date = new DateTime();
+			$date = new DateTimePHP();
 		}
 
 		return (int) $this->diff($date)->format('%y');
