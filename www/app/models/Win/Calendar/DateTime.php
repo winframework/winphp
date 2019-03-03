@@ -51,7 +51,7 @@ class DateTime extends DateTimePHP
 
 	/**
 	 * Retorna a idade
-	 * @param string $date
+	 * @param string|DateTimeInterface $date
 	 * @return int
 	 */
 	public function getAge($date = 'NOW')

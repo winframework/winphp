@@ -38,7 +38,7 @@ abstract class Query
 
 	/**
 	 * Executa a query
-	 * @return bool
+	 * @return mixed
 	 */
 	abstract public function execute();
 
