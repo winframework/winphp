@@ -52,7 +52,7 @@ class DateTime extends DateTimePHP
 
 	/**
 	 * Retorna a idade
-	 * @param DateTimeInterface $date
+	 * @param DateTimeInterface $date data atual
 	 * @return int
 	 */
 	public function getAge($date = null)
