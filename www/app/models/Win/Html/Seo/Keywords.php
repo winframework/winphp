@@ -9,11 +9,17 @@ use Win\Formats\Str;
  */
 class Keywords
 {
+	/**
+	 * Chaves padrão.
+	 * Usadas quando as chaves informadas não tenham o tamanho suficiente
+	 * @var array
+	 */
 	public static $default = [];
 
 	/**
 	 * Retorna uma string em minúscula, separada por virgula
 	 * @param string[] $keys
+	 * @param int $maxLength
 	 * @return string
 	 */
 	public static function otimize($keys, $maxLength = 100)

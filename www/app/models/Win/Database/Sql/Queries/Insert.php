@@ -13,6 +13,10 @@ class Insert extends Query
 	/** @var mixed[] */
 	protected $values;
 
+	/**
+	 * Prepara um insert
+	 * @param RepositoryInterface $repository
+	 */
 	public function __construct(RepositoryInterface $repository)
 	{
 		parent::__construct($repository);

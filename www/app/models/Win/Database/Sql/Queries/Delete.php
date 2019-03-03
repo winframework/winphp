@@ -18,6 +18,10 @@ class Delete extends Query
 	/** @var Limit */
 	protected $limit;
 
+	/**
+	 * Prepara um delete
+	 * @param RepositoryInterface $repository
+	 */
 	public function __construct(RepositoryInterface $repository)
 	{
 		parent::__construct($repository);

@@ -21,7 +21,6 @@ class TempFile extends File
 	/**
 	 * Instância o arquivo temporário
 	 * @param string $path
-	 * @param string $name
 	 */
 	public function __construct($path)
 	{

@@ -103,6 +103,9 @@ trait ReadTrait
 
 	/**
 	 * Adiciona filtros à busca
+	 * @param string $column
+	 * @param string $operator
+	 * @param mixed $value
 	 * @return static
 	 */
 	public function filter($column, $operator, $value)

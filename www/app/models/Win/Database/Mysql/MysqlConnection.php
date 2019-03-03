@@ -10,7 +10,10 @@ use Win\Database\Connection;
  */
 class MysqlConnection extends Connection
 {
-	/** Cria conexão via PDO */
+	/**
+	 * Cria conexão via PDO
+	 * @param array $db
+	 */
 	protected function createPdo(&$db)
 	{
 		return new PDO(

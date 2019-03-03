@@ -10,13 +10,20 @@ use Win\Html\Tag;
  */
 abstract class Input extends Tag
 {
-	/** @var string */
+	/**
+	 * Tipo do input
+	 * @var string
+	 */
 	protected $type;
 
-	/** @var string */
+	/**
+	 * Valor atual
+	 * @var string
+	 */
 	protected $value;
 
 	/**
+	 * Cria um <input>
 	 * @param string $type
 	 * @param string $name
 	 * @param mixed $value
@@ -29,7 +36,10 @@ abstract class Input extends Tag
 		parent::__construct($name, $attributes);
 	}
 
-	/** @return string */
+	/**
+	 * Retorna o valor atual
+	 * @return string
+	 */
 	public function getValue()
 	{
 		return $this->value;

@@ -8,6 +8,7 @@ namespace Win\Formats;
 class Arr
 {
 	/**
+	 * Retorna TRUE se é primeiro elemento do array
 	 * @param int $i
 	 * @return bool
 	 */
@@ -17,6 +18,7 @@ class Arr
 	}
 
 	/**
+	 * Retorna TRUE se é último elemento do array
 	 * @param int $i
 	 * @param mixed[] $array
 	 * @return bool
@@ -27,6 +29,7 @@ class Arr
 	}
 
 	/**
+	 * Retorna TRUE se o array é associativo
 	 * @param mixed[] $array
 	 * @return bool
 	 */

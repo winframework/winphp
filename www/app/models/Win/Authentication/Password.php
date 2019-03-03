@@ -7,6 +7,10 @@ namespace Win\Authentication;
  */
 abstract class Password
 {
+	/**
+	 * Chave única que aumenta a segurança das senhas
+	 * @var string
+	 */
 	private static $salt = 'E50H%gDui#';
 
 	/**

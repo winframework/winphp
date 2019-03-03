@@ -41,6 +41,7 @@ class DateTime extends DateTimePHP
 
 	/**
 	 * Retorna a data no formato utilizado por strftime
+	 * @param string $format
 	 * @return string
 	 */
 	public function formatF($format)
@@ -48,7 +49,11 @@ class DateTime extends DateTimePHP
 		return strftime($format, $this->getTimestamp());
 	}
 
-	/** @return int */
+	/**
+	 * Retorna a idade
+	 * @param string $date
+	 * @return int
+	 */
 	public function getAge($date = 'NOW')
 	{
 		return (int) $this->diff($date)->format('%y');

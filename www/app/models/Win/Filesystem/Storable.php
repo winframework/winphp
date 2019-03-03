@@ -79,6 +79,7 @@ abstract class Storable
 		$this->path = $path;
 	}
 
+	/** @param Directory $directory */
 	protected function setDirectory(Directory $directory)
 	{
 		$this->directory = $directory;

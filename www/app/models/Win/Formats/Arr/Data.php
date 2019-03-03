@@ -11,7 +11,10 @@ class Data implements DataInterface
 {
 	use SingletonTrait;
 
-	/** @var mixed[] */
+	/**
+	 * Dados que estão armazenados
+	 * @var mixed[]
+	 */
 	protected $data = [];
 
 	/**
@@ -102,13 +105,20 @@ class Data implements DataInterface
 		return $values;
 	}
 
-	/** @param string $key */
+	/**
+	 * Remove o valor
+	 * @param string $key
+	 */
 	public function delete($key)
 	{
 		unset($this->data[$key]);
 	}
 
-	/** @return bool */
+	/**
+	 * Retorna TRUE se $key existe
+	 * @param string $key
+	 * @return bool
+	 */
 	public function has($key)
 	{
 		return !is_null($this->get($key, null));

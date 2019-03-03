@@ -20,6 +20,7 @@ abstract class Query
 	protected $table;
 
 	/**
+	 * Prepara a query
 	 * @param RepositoryInterface $repository
 	 */
 	public function __construct(RepositoryInterface $repository)
@@ -29,12 +30,22 @@ abstract class Query
 		$this->conn = $repository::getConnection();
 	}
 
-	/** @return string */
+	/**
+	 * Retorna o comando SQL
+	 * @return string
+	 */
 	abstract protected function toString();
 
+	/**
+	 * Executa a query
+	 * @return bool
+	 */
 	abstract public function execute();
 
-	/** @return string */
+	/**
+	 * Retorna o comando SQL
+	 * @return string
+	 */
 	public function __toString()
 	{
 		if ($this->repository->getDebugMode()) {
@@ -44,7 +55,9 @@ abstract class Query
 		return $this->toString();
 	}
 
-	/** Exibe informações de debug */
+	/**
+	 * Exibe informações de debug
+	 */
 	public function debug()
 	{
 		print_r('<pre>');

@@ -3,5 +3,6 @@ package.json
 gulpfile.js
 /nbproject/private/
 /vendor
+/docs/phpdoc
 .history/
 .vscode/sftp.json

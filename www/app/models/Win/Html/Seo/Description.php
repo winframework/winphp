@@ -9,11 +9,17 @@ use Win\Formats\Str;
  */
 class Description
 {
+	/**
+	 * Descrição padrão.
+	 * Usadas quando a descrição informada não tenha o tamanho suficiente
+	 * @var string
+	 */
 	public static $default = '';
 
 	/**
 	 * Retorna a 'description' com tamanho ideal
 	 * @param string $description
+	 * @param int $maxLength
 	 * @return string
 	 */
 	public static function otimize($description, $maxLength = 150)

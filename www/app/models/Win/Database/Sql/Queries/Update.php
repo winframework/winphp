@@ -13,6 +13,10 @@ class Update extends Query
 	/** @var mixed[] */
 	protected $values;
 
+	/**
+	 * Prepara um update
+	 * @param RepositoryInterface $repository
+	 */
 	public function __construct(RepositoryInterface $repository)
 	{
 		parent::__construct($repository);
@@ -29,7 +33,10 @@ class Update extends Query
 				. ' WHERE id = ? ';
 	}
 
-	/** @return string[] */
+	/**
+	 * Retorna os parâmetros
+	 * @return string[]
+	 */
 	protected function getParams()
 	{
 		$columns = array_keys($this->values);
@@ -41,7 +48,10 @@ class Update extends Query
 		return $params;
 	}
 
-	/** @return mixed[] */
+	/**
+	 * Retorna os valores
+	 * @return mixed[]
+	 */
 	public function getValues()
 	{
 		$values = array_values($this->values);

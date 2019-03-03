@@ -69,7 +69,11 @@ class Select extends Tag
 		return $this->htmlOptions($this->options);
 	}
 
-	/** @return string */
+	/**
+	 * Retorna o HTML dos options
+	 * @param array $options
+	 * @return string
+	 */
 	protected function htmlOptions($options = [])
 	{
 		$html = '';

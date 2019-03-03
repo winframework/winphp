@@ -11,6 +11,10 @@ namespace Win\Singleton;
  */
 trait SingletonTrait
 {
+	/**
+	 * Array com todas as instâncias
+	 * @var array
+	 */
 	protected static $instance = [];
 
 	/**

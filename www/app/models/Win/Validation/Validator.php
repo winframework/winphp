@@ -2,10 +2,27 @@
 
 namespace Win\Validation;
 
+/**
+ * Validador automatizado
+ */
 class Validator
 {
+	/**
+	 * Dados a serem validados
+	 * @var array
+	 */
 	private $data = [];
+
+	/**
+	 * Regras de validação
+	 * @var array
+	 */
 	private $validations = [];
+
+	/**
+	 * Erros retornados durante a validação
+	 * @var array
+	 */
 	private $errors = [];
 
 	const INDEX_NAME = 0;
@@ -14,7 +31,7 @@ class Validator
 
 	/**
 	 * Cria um validador
-	 * @param mixed[] $validations
+	 * @param array $validations
 	 * @return static
 	 */
 	public static function create($validations)
@@ -22,8 +39,9 @@ class Validator
 		return new static($validations);
 	}
 
-	/* Cria um validador
-	 * @param mixed[] $validations
+	/**
+	 * Cria um validador
+	 * @param array $validations
 	 * @return static
 	 */
 	public function __construct($validations)
@@ -33,7 +51,7 @@ class Validator
 
 	/**
 	 * Retorna nome da validação
-	 * @param mixed[] $validation
+	 * @param array $validation
 	 * @return string
 	 */
 	protected function getName($validation)
@@ -43,7 +61,7 @@ class Validator
 
 	/**
 	 * Retorna as regras da validação
-	 * @param mixed[] $validation
+	 * @param array $validation
 	 * @return string[]
 	 */
 	protected function getRules($validation)
@@ -57,8 +75,8 @@ class Validator
 
 	/**
 	 * Retorna a mensagem personalizada desta validação
-	 * @param mixed[] $validation
 	 * @param string $rule
+	 * @param array $validation
 	 * @return string|null
 	 */
 	protected function getMessage($rule, $validation)
@@ -75,8 +93,8 @@ class Validator
 
 	/**
 	 * Valida e retorna os dados válidos
-	 * @param mixed[] $data
-	 * @return mixed[]
+	 * @param array $data
+	 * @return array
 	 */
 	public function validate($data)
 	{

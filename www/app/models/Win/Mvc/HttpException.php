@@ -50,13 +50,20 @@ class HttpException extends Exception
 		}
 	}
 
-	/** @return bool */
+	/**
+	 * Retorna TRUE se a página é 404
+	 * @return bool
+	 */
 	private function is404()
 	{
 		return '404' == Application::app()->getPage();
 	}
 
-	/** @return bool */
+	/**
+	 * Retorna TRUE se $code é um código de erro
+	 * @param mixed $code
+	 * @return bool
+	 */
 	public static function isErrorCode($code)
 	{
 		return (int) $code > 0;

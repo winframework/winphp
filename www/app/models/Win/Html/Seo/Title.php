@@ -17,6 +17,7 @@ class Title
 	 * Retorna o título com o nome da aplicação no final
 	 * Mantendo o máximo de caracteres
 	 * @param string $title
+	 * @param string $maxLength
 	 * @return string
 	 */
 	public static function otimize($title, $maxLength = 70)

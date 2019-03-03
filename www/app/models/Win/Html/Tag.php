@@ -7,13 +7,24 @@ namespace Win\Html;
  */
 abstract class Tag
 {
-	/** @var string */
+	/**
+	 * Nome da tag
+	 * @var string
+	 * @example a|input|form|img|
+	 */
 	protected $name;
 
-	/** @var string[] */
+	/**
+	 * Atributos HTML
+	 * @var string[]
+	 * @example id|class|href|
+	 */
 	protected $attributes;
 
-	/** @return string */
+	/**
+	 * Retorna o código html da tag
+	 * @return string
+	 */
 	abstract public function html();
 
 	/**
@@ -27,13 +38,19 @@ abstract class Tag
 		$this->attributes = $attributes;
 	}
 
-	/** @return string */
+	/**
+	 * Retorna o código html da tag
+	 * @return string
+	 */
 	public function __toString()
 	{
 		return $this->html();
 	}
 
-	/** @return string */
+	/**
+	 * Retorna o html dos atributos
+	 * @return string
+	 */
 	protected function attributes()
 	{
 		$html = '';

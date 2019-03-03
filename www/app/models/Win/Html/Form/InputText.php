@@ -9,6 +9,7 @@ namespace Win\Html\Form;
 class InputText extends Input
 {
 	/**
+	 * Cria um <input type="text">
 	 * @param string $name
 	 * @param string $value
 	 * @param string[] $attributes

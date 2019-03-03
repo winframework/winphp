@@ -11,11 +11,9 @@ class Input
 {
 	/**
 	 * Retorna variável $_POST
-	 *
 	 * @param string $name
 	 * @param int $filter
 	 * @param mixed $default
-	 *
 	 * @return mixed
 	 */
 	public static function post($name, $filter = FILTER_SANITIZE_STRING, $default = null)
@@ -27,10 +25,8 @@ class Input
 
 	/**
 	 * Retorna variável $_POST em modo array
-	 *
 	 * @param string $name
 	 * @param int $filter
-	 *
 	 * @return mixed[]
 	 */
 	public static function postArray($name, $filter = FILTER_SANITIZE_STRING)
@@ -40,10 +36,8 @@ class Input
 
 	/**
 	 * Retorna variável $_SERVER
-	 *
 	 * @param string $name
 	 * @param int $filter
-	 *
 	 * @return mixed
 	 */
 	public static function server($name, $filter = FILTER_DEFAULT)
@@ -55,11 +49,9 @@ class Input
 
 	/**
 	 * Retorna variável $_GET
-	 *
 	 * @param string $name
 	 * @param int $filter
 	 * @param mixed $default
-	 *
 	 * @return mixed
 	 */
 	public static function get($name, $filter = FILTER_SANITIZE_STRING, $default = null)
@@ -71,7 +63,7 @@ class Input
 
 	/**
 	 * Retorna variável $_FILES
-	 *
+	 * @param string $name
 	 * @return string[]
 	 */
 	public static function file($name)
@@ -85,7 +77,6 @@ class Input
 
 	/**
 	 * Retorna o protocolo atual
-	 *
 	 * @return string 'http'|'https'
 	 */
 	public static function protocol()

@@ -20,6 +20,7 @@ class Checkbox extends Input
 	}
 
 	/**
+	 * Cria um <input type="checkbox">
 	 * @param string $name
 	 * @param mixed $value
 	 * @param string[] $attributes

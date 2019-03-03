@@ -2,10 +2,25 @@
 
 namespace Win\Validation;
 
+/**
+ * Regras de validação
+ *
+ * Cada regra é um método publico
+ */
 class Rules
 {
+	/**
+	 * Armazena o erro que ocorreu durante a validação
+	 * @var string|null
+	 */
 	protected static $error;
 
+	/**
+	 * Retorna TRUE se o valor está dentro da regra
+	 * @param mixed $value
+	 * @param string $rule
+	 * @return bool
+	 */
 	public static function isValid($value, $rule)
 	{
 		static::$error = null;

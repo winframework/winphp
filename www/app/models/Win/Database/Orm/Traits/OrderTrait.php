@@ -23,6 +23,7 @@ trait OrderTrait
 
 	/**
 	 * Ordena pelo id
+	 * @param string $mode DESC|ASC
 	 * @return static
 	 */
 	public function order($mode = 'DESC')

@@ -25,12 +25,19 @@ class Select extends Query
 	/** @var OrderBy */
 	protected $orderBy;
 
+	/**
+	 * Prepara o select
+	 * @param RepositoryInterface $repository
+	 */
 	public function __construct(RepositoryInterface $repository)
 	{
 		parent::__construct($repository);
 		$this->init();
 	}
 
+	/**
+	 * Inicia os atributos padrão
+	 */
 	protected function init()
 	{
 		$this->columns = ['*'];
@@ -55,7 +62,10 @@ class Select extends Query
 		return $this->where->values();
 	}
 
-	/** @return int */
+	/**
+	 * Retorna o total de resultados da busca
+	 * @return int
+	 */
 	public function count()
 	{
 		$this->columns = ['count(*)'];
