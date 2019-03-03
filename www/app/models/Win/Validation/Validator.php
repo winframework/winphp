@@ -5,6 +5,7 @@ namespace Win\Validation;
 class Validator
 {
 	private $data = [];
+	private $validations = [];
 	private $errors = [];
 
 	const INDEX_NAME = 0;
@@ -13,21 +14,21 @@ class Validator
 
 	/**
 	 * Cria um validador
-	 * @param mixed[] $data
+	 * @param mixed[] $validations
 	 * @return static
 	 */
-	public static function create($data)
+	public static function create($validations)
 	{
-		return new static($data);
+		return new static($validations);
 	}
 
 	/* Cria um validador
-	 * @param mixed[] $data
+	 * @param mixed[] $validations
 	 * @return static
 	 */
-	public function __construct($data)
+	public function __construct($validations)
 	{
-		$this->data = $data;
+		$this->validations = $validations;
 	}
 
 	/**
@@ -74,12 +75,13 @@ class Validator
 
 	/**
 	 * Valida e retorna os dados válidos
-	 * @param mixed[] $validations
+	 * @param mixed[] $data
 	 * @return mixed[]
 	 */
-	public function validate($validations)
+	public function validate($data)
 	{
-		foreach ($validations as $index => $validation) {
+		$this->data = $data;
+		foreach ($this->validations as $index => $validation) {
 			$name = $this->getName($validation);
 			$rules = $this->getRules($validation);
 

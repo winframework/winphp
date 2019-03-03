@@ -69,8 +69,8 @@ class ContatoController extends \Win\Mvc\Controller
 	 */
 	protected function validate(&$data)
 	{
-		$validator = Validator::create($data);
-		$validator->validate($this->validations);
+		$validator = Validator::create($this->validations);
+		$validator->validate($data);
 
 		return $validator->getError();
 	}
