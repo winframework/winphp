@@ -27,6 +27,7 @@
 - Sessão;
 - Conexão com Banco de Dados;
 - ORM;
+- Validação de Campos;
 
 ---
 

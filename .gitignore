@@ -1,8 +1,8 @@
 /node_modules
-package.json
-gulpfile.js
 /nbproject/private/
 /vendor
 /docs/phpdoc
 .history/
+package.json
+gulpfile.js
 .vscode/sftp.json
