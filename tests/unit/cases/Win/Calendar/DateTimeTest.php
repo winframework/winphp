@@ -64,9 +64,11 @@ class DateTimeTest extends TestCase
 		$date = DateTime::create(DateTime::BR_DATE_TIME, $this->dateBR);
 		$beginYear = DateTime::create(DateTime::BR_DATE_TIME, '01/01/2000 00:00:01');
 		$endYear = DateTime::create(DateTime::BR_DATE_TIME, '25/11/2000 00:00:01');
+		$age = date('Y') - 2000;
 
 		$this->assertEquals(8, $date->getAge($beginYear));
 		$this->assertEquals(9, $date->getAge($endYear));
+		$this->assertEquals($age, $beginYear->getAge());
 	}
 
 	public function testGetMonthName()
