@@ -9,9 +9,8 @@
 
 - Responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC.
 - Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...
-
-[Doc/Pages](https://winframework.github.io/winphp)
-[Wiki](https://github.com/winframework/winphp/wiki)
+- [Documentação](https://winframework.github.io/winphp)
+- [Wiki](https://github.com/winframework/winphp/wiki)
 
 
 ### Funcionalidades
