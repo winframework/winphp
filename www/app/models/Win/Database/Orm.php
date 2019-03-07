@@ -95,6 +95,12 @@ abstract class Orm implements RepositoryInterface
 		return $this->model;
 	}
 
+	/** @return Model */
+	protected function setModel(Model $model)
+	{
+		return $this->model = $model;
+	}
+
 	/** @return bool */
 	public function modelExists()
 	{

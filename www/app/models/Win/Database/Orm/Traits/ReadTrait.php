@@ -25,12 +25,12 @@ trait ReadTrait
 	public function one()
 	{
 		$rows = $this->getQuery()->execute();
-		$row = [];
+		$result = null;
 		if (count($rows)) {
-			$row = $rows[0];
+			$result = $this->mapModel($rows[0]);
 		}
 
-		return $this->mapModel($row);
+		return $result;
 	}
 
 	/**

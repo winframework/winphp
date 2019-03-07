@@ -20,6 +20,9 @@ trait WriteTrait
 	/** @return Model */
 	abstract public function getModel();
 
+	/** @param Model $model */
+	abstract protected function setModel(Model $model);
+
 	/** @return bool */
 	abstract public function modelExists();
 
@@ -32,7 +35,7 @@ trait WriteTrait
 	 */
 	public function save(Model $model)
 	{
-		$this->model = $model;
+		$this->setModel($model);
 
 		return $this->insertOrUpdate();
 	}
@@ -55,7 +58,7 @@ trait WriteTrait
 		$query = new Insert($this->orm());
 		$success = $query->execute();
 		$id = (int) $this->getConnection()->getLastInsertId();
-		$this->model->setId($id);
+		$this->getModel()->setId($id);
 
 		return $success;
 	}
