@@ -2,6 +2,9 @@
 
 namespace Win\Database\Orm\Traits;
 
+/**
+ * Comportamento de Depurar/Debug no banco
+ */
 trait DebugTrait
 {
 	/** @var bool */

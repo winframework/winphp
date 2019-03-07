@@ -47,6 +47,12 @@ abstract class Orm implements RepositoryInterface
 		return $this;
 	}
 
+	/** @return Select */
+	protected function getQuery()
+	{
+		return $this->query;
+	}
+
 	/** @param Connection $conn */
 	public static function setConnection(Connection $conn)
 	{
@@ -54,7 +60,7 @@ abstract class Orm implements RepositoryInterface
 	}
 
 	/** @return Connection */
-	public static function getConnection()
+	public function getConnection()
 	{
 		return static::$conn;
 	}
@@ -87,6 +93,12 @@ abstract class Orm implements RepositoryInterface
 	public function getModel()
 	{
 		return $this->model;
+	}
+
+	/** @return Model */
+	protected function setModel(Model $model)
+	{
+		return $this->model = $model;
 	}
 
 	/** @return bool */

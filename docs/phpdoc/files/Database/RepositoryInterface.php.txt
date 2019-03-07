@@ -7,7 +7,7 @@ use Win\Database\Orm\Model;
 interface RepositoryInterface
 {
 	/** @return Connection */
-	public static function getConnection();
+	public function getConnection();
 
 	/** @return string */
 	public function getTable();
