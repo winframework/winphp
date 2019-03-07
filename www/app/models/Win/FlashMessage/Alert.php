@@ -15,6 +15,9 @@ class Alert
 	/** @var Session */
 	private $session;
 
+	/** @var string */
+	private static $block = 'layout/flash-message/alerts';
+
 	use SingletonTrait {
 		instance as instanceSingleton;
 	}
@@ -69,7 +72,7 @@ class Alert
 	 */
 	public function html()
 	{
-		return new Block('layout/message/alerts', ['alerts' => $this->all()]);
+		return new Block(static::$block, ['alerts' => $this->all()]);
 	}
 
 	/** @param string $message */

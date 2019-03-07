@@ -4,10 +4,13 @@ namespace Win\Database\Orm\Traits;
 
 use Win\Database\Sql\Queries\Select;
 
+/**
+ * Comportamento de Ordenar no banco
+ */
 trait OrderTrait
 {
-	/** @var Select */
-	protected $query;
+	/** @return Select */
+	abstract protected function getQuery();
 
 	/**
 	 * Ordena por um campo
@@ -16,7 +19,7 @@ trait OrderTrait
 	 */
 	public function orderBy($orderBy)
 	{
-		$this->query->orderBy($orderBy);
+		$this->getQuery()->orderBy($orderBy);
 
 		return $this;
 	}

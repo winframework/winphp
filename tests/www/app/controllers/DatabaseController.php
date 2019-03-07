@@ -2,10 +2,11 @@
 
 namespace controllers;
 
-use Win\Database\Connections\MysqlConnection;
+use Win\Database\Mysql\MysqlConnection;
 use Win\Database\Orm\Page\Page;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
+use Win\Database\Orm\Page\PageOrm;
 
 class DatabaseController extends Controller {
 

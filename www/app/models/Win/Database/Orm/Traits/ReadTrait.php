@@ -2,17 +2,16 @@
 
 namespace Win\Database\Orm\Traits;
 
-use Win\Database\Connection;
 use Win\Database\Orm\Model;
 use Win\Database\Sql\Queries\Select;
 
+/**
+ * Comportamento de Ler no banco
+ */
 trait ReadTrait
 {
-	/** @var Connection */
-	protected static $conn;
-
-	/** @var Select */
-	protected $query;
+	/** @return Select */
+	abstract protected function getQuery();
 
 	/**
 	 * @param mixed[] $row
@@ -25,9 +24,13 @@ trait ReadTrait
 	 */
 	public function one()
 	{
-		$rows = $this->query->execute();
+		$rows = $this->getQuery()->execute();
+		$row = [];
+		if (count($rows)) {
+			$row = $rows[0];
+		}
 
-		return $this->mapModel($rows[0]);
+		return $this->mapModel($row);
 	}
 
 	/**
@@ -35,7 +38,7 @@ trait ReadTrait
 	 */
 	public function all()
 	{
-		$rows = $this->query->execute();
+		$rows = $this->getQuery()->execute();
 		$all = [];
 		foreach ($rows as $row) {
 			$all[] = $this->mapModel($row);
@@ -50,7 +53,7 @@ trait ReadTrait
 	 */
 	public function count()
 	{
-		return $this->query->count();
+		return $this->getQuery()->count();
 	}
 
 	/**
@@ -60,7 +63,7 @@ trait ReadTrait
 	 */
 	public function setColumns($columns)
 	{
-		$this->query->columns = $columns;
+		$this->getQuery()->columns = $columns;
 
 		return $this;
 	}
@@ -72,7 +75,7 @@ trait ReadTrait
 	 */
 	public function addColumn($column)
 	{
-		$this->query->columns[] = $column;
+		$this->getQuery()->columns[] = $column;
 
 		return $this;
 	}
@@ -123,7 +126,7 @@ trait ReadTrait
 	 */
 	public function limit($limit)
 	{
-		$this->query->limit($limit);
+		$this->getQuery()->limit($limit);
 
 		return $this;
 	}

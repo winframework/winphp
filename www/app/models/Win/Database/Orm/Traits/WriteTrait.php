@@ -9,13 +9,16 @@ use Win\Database\Sql\Queries\Delete;
 use Win\Database\Sql\Queries\Insert;
 use Win\Database\Sql\Queries\Update;
 
+/**
+ * Comportamento de Escrever no banco
+ */
 trait WriteTrait
 {
-	/** @var Connection */
-	protected static $conn;
+	/** @return Connection */
+	abstract protected function getConnection();
 
-	/** @var Model */
-	protected $model;
+	/** @return Model */
+	abstract public function getModel();
 
 	/** @return bool */
 	abstract public function modelExists();
@@ -51,7 +54,8 @@ trait WriteTrait
 	{
 		$query = new Insert($this->orm());
 		$success = $query->execute();
-		$this->model->setId((int) static::$conn->getLastInsertId());
+		$id = (int) $this->getConnection()->getLastInsertId();
+		$this->model->setId($id);
 
 		return $success;
 	}
