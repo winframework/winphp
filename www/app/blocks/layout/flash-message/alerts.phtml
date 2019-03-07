@@ -1,0 +1,12 @@
+<?php
+
+use Win\Mvc\Block;
+
+/** @var Block $this */
+/** @var array $alerts */
+?>
+<?php foreach ($alerts as $type => $messages) : ?>
+<div class="alert alert-<?= $type; ?>">
+	<?= implode('<br />', $messages); ?>
+</div>
+<?php endforeach;

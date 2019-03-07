@@ -5,9 +5,31 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/winframework/winphp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/winframework/winphp/?branch=master)
 
 
-Estrutura PHP baseada em MVC, para gerenciar de forma dinâmica como as páginas são chamadas. Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...
+## Framework em PHP baseado em MVC
+
+- Responsável por incluir as páginas de acordo com a URL e gerenciar a estrutura MVC.
+- Assim você não precisa se preocupar com a estrutura de URL, páginas, títulos, etc...
+- [Documentação](https://winframework.github.io/winphp)
+- [Wiki](https://github.com/winframework/winphp/wiki)
 
 
+### Funcionalidades
+
+- Views automáticas;
+- Título de Página;
+- Rotas Personalizadas;
+- Sistema de Layouts;
+- Envio de Emails;
+- Manipulador de Datas;
+- Cálculo de Datas;
+- Manipulador de Arquivos;
+- Manipulador de Tipos Variáveis (Boolean, String, Array, etc);
+- Manipulador de Variáveis Globais (Input, Server, etc);
+- Alertas;
+- Sessão;
+- Conexão com Banco de Dados;
+- ORM;
+- Validação de Campos;
 
 ---
 

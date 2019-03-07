@@ -1,16 +1,14 @@
 <?php
-
 /*
- * Para editar o código HTML do layout, procure em:
- * app/block/layout/
+ * Para editar o código HTML do layout, procure em: app/blocks/layout/
+ * @see app/blocks/layout/
  */
-
 use Win\Mvc\Application;
 use Win\Mvc\HttpException;
 
 define('BASE_PATH', __DIR__);
 
-require 'lib/autoload.php';
+require 'libs/autoload.php';
 require 'app/config/app.php';
 
 session_start();
