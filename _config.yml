@@ -1,2 +1,2 @@
-include: [".index3.html"]
+include: [".css/**"]
 
