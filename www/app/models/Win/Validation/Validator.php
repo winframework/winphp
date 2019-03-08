@@ -58,7 +58,7 @@ class Validator
 	 */
 	protected function getName($index)
 	{
-		return $this->validations->get($index . '.' . self::INDEX_NAME);
+		return (string) $this->validations->get($index . '.' . self::INDEX_NAME);
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Validator
 	{
 		$name = $this->getName($index);
 		$key = $index . '.' . self::INDEX_MESSAGES . '.' . $rule;
-		$message = $this->validations->get($key);
+		$message = (string) $this->validations->get($key);
 
 		return Rules::getError($name, $message);
 	}
