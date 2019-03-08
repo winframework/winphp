@@ -72,7 +72,7 @@ class Alert
 	 */
 	public function html()
 	{
-		return new Block(static::BLOCK, ['alerts' => $this->all()]);
+		return new Block(static::BLOCK, ['alerts' => $this->all() ?: []]);
 	}
 
 	/** @param string $message */
