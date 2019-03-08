@@ -2,6 +2,8 @@
 
 namespace Win\Validation;
 
+use Win\Formats\Arr\Data;
+
 /**
  * Validador automatizado
  */
@@ -14,10 +16,9 @@ class Validator
 	private $data = [];
 
 	/**
-	 * Regras de validação
-	 * @var array
+	 * @var Data
 	 */
-	private $validations = [];
+	private $validations;
 
 	/**
 	 * Erros retornados durante a validação
@@ -46,17 +47,35 @@ class Validator
 	 */
 	public function __construct($validations)
 	{
-		$this->validations = $validations;
+		$this->validations = Data::instance();
+		$this->validations->load($validations);
 	}
 
 	/**
-	 * Retorna nome da validação
-	 * @param array $validation
+	 * Retorna o nome da validação
+	 * @param string $index
 	 * @return string
 	 */
-	protected function getName($validation)
+	protected function getName($index)
 	{
-		return $validation[self::INDEX_NAME];
+		return $this->validations->get($index . '.' . self::INDEX_NAME);
+	}
+
+	/**
+	 * Retorna o dado desejado
+	 * @param string $index
+	 * @return mixed
+	 */
+	public function getData($index = null)
+	{
+		if (is_null($index)) {
+			return $this->data;
+		}
+		if (key_exists($index, $this->data)) {
+			return $this->data[$index];
+		}
+
+		return null;
 	}
 
 	/**
@@ -74,63 +93,49 @@ class Validator
 	}
 
 	/**
-	 * Retorna a mensagem personalizada desta validação
+	 * Retorna a mensagem final desta validação
+	 * @param string $index
 	 * @param string $rule
-	 * @param array $validation
 	 * @return string|null
 	 */
-	protected function getMessage($rule, $validation)
+	protected function getMessage($index, $rule)
 	{
-		if (key_exists(self::INDEX_MESSAGES, $validation)) {
-			$messages = $validation[self::INDEX_MESSAGES];
-			if (key_exists($rule, $messages)) {
-				return $messages[$rule];
-			}
-		}
+		$name = $this->getName($index);
+		$key = $index . '.' . self::INDEX_MESSAGES . '.' . $rule;
+		$message = $this->validations->get($key);
 
-		return null;
+		return Rules::getError($name, $message);
 	}
 
 	/**
-	 * Valida e retorna os dados válidos
+	 * Valida os dados
 	 * @param array $data
-	 * @return array
+	 * @return bool
 	 */
 	public function validate($data)
 	{
 		$this->data = $data;
-		foreach ($this->validations as $index => $validation) {
-			$name = $this->getName($validation);
-			$rules = $this->getRules($validation);
-
-			foreach ($rules as $rule) {
-				$message = $this->getMessage($rule, $validation);
-				if (!$this->isFieldValid($index, $rule, $name, $message)) {
-					break;
-				}
+		foreach ($this->validations->all() as $index => $validation) {
+			foreach ($this->getRules($validation) as $rule) {
+				$this->isFieldValid($index, $rule);
 			}
 		}
 
-		return $this->data;
+		return !$this->hasError();
 	}
 
 	/**
 	 * Retorna TRUE se o campo é valido
 	 * @param string $index
 	 * @param string $rule
-	 * @param string $name
-	 * @param string|null $message
 	 * @return bool
 	 */
-	private function isFieldValid($index, $rule, $name, &$message = null)
+	private function isFieldValid($index, $rule)
 	{
-		if (key_exists($index, $this->data)) {
-			if (!Rules::isValid($this->data[$index], $rule)) {
-				if (!$message) {
-					$message = Rules::getError();
-				}
-				$this->errors[] = str_replace(':name', $name, $message);
-			}
+		$value = $this->getData($index);
+
+		if (!Rules::isValid($value, $rule)) {
+			$this->errors[] = $this->getMessage($index, $rule);
 		}
 
 		return !$this->hasError();

@@ -47,21 +47,36 @@ class ValidatorTest extends TestCase
 	{
 		$data = $this->defaultData;
 		$validator = Validator::create($this->validations);
-		$data = $validator->validate($data);
+		$valid = $validator->validate($data);
 
 		$this->assertFalse($validator->hasError());
 		$this->assertNull($validator->getError());
-		$this->assertCount(3, $data);
+		$this->assertTrue($valid);
+	}
+
+	public function testGetData()
+	{
+		$validator = Validator::create($this->validations);
+		$validator->validate([]);
+
+		$data = $this->defaultData;
+		$validator2 = Validator::create($this->validations);
+		$validator2->validate($data);
+
+		$this->assertCount(0, $validator->getData());
+		$this->assertEquals(null, $validator->getData('email'));
+
+		$this->assertCount(3, $validator2->getData());
+		$this->assertEquals('john@email.com', $validator2->getData('email'));
 	}
 
 	public function testValidateNoRules()
 	{
 		$data = $this->defaultData;
 		$validator = Validator::create(['nome' => ['Nome']]);
-		$data = $validator->validate($data);
+		$validator->validate($data);
 
 		$this->assertFalse($validator->hasError());
-		$this->assertCount(3, $data);
 	}
 
 	public function testValidateNameIsRequired()

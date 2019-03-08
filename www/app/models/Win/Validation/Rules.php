@@ -106,16 +106,18 @@ class Rules
 	}
 
 	/**
-	 * Retorna o Erro obtido durante a validação
+	 * Retorna a mensagem de erro obtida durante a validação
+	 * @param string $name
+	 * @param string $custom
 	 * @return string
 	 */
-	public static function getError()
+	public static function getError($name, $custom = null)
 	{
-		return static::$error;
+		return str_replace(':name', $name, $custom ?: static::$error);
 	}
 
 	/**
-	 * Atribui o erro
+	 * Atribui a mensagem de erro
 	 * @param string $error
 	 */
 	protected static function setError($error)

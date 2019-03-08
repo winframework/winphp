@@ -67,7 +67,7 @@ class ContatoController extends \Win\Mvc\Controller
 	 * @param mixed[] $data
 	 * @return string|null
 	 */
-	protected function validate(&$data)
+	protected function getValidationError(&$data)
 	{
 		$validator = Validator::create($this->validations);
 		$validator->validate($data);
@@ -86,7 +86,7 @@ class ContatoController extends \Win\Mvc\Controller
 
 		// Se clicou em Enviar
 		if (!empty($data['submit'])) {
-			$error = $this->validate($data);
+			$error = $this->getValidationError($data);
 
 			// Envia Email
 			if (is_null($error)) {
