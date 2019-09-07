@@ -3,13 +3,13 @@
 namespace Win\Database\Orm;
 
 use PHPUnit\Framework\TestCase;
-use Win\Database\Mysql\MysqlConnection as Mysql;
 use Win\Database\DbConfig;
+use Win\Database\Mysql\MysqlConnection as Mysql;
 use Win\Database\Orm\Page\Page;
 
 class PageOrmTest extends TestCase
 {
-	public static function setUpBeforeClass()
+	public function setUp()
 	{
 		DbConfig::connect();
 		static::createTable();
@@ -35,76 +35,143 @@ class PageOrmTest extends TestCase
 			(3, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
 	}
 
+	public function testRawQuery()
+	{
+		$orm = Page::orm();
+		$orm->rawQuery('SELECT * FROM ' . $orm->table
+			. ' WHERE Id BETWEEN ? AND ? ORDER BY Id DESC', [2, 10]);
+
+		$page = $orm->one();
+
+		$this->assertEquals(3, $page->getId());
+	}
+
+	public function testRunQuery()
+	{
+		$orm = Page::orm();
+		$orm->rawQuery('SELECT * FROM ' . $orm->table
+			. ' WHERE Id BETWEEN ? AND ? ORDER BY Id DESC', [2, 10]);
+
+		$success = $orm->run();
+
+		$this->assertTrue($success);
+	}
+
+	public function testRunInvalidQuery()
+	{
+		$orm = Page::orm();
+		$orm->rawQuery('INVALID QUERY');
+
+		$success = $orm->run();
+
+		$this->assertFalse($success);
+	}
+
+	/**
+	 * @expectedException \Exception
+	 */
+	public function testRunWithoutRawQuery()
+	{
+		Page::orm()->run();
+	}
+
 	public function testCount()
 	{
 		$count = Page::orm()->count();
 		$this->assertEquals(3, $count);
 	}
 
-	// public function testAll()
-	// {
-	// 	$pages = Page::orm()->all();
-	// 	$this->assertTrue(count($pages) > 1);
-	// 	$this->assertEquals('First Page', $pages[0]->getTitle());
-	// }
+	public function testAll()
+	{
+		$pages = Page::orm()->list();
+		$this->assertTrue(count($pages) > 1);
+		$this->assertEquals('First Page', $pages[0]->getTitle());
+	}
 
-	// public function testFind()
-	// {
-	// 	$page = Page::orm()->find(2);
-	// 	$this->assertEquals(2, $page->getId());
-	// 	$this->assertEquals('Second Page', $page->getTitle());
-	// }
+	public function testFind()
+	{
+		$page = Page::orm()->find(2);
+		$this->assertEquals(2, $page->getId());
+		$this->assertEquals('Second Page', $page->getTitle());
+	}
 
-	// public function testOrderByOlder()
-	// {
-	// 	$page = Page::orm()->order('asc')->one();
-	// 	$this->assertEquals(1, $page->getId());
-	// }
+	public function testSortByOldest()
+	{
+		$page = Page::orm()
+			->sortBy('Id', 'ASC')
+			->one();
+		$this->assertEquals(1, $page->getId());
+	}
 
-	// public function testOrderByNewer()
-	// {
-	// 	$page = Page::orm()->order('desc')->one();
-	// 	$this->assertEquals(3, $page->getId());
-	// }
+	public function testSortByNewest()
+	{
+		$page = Page::orm()
+			->sortBy('Id', 'DESC')
+			->one();
+		$this->assertEquals(3, $page->getId());
+	}
 
-	// public function testRecents()
-	// {
-	// 	$pages = Page::orm()->order()->all();
-	// 	$this->assertTrue(count($pages) > 1);
-	// 	$this->assertEquals('Third Page', $pages[0]->getTitle());
-	// }
+	public function testSortByWithPriority()
+	{
+		$pages = Page::orm()
+			->sortBy('Id', 'DESC', 0)
+			->sortBy('Title', 'ASC', 1)
+			->list();
+		$this->assertTrue(count($pages) > 1);
+		$this->assertEquals('Third Page', $pages[0]->getTitle());
+	}
 
-	// public function testOrderBy()
-	// {
-	// 	$pages = Page::orm()->orderBy('title ASC')->all();
-	// 	$this->assertTrue(count($pages) > 1);
-	// 	$this->assertEquals('First Page', $pages[0]->getTitle());
-	// }
+	public function testFilterBy()
+	{
+		$page = Page::orm()
+			->filterBy('title', '=', 'Second Page')
+			->one();
+		$this->assertEquals(2, $page->getId());
+	}
 
-	// public function testFilterBy()
-	// {
-	// 	$page = Page::orm()->filterBy('title', 'Second Page')->one();
-	// 	$this->assertEquals(2, $page->getId());
-	// }
+	public function testFilterByNotNull()
+	{
+		$page = Page::orm()
+			->filterBy('title', 'IS NOT NULL')
+			->one();
+		$this->assertEquals(1, $page->getId());
+	}
 
-	// public function testFilter()
-	// {
-	// 	$page = Page::orm()->filter('id', '=', 2)->one();
-	// 	$this->assertEquals($page->getId(), 2);
-	// 	$this->assertEquals('Second Page', $page->getTitle());
-	// }
+	public function testFilterByNull()
+	{
+		$count = Page::orm()
+			->filterBy('title', 'IS NULL')
+			->count();
+		$this->assertEquals(0, $count);
+	}
 
-	// public function testFilterRecent()
-	// {
-	// 	$repo = Page::orm();
-	// 	$repo->filter('id', '>', 1);
-	// 	$repo->filter('id', '<', 3);
-	// 	$repo->order('desc');
+	public function testFilterByLike()
+	{
+		$page = Page::orm()
+			->filterBy('title', 'LIKE', '%Second%')
+			->one();
+		$this->assertEquals(2, $page->getId());
+	}
 
-	// 	$pages = $repo->all();
-	// 	$this->assertCount(1, $pages);
-	// 	$this->assertEquals('Second Page', $pages[0]->getTitle());
-	// }
+	public function testFilter()
+	{
+		$page = Page::orm()
+			->filter('Title', 'Second Page')
+			->one();
+		$this->assertEquals($page->getId(), 2);
+	}
+
+	public function testFilterAndSort()
+	{
+		$orm = Page::orm();
+		$orm->filterBy('Id', '>', 1);
+		$orm->filterBy('Id', '<', 3);
+		$orm->sortBy('Id');
+
+		$pages = $orm->list();
+		$this->assertCount(1, $pages);
+		$this->assertEquals('Second Page', $pages[0]->getTitle());
+	}
 
 	// public function testLimit()
 	// {
@@ -134,72 +201,85 @@ class PageOrmTest extends TestCase
 	// 	$this->assertEquals('MyTitle', $page->getTitle());
 	// }
 
-	// public function testFlush()
-	// {
-	// 	$pages = Page::orm()->filter('id', '>', 1)->all();
-	// 	$pages2 = Page::orm()->filter('id', '>', 0)->all();
+	public function testFlush()
+	{
+		$orm = Page::orm();
+		$pages = $orm->filterBy('id', '>', 1)->list();
+		$pages2 = $orm->list();
+		$pages3 = Page::orm()->list();
 
-	// 	$this->assertCount(2, $pages);
-	// 	$this->assertCount(3, $pages2);
-	// }
+		$this->assertCount(2, $pages);
+		$this->assertCount(2, $pages2);
+		$this->assertCount(3, $pages3);
+	}
 
-	// public function testDelete()
-	// {
-	// 	$pagesTotal = count(Page::orm()->all());
-	// 	$page = Page::orm()->find(1);
-	// 	$success = Page::orm()->delete($page);
+	public function testDelete()
+	{
+		$pagesCount = count(Page::orm()->list());
+		$success = Page::orm()->filter('Id', 2)->delete();
 
-	// 	$this->assertTrue($success);
-	// 	$this->assertCount($pagesTotal - 1, Page::orm()->all());
-	// }
+		$this->assertTrue($success);
+		$this->assertCount($pagesCount - 1, Page::orm()->list());
+	}
 
-	// public function testDebugOn()
-	// {
-	// 	Page::orm()->debugOn();
-	// 	ob_start();
-	// 	Page::orm()->all();
-	// 	$result = ob_get_clean();
-	// 	$this->assertContains('SELECT * FROM', $result);
-	// }
+	public function testDestroy()
+	{
+		$pagesCount = count(Page::orm()->list());
+		$success = Page::orm()->destroy(2);
+		$newCount = count(Page::orm()->list());
 
-	// public function testDebugOff()
-	// {
-	// 	Page::orm()->debugOn();
-	// 	ob_start();
-	// 	Page::orm()->debugOff();
-	// 	Page::orm()->all();
-	// 	$empty = ob_get_clean();
-	// 	$this->assertEmpty($empty);
-	// }
+		$this->assertTrue($success);
+		$this->assertNotEquals($pagesCount, $newCount);
+	}
 
-	// public function testInsert()
-	// {
-	// 	$pagesTotal = count(Page::orm()->all());
+	public function testDebugOn()
+	{
+		$orm = Page::orm();
+		ob_start();
+		$orm->debug = true;
+		$orm->list();
+		$result = ob_get_clean();
+		$this->assertContains('SELECT * FROM', $result);
+	}
 
-	// 	$page = new Page();
-	// 	$page->setTitle('Fourth Page');
-	// 	$page->setDescription('Inserted by save method');
-	// 	$success = Page::orm()->save($page);
+	public function testDebugOff()
+	{
+		$orm = Page::orm();
+		ob_start();
+		$orm->debug = false;
+		$orm->list();
+		$empty = ob_get_clean();
+		$this->assertEmpty($empty);
+	}
 
-	// 	$this->assertTrue($success);
-	// 	$this->assertGreaterThan(0, $page->getId());
-	// 	$this->assertCount($pagesTotal + 1, Page::orm()->all());
-	// }
+	public function testInsert()
+	{
+		$pagesTotal = count(Page::orm()->list());
 
-	// public function testUpdate()
-	// {
-	// 	$pagesTotal = count(Page::orm()->all());
-	// 	$description = 'Updated by save method';
+		$page = new Page();
+		$page->setTitle('Fourth Page');
+		$page->setDescription('Inserted by save method');
+		$success = Page::orm()->save($page);
 
-	// 	$page = Page::orm()->order()->one();
-	// 	$page->setTitle('New Title');
-	// 	$page->setDescription($description);
-	// 	$success = Page::orm()->save($page);
-	// 	$pageUpdated = Page::orm()->order()->one();
+		$this->assertTrue($success);
+		$this->assertGreaterThan(0, $page->getId());
+		$this->assertCount($pagesTotal + 1, Page::orm()->list());
+	}
 
-	// 	$this->assertTrue($success);
-	// 	$this->assertEquals('New Title', $pageUpdated->getTitle());
-	// 	$this->assertEquals($description, $pageUpdated->getDescription());
-	// 	$this->assertCount($pagesTotal, Page::orm()->all());
-	// }
+	public function testUpdate()
+	{
+		$pagesTotal = count(Page::orm()->list());
+		$description = 'Updated by save method';
+
+		$page = Page::orm()->sortBy('Id', 'DESC')->one();
+		$page->setTitle('New Title');
+		$page->setDescription($description);
+		$success = Page::orm()->save($page);
+		$pageUpdated = Page::orm()->sortBy('Id', 'DESC')->one();
+
+		$this->assertTrue($success);
+		$this->assertEquals('New Title', $pageUpdated->getTitle());
+		$this->assertEquals($description, $pageUpdated->getDescription());
+		$this->assertCount($pagesTotal, Page::orm()->list());
+	}
 }

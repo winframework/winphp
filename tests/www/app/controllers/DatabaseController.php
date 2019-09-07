@@ -21,10 +21,12 @@ class DatabaseController extends Controller
 		$this->setTitle('Database Tests');
 
 		$page = new Page();
-		$page->setId(7);
-		$page->setTitle('seven!');
+		$page->setId(8);
+		$page->setTitle('chaves');
 
-		var_dump(Page::orm()->count());
+		$pageOrm = Page::orm();
+		$pageOrm->list();
+
 		return new View('demo');
 	}
 }

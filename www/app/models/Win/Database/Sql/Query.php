@@ -4,6 +4,13 @@ namespace Win\Database\Sql;
 
 use Win\Database\Connection;
 use Win\Database\Orm;
+use Win\Database\Sql\Clauses\OrderBy;
+use Win\Database\Sql\Clauses\Where;
+use Win\Database\Sql\Statements\Delete;
+use Win\Database\Sql\Statements\Insert;
+use Win\Database\Sql\Statements\Select;
+use Win\Database\Sql\Statements\SelectCount;
+use Win\Database\Sql\Statements\Update;
 
 /**
  * SELECT, UPDATE, DELETE, etc
@@ -14,15 +21,22 @@ class Query
 	protected $conn;
 
 	/** @var Orm */
-	protected $orm;
+	public $orm;
 
 	/** @var string */
-	protected $table;
-
-	protected $statement;
+	public $table;
 
 	/** @var array */
-	protected $values;
+	public $values;
+
+	/** @var Statement */
+	protected $statement;
+
+	/** @var Where */
+	public $where;
+
+	/** @var OrderBy */
+	public $orderBy;
 
 	/**
 	 * Prepara a query
@@ -32,8 +46,37 @@ class Query
 	{
 		$this->orm = $orm;
 		$this->table = $orm->table;
-		$this->conn = $orm->getConnection();
+		$this->conn = $orm->conn;
 		$this->values = [];
+
+		$this->where = new Where($this);
+		$this->orderBy = new OrderBy();
+	}
+
+	/**
+	 * Define a base da Query
+	 * @param string $statement
+	 * @example setStatement('SELECT'|'UPDATE'|'DELETE')
+	 */
+	public function setStatement($statement)
+	{
+		switch ($statement) {
+			case 'SELECT':
+				$this->statement = new Select($this);
+			break;
+			case 'SELECT COUNT':
+				$this->statement = new SelectCount($this);
+			break;
+			case 'UPDATE':
+				$this->statement = new Update($this);
+			break;
+			case 'INSERT':
+				$this->statement = new Insert($this);
+			break;
+			case 'DELETE':
+				$this->statement = new Delete($this);
+			break;
+		}
 	}
 
 	/**
@@ -42,67 +85,13 @@ class Query
 	 */
 	protected function toString()
 	{
-		switch ($this->statement) {
-			case 'SELECT':
-				return 'SELECT * FROM ' . $this->table;
-			break;
-			case 'SELECT_COUNT':
-				return 'SELECT count(*) FROM ' . $this->table;
-			break;
-			case 'UPDATE':
-				$sets = array_map(function ($column) {
-					return $column . ' = ?';
-				}, $this->getKeys());
-
-				return 'UPDATE ' . $this->table
-				. ' SET ' . implode(', ', $sets)
-				. ' WHERE Id = ' . $this->values['Id'];
-			break;
-			case 'INSERT':
-				return 'INSERT INTO ' . $this->table . ' (' . implode(',', $this->getKeys()) . ')'
-				. ' VALUES (' . implode(', ', $this->getBindParams()) . ')';
-			break;
-			case 'DELETE':
-				return 'DELETE FROM ' . $this->table;
-			break;
-		}
-
-		return '';
-	}
-
-	/**
-	 * @return string[]
-	 * @example return ['?','?','?']
-	 */
-	protected function getBindParams()
-	{
-		return str_split(str_repeat('?', count($this->values)));
+		return $this->statement->__toString();
 	}
 
 	/** @return mixed[] */
 	public function getValues()
 	{
-		return array_values($this->values);
-	}
-
-	/** @return mixed[] */
-	public function getKeys()
-	{
-		return array_keys($this->values);
-	}
-
-	/**
-	 * Define os valores
-	 * @param mixed[] $values
-	 */
-	public function setValues($values)
-	{
-		$this->values = $values;
-	}
-
-	public function setStatement($statement)
-	{
-		$this->statement = $statement;
+		return array_values($this->statement->getValues());
 	}
 
 	/**
@@ -111,7 +100,7 @@ class Query
 	 */
 	public function __toString()
 	{
-		if ($this->orm->getDebugMode()) {
+		if ($this->orm->debug) {
 			$this->debug();
 		}
 
@@ -123,8 +112,6 @@ class Query
 	 */
 	public function debug()
 	{
-		print_r('<pre>');
-		print_r((string) $this->toString());
-		print_r('</pre>');
+		var_dump($this->toString(), $this->getValues());
 	}
 }

@@ -8,17 +8,17 @@ namespace Win\Database\Sql\Clauses;
 class OrderBy
 {
 	/**
-	 * Modo de ordenação
-	 * @var string
+	 * Sequencias de listagem
+	 * @var string[]
 	 */
-	private $orderBy;
+	private $ordinations;
 
 	/**
 	 * Prepara a cláusula SQL
 	 */
 	public function __construct()
 	{
-		$this->orderBy = 'id ASC';
+		$this->ordinations = ['id ASC'];
 	}
 
 	/**
@@ -27,19 +27,37 @@ class OrderBy
 	 */
 	public function __toString()
 	{
-		if ($this->orderBy) {
-			return ' ORDER BY ' . $this->orderBy;
+		if ($this->ordinations) {
+			return ' ORDER BY ' . implode(', ', $this->ordinations);
 		}
 
 		return '';
 	}
 
 	/**
-	 * Define a ordenação
+	 * Define a ordenação principal
 	 * @param string $orderBy
 	 */
 	public function set($orderBy)
 	{
-		$this->orderBy = $orderBy;
+		$this->ordinations = [$orderBy];
+	}
+
+	/**
+	 * Adiciona uma ordenação
+	 * @param string $orderBy
+	 * @param int $priority
+	 */
+	public function add($orderBy, $priority = 0)
+	{
+		$this->ordinations[$priority] = $orderBy;
+	}
+
+	/**
+	 * Remove as ordenações
+	 */
+	public function clear()
+	{
+		$this->ordinations = [];
 	}
 }

@@ -2,9 +2,12 @@
 
 namespace Win\Database;
 
+use Win\Database\Mysql\MysqlConnection;
 use Win\Database\Orm\Model;
-use Win\Database\Orm\Traits\ConnectableTrait;
-use Win\Database\Orm\Traits\DebugTrait;
+use Win\Database\Orm\Traits\FilterTrait;
+use Win\Database\Orm\Traits\RawSql;
+use Win\Database\Orm\Traits\SortTrait;
+use Win\Database\Sql\Clauses\Where;
 use Win\Database\Sql\Query;
 
 /**
@@ -12,8 +15,15 @@ use Win\Database\Sql\Query;
  */
 abstract class Orm
 {
-	use ConnectableTrait;
-	use DebugTrait;
+	use FilterTrait;
+	use SortTrait;
+	use RawSql;
+
+	/** @var Model */
+	protected $model;
+
+	/** @var Query */
+	protected $query;
 
 	/** @var string */
 	public $table;
@@ -21,11 +31,14 @@ abstract class Orm
 	/** @var string */
 	public $entity;
 
-	/** @var Model */
-	protected $model;
+	/** @var Connection */
+	public $conn;
 
-	/** @var Query */
-	protected $query;
+	/** @var bool */
+	public $debug;
+
+	/** @var Where */
+	public $filter;
 
 	/**
 	 * @param Model $model
@@ -44,8 +57,9 @@ abstract class Orm
 	 */
 	public function __construct($connection = null)
 	{
-		$this->conn = $connection ?: self::$defaultConnection;
+		$this->conn = $connection ?: MysqlConnection::instance();
 		$this->query = new Query($this);
+		$this->filter = $this->query->where;
 	}
 
 	/**
@@ -53,24 +67,11 @@ abstract class Orm
 	 */
 	public function one()
 	{
-		$this->query->setStatement('SELECT');
-		$row = $this->conn->fetch(
-			$this->query,
-			$this->query->getValues()
-		);
+		$query = $this->query;
+		$query->setStatement('SELECT');
+		$row = $this->conn->fetch($query, $query->getValues());
 
 		return $this->mapModel($row);
-	}
-
-	/**
-	 * Retorna o registro pela PK
-	 * @param int $id
-	 */
-	public function find($id)
-	{
-		$this->filterBy('id', '=', $id);
-
-		return $this->one();
 	}
 
 	/**
@@ -91,7 +92,7 @@ abstract class Orm
 	public function count()
 	{
 		$query = $this->query;
-		$query->setStatement('SELECT_COUNT');
+		$query->setStatement('SELECT COUNT');
 
 		return $this->conn->fetchCount($query, $query->getValues());
 	}
@@ -150,8 +151,8 @@ abstract class Orm
 	private function insert()
 	{
 		$query = $this->query;
+		$query->values = $this->mapRow($this->model);
 		$query->setStatement('INSERT');
-		$query->setValues($this->mapRow($this->model));
 
 		$success = $this->conn->query($query, $query->getValues());
 		$this->model->setId((int) $this->conn->getLastInsertId());
@@ -160,32 +161,22 @@ abstract class Orm
 	}
 
 	/** @return bool */
-	public function update()
+	private function update()
 	{
+		$this->filterBy('Id', '=', $this->model->getId());
 		$query = $this->query;
+		$query->values = $this->mapRow($this->model);
 		$query->setStatement('UPDATE');
-		$values = $this->mapRow($this->model);
-		$this->query->setValues($values);
 
-		return $this->conn->query($query, $query->getValues());
+		$success = $this->conn->query($query, $query->getValues());
+		$this->query->where = new Where();
+
+		return $success;
 	}
 
 	/** @return bool */
 	public function modelExists()
 	{
 		return $this->model->getId() > 0;
-	}
-
-	/**
-	 * Ordena por um campo
-	 * @param string $column
-	 * @param string $mode
-	 * @return static
-	 */
-	public function sortBy($column, $mode = 'DESC')
-	{
-		$this->query->orderBy($column . ' ' . $mode);
-
-		return $this;
 	}
 }

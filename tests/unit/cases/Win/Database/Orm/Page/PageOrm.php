@@ -9,7 +9,7 @@ use Win\Database\Orm;
  *
  * @method Page one
  * @method Page[] list
- * @method Page find
+ * @method Page find($id)
  */
 class PageOrm extends Orm
 {

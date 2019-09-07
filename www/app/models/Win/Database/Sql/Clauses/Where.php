@@ -8,56 +8,61 @@ namespace Win\Database\Sql\Clauses;
 class Where
 {
 	/**
-	 * Nome dos Filtros
-	 * @var array
+	 * Comparadores (column + operator)
+	 * @var string[]
+	 * @example ['Id > ?', 'Name LIKE ?', 'Age IS NULL']
 	 */
-	private $filters;
+	private $comparators;
 
 	/**
-	 * Valor dos filtros
-	 * @var array
+	 * Valor a ser comparado
+	 * @var mixed[]
+	 * @example [10, 'John']
 	 */
-	private $values;
+	public $values;
 
 	/**
 	 * Prepara a cláusula Where
 	 */
 	public function __construct()
 	{
-		$this->filters = [];
+		$this->comparators = [];
+		$this->values = [];
 	}
 
 	/**
-	 * Retorna o SQL da cláusula
+	 * Retorna o SQL
 	 * @return string
 	 */
 	public function __toString()
 	{
-		if (count($this->filters)) {
-			return ' WHERE ' . implode(' AND ', $this->filters);
+		if (count($this->comparators)) {
+			return ' WHERE ' . implode(' AND ', $this->comparators);
 		}
 
 		return '';
 	}
 
 	/**
-	 * Adiciona um filtro where
+	 * Adiciona uma comparação
 	 * @param string $column
 	 * @param string $operator
 	 * @param mixed $value
 	 */
-	public function add($column, $operator, $value)
+	public function add($column, $operator, $value = null)
 	{
-		$this->filters[] = $column . $operator . '?';
-		$this->values[] = $value;
+		if (is_null($value)) {
+			$this->comparators[] = $column . ' ' . $operator;
+		} else {
+			$this->values[] = $value;
+			$this->comparators[] = $column . ' ' . $operator . ' ?';
+		}
 	}
 
-	/**
-	 * Retorna os valores
-	 * @return mixed[]
-	 */
-	public function values()
-	{
-		return $this->values;
-	}
+	// public function and(...$comparators)
+	// {
+	// 	foreach ($comparators as $rule) {
+	// 		$this->add($rule[0], $rule[1], $rule[2]);
+	// 	}
+	// }
 }

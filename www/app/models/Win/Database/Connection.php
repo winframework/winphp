@@ -45,7 +45,6 @@ abstract class Connection
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec('set names utf8');
 			$this->pdoException = null;
-			Orm::$defaultConnection = $this;
 		} catch (PDOException $ex) {
 			$this->pdoException = $ex;
 		}
@@ -78,6 +77,7 @@ abstract class Connection
 	public function query($query, $values = [])
 	{
 		$stmt = $this->pdo->prepare($query);
+
 		return $stmt->execute($values);
 	}
 
