@@ -34,12 +34,6 @@ class UrlTest extends TestCase
 		$this->assertContains('my-page/subpage', $url);
 	}
 
-	public function testRedirect()
-	{
-		Url::instance()->redirect('teste');
-		$this->assertContains('teste', Header::instance()->get('location'));
-	}
-
 	public function testGetUrlNull()
 	{
 		Url::instance('new')->setSuffix('');

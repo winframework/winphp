@@ -137,6 +137,7 @@ abstract class Controller
 	/**
 	 * Redireciona para a URL
 	 * @param string $url
+	 * @codeCoverageIgnore
 	 */
 	public function redirect($url)
 	{
@@ -146,6 +147,7 @@ abstract class Controller
 	/**
 	 * Atualiza a mesma página
 	 * @param string $url
+	 * @codeCoverageIgnore
 	 */
 	public function refresh()
 	{

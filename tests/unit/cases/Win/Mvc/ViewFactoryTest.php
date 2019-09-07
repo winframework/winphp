@@ -17,10 +17,10 @@ class ViewFactoryTest extends TestCase
 
 	public function testCreate404()
 	{
-		$view = ViewFactory::create('doent-exist');
+		$view = ViewFactory::create('not-exist');
 		$this->assertTrue(!$view->exists());
 
-		$view = ViewFactory::create('doent-exist', 'index');
+		$view = ViewFactory::create('not-exist', 'index');
 		$this->assertFalse($view->exists());
 
 		$view = ViewFactory::create(404);

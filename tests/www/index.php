@@ -2,7 +2,7 @@
 
 /*
  * Para editar o código HTML do layout, procure em:
- * app/block/layout/
+ * app/templates/
  */
 
 use Win\Mvc\Application;

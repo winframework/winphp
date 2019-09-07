@@ -3,7 +3,6 @@
 namespace Win\Mvc;
 
 use Win\Formats\Arr\Data;
-use Win\Request\Header;
 use Win\Request\Url;
 
 /**
@@ -81,7 +80,6 @@ class Application
 	public function run()
 	{
 		$this->controller->load();
-		Header::instance()->run();
 		$layout = new Layout($this->controller->layout);
 		$layout->load();
 	}

@@ -100,11 +100,17 @@ class Validator
 	 */
 	protected function getMessage($index, $rule)
 	{
+		$ruleParam = explode(':', $rule);
+		$ruleName = array_shift($ruleParam);
+
 		$name = $this->getName($index);
-		$key = $index . '.' . self::INDEX_MESSAGES . '.' . $rule;
+		$key = $index . '.' . self::INDEX_MESSAGES . '.' . $ruleName;
 		$message = (string) $this->validations->get($key);
 
-		return Rules::getError($name, $message);
+		$find = [':name', '$1', '$2', '$3'];
+		$replace = array_merge([$name], $ruleParam);
+
+		return Rules::getError($find, $replace, $message);
 	}
 
 	/**

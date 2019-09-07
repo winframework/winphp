@@ -16,20 +16,20 @@ class InputTest extends TestCase
 
 	public function testFile()
 	{
-		$this->assertNull(Input::file('not-exists'));
+		$this->assertNull(Input::file('not-exist'));
 	}
 
 	public function testPost()
 	{
 		$_POST['not-exist'] = 1;
-		$this->assertNull(Input::post('not-exists'));
-		$value = Input::post('not-exists', FILTER_DEFAULT, 'my default post');
+		$this->assertNull(Input::post('not-exist'));
+		$value = Input::post('not-exist', FILTER_DEFAULT, 'my default post');
 		$this->assertEquals($value, 'my default post');
 	}
 
 	public function testPostArray()
 	{
-		$this->assertTrue(is_array(Input::postArray('not-exists')));
+		$this->assertTrue(is_array(Input::postArray('not-exist')));
 	}
 
 	public function testPostFile()
@@ -43,8 +43,8 @@ class InputTest extends TestCase
 	public function testGet()
 	{
 		$_GET['not-exist'] = 2;
-		$this->assertNull(Input::post('not-exists'));
-		$value = Input::get('not-exists', FILTER_DEFAULT, 'my default get');
+		$this->assertNull(Input::post('not-exist'));
+		$value = Input::get('not-exist', FILTER_DEFAULT, 'my default get');
 		$this->assertEquals($value, 'my default get');
 	}
 

@@ -29,15 +29,11 @@ class DemoController extends Controller {
 	}
 
 	public function returnInvalidView() {
-		return new View('this-file-doesnt-exist');
+		return new View('this-file-not-exist');
 	}
 
 	public function returnInvalidView2() {
 		return new View('my-view/invalid');
-	}
-
-	public function tryRedirect() {
-		$this->redirect('index');
 	}
 
 	public function tryRefresh() {

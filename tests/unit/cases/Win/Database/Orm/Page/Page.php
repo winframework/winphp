@@ -77,6 +77,6 @@ class Page implements Model
 	/** @return PageOrm */
 	public static function orm()
 	{
-		return PageOrm::instance();
+		return new PageOrm();
 	}
 }

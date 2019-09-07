@@ -15,7 +15,7 @@ class ViewTest extends TestCase
 
 	public function getInvalidView()
 	{
-		return new View('this-view-doesnt-exist');
+		return new View('this-view-not-exist');
 	}
 
 	/**
@@ -41,7 +41,7 @@ class ViewTest extends TestCase
 		$view = $this->getValidView();
 		$this->assertContains('my-view.phtml', $view->getFile());
 		$view2 = $this->getInvalidView();
-		$this->assertContains('this-view-doesnt-exist.phtml', $view2->getFile());
+		$this->assertContains('this-view-not-exist.phtml', $view2->getFile());
 	}
 
 	public function testToString()

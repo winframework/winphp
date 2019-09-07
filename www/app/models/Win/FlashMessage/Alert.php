@@ -16,7 +16,7 @@ class Alert
 	private $session;
 
 	/** @var string */
-	const BLOCK = 'layout/flash-message/alerts';
+	const BLOCK = 'flash-message/alerts';
 
 	use SingletonTrait {
 		instance as instanceSingleton;
@@ -48,6 +48,15 @@ class Alert
 	public function all()
 	{
 		return $this->session->popAll();
+	}
+
+	/**
+	 * Retorna TRUE se tem alguma mensagem salva
+	 * @return bool
+	 */
+	public function has()
+	{
+		return count($this->session->all()) > 0;
 	}
 
 	/**

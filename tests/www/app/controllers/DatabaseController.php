@@ -6,22 +6,25 @@ use Win\Database\Mysql\MysqlConnection;
 use Win\Database\Orm\Page\Page;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
-use Win\Database\Orm\Page\PageOrm;
 
-class DatabaseController extends Controller {
-
-	protected function init() {
+class DatabaseController extends Controller
+{
+	protected function init()
+	{
 		$db = [];
 		require 'app/config/database.php';
 		MysqlConnection::instance()->connect($db);
 	}
 
-	public function index() {
+	public function index()
+	{
 		$this->setTitle('Database Tests');
-		$pageOrm = Page::orm();
-		$pageOrm->debugOn();
-		var_dump($pageOrm->all());
+
+		$page = new Page();
+		$page->setId(7);
+		$page->setTitle('seven!');
+
+		var_dump(Page::orm()->count());
 		return new View('demo');
 	}
-
 }

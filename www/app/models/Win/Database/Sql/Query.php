@@ -3,44 +3,107 @@
 namespace Win\Database\Sql;
 
 use Win\Database\Connection;
-use Win\Database\RepositoryInterface;
+use Win\Database\Orm;
 
 /**
  * SELECT, UPDATE, DELETE, etc
  */
-abstract class Query
+class Query
 {
 	/** @var Connection */
 	protected $conn;
 
-	/** @var RepositoryInterface */
-	protected $repository;
+	/** @var Orm */
+	protected $orm;
 
 	/** @var string */
 	protected $table;
 
+	protected $statement;
+
+	/** @var array */
+	protected $values;
+
 	/**
 	 * Prepara a query
-	 * @param RepositoryInterface $repository
+	 * @param Orm $orm
 	 */
-	public function __construct(RepositoryInterface $repository)
+	public function __construct(Orm $orm)
 	{
-		$this->repository = $repository;
-		$this->table = $this->repository->getTable();
-		$this->conn = $repository->getConnection();
+		$this->orm = $orm;
+		$this->table = $orm->table;
+		$this->conn = $orm->getConnection();
+		$this->values = [];
 	}
 
 	/**
 	 * Retorna o comando SQL
 	 * @return string
 	 */
-	abstract protected function toString();
+	protected function toString()
+	{
+		switch ($this->statement) {
+			case 'SELECT':
+				return 'SELECT * FROM ' . $this->table;
+			break;
+			case 'SELECT_COUNT':
+				return 'SELECT count(*) FROM ' . $this->table;
+			break;
+			case 'UPDATE':
+				$sets = array_map(function ($column) {
+					return $column . ' = ?';
+				}, $this->getKeys());
+
+				return 'UPDATE ' . $this->table
+				. ' SET ' . implode(', ', $sets)
+				. ' WHERE Id = ' . $this->values['Id'];
+			break;
+			case 'INSERT':
+				return 'INSERT INTO ' . $this->table . ' (' . implode(',', $this->getKeys()) . ')'
+				. ' VALUES (' . implode(', ', $this->getBindParams()) . ')';
+			break;
+			case 'DELETE':
+				return 'DELETE FROM ' . $this->table;
+			break;
+		}
+
+		return '';
+	}
 
 	/**
-	 * Executa a query
-	 * @return mixed
+	 * @return string[]
+	 * @example return ['?','?','?']
 	 */
-	abstract public function execute();
+	protected function getBindParams()
+	{
+		return str_split(str_repeat('?', count($this->values)));
+	}
+
+	/** @return mixed[] */
+	public function getValues()
+	{
+		return array_values($this->values);
+	}
+
+	/** @return mixed[] */
+	public function getKeys()
+	{
+		return array_keys($this->values);
+	}
+
+	/**
+	 * Define os valores
+	 * @param mixed[] $values
+	 */
+	public function setValues($values)
+	{
+		$this->values = $values;
+	}
+
+	public function setStatement($statement)
+	{
+		$this->statement = $statement;
+	}
 
 	/**
 	 * Retorna o comando SQL
@@ -48,7 +111,7 @@ abstract class Query
 	 */
 	public function __toString()
 	{
-		if ($this->repository->getDebugMode()) {
+		if ($this->orm->getDebugMode()) {
 			$this->debug();
 		}
 

@@ -2,6 +2,8 @@
 
 namespace Win\Validation;
 
+use Exception;
+
 /**
  * Regras de validação
  *
@@ -28,7 +30,12 @@ class Rules
 		$ruleName = array_shift($ruleParam);
 		$method = Rules::class . '::' . $ruleName;
 		array_unshift($ruleParam, $value);
-		call_user_func_array($method, $ruleParam);
+
+		if (method_exists(__CLASS__, $ruleName)) {
+			call_user_func_array($method, $ruleParam);
+		} else {
+			throw new Exception('The validation "' . $rule . '" do NOT exists.');
+		}
 
 		return is_null(static::$error);
 	}
@@ -67,29 +74,59 @@ class Rules
 	}
 
 	/**
-	 * Valida se é o valor mínimo esperado
+	 * Valida se o valor é o mínimo esperado
+	 *
+	 * Inteiro: valor mínimo
+	 * String: tamanho mínimo da string
 	 * @param mixed $value
 	 * @param int $min
 	 */
 	protected static function min($value, $min)
 	{
-		if ($value < $min) {
+		if (is_int($value) && $value < $min) {
 			static::setError(
-				'O campo :name precisa ser maior do que ' . $min . '.'
+				'O campo :name precisa ser maior do que $1.'
+			);
+		}
+		if (is_string($value) && strlen($value) < $min) {
+			static::setError(
+				'O campo :name deve ter pelo menos $1 caracteres.'
 			);
 		}
 	}
 
 	/**
 	 * Valida se é o valor máximo esperado
+	 *
+	 * Inteiro: valor máximo
+	 * String: tamanho máximo da string
 	 * @param mixed $value
 	 * @param int $max
 	 */
 	protected static function max($value, $max)
 	{
-		if ($value > $max) {
+		if (is_int($value) && $value > $max) {
 			static::setError(
-				'O campo :name precisa ser menor do que ' . $max . '.'
+				'O campo :name precisa ser menor do que $1.'
+			);
+		}
+		if (is_string($value) && strlen($value) > $max) {
+			static::setError(
+				'O campo :name deve ter no máximo $1 caracteres.'
+			);
+		}
+	}
+
+	/**
+	 * Valida se a string é igual a outra
+	 * @param mixed $value
+	 * @param mixed $compare
+	 */
+	protected static function equal($value, $compare)
+	{
+		if ($value != $compare) {
+			static::setError(
+				'O campo :name deve ser informado duas vezes.'
 			);
 		}
 	}
@@ -107,13 +144,14 @@ class Rules
 
 	/**
 	 * Retorna a mensagem de erro obtida durante a validação
-	 * @param string $name
+	 * @param array $find
+	 * @param array $replace
 	 * @param string $custom
 	 * @return string
 	 */
-	public static function getError($name, $custom = null)
+	public static function getError($find, $replace, $custom = null)
 	{
-		return str_replace(':name', $name, $custom ?: static::$error);
+		return str_replace($find, $replace, $custom ?: static::$error);
 	}
 
 	/**

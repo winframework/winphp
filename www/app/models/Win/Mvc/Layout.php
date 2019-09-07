@@ -13,5 +13,5 @@ namespace Win\Mvc;
  */
 class Layout extends Block
 {
-	public static $dir = '/app/blocks/layout';
+	public static $dir = '/app/templates';
 }

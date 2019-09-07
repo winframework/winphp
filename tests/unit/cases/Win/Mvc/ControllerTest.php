@@ -5,7 +5,6 @@ namespace Win\Mvc;
 use controllers\DemoController;
 use controllers\IndexController;
 use PHPUnit\Framework\TestCase;
-use Win\Request\Header;
 use Win\Request\Url;
 
 class ControllerTest extends TestCase
@@ -75,21 +74,5 @@ class ControllerTest extends TestCase
 		$this->assertFalse($demo->returnInvalidView2()->exists());
 		$demo = new DemoController();
 		$this->assertTrue($demo->returnValidView()->exists());
-	}
-
-	public function testRedirect()
-	{
-		$demo = new DemoController();
-		$demo->tryRedirect();
-
-		return Header::instance()->clear();
-	}
-
-	public function testRefresh()
-	{
-		$demo = new DemoController();
-		$demo->tryRefresh();
-
-		return Header::instance()->clear();
 	}
 }

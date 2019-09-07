@@ -17,7 +17,7 @@ class Theme
 {
 	use SingletonTrait;
 
-	protected static $dir = '/app/themes';
+	protected static $dir = '/app/templates/themes';
 	const THEME_DEFAULT = 'default';
 
 	/**
@@ -55,7 +55,7 @@ class Theme
 	 */
 	public function getFilePath($file)
 	{
-		$viewDir = str_replace('app/', '', View::$dir);
+		$viewDir = str_replace('app/templates/', '', View::$dir);
 		$path = self::$dir . DIRECTORY_SEPARATOR . self::$theme
 		. $viewDir . DIRECTORY_SEPARATOR;
 		if (file_exists(BASE_PATH . $path . $file . '.phtml')) {

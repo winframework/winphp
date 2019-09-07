@@ -9,7 +9,7 @@ namespace Win\Mvc;
  */
 class Block
 {
-	public static $dir = '/app/blocks';
+	public static $dir = '/app/templates/blocks';
 
 	/**
 	 * Ponteiro para Aplicação Principal

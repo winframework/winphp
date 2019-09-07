@@ -4,7 +4,6 @@ namespace Win\Mail;
 
 use PHPUnit\Framework\TestCase;
 use Win\Filesystem\Directory;
-use Win\Mvc\Block;
 use Win\Request\Server;
 
 class EmailTest extends TestCase
@@ -34,9 +33,9 @@ class EmailTest extends TestCase
 	public function testAddAddress()
 	{
 		$email = new Email();
-		$email->addAddress('first@email.com', 'First Name');
-		$email->addAddress('second@email.com', 'Second Name');
-		$addresses = $email->getAddresses();
+		$email->addTo('first@email.com', 'First Name');
+		$email->addTo('second@email.com', 'Second Name');
+		$addresses = $email->getTo();
 
 		$this->assertEquals(2, count($addresses));
 		$this->assertTrue(key_exists('first@email.com', $addresses));
@@ -47,10 +46,10 @@ class EmailTest extends TestCase
 	public function testReplyTo()
 	{
 		$email = new Email();
-		$email->addAddress('first@email.com', 'First Name');
+		$email->addTo('first@email.com', 'First Name');
 		$email->addReplyTo('first@reply.com', 'First Reply');
 		$email->addReplyTo('second@reply.com', 'Second Reply');
-		$replyAddresses = $email->getReplyToAddresses();
+		$replyAddresses = $email->getReplyTo();
 
 		$this->assertEquals(2, count($replyAddresses));
 		$this->assertTrue(key_exists('first@reply.com', $replyAddresses));
@@ -68,27 +67,27 @@ class EmailTest extends TestCase
 	public function testContentNofFoundBlock()
 	{
 		$email = new Email();
-		$body = new Block('this-block-doent-exist');
+		$body = new EmailContent('html/this-block-not-exist');
 		$email->setContent($body);
 
-		$this->assertTrue($email->getContent() instanceof Block);
+		$this->assertTrue($email->getContent() instanceof EmailContent);
 		$this->assertEquals('', $email->getContent());
 	}
 
 	public function testContentBlock()
 	{
 		$email = new Email();
-		$body = new Block('email/contents/first');
+		$body = new EmailContent('html/first');
 		$email->setContent($body);
 
-		$this->assertTrue($email->getContent() instanceof Block);
+		$this->assertTrue($email->getContent() instanceof EmailContent);
 		$this->assertEquals('My first content', (string) $body);
 	}
 
 	public function testNotFoundLayout()
 	{
 		$email = new Email();
-		$email->setLayout('dont-exists');
+		$email->setLayout('not-exist');
 		$this->assertEquals($email->__toString(), '');
 	}
 
@@ -98,10 +97,9 @@ class EmailTest extends TestCase
 		$this->assertEquals($string, 'My default main (with content) ');
 	}
 
-	public function testCustomtLayout()
+	public function testCustomLayout()
 	{
-		$email = new Email();
-		$email->setLayout('custom-layout');
+		$email = new Email('custom-layout');
 		$this->assertContains('My custom layout', $email->__toString());
 	}
 
@@ -109,7 +107,7 @@ class EmailTest extends TestCase
 	{
 		$email = new Email();
 		$email->setLayout('main');
-		$email->setContent(new Block('email/contents/first'));
+		$email->setContent(new EmailContent('html/first'));
 		$this->assertContains('My first content', $email->__toString());
 	}
 
@@ -118,19 +116,18 @@ class EmailTest extends TestCase
 		$email = new Email();
 		$email->setContent('My email content');
 		$email->setLanguage('pt-br');
-		$send = $email->send();
-		$this->assertTrue($send);
-		$this->assertNull($email->getError());
+		$email->send();
 	}
 
+	/**
+	 * @expectedException \Exception
+	 */
 	public function testSendErrorLocalHost()
 	{
 		$email = new Email();
 		Email::$sendOnLocalHost = true;
 		$email->setContent('My email content');
-		$send = $email->send();
-		$this->assertFalse($send);
-		$this->assertNotNull($email->getError());
+		$email->send();
 		Email::$sendOnLocalHost = false;
 	}
 

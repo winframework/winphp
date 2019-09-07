@@ -2,6 +2,7 @@
 
 namespace Win\Mail;
 
+use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Filesystem\File;
 use Win\Mvc\Block;
@@ -20,19 +21,19 @@ class Email
 	/** @var Block|string */
 	private $content;
 
-	/** @var object Classe responsável pelo envio real */
+	/** @var PHPMailer */
 	private $mailer;
-	public static $sendOnLocalHost = false;
 
-	/** @var string|null */
-	private $error = null;
+	/** @var boolean */
+	public static $sendOnLocalHost = false;
 
 	/**
 	 * Cria uma mensagem de E-mail
+	 * @param string $layout
 	 */
-	public function __construct()
+	public function __construct($layout = 'main')
 	{
-		$this->setLayout('main');
+		$this->setLayout($layout);
 
 		$this->mailer = new PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
@@ -52,7 +53,7 @@ class Email
 	 * @param string $address E-mail destinatário
 	 * @param string $name Nome destinatário
 	 */
-	public function addAddress($address, $name = '')
+	public function addTo($address, $name = '')
 	{
 		$this->mailer->AddAddress($address, $name);
 	}
@@ -85,8 +86,7 @@ class Email
 	 */
 	public function setLayout($layout)
 	{
-		$file = 'email/' . $layout;
-		$this->layout = new Block($file, ['email' => $this]);
+		$this->layout = new EmailLayout($layout, ['email' => $this]);
 	}
 
 	/**
@@ -136,13 +136,13 @@ class Email
 	}
 
 	/** @return string[] */
-	public function getAddresses()
+	public function getTo()
 	{
 		return $this->mailer->getAllRecipientAddresses();
 	}
 
 	/** @return string[] */
-	public function getReplyToAddresses()
+	public function getReplyTo()
 	{
 		return $this->mailer->getReplyToAddresses();
 	}
@@ -166,36 +166,23 @@ class Email
 	}
 
 	/**
-	 * Retorna o erro caso 'send()' tenha retornado FALSE
-	 * @return string|null
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
-
-	/**
 	 * Envia o E-mail
-	 *
-	 * @return bool
 	 */
 	public function send()
 	{
-		$send = false;
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
 			$this->mailer->Body = $this->layout->toString();
 			$send = $this->mailer->Send();
 			$this->mailer->ClearAllRecipients();
 			$this->mailer->ClearAttachments();
+
 			if (!$send) {
-				$this->error = 'Houve um erro ao enviar o e-mail.<br />'
-				. '<span style="display:none">' . $this->mailer->ErrorInfo . '</span>';
+				throw new Exception('Houve um erro ao enviar o e-mail.<br />'
+				. '<span style="display:none">' . $this->mailer->ErrorInfo . '</span>');
 			}
 		} else {
-			$send = $this->saveOnDisk();
+			$this->saveOnDisk();
 		}
-
-		return $send;
 	}
 
 	/**

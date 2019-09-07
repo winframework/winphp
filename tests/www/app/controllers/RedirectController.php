@@ -6,7 +6,7 @@ use Win\FlashMessage\Alert;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 
-class AlertsController extends Controller
+class RedirectController extends Controller
 {
 	protected function init()
 	{
@@ -14,15 +14,11 @@ class AlertsController extends Controller
 
 	public function index()
 	{
-		Alert::error('Ops! Um erro');
-		Alert::error('Outro erro');
-		Alert::success('Parabéns');
-
+		Alert::success('Você será redirecionado');
 		$this->redirect('alerts/show');
-	}
 
-	public function show()
-	{
-		return new View('alerts');
+		Alert::error('Este não pode aparecer');
+
+		return new View('index');
 	}
 }

@@ -9,7 +9,7 @@ class RulesTest extends TestCase
 	public function testRequired()
 	{
 		$this->assertFalse(Rules::isValid('', 'required'));
-		
+
 		$this->assertTrue(Rules::isValid('teste', 'required'));
 	}
 
@@ -34,20 +34,37 @@ class RulesTest extends TestCase
 
 	public function testMin()
 	{
-		$this->assertFalse(Rules::isValid('19', 'min:20'));
-		$this->assertFalse(Rules::isValid('-21', 'min:20'));
+		$this->assertFalse(Rules::isValid(19, 'min:20'));
+		$this->assertFalse(Rules::isValid('20', 'min:20'));
+		$this->assertFalse(Rules::isValid(-21, 'min:20'));
+		$this->assertFalse(Rules::isValid('test', 'min:5'));
 
-		$this->assertTrue(Rules::isValid('20', 'min:20'));
-		$this->assertTrue(Rules::isValid('21', 'min:20'));
+		$this->assertTrue(Rules::isValid(20, 'min:20'));
+		$this->assertTrue(Rules::isValid(21, 'min:20'));
+		$this->assertTrue(Rules::isValid('teste', 'min:5'));
 	}
 
 	public function testMax()
 	{
-		$this->assertFalse(Rules::isValid('21', 'max:20'));
+		$this->assertFalse(Rules::isValid(21, 'max:20'));
+		$this->assertFalse(Rules::isValid('testee', 'max:5'));
 
-		$this->assertTrue(Rules::isValid('20', 'max:20'));
-		$this->assertTrue(Rules::isValid('0', 'max:20'));
-		$this->assertTrue(Rules::isValid('-2', 'max:20'));
+		$this->assertTrue(Rules::isValid('21', 'max:20'));
+		$this->assertTrue(Rules::isValid(20, 'max:20'));
+		$this->assertTrue(Rules::isValid(0, 'max:20'));
+		$this->assertTrue(Rules::isValid(-2, 'max:20'));
+		$this->assertTrue(Rules::isValid('teste', 'max:5'));
+	}
+
+	public function testEqual()
+	{
+		$this->assertFalse(Rules::isValid(19, 'equal:20'));
+		$this->assertFalse(Rules::isValid(21, 'equal:20'));
+		$this->assertFalse(Rules::isValid('test', 'equal:teste'));
+
+		$this->assertTrue(Rules::isValid('20', 'equal:20'));
+		$this->assertTrue(Rules::isValid(20, 'equal:20'));
+		$this->assertTrue(Rules::isValid('teste', 'equal:teste'));
 	}
 
 	public function testChecked()

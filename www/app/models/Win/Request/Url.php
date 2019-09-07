@@ -38,13 +38,15 @@ class Url
 	/**
 	 * Redireciona para a URL escolhida
 	 * @param string $url URL relativa ou absoluta
+	 * @codeCoverageIgnore
 	 */
 	public function redirect($url = '')
 	{
 		if (false === strpos($url, '://')) {
 			$url = $this->getBaseUrl() . $url;
 		}
-		Header::instance()->set('location', $url);
+		header('location:' . $url);
+		die();
 	}
 
 	/**

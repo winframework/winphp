@@ -14,7 +14,7 @@ class ErrorsController extends Controller {
 		
 	}
 
-	public function _404() {
+	public function error404() {
 		$this->setTitle('Ops! Page not found!');
 	}
 

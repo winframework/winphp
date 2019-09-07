@@ -6,60 +6,75 @@ use PHPUnit\Framework\TestCase;
 
 class ThemeTest extends TestCase
 {
-	public function testget()
+	/** @var Theme */
+	public $theme;
+
+	public function setUp()
 	{
-		$theme = Theme::instance();
-		$theme->set('my-test');
-		$this->assertEquals($theme->get(), 'my-test');
-		$theme->set(null);
+		$this->theme = Theme::instance();
 	}
 
-	public function testGetFilePath()
+	public function tearDown()
 	{
-		$theme = Theme::instance();
-		$theme->set('custom');
+		$this->theme->set(null);
+	}
 
+	public function testGet()
+	{
+		$this->theme = Theme::instance();
+		$this->theme->set('my-test');
+		$this->assertEquals($this->theme->get(), 'my-test');
+		$this->theme->set(null);
+	}
+
+	public function testCustomThemeWithValidView()
+	{
+		$this->theme->set('custom');
 		$this->assertContains(
-			'custom/views/exemplo',
-			$theme->getFilePath('exemplo')
+			'themes/custom/views/exemplo',
+			$this->theme->getFilePath('exemplo')
 		);
+	}
+
+	public function testCustomThemeWithInValidView()
+	{
+		$this->theme->set('custom');
 		$this->assertContains(
-			'default/views/file-not-found',
-			$theme->getFilePath('file-not-found')
+			'themes/default/views/file-not-found',
+			$this->theme->getFilePath('file-not-found')
 		);
-		$theme->set('theme-not-found');
+	}
+
+	public function testInvalidThemeWithValidView()
+	{
+		$this->theme->set('theme-not-found');
 		$this->assertContains(
-			'default/views/exemplo',
-			$theme->getFilePath('exemplo')
+			'themes/default/views/exemplo',
+			$this->theme->getFilePath('exemplo')
 		);
-		$theme->set(null);
 	}
 
 	public function testViewSetFile()
 	{
-		$theme = Theme::instance();
-		$theme->set('custom');
+		$this->theme->set('custom');
 		$view = new View('exemplo');
 
 		$this->assertContains(
-			'app/themes/custom/views/exemplo.phtml',
+			'themes/custom/views/exemplo.phtml',
 			$view->getFile()
 		);
 		$this->assertTrue($view->exists());
-		$theme->set(null);
 	}
 
 	public function testViewSetFileInvalid()
 	{
-		$theme = Theme::instance();
-		$theme->set('custom');
-		$view = new View('doesnt-exist');
+		$this->theme->set('custom');
+		$view = new View('not-exist');
 
 		$this->assertContains(
-			'app/themes/default/views/doesnt-exist.phtml',
+			'themes/default/views/not-exist.phtml',
 			$view->getFile()
 		);
 		$this->assertFalse($view->exists());
-		$theme->set(null);
 	}
 }

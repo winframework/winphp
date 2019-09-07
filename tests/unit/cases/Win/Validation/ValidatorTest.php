@@ -31,8 +31,18 @@ class ValidatorTest extends TestCase
 			'Idade',
 			'required|int|min:0|max:120',
 			'messages' => [
-				'min:0' => 'Por favor, informe uma Idade positiva.',
+				'min' => 'Por favor, informe uma Idade positiva.',
 				'required' => 'Por favor, preencha a Idade.',
+			],
+		],
+	];
+
+	private $validationsWithMessage2 = [
+		'age' => [
+			'Idade',
+			'required|int|min:0|max:100',
+			'messages' => [
+				'max' => 'Ops, essa idade é maior do que $1.',
 			],
 		],
 	];
@@ -52,6 +62,18 @@ class ValidatorTest extends TestCase
 		$this->assertFalse($validator->hasError());
 		$this->assertNull($validator->getError());
 		$this->assertTrue($valid);
+	}
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testException()
+	{
+		$validator = Validator::create([
+			'name' => ['Nome', 'requiredError'],
+		]);
+
+		$validator->validate(['name' => 'John']);
 	}
 
 	public function testGetData()
@@ -221,6 +243,18 @@ class ValidatorTest extends TestCase
 
 		$this->assertTrue($validator->hasError());
 		$this->assertEquals('Por favor, informe uma Idade positiva.', $error);
+	}
+
+	public function testValidateWithMessageParam()
+	{
+		$data = $this->defaultData;
+		$data['age'] = 101;
+		$validator = Validator::create($this->validationsWithMessage2);
+		$validator->validate($data);
+		$error = $validator->getError();
+
+		$this->assertTrue($validator->hasError());
+		$this->assertEquals('Ops, essa idade é maior do que 100.', $error);
 	}
 
 	/**

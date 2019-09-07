@@ -123,7 +123,7 @@ class FileTest extends TestCase
 		$this->assertTrue($this->file->getSize() > 1);
 		$this->initEmptyFile();
 		$this->assertEquals(0, $this->file->getSize());
-		$this->file = new File('data/files/doesnt-exist.html');
+		$this->file = new File('data/files/not-exist.html');
 		$this->assertEquals(false, $this->file->getSize());
 	}
 

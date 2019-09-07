@@ -8,17 +8,14 @@ use Win\Filesystem\Upload\TempFile;
 use Win\Filesystem\Upload\Uploader;
 use Win\FlashMessage\Alert;
 use Win\Mvc\Controller;
-use Win\Mvc\View;
 use Win\Request\Input;
-use Win\Filesystem\File;
-use Win\Mail\Email;
-use Win\Calendar\Timer;
 
-class UploaderController extends Controller {
-
-	public function index() {
+class UploaderController extends Controller
+{
+	public function index()
+	{
 		$image = null;
-		
+
 		if (!is_null(Input::post('submit'))) {
 			$dir = new Directory('data/uploads');
 			$dir->delete();
@@ -36,5 +33,4 @@ class UploaderController extends Controller {
 
 		$this->addData('image', $image);
 	}
-
 }

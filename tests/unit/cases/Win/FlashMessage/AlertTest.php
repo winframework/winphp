@@ -101,6 +101,14 @@ class AlertTest extends TestCase
 		$this->assertEquals([], Alert::instance()->all());
 	}
 
+	public function testHas()
+	{
+		Alert::error('1');
+		$this->assertTrue(Alert::instance()->has());
+		Alert::instance()->clear();
+		$this->assertFalse(Alert::instance()->has());
+	}
+
 	public function testCreateError()
 	{
 		Alert::instance()->clear();

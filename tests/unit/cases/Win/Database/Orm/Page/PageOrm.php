@@ -8,21 +8,21 @@ use Win\Database\Orm;
  * Página ORM
  *
  * @method Page one
- * @method Page[] all
+ * @method Page[] list
  * @method Page find
  */
 class PageOrm extends Orm
 {
-	protected $model = 'Páginas';
-	protected $table = 'page';
+	public $entity = 'Página';
+	public $table = 'Pages';
 
 	/** @return Page */
 	public function mapModel($row)
 	{
 		$page = new Page();
-		$page->setId($row['id']);
-		$page->setTitle($row['title']);
-		$page->setDescription($row['description']);
+		$page->setId($row['Id']);
+		$page->setTitle($row['Title']);
+		$page->setDescription($row['Description']);
 
 		return $page;
 	}
@@ -30,11 +30,10 @@ class PageOrm extends Orm
 	/** @param Page $model */
 	public function mapRow($model)
 	{
-		$row = [];
-		$row['id'] = $model->getId();
-		$row['title'] = $model->getTitle();
-		$row['description'] = $model->getDescription();
-
-		return $row;
+		return [
+			'Id' => $model->getId(),
+			'Title' => $model->getTitle(),
+			'Description' => $model->getDescription(),
+		];
 	}
 }

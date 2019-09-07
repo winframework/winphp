@@ -45,7 +45,7 @@ abstract class Connection
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec('set names utf8');
 			$this->pdoException = null;
-			Orm::setConnection($this);
+			Orm::$defaultConnection = $this;
 		} catch (PDOException $ex) {
 			$this->pdoException = $ex;
 		}
@@ -78,7 +78,6 @@ abstract class Connection
 	public function query($query, $values = [])
 	{
 		$stmt = $this->pdo->prepare($query);
-
 		return $stmt->execute($values);
 	}
 
@@ -105,6 +104,18 @@ abstract class Connection
 		$stmt = $this->stmt($query, $values);
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * @param string $query
+	 * @param mixed[] $values
+	 * @return int
+	 */
+	public function fetch($query, $values)
+	{
+		$stmt = $this->stmt($query, $values);
+
+		return $stmt->fetch();
 	}
 
 	/**

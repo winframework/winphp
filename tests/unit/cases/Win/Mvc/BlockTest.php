@@ -11,10 +11,10 @@ class BlockTest extends TestCase
 
 	public function testGetFile()
 	{
-		$block = new Block('layout/main');
+		$block = new Block('main');
 		$this->assertContains('main.phtml', $block->getFile());
-		$block2 = new Block('layout/main/not-exists');
-		$this->assertContains('layout/main/not-exists.phtml', $block2->getFile());
+		$block2 = new Block('main/not-exist');
+		$this->assertContains('main/not-exist.phtml', $block2->getFile());
 	}
 
 	public function testParamData()
