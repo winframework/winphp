@@ -26,7 +26,7 @@ class JsonView extends View
 
 	/**
 	 * Exibe os dados em Json
-	 * @return mixed[]
+	 * @return string
 	 */
 	public function toJson()
 	{

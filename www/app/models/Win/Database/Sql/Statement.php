@@ -2,6 +2,7 @@
 
 namespace Win\Database\Sql;
 
+use Exception;
 use Win\Database\Sql\Statements\Delete;
 use Win\Database\Sql\Statements\Insert;
 use Win\Database\Sql\Statements\Select;
@@ -37,19 +38,16 @@ abstract class Statement
 		switch ($statementType) {
 			case 'SELECT':
 				return new Select($query);
-			break;
 			case 'SELECT COUNT':
 				return new SelectCount($query);
-			break;
 			case 'UPDATE':
 				return new Update($query);
-			break;
 			case 'INSERT':
 				return new Insert($query);
-			break;
 			case 'DELETE':
 				return new Delete($query);
-			break;
+			default:
+				throw new Exception($statementType . ' is not a valid Statement Type ');
 		}
 	}
 }

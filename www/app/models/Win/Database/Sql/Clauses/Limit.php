@@ -42,4 +42,12 @@ class Limit
 	{
 		$this->limit = $limit;
 	}
+
+	/**
+	 * Remove o limite
+	 */
+	public function reset()
+	{
+		$this->limit = '';
+	}
 }

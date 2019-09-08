@@ -27,7 +27,7 @@ class OrderBy
 	 */
 	public function __toString()
 	{
-		if ($this->ordinations) {
+		if (!empty($this->ordinations)) {
 			return ' ORDER BY ' . implode(', ', $this->ordinations);
 		}
 
@@ -56,7 +56,7 @@ class OrderBy
 	/**
 	 * Remove as ordenações
 	 */
-	public function clear()
+	public function reset()
 	{
 		$this->ordinations = [];
 	}

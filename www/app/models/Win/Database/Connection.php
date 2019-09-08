@@ -109,7 +109,7 @@ abstract class Connection
 	/**
 	 * @param string $query
 	 * @param mixed[] $values
-	 * @return int
+	 * @return mixed[]
 	 */
 	public function fetch($query, $values)
 	{
