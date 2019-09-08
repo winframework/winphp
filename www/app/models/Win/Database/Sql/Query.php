@@ -79,7 +79,9 @@ class Query
 	public function __toString()
 	{
 		if ($this->orm->debug) {
-			var_dump((string) $this->statement, $this->getValues());
+			print_r('<pre>' . $this->statement . '<br/>');
+			print_r($this->getValues());
+			print_r('</pre>');
 		}
 
 		return (string) $this->statement;

@@ -25,6 +25,7 @@ class DatabaseController extends Controller
 		$page->setTitle('chaves');
 
 		$pageOrm = Page::orm();
+		$pageOrm->debug = true;
 		$x = $pageOrm->one();
 		var_dump($x);
 
