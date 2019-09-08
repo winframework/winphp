@@ -2,22 +2,21 @@
 
 namespace Win\Database\Sql\Statements;
 
-use Win\Database\Sql\Query;
 use Win\Database\Sql\Statement;
 
-class Insert implements Statement
+/**
+ * INSERT INTO ...
+ */
+class Insert extends Statement
 {
-	protected $values = [];
+	protected $values;
 
-	/** @var Query */
-	protected $query;
-
-	public function __construct(Query $query)
+	public function __construct($query)
 	{
-		$this->query = $query;
+		parent::__construct($query);
 		$this->values = array_merge(
-			$query->values,
-			$query->where->values
+			$this->query->values,
+			$this->query->where->values
 		);
 	}
 

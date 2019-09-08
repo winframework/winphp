@@ -3,7 +3,7 @@
 namespace Win\Database\Sql\Clauses;
 
 /**
- * Limit 10
+ * LIMIT ___
  */
 class Limit
 {

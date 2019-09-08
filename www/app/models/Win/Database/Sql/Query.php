@@ -7,9 +7,7 @@ use Win\Database\Orm;
 use Win\Database\Sql\Clauses\OrderBy;
 use Win\Database\Sql\Clauses\Where;
 use Win\Database\Sql\Statements\Delete;
-use Win\Database\Sql\Statements\Insert;
 use Win\Database\Sql\Statements\Select;
-use Win\Database\Sql\Statements\SelectCount;
 use Win\Database\Sql\Statements\Update;
 
 /**
@@ -30,7 +28,7 @@ class Query
 	public $values;
 
 	/** @var Statement */
-	protected $statement;
+	public $statement;
 
 	/** @var Where */
 	public $where;
@@ -55,28 +53,12 @@ class Query
 
 	/**
 	 * Define a base da Query
-	 * @param string $statement
+	 * @param string $statementType
 	 * @example setStatement('SELECT'|'UPDATE'|'DELETE')
 	 */
-	public function setStatement($statement)
+	public function setStatement($statementType)
 	{
-		switch ($statement) {
-			case 'SELECT':
-				$this->statement = new Select($this);
-			break;
-			case 'SELECT COUNT':
-				$this->statement = new SelectCount($this);
-			break;
-			case 'UPDATE':
-				$this->statement = new Update($this);
-			break;
-			case 'INSERT':
-				$this->statement = new Insert($this);
-			break;
-			case 'DELETE':
-				$this->statement = new Delete($this);
-			break;
-		}
+		$this->statement = Statement::factory($statementType, $this);
 	}
 
 	/**

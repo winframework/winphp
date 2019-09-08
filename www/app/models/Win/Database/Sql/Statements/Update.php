@@ -2,19 +2,13 @@
 
 namespace Win\Database\Sql\Statements;
 
-use Win\Database\Sql\Query;
 use Win\Database\Sql\Statement;
 
-class Update implements Statement
+/**
+ * UPDATE ... SET ...
+ */
+class Update extends Statement
 {
-	/** @var Query */
-	protected $query;
-
-	public function __construct(Query $query)
-	{
-		$this->query = $query;
-	}
-
 	public function __toString()
 	{
 		return 'UPDATE ' . $this->query->table

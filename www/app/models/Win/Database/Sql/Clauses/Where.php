@@ -3,7 +3,7 @@
 namespace Win\Database\Sql\Clauses;
 
 /**
- * WHERE id = ?
+ * WHERE ___ = ?
  */
 class Where
 {

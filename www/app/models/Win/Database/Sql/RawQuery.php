@@ -21,7 +21,7 @@ class RawQuery extends Query
 		$this->values = $values;
 	}
 
-	public function setStatement($statement)
+	public function setStatement($statementType)
 	{
 		return null;
 	}

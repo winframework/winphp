@@ -3,7 +3,7 @@
 namespace Win\Database\Sql\Clauses;
 
 /**
- * ORDER BY id DESC
+ * ORDER BY ___ DESC
  */
 class OrderBy
 {
