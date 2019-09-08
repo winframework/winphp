@@ -12,6 +12,8 @@ class RawQuery extends Query
 	/**
 	 * Prepara a query
 	 * @param Orm $orm
+	 * @param string $rawQuery
+	 * $param mixed[] $values
 	 */
 	public function __construct(Orm $orm, $rawQuery, $values)
 	{
