@@ -5,7 +5,7 @@ namespace Win\Database;
 use Win\Database\Mysql\MysqlConnection;
 use Win\Database\Orm\Model;
 use Win\Database\Orm\Traits\FilterTrait;
-use Win\Database\Orm\Traits\RawSql;
+use Win\Database\Orm\Traits\RawTrait;
 use Win\Database\Orm\Traits\SortTrait;
 use Win\Database\Sql\Clauses\Where;
 use Win\Database\Sql\Query;
@@ -17,19 +17,19 @@ abstract class Orm
 {
 	use FilterTrait;
 	use SortTrait;
-	use RawSql;
+	use RawTrait;
+
+	/** @var string */
+	const TABLE = '';
+
+	/** @var string */
+	const TITLE = '';
 
 	/** @var Model */
 	protected $model;
 
 	/** @var Query */
 	protected $query;
-
-	/** @var string */
-	public $table;
-
-	/** @var string */
-	public $entity;
 
 	/** @var Connection */
 	public $conn;
@@ -44,13 +44,13 @@ abstract class Orm
 	 * @param Model $model
 	 * @return mixed[]
 	 */
-	abstract public function mapRow($model);
+	abstract public static function mapRow($model);
 
 	/**
 	 * @param mixed[] $row
 	 * @return Model
 	 */
-	abstract public function mapModel($row);
+	abstract public static function mapModel($row);
 
 	/**
 	 * @param Connection $connection
@@ -69,6 +69,7 @@ abstract class Orm
 	{
 		$query = $this->query;
 		$query->setStatement('SELECT');
+		$query->limit->set(1);
 		$row = $this->conn->fetch($query, $query->getValues());
 
 		return $this->mapModel($row);
@@ -175,7 +176,7 @@ abstract class Orm
 	}
 
 	/** @return bool */
-	public function modelExists()
+	protected function modelExists()
 	{
 		return $this->model->getId() > 0;
 	}

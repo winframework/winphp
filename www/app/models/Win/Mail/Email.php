@@ -45,7 +45,7 @@ class Email
 	/** @return string */
 	public function __toString()
 	{
-		return $this->layout->toString();
+		return $this->layout->__toString();
 	}
 
 	/**
@@ -171,7 +171,7 @@ class Email
 	public function send()
 	{
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
-			$this->mailer->Body = $this->layout->toString();
+			$this->mailer->Body = $this->__toString();
 			$send = $this->mailer->Send();
 			$this->mailer->ClearAllRecipients();
 			$this->mailer->ClearAttachments();
@@ -195,6 +195,6 @@ class Email
 		$file = new File('data/emails/' . $name);
 		$file->getDirectory()->create(0777);
 
-		return $file->write($this->layout->toString());
+		return $file->write($this->__toString());
 	}
 }

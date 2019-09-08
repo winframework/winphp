@@ -3,6 +3,7 @@
 namespace Win\Database\Sql;
 
 use Win\Database\Orm;
+use Win\Database\Sql\Clauses\Limit;
 
 /**
  * SELECT, UPDATE, DELETE, etc
@@ -21,6 +22,7 @@ class RawQuery extends Query
 		$this->conn = $orm->conn;
 		$this->rawQuery = $rawQuery;
 		$this->values = $values;
+		$this->limit = new Limit();
 	}
 
 	public function setStatement($statementType)
@@ -32,7 +34,7 @@ class RawQuery extends Query
 	 * Retorna o comando SQL
 	 * @return string
 	 */
-	protected function toString()
+	public function __toString()
 	{
 		return $this->rawQuery;
 	}

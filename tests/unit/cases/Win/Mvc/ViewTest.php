@@ -32,7 +32,7 @@ class ViewTest extends TestCase
 	{
 		$view = $this->getValidView();
 		$this->assertTrue($view->exists());
-		$this->assertFalse(empty($view->toString()));
+		$this->assertFalse(empty($view->__toString()));
 		$view->validate();
 	}
 
@@ -47,18 +47,10 @@ class ViewTest extends TestCase
 	public function testToString()
 	{
 		$viewEmpty = $this->getInValidView();
-		$this->assertTrue(empty($viewEmpty->toString()));
+		$this->assertTrue(empty($viewEmpty->__toString()));
 
 		$viewNotEmpty = $this->getValidView();
-		$this->assertFalse(empty($viewNotEmpty->toString()));
-	}
-
-	public function testToHtml()
-	{
-		$view = $this->getValidView();
-		ob_start();
-		$view->toHtml();
-		$this->assertContains('My custom', ob_get_clean());
+		$this->assertFalse(empty($viewNotEmpty->__toString()));
 	}
 
 	public function testParamData()

@@ -18,7 +18,7 @@ class OrderBy
 	 */
 	public function __construct()
 	{
-		$this->ordinations = ['id ASC'];
+		$this->ordinations = [];
 	}
 
 	/**
@@ -28,6 +28,8 @@ class OrderBy
 	public function __toString()
 	{
 		if (!empty($this->ordinations)) {
+			ksort($this->ordinations);
+
 			return ' ORDER BY ' . implode(', ', $this->ordinations);
 		}
 

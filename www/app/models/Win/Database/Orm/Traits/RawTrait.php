@@ -9,7 +9,7 @@ use Win\Database\Sql\RawQuery;
  * Permite definir a query manualmente
  * @property Query $query
  */
-trait RawSql
+trait RawTrait
 {
 	/**
 	 * Define a query manualmente

@@ -90,7 +90,7 @@ class AlertTest extends TestCase
 	{
 		Alert::error('Error msg');
 		Alert::success('Success msg');
-		$result = Alert::instance()->html()->toString();
+		$result = Alert::instance()->html()->__toString();
 		$this->assertContains('alert-success', $result);
 	}
 

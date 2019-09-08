@@ -25,6 +25,12 @@ class OrderByTest extends TestCase
 		);
 	}
 
+	public function testToString()
+	{
+		$order = new OrderBy();
+		$this->assertEquals('', trim((string) $order));
+	}
+
 	public function testAddWithPriority()
 	{
 		$order = new OrderBy();

@@ -4,6 +4,7 @@ namespace Win\Database\Sql;
 
 use Win\Database\Connection;
 use Win\Database\Orm;
+use Win\Database\Sql\Clauses\Limit;
 use Win\Database\Sql\Clauses\OrderBy;
 use Win\Database\Sql\Clauses\Where;
 use Win\Database\Sql\Statements\Delete;
@@ -19,7 +20,7 @@ class Query
 	protected $conn;
 
 	/** @var Orm */
-	public $orm;
+	protected $orm;
 
 	/** @var string */
 	public $table;
@@ -36,6 +37,9 @@ class Query
 	/** @var OrderBy */
 	public $orderBy;
 
+	/** @var Limit */
+	public $limit;
+
 	/**
 	 * Prepara a query
 	 * @param Orm $orm
@@ -43,12 +47,13 @@ class Query
 	public function __construct(Orm $orm)
 	{
 		$this->orm = $orm;
-		$this->table = $orm->table;
+		$this->table = $orm::TABLE;
 		$this->conn = $orm->conn;
 		$this->values = [];
 
-		$this->where = new Where($this);
+		$this->where = new Where();
 		$this->orderBy = new OrderBy();
+		$this->limit = new Limit();
 	}
 
 	/**
@@ -59,15 +64,6 @@ class Query
 	public function setStatement($statementType)
 	{
 		$this->statement = Statement::factory($statementType, $this);
-	}
-
-	/**
-	 * Retorna o comando SQL
-	 * @return string
-	 */
-	protected function toString()
-	{
-		return $this->statement->__toString();
 	}
 
 	/** @return mixed[] */
@@ -83,17 +79,9 @@ class Query
 	public function __toString()
 	{
 		if ($this->orm->debug) {
-			$this->debug();
+			var_dump((string) $this->statement, $this->getValues());
 		}
 
-		return $this->toString();
-	}
-
-	/**
-	 * Exibe informações de debug
-	 */
-	public function debug()
-	{
-		var_dump($this->toString(), $this->getValues());
+		return (string) $this->statement;
 	}
 }

@@ -13,11 +13,11 @@ use Win\Database\Orm;
  */
 class PageOrm extends Orm
 {
-	public $entity = 'Página';
-	public $table = 'Pages';
+	const TABLE = 'Pages';
+	const TITLE = 'Página';
 
 	/** @return Page */
-	public function mapModel($row)
+	public static function mapModel($row)
 	{
 		$page = new Page();
 		$page->setId($row['Id']);
@@ -28,7 +28,7 @@ class PageOrm extends Orm
 	}
 
 	/** @param Page $model */
-	public function mapRow($model)
+	public static function mapRow($model)
 	{
 		return [
 			'Id' => $model->getId(),

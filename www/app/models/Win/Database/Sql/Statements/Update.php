@@ -13,7 +13,8 @@ class Update extends Statement
 	{
 		return 'UPDATE ' . $this->query->table
 		. ' SET ' . $this->set()
-		. $this->query->where;
+		. $this->query->where
+		. $this->query->limit;
 	}
 
 	/** @return string */

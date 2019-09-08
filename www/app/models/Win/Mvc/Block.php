@@ -101,27 +101,10 @@ class Block
 	 */
 	public function __toString()
 	{
-		return $this->toString();
-	}
-
-	/**
-	 * Retorna o HTML da View
-	 * @return string
-	 */
-	public function toString()
-	{
 		ob_start();
-		$this->toHtml();
+		$this->load();
 
 		return ob_get_clean();
-	}
-
-	/**
-	 * Exibe o conteúdo HTML da View
-	 */
-	public function toHtml()
-	{
-		$this->load();
 	}
 
 	/**

@@ -13,7 +13,8 @@ class Select extends Statement
 	{
 		return 'SELECT * FROM ' . $this->query->table
 		. $this->query->where
-		. $this->query->orderBy;
+		. $this->query->orderBy
+		. $this->query->limit;
 	}
 
 	public function getValues()

@@ -38,7 +38,7 @@ class PageOrmTest extends TestCase
 	public function testRawQuery()
 	{
 		$orm = Page::orm();
-		$orm->rawQuery('SELECT * FROM ' . $orm->table
+		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
 			. ' WHERE Id BETWEEN ? AND ? ORDER BY Id DESC', [2, 10]);
 
 		$page = $orm->one();
@@ -49,7 +49,7 @@ class PageOrmTest extends TestCase
 	public function testRunQuery()
 	{
 		$orm = Page::orm();
-		$orm->rawQuery('SELECT * FROM ' . $orm->table
+		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
 			. ' WHERE Id BETWEEN ? AND ? ORDER BY Id DESC', [2, 10]);
 
 		$success = $orm->run();

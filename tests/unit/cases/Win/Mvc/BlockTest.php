@@ -53,8 +53,8 @@ class BlockTest extends TestCase
 	{
 		$b = new Block(static::VALID);
 		$c = new Block(static::INVALID);
-		$this->assertEquals('My custom block HTML', $b->toString());
+		$this->assertEquals('My custom block HTML', $b->__toString());
 		$this->assertEquals('My custom block HTML', (string) $b);
-		$this->assertEquals('', $c->toString());
+		$this->assertEquals('', $c->__toString());
 	}
 }

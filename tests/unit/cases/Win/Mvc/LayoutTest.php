@@ -23,6 +23,6 @@ class LayoutTest extends TestCase
 	public function testToString()
 	{
 		$layout = new Layout('other');
-		$this->assertContains('Other example of layout', $layout->toString());
+		$this->assertContains('Other example of layout', $layout->__toString());
 	}
 }
