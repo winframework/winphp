@@ -4,11 +4,11 @@ namespace Win\Database\Orm\Traits;
 
 use Win\Database\Sql\Query;
 
-/**
- * @property Query $query
- */
 trait FilterTrait
 {
+	/** @var Query */
+	protected $query;
+
 	abstract public function one();
 
 	/**

@@ -2,16 +2,12 @@
 
 namespace Win\Database\Orm\Traits;
 
-use Win\Database\Sql\Clauses\OrderBy;
 use Win\Database\Sql\Query;
 
-/**
- * @property Query $query
- */
 trait SortTrait
 {
-	/** @var OrderBy */
-	protected $orderBy;
+	/** @var Query */
+	protected $query;
 
 	/**
 	 * Ordena por um campo
