@@ -3,6 +3,7 @@
 use Win\Database\Orm\Page\Category;
 use Win\Database\Orm\Page\Page;
 use Win\Database\Orm\Pagination;
+use Win\Mvc\Block;
 use Win\Mvc\View;
 
 /** @var View $this */
@@ -44,7 +45,7 @@ use Win\Mvc\View;
 					<?php endforeach; ?>
 				</ul>
 
-				<?= $pagination->block(); ?>
+				<?= new Block('pagination', ['pagination' => $pagination]); ?>
 			</div>
 		</div>
 	</div>

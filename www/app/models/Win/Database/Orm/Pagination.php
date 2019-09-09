@@ -2,9 +2,6 @@
 
 namespace Win\Database\Orm;
 
-use Win\Database\Orm;
-use Win\Mvc\Block;
-
 /**
  * Auxilia criar paginações
  */
@@ -73,11 +70,5 @@ class Pagination
 	public function next()
 	{
 		return min($this->last(), $this->current + 1);
-	}
-
-	/** @return Block */
-	public function block()
-	{
-		return new Block('pagination', ['pagination' => $this]);
 	}
 }

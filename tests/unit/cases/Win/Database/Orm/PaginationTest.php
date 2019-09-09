@@ -87,9 +87,4 @@ class PaginationTest extends TestCase
 		$this->assertEquals(10, $p->next());
 	}
 
-	public function testBlock()
-	{
-		$p = new Pagination();
-		$this->assertInstanceOf(Block::class, $p->block());
-	}
 }
