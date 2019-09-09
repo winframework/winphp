@@ -5,6 +5,7 @@ namespace controllers;
 use Win\Database\Mysql\MysqlConnection;
 use Win\Database\Orm\Page\Category;
 use Win\Database\Orm\Page\Page;
+use Win\Database\Orm\Page\PageOrm;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 use Win\Request\Input;
@@ -16,6 +17,7 @@ use Win\Request\Input;
  */
 class PagesController extends Controller
 {
+	/** @var PageOrm */
 	protected $orm;
 	protected $pageSize = 2;
 
@@ -81,7 +83,7 @@ class PagesController extends Controller
 		$this->setTitle('Pages - ' . $category->title);
 		$this->addData('pages', $orm->list());
 		$this->addData('categories', $this->getCategories());
-		$this->addData('pageCount', $orm->count());
+		$this->addData('pagination', $orm->pagination);
 
 		return new View('pages/index');
 	}

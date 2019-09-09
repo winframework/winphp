@@ -2,13 +2,14 @@
 
 use Win\Database\Orm\Page\Category;
 use Win\Database\Orm\Page\Page;
-use Win\Mvc\Block;
+use Win\Database\Orm\Pagination;
 use Win\Mvc\View;
 
 /** @var View $this */
 /** @var Category[] $categories */
 /** @var Category $category */
 /** @var Page[] $pages */
+/** @var Pagination $pagination */
 ?>
 <main>
 	<div class="row">
@@ -43,7 +44,7 @@ use Win\Mvc\View;
 					<?php endforeach; ?>
 				</ul>
 
-				<?= new Block('pagination', ['pagination' => $pagination]); ?>
+				<?= $pagination->block(); ?>
 			</div>
 		</div>
 	</div>

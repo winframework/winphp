@@ -23,7 +23,7 @@ class Page extends Model
 	{
 		$this->title = '';
 		$this->description = '';
-		$this->createdAt = null;
+		$this->createdAt = new DateTime();
 	}
 
 	public function category()

@@ -26,6 +26,10 @@ class DatabaseController extends Controller
 
 		$pageOrm = Page::orm();
 		$pageOrm->debug = true;
+		$pageOrm->filterNotPublished();
+		$pageOrm->filterBy('UserId', '=', 10);
+		$pageOrm->filterBy('UserId', '=', 10);
+		$pageOrm->filter('UserId', 10);
 		$x = $pageOrm->one();
 		var_dump($x);
 

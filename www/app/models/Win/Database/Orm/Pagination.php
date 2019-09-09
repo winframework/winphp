@@ -75,9 +75,9 @@ class Pagination
 		return min($this->last(), $this->current + 1);
 	}
 
-	/** @return string */
-	public function toBlock()
+	/** @return Block */
+	public function block()
 	{
-		return (string) new Block('pagination', ['pagination' => $this]);
+		return new Block('pagination', ['pagination' => $this]);
 	}
 }

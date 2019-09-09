@@ -28,6 +28,9 @@ abstract class Orm
 	/** @var string */
 	const TITLE = '';
 
+	/** @var string */
+	const PK = 'Id';
+
 	/** @var Model */
 	protected $model;
 
@@ -124,7 +127,7 @@ abstract class Orm
 	public function destroy($id)
 	{
 		$query = $this->query;
-		$this->filterBy('id', '=', $id);
+		$this->filterBy(static::PK, '=', $id);
 		$query->setStatement('DELETE');
 
 		return $this->conn->query($query, $query->getValues());
@@ -162,7 +165,7 @@ abstract class Orm
 		$query->setStatement('INSERT');
 
 		$success = $this->conn->query($query, $query->getValues());
-		$this->model->setId((int) $this->conn->getLastInsertId());
+		$this->model->id = (int) $this->conn->getLastInsertId();
 
 		return $success;
 	}
@@ -170,7 +173,7 @@ abstract class Orm
 	/** @return bool */
 	private function update()
 	{
-		$this->filterBy('Id', '=', $this->model->getId());
+		$this->filterBy(static::PK, '=', $this->model->id);
 		$query = $this->query;
 		$query->values = $this->mapRow($this->model);
 		$query->setStatement('UPDATE');
@@ -184,6 +187,6 @@ abstract class Orm
 	/** @return bool */
 	protected function modelExists()
 	{
-		return $this->model->getId() > 0;
+		return $this->model->id > 0;
 	}
 }

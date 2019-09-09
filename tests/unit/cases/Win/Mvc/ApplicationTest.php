@@ -106,7 +106,7 @@ class ApplicationTest extends TestCase
 	public function testGetUrlWithRoutes()
 	{
 		$app = static::newApp('other-page/params/');
-		$this->assertEquals('demo/index/params/', $app->getUrl());
+		$this->assertEquals('Demo/index/params/', $app->getUrl());
 		$this->assertNotEquals('demo/index/params/', $app->getFullUrl());
 		$this->assertContains('other-page/params/', $app->getFullUrl());
 	}

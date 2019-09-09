@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Win\Database\DbConfig;
 use Win\Database\Mysql\MysqlConnection as Mysql;
 use Win\Database\Orm\Page\Page;
+use Win\Mvc\ApplicationTest;
 
 class PageOrmTest extends TestCase
 {
@@ -43,7 +44,7 @@ class PageOrmTest extends TestCase
 
 		$page = $orm->one();
 
-		$this->assertEquals(3, $page->getId());
+		$this->assertEquals(3, $page->id);
 	}
 
 	public function testRunQuery()
@@ -85,14 +86,14 @@ class PageOrmTest extends TestCase
 	{
 		$pages = Page::orm()->list();
 		$this->assertTrue(count($pages) > 1);
-		$this->assertEquals('First Page', $pages[0]->getTitle());
+		$this->assertEquals('First Page', $pages[0]->title);
 	}
 
 	public function testFind()
 	{
 		$page = Page::orm()->find(2);
-		$this->assertEquals(2, $page->getId());
-		$this->assertEquals('Second Page', $page->getTitle());
+		$this->assertEquals(2, $page->id);
+		$this->assertEquals('Second Page', $page->title);
 	}
 
 	public function testSortByOldest()
@@ -100,7 +101,7 @@ class PageOrmTest extends TestCase
 		$page = Page::orm()
 			->sortBy('Id', 'ASC')
 			->one();
-		$this->assertEquals(1, $page->getId());
+		$this->assertEquals(1, $page->id);
 	}
 
 	public function testSortByNewest()
@@ -108,7 +109,7 @@ class PageOrmTest extends TestCase
 		$page = Page::orm()
 			->sortBy('Id', 'DESC')
 			->one();
-		$this->assertEquals(3, $page->getId());
+		$this->assertEquals(3, $page->id);
 	}
 
 	public function testSortByWithPriority()
@@ -118,7 +119,7 @@ class PageOrmTest extends TestCase
 			->sortBy('Title', 'ASC', 1)
 			->list();
 		$this->assertTrue(count($pages) > 1);
-		$this->assertEquals('Third Page', $pages[0]->getTitle());
+		$this->assertEquals('Third Page', $pages[0]->title);
 	}
 
 	public function testFilterBy()
@@ -126,7 +127,7 @@ class PageOrmTest extends TestCase
 		$page = Page::orm()
 			->filterBy('title', '=', 'Second Page')
 			->one();
-		$this->assertEquals(2, $page->getId());
+		$this->assertEquals(2, $page->id);
 	}
 
 	public function testFilterByNotNull()
@@ -134,7 +135,7 @@ class PageOrmTest extends TestCase
 		$page = Page::orm()
 			->filterBy('title', 'IS NOT NULL')
 			->one();
-		$this->assertEquals(1, $page->getId());
+		$this->assertEquals(1, $page->id);
 	}
 
 	public function testFilterByNull()
@@ -150,7 +151,7 @@ class PageOrmTest extends TestCase
 		$page = Page::orm()
 			->filterBy('title', 'LIKE', '%Second%')
 			->one();
-		$this->assertEquals(2, $page->getId());
+		$this->assertEquals(2, $page->id);
 	}
 
 	public function testFilter()
@@ -158,7 +159,7 @@ class PageOrmTest extends TestCase
 		$page = Page::orm()
 			->filter('Title', 'Second Page')
 			->one();
-		$this->assertEquals($page->getId(), 2);
+		$this->assertEquals($page->id, 2);
 	}
 
 	public function testFilterAndSort()
@@ -170,24 +171,48 @@ class PageOrmTest extends TestCase
 
 		$pages = $orm->list();
 		$this->assertCount(1, $pages);
-		$this->assertEquals('Second Page', $pages[0]->getTitle());
+		$this->assertEquals('Second Page', $pages[0]->title);
 	}
 
-	// public function testLimit()
-	// {
-	// 	$pages = Page::orm()->limit(2)->all();
-	// 	$this->assertCount(2, $pages);
-	// }
+	public function testOrFailReturns()
+	{
+		$orm = Page::orm()->one()->orFail();
+		$this->assertEquals('First Page', $orm->title);
+	}
+
+	/** @expectedException \Win\Mvc\HttpException */
+	public function testOrFailException()
+	{
+		ApplicationTest::newApp();
+		$orm = Page::orm()->filter('Id', 100)->one()->orFail();
+		$this->assertEquals('First Page', $orm->title);
+	}
+
+	public function testPaginate()
+	{
+		$orm = Page::orm()->paginate(1, 2);
+		$this->assertEquals(1, count($orm->list()));
+		$this->assertEquals(3, $orm->count());
+		$this->assertEquals(2, $orm->pagination->current());
+	}
+
+	public function testPaginateInvalid()
+	{
+		$orm = Page::orm()->paginate(2, 200);
+		$this->assertEquals(1, count($orm->list()));
+		$this->assertEquals(3, $orm->count());
+		$this->assertEquals(2, $orm->pagination->current());
+	}
 
 	// public function testAddCollumn()
 	// {
 	// 	$page = Page::orm()->addColumn('10 as id')->one();
-	// 	$this->assertEquals(10, $page->getId());
+	// 	$this->assertEquals(10, $page->id);
 
 	// 	Page::orm()->addColumn('20 as id');
 	// 	$page = Page::orm()->addColumn('"MyTitle" as title')->one();
-	// 	$this->assertEquals(20, $page->getId());
-	// 	$this->assertEquals('MyTitle', $page->getTitle());
+	// 	$this->assertEquals(20, $page->id);
+	// 	$this->assertEquals('MyTitle', $page->title);
 	// }
 
 	// public function testSetCollumns()
@@ -196,9 +221,9 @@ class PageOrmTest extends TestCase
 	// 	$collumns = ['*', '"testDesc" as description', '"MyTitle" as title'];
 	// 	/** @var Page $page */
 	// 	$page = Page::orm()->setColumns($collumns)->one();
-	// 	$this->assertNotEquals(20, $page->getId());
+	// 	$this->assertNotEquals(20, $page->id);
 	// 	$this->assertEquals('testDesc', $page->getDescription());
-	// 	$this->assertEquals('MyTitle', $page->getTitle());
+	// 	$this->assertEquals('MyTitle', $page->title);
 	// }
 
 	public function testFlush()
@@ -257,12 +282,12 @@ class PageOrmTest extends TestCase
 		$pagesTotal = count(Page::orm()->list());
 
 		$page = new Page();
-		$page->setTitle('Fourth Page');
-		$page->setDescription('Inserted by save method');
+		$page->title = 'Fourth Page';
+		$page->description = 'Inserted by save method';
 		$success = Page::orm()->save($page);
 
 		$this->assertTrue($success);
-		$this->assertGreaterThan(0, $page->getId());
+		$this->assertGreaterThan(0, $page->id);
 		$this->assertCount($pagesTotal + 1, Page::orm()->list());
 	}
 
@@ -272,14 +297,14 @@ class PageOrmTest extends TestCase
 		$description = 'Updated by save method';
 
 		$page = Page::orm()->sortBy('Id', 'DESC')->one();
-		$page->setTitle('New Title');
-		$page->setDescription($description);
+		$page->title = 'New Title';
+		$page->description = $description;
 		$success = Page::orm()->save($page);
 		$pageUpdated = Page::orm()->sortBy('Id', 'DESC')->one();
 
 		$this->assertTrue($success);
-		$this->assertEquals('New Title', $pageUpdated->getTitle());
-		$this->assertEquals($description, $pageUpdated->getDescription());
+		$this->assertEquals('New Title', $pageUpdated->title);
+		$this->assertEquals($description, $pageUpdated->description);
 		$this->assertCount($pagesTotal, Page::orm()->list());
 	}
 }

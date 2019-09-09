@@ -18,10 +18,10 @@ abstract class Model
 	 */
 	public function orFail()
 	{
-		if ($this->id) {
-			return $this;
-		} else {
+		if (is_null($this->id)) {
 			Application::app()->pageNotFound();
 		}
+
+		return $this;
 	}
 }
