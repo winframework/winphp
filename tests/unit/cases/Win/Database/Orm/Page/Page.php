@@ -12,11 +12,10 @@ class Page extends Model
 {
 	public $title;
 	public $description;
+	public $categoryId;
 
 	/** @var DateTime */
 	public $createdAt;
-
-	public $categoryId;
 
 	/** Construtor */
 	public function __construct()
@@ -31,7 +30,6 @@ class Page extends Model
 		return Category::orm()->find($this->categoryId);
 	}
 
-	/** @return PageOrm */
 	public static function orm()
 	{
 		return new PageOrm();

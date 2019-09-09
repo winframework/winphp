@@ -19,7 +19,6 @@ class Category extends Model
 		$this->description = '';
 	}
 
-	/** @return CategoryOrm */
 	public static function orm()
 	{
 		return new CategoryOrm();

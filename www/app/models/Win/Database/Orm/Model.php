@@ -9,7 +9,6 @@ abstract class Model
 {
 	public $id = null;
 
-	/** @return Orm */
 	abstract public static function orm();
 
 	/**
