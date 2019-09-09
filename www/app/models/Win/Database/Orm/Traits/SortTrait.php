@@ -18,7 +18,8 @@ trait SortTrait
 	 */
 	public function sortBy($column, $mode = 'DESC', $priority = 0)
 	{
-		$this->query->orderBy->add($column . ' ' . $mode, $priority);
+		$orderBy = $this->query->orderBy;
+		$orderBy->add($column . ' ' . $mode, $priority);
 
 		return $this;
 	}
