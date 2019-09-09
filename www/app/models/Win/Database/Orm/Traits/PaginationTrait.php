@@ -20,7 +20,6 @@ trait PaginationTrait
 	abstract public function count();
 
 	/**
-	 * TODO: adicionar paginação
 	 * @param int $pageSize
 	 * @param int $currentPage
 	 */
