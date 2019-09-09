@@ -6,12 +6,15 @@ use Win\Database\Orm\Pagination;
 use Win\Database\Sql\Query;
 
 /**
- * @property Query $query
+ * Funcionalidade de paginação
  */
 trait PaginationTrait
 {
 	/** @var Pagination */
 	public $pagination;
+
+	/** @var Query */
+	public $query;
 
 	/** @return int */
 	abstract public function count();
@@ -34,10 +37,11 @@ trait PaginationTrait
 	private function setLimit()
 	{
 		if ($this->pagination->pageSize()) {
-			$this->pagination->setCount($this->count());
+			$pagination = $this->pagination;
+			$pagination->setCount($this->count());
 			$this->query->limit->set(
-				$this->pagination->offset(),
-				$this->pagination->pageSize()
+				$pagination->offset(),
+				$pagination->pageSize()
 			);
 		}
 	}
