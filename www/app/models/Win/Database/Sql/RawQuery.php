@@ -10,6 +10,9 @@ use Win\Database\Sql\Clauses\Limit;
  */
 class RawQuery extends Query
 {
+	/** @var string */
+	protected $rawQuery;
+
 	/**
 	 * Prepara a query
 	 * @param Orm $orm

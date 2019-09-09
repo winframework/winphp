@@ -2,8 +2,8 @@
 
 namespace Win\Filesystem;
 
-use Exception;
 use const BASE_PATH;
+use Exception;
 
 /**
  * Diretório de Arquivos
@@ -101,7 +101,7 @@ class Directory extends Storable
 	 */
 	public function getItemsName()
 	{
-		$items = scandir($this->getAbsolutePath());
+		$items = (array) scandir($this->getAbsolutePath());
 
 		return array_values(array_diff($items, ['.', '..']));
 	}
