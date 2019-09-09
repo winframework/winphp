@@ -34,10 +34,11 @@ trait PaginationTrait
 	private function setLimit()
 	{
 		if ($this->pagination->pageSize()) {
-			$pagination = $this->pagination;
-			$pagination->setCount($this->count());
-			$limit = $this->query->limit;
-			$limit->set($pagination->offset(), $pagination->pageSize());
+			$this->pagination->setCount($this->count());
+			$this->query->limit->set(
+				$this->pagination->offset(),
+				$this->pagination->pageSize()
+			);
 		}
 	}
 }
