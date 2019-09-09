@@ -15,6 +15,15 @@ abstract class Builder
 	/** @var Query */
 	protected $query;
 
+	const BUILDERS = [
+		'SELECT' => Select::class,
+		'SELECT COUNT' => SelectCount::class,
+		'INSERT' => Insert::class,
+		'UPDATE' => Update::class,
+		'DELETE' => Delete::class,
+		'RAW' => Raw::class,
+	];
+
 	/** @return string */
 	abstract public function __toString();
 
@@ -31,27 +40,17 @@ abstract class Builder
 
 	/**
 	 * Cria um SQL Builder
-	 * @param string $statementType
+	 * @param string $type
 	 * @param Query $query
 	 * @return Builder
 	 */
-	public static function factory($statementType, $query)
+	public static function factory($type, $query)
 	{
-		switch ($statementType) {
-			case 'SELECT':
-				return new Select($query);
-			case 'SELECT COUNT':
-				return new SelectCount($query);
-			case 'UPDATE':
-				return new Update($query);
-			case 'INSERT':
-				return new Insert($query);
-			case 'DELETE':
-				return new Delete($query);
-			case 'RAW':
-				return new Raw($query);
-			default:
-				throw new Exception($statementType . ' is not a valid Statement Type ');
+		if (key_exists($type, static::BUILDERS)) {
+			$class = static::BUILDERS[$type];
+
+			return new $class($query);
 		}
+		throw new Exception($type . ' is not a valid Statement Type ');
 	}
 }

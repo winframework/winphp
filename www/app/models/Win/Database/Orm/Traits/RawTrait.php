@@ -2,7 +2,6 @@
 
 namespace Win\Database\Orm\Traits;
 
-use Win\Database\Sql\Builders\Raw;
 use Win\Database\Sql\Query;
 
 /**
