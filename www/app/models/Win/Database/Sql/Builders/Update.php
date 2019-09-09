@@ -22,13 +22,13 @@ class Update extends Builder
 	{
 		return implode(', ', array_map(function ($column) {
 			return $column . ' = ?';
-		}, array_keys($this->query->rawValues)));
+		}, array_keys($this->query->values)));
 	}
 
 	public function getValues()
 	{
 		return array_merge(
-			$this->query->rawValues,
+			$this->query->values,
 			$this->query->where->values
 		);
 	}

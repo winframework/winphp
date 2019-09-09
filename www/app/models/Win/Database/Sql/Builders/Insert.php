@@ -9,8 +9,6 @@ use Win\Database\Sql\Builder;
  */
 class Insert extends Builder
 {
-	protected $values = null;
-
 	public function __toString()
 	{
 		return 'INSERT INTO ' . $this->query->table
@@ -20,14 +18,7 @@ class Insert extends Builder
 
 	public function getValues()
 	{
-		if (is_null($this->values)) {
-			$this->values = array_merge(
-				$this->query->rawValues,
-				$this->query->where->values
-			);
-		}
-
-		return $this->values;
+		return $this->query->values;
 	}
 
 	/**

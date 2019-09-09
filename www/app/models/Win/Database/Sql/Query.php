@@ -28,7 +28,7 @@ class Query
 	public $raw = null;
 
 	/** @var array */
-	public $rawValues = [];
+	public $values = [];
 
 	/** @var Where */
 	public $where;

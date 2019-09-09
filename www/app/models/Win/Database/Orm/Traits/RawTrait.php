@@ -20,7 +20,7 @@ trait RawTrait
 	public function rawQuery($raw, $values = [])
 	{
 		$this->query->raw = $raw;
-		$this->query->rawValues = $values;
+		$this->query->values = $values;
 
 		return $this;
 	}

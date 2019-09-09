@@ -19,7 +19,7 @@ class Raw extends Builder
 	public function getValues()
 	{
 		return array_merge(
-			$this->query->rawValues,
+			$this->query->values,
 			$this->query->where->values
 		);
 	}

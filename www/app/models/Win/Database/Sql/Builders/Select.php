@@ -11,8 +11,8 @@ class Select extends Builder
 {
 	public function __toString()
 	{
-		return
-			($this->query->raw ?? 'SELECT * FROM ' . $this->query->table)
+		return ($this->query->raw ??
+		'SELECT * FROM ' . $this->query->table)
 		. $this->query->where
 		. $this->query->orderBy
 		. $this->query->limit;
@@ -21,7 +21,7 @@ class Select extends Builder
 	public function getValues()
 	{
 		return array_merge(
-			$this->query->rawValues,
+			$this->query->values,
 			$this->query->where->values
 		);
 	}

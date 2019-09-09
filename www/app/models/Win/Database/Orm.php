@@ -162,7 +162,7 @@ abstract class Orm
 	private function insert()
 	{
 		$query = $this->query;
-		$query->rawValues = $this->mapRow($this->model);
+		$query->values = $this->mapRow($this->model);
 		$query->setBuilder('INSERT');
 
 		$success = $this->conn->query($query, $query->getValues());
@@ -176,7 +176,7 @@ abstract class Orm
 	{
 		$this->filterBy(static::PK, '=', $this->model->id);
 		$query = $this->query;
-		$query->rawValues = $this->mapRow($this->model);
+		$query->values = $this->mapRow($this->model);
 		$query->setBuilder('UPDATE');
 
 		$success = $this->conn->query($query, $query->getValues());
