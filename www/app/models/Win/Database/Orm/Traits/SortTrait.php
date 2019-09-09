@@ -14,12 +14,11 @@ trait SortTrait
 	 * @param string $column
 	 * @param string $mode
 	 * @param int $priority
-	 * @return static
 	 */
 	public function sortBy($column, $mode = 'DESC', $priority = 0)
 	{
-		$orderBy = $this->query->orderBy;
-		$orderBy->add($column . ' ' . $mode, $priority);
+		$query = $this->query;
+		$query->orderBy->add($column . ' ' . $mode, $priority);
 
 		return $this;
 	}

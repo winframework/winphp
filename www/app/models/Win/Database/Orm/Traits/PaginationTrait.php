@@ -39,10 +39,8 @@ trait PaginationTrait
 		if ($this->pagination->pageSize()) {
 			$pagination = $this->pagination;
 			$pagination->setCount($this->count());
-			$this->query->limit->set(
-				$pagination->offset(),
-				$pagination->pageSize()
-			);
+			$this->query
+				->limit->set($pagination->offset(), $pagination->pageSize());
 		}
 	}
 }
