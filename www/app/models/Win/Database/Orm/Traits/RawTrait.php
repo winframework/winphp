@@ -4,13 +4,16 @@ namespace Win\Database\Orm\Traits;
 
 use Exception;
 use Win\Database\Sql\Query;
+use Win\Database\Sql\RawQuery;
 
 /**
  * Permite definir a query manualmente
- * @property Query $query
  */
 trait RawTrait
 {
+	/** @var Query */
+	protected $query;
+
 	/**
 	 * Define a query manualmente
 	 * @param string $query
