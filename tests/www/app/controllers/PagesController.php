@@ -7,6 +7,7 @@ use Win\Database\Orm\Page\Category;
 use Win\Database\Orm\Page\Page;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
+use Win\Request\Input;
 
 /**
  * ^pages => Pages/index
@@ -16,10 +17,13 @@ use Win\Mvc\View;
 class PagesController extends Controller
 {
 	protected $orm;
+	protected $pageSize = 2;
 
 	protected function init()
 	{
-		$this->orm = Page::orm()->filterVisible()->paginate(10);
+		$this->orm = Page::orm()
+		->filterVisible()
+		->paginate($this->pageSize, Input::get('p'));
 
 		$db = [];
 		require 'app/config/database.php';
@@ -39,6 +43,7 @@ class PagesController extends Controller
 	{
 		return Category::orm()
 			->filterVisible()
+			->paginate(2)
 			->list();
 	}
 
@@ -59,7 +64,7 @@ class PagesController extends Controller
 		$this->setTitle('Pages');
 		$this->addData('pages', $orm->list());
 		$this->addData('categories', $this->getCategories());
-		$this->addData('pageCount', $orm->count());
+		$this->addData('pagination', $orm->pagination);
 
 		return new View('pages/index');
 	}

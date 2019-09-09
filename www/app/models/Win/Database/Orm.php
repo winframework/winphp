@@ -4,7 +4,9 @@ namespace Win\Database;
 
 use Win\Database\Mysql\MysqlConnection;
 use Win\Database\Orm\Model;
+use Win\Database\Orm\Pagination;
 use Win\Database\Orm\Traits\FilterTrait;
+use Win\Database\Orm\Traits\PaginationTrait;
 use Win\Database\Orm\Traits\RawTrait;
 use Win\Database\Orm\Traits\SortTrait;
 use Win\Database\Sql\Clauses\Where;
@@ -18,6 +20,7 @@ abstract class Orm
 	use FilterTrait;
 	use SortTrait;
 	use RawTrait;
+	use PaginationTrait;
 
 	/** @var string */
 	const TABLE = '';
@@ -60,6 +63,7 @@ abstract class Orm
 		$this->conn = $connection ?: MysqlConnection::instance();
 		$this->query = new Query($this);
 		$this->filter = $this->query->where;
+		$this->pagination = new Pagination();
 	}
 
 	/**
@@ -69,7 +73,7 @@ abstract class Orm
 	{
 		$query = $this->query;
 		$query->setStatement('SELECT');
-		$query->limit->set(1);
+		$query->limit->set(0, 1);
 		$row = $this->conn->fetch($query, $query->getValues());
 
 		return $this->mapModel($row);
@@ -80,6 +84,7 @@ abstract class Orm
 	 */
 	public function list()
 	{
+		$this->setLimit();
 		$query = $this->query;
 		$query->setStatement('SELECT');
 		$rows = $this->conn->fetchAll($query, $query->getValues());
@@ -180,17 +185,5 @@ abstract class Orm
 	protected function modelExists()
 	{
 		return $this->model->getId() > 0;
-	}
-
-	/**
-	 * TODO: adicionar paginação
-	 * @param int $pageSize
-	 * @param int $currentPage
-	 */
-	public function paginate($pageSize, $currentPage = 1)
-	{
-		$this->query->limit->set($pageSize);
-
-		return $this;
 	}
 }

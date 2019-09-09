@@ -36,11 +36,12 @@ class Limit
 
 	/**
 	 * Define o limit
-	 * @param string $limit
+	 * @param int $offset
+	 * @param int $limit
 	 */
-	public function set($limit)
+	public function set($offset, $limit)
 	{
-		$this->limit = $limit;
+		$this->limit = $offset . ',' . $limit;
 	}
 
 	/**
