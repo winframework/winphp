@@ -89,6 +89,7 @@ abstract class Orm
 
 	/**
 	 * Retorna o total de resultados da busca
+	 * O LIMIT (Paginação) não é aplicado
 	 */
 	public function count()
 	{
@@ -179,5 +180,17 @@ abstract class Orm
 	protected function modelExists()
 	{
 		return $this->model->getId() > 0;
+	}
+
+	/**
+	 * TODO: adicionar paginação
+	 * @param int $pageSize
+	 * @param int $currentPage
+	 */
+	public function paginate($pageSize, $currentPage = 1)
+	{
+		$this->query->limit->set($pageSize);
+
+		return $this;
 	}
 }

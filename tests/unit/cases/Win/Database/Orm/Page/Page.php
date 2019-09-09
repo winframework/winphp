@@ -8,70 +8,27 @@ use Win\Database\Orm\Model;
 /**
  * Página
  */
-class Page implements Model
+class Page extends Model
 {
-	public $id;
 	public $title;
 	public $description;
 
 	/** @var DateTime */
 	public $createdAt;
 
+	public $categoryId;
+
 	/** Construtor */
 	public function __construct()
 	{
-		$this->id = null;
 		$this->title = '';
 		$this->description = '';
 		$this->createdAt = null;
 	}
 
-	/** @return int */
-	public function getId()
+	public function category()
 	{
-		return $this->id;
-	}
-
-	/** @return string */
-	public function getTitle()
-	{
-		return $this->title;
-	}
-
-	/** @return string */
-	public function getDescription()
-	{
-		return $this->description;
-	}
-
-	/** @return DateTime */
-	public function getCreatedAt()
-	{
-		return $this->createdAt;
-	}
-
-	/** @param int $id */
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-
-	/** @param string $title */
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
-
-	/** @param string $description */
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-
-	/** @param DateTime $createdAt */
-	public function setCreatedAt(DateTime $createdAt)
-	{
-		$this->createdAt = $createdAt;
+		return Category::orm()->find($this->categoryId);
 	}
 
 	/** @return PageOrm */

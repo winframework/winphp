@@ -6,42 +6,42 @@ use Win\Calendar\DateTime;
 use Win\Database\Orm;
 
 /**
- * Página ORM
+ * Categoria ORM
  *
- * @method Page one()
- * @method Page[] list()
- * @method Page find($id)
+ * @method Category one()
+ * @method Category[] list()
+ * @method Category find($id)
  */
-class PageOrm extends Orm
+class CategoryOrm extends Orm
 {
-	const TABLE = 'Pages';
-	const TITLE = 'Página';
+	const TABLE = 'PageCategories';
+	const TITLE = 'Categoria de Páginas';
 
-	/** @return Page */
+	/** @return Category */
 	public static function mapModel($row)
 	{
 		$page = new Page();
 		$page->id = $row['Id'];
 		$page->title = $row['Title'];
 		$page->description = $row['Description'];
-		$page->createdAt = new DateTime($row['CreatedAt']);
 
 		return $page;
 	}
 
-	/** @param Page $model */
+	/** @param Category $model */
 	public static function mapRow($model)
 	{
 		return [
 			'Id' => $model->id,
 			'Title' => $model->title,
 			'Description' => $model->description,
-			'CreatedAt' => $model->createdAt->toSql(),
 		];
 	}
 
 	public function filterVisible()
 	{
-		return $this->filter('Enabled', true);
+		return $this
+			->filter('Enabled', true);
+		// ->filterBy('PublishedAt', '<=', (new DateTime())->toSql());
 	}
 }

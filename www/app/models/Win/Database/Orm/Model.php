@@ -3,15 +3,25 @@
 namespace Win\Database\Orm;
 
 use Win\Database\Orm;
+use Win\Mvc\Application;
 
-interface Model
+abstract class Model
 {
-	/** @return int */
-	public function getId();
-
-	/** @param int $id */
-	public function setId($id);
+	public $id = null;
 
 	/** @return Orm */
-	public static function orm();
+	abstract public static function orm();
+
+	/**
+	 * Retorna o model ou define página 404
+	 * @return static
+	 */
+	public function orFail()
+	{
+		if ($this->id) {
+			return $this;
+		} else {
+			Application::app()->pageNotFound();
+		}
+	}
 }
