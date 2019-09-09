@@ -3,7 +3,7 @@
 namespace Win\Database\Orm\Traits;
 
 use Exception;
-use Win\Database\Sql\RawQuery;
+use Win\Database\Sql\Query;
 
 /**
  * Permite definir a query manualmente

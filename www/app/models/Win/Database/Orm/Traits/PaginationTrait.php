@@ -14,7 +14,7 @@ trait PaginationTrait
 	public $pagination;
 
 	/** @var Query */
-	public $query;
+	protected $query;
 
 	/** @return int */
 	abstract public function count();
