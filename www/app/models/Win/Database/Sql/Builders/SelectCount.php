@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Database\Sql\Statements;
+namespace Win\Database\Sql\Builders;
 
 /**
  * SELECT COUNT(*) FROM ...

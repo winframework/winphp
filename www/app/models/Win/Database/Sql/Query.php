@@ -2,34 +2,33 @@
 
 namespace Win\Database\Sql;
 
-use Win\Database\Connection;
 use Win\Database\Orm;
 use Win\Database\Sql\Clauses\Limit;
 use Win\Database\Sql\Clauses\OrderBy;
 use Win\Database\Sql\Clauses\Where;
-use Win\Database\Sql\Statements\Delete;
-use Win\Database\Sql\Statements\Select;
-use Win\Database\Sql\Statements\Update;
 
 /**
  * SELECT, UPDATE, DELETE, etc
  */
 class Query
 {
-	/** @var Connection */
-	protected $conn;
-
 	/** @var Orm */
 	protected $orm;
+
+	/**
+	 * Responsável por gerar a Query completa
+	 * @var Builder
+	 */
+	protected $builder;
 
 	/** @var string */
 	public $table;
 
-	/** @var array */
-	public $values;
+	/** @var string */
+	public $raw = null;
 
-	/** @var Statement */
-	public $statement;
+	/** @var array */
+	public $rawValues = [];
 
 	/** @var Where */
 	public $where;
@@ -46,10 +45,8 @@ class Query
 	 */
 	public function __construct(Orm $orm)
 	{
-		$this->orm = $orm;
 		$this->table = $orm::TABLE;
-		$this->conn = $orm->conn;
-		$this->values = [];
+		$this->orm = $orm;
 
 		$this->where = new Where();
 		$this->orderBy = new OrderBy();
@@ -57,19 +54,19 @@ class Query
 	}
 
 	/**
-	 * Define a base da Query
+	 * Define o builder da Query
 	 * @param string $statementType
 	 * @example setStatement('SELECT'|'UPDATE'|'DELETE')
 	 */
-	public function setStatement($statementType)
+	public function setBuilder($statementType)
 	{
-		$this->statement = Statement::factory($statementType, $this);
+		$this->builder = Builder::factory($statementType, $this);
 	}
 
 	/** @return mixed[] */
 	public function getValues()
 	{
-		return array_values($this->statement->getValues());
+		return array_values($this->builder->getValues());
 	}
 
 	/**
@@ -79,11 +76,11 @@ class Query
 	public function __toString()
 	{
 		if ($this->orm->debug) {
-			print_r('<pre>' . $this->statement . '<br/>');
+			print_r('<pre>' . $this->builder . '<br/>');
 			print_r($this->getValues());
 			print_r('</pre>');
 		}
 
-		return (string) $this->statement;
+		return (string) $this->builder;
 	}
 }

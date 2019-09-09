@@ -3,13 +3,14 @@
 namespace Win\Database\Sql;
 
 use Exception;
-use Win\Database\Sql\Statements\Delete;
-use Win\Database\Sql\Statements\Insert;
-use Win\Database\Sql\Statements\Select;
-use Win\Database\Sql\Statements\SelectCount;
-use Win\Database\Sql\Statements\Update;
+use Win\Database\Sql\Builders\Delete;
+use Win\Database\Sql\Builders\Insert;
+use Win\Database\Sql\Builders\Raw;
+use Win\Database\Sql\Builders\Select;
+use Win\Database\Sql\Builders\SelectCount;
+use Win\Database\Sql\Builders\Update;
 
-abstract class Statement
+abstract class Builder
 {
 	/** @var Query */
 	protected $query;
@@ -29,9 +30,10 @@ abstract class Statement
 	}
 
 	/**
-	 * Cria um  Statement
+	 * Cria um SQL Builder
 	 * @param string $statementType
 	 * @param Query $query
+	 * @return Builder
 	 */
 	public static function factory($statementType, $query)
 	{
@@ -46,6 +48,8 @@ abstract class Statement
 				return new Insert($query);
 			case 'DELETE':
 				return new Delete($query);
+			case 'RAW':
+				return new Raw($query);
 			default:
 				throw new Exception($statementType . ' is not a valid Statement Type ');
 		}

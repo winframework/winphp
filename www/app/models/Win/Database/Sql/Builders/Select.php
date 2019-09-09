@@ -1,17 +1,18 @@
 <?php
 
-namespace Win\Database\Sql\Statements;
+namespace Win\Database\Sql\Builders;
 
-use Win\Database\Sql\Statement;
+use Win\Database\Sql\Builder;
 
 /**
  * SELECT * FROM ...
  */
-class Select extends Statement
+class Select extends Builder
 {
 	public function __toString()
 	{
-		return 'SELECT * FROM ' . $this->query->table
+		return
+			($this->query->raw ?? 'SELECT * FROM ' . $this->query->table)
 		. $this->query->where
 		. $this->query->orderBy
 		. $this->query->limit;
@@ -20,7 +21,7 @@ class Select extends Statement
 	public function getValues()
 	{
 		return array_merge(
-			$this->query->values,
+			$this->query->rawValues,
 			$this->query->where->values
 		);
 	}

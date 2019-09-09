@@ -9,6 +9,7 @@ use Win\Database\Orm\Traits\FilterTrait;
 use Win\Database\Orm\Traits\PaginationTrait;
 use Win\Database\Orm\Traits\RawTrait;
 use Win\Database\Orm\Traits\SortTrait;
+use Win\Database\Sql\Builders\Raw;
 use Win\Database\Sql\Clauses\Where;
 use Win\Database\Sql\Query;
 
@@ -75,7 +76,7 @@ abstract class Orm
 	public function one()
 	{
 		$query = $this->query;
-		$query->setStatement('SELECT');
+		$query->setBuilder('SELECT');
 		$query->limit->set(0, 1);
 		$row = $this->conn->fetch($query, $query->getValues());
 
@@ -89,7 +90,7 @@ abstract class Orm
 	{
 		$this->setLimit();
 		$query = $this->query;
-		$query->setStatement('SELECT');
+		$query->setBuilder('SELECT');
 		$rows = $this->conn->fetchAll($query, $query->getValues());
 
 		return array_map([$this, 'mapModel'], $rows);
@@ -102,7 +103,7 @@ abstract class Orm
 	public function count()
 	{
 		$query = $this->query;
-		$query->setStatement('SELECT COUNT');
+		$query->setBuilder('SELECT COUNT');
 
 		return $this->conn->fetchCount($query, $query->getValues());
 	}
@@ -114,7 +115,7 @@ abstract class Orm
 	public function delete()
 	{
 		$query = $this->query;
-		$query->setStatement('DELETE');
+		$query->setBuilder('DELETE');
 
 		return $this->conn->query($query, $query->getValues());
 	}
@@ -128,7 +129,7 @@ abstract class Orm
 	{
 		$query = $this->query;
 		$this->filterBy(static::PK, '=', $id);
-		$query->setStatement('DELETE');
+		$query->setBuilder('DELETE');
 
 		return $this->conn->query($query, $query->getValues());
 	}
@@ -161,8 +162,8 @@ abstract class Orm
 	private function insert()
 	{
 		$query = $this->query;
-		$query->values = $this->mapRow($this->model);
-		$query->setStatement('INSERT');
+		$query->rawValues = $this->mapRow($this->model);
+		$query->setBuilder('INSERT');
 
 		$success = $this->conn->query($query, $query->getValues());
 		$this->model->id = (int) $this->conn->getLastInsertId();
@@ -175,8 +176,8 @@ abstract class Orm
 	{
 		$this->filterBy(static::PK, '=', $this->model->id);
 		$query = $this->query;
-		$query->values = $this->mapRow($this->model);
-		$query->setStatement('UPDATE');
+		$query->rawValues = $this->mapRow($this->model);
+		$query->setBuilder('UPDATE');
 
 		$success = $this->conn->query($query, $query->getValues());
 		$this->query->where = new Where();

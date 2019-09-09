@@ -1,13 +1,13 @@
 <?php
 
-namespace Win\Database\Sql\Statements;
+namespace Win\Database\Sql\Builders;
 
-use Win\Database\Sql\Statement;
+use Win\Database\Sql\Builder;
 
 /**
  * UPDATE ... SET ...
  */
-class Update extends Statement
+class Update extends Builder
 {
 	public function __toString()
 	{
@@ -22,13 +22,13 @@ class Update extends Statement
 	{
 		return implode(', ', array_map(function ($column) {
 			return $column . ' = ?';
-		}, array_keys($this->query->values)));
+		}, array_keys($this->query->rawValues)));
 	}
 
 	public function getValues()
 	{
 		return array_merge(
-			$this->query->values,
+			$this->query->rawValues,
 			$this->query->where->values
 		);
 	}

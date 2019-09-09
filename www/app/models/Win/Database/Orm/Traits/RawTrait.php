@@ -2,9 +2,8 @@
 
 namespace Win\Database\Orm\Traits;
 
-use Exception;
+use Win\Database\Sql\Builders\Raw;
 use Win\Database\Sql\Query;
-use Win\Database\Sql\RawQuery;
 
 /**
  * Permite definir a query manualmente
@@ -16,26 +15,25 @@ trait RawTrait
 
 	/**
 	 * Define a query manualmente
-	 * @param string $query
+	 * @param string $raw
 	 * @param mixed[] $values
 	 */
-	public function rawQuery($query, $values = [])
+	public function rawQuery($raw, $values = [])
 	{
-		$this->query = new RawQuery($this, $query, $values);
+		$this->query->raw = $raw;
+		$this->query->rawValues = $values;
 
 		return $this;
 	}
 
 	/**
-	 * Executa a Query (apenas para RAW)
+	 * Executa a query que foi definida em rawQuery
 	 * @return bool
 	 */
-	public function run()
+	public function runRaw()
 	{
-		if (!$this->query instanceof RawQuery) {
-			throw new Exception('ORM run only works with RawQuery');
-		}
+		$this->query->setBuilder('RAW');
 
-		return $this->conn->query($this->query, $this->query->values);
+		return $this->conn->query($this->query, $this->query->getValues());
 	}
 }

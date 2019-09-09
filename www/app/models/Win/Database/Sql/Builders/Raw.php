@@ -1,17 +1,17 @@
 <?php
 
-namespace Win\Database\Sql\Statements;
+namespace Win\Database\Sql\Builders;
 
-use Win\Database\Sql\Statement;
+use Win\Database\Sql\Builder;
 
 /**
- * DELETE FROM ...
+ * Raw permite qualquer Execução, porem é manual
  */
-class Delete extends Statement
+class Raw extends Builder
 {
 	public function __toString()
 	{
-		return 'DELETE FROM ' . $this->query->table
+		return $this->query->raw
 		. $this->query->where
 		. $this->query->limit;
 	}
@@ -19,7 +19,7 @@ class Delete extends Statement
 	public function getValues()
 	{
 		return array_merge(
-			$this->query->values,
+			$this->query->rawValues,
 			$this->query->where->values
 		);
 	}

@@ -53,27 +53,23 @@ class PageOrmTest extends TestCase
 		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
 			. ' WHERE Id BETWEEN ? AND ? ORDER BY Id DESC', [2, 10]);
 
-		$success = $orm->run();
+		$success = $orm->runRaw();
 
 		$this->assertTrue($success);
 	}
 
 	public function testRunInvalidQuery()
 	{
-		$orm = Page::orm();
-		$orm->rawQuery('INVALID QUERY');
-
-		$success = $orm->run();
+		$orm = Page::orm()->rawQuery('INVALID QUERY');
+		$success = $orm->runRaw();
 
 		$this->assertFalse($success);
 	}
 
-	/**
-	 * @expectedException \Exception
-	 */
 	public function testRunWithoutRawQuery()
 	{
-		Page::orm()->run();
+		$success = Page::orm()->runRaw();
+		$this->assertFalse($success);
 	}
 
 	public function testCount()

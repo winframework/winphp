@@ -21,16 +21,21 @@ class DatabaseController extends Controller
 		$this->setTitle('Database Tests');
 
 		$page = new Page();
-		$page->setId(8);
-		$page->setTitle('chaves');
+		$page->id = 8;
+		$page->title = 'chaves';
 
 		$pageOrm = Page::orm();
 		$pageOrm->debug = true;
-		$pageOrm->filterNotPublished();
-		$pageOrm->filterBy('UserId', '=', 10);
-		$pageOrm->filterBy('UserId', '=', 10);
-		$pageOrm->filter('UserId', 10);
-		$x = $pageOrm->one();
+		// $pageOrm->rawQuery('SELECT * FROM ' . $pageOrm::TABLE);
+
+		// $pageOrm->rawQuery('SELECT * FROM ' . $pageOrm::TABLE . ' WHERE Id BETWEEN 1 AND 8');
+		$x = $pageOrm->list();
+
+		// $pageOrm->filterNotPublished();
+		// $pageOrm->filterBy('UserId', '=', 10);
+		// $pageOrm->filterBy('UserId', '=', 10);
+		// $pageOrm->filterBy('Id', '<', 10);
+		// $x = $pageOrm->one();
 		var_dump($x);
 
 		return new View('demo');
