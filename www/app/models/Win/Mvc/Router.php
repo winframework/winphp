@@ -26,33 +26,14 @@ class Router
 	protected static $customUrl = [null, null];
 
 	/**
-	 * Retorna a nova URL
-	 * @return mixed[]
-	 */
-	public function getCustomUrl()
-	{
-		return static::$customUrl;
-	}
-
-	/**
-	 * Retorna TRUE se a URL foi personalizada
-	 * @return bool
-	 */
-	public function hasCustomUrl()
-	{
-		return !is_null(static::$customUrl[0]);
-	}
-
-	/**
 	 * Inicia o processo de URL personalizada
-	 * retornando TRUE se alguma rota foi encontrada
 	 * @return bool
 	 */
-	public function run()
+	public function getParams()
 	{
-		static::$customUrl = $this->createCustomUrl();
+		$this->load();
 
-		return $this->hasCustomUrl();
+		return explode('/', $this->getDestination());
 	}
 
 	/**
@@ -71,29 +52,19 @@ class Router
 	 * Percorre todas as rotas e retorna a nova URL
 	 * @return string[] Nova URL [0 => controller, 1 => action]
 	 */
-	protected function createCustomUrl()
+	protected function getDestination()
 	{
-		$search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
+		// $search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
 		$matches = [];
-		foreach ($this->routes as $url => $route) {
-			$pattern = '@' . Url::instance()->format($url) . '$@';
+		foreach ($this->routes as $source => $destination) {
+			$pattern = '@' . Url::instance()->format($source) . '$@';
 			$exists = 1 == preg_match($pattern, Url::instance()->getUrl(), $matches);
 			if ($exists) {
-				$route = str_replace($search, $matches, $route) . '/';
-
-				return explode('/', $route);
+				return $destination;
+				// return str_replace($search, $matches, $destination) . '/';
 			}
 		}
 
-		return [null, null];
-	}
-
-	/**
-	 * Cria um Controller de acordo com a nova URL
-	 * @return Controller|DefaultController
-	 */
-	public function createController()
-	{
-		return ControllerFactory::create(static::$customUrl[0], static::$customUrl[1]);
+		return Url::instance()->getUrl();
 	}
 }

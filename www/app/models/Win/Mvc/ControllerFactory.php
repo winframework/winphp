@@ -12,44 +12,23 @@ use Win\Formats\Str;
 class ControllerFactory
 {
 	/**
-	 * Cria um Controller com base na página/rota
-	 * @param string $page
-	 * @param string|null $action
+	 * Cria um Controller com base nos parâmetros atuais
 	 * @return Controller
 	 */
-	public static function create($page, $action = null)
+	public static function create()
 	{
-		$class = static::formatClass($page);
-		if (class_exists($class)) {
-			$action = static::formatAction($action);
+		$class = static::getClassName();
 
-			return new $class($action);
-		}
-
-		return new DefaultController();
-	}
-
-	/**
-	 * Retorna nome de um Action válido
-	 * @param string $string
-	 * @return string
-	 */
-	protected static function formatAction($string)
-	{
-		if (empty($string)) {
-			$string = Application::app()->getParam(1);
-		}
-
-		return Str::lowerCamel($string);
+		return class_exists($class) ? new $class() : new DefaultController();
 	}
 
 	/**
 	 * Retorna nome de um Controller válido
-	 * @param string $page
 	 * @return string
 	 */
-	protected static function formatClass($page)
+	protected static function getClassName()
 	{
+		$page = Application::app()->getParam(0);
 		$controllerName = ucwords(str_replace('-', ' ', $page) . 'Controller');
 
 		return 'controllers\\' . str_replace(' ', '', $controllerName);

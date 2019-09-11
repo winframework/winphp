@@ -40,7 +40,7 @@ trait FilterTrait
 	 */
 	public function find($id)
 	{
-		$this->filterBy('id', '=', $id);
+		$this->filterBy(static::PK, '=', $id);
 
 		return $this->one();
 	}

@@ -13,12 +13,8 @@ final class DefaultController extends Controller
 	{
 	}
 
-	protected function init()
+	public function load()
 	{
-	}
-
-	public function __construct()
-	{
-		parent::__construct('index');
+		Application::app()->view->validate();
 	}
 }

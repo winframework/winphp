@@ -2,6 +2,7 @@
 
 namespace Win\Mvc;
 
+use controllers\ErrorsController;
 use Exception;
 
 /**
@@ -11,6 +12,7 @@ use Exception;
 class HttpException extends Exception
 {
 	protected static $controller = 'errors';
+	protected static $runCount = 0;
 
 	/**
 	 * @param int $code
@@ -24,48 +26,17 @@ class HttpException extends Exception
 	/** Executa uma resposta HTTP de erro */
 	public function run()
 	{
+		$error = $this->code;
 		$app = Application::app();
-		$app->setPage($this->code);
-		$app->view = new View($this->code, ['exception' => $this]);
-		$action = 'error' . $this->code;
-		$controller = ControllerFactory::create(static::$controller, $action);
+		$app->setParams([$error, 'error' . $error]);
 
-		if (get_class($controller) !== get_class($app->controller)) {
-			$app->controller = $controller;
-		}
+		$app->controller = new ErrorsController();
+		$app->view = new View($error, ['title' => $error]);
 
-		http_response_code($this->code);
-		$this->retry();
-	}
-
-	/** Define 404 caso definiu um erro inválido */
-	protected function retry()
-	{
+		http_response_code($error);
 		try {
-			Application::app()->run();
+			$app->run();
 		} catch (HttpException $e) {
-			if (!$this->is404()) {
-				$e->run();
-			}
 		}
-	}
-
-	/**
-	 * Retorna TRUE se a página é 404
-	 * @return bool
-	 */
-	private function is404()
-	{
-		return '404' == Application::app()->getPage();
-	}
-
-	/**
-	 * Retorna TRUE se $code é um código de erro
-	 * @param mixed $code
-	 * @return bool
-	 */
-	public static function isErrorCode($code)
-	{
-		return (int) $code > 0;
 	}
 }

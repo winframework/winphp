@@ -9,7 +9,7 @@ use Win\Mvc\View;
 
 class DatabaseController extends Controller
 {
-	protected function init()
+	public function __construct()
 	{
 		$db = [];
 		require 'app/config/database.php';

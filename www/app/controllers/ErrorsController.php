@@ -3,12 +3,11 @@
 namespace controllers;
 
 use Win\Mvc\Controller;
-use Win\Mvc\View;
 
 class ErrorsController extends Controller
 {
 	public function error404()
 	{
-		$this->setTitle('Ops! Page not found!');
+		$this->setTitle('Page not found!');
 	}
 }

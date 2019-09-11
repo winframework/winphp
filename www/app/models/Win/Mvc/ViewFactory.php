@@ -10,19 +10,21 @@ namespace Win\Mvc;
 class ViewFactory
 {
 	/**
-	 * Cria uma View com base na página e parâmetros
-	 * @param string $page
-	 * @param string $action
+	 * Cria uma View com base nos parâmetros atuais
 	 * @return View
 	 */
-	public static function create($page, $action = null)
+	public static function create()
 	{
-		if (HttpException::isErrorCode($page)) {
-			$view = new View('');
+		$app = Application::app();
+		$params = $app->getParams();
+
+		if ($params[0] == 'errors' && $params[1] == '404') {
+			var_dump('ae');
+			$view = new View('404');
 		} else {
-			$view = new View($page);
+			$view = new View($params[0]);
 			if (!$view->exists()) {
-				$view = new View($page . '/' . $action);
+				$view = new View($params[0] . '/' . $params[1]);
 			}
 		}
 

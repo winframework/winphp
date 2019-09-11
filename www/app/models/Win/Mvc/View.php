@@ -2,8 +2,6 @@
 
 namespace Win\Mvc;
 
-use Win\Html\Seo\Title;
-
 /**
  * View
  *
@@ -46,16 +44,6 @@ class View extends Block
 	/** @return string */
 	public function getTitle()
 	{
-		if (empty($this->getData('title'))) {
-			$this->addData('title', $this->getDynamicTitle());
-		}
-
 		return $this->getData('title');
-	}
-
-	/** @return string */
-	private function getDynamicTitle()
-	{
-		return Title::otimize(ucwords(str_replace('-', ' ', $this->app->getPage())));
 	}
 }

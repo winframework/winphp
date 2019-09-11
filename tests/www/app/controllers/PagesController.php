@@ -21,7 +21,7 @@ class PagesController extends Controller
 	protected $orm;
 	protected $pageSize = 2;
 
-	protected function init()
+	public function __construct()
 	{
 		$this->orm = Page::orm()
 		->filterVisible()

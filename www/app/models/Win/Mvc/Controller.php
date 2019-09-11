@@ -2,6 +2,7 @@
 
 namespace Win\Mvc;
 
+use Win\Formats\Str;
 use Win\Request\Url;
 
 /**
@@ -20,9 +21,6 @@ abstract class Controller
 	public $app;
 
 	/** @var string */
-	private $action;
-
-	/** @var string */
 	public $layout = 'main';
 
 	/**
@@ -30,16 +28,6 @@ abstract class Controller
 	 * @var mixed[]
 	 */
 	private $data = [];
-
-	/**
-	 * Cria o Controller, definindo o Action
-	 * @param string $action
-	 */
-	public function __construct($action = 'index')
-	{
-		$this->app = Application::app();
-		$this->action = $action;
-	}
 
 	/** @param string $title */
 	public function setTitle($title)
@@ -80,9 +68,9 @@ abstract class Controller
 	}
 
 	/** @return string */
-	public function getAction()
+	protected function getAction()
 	{
-		return $this->action;
+		return Str::lowerCamel($this->app->getParam(1));
 	}
 
 	/**
@@ -91,8 +79,9 @@ abstract class Controller
 	 */
 	public function load()
 	{
-		$this->init();
-		$action = $this->action;
+		$this->app = Application::app();
+		
+		$action = $this->getAction();
 		if (method_exists($this, $action)) {
 			$view = $this->$action();
 			$this->setView($view);
@@ -125,12 +114,7 @@ abstract class Controller
 	/**
 	 * Action Index
 	 */
-	abstract public function index();
-
-	/**
-	 * Este método é chamado sempre que o Controller é carregado
-	 */
-	protected function init()
+	public function index()
 	{
 	}
 

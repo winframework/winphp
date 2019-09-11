@@ -24,11 +24,6 @@ class ContatoController extends \Win\Mvc\Controller
 		'recaptcha' => ['Não sou um robô', 'checked'],
 	];
 
-	public function init()
-	{
-		// ReCaptcha::$siteKey = '';
-	}
-
 	/**
 	 * Retorna os dados informados
 	 * @return mixed[]

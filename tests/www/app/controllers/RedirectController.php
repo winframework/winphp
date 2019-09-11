@@ -8,10 +8,6 @@ use Win\Mvc\View;
 
 class RedirectController extends Controller
 {
-	protected function init()
-	{
-	}
-
 	public function index()
 	{
 		Alert::success('Você será redirecionado');

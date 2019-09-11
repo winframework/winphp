@@ -8,10 +8,6 @@ use Win\Mvc\View;
 
 class AlertsController extends Controller
 {
-	protected function init()
-	{
-	}
-
 	public function index()
 	{
 		Alert::error('Ops! Um erro');

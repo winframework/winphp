@@ -8,40 +8,40 @@ class ViewFactoryTest extends TestCase
 {
 	public function testCreateIndex()
 	{
-		$defaultView = ViewFactory::create('index');
-		$this->assertTrue($defaultView->exists());
+		ApplicationTest::newApp('index');
+		$this->assertTrue(ViewFactory::create()->exists());
 
-		$indexView = ViewFactory::create('index', 'index');
-		$this->assertTrue($indexView->exists());
+		ApplicationTest::newApp('index/index');
+		$this->assertTrue(ViewFactory::create()->exists());
 	}
 
 	public function testCreate404()
 	{
-		$view = ViewFactory::create('not-exist');
-		$this->assertTrue(!$view->exists());
-
-		$view = ViewFactory::create('not-exist', 'index');
-		$this->assertFalse($view->exists());
-
-		$view = ViewFactory::create(404);
-		$this->assertFalse($view->exists());
+		ApplicationTest::newApp('not-exist');
+		$this->assertFalse(ViewFactory::create()->exists());
 	}
 
 	public function testCreateDemo()
 	{
-		$view = ViewFactory::create('demo', 'index');
-		$this->assertTrue($view->exists());
+		ApplicationTest::newApp('demo/index');
+		$this->assertTrue(ViewFactory::create()->exists());
 	}
 
-	public function testCreatePage()
+	// public function testCreatePage()
+	// {
+	// 	ApplicationTest::newApp('page');
+	// 	$this->assertTrue(ViewFactory::create()->exists());
+	// }
+
+	// public function testCreateSubPage()
+	// {
+	// 	ApplicationTest::newApp('page/subpage');
+	// 	$this->assertTrue(ViewFactory::create()->exists());
+	// }
+
+	public function testCreateSubPageError()
 	{
-		$view = ViewFactory::create('page', 'index');
-		$this->assertTrue($view->exists());
-
-		$view = ViewFactory::create('page', 'subpage');
-		$this->assertTrue($view->exists());
-
-		$view = ViewFactory::create('page', 'error');
-		$this->assertFalse($view->exists());
+		ApplicationTest::newApp('page/error');
+		$this->assertFalse(ViewFactory::create()->exists());
 	}
 }

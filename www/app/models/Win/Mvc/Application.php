@@ -15,17 +15,16 @@ use Win\Request\Url;
  */
 class Application
 {
-	protected static $instance = null;
-	private $name;
-	private $page;
-	private $homePage = 'index';
-	private $params;
-
 	/** @var Controller */
 	public $controller;
 
 	/** @var View */
 	public $view;
+
+	protected static $instance = null;
+	private $name;
+	private $homePage = 'index';
+	private $params = ['index', 'index'];
 
 	/**
 	 * Cria a aplicação principal
@@ -36,26 +35,20 @@ class Application
 		static::$instance = $this;
 		Data::instance()->load($data);
 		$this->name = (string) $this->data()->get('name', '');
-		$this->init();
+		$this->setParams(Router::instance()->getParams());
+
+		$this->controller = ControllerFactory::create();
+		$this->view = ViewFactory::create();
 	}
 
 	/**
-	 * Inicia com as Configurações básicas
+	 * Define os parâmetros
+	 * Se estiver vazio, utiliza os parâmetros padrão.
+	 * @param string[] $params
 	 */
-	protected function init()
+	public function setParams($params)
 	{
-		$this->setParams(Url::instance()->getSegments());
-		$params = $this->getParams();
-		$this->controller = ControllerFactory::create($params[0], $params[1]);
-
-		Router::instance()->load();
-		if (Router::instance()->run()) {
-			$this->setParams(Router::instance()->getCustomUrl());
-			$this->controller = Router::instance()->createController();
-		}
-
-		$this->setPage($params[0]);
-		$this->view = ViewFactory::create($params[0], $params[1]);
+		$this->params = array_replace($this->params, array_filter($params));
 	}
 
 	/**
@@ -117,13 +110,7 @@ class Application
 	 */
 	public function getPage()
 	{
-		return (string) $this->page;
-	}
-
-	/** @param string $page */
-	public function setPage($page)
-	{
-		$this->page = (string) $page;
+		return (string) $this->params[0];
 	}
 
 	/**
@@ -132,7 +119,7 @@ class Application
 	 */
 	public function isHomePage()
 	{
-		return (bool) ($this->page === $this->homePage);
+		return $this->getPage() === $this->homePage;
 	}
 
 	/**
@@ -141,27 +128,16 @@ class Application
 	 */
 	public function isErrorPage()
 	{
-		return HttpException::isErrorCode($this->getPage());
+		return $this->getPage() == '404';
 	}
 
 	/**
 	 * Retorna um todos os parâmetros da URL
 	 * @return string[]
 	 */
-	protected function getParams()
+	public function getParams()
 	{
 		return $this->params;
-	}
-
-	/**
-	 * Define os parâmetros
-	 * Se estiver vazio, utiliza os parâmetros padrão.
-	 * @param string[] $params
-	 */
-	private function setParams($params)
-	{
-		$defaultParam = [$this->homePage, 'index'];
-		$this->params = array_replace($defaultParam, array_filter($params));
 	}
 
 	/**
