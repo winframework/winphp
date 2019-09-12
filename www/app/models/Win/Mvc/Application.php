@@ -4,7 +4,6 @@ namespace Win\Mvc;
 
 use controllers\ErrorsController;
 use controllers\IndexController;
-use Win\Formats\Arr\Data;
 use Win\Request\Url;
 
 /**
