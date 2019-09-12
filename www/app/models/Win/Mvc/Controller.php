@@ -23,6 +23,9 @@ abstract class Controller
 	/** @var string */
 	public $layout = 'main';
 
+	/** @var string */
+	public $action;
+
 	/**
 	 * Variáveis para serem usadas no arquivo da View
 	 * @var mixed[]
@@ -67,10 +70,11 @@ abstract class Controller
 		}
 	}
 
-	/** @return string */
-	protected function getAction()
+	public function getPath()
 	{
-		return Str::lowerCamel($this->app->getParam(1));
+		$name = str_replace('Controller', '', get_class($this));
+
+		return Str::lowerDashed($name . '-' . $this->action);
 	}
 
 	/**
@@ -80,25 +84,16 @@ abstract class Controller
 	public function load()
 	{
 		$this->app = Application::app();
-		
-		$action = $this->getAction();
+
+		$action = $this->action;
+
 		if (method_exists($this, $action)) {
 			$view = $this->$action();
 			$this->setView($view);
 			$this->app->view->validate();
 			$this->app->view->mergeData($this->data);
 		} else {
-			$this->actionNotFound();
-		}
-	}
-
-	/**
-	 * Define Página como 404
-	 */
-	protected function actionNotFound()
-	{
-		if ('404' !== $this->app->getPage()) {
-			$this->app->pageNotFound();
+			$this->app->page404();
 		}
 	}
 
@@ -136,5 +131,12 @@ abstract class Controller
 	public function refresh()
 	{
 		Url::instance()->redirect(Url::instance()->getUrl());
+	}
+
+	public function getPage()
+	{
+		
+
+		return $p;
 	}
 }

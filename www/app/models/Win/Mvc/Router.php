@@ -2,6 +2,7 @@
 
 namespace Win\Mvc;
 
+use Win\Formats\Str;
 use Win\Request\Url;
 use Win\Singleton\SingletonTrait;
 
@@ -15,56 +16,51 @@ class Router
 {
 	use SingletonTrait;
 
+
 	/** @var string[] */
 	private $routes = [];
-	public static $file = '/app/config/routes.php';
 
 	/**
-	 * Se for atribuído algum valor indica que é uma rota personalizada
-	 * @var mixed[]
-	 */
-	protected static $customUrl = [null, null];
-
-	/**
-	 * Inicia o processo de URL personalizada
-	 * @return bool
-	 */
-	public function getParams()
-	{
-		$this->load();
-
-		return explode('/', $this->getDestination());
-	}
-
-	/**
-	 * Carrega o arquivo que contem as rotas
+	 * Define as rotas
 	 * @param string[] $routes
 	 */
-	public function load($routes = [])
+	public function setRoutes($routes = [])
 	{
 		$this->routes = $routes;
-		if (empty($routes) && file_exists(BASE_PATH . static::$file)) {
-			$this->routes = include BASE_PATH . static::$file;
-		}
 	}
 
 	/**
-	 * Percorre todas as rotas e retorna a nova URL
-	 * @return string[] Nova URL [0 => controller, 1 => action]
+	 * Percorre todas as rotas e retorna o alvo da rota
+	 * @return string[] Destino ["ControllerName", ["actionName"]
 	 */
-	protected function getDestination()
+	public function getTarget()
 	{
+		$url = Url::instance();
 		// $search = ['', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10'];
 		$matches = [];
 		foreach ($this->routes as $source => $destination) {
-			$pattern = '@' . Url::instance()->format($source) . '$@';
-			$exists = 1 == preg_match($pattern, Url::instance()->getUrl(), $matches);
+			$pattern = '@^' . $url->format($source) . '$@';
+			$exists = 1 == preg_match($pattern, $url->getUrl(), $matches);
 			if ($exists) {
-				return $destination;
+				return explode('/', $destination);
 				// return str_replace($search, $matches, $destination) . '/';
 			}
 		}
 
-		return Url::instance()->getUrl();
+		return static::autoTarget();
+	}
+
+	/**
+	 * Retorna um Controller/action automaticamente com base na URL atual
+	 * @return string[]
+	 */
+	public static function autoTarget()
+	{
+		$segments = Url::instance()->getSegments() + Url::HOME;
+
+		return [
+			Str::camel($segments[0]) . 'Controller',
+			Str::lowerCamel($segments[1]),
+		];
 	}
 }

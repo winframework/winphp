@@ -1,15 +1,18 @@
 <?php
 
+use Win\Formats\Str;
 use Win\Html\Navigation\Menu;
 use Win\Mvc\Block;
+use Win\Request\Url;
 
 /** @var Block $this */
+$body = implode('-', Url::instance()->getSegments());
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <?= new Block('page/head'); ?>
 
-<body>
+<body class="<?=$body; ?>">
 	<header>
 		<nav class="main-nav">
 			<a id="logo" href="<?= $this->app->getBaseUrl(); ?>">
@@ -22,13 +25,13 @@ use Win\Mvc\Block;
 					<a href="./" class="<?= Menu::active('index'); ?>">Página Inicial</a>
 				</li>
 				<li>
-					<a href="demo" class="<?= Menu::active('demo'); ?>">Exemplo</a>
+					<a href="demo" class="<?= Menu::active('exemplo'); ?>">Exemplo</a>
 				</li>
 				<li>
 					<a href="contato" class="<?= Menu::active('contato'); ?>">Contato</a>
 				</li>
 				<li>
-					<a href="nao-existe" class="<?= Menu::active('404'); ?>">404</a>
+					<a href="nao-existe">404</a>
 				</li>
 			</ul>
 		</nav>

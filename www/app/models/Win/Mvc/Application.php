@@ -2,6 +2,8 @@
 
 namespace Win\Mvc;
 
+use controllers\ErrorsController;
+use controllers\IndexController;
 use Win\Formats\Arr\Data;
 use Win\Request\Url;
 
@@ -21,34 +23,17 @@ class Application
 	/** @var View */
 	public $view;
 
-	protected static $instance = null;
-	private $name;
-	private $homePage = 'index';
-	private $params = ['index', 'index'];
+	/** @var static */
+	protected static $instance;
 
 	/**
 	 * Cria a aplicação principal
-	 * @param mixed[] $data
 	 */
-	public function __construct($data = [])
+	public function __construct()
 	{
 		static::$instance = $this;
-		Data::instance()->load($data);
-		$this->name = (string) $this->data()->get('name', '');
-		$this->setParams(Router::instance()->getParams());
-
 		$this->controller = ControllerFactory::create();
 		$this->view = ViewFactory::create();
-	}
-
-	/**
-	 * Define os parâmetros
-	 * Se estiver vazio, utiliza os parâmetros padrão.
-	 * @param string[] $params
-	 */
-	public function setParams($params)
-	{
-		$this->params = array_replace($this->params, array_filter($params));
 	}
 
 	/**
@@ -80,7 +65,7 @@ class Application
 	/** @return string */
 	public function getName()
 	{
-		return $this->name;
+		return APP_NAME;
 	}
 
 	/** @return string */
@@ -101,7 +86,7 @@ class Application
 	 */
 	public function getUrl()
 	{
-		return Url::instance()->format(implode('/', $this->getParams()));
+		return Url::instance()->getUrl();
 	}
 
 	/**
@@ -110,7 +95,7 @@ class Application
 	 */
 	public function getPage()
 	{
-		return (string) $this->params[0];
+		return Url::instance()->getSegments()[0];
 	}
 
 	/**
@@ -119,42 +104,22 @@ class Application
 	 */
 	public function isHomePage()
 	{
-		return $this->getPage() === $this->homePage;
+		return $this->controller instanceof IndexController;
 	}
 
 	/**
-	 * Retorna TRUE se está em alguma página de erro (404, 403, 503, etc)
 	 * @return bool
 	 */
-	public function isErrorPage()
+	public function is404()
 	{
-		return $this->getPage() == '404';
-	}
-
-	/**
-	 * Retorna um todos os parâmetros da URL
-	 * @return string[]
-	 */
-	public function getParams()
-	{
-		return $this->params;
-	}
-
-	/**
-	 * Retorna uma parte da URL
-	 * @param int $index Parte escolhida
-	 * @return string
-	 */
-	public function getParam($index)
-	{
-		return (key_exists($index, $this->params)) ? $this->params[$index] : '';
+		return $this->controller instanceof ErrorsController;
 	}
 
 	/**
 	 * Define a página como 404
 	 * @codeCoverageIgnore
 	 */
-	public function pageNotFound()
+	public function page404()
 	{
 		$this->errorPage(404);
 	}

@@ -2,10 +2,8 @@
 
 use Win\Html\Form\ReCaptcha;
 
-/* Configurações básicas da aplicação */
-$config = [
-	'name' => 'winPHP Framework',
-];
+/* Constantes da aplicação */
+define("APP_NAME", 'winPHP Framework');
 
 /* Configurações do PHP */
 ini_set('date.timezone', 'America/Sao_Paulo');

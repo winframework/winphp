@@ -15,10 +15,10 @@ abstract class Model
 	 * Retorna o model ou define página 404
 	 * @return static
 	 */
-	public function orFail()
+	public function or404()
 	{
 		if (is_null($this->id)) {
-			Application::app()->pageNotFound();
+			Application::app()->page404();
 		}
 
 		return $this;

@@ -14,7 +14,7 @@ require 'app/config/app.php';
 session_start();
 
 try {
-	$app = new Application($config);
+	$app = new Application();
 	$app->run();
 } catch (HttpException $e) {
 	$e->run();

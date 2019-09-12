@@ -1,8 +1,13 @@
 <?php
 
-return [
-	'other-page/(.*)' => 'Demo/index/$1',
-	
-	'^pages/(.*)' => 'Pages/byCategory/$1',
-	'^page/(.*)' => 'Pages/detail/$1',
-];
+use Win\Mvc\Router;
+
+/**
+ * url => NomeDoController/nomeDoAction
+ */
+Router::instance()->setRoutes([
+	'other-page/(.*)' => 'DemoController/index/$1',
+
+	'pages/(.*)' => 'PagesController/byCategory/$1',
+	'page/(.*)' => 'PagesController/detail/$1',
+]);

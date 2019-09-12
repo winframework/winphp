@@ -2,7 +2,6 @@
 
 namespace Win\Html\Navigation;
 
-use Win\Mvc\Application;
 use Win\Request\Url;
 
 /**
@@ -13,37 +12,17 @@ class Menu
 	/**
 	 * Usado para ativar Links (aceita array)
 	 *
-	 * Retorna 'active' se o link informado for a página atual
-	 * ou se o link for idêntico ao início da URL
-	 * @param string|string[] $link
+	 * Retorna 'active' se o link for idêntico ao início da URL atual
+	 * @param string ...$links
 	 * @return string
 	 */
-	public static function active($link)
+	public static function active(...$links)
 	{
-		if (is_array($link)) {
-			return static::multiActive($link);
-		}
-		$app = Application::app();
-		if ($link === $app->getPage()) {
-			return 'active';
-		}
 		$url = Url::instance();
-		if (0 === strpos($url->getUrl(), $url->format($link))) {
-			return 'active';
-		}
+		$current = implode('/', $url->getSegments());
 
-		return '';
-	}
-
-	/**
-	 * Usado para ativar múltiplos Links
-	 * @param string[]
-	 * @return string
-	 */
-	public static function multiActive($links)
-	{
 		foreach ($links as $link) {
-			if ('active' === static::active($link)) {
+			if (0 === strpos($current, $url->format($link))) {
 				return 'active';
 			}
 		}

@@ -2,6 +2,8 @@
 
 namespace Win\Mvc;
 
+use Win\Request\Url;
+
 /**
  * Fábrica de View
  *
@@ -10,22 +12,15 @@ namespace Win\Mvc;
 class ViewFactory
 {
 	/**
-	 * Cria uma View com base nos parâmetros atuais
+	 * Cria uma View automática com base na URL atual
 	 * @return View
 	 */
 	public static function create()
 	{
-		$app = Application::app();
-		$params = $app->getParams();
-
-		if ($params[0] == 'errors' && $params[1] == '404') {
-			var_dump('ae');
-			$view = new View('404');
-		} else {
-			$view = new View($params[0]);
-			if (!$view->exists()) {
-				$view = new View($params[0] . '/' . $params[1]);
-			}
+		$segments = Url::instance()->getSegments();
+		$view = new View($segments[0]);
+		if (!$view->exists()) {
+			$view = new View($segments[0] . '/' . $segments[1]);
 		}
 
 		return $view;

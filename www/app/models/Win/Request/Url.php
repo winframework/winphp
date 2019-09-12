@@ -11,10 +11,13 @@ class Url
 {
 	use SingletonTrait;
 
+	const HOME = ['index', 'index'];
+
 	protected $base = null;
 	protected $url = null;
 	protected $suffix = '/';
 	protected $protocol = null;
+	protected $segments = null;
 
 	/**
 	 * Define um novo sufixo de URL
@@ -101,11 +104,11 @@ class Url
 	}
 
 	/**
-	 * @param string $url
+	 * @param string[] $segments
 	 */
-	public function setUrl($url)
+	public function setSegments($segments)
 	{
-		$this->url = $this->format($url . '/');
+		$this->segments = $segments;
 	}
 
 	/**
@@ -114,8 +117,11 @@ class Url
 	 */
 	public function getSegments()
 	{
-		$url = rtrim($this->getUrl(), $this->suffix);
+		if (is_null($this->segments)) {
+			$url = rtrim($this->getUrl(), $this->suffix);
+			$this->segments = array_filter(explode('/', $url)) + static::HOME;
+		}
 
-		return explode('/', $url);
+		return $this->segments;
 	}
 }

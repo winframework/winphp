@@ -15,6 +15,7 @@ final class DefaultController extends Controller
 
 	public function load()
 	{
+		$this->app = Application::app();
 		Application::app()->view->validate();
 	}
 }
