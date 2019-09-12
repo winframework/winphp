@@ -45,12 +45,6 @@ class Application
 		return static::$instance;
 	}
 
-	/** @return Data */
-	public function data()
-	{
-		return Data::instance();
-	}
-
 	/**
 	 * Roda a aplicação
 	 * Executando o Controller e criando o Layout que contem a View
