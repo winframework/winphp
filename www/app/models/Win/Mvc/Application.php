@@ -108,6 +108,7 @@ class Application
 	}
 
 	/**
+	 * Retorna TRUE se está na página 404
 	 * @return bool
 	 */
 	public function is404()
