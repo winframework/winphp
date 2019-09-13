@@ -28,8 +28,8 @@ class JsonView extends View
 	 * Exibe os dados em Json
 	 * @return string
 	 */
-	public function toJson()
+	public function load()
 	{
-		return json_encode($this->data);
+		echo json_encode($this->data);
 	}
 }

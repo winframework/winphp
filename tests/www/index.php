@@ -1,8 +1,8 @@
 <?php
 
 /*
- * Para editar o código HTML do layout, procure em:
- * app/templates/
+ * Para editar o código HTML procure em: app/templates
+ * @see app/templates/
  */
 
 use Win\Mvc\Application;

@@ -46,13 +46,13 @@ class Application
 
 	/**
 	 * Roda a aplicação
-	 * Executando o Controller e criando o Layout que contem a View
+	 * Executando o Controller e criando o Template que contem a View
 	 */
 	public function run()
 	{
 		$this->controller->load();
-		$layout = new Layout($this->controller->layout);
-		$layout->load();
+		$template = new Template($this->controller->template);
+		$template->load();
 	}
 
 	/** @return string */

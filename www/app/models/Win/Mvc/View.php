@@ -7,7 +7,7 @@ namespace Win\Mvc;
  *
  * Responsável por criar o visual da página
  */
-class View extends Block
+class View extends Template
 {
 	public static $dir = '/app/templates/views';
 

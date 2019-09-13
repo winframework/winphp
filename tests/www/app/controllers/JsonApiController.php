@@ -7,7 +7,7 @@ use Win\Mvc\JsonView;
 
 class JsonApiController extends Controller
 {
-	public $layout = 'json';
+	public $template = 'json';
 
 	public function index()
 	{

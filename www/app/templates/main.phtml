@@ -1,11 +1,11 @@
 <?php
 
-use Win\Formats\Str;
 use Win\Html\Navigation\Menu;
 use Win\Mvc\Block;
+use Win\Mvc\Template;
 use Win\Request\Url;
 
-/** @var Block $this */
+/** @var Template $this */
 $body = implode('-', Url::instance()->getSegments());
 ?>
 <!DOCTYPE html>

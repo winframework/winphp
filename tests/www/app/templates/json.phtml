@@ -1,6 +1,6 @@
 <?php
 
-use Win\Mvc\Block;
+use Win\Mvc\Template;
 
-/** @var Block $this */
-echo $this->app->view->toJson();
+/** @var Template $this */
+$this->app->view->load();

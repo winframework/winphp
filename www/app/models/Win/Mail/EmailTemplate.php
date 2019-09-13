@@ -2,12 +2,12 @@
 
 namespace Win\Mail;
 
-use Win\Mvc\Layout;
+use Win\Mvc\Template;
 
 /**
- * Sistema de Layout para E-mails
+ * Template para E-mails
  */
-class EmailLayout extends Layout
+class EmailTemplate extends Template
 {
 	public static $dir = '/app/templates/emails';
 }

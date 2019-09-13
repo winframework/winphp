@@ -2,6 +2,8 @@
 
 namespace Win\Mvc;
 
+use Win\Html\Seo\Title;
+
 /**
  * Controller Padrão
  *
@@ -16,6 +18,10 @@ final class DefaultController extends Controller
 	public function load()
 	{
 		$this->app = Application::app();
-		Application::app()->view->validate();
+		$this->app->view->addData(
+			'title',
+			Title::otimize(ucwords(str_replace('-', ' ', $this->app->getPage())))
+		);
+		$this->app->view->validate();
 	}
 }

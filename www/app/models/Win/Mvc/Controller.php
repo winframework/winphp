@@ -2,7 +2,6 @@
 
 namespace Win\Mvc;
 
-use Win\Formats\Str;
 use Win\Request\Url;
 
 /**
@@ -21,7 +20,7 @@ abstract class Controller
 	public $app;
 
 	/** @var string */
-	public $layout = 'main';
+	public $template = 'main';
 
 	/** @var string */
 	public $action;
@@ -68,13 +67,8 @@ abstract class Controller
 		if ($view instanceof View) {
 			$this->app->view = $view;
 		}
-	}
-
-	public function getPath()
-	{
-		$name = str_replace('Controller', '', get_class($this));
-
-		return Str::lowerDashed($name . '-' . $this->action);
+		$this->app->view->validate();
+		$this->app->view->mergeData($this->data);
 	}
 
 	/**
@@ -90,8 +84,6 @@ abstract class Controller
 		if (method_exists($this, $action)) {
 			$view = $this->$action();
 			$this->setView($view);
-			$this->app->view->validate();
-			$this->app->view->mergeData($this->data);
 		} else {
 			$this->app->page404();
 		}
@@ -135,8 +127,6 @@ abstract class Controller
 
 	public function getPage()
 	{
-		
-
 		return $p;
 	}
 }
