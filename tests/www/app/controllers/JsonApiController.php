@@ -11,9 +11,6 @@ class JsonApiController extends Controller
 
 	public function index()
 	{
-		$this->addData('success', true);
-		$this->addData('array', [01, 02, 03]);
-
 		$data = [
 			'totalResults' => '3',
 			'values' => [
@@ -28,9 +25,6 @@ class JsonApiController extends Controller
 
 	public function exemploDeAction()
 	{
-		$this->addData('success', true);
-		$this->addData('array', [01, 02, 03]);
-
 		$data = [
 			'totalResults' => '3',
 			'values' => [

@@ -14,4 +14,5 @@ Router::instance()->setRoutes([
 
 	'contato' => 'ContatoController/index',
 	'contato/(.*)' => 'ContatoController/index',
+	'json-api' => 'JsonApiController/index',
 ]);
