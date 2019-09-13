@@ -12,6 +12,7 @@ define('BASE_PATH', __DIR__);
 
 require 'autoload.php';
 require '../../www/app/config/app.php';
+require 'app/config/routes.php';
 
 session_start();
 

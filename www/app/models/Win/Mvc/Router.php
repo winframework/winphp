@@ -16,7 +16,6 @@ class Router
 {
 	use SingletonTrait;
 
-
 	/** @var string[] */
 	private $routes = [];
 
@@ -47,7 +46,7 @@ class Router
 			}
 		}
 
-		return static::autoTarget();
+		return Application::app()->page404();
 	}
 
 	/**

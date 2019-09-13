@@ -31,8 +31,15 @@ abstract class Controller
 	 */
 	private $data = [];
 
+	/**
+	 * Action Index
+	 */
+	public function index()
+	{
+	}
+
 	/** @param string $title */
-	public function setTitle($title)
+	protected function setTitle($title)
 	{
 		$this->addData('title', $title);
 	}
@@ -42,7 +49,7 @@ abstract class Controller
 	 * @param string $name
 	 * @param mixed $value
 	 */
-	public function addData($name, $value)
+	protected function addData($name, $value)
 	{
 		$this->data[$name] = $value;
 	}
@@ -52,7 +59,7 @@ abstract class Controller
 	 * @param string $name
 	 * @return mixed|null
 	 */
-	public function getData($name)
+	protected function getData($name)
 	{
 		if (key_exists($name, $this->data)) {
 			return $this->data[$name];
@@ -99,18 +106,11 @@ abstract class Controller
 	}
 
 	/**
-	 * Action Index
-	 */
-	public function index()
-	{
-	}
-
-	/**
 	 * Redireciona para a URL
 	 * @param string $url
 	 * @codeCoverageIgnore
 	 */
-	public function redirect($url)
+	protected function redirect($url)
 	{
 		Url::instance()->redirect($url);
 	}
@@ -120,13 +120,8 @@ abstract class Controller
 	 * @param string $url
 	 * @codeCoverageIgnore
 	 */
-	public function refresh()
+	protected function refresh()
 	{
 		Url::instance()->redirect(Url::instance()->getUrl());
-	}
-
-	public function getPage()
-	{
-		return $p;
 	}
 }
