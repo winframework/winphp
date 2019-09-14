@@ -34,6 +34,6 @@ class Title
 	 */
 	public static function setTitle($title)
 	{
-		Application::app()->controller->setTitle(static::otimize($title));
+		Application::app()->controller->title = static::otimize($title);
 	}
 }

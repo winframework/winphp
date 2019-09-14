@@ -9,7 +9,7 @@ class ErrorsController extends Controller
 {
 	public function error404()
 	{
-		$this->setTitle('Ops! Page not found!');
+		$this->title = 'Ops! Page not found!';
 
 		return new View('404');
 	}

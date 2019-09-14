@@ -18,7 +18,7 @@ class DatabaseController extends Controller
 
 	public function index()
 	{
-		$this->setTitle('Database Tests');
+		$this->title = 'Database Tests';
 
 		$page = new Page();
 		$page->id = 8;

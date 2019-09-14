@@ -75,7 +75,7 @@ class ContatoController extends \Win\Mvc\Controller
 	 */
 	public function index()
 	{
-		$this->setTitle('Contato | ' . $this->app->getName());
+		$this->title = 'Contato | ' . $this->app->getName();
 		$error = null;
 		$data = $this->prepareData();
 

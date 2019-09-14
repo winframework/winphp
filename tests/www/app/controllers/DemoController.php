@@ -17,7 +17,7 @@ class DemoController extends Controller
 
 	public function index()
 	{
-		$this->setTitle('My Index Action');
+		$this->title = 'My Index Action';
 
 		return new View('demo');
 	}

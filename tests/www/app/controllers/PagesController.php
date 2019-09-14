@@ -39,58 +39,12 @@ class PagesController extends Controller
 	{
 		$orm = $this->orm;
 
-		$this->a = 10;
-		$this->title = 'Pages';
-		$this->pages = $orm->list();
-		var_dump($this->pages);
-		$this->categories = $this->getCategories();
-
-		return new View('pages/index');
-	}
-
-	/**
-	 * Exibe todos os items
-	 */
-	public function indexTeste()
-	{
-		$orm = $this->orm;
-
 		$this->title = 'Pages';
 		$this->pages = $orm->list();
 		$this->categories = $this->getCategories();
 		$this->pagination = $orm->pagination;
 
 		return new View('pages/index');
-	}
-
-	/**
-	 * Exibe todos os items
-	 */
-	public function index0()
-	{
-		$orm = $this->orm;
-		$this->setTitle('Pages');
-
-		$this->data['pages'] = $orm->list();
-		$this->data['categories'] = $this->getCategories();
-		$this->data['pagination'] = $orm->pagination;
-
-		return new View('pages/index');
-	}
-
-	/**
-	 * Exibe todos os items
-	 */
-	public function index3()
-	{
-		$orm = $this->orm;
-
-		return new View('pages/index', [
-			'title' => 'Pages',
-			'pages' => $orm->list(),
-			'categories' => $this->getCategories(),
-			'pagination' => $orm->pagination,
-		]);
 	}
 
 	/**
