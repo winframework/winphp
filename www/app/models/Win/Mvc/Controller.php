@@ -26,22 +26,10 @@ abstract class Controller
 	public $action;
 
 	/**
-	 * Variáveis para serem usadas no arquivo da View
-	 * @var mixed[]
-	 */
-	private $data = [];
-
-	/**
 	 * Action Index
 	 */
 	public function index()
 	{
-	}
-
-	/** @param string $title */
-	protected function setTitle($title)
-	{
-		$this->addData('title', $title);
 	}
 
 	/**
@@ -66,34 +54,6 @@ abstract class Controller
 		}
 
 		return null;
-	}
-
-	/** @param View|mixed $view */
-	protected function setView($view)
-	{
-		if ($view instanceof View) {
-			$this->app->view = $view;
-		}
-		$this->app->view->validate();
-		$this->app->view->mergeData($this->data);
-	}
-
-	/**
-	 * Carrega o Controller,
-	 * executando o Action atual
-	 */
-	public function load()
-	{
-		$this->app = Application::app();
-
-		$action = $this->action;
-
-		if (method_exists($this, $action)) {
-			$view = $this->$action();
-			$this->setView($view);
-		} else {
-			$this->app->page404();
-		}
 	}
 
 	/**

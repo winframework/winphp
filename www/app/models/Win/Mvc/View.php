@@ -19,26 +19,16 @@ class View extends Template
 	public function __construct($file, $data = [])
 	{
 		parent::__construct($file, $data);
-	}
-
-	/**
-	 * Executa o ErrorPage caso a view não exista
-	 * @throws HttpException
-	 */
-	public function validate()
-	{
+		$this->app->view = $this;
+		$this->data += get_object_vars($this->app->controller);
 		if (!$this->exists()) {
 			throw new HttpException(404);
 		}
 	}
 
-	/**
-	 * Adiciona um array de variáveis para usar na View
-	 * @param mixed[] $data
-	 */
-	public function mergeData(array $data)
+	public function __toString()
 	{
-		$this->data = array_merge($this->data, $data);
+		return (new Template($this->app->controller->template))->__toString();
 	}
 
 	/** @return string */

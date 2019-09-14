@@ -42,6 +42,6 @@ class PageOrm extends Orm
 
 	public function filterVisible()
 	{
-		return $this->filter('Enabled', true);
+		return $this->filterBy('CreatedAt', '<', 'NOW()');
 	}
 }

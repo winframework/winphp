@@ -31,8 +31,8 @@ class Application
 	public function __construct()
 	{
 		static::$instance = $this;
-		$this->controller = ControllerFactory::create();
-		$this->view = ViewFactory::create();
+		$destination = Router::getDestination();
+		$this->controller = ControllerFactory::create($destination);
 	}
 
 	/**
@@ -50,9 +50,15 @@ class Application
 	 */
 	public function run()
 	{
-		$this->controller->load();
-		$template = new Template($this->controller->template);
-		$template->load();
+		$controller = $this->controller;
+		$action = $controller->action;
+
+		if (method_exists($controller, $action)) {
+			$response = $controller->$action();
+			echo $response;
+		} else {
+			$this->page404();
+		}
 	}
 
 	/** @return string */
@@ -98,15 +104,6 @@ class Application
 	public function isHomePage()
 	{
 		return $this->controller instanceof IndexController;
-	}
-
-	/**
-	 * Retorna TRUE se está na página 404
-	 * @return bool
-	 */
-	public function is404()
-	{
-		return $this->controller instanceof ErrorsController;
 	}
 
 	/**

@@ -4,7 +4,6 @@ namespace Win\Mvc;
 
 use controllers\ErrorsController;
 use Exception;
-use Win\Request\Url;
 
 /**
  * Resposta HTTP de Erro
@@ -26,7 +25,6 @@ class HttpException extends Exception
 
 	/**
 	 * Executa uma resposta HTTP de erro
-	 * Definindo o Controller e View
 	 */
 	public function run()
 	{
@@ -35,9 +33,6 @@ class HttpException extends Exception
 
 		$app->controller = new ErrorsController();
 		$app->controller->action = 'error' . $code;
-		$app->view = new View($code, ['title' => $code]);
-		Url::instance()->setSegments(['errors', $code]);
-
 		http_response_code($code);
 		try {
 			$app->run();

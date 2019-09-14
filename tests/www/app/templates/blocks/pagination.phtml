@@ -12,7 +12,7 @@ $showDisabled = false;
 /** @var Pagination $pagination */
 ?>
 
-<?php if ($pagination->last() > 0): ?>
+<?php if ($pagination->pageSize() > 0 && $pagination->last() > 0): ?>
 <ul class="pagination pagination-lg">
   <?php if ($enableKickNav && $pagination->current() >= $pagination->first() + 5): ?>
   <li>

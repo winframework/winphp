@@ -18,43 +18,18 @@ use Win\Request\Input;
 class PagesController extends Controller
 {
 	/** @var PageOrm */
-	protected $orm;
+	public $orm;
 	protected $pageSize = 2;
 
 	public function __construct()
 	{
-		$this->orm = Page::orm()
-		->filterVisible()
-		->paginate($this->pageSize, Input::get('p'));
+		$this->orm = Page::orm();
+		$this->orm->filterVisible();
+		$this->orm->paginate($this->pageSize, Input::get('p'));
 
 		$db = [];
 		require 'app/config/database.php';
 		MysqlConnection::instance()->connect($db);
-	}
-
-	protected function getCategory()
-	{
-		return Category::orm()
-			->filter('Id', $this->app->getParam(2))
-			->filterVisible()
-			->one()
-			->orFail();
-	}
-
-	protected function getCategories()
-	{
-		return Category::orm()
-			->filterVisible()
-			->paginate(2)
-			->list();
-	}
-
-	protected function getPage()
-	{
-		return $this->orm
-			->filter('Id', $this->app->getParam(2))
-			->one()
-			->orFail();
 	}
 
 	/**
@@ -63,12 +38,59 @@ class PagesController extends Controller
 	public function index()
 	{
 		$orm = $this->orm;
-		$this->setTitle('Pages');
-		$this->addData('pages', $orm->list());
-		$this->addData('categories', $this->getCategories());
-		$this->addData('pagination', $orm->pagination);
+
+		$this->a = 10;
+		$this->title = 'Pages';
+		$this->pages = $orm->list();
+		var_dump($this->pages);
+		$this->categories = $this->getCategories();
 
 		return new View('pages/index');
+	}
+
+	/**
+	 * Exibe todos os items
+	 */
+	public function indexTeste()
+	{
+		$orm = $this->orm;
+
+		$this->title = 'Pages';
+		$this->pages = $orm->list();
+		$this->categories = $this->getCategories();
+		$this->pagination = $orm->pagination;
+
+		return new View('pages/index');
+	}
+
+	/**
+	 * Exibe todos os items
+	 */
+	public function index0()
+	{
+		$orm = $this->orm;
+		$this->setTitle('Pages');
+
+		$this->data['pages'] = $orm->list();
+		$this->data['categories'] = $this->getCategories();
+		$this->data['pagination'] = $orm->pagination;
+
+		return new View('pages/index');
+	}
+
+	/**
+	 * Exibe todos os items
+	 */
+	public function index3()
+	{
+		$orm = $this->orm;
+
+		return new View('pages/index', [
+			'title' => 'Pages',
+			'pages' => $orm->list(),
+			'categories' => $this->getCategories(),
+			'pagination' => $orm->pagination,
+		]);
 	}
 
 	/**
@@ -99,5 +121,30 @@ class PagesController extends Controller
 		$this->addData('page', $page);
 
 		return new View('pages/detail');
+	}
+
+	protected function getCategory()
+	{
+		return Category::orm()
+			->filter('Id', $this->app->getParam(2))
+			->filterVisible()
+			->one()
+			->orFail();
+	}
+
+	protected function getCategories()
+	{
+		return Category::orm()
+			->filterVisible()
+			->paginate(2)
+			->list();
+	}
+
+	protected function getPage()
+	{
+		return $this->orm
+			->filter('Id', $this->app->getParam(2))
+			->one()
+			->orFail();
 	}
 }

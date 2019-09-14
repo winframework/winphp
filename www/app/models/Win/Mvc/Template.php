@@ -35,6 +35,7 @@ class Template
 	 */
 	public function __construct($file, $data = [])
 	{
+		$this->app = Application::app();
 		$this->setFile($file);
 		$this->data = $data;
 	}
@@ -111,8 +112,6 @@ class Template
 	 */
 	public function load()
 	{
-		$this->app = Application::app();
-		
 		if (isset($this->file) && $this->exists()) {
 			extract($this->data);
 			include $this->file;

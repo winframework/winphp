@@ -21,11 +21,11 @@ trait PaginationTrait
 
 	/**
 	 * @param int $pageSize
-	 * @param int $currentPage
+	 * @param int $pageNumber
 	 */
-	public function paginate($pageSize, $currentPage = 1)
+	public function paginate($pageSize, $pageNumber = 1)
 	{
-		$this->pagination->setPage($pageSize, $currentPage);
+		$this->pagination->setPage($pageSize, $pageNumber);
 
 		return $this;
 	}
@@ -38,7 +38,7 @@ trait PaginationTrait
 		if ($this->pagination->pageSize()) {
 			$this->pagination->setCount($this->count());
 			$offset = $this->pagination->offset();
-			$pageSize = $this->pagination->offset();
+			$pageSize = $this->pagination->pageSize();
 			$this->query->limit->set($offset, $pageSize);
 		}
 	}
