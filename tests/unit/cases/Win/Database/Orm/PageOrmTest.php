@@ -22,6 +22,7 @@ class PageOrmTest extends TestCase
 		Mysql::instance()->query('DROP TABLE `Pages` ');
 		Mysql::instance()->query('CREATE TABLE `Pages` (
 			`Id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+			`CategoryId` int(11) NULL,
 			`Title` varchar(75) NOT NULL,
 			`Description` text NOT NULL,
 			`CreatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
