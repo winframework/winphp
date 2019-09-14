@@ -2,107 +2,96 @@
 
 namespace controllers;
 
+use Exception;
 use Win\FlashMessage\Alert;
 use Win\Html\Form\ReCaptcha;
 use Win\Mail\Email;
-use Win\Mvc\Block;
 use Win\Mvc\View;
 use Win\Request\Input;
-use Win\Validation\Validator;
 
 /**
  * Envia um formulário de contato via E-mail
  */
 class ContatoController extends \Win\Mvc\Controller
 {
-	private $sendTo = 'destinatario@example.com';
-	private $sendFrom = 'no-reply@example.com';
+	const SEND_TO = 'destinatario@example.com';
+	const SEND_FROM = 'no-reply@example.com';
+
+	public $name;
+	public $phone;
+	public $email;
+	public $subject;
+	public $message;
 
 	/**
-	 * Exibe formulário de contato
+	 * Inicia variáveis
+	 */
+	public function __construct()
+	{
+		$this->name = trim(Input::post('name'));
+		$this->phone = trim(Input::post('phone'));
+		$this->email = trim(Input::post('email'));
+		$this->subject = trim(Input::post('subject'));
+		$this->message = trim(Input::post('message'));
+	}
+
+	/**
+	 * Exibe formulário
 	 */
 	public function index()
 	{
-		$this->title = 'Contato | ' . $this->app->getName();
-		$error = null;
-		$data = $this->prepareData();
+		$this->title = 'Contato | ' . APP_NAME;
 
-		// Se clicou em Enviar
-		if (!empty($data['submit'])) {
-			$error = $this->getValidationError($data);
-
-			// Envia Email
-			if (is_null($error)) {
-				$mail = new Email();
-				$mail->setSubject('Contato efetuado pelo site ' . $this->app->getName());
-				$mail->addAddress($this->sendTo);
-				$mail->setFrom($this->sendFrom, $this->app->getName());
-				$mail->addReplyTo($data['email'], $data['name']);
-
-				$content = new Block('email/contents/contact', $data);
-				$mail->setContent($content);
-				$mail->send();
-				$error = $mail->getError();
-				$data = $this->clearData();
-			}
-
-			Alert::create($error, 'Sua mensagem foi enviada com sucesso!');
-		} else {
-			Alert::alert('Preencha os campos baixo:');
+		if (!Alert::instance()->has()) {
+			Alert::info('Preencha os campos abaixo:');
 		}
 
-		return new View('contato', $data);
-	}
-
-	private $validations = [
-		'name' => ['Nome', 'required'],
-		'email' => ['E-mail', 'required'],
-		'recaptcha' => ['Não sou um robô', 'checked'],
-	];
-
-	/**
-	 * Retorna os dados informados
-	 * @return mixed[]
-	 */
-	protected function prepareData()
-	{
-		$data = [];
-		$data['submit'] = Input::post('submit');
-		$data['name'] = trim(Input::post('name'));
-		$data['phone'] = trim(Input::post('phone'));
-		$data['email'] = trim(Input::post('email'));
-		$data['subject'] = trim(Input::post('subject'));
-		$data['message'] = trim(Input::post('message'));
-		$data['recaptcha'] = ReCaptcha::isValid();
-
-		return $data;
+		return new View('contato');
 	}
 
 	/**
-	 * Retorna os dados vazios
-	 * @return mixed[]
+	 * Envia o email
 	 */
-	protected function clearData()
+	public function send()
 	{
-		return [
-			'name' => '',
-			'phone' => '',
-			'email' => '',
-			'subject' => '',
-			'message' => '',
-		];
+		try {
+			$this->validate();
+
+			$mail = new Email('main', 'html/contact', get_object_vars($this));
+			$mail->setSubject('Contato efetuado pelo site ' . APP_NAME);
+			$mail->addTo(static::SEND_TO);
+			$mail->setFrom(static::SEND_FROM, APP_NAME);
+			$mail->addReplyTo($this->email, $this->name);
+			$mail->send();
+
+			Alert::success('Sua mensagem foi enviada com sucesso!');
+			$this->backToIndex();
+		} catch (Exception $e) {
+			Alert::error($e->getMessage());
+
+			return $this->index();
+		}
 	}
 
 	/**
-	 * Retorna erro ao validar
-	 * @param mixed[] $data
-	 * @return string|null
+	 * Valida os campos
 	 */
-	protected function getValidationError(&$data)
+	protected function validate()
 	{
-		$validator = Validator::create($this->validations);
-		$validator->validate($data);
-
-		return $validator->getError();
+		if (empty($this->name)) {
+			throw new Exception('O campo Nome é obrigatório.');
+		}
+		if (empty($this->phone)) {
+			throw new Exception('O campo Telefone é obrigatório.');
+		}
+		if (empty($this->email)) {
+			throw new Exception('O campo E-mail é obrigatório.');
+		}
+		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+			throw new Exception('O campo E-mail precisa ser um e-mail válido.');
+		}
+		if (!ReCaptcha::isValid()) {
+			throw new Exception('Preencha o campo eu não sou um robô.');
+		}
 	}
 }

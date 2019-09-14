@@ -17,6 +17,7 @@ Router::$routes = [
 
 	// Contato
 	'contato' => 'ContatoController@index',
+	'contato/send' => 'ContatoController@send',
 
 	// Json
 	'json-api' => 'JsonApiController@index',

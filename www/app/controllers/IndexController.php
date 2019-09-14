@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
 	public function index()
 	{
-		$this->title = 'Página Inicial | ' . $this->app->getName();
+		$this->title = 'Página Inicial | ' . APP_NAME;
 
 		return new View('index');
 	}

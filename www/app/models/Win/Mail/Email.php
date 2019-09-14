@@ -6,6 +6,7 @@ use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Filesystem\File;
 use Win\Mvc\Block;
+use Win\Mvc\Template;
 use Win\Request\Server;
 
 /**
@@ -15,25 +16,28 @@ use Win\Request\Server;
  */
 class Email
 {
-	/** @var Block */
-	private $layout;
+	/** @var EmailTemplate|string */
+	private $template;
 
-	/** @var Block|string */
+	/** @var EmailTemplate|string */
 	private $content;
 
 	/** @var PHPMailer */
 	private $mailer;
 
-	/** @var boolean */
+	/** @var bool */
 	public static $sendOnLocalHost = false;
 
 	/**
 	 * Cria uma mensagem de E-mail
-	 * @param string $layout
+	 * @param string $template
+	 * @param string $content
+	 * @param mixed[] $data
 	 */
-	public function __construct($layout = 'main')
+	public function __construct($template = 'main', $content = null, $data = [])
 	{
-		$this->setLayout($layout);
+		$this->setTemplate(new EmailTemplate($template));
+		$this->setContent(new EmailTemplate($content, $data));
 
 		$this->mailer = new PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
@@ -45,7 +49,7 @@ class Email
 	/** @return string */
 	public function __toString()
 	{
-		return $this->layout->__toString();
+		return $this->template->__toString();
 	}
 
 	/**
@@ -80,13 +84,14 @@ class Email
 	}
 
 	/**
-	 * Define qual será o arquivo de layout
+	 * Define qual será o arquivo de template
 	 *
-	 * @param string $layout Nome do arquivo de layout
+	 * @param EmailTemplate $template
 	 */
-	public function setLayout($layout)
+	public function setTemplate(EmailTemplate $template)
 	{
-		$this->layout = new EmailLayout($layout, ['email' => $this]);
+		$this->template = $template;
+		$this->template->addData('email', $this);
 	}
 
 	/**
@@ -94,9 +99,10 @@ class Email
 	 * que pode ser uma string ou um bloco
 	 * @param string|Block $content
 	 */
-	public function setContent($content)
+	public function setContent(EmailTemplate $content)
 	{
 		$this->content = $content;
+		$this->content->addData('email', $this);
 	}
 
 	/**

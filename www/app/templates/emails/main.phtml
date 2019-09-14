@@ -1,5 +1,5 @@
 <?php
-use Win\Mailer\Email;
+use Win\Mail\Email;
 use Win\Mvc\Block;
 
 /** @var Block $this */
@@ -17,7 +17,7 @@ use Win\Mvc\Block;
 	<div id="email-footer" style="background:#aaa; color:#FFF; margin: 5px; padding: 10px; font-size:11px;">
 		Enviado por:
 		<a target="_blank" href="<?= $this->app->getBaseUrl(); ?>" style="color:#EEE">
-			<?= $this->app->getName(); ?>
+			<?= APP_NAME; ?>
 		</a><br />
 		Enviado em: <?= date('d/m/Y'); ?> às <?= date('H:i:s'); ?><br />
 	</div>

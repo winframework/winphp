@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
 	public function index()
 	{
-		$this->title = 'Esse é meu módulo | ' . $this->app->getName();
+		$this->title = 'Esse é meu módulo | ' . APP_NAME;
 
 		return new View('index');
 	}
