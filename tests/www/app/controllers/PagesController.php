@@ -11,9 +11,9 @@ use Win\Mvc\View;
 use Win\Request\Input;
 
 /**
- * ^pages => Pages/index
- * ^pages/(.*) => Pages/byCategory/$1
- * ^page/(.*) => 'Pages/detail/$1
+ * pages => Pages@index
+ * pages/(.*) => Pages@byCategory
+ * page/(.*) => Pages@detail
  */
 class PagesController extends Controller
 {
@@ -42,7 +42,6 @@ class PagesController extends Controller
 		$this->title = 'Pages';
 		$this->pages = $orm->list();
 		$this->categories = $this->getCategories();
-		$this->pagination = $orm->pagination;
 
 		return new View('pages/index');
 	}
@@ -50,16 +49,20 @@ class PagesController extends Controller
 	/**
 	 * Exibe os itens da categoria atual
 	 */
-	public function byCategory()
+	public function byCategory($categoryId)
 	{
-		$category = $this->getCategory();
-		$orm = $this->orm
-			->filter('CategoryId', $category->id);
+		$category = Category::orm()
+		->filter('Id', $categoryId)
+		->filterVisible()
+		->one()
+		->or404();
 
-		$this->setTitle('Pages - ' . $category->title);
-		$this->addData('pages', $orm->list());
-		$this->addData('categories', $this->getCategories());
-		$this->addData('pagination', $orm->pagination);
+		$orm = $this->orm;
+		$orm->filter('CategoryId', $category->id);
+
+		$this->title = 'Pages - ' . $category->title;
+		$this->pages = $orm->list();
+		$this->categories = $this->getCategories();
 
 		return new View('pages/index');
 	}
@@ -77,15 +80,6 @@ class PagesController extends Controller
 		return new View('pages/detail');
 	}
 
-	protected function getCategory()
-	{
-		return Category::orm()
-			->filter('Id', $this->app->getParam(2))
-			->filterVisible()
-			->one()
-			->orFail();
-	}
-
 	protected function getCategories()
 	{
 		return Category::orm()
@@ -99,6 +93,6 @@ class PagesController extends Controller
 		return $this->orm
 			->filter('Id', $this->app->getParam(2))
 			->one()
-			->orFail();
+			->or404();
 	}
 }

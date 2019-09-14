@@ -2,7 +2,6 @@
 
 namespace Win\Mvc;
 
-use controllers\ErrorsController;
 use controllers\IndexController;
 use Win\Request\Url;
 
@@ -12,7 +11,7 @@ use Win\Request\Url;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.4.1
+ * @version 1.5.0
  */
 class Application
 {
@@ -31,8 +30,6 @@ class Application
 	public function __construct()
 	{
 		static::$instance = $this;
-		$destination = Router::getDestination();
-		$this->controller = ControllerFactory::create($destination);
 	}
 
 	/**
@@ -46,15 +43,17 @@ class Application
 
 	/**
 	 * Roda a aplicação
-	 * Executando o Controller e criando o Template que contem a View
+	 * Executando o Controller e exibindo a Resposta
 	 */
 	public function run()
 	{
-		$controller = $this->controller;
-		$action = $controller->action;
+		$destination = Router::getDestination();
+		$this->controller = ControllerFactory::create($destination);
+		$action = $destination[1];
+		$args = $destination[2];
 
-		if (method_exists($controller, $action)) {
-			$response = $controller->$action();
+		if (method_exists($this->controller, $action)) {
+			$response = $this->controller->$action(...$args);
 			echo $response;
 		} else {
 			$this->page404();

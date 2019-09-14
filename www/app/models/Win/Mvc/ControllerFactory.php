@@ -16,7 +16,6 @@ class ControllerFactory
 	public static function create($target)
 	{
 		$class = 'controllers\\' . $target[0];
-
 		if (class_exists($class)) {
 			$controller = new $class();
 			$controller->action = $target[1];

@@ -3,7 +3,7 @@
 namespace controllers;
 
 use Win\Mvc\Controller;
-use Win\Mvc\JsonView;
+use Win\Response\JsonResponse;
 
 class JsonApiController extends Controller
 {
@@ -20,7 +20,7 @@ class JsonApiController extends Controller
 			],
 		];
 
-		return new JsonView($data);
+		return new JsonResponse($data);
 	}
 
 	public function exemploDeAction()
@@ -34,6 +34,6 @@ class JsonApiController extends Controller
 			],
 		];
 
-		return new JsonView($data);
+		return new JsonResponse($data);
 	}
 }

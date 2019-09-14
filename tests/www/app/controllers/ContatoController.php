@@ -18,6 +18,42 @@ class ContatoController extends \Win\Mvc\Controller
 	private $sendTo = 'destinatario@example.com';
 	private $sendFrom = 'no-reply@example.com';
 
+	/**
+	 * Exibe formulário de contato
+	 */
+	public function index()
+	{
+		$this->title = 'Contato | ' . $this->app->getName();
+		$error = null;
+		$data = $this->prepareData();
+
+		// Se clicou em Enviar
+		if (!empty($data['submit'])) {
+			$error = $this->getValidationError($data);
+
+			// Envia Email
+			if (is_null($error)) {
+				$mail = new Email();
+				$mail->setSubject('Contato efetuado pelo site ' . $this->app->getName());
+				$mail->addAddress($this->sendTo);
+				$mail->setFrom($this->sendFrom, $this->app->getName());
+				$mail->addReplyTo($data['email'], $data['name']);
+
+				$content = new Block('email/contents/contact', $data);
+				$mail->setContent($content);
+				$mail->send();
+				$error = $mail->getError();
+				$data = $this->clearData();
+			}
+
+			Alert::create($error, 'Sua mensagem foi enviada com sucesso!');
+		} else {
+			Alert::alert('Preencha os campos baixo:');
+		}
+
+		return new View('contato', $data);
+	}
+
 	private $validations = [
 		'name' => ['Nome', 'required'],
 		'email' => ['E-mail', 'required'],
@@ -68,41 +104,5 @@ class ContatoController extends \Win\Mvc\Controller
 		$validator->validate($data);
 
 		return $validator->getError();
-	}
-
-	/**
-	 * Exibe formulário de contato
-	 */
-	public function index()
-	{
-		$this->title = 'Contato | ' . $this->app->getName();
-		$error = null;
-		$data = $this->prepareData();
-
-		// Se clicou em Enviar
-		if (!empty($data['submit'])) {
-			$error = $this->getValidationError($data);
-
-			// Envia Email
-			if (is_null($error)) {
-				$mail = new Email();
-				$mail->setSubject('Contato efetuado pelo site ' . $this->app->getName());
-				$mail->addAddress($this->sendTo);
-				$mail->setFrom($this->sendFrom, $this->app->getName());
-				$mail->addReplyTo($data['email'], $data['name']);
-
-				$content = new Block('email/contents/contact', $data);
-				$mail->setContent($content);
-				$mail->send();
-				$error = $mail->getError();
-				$data = $this->clearData();
-			}
-
-			Alert::create($error, 'Sua mensagem foi enviada com sucesso!');
-		} else {
-			Alert::alert('Preencha os campos baixo:');
-		}
-
-		return new View('contato', $data);
 	}
 }

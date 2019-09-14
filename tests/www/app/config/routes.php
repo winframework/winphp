@@ -2,20 +2,23 @@
 
 use Win\Mvc\Router;
 
-/**
- * url => NomeDoController/nomeDoAction
- * 'home' => 'IndexController/helloWorld'
+/*
+ * Direciona uma URL para um Controller@action
+ *
+ * url => NomeDoController@nomeDoAction
  */
 Router::$routes = [
-	'' => 'IndexController/index',
-	'home' => 'IndexController/index',
+	'' => 'IndexController@index',
 
-	'pages' => 'PagesController/index/$1',
-	'pages/(.*)' => 'PagesController/byCategory/$1',
-	'page/(.*)' => 'PagesController/detail/$1',
+	// Pages
+	'pages' => 'PagesController@index',
+	'pages/(.*)' => 'PagesController@byCategory',
+	'page/(.*)' => 'PagesController@detail',
 
-	'contato' => 'ContatoController/index',
-	'contato/(.*)' => 'ContatoController/index',
-	'json-api' => 'JsonApiController/index',
-	'other-page/(.*)' => 'DemoController/index/$1',
+	// Contato
+	'contato' => 'ContatoController@index',
+
+	// Json
+	'json-api' => 'JsonApiController@index',
+	'other-page/(.*)' => 'DemoController@index',
 ];

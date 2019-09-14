@@ -1,21 +1,21 @@
 <?php
 
-namespace Win\Mvc;
+namespace Win\Response;
 
 /**
- * View em Json (apenas dados)
- *
- * Responsável por criar um retorno em Json
+ * Resposta Json (apenas dados)
  */
-class JsonView implements Response
+class JsonResponse implements Response
 {
+	private $data = [];
+
 	/**
-	 * Cria uma Resposta com base no arquivo escolhido
+	 * Cria uma Resposta em json
 	 * @param mixed[] $data
 	 */
-	public function __construct($data = [])
+	public function __construct($data)
 	{
-		parent::__construct('', $data);
+		$this->data = $data;
 	}
 
 	/**

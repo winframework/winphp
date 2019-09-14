@@ -32,11 +32,11 @@ class HttpException extends Exception
 		$app = Application::app();
 
 		$app->controller = new ErrorsController();
-		$app->controller->action = 'error' . $code;
 		http_response_code($code);
 		try {
-			$app->run();
-		} catch (HttpException $e) {
+			$action = 'error' . $code;
+			echo $app->controller->$action();
+		} catch (Exception $e) {
 		}
 	}
 }
