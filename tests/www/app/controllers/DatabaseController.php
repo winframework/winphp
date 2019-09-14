@@ -38,6 +38,6 @@ class DatabaseController extends Controller
 		// $x = $pageOrm->one();
 		var_dump($x);
 
-		return new View('demo');
+		return new View('index');
 	}
 }

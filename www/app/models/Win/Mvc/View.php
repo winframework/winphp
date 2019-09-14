@@ -2,6 +2,8 @@
 
 namespace Win\Mvc;
 
+use Win\Response\ResponseException;
+
 /**
  * View
  *
@@ -20,14 +22,15 @@ class View extends Template
 	{
 		parent::__construct($file, $data);
 		$this->app->view = $this;
-		$this->data += get_object_vars($this->app->controller);
 		if (!$this->exists()) {
-			throw new HttpException(404);
+			throw new ResponseException("View '{$file}' not found", 404);
 		}
 	}
 
 	public function __toString()
 	{
+		$this->data += get_object_vars($this->app->controller);
+
 		return (new Template($this->app->controller->template))->__toString();
 	}
 

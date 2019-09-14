@@ -49,7 +49,7 @@ class ControllerTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\ErrorResponse
 	 */
 	public function testActionNotFound()
 	{

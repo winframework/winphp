@@ -8,14 +8,15 @@ use Win\Filesystem\Upload\TempFile;
 use Win\Filesystem\Upload\Uploader;
 use Win\FlashMessage\Alert;
 use Win\Mvc\Controller;
+use Win\Mvc\View;
 use Win\Request\Input;
 
 class UploaderController extends Controller
 {
+	public $image = null;
+
 	public function index()
 	{
-		$image = null;
-
 		if (!is_null(Input::post('submit'))) {
 			$dir = new Directory('data/uploads');
 			$dir->delete();
@@ -25,12 +26,12 @@ class UploaderController extends Controller
 			$success = $uploader->upload('my-file');
 			if ($success) {
 				Alert::success('Imagem salva');
-				$image = new Image($uploader->getUploaded()->getPath());
+				$this->image = new Image($uploader->getUploaded()->getPath());
 			} else {
 				Alert::error('Imagem com erro');
 			}
 		}
 
-		$this->addData('image', $image);
+		return new View('uploader');
 	}
 }

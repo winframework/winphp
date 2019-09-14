@@ -1,12 +1,16 @@
-<?php 
+<?php
 use Win\Mvc\View;
 
 /** @var View $this */
+/** @var int $ten */
 ?>
 <main>
 	<h1>Esta é uma view simples</h1>
 
 	<div class="text-center">
-		<a class="btn" href="index">Voltar à Página Inicial</a>
+		Variável: 10 = <?= $ten; ?>
+		<br><br>
+
+		<a class="btn" href="./">Voltar à Página Inicial</a>
 	</div>
 </main>

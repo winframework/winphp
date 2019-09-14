@@ -121,7 +121,7 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\ErrorResponse
 	 */
 	public function testRun404()
 	{
@@ -130,7 +130,7 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\ErrorResponse
 	 */
 	public function testErrorPage500()
 	{
@@ -139,7 +139,7 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\ErrorResponse
 	 */
 	public function testPageNotFound()
 	{

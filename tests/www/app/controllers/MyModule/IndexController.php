@@ -11,6 +11,6 @@ class IndexController extends Controller
 	{
 		$this->title = 'Esse é meu módulo | ' . APP_NAME;
 
-		return new View('index');
+		return new View('multi/nivel/de/arquivo');
 	}
 }

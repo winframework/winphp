@@ -4,6 +4,8 @@ namespace Win\Mvc;
 
 use controllers\IndexController;
 use Win\Request\Url;
+use Win\Response\ResponseException;
+use Win\Response\ResponseFactory;
 
 /**
  * Application (WinPHP Framework)
@@ -42,22 +44,11 @@ class Application
 	}
 
 	/**
-	 * Roda a aplicação
-	 * Executando o Controller e exibindo a Resposta
+	 * Roda a aplicação e envia a resposta
 	 */
-	public function run()
+	public function sendResponse()
 	{
-		$destination = Router::getDestination();
-		$this->controller = ControllerFactory::create($destination);
-		$action = $destination[1];
-		$args = $destination[2];
-
-		if (method_exists($this->controller, $action)) {
-			$response = $this->controller->$action(...$args);
-			echo $response;
-		} else {
-			$this->page404();
-		}
+		echo ResponseFactory::create(Router::getDestination());
 	}
 
 	/** @return string */
@@ -107,21 +98,22 @@ class Application
 
 	/**
 	 * Define a página como 404
-	 * @codeCoverageIgnore
+	 * @param string $message
+	 * @throws ResponseException
 	 */
-	public function page404()
+	public function page404($message = '')
 	{
-		$this->errorPage(404);
+		throw new ResponseException($message, 404);
 	}
 
 	/**
 	 * Define a página atual como algum erro
 	 * @param int $code
 	 * @param string $message
-	 * @throws HttpException
+	 * @throws ResponseException
 	 */
 	public function errorPage($code, $message = '')
 	{
-		throw new HttpException($code, $message);
+		throw new ResponseException($message, $code);
 	}
 }

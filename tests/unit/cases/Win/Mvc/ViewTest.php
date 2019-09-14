@@ -19,7 +19,7 @@ class ViewTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\ErrorResponse
 	 */
 	public function testDoNotExist()
 	{

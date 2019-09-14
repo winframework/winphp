@@ -12,7 +12,7 @@ class DemoController extends Controller
 {
 	public function __construct()
 	{
-		$this->addData('init', 10);
+		$this->ten = 10;
 	}
 
 	public function index()

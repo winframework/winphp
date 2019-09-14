@@ -19,7 +19,20 @@ Router::$routes = [
 	'contato' => 'ContatoController@index',
 	'contato/send' => 'ContatoController@send',
 
+	// Exemplos
+	'demo' => 'DemoController@index',
+	'database' => 'DatabaseController@index',
+	'alerts' => 'AlertsController@index',
+	'alerts/show' => 'AlertsController@show',
+	'redirect' => 'RedirectController@index',
+	'uploader' => 'UploaderController@index',
+	'return-five' => 'DemoController@returnFive',
+	'namespace' => 'MyModule\IndexController@index',
+	'nao-existe' => 'IndexControllasdf',
+
 	// Json
 	'json-api' => 'JsonApiController@index',
+
+	// Demo
 	'other-page/(.*)' => 'DemoController@index',
 ];

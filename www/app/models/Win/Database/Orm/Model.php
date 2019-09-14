@@ -3,7 +3,7 @@
 namespace Win\Database\Orm;
 
 use Win\Database\Orm;
-use Win\Mvc\Application;
+use Win\Response\ErrorResponse;
 
 abstract class Model
 {
@@ -18,7 +18,7 @@ abstract class Model
 	public function or404()
 	{
 		if (is_null($this->id)) {
-			Application::app()->page404();
+			throw new ErrorResponse(404, 'Model not found');
 		}
 
 		return $this;

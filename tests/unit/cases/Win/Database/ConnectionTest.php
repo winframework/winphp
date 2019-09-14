@@ -86,7 +86,7 @@ class ConnectionTest extends TestCase
 		$this->assertEquals('index', Application::app()->getPage());
 	}
 
-	/** @expectedException \Win\Mvc\HttpException */
+	/** @expectedException \Win\Mvc\ErrorResponse */
 	public function testValidateThrowException()
 	{
 		ApplicationTest::newApp();

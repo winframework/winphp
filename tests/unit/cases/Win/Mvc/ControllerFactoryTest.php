@@ -44,7 +44,7 @@ class ControllerFactoryTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\ErrorResponse
 	 */
 	public function testInvalidAction()
 	{
@@ -56,7 +56,7 @@ class ControllerFactoryTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\HttpException
+	 * @expectedException \Win\Mvc\ErrorResponse
 	 */
 	public function testInvalidView()
 	{

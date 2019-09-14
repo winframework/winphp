@@ -18,19 +18,19 @@ class ErrorExceptionTest extends TestCase
 
 	public function testGetCode()
 	{
-		$e = new HttpException(402);
+		$e = new ErrorResponse(402);
 		$this->assertEquals(402, $e->getCode());
 	}
 
 	public function testGetMessage()
 	{
-		$e = new HttpException(402, 'Hãm?');
+		$e = new ErrorResponse(402, 'Hãm?');
 		$this->assertEquals('Hãm?', $e->getMessage());
 	}
 
 	public function testRunIndex()
 	{
-		$e = new HttpException(402);
+		$e = new ErrorResponse(402);
 		ob_start();
 		$e->run();
 		ob_end_clean();
@@ -40,8 +40,8 @@ class ErrorExceptionTest extends TestCase
 
 	public function testIsErrorCode()
 	{
-		$this->assertTrue(HttpException::isErrorCode(404));
-		$this->assertTrue(HttpException::isErrorCode(500));
-		$this->assertFalse(HttpException::isErrorCode('teste'));
+		$this->assertTrue(ErrorResponse::isErrorCode(404));
+		$this->assertTrue(ErrorResponse::isErrorCode(500));
+		$this->assertFalse(ErrorResponse::isErrorCode('teste'));
 	}
 }

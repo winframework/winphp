@@ -3,6 +3,7 @@
 namespace Win\Mvc;
 
 use Win\Request\Url;
+use Win\Response\ResponseException;
 
 /**
  * Rota de URL
@@ -29,13 +30,13 @@ class Router
 			$match = 1 == preg_match($pattern, $url->getUrl(), $matches);
 			if ($match) {
 				$args = array_splice($matches, 1);
-				$target = explode('@', $destination);
+				$target = array_pad(explode('@', $destination), 2, '');
 				$target[] = $args;
 
 				return $target;
 			}
 		}
 
-		return Application::app()->page404();
+		throw new ResponseException('Route not found', 404);
 	}
 }

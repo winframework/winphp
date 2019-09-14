@@ -1,8 +1,13 @@
-<?php 
+<?php
 use Win\Mvc\View;
+use Win\Response\ResponseException;
 
 /** @var View $this */
+/** @var ResponseException $exception */
 ?>
 <main>
 	<h1>Page not found</h1>
+	<div class="text-center">
+		<?= $exception->getMessage(); ?>
+	</div>
 </main>

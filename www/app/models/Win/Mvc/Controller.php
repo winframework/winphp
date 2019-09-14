@@ -13,17 +13,11 @@ abstract class Controller
 {
 	public static $dir = '/app/controllers';
 
-	/**
-	 * Ponteiro para Aplicação Principal
-	 * @var Application
-	 */
+	/** @var Application */
 	public $app;
 
 	/** @var string */
 	public $template = 'main';
-
-	/** @var string */
-	public $action;
 
 	/**
 	 * Action Index
