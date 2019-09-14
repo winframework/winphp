@@ -2,7 +2,7 @@
 
 use Win\Html\Form\ReCaptcha;
 
-/* Constantes da aplicação */
+/* Constantes */
 define("APP_NAME", 'winPHP Framework');
 
 /* Configurações do PHP */

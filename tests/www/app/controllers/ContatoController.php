@@ -6,13 +6,14 @@ use Exception;
 use Win\FlashMessage\Alert;
 use Win\Html\Form\ReCaptcha;
 use Win\Mail\Email;
+use Win\Mvc\Controller;
 use Win\Mvc\View;
 use Win\Request\Input;
 
 /**
  * Envia um formulário de contato via E-mail
  */
-class ContatoController extends \Win\Mvc\Controller
+class ContatoController extends Controller
 {
 	const SEND_TO = 'destinatario@example.com';
 	const SEND_FROM = 'no-reply@example.com';

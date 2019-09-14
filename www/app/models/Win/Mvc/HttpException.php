@@ -35,7 +35,9 @@ class HttpException extends Exception
 		http_response_code($code);
 		try {
 			$action = 'error' . $code;
-			echo $app->controller->$action();
+			if (method_exists($app->controller, $action)) {
+				echo $app->controller->$action();
+			}
 		} catch (Exception $e) {
 		}
 	}
