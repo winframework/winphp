@@ -27,6 +27,10 @@ class View extends Template
 		}
 	}
 
+	/**
+	 * Exibe o HTML da view
+	 * @return string
+	 */
 	public function __toString()
 	{
 		$this->data += get_object_vars($this->app->controller);

@@ -17,9 +17,9 @@ class Router
 	public static $routes = [];
 
 	/**
-	 * Percorre todas as rotas e retorna o destino da rota
+	 * Percorre todas as rotas e retorna o destino final
 	 * @return string[] Destino
-	 * @example return ["ControllerName", ["actionName", [..$args]]
+	 * @example return [Controller, action, [..$args]]
 	 */
 	public static function getDestination()
 	{

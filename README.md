@@ -15,10 +15,10 @@
 
 ### Funcionalidades
 
-- Views automáticas;
+- Request/Response;
+- Templates/Views/Blocks;
 - Título de Página;
 - Rotas Personalizadas;
-- Sistema de Layouts;
 - Envio de Emails;
 - Manipulador de Datas;
 - Cálculo de Datas;
@@ -31,7 +31,8 @@
 - ORM;
 - Validação de Campos;
 
----
+### Request/Response
+<img src="https://rawgit.com/winframework/winphp/v1.4.1/www/public/img/win-diagram.png"/>
 
 
 ### Requisitos
