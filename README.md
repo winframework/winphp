@@ -32,7 +32,7 @@
 - Validação de Campos;
 
 ### Request/Response
-<img src="https://rawgit.com/winframework/winphp/v1.4.1/www/public/img/win-diagram.png"/>
+<img src="https://rawgit.com/winframework/winphp/gh-pages/docs/diagrams/win-diagram.png"/>
 
 
 ### Requisitos
