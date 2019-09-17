@@ -4,7 +4,9 @@
  * @see app/templates
  */
 
+use Win\Calendar\Timer;
 use Win\Mvc\Application;
+use Win\Response\ResponseException;
 
 define('BASE_PATH', __DIR__);
 
@@ -14,9 +16,18 @@ require 'app/config/routes.php';
 
 session_start();
 
-try {
-	$app = new Application();
-	$app->sendResponse();
-} catch (ResponseException $e) {
-	$e->sendResponse();
+$t = new Timer();
+
+for ($i = 0; $i < 50; ++$i) {
+	try {
+		$app = new Application();
+		$app->sendResponse();
+	} catch (ResponseException $e) {
+		$e->sendResponse();
+	}
 }
+
+echo $t->time();
+
+?>
+<br><br>

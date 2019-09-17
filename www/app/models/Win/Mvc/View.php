@@ -20,22 +20,22 @@ class View extends Template
 	 */
 	public function __construct($file, $data = [])
 	{
-		parent::__construct($file, $data);
+		$this->setFile($file);
+		$this->app = Application::app();
 		$this->app->view = $this;
+
+		$this->data = $data + get_object_vars($this->app->controller);
+		$output = $this->load();
+		$template = new Template($this->app->controller->template, ['view' => $output]);
+		$this->output = $template->__toString();
+	}
+
+	public function setFile($file)
+	{
+		parent::setFile($file);
 		if (!$this->exists()) {
 			throw new ResponseException("View '{$file}' not found", 404);
 		}
-	}
-
-	/**
-	 * Exibe o HTML da view
-	 * @return string
-	 */
-	public function __toString()
-	{
-		$this->data += get_object_vars($this->app->controller);
-
-		return (new Template($this->app->controller->template))->__toString();
 	}
 
 	/** @return string */

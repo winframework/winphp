@@ -9,6 +9,11 @@ namespace Win\Mvc;
 class Template
 {
 	public static $dir = '/app/templates';
+	/**
+	 * Retorno do arquivo
+	 * @var string
+	 */
+	public $output;
 
 	/**
 	 * Ponteiro para Aplicação Principal
@@ -38,16 +43,7 @@ class Template
 		$this->app = Application::app();
 		$this->setFile($file);
 		$this->data = $data;
-	}
-
-	/**
-	 * Adiciona uma variável
-	 * @param string $name
-	 * @param mixed $value
-	 */
-	public function addData($name, $value)
-	{
-		$this->data[$name] = $value;
+		$this->output = $this->load();
 	}
 
 	/**
@@ -100,21 +96,22 @@ class Template
 	 */
 	public function __toString()
 	{
-		ob_start();
-		$this->load();
-
-		return ob_get_clean();
+		return $this->output;
 	}
 
 	/**
-	 * Carrega e Exibe o conteúdo
+	 * Carrega e Retorna o output
 	 * @return string
 	 */
-	public function load()
+	protected function load()
 	{
+		ob_start();
+
 		if (isset($this->file) && $this->exists()) {
 			extract($this->data);
 			include $this->file;
 		}
+
+		return ob_get_clean();
 	}
 }

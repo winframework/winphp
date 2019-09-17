@@ -3,11 +3,11 @@
 namespace controllers;
 
 use Exception;
-use Win\FlashMessage\Alert;
 use Win\Html\Form\ReCaptcha;
 use Win\Mail\Email;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
+use Win\Notifications\Alert;
 use Win\Request\Input;
 
 /**
@@ -43,7 +43,7 @@ class ContatoController extends Controller
 	{
 		$this->title = 'Contato | ' . APP_NAME;
 
-		if (!Alert::instance()->has()) {
+		if (Alert::alerts()->isEmpty()) {
 			Alert::info('Preencha os campos abaixo:');
 		}
 

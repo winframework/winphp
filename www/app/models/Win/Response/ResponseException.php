@@ -27,9 +27,8 @@ class ResponseException extends Exception
 	{
 		http_response_code($this->code);
 		try {
-			$destination = ['ErrorsController', 'error' . $this->code];
+			$destination = ['ErrorsController', 'error' . $this->code, [$this]];
 			$response = ResponseFactory::create($destination);
-			Application::app()->controller->exception = $this;
 			echo $response;
 		} catch (Exception $e) {
 		}

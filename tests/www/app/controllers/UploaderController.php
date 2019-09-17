@@ -6,7 +6,7 @@ use Win\Filesystem\Directory;
 use Win\Filesystem\Files\Image;
 use Win\Filesystem\Upload\TempFile;
 use Win\Filesystem\Upload\Uploader;
-use Win\FlashMessage\Alert;
+use Win\Notifications\Alert;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 use Win\Request\Input;

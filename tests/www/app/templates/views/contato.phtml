@@ -1,6 +1,6 @@
 <?php
 
-use Win\FlashMessage\Alert;
+use Win\Notifications\Alert;
 use Win\Html\Form\ReCaptcha;
 use Win\Mvc\View;
 
@@ -10,8 +10,7 @@ use Win\Mvc\View;
 	<h1>Exemplo de Formulário de Contato</h1>
 
 	<form method="post" action="contato/send">
-
-		<?= Alert::instance()->html(); ?>
+		<?= Alert::alerts(); ?>
 
 		<fieldset>
 			<input type="text" name="name" value="<?= $name; ?>" placeholder="Nome" maxlength="75" />

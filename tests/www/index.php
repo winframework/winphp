@@ -4,6 +4,7 @@
  * @see app/templates/
  */
 
+use Win\Calendar\Timer;
 use Win\Mvc\Application;
 use Win\Response\ResponseException;
 
@@ -14,6 +15,7 @@ require '../../www/app/config/app.php';
 require 'app/config/routes.php';
 
 session_start();
+
 
 try {
 	$app = new Application();

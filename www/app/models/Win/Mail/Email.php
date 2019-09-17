@@ -5,7 +5,6 @@ namespace Win\Mail;
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Filesystem\File;
-use Win\Mvc\Block;
 use Win\Mvc\Template;
 use Win\Request\Server;
 
@@ -36,8 +35,8 @@ class Email
 	 */
 	public function __construct($template = 'main', $content = null, $data = [])
 	{
-		$this->setTemplate(new EmailTemplate($template));
-		$this->setContent(new EmailTemplate($content, $data));
+		$this->template = new EmailTemplate($template, ['email' => $this]);
+		$this->content = new EmailTemplate($content, $data);
 
 		$this->mailer = new PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
@@ -81,28 +80,6 @@ class Email
 	{
 		$this->mailer->SetFrom($address, $name);
 		$this->mailer->ClearReplyTos();
-	}
-
-	/**
-	 * Define qual será o arquivo de template
-	 *
-	 * @param EmailTemplate $template
-	 */
-	public function setTemplate(EmailTemplate $template)
-	{
-		$this->template = $template;
-		$this->template->addData('email', $this);
-	}
-
-	/**
-	 * Define o conteúdo do E-mail
-	 * que pode ser uma string ou um bloco
-	 * @param string|Block $content
-	 */
-	public function setContent(EmailTemplate $content)
-	{
-		$this->content = $content;
-		$this->content->addData('email', $this);
 	}
 
 	/**

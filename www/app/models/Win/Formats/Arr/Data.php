@@ -123,4 +123,13 @@ class Data implements DataInterface
 	{
 		return !is_null($this->get($key, null));
 	}
+
+	/**
+	 * Retorna TRUE se estiver vazio
+	 * @return bool
+	 */
+	public function isEmpty()
+	{
+		return count($this->all()) == 0;
+	}
 }

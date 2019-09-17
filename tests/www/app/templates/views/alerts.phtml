@@ -1,6 +1,6 @@
 <?php
 
-use Win\FlashMessage\Alert;
+use Win\Notifications\Alert;
 use Win\Mvc\View;
 
 /** @var View $this */
@@ -8,7 +8,7 @@ use Win\Mvc\View;
 <main>
 	<h1>My Alert view</h1>
 
-	<?= Alert::instance()->html() ?>
+	<?= Alert::alerts(); ?>
 
 	<div class="text-center">
 		<a class="btn" href="./">Voltar</a>
