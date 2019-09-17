@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use Win\AlertBox\Alert;
+use Win\Notifications\Alert;
 use Win\Mvc\Controller;
 use Win\Mvc\View;
 
