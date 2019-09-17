@@ -51,6 +51,6 @@ abstract class Builder
 
 			return new $class($query);
 		}
-		throw new Exception($type . ' is not a valid Statement Type ');
+		throw new Exception($type . ' is not a valid Statement Type.');
 	}
 }

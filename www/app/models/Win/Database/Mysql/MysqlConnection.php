@@ -20,7 +20,7 @@ class MysqlConnection extends Connection
 			'mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'],
 			$db['user'],
 			$db['pass'],
-			[]
+			[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
 		);
 	}
 }

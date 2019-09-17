@@ -2,8 +2,7 @@
 
 namespace Win\Database\Orm;
 
-use Win\Database\Orm;
-use Win\Response\ErrorResponse;
+use Win\Response\ResponseException;
 
 abstract class Model
 {
@@ -18,7 +17,7 @@ abstract class Model
 	public function or404()
 	{
 		if (is_null($this->id)) {
-			throw new ErrorResponse(404, 'Model not found');
+			throw new ResponseException('Model not found', 404);
 		}
 
 		return $this;

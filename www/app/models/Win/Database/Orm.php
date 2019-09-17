@@ -2,14 +2,16 @@
 
 namespace Win\Database;
 
+use PDOException;
 use Win\Database\Mysql\MysqlConnection;
+use Win\Database\Orm\ErrorEnum;
 use Win\Database\Orm\Model;
+use Win\Database\Orm\OrmException;
 use Win\Database\Orm\Pagination;
 use Win\Database\Orm\Traits\FilterTrait;
 use Win\Database\Orm\Traits\PaginationTrait;
 use Win\Database\Orm\Traits\RawTrait;
 use Win\Database\Orm\Traits\SortTrait;
-use Win\Database\Sql\Builders\Raw;
 use Win\Database\Sql\Clauses\Where;
 use Win\Database\Sql\Query;
 
@@ -75,12 +77,16 @@ abstract class Orm
 	 */
 	public function one()
 	{
-		$query = $this->query;
-		$query->setBuilder('SELECT');
-		$query->limit->set(0, 1);
-		$row = $this->conn->fetch($query, $query->getValues());
+		try {
+			$query = $this->query;
+			$query->setBuilder('SELECT');
+			$query->limit->set(0, 1);
+			$row = $this->conn->fetch($query, $query->getValues());
 
-		return $this->mapModel($row);
+			return $this->mapModel($row);
+		} catch (PDOException $e) {
+			throw new OrmException(ErrorEnum::ON_FETCH, $e->getCode());
+		}
 	}
 
 	/**
@@ -88,12 +94,16 @@ abstract class Orm
 	 */
 	public function list()
 	{
-		$this->setLimit();
-		$query = $this->query;
-		$query->setBuilder('SELECT');
-		$rows = $this->conn->fetchAll($query, $query->getValues());
+		try {
+			$this->setLimit();
+			$query = $this->query;
+			$query->setBuilder('SELECT');
+			$rows = $this->conn->fetchAll($query, $query->getValues());
 
-		return array_map([$this, 'mapModel'], $rows);
+			return array_map([$this, 'mapModel'], $rows);
+		} catch (PDOException $e) {
+			throw new OrmException(ErrorEnum::ON_FETCH, $e->getCode());
+		}
 	}
 
 	/**
@@ -102,10 +112,14 @@ abstract class Orm
 	 */
 	public function count()
 	{
-		$query = $this->query;
-		$query->setBuilder('SELECT COUNT');
+		try {
+			$query = $this->query;
+			$query->setBuilder('SELECT COUNT');
 
-		return $this->conn->fetchCount($query, $query->getValues());
+			return $this->conn->fetchCount($query, $query->getValues());
+		} catch (PDOException $e) {
+			throw new OrmException(ErrorEnum::ON_FETCH, $e->getCode());
+		}
 	}
 
 	/**
@@ -114,10 +128,14 @@ abstract class Orm
 	 */
 	public function delete()
 	{
-		$query = $this->query;
-		$query->setBuilder('DELETE');
+		try {
+			$query = $this->query;
+			$query->setBuilder('DELETE');
 
-		return $this->conn->query($query, $query->getValues());
+			return $this->conn->query($query, $query->getValues());
+		} catch (PDOException $e) {
+			throw new OrmException(ErrorEnum::ON_DELETE, $e->getCode());
+		}
 	}
 
 	/**
@@ -127,11 +145,15 @@ abstract class Orm
 	 */
 	public function destroy($id)
 	{
-		$query = $this->query;
-		$this->filterBy(static::PK, '=', $id);
-		$query->setBuilder('DELETE');
+		try {
+			$query = $this->query;
+			$this->filterBy(static::PK, '=', $id);
+			$query->setBuilder('DELETE');
 
-		return $this->conn->query($query, $query->getValues());
+			return $this->conn->query($query, $query->getValues());
+		} catch (PDOException $e) {
+			throw new OrmException(ErrorEnum::ON_DELETE, $e->getCode());
+		}
 	}
 
 	/**
@@ -141,9 +163,13 @@ abstract class Orm
 	 */
 	public function save(Model $model)
 	{
-		$this->model = $model;
+		try {
+			$this->model = $model;
 
-		return $this->insertOrUpdate();
+			return $this->insertOrUpdate();
+		} catch (PDOException $e) {
+			throw new OrmException(ErrorEnum::ON_SAVE, $e->getCode());
+		}
 	}
 
 	/** @return bool */
@@ -174,13 +200,13 @@ abstract class Orm
 	/** @return bool */
 	private function update()
 	{
+		$this->query = new Query($this);
 		$this->filterBy(static::PK, '=', $this->model->id);
+
 		$query = $this->query;
 		$query->values = $this->mapRow($this->model);
 		$query->setBuilder('UPDATE');
-
 		$success = $this->conn->query($query, $query->getValues());
-		$this->query->where = new Where();
 
 		return $success;
 	}
