@@ -5,7 +5,7 @@ namespace Win\Core\Repositories\Database\Sql\Builders;
 use Win\Core\Repositories\Database\Sql\Builder;
 
 /**
- * Raw permite qualquer Execução, porem é manual
+ * Executa SQL Puro/Manualmente
  */
 class Raw extends Builder
 {

@@ -3,7 +3,8 @@
 namespace Win\Core\Common\Traits;
 
 /**
- * Armazena Dados
+ * Permite acessar array usando sintaxe com pontos
+ * @example "foo.boo"
  */
 trait ArrayDotTrait
 {
@@ -14,7 +15,7 @@ trait ArrayDotTrait
 	protected $data = [];
 
 	/**
-	 * Define todos os valores
+	 * Define os valores
 	 * @param mixed[] $values
 	 */
 	public function __construct($values = [])
@@ -87,21 +88,6 @@ trait ArrayDotTrait
 	}
 
 	/**
-	 * Retorna sempre um array
-	 * @param string $key
-	 * @return mixed
-	 */
-	private function getArray($key)
-	{
-		$values = $this->get($key, []);
-		if (!is_array($values) && $this->has($key)) {
-			$values = [$this->get($key)];
-		}
-
-		return $values;
-	}
-
-	/**
 	 * Remove o valor
 	 * @param string $key
 	 */
@@ -127,5 +113,20 @@ trait ArrayDotTrait
 	public function isEmpty()
 	{
 		return count($this->all()) == 0;
+	}
+
+	/**
+	 * Retorna sempre um array
+	 * @param string $key
+	 * @return mixed
+	 */
+	private function getArray($key)
+	{
+		$values = $this->get($key, []);
+		if (!is_array($values) && $this->has($key)) {
+			$values = [$this->get($key)];
+		}
+
+		return $values;
 	}
 }

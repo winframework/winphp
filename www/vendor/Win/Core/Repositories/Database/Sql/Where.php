@@ -8,13 +8,6 @@ namespace Win\Core\Repositories\Database\Sql;
 class Where
 {
 	/**
-	 * Comparadores (column + operator)
-	 * @var string[]
-	 * @example ['Id > ?', 'Name LIKE ?', 'Age IS NULL']
-	 */
-	private $comparators;
-
-	/**
 	 * Valor a ser comparado
 	 * @var mixed[]
 	 * @example [10, 'John']
@@ -22,12 +15,19 @@ class Where
 	public $values;
 
 	/**
+	 * Comparadores (column + operator)
+	 * @var string[]
+	 * @example ['Id > ?', 'Name LIKE ?', 'Age IS NULL']
+	 */
+	private $comparators;
+
+	/**
 	 * Prepara a cláusula Where
 	 */
 	public function __construct()
 	{
-		$this->comparators = [];
 		$this->values = [];
+		$this->comparators = [];
 	}
 
 	/**

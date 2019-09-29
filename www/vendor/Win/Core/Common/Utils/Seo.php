@@ -2,8 +2,6 @@
 
 namespace Win\Core\Common\Utils;
 
-use Win\Core\Common\Utils\Str;
-
 /**
  * Auxilia a criar o título otimizado para SEO
  */

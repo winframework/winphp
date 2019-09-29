@@ -20,13 +20,6 @@ abstract class Controller
 	public $template = 'main';
 
 	/**
-	 * Action Index
-	 */
-	public function index()
-	{
-	}
-
-	/**
 	 * Adiciona uma variável para usar na View
 	 * @param string $name
 	 * @param mixed $value

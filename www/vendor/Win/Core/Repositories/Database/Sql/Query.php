@@ -57,7 +57,7 @@ class Query
 	 */
 	public function setBuilder($statementType)
 	{
-		$this->builder = Builder::factory($statementType, $this);
+		$this->builder = BuilderFactory::create($statementType, $this);
 	}
 
 	/** @return mixed[] */

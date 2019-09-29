@@ -44,9 +44,6 @@ abstract class Orm
 	/** @var Query */
 	protected $query;
 
-	/** @var string */
-	private $transactionId = '';
-
 	/**
 	 * @param Model $model
 	 * @return mixed[]
@@ -143,6 +140,7 @@ abstract class Orm
 		!$this->modelExists() ? $this->insert() : $this->update();
 
 		$this->flush();
+
 		return $this->model;
 	}
 
@@ -166,6 +164,15 @@ abstract class Orm
 		return $this;
 	}
 
+	/** @return bool */
+	protected function modelExists()
+	{
+		$orm = new static($this->conn);
+		$total = $orm->filterBy(static::PK, $this->model->id)->count();
+
+		return $total > 0;
+	}
+
 	private function insert()
 	{
 		$query = $this->query;
@@ -186,14 +193,5 @@ abstract class Orm
 		$query->setBuilder('UPDATE');
 
 		$this->conn->query($query, $query->getValues());
-	}
-
-	/** @return bool */
-	protected function modelExists()
-	{
-		$orm = new static($this->conn);
-		$total = $orm->filterBy(static::PK, $this->model->id)->count();
-
-		return $total > 0;
 	}
 }

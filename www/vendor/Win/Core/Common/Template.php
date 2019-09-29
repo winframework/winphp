@@ -62,21 +62,6 @@ class Template
 		return null;
 	}
 
-	/**
-	 * Define o arquivo do template
-	 * @param string $file
-	 */
-	protected function setFile($file)
-	{
-		$filePath = static::$dir . DIRECTORY_SEPARATOR . $file;
-
-		if (!is_null(Theme::instance()->get())) {
-			$filePath = Theme::instance()->getFilePath($file);
-		}
-
-		$this->file = BASE_PATH . $filePath . '.phtml';
-	}
-
 	/** @return string */
 	public function getFile()
 	{
@@ -115,5 +100,20 @@ class Template
 		}
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * Define o arquivo do template
+	 * @param string $file
+	 */
+	protected function setFile($file)
+	{
+		$filePath = static::$dir . DIRECTORY_SEPARATOR . $file;
+
+		if (!is_null(Theme::instance()->get())) {
+			$filePath = Theme::instance()->getFilePath($file);
+		}
+
+		$this->file = BASE_PATH . $filePath . '.phtml';
 	}
 }

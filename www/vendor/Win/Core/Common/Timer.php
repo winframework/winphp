@@ -34,15 +34,6 @@ class Timer
 	}
 
 	/**
-	 * Retorna o tempo gasto (em microssegundos)
-	 * @return float
-	 */
-	private function getMicroTime()
-	{
-		return microtime(true) - $this->startTime;
-	}
-
-	/**
 	 * Retorna o tempo gasto (na unidade correta)
 	 * @return string
 	 */
@@ -63,5 +54,14 @@ class Timer
 				(empty($minutes) ? '' : $minutes . 'm ') .
 				floor($secs) . 's ' .
 				$microSecs . 'ms';
+	}
+
+	/**
+	 * Retorna o tempo gasto (em microssegundos)
+	 * @return float
+	 */
+	private function getMicroTime()
+	{
+		return microtime(true) - $this->startTime;
 	}
 }

@@ -2,11 +2,9 @@
 
 namespace Win\Core;
 
-use Win\Core\Controller;
 use Win\Core\Request\Router;
 use Win\Core\Request\Url;
 use Win\Core\Response\ResponseFactory;
-use Win\Core\View;
 
 /**
  * Application (WinPHP Framework)
@@ -28,20 +26,20 @@ class Application
 	protected static $instance;
 
 	/**
-	 * Cria a aplicação principal
-	 */
-	public function __construct()
-	{
-		static::$instance = $this;
-	}
-
-	/**
 	 * Retorna o ponteiro para a aplicação principal
 	 * @return static
 	 */
 	public static function app()
 	{
 		return static::$instance;
+	}
+
+	/**
+	 * Cria a aplicação principal
+	 */
+	public function __construct()
+	{
+		static::$instance = $this;
 	}
 
 	/**

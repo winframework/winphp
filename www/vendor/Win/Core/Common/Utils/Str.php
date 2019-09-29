@@ -106,6 +106,16 @@ class Str
 	}
 
 	/**
+	 * Limpa a string, retirando espaços e tags html
+	 * @param string $string
+	 * @return string
+	 */
+	public static function strip($string)
+	{
+		return trim(strip_tags($string));
+	}
+
+	/**
 	 * Calcula o limite ideal
 	 * @param string $string
 	 * @param int $limit
@@ -121,15 +131,5 @@ class Str
 		}
 
 		return $limit;
-	}
-
-	/**
-	 * Limpa a string, retirando espaços e tags html
-	 * @param string $string
-	 * @return string
-	 */
-	public static function strip($string)
-	{
-		return trim(strip_tags($string));
 	}
 }

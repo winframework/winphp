@@ -1,6 +1,7 @@
 <?php
 
 namespace Win\Core\Common\Utils;
+
 /**
  * Manipulador de Inteiros
  */
