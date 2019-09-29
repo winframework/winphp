@@ -1,33 +1,23 @@
 <?php
 /*
- * Para editar o código HTML procure em: app/templates
- * @see app/templates
+ * Para editar o código HTML procure em: /templates
+ * @see /templates
  */
 
-use Win\Calendar\Timer;
-use Win\Mvc\Application;
-use Win\Response\ResponseException;
+use Win\Core\Application;
+use Win\Core\Response\ResponseException;
 
 define('BASE_PATH', __DIR__);
 
-require 'libs/autoload.php';
-require 'app/config/app.php';
-require 'app/config/routes.php';
+require 'app/autoload.php';
+require 'config/app.php';
+require 'config/routes.php';
 
 session_start();
 
-$t = new Timer();
-
-for ($i = 0; $i < 50; ++$i) {
-	try {
-		$app = new Application();
-		$app->sendResponse();
-	} catch (ResponseException $e) {
-		$e->sendResponse();
-	}
+try {
+	$app = new Application();
+	$app->sendResponse();
+} catch (ResponseException $e) {
+	$e->sendResponse();
 }
-
-echo $t->time();
-
-?>
-<br><br>
