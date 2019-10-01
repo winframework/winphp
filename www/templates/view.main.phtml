@@ -1,8 +1,9 @@
 <?php
 
-use Win\Core\Block;
-use Win\Core\Common\Utils\Menu;
-use Win\Core\Request\Url;
+use Win\Blocks\Block;
+use Win\Common\Template;
+use Win\Common\Utils\Menu;
+use Win\Request\Url;
 
 /** @var Template $this */
 $body = implode('-', Url::instance()->getSegments());

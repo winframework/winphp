@@ -1,6 +1,6 @@
 <?php
 
-use Win\Core\Request\Router;
+use Win\Request\Router;
 
 /*
  * Direciona uma URL para um Controller/action

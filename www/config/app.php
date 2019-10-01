@@ -1,6 +1,6 @@
 <?php
 
-use Win\Form\Services\ReCaptcha;
+use Win\Services\ReCaptcha;
 
 /* Constantes */
 define('APP_NAME', 'winPHP Framework');

@@ -1,0 +1,19 @@
+<?php
+
+use App\Models\Page;
+use Win\Views\View;
+
+/** @var View $this */
+/** @var Page $page */
+?>
+<main>
+	<div class="row">
+		<h2>
+			<?= $page->title; ?>
+		</h2>
+		<b><?= $page->createdAt->toHtml(); ?></b>
+		<p>
+			<?= nl2br($page->description); ?>
+		</p>
+	</div>
+</main>

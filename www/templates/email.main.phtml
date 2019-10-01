@@ -1,8 +1,9 @@
 <?php
-use Win\Mail\Email;
-use Win\Mvc\Block;
 
-/** @var Block $this */
+use Win\Common\Template;
+use Win\Email\Models\Email;
+
+/** @var Template $this */
 /** @var Email $email */
 ?>
 <div id="email-container" style="width:100%; max-width: 500px; margin: 0 auto; border: solid 1px #AAA; border-radius: 3px; font-family: Arial; font-size: 14px; line-height: 16px;">
@@ -11,7 +12,7 @@ use Win\Mvc\Block;
 	</div>
 
 	<div id="email-content" style="margin:15px; line-height: 22px;">
-		<?= $email->getContent(); ?>
+		<?= $email; ?>
 	</div>
 
 	<div id="email-footer" style="background:#aaa; color:#FFF; margin: 5px; padding: 10px; font-size:11px;">

@@ -4,8 +4,8 @@
  * @see /templates
  */
 
-use Win\Core\Application;
-use Win\Core\Response\ResponseException;
+use Win\Application;
+use Win\Response\ResponseException;
 
 define('BASE_PATH', __DIR__);
 
