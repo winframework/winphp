@@ -31,17 +31,17 @@ class UploaderController extends Controller
 
 	public function index()
 	{
-		if (!is_null(Input::post('submit'))) {
+		if (Input::post('submit')) {
 			try {
 				$uploader = new Uploader(static::UPLOAD_PATH);
 
 				$uploader->prepare(Input::file('upload'));
 				$uploader->upload();
 
-				Alert::success('Imagem salva');
+				Alert::success('Imagem salva com sucesso.');
 				$this->image = new Image($uploader->getUploaded()->getPath());
 			} catch (\Exception $e) {
-				Alert::error('Imagem com erro');
+				Alert::error('Ocorreu um erro ao enviar a Imagem.');
 			}
 		}
 
