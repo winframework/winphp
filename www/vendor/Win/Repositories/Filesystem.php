@@ -114,8 +114,13 @@ class Filesystem
 		return $content;
 	}
 
+	/**
+	 * Retorna TRUE se o arquivo existe
+	 * @param string $filePath
+	 * @return boolean
+	 */
 	public function exists($filePath)
 	{
-		is_file($this->basePath . $filePath);
+		return is_file($this->basePath . $filePath);
 	}
 }

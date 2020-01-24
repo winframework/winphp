@@ -66,6 +66,10 @@ class Uploader
 	 */
 	public function upload($name = '')
 	{
+		if ($this->temp['error']) {
+			throw new \Exception('Error during upload');
+		}
+
 		if (!is_null($this->temp)) {
 			$name = $this->generateName($name);
 			\move_uploaded_file($this->temp['tmp_name'], $this->path . $name);

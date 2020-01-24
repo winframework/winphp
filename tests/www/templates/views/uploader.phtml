@@ -1,5 +1,6 @@
 <?php
 
+use Win\Blocks\AlertBlock;
 use Win\Common\Utils\Form;
 use Win\Views\View;
 
@@ -12,6 +13,8 @@ $current = 'Luke';
 	<h1>Uploader</h1>
 
 	<form method="post" enctype="multipart/form-data">
+
+		<?= new AlertBlock(); ?>
 
 		<!-- Select -->
 		<div class="form-group">

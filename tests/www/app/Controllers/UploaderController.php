@@ -32,12 +32,12 @@ class UploaderController extends Controller
 	public function index()
 	{
 		if (!is_null(Input::post('submit'))) {
-			$uploader = new Uploader(static::UPLOAD_PATH);
-
-			$uploader->prepare(Input::file('upload'));
-			$uploader->upload();
-
 			try {
+				$uploader = new Uploader(static::UPLOAD_PATH);
+
+				$uploader->prepare(Input::file('upload'));
+				$uploader->upload();
+
 				Alert::success('Imagem salva');
 				$this->image = new Image($uploader->getUploaded()->getPath());
 			} catch (\Exception $e) {
