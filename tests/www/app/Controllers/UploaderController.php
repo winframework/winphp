@@ -3,31 +3,44 @@
 namespace App\Controllers;
 
 use Win\Controllers\Controller;
-use Win\Models\Filesystem\Directory;
 use Win\Models\Filesystem\Image;
-use Win\Models\Filesystem\TempFile;
 use Win\Repositories\Alert;
+use Win\Repositories\Filesystem;
 use Win\Repositories\Filesystem\Uploader;
 use Win\Request\Input;
 use Win\Views\View;
 
 class UploaderController extends Controller
 {
+	const UPLOAD_PATH = 'data/uploads';
+
+	/** @var Image */
 	public $image = null;
+
+	/** @var FileSystem */
+	private $fs;
+
+	public function __construct()
+	{
+		$fs = new Filesystem();
+		$fs->delete(static::UPLOAD_PATH);
+		$fs->create(static::UPLOAD_PATH);
+
+		$this->fs = $fs;
+	}
 
 	public function index()
 	{
 		if (!is_null(Input::post('submit'))) {
-			$dir = new Directory('data/uploads');
-			$dir->delete();
-			$uploader = new Uploader($dir);
+			$uploader = new Uploader(static::UPLOAD_PATH);
 
-			$uploader->prepare(TempFile::fromFiles('upload'));
-			$success = $uploader->upload('my-file');
-			if ($success) {
+			$uploader->prepare(Input::file('upload'));
+			$uploader->upload();
+
+			try {
 				Alert::success('Imagem salva');
 				$this->image = new Image($uploader->getUploaded()->getPath());
-			} else {
+			} catch (\Exception $e) {
 				Alert::error('Imagem com erro');
 			}
 		}

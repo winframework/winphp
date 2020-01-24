@@ -2,6 +2,9 @@
 
 namespace Win\Repositories\Filesystem;
 
+use Win\Models\Filesystem\File;
+use Win\Repositories\Filesystem;
+
 /**
  * Auxilia fazer upload de Arquivos
  */
@@ -13,8 +16,11 @@ class Uploader
 		'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg',
 	];
 
-	/** @var Directory */
-	protected $destination;
+	/** @var string */
+	protected $path;
+
+	/** @var Filesystem */
+	protected $fs;
 
 	/** @var TempFile */
 	protected $temp;
@@ -24,12 +30,13 @@ class Uploader
 
 	/**
 	 * Inicializa o upload para o diretório de destino
-	 * @param Directory $destination
+	 * @param string $path
 	 */
-	public function __construct(Directory $destination)
+	public function __construct($path)
 	{
-		$this->destination = $destination;
-		$this->destination->create(0777);
+		$this->path = $path . '/';
+		$this->fs = new Filesystem();
+		$this->fs->create($path);
 	}
 
 	/**
@@ -43,36 +50,33 @@ class Uploader
 
 	/**
 	 * Prepara o upload
-	 * @param TempFile $temp
-	 * @return bool
+	 * @param string[] $temp
 	 */
-	public function prepare(TempFile $temp)
+	public function prepare($tempFile)
 	{
-		$success = false;
 		$this->temp = null;
-		if ($temp->exists()) {
-			$success = true;
-			$this->temp = $temp;
+		if (!$this->fs->exists($tempFile['tmp_name'])) {
+			$this->temp = $tempFile;
 		}
-
-		return $success;
 	}
 
 	/**
 	 * Faz o upload para o diretório final
 	 * @param string $name
-	 * @return bool
 	 */
 	public function upload($name = '')
 	{
-		$success = false;
 		if (!is_null($this->temp)) {
-			$success = $this->temp->move($this->destination, $name);
+			$name = $this->generateName($name);
+			\move_uploaded_file($this->temp['tmp_name'], $this->path . $name);
+			$this->uploaded = new File($this->path . $name);
 		}
-		if ($success) {
-			$this->uploaded = new File($this->temp->getPath());
-		}
+	}
 
-		return $success;
+	public function generateName($name)
+	{
+		$info = pathinfo($this->temp['name']);
+
+		return ($name ? $name : md5(rand())) . '.' . $info['extension'];
 	}
 }

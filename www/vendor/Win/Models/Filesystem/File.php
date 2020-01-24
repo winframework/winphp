@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Filesystem\Models;
+namespace Win\Models\Filesystem;
 
 use Exception;
 

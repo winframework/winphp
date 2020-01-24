@@ -2,7 +2,7 @@
 
 namespace Win\Repositories;
 
-class FileSystem
+class Filesystem
 {
 	private $basePath;
 
@@ -12,12 +12,16 @@ class FileSystem
 	 */
 	public function __construct($basePath = BASE_PATH)
 	{
-		$this->basePath = $basePath;
+		$this->basePath = $basePath . '/';
 	}
 
-	public function list()
+	/**
+	 * Return an array with all children files/folders
+	 * @param string $path
+	 */
+	public function children($path = '')
 	{
-		return [];
+		return array_diff(scandir($this->basePath . $path), ['..', '.']);
 	}
 
 	public function count($filePath)
@@ -25,9 +29,17 @@ class FileSystem
 		return 0;
 	}
 
-	public function create($filePath)
+	/**
+	 * Cria o diretório
+	 * @param string $folderPath
+	 * @param int $chmod Permissão (base 8)
+	 */
+	public function create($folderPath, $chmod = 0755)
 	{
-		return true;
+		$path = $this->basePath . $folderPath;
+		if (!is_dir($path)) {
+			mkdir($path, $chmod, true);
+		}
 	}
 
 	/**
@@ -38,23 +50,32 @@ class FileSystem
 	 */
 	public function rename($filePath = null, $newFilePath)
 	{
-		return rename($filePath, $newFilePath);
+		return rename($this->basePath . $filePath, $$this->basePath . $newFilePath);
 	}
 
 	public function move($filePath = null, $newFolder)
 	{
 		$currentName = '';
 
-		return rename($filePath, $newFolder . $currentName);
+		return rename($this->basePath . $filePath, $this->basePath . $newFolder . $currentName);
 	}
 
 	/**
-	 * Exclui o arquivo
+	 * Exclui o arquivo/diretório
+	 * @param $path FilePath or Folder Path
 	 * @return bool
 	 */
-	public function delete($filePath, $recursive = true)
+	public function delete($path)
 	{
-		unlink($filePath);
+		$path = $path;
+		if (is_dir($path) && !is_link($path)) {
+			foreach (static::children($path) as $child) {
+				static::delete($path . '/' . $child);
+			}
+			rmdir($this->basePath . $path);
+		} elseif (is_file($path)) {
+			unlink($this->basePath . $path);
+		}
 	}
 
 	/**
@@ -65,6 +86,7 @@ class FileSystem
 	 */
 	public function write($filePath, $content, $mode = 'w')
 	{
+		$filePath = $this->basePath . $filePath;
 		$return = false;
 		if (!empty($this->getName())) {
 			$this->getDirectory()->create(0777);
@@ -85,10 +107,15 @@ class FileSystem
 	public function read($filePath)
 	{
 		$content = false;
-		if ($this->exists()) {
-			$content = file_get_contents($filePath);
+		if ($this->exists($filePath)) {
+			$content = file_get_contents($this->basePath . $filePath);
 		}
 
 		return $content;
+	}
+
+	public function exists($filePath)
+	{
+		is_file($this->basePath . $filePath);
 	}
 }

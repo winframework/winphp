@@ -6,7 +6,7 @@ use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Common\Server;
 use Win\Models\Email;
-use Win\Filesystem\Models\File;
+use Win\Models\Filesystem\File;
 
 /**
  * Envio de Emails
