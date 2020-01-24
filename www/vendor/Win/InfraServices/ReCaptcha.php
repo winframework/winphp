@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Services;
+namespace Win\InfraServices;
 
 use Win\Request\Input;
 

@@ -7,7 +7,7 @@ use Win\Controllers\Controller;
 use Win\Models\Email;
 use Win\Repositories\Alert;
 use Win\Request\Input;
-use Win\Services\ReCaptcha;
+use Win\InfraServices\ReCaptcha;
 use Win\Views\View;
 
 /**
