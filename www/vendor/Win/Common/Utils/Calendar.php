@@ -2,7 +2,6 @@
 
 namespace Win\Common\Utils;
 
-use DateInterval;
 use Win\Models\DateTime;
 
 /**
