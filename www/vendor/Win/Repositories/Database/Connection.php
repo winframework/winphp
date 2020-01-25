@@ -4,6 +4,7 @@ namespace Win\Repositories\Database;
 
 use PDO;
 use PDOException;
+use PDOStatement;
 use Win\Common\Traits\SingletonTrait;
 use Win\Response\ResponseException;
 
@@ -16,6 +17,9 @@ abstract class Connection
 
 	/** @var PDO */
 	protected $pdo;
+
+	/** @var PDOException */
+	public $pdoException;
 
 	/**
 	 * Cria e retorna conexão PDO

@@ -2,9 +2,11 @@
 
 namespace Win;
 
+use App\Controllers\IndexController;
 use Win\Controllers\Controller;
 use Win\Request\Router;
 use Win\Request\Url;
+use Win\Response\ResponseException;
 use Win\Response\ResponseFactory;
 use Win\Views\View;
 

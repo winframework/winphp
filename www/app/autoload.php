@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Autoload Base
+ * Autoload App
  */
 spl_autoload_register(function ($className) {
 	$className = str_replace('App\\', 'app\\', $className);

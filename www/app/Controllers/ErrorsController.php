@@ -8,6 +8,9 @@ use Win\Views\View;
 
 class ErrorsController extends Controller
 {
+	/** @var ResponseException */
+	public $exception;
+
 	public function error404(ResponseException $e)
 	{
 		$this->title = 'Página não encontrada';

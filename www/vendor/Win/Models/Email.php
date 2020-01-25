@@ -9,7 +9,7 @@ use Win\Common\Template;
  */
 class Email
 {
-	private $from = '';
+	private $from = [];
 	private $fromName = '';
 	private $to = [];
 	private $replyTo = [];
@@ -18,10 +18,10 @@ class Email
 	private $subject = '';
 	private $language = 'br';
 
-	/** @var EmailTemplate|string */
+	/** @var Template | string */
 	private $template;
 
-	/** @var EmailTemplate|string */
+	/** @var Template | string */
 	private $content;
 
 	/**
@@ -137,7 +137,7 @@ class Email
 
 	/**
 	 * Retorna o E-mail de quem envia
-	 * @return string[]
+	 * @return string
 	 */
 	public function getFrom()
 	{
@@ -146,7 +146,7 @@ class Email
 
 	/**
 	 * Retorna o Nome de quem envia
-	 * @return string[]
+	 * @return string
 	 */
 	public function getFromName()
 	{
@@ -191,7 +191,7 @@ class Email
 
 	/**
 	 * Retorna o idioma
-	 * @return string[]
+	 * @return string
 	 */
 	public function getLanguage()
 	{

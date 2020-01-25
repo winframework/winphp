@@ -29,7 +29,7 @@ class Router
 
 	/**
 	 * Percorre todas as rotas e retorna o destino final
-	 * @return string[] Destino
+	 * @return array<string,string,array> Destino
 	 * @example return [Controller, action, [..$args]]
 	 */
 	public static function getDestination()

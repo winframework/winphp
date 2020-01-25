@@ -2,6 +2,7 @@
 
 namespace Win\Controllers;
 
+use Win\Application;
 use Win\Request\Url;
 
 /**
@@ -18,6 +19,12 @@ abstract class Controller
 
 	/** @var string */
 	public $template = 'main';
+
+	/** @var string */
+	public $title;
+
+	/** @var mixed[] */
+	public $data;
 
 	/**
 	 * Action Index

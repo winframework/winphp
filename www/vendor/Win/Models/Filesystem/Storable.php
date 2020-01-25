@@ -2,7 +2,6 @@
 
 namespace Win\Models\Filesystem;
 
-use Directory;
 use Win\Models\DateTime;
 
 /**

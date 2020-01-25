@@ -9,7 +9,7 @@ class Filesystem
 
 	/**
 	 * Instância um novo arquivo
-	 * @param string $path Caminho relativo
+	 * @param string $basePath
 	 */
 	public function __construct($basePath = BASE_PATH)
 	{
@@ -76,8 +76,8 @@ class Filesystem
 	{
 		$path = $path;
 		if (is_dir($path) && !is_link($path)) {
-			foreach (static::children($path) as $child) {
-				static::delete($path . '/' . $child);
+			foreach ($this->children($path) as $child) {
+				$this->delete($path . '/' . $child);
 			}
 			rmdir($this->basePath . $path);
 		} elseif (is_file($path)) {
@@ -95,7 +95,7 @@ class Filesystem
 	{
 		$filePath = $this->basePath . $filePath;
 		$return = false;
-		if (!empty($this->getName())) {
+		if (!empty($filePath)) {
 			$this->getDirectory()->create(0777);
 			$fp = fopen($filePath, $mode);
 			if (false !== $fp) {
