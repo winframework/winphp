@@ -18,7 +18,7 @@
 - Request/Response;
 - Templates/Views/Blocks;
 - Título de Página;
-- Rotas Personalizadas;
+- Rotas;
 - Envio de Emails;
 - Manipulador de Datas;
 - Cálculo de Datas;
@@ -29,7 +29,6 @@
 - Sessão;
 - Conexão com Banco de Dados;
 - ORM;
-- Validação de Campos;
 
 ### Request/Response
 <img src="https://rawgit.com/winframework/winphp/gh-pages/docs/diagrams/win-diagram.png"/>

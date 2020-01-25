@@ -2,6 +2,8 @@
 
 namespace Win\Repositories;
 
+use Win\Models\Filesystem\File;
+
 class Filesystem
 {
 	private $basePath;
@@ -69,7 +71,7 @@ class Filesystem
 
 	/**
 	 * Exclui o arquivo/diretório
-	 * @param $path Caminho do arquivo/diretório
+	 * @param string $path Caminho do arquivo/diretório
 	 * @return bool
 	 */
 	public function delete($path)
@@ -93,11 +95,13 @@ class Filesystem
 	 */
 	public function write($filePath, $content, $mode = 'w')
 	{
-		$filePath = $this->basePath . $filePath;
+		$file = new File($this->basePath . $filePath);
 		$return = false;
-		if (!empty($filePath)) {
-			$this->getDirectory()->create(0777);
-			$fp = fopen($filePath, $mode);
+
+		if ($file->getDirectory()) {
+			$this->create($file->getDirectory());
+
+			$fp = fopen($file->getAbsolutePath(), $mode);
 			if (false !== $fp) {
 				fwrite($fp, $content);
 				$return = fclose($fp);

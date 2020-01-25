@@ -11,8 +11,6 @@ class Session
 {
 	use ArrayDotTrait;
 
-	private $instance;
-
 	/**
 	 * Retorna instância de Session
 	 * @param string $group
