@@ -7,7 +7,7 @@ use Win\Models\DateTime;
 /**
  * Cálculo de Datas
  */
-class DateCalc
+class Calendar
 {
 	const SECONDS = 'seconds';
 	const MINUTES = 'minutes';
@@ -71,7 +71,7 @@ class DateCalc
 	 */
 	protected static function toHighestUnit($seconds)
 	{
-		$units = array_reverse(DateCalc::$units);
+		$units = array_reverse(static::$units);
 		$time = 0;
 		foreach ($units as $unitName => $unitInfo) {
 			if ($seconds >= $unitInfo[2]) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Formats;
+namespace Win\Common\Utils;
 
 use PHPUnit\Framework\TestCase;
 
