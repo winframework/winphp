@@ -63,7 +63,7 @@ class Uploader
 	 */
 	public function upload($name = '')
 	{
-		if (!$this->temp || $this->temp['error']) {
+		if (!empty($this->temp) || $this->temp['error']) {
 			throw new \Exception('Error during upload');
 		}
 

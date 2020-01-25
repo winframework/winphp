@@ -25,7 +25,7 @@ class Filesystem
 	 */
 	public function children($path = '')
 	{
-		return array_diff(scandir($this->basePath . $path), ['..', '.']);
+		return array_diff((array) scandir($this->basePath . $path), ['..', '.']);
 	}
 
 	/**
@@ -128,7 +128,7 @@ class Filesystem
 	/**
 	 * Retorna TRUE se o arquivo existe
 	 * @param string $filePath
-	 * @return boolean
+	 * @return bool
 	 */
 	public function exists($filePath)
 	{
