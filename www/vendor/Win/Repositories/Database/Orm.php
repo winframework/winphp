@@ -163,7 +163,7 @@ abstract class Orm
 	 */
 	public function debug()
 	{
-		$this->debug = 1;
+		$this->debug = true;
 
 		return $this;
 	}
