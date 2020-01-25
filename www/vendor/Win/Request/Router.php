@@ -20,7 +20,7 @@ class Router
 	 * @param string $namespace
 	 * @param string[] $routes
 	 */
-	public static function routes($namespace, $routes)
+	public static function addRoutes($namespace, $routes)
 	{
 		foreach ($routes as $request => $destination) {
 			static::$routes[$request] = $namespace . $destination;

@@ -1,0 +1,19 @@
+<?php
+
+use App\Views\ClassView;
+
+/** @var ClassView $this */
+?>
+<main>
+	<h1>
+		<?= $this->text; ?>
+	</h1>
+
+	My code should be 10 = <b><?= $this->code; ?> = <?= $this->getCode(); ?></b>
+	<br /> <br />
+	Acessa variável private:
+	<?= isset($this->varPrivate) ? 'SIM' : 'NÃO'; ?>
+	<br />
+	Acessa variável protected:
+	<?= isset($this->code) ? 'SIM' : 'NÃO'; ?>
+</main>

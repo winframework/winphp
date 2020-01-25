@@ -10,7 +10,7 @@ namespace Win\Common;
  * <code>
  * $t = new Timer();
  * [code here]
- * echo $t->time();
+ * echo $t->getTime();
  * </code>
  */
 class Timer
@@ -46,7 +46,7 @@ class Timer
 	 * Retorna o tempo gasto (na unidade correta)
 	 * @return string
 	 */
-	public function time()
+	public function getTime()
 	{
 		$secs = $this->getMicroTime();
 		$days = floor($secs / 86400);

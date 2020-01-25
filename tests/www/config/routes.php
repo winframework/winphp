@@ -7,7 +7,7 @@ use Win\Request\Router;
  *
  * url => NomeDoController/nomeDoAction
  */
-Router::routes('App\\Controllers\\', [
+Router::addRoutes('App\\Controllers\\', [
 	'' => 'IndexController@index',
 
 	// Pages
@@ -21,6 +21,7 @@ Router::routes('App\\Controllers\\', [
 
 	// Exemplos
 	'demo' => 'DemoController@index',
+	'class-view' => 'DemoController@classView',
 	'view-set-values' => 'DemoController@viewSetValues',
 	'database' => 'DatabaseController@index',
 	'alerts' => 'AlertsController@index',

@@ -102,7 +102,7 @@ class Template
 	}
 
 	/**
-	 * Carrega e Retorna o output
+	 * Carrega e retorna o output
 	 * @return string
 	 */
 	protected function load()

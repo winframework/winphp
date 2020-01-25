@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Views\ClassView;
 use Win\Controllers\Controller;
 use Win\Views\View;
 
@@ -20,6 +21,11 @@ class DemoController extends Controller
 		$this->title = 'My Index Action';
 
 		return new View('demo');
+	}
+
+	public function classView()
+	{
+		return new ClassView(10);
 	}
 
 	public function returnFive()
