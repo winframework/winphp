@@ -34,6 +34,7 @@ class ResponseException extends Exception
 			$response = ResponseFactory::create($destination);
 			echo $response;
 		} catch (Exception $e) {
+			// Envia apenas um 404 padrão
 		}
 	}
 }
