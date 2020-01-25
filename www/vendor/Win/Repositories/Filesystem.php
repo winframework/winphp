@@ -2,8 +2,6 @@
 
 namespace Win\Repositories;
 
-use Win\Models\Filesystem\File;
-
 class Filesystem
 {
 	private $basePath;
@@ -46,8 +44,11 @@ class Filesystem
 	public function create($folderPath, $chmod = 0755)
 	{
 		$path = $this->basePath . $folderPath;
+		var_dump($path);
 		if (!is_dir($path)) {
+			$mask = umask(0);
 			mkdir($path, $chmod, true);
+			umask($mask);
 		}
 	}
 
@@ -79,7 +80,7 @@ class Filesystem
 		$path = $path;
 		if (is_dir($path) && !is_link($path)) {
 			foreach ($this->children($path) as $child) {
-				$this->delete($path . '/' . $child);
+				$this->delete("$path/$child");
 			}
 			rmdir($this->basePath . $path);
 		} elseif (is_file($path)) {
@@ -95,13 +96,13 @@ class Filesystem
 	 */
 	public function write($filePath, $content, $mode = 'w')
 	{
-		$file = new File($this->basePath . $filePath);
+		$dir = pathinfo($filePath, PATHINFO_DIRNAME);
+		$file = pathinfo($filePath, PATHINFO_BASENAME);
 		$return = false;
 
-		if ($file->getDirectory()) {
-			$this->create($file->getDirectory());
-
-			$fp = fopen($file->getAbsolutePath(), $mode);
+		if ($dir) {
+			$this->create($dir, 0777);
+			$fp = fopen("$dir/$file", $mode);
 			if (false !== $fp) {
 				fwrite($fp, $content);
 				$return = fclose($fp);

@@ -3,7 +3,11 @@
 namespace App\Controllers;
 
 use App\Views\ClassView;
+use Win\Common\Template;
 use Win\Controllers\Controller;
+use Win\InfraServices\Mailer;
+use Win\Models\Email;
+use Win\Repositories\Alert;
 use Win\Views\View;
 
 /**
@@ -51,6 +55,23 @@ class DemoController extends Controller
 	public function returnInvalidView2()
 	{
 		return new View('my-view/invalid');
+	}
+
+	public function sendEmail()
+	{
+		$mailer = new Mailer();
+
+		$email = new Email();
+		$email->setContent('Meu conteúdo');
+		$mailer->send($email);
+
+		$email = new Email();
+		$email->setContent(new Template('emails/contact'));
+		$mailer->send($email);
+
+		Alert::success('E-mail enviado!');
+
+		return new View('alerts');
 	}
 
 	public function tryRefresh()

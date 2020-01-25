@@ -5,8 +5,9 @@ namespace Win\InfraServices;
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Common\Server;
+use Win\Common\Template;
 use Win\Models\Email;
-use Win\Models\Filesystem\File;
+use Win\Repositories\Filesystem;
 
 /**
  * Envio de Emails
@@ -15,17 +16,24 @@ use Win\Models\Filesystem\File;
  */
 class Mailer
 {
+	const DIRECTORY = 'data/emails';
+
 	/** @var PHPMailer */
 	private $mailer;
 
 	/** @var bool */
 	public static $sendOnLocalHost = false;
 
+	/** @var string|null */
+	public $template;
+
 	/**
 	 * Instancia o serviço de E-mail
+	 * @param string $template
 	 */
-	public function __construct()
+	public function __construct($template = 'main')
 	{
+		$this->template = $template;
 		$this->mailer = new PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->IsMail();
@@ -37,8 +45,10 @@ class Mailer
 	 */
 	public function send(Email $email)
 	{
+		$this->prepareHeader($email);
+		$this->prepareBody($email);
+
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
-			$this->prepare($email);
 			$send = $this->mailer->Send();
 			$this->flush();
 
@@ -47,15 +57,15 @@ class Mailer
 				. '<span style="display:none">' . $this->mailer->ErrorInfo . '</span>');
 			}
 		} else {
-			$this->saveOnDisk();
+			$this->saveOnDisk($email);
 		}
 	}
 
 	/**
-	 * Prepara o email
+	 * Prepara os dados do email
 	 * @param Email $email
 	 */
-	private function prepare(Email $email)
+	private function prepareHeader(Email $email)
 	{
 		// Details
 		$phpMailer = $this->mailer;
@@ -71,7 +81,7 @@ class Mailer
 		foreach ($email->getTo() as $address => $name) {
 			$phpMailer->addAddress($address, $name);
 		}
-		foreach ($email->getCC() as $address => $name) {
+		foreach ($email->getCc() as $address => $name) {
 			$phpMailer->addCC($address, $name);
 		}
 		foreach ($email->getBcc() as $address => $name) {
@@ -79,6 +89,20 @@ class Mailer
 		}
 		foreach ($email->getReplyTo() as $address => $name) {
 			$phpMailer->addReplyTo($address, $name);
+		}
+	}
+
+	/**
+	 * Prepara o corpo do email
+	 * @param Email $email
+	 */
+	private function prepareBody(Email $email)
+	{
+		if ($this->template) {
+			$template = new Template('email.' . $this->template, ['email' => $email]);
+			$this->mailer->Body = (string) $template;
+		} else {
+			$this->mailer->Body = $email->getContent();
 		}
 	}
 
@@ -93,14 +117,14 @@ class Mailer
 
 	/**
 	 * Salva o E-mail em um arquivo
+	 * @param Email $email
 	 * @return bool
 	 */
-	private function saveOnDisk()
+	private function saveOnDisk(Email $email)
 	{
-		// $name = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
-		// $file = new File('data/emails/' . $name);
-		// $file->getDirectory()->create(0777);
+		$fs = new Filesystem();
+		$name = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 
-		// return $file->write($this->__toString());
+		return $fs->write(static::DIRECTORY . '/' . $name, $email);
 	}
 }

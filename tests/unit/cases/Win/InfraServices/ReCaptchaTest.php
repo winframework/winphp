@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Html\Form;
+namespace Win\InfraServices;
 
 use PHPUnit\Framework\TestCase;
 

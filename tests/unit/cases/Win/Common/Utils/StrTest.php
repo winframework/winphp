@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Formats;
+namespace Win\Common\Utils;
 
 use PHPUnit\Framework\TestCase;
 
@@ -36,7 +36,7 @@ class StrTest extends TestCase
 		$this->assertEquals('3inha...', Str::truncate('3inha string curta', 11));
 	}
 
-	public function testTruncateSimbol()
+	public function testTruncateSymbol()
 	{
 		$this->assertEquals('1inha string...', Str::truncate('1inha string, curta', 14));
 		$this->assertEquals('1inha string...', Str::truncate('1inha string, curta', 13));

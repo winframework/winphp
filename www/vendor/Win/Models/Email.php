@@ -19,27 +19,24 @@ class Email
 	private $language = 'br';
 
 	/** @var Template | string */
-	private $template;
-
-	/** @var Template | string */
 	private $content;
 
 	/**
 	 * Cria uma mensagem de E-mail
-	 * @param string $template
 	 * @param string $content
 	 * @param mixed[] $data
 	 */
-	public function __construct($template = 'main', $content = null, $data = [])
+	public function __construct($content = null, $data = [])
 	{
-		$this->template = new Template('email.' . $template, ['email' => $this]);
-		$this->content = new Template('emails/' . $content, $data);
+		if ($content) {
+			$this->content = new Template('emails/' . $content, $data);
+		}
 	}
 
 	/** @return string */
 	public function __toString()
 	{
-		return (string) $this->template ?: $this->content;
+		return (string) $this->content;
 	}
 
 	/**
@@ -62,7 +59,7 @@ class Email
 	 */
 	public function addReplyTo($address, $name = '')
 	{
-		$this->replyTo[$name] = $address;
+		$this->replyTo[$address] = $name;
 
 		return $this;
 	}
@@ -86,7 +83,7 @@ class Email
 	 */
 	public function addBcc($address, $name = '')
 	{
-		$this->bcc[$name] = $address;
+		$this->bcc[$address] = $name;
 
 		return $this;
 	}
@@ -176,7 +173,7 @@ class Email
 	 * Retorna o CC
 	 * @return string[]
 	 */
-	public function getCC()
+	public function getCc()
 	{
 		return $this->cc;
 	}

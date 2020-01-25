@@ -71,11 +71,6 @@ class Str
 		return $begin[0] . lcfirst(static::camel($string));
 	}
 
-	public static function lowerDashed($string)
-	{
-		return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1-', $string));
-	}
-
 	/**
 	 * @param string $string
 	 * @return string

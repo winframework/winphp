@@ -1,7 +1,7 @@
 <?php
 
 use Win\Common\Template;
-use Win\Email\Models\Email;
+use Win\Models\Email;
 
 /** @var Template $this */
 /** @var Email $email */
@@ -12,7 +12,7 @@ use Win\Email\Models\Email;
 	</div>
 
 	<div id="email-content" style="margin:15px; line-height: 22px;">
-		<?= $email; ?>
+		<?= $email->getContent(); ?>
 	</div>
 
 	<div id="email-footer" style="background:#aaa; color:#FFF; margin: 5px; padding: 10px; font-size:11px;">

@@ -54,7 +54,10 @@ class Uploader
 	 */
 	public function prepare($tempFile)
 	{
-		$this->temp = $tempFile['tmp_name'] ? $tempFile : null;
+		if (is_null($tempFile) || $tempFile['error']) {
+			throw new \Exception('Error during upload');
+		}
+		$this->temp = $tempFile;
 	}
 
 	/**
@@ -63,10 +66,6 @@ class Uploader
 	 */
 	public function upload($name = '')
 	{
-		if (!empty($this->temp) || $this->temp['error']) {
-			throw new \Exception('Error during upload');
-		}
-
 		if (!is_null($this->temp)) {
 			$name = $this->generateName($name);
 			\move_uploaded_file($this->temp['tmp_name'],

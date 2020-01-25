@@ -104,6 +104,15 @@ class Url
 	}
 
 	/**
+	 * @param string $url
+	 */
+	public function setUrl($url)
+	{
+		$this->url = $url;
+		$this->segments = null;
+	}
+
+	/**
 	 * @param string[] $segments
 	 */
 	public function setSegments($segments)

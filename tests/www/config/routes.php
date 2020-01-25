@@ -22,6 +22,7 @@ Router::addRoutes('App\\Controllers\\', [
 	// Exemplos
 	'demo' => 'DemoController@index',
 	'class-view' => 'DemoController@classView',
+	'send-email' => 'DemoController@sendEmail',
 	'view-set-values' => 'DemoController@viewSetValues',
 	'database' => 'DatabaseController@index',
 	'alerts' => 'AlertsController@index',

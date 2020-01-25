@@ -15,10 +15,6 @@ spl_autoload_register(function ($className) {
  */
 spl_autoload_register(function ($className) {
 	$file = BASE_PATH . '/../unit/cases/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
-	if ($className == 'Win\Common\Traits\ArrayClass') {
-		var_dump('-------------------------------------------');
-		var_dump($file);
-	}
 	if (file_exists($file)) {
 		return require $file;
 	}
