@@ -1,7 +1,7 @@
 <?php
 
 define('BASE_PATH', __DIR__ . '/../www');
-include BASE_PATH . '/autoload.php';
-include BASE_PATH . '/app/config/datetime.php';
+
+include BASE_PATH . '/app/autoload.php';
 
 session_start();
