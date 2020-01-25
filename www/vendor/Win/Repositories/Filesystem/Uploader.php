@@ -12,7 +12,7 @@ class Uploader
 {
 	/** @var string[] */
 	protected static $validExtensions = [
-		'csv', 'doc', 'docx', 'gif', 'jpeg', 'jpg', 'md', 'mp3', 
+		'csv', 'doc', 'docx', 'gif', 'jpeg', 'jpg', 'md', 'mp3',
 		'mp4', 'mpeg', 'pdf', 'png', 'svg', 'txt', 'wav', 'xls', 'xlsx', 'zip',
 	];
 
@@ -54,10 +54,7 @@ class Uploader
 	 */
 	public function prepare($tempFile)
 	{
-		$this->temp = null;
-		if ($tempFile['tmp_name']) {
-			$this->temp = $tempFile;
-		}
+		$this->temp = $tempFile['tmp_name'] ? $tempFile : null;
 	}
 
 	/**
