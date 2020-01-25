@@ -44,7 +44,6 @@ class Filesystem
 	public function create($folderPath, $chmod = 0755)
 	{
 		$path = $this->basePath . $folderPath;
-		var_dump($path);
 		if (!is_dir($path)) {
 			$mask = umask(0);
 			mkdir($path, $chmod, true);
