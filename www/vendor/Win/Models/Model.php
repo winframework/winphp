@@ -6,7 +6,7 @@ use Win\Response\ResponseException;
 
 abstract class Model
 {
-	/** @var int */
+	/** @var int|null */
 	public $id;
 
 	abstract public function validate();
