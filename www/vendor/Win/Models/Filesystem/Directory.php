@@ -10,8 +10,6 @@ use Exception;
  */
 class Directory extends Storable
 {
-	const MKDIR_MODE = STREAM_MKDIR_RECURSIVE;
-
 	/**
 	 * Instância um diretório
 	 * @param string $path Caminho relativo
@@ -42,14 +40,14 @@ class Directory extends Storable
 	/** @return bool */
 	public function isEmpty()
 	{
-		return 0 == count($this->getItemsName());
+		return 0 == count($this->getChildrenNames());
 	}
 
 	/**
 	 * Retorna nome dos itens dentro do diretório (em ordem alfabética)
 	 * @return string[]
 	 */
-	public function listName()
+	public function getChildrenNames()
 	{
 		$items = (array) scandir($this->getAbsolutePath());
 
@@ -60,10 +58,10 @@ class Directory extends Storable
 	 * Retorna os itens dentro do diretório (em ordem alfabética)
 	 * @return Storable[]
 	 */
-	public function list()
+	public function getChildren()
 	{
 		$items = [];
-		foreach ($this->getItemsName() as $itemName) {
+		foreach ($this->getChildrenNames() as $itemName) {
 			$itemPath = $this->getPath() . static::DS . $itemName;
 			if (is_dir(BASE_PATH . static::DS . $itemPath)) {
 				$items[] = new Directory($itemPath);

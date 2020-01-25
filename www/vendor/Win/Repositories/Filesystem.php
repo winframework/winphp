@@ -5,6 +5,7 @@ namespace Win\Repositories;
 class Filesystem
 {
 	private $basePath;
+	const DS = DIRECTORY_SEPARATOR;
 
 	/**
 	 * Instância um novo arquivo
@@ -16,17 +17,23 @@ class Filesystem
 	}
 
 	/**
-	 * Return an array with all children files/folders
+	 * Retorna array com arquivos e diretórios
 	 * @param string $path
+	 * @return string[]
 	 */
 	public function children($path = '')
 	{
 		return array_diff(scandir($this->basePath . $path), ['..', '.']);
 	}
 
-	public function count($filePath)
+	/**
+	 * Retorna total de items
+	 * @param string $path
+	 * @return int
+	 */
+	public function count($path)
 	{
-		return 0;
+		return count($this->children($path));
 	}
 
 	/**
@@ -62,7 +69,7 @@ class Filesystem
 
 	/**
 	 * Exclui o arquivo/diretório
-	 * @param $path FilePath or Folder Path
+	 * @param $path Caminho do arquivo/diretório
 	 * @return bool
 	 */
 	public function delete($path)

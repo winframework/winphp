@@ -9,8 +9,8 @@ class Image extends File
 {
 	public static $validExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
-	const SIZE_WIDTH = 0;
-	const SIZE_HEIGHT = 1;
+	const SIZE_WIDTH_INDEX = 0;
+	const SIZE_HEIGHT_INDEX = 1;
 
 	/**
 	 * Retorna a largura da imagem
@@ -18,7 +18,7 @@ class Image extends File
 	 */
 	public function getWidth()
 	{
-		return $this->getImageSize(static::SIZE_WIDTH);
+		return $this->getImageSize(static::SIZE_WIDTH_INDEX);
 	}
 
 	/**
@@ -27,7 +27,7 @@ class Image extends File
 	 */
 	public function getHeight()
 	{
-		return $this->getImageSize(static::SIZE_HEIGHT);
+		return $this->getImageSize(static::SIZE_HEIGHT_INDEX);
 	}
 
 	/**

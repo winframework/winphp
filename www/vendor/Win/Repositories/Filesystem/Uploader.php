@@ -12,8 +12,8 @@ class Uploader
 {
 	/** @var string[] */
 	protected static $validExtensions = [
-		'jpg', 'jpeg', 'png', 'gif', 'svg', 'csv', 'doc', 'docx',
-		'odt', 'pdf', 'txt', 'md', 'mp3', 'wav', 'mpeg',
+		'csv', 'doc', 'docx', 'gif', 'jpeg', 'jpg', 'md', 'mp3', 
+		'mp4', 'mpeg', 'pdf', 'png', 'svg', 'txt', 'wav', 'xls', 'xlsx', 'zip',
 	];
 
 	/** @var string */
@@ -22,7 +22,7 @@ class Uploader
 	/** @var Filesystem */
 	protected $fs;
 
-	/** @var TempFile */
+	/** @var string[] */
 	protected $temp;
 
 	/** @var File */
@@ -72,7 +72,8 @@ class Uploader
 
 		if (!is_null($this->temp)) {
 			$name = $this->generateName($name);
-			\move_uploaded_file($this->temp['tmp_name'], $this->path . $name);
+			\move_uploaded_file($this->temp['tmp_name'],
+			 $this->path . $name);
 			$this->uploaded = new File($this->path . $name);
 		}
 	}
@@ -81,6 +82,6 @@ class Uploader
 	{
 		$info = pathinfo($this->temp['name']);
 
-		return ($name ? $name : md5(rand())) . '.' . $info['extension'];
+		return ($name ? $name : md5(time())) . '.' . $info['extension'];
 	}
 }

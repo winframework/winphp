@@ -78,39 +78,6 @@ class TempFile extends File
 	}
 
 	/**
-	 * @param Directory $destination
-	 * @param string $name
-	 * @return bool
-	 */
-	public function move(Directory $destination, $name = '')
-	{
-		$this->setName($name);
-		$oldPath = $this->getAbsolutePath();
-		$newPath = $destination->getPath() . static::DS . $this->getBaseName();
-		$this->setPath($newPath);
-
-		return move_uploaded_file($oldPath, $this->getAbsolutePath());
-	}
-
-	/**
-	 * Cria uma instância a partir da variável $_FILES
-	 * @param string $name
-	 * @return static
-	 */
-	public static function fromFiles($name)
-	{
-		if (key_exists($name, $_FILES) && key_exists('tmp_name', $_FILES[$name])) {
-			$tmp = new static($_FILES[$name]['tmp_name']);
-			$tmp->newName = $_FILES[$name]['name'];
-			$tmp->setExtension(pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION));
-		} else {
-			$tmp = new TempFile('error');
-		}
-
-		return $tmp;
-	}
-
-	/**
 	 * Cria um arquivo no diretório temporário
 	 * @param string $prefixName prefixName
 	 * @return static
