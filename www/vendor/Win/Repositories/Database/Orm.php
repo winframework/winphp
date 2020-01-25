@@ -9,6 +9,7 @@ use Win\Repositories\Database\Orm\PaginationTrait;
 use Win\Repositories\Database\Orm\RawTrait;
 use Win\Repositories\Database\Orm\SortTrait;
 use Win\Repositories\Database\Sql\Query;
+use Win\Repositories\Database\Sql\Where;
 
 /**
  * Object Relational Mapping
@@ -43,9 +44,6 @@ abstract class Orm
 
 	/** @var Query */
 	protected $query;
-
-	/** @var string */
-	private $transactionId = '';
 
 	/**
 	 * @param Model $model
@@ -151,7 +149,7 @@ abstract class Orm
 	 */
 	public function debug()
 	{
-		$this->debug = 1;
+		$this->debug = true;
 
 		return $this;
 	}
