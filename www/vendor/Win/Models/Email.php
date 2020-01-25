@@ -9,7 +9,7 @@ use Win\Common\Template;
  */
 class Email
 {
-	private $from = [];
+	private $from = '';
 	private $fromName = '';
 	private $to = [];
 	private $replyTo = [];
@@ -49,7 +49,8 @@ class Email
 	 */
 	public function setFrom($address, $name = '')
 	{
-		$this->from = [$address => $name];
+		$this->from = $address;
+		$this->fromName = $name;
 
 		return $this;
 	}
@@ -168,7 +169,7 @@ class Email
 	 */
 	public function getReplyTo()
 	{
-		return $this->replyTo ?? $this->from;
+		return $this->replyTo ?? [$this->from];
 	}
 
 	/**
