@@ -12,23 +12,21 @@ use Win\Repositories\Database\Sql\Builders\Update;
 
 abstract class Builder
 {
-	/** @var Query */
-	protected $query;
-
-	const BUILDERS = [
-		'SELECT' => Select::class,
-		'SELECT COUNT' => SelectCount::class,
-		'INSERT' => Insert::class,
-		'UPDATE' => Update::class,
-		'DELETE' => Delete::class,
-		'RAW' => Raw::class,
-	];
+	const SELECT = Select::class;
+	const SELECT_COUNT = SelectCount::class;
+	const INSERT = Insert::class;
+	const UPDATE = Update::class;
+	const DELETE = Delete::class;
+	const RAW = Raw::class;
 
 	/** @return string */
 	abstract public function __toString();
 
 	/** @return array */
 	abstract public function getValues();
+
+	/** @var Query */
+	protected $query;
 
 	/**
 	 * @param Query $query
@@ -40,17 +38,15 @@ abstract class Builder
 
 	/**
 	 * Cria um SQL Builder
-	 * @param string $type
+	 * @param string $builderClass
 	 * @param Query $query
 	 * @return Builder
 	 */
-	public static function factory($type, $query)
+	public static function factory($builderClass, $query)
 	{
-		if (key_exists($type, static::BUILDERS)) {
-			$class = static::BUILDERS[$type];
-
-			return new $class($query);
+		if (class_exists($builderClass)) {
+			return new $builderClass($query);
 		}
-		throw new Exception($type . ' is not a valid Statement Type.');
+		throw new Exception($builderClass . ' is not a valid Statement Type.');
 	}
 }

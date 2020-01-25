@@ -11,9 +11,9 @@ Router::addRoutes('App\\Controllers\\', [
 	'' => 'IndexController@index',
 
 	// Pages
-	'pages' => 'PageController@index',
-	'pages/(.*)' => 'PageController@byCategory',
-	'page/(.*)' => 'PageController@detail',
+	'pages' => 'PagesController@index',
+	'pages/(.*)' => 'PagesController@byCategory',
+	'page/(.*)' => 'PagesController@detail',
 
 	// Contato
 	'contato' => 'ContatoController@index',

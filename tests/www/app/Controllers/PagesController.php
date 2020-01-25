@@ -11,11 +11,11 @@ use Win\Request\Input;
 use Win\Views\View;
 
 /**
- * pages => Page@index
- * pages/(.*) => Page@byCategory
- * page/(.*) => Page@detail
+ * pages => Pages@index
+ * pages/(.*) => Pages@byCategory
+ * page/(.*) => Pages@detail
  */
-class PageController extends Controller
+class PagesController extends Controller
 {
 	/** @var PageOrm */
 	public $orm;
@@ -91,7 +91,7 @@ class PageController extends Controller
 	{
 		return $this->categoryOrm
 			->filterVisible()
-			->paginate(2)
+			->paginate(2,1)
 			->list();
 	}
 

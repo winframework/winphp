@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Page;
-use Win\Models\DateTime;
 use Win\Repositories\Database\Orm;
 
 /**
@@ -41,8 +40,6 @@ class CategoryOrm extends Orm
 
 	public function filterVisible()
 	{
-		return $this
-			->filterBy('Enabled', true);
-		// ->filterBy('PublishedAt <= ?', (new DateTime())->toSql());
+		return $this->filterBy('Enabled', true);
 	}
 }

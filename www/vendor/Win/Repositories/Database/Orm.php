@@ -2,14 +2,14 @@
 
 namespace Win\Repositories\Database;
 
-use Win\Models\Model;
 use Win\Common\Pagination;
+use Win\Models\Model;
 use Win\Repositories\Database\Orm\FilterTrait;
 use Win\Repositories\Database\Orm\PaginationTrait;
 use Win\Repositories\Database\Orm\RawTrait;
 use Win\Repositories\Database\Orm\SortTrait;
+use Win\Repositories\Database\Sql\Builder;
 use Win\Repositories\Database\Sql\Query;
-use Win\Repositories\Database\Sql\Where;
 
 /**
  * Object Relational Mapping
@@ -74,11 +74,21 @@ abstract class Orm
 	public function one()
 	{
 		$query = $this->query;
-		$query->setBuilder('SELECT');
+		$query->setBuilder(Builder::SELECT);
 		$query->limit->set(0, 1);
 		$row = $this->conn->fetch($query, $query->getValues());
+		$this->flush();
 
 		return $this->mapModel($row);
+	}
+
+	/**
+	 * Retorna o registro pela PK
+	 * @param int $id
+	 */
+	public function find($id)
+	{
+		return $this->filterBy(static::$PK, $id)->one();
 	}
 
 	/**
@@ -88,20 +98,21 @@ abstract class Orm
 	{
 		$this->applyPagination();
 		$query = $this->query;
-		$query->setBuilder('SELECT');
+		$query->setBuilder(Builder::SELECT);
 		$rows = $this->conn->fetchAll($query, $query->getValues());
+		$this->flush();
 
 		return array_map([$this, 'mapModel'], $rows);
 	}
 
 	/**
 	 * Retorna o total de resultados da busca
-	 * O LIMIT (Paginação) não é aplicado
+	 * Sem aplicar LIMIT e FLUSH
 	 */
 	public function count()
 	{
 		$query = $this->query;
-		$query->setBuilder('SELECT COUNT');
+		$query->setBuilder(Builder::SELECT_COUNT);
 
 		return $this->conn->fetchCount($query, $query->getValues());
 	}
@@ -112,9 +123,10 @@ abstract class Orm
 	public function delete()
 	{
 		$query = $this->query;
-		$query->setBuilder('DELETE');
+		$query->setBuilder(Builder::DELETE);
 
 		$this->conn->query($query, $query->getValues());
+		$this->flush();
 	}
 
 	/**
@@ -125,9 +137,10 @@ abstract class Orm
 	{
 		$query = $this->query;
 		$this->filterBy(static::PK, $id);
-		$query->setBuilder('DELETE');
+		$query->setBuilder(Builder::DELETE);
 
 		$this->conn->query($query, $query->getValues());
+		$this->flush();
 	}
 
 	/**
@@ -141,6 +154,7 @@ abstract class Orm
 		!$this->modelExists() ? $this->insert() : $this->update();
 
 		$this->flush();
+
 		return $this->model;
 	}
 
@@ -149,7 +163,7 @@ abstract class Orm
 	 */
 	public function debug()
 	{
-		$this->debug = true;
+		$this->debug = 1;
 
 		return $this;
 	}
@@ -157,7 +171,7 @@ abstract class Orm
 	/**
 	 * Remove todos os filtros
 	 */
-	public function flush()
+	protected function flush()
 	{
 		$this->query = new Query($this);
 
@@ -168,7 +182,7 @@ abstract class Orm
 	{
 		$query = $this->query;
 		$query->values = $this->mapRow($this->model);
-		$query->setBuilder('INSERT');
+		$query->setBuilder(Builder::INSERT);
 
 		$this->conn->query($query, $query->getValues());
 		$this->model->id = (int) $this->conn->getLastInsertId();
@@ -181,9 +195,10 @@ abstract class Orm
 
 		$query = $this->query;
 		$query->values = $this->mapRow($this->model);
-		$query->setBuilder('UPDATE');
+		$query->setBuilder(Builder::UPDATE);
 
 		$this->conn->query($query, $query->getValues());
+		$this->flush();
 	}
 
 	/** @return bool */

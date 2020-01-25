@@ -9,6 +9,9 @@ trait FilterTrait
 	/** @var Query */
 	protected $query;
 
+	/** @var string */
+	public static $PK;
+
 	abstract public function one();
 
 	/**
@@ -24,14 +27,4 @@ trait FilterTrait
 		return $this;
 	}
 
-	/**
-	 * Retorna o registro pela PK
-	 * @param int $id
-	 */
-	public function find($id)
-	{
-		$this->filterBy(static::PK, $id);
-
-		return $this->one();
-	}
 }
