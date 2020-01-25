@@ -55,7 +55,7 @@ class Uploader
 	public function prepare($tempFile)
 	{
 		$this->temp = null;
-		if (!$this->fs->exists($tempFile['tmp_name'])) {
+		if ($tempFile['tmp_name']) {
 			$this->temp = $tempFile;
 		}
 	}
@@ -66,7 +66,7 @@ class Uploader
 	 */
 	public function upload($name = '')
 	{
-		if ($this->temp['error']) {
+		if (!$this->temp || $this->temp['error']) {
 			throw new \Exception('Error during upload');
 		}
 
