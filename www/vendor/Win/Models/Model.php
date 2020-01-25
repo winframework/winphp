@@ -17,7 +17,7 @@ abstract class Model
 	 */
 	public function or404()
 	{
-		if (is_null($this->id)) {
+		if (!isset($this->id)) {
 			throw new ResponseException('Model not found', 404);
 		}
 
