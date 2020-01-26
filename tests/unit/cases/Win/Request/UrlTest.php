@@ -43,13 +43,22 @@ class UrlTest extends TestCase
 		$this->assertEquals('', $url);
 	}
 
-	public function testGetFragments()
+	public function testGetSegments()
 	{
 		Url::instance()->setSuffix('/');
 		Url::instance()->setUrl('my-page/subpage');
-		$fragments = Url::instance()->getSegments();
+		$segments = Url::instance()->getSegments();
 
-		$this->assertEquals('my-page', $fragments[0]);
-		$this->assertEquals('subpage', $fragments[1]);
+		$this->assertEquals('my-page', $segments[0]);
+		$this->assertEquals('subpage', $segments[1]);
+	}
+
+	public function testSetSegments()
+	{
+		$segments = ['a', 'b'];
+		Url::instance()->setUrl('my-page/subpage');
+		Url::instance()->setSegments($segments);
+
+		$this->assertEquals($segments, Url::instance()->getSegments());
 	}
 }

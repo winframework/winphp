@@ -108,7 +108,7 @@ class Url
 	 */
 	public function setUrl($url)
 	{
-		$this->url = $url;
+		$this->url = $this->format($url);
 		$this->segments = null;
 	}
 
