@@ -71,7 +71,7 @@ class Template
 		$filePath = static::$dir . DIRECTORY_SEPARATOR . $file;
 
 		if (!is_null(Theme::instance()->get())) {
-			$filePath = Theme::instance()->getFilePath($file);
+			$filePath = Theme::instance()->getTemplatePath($this);
 		}
 
 		$this->file = BASE_PATH . $filePath . '.phtml';

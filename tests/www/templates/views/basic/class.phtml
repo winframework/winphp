@@ -4,7 +4,7 @@ use App\Views\ClassView;
 
 /** @var ClassView $this */
 ?>
-<main>
+<main class="text-center">
 	<h1>
 		<?= $this->text; ?>
 	</h1>
@@ -16,4 +16,7 @@ use App\Views\ClassView;
 	<br />
 	Acessa variável protected:
 	<?= isset($this->code) ? 'SIM' : 'NÃO'; ?>
+
+	<br><br>
+	<a class="btn" href="./">Voltar à Página Inicial</a>
 </main>

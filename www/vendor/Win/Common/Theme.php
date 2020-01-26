@@ -3,14 +3,13 @@
 namespace Win\Common;
 
 use Win\Common\Traits\SingletonTrait;
-use Win\Views\View;
 
 /**
  * Sistema de Temas
  *
  * Permite que a aplicação tenha múltiplos Temas e facilita a alteração entre eles.
  *
- * Quando uma View ou Block é chamado, primeiro o arquivo será buscando em "themes/[nome-do-tema]"
+ * Quando um Template é chamado, primeiro o arquivo será buscando em "themes/[nome-do-tema]"
  * E caso o arquivo não exista, será buscado em "themes/default"
  */
 class Theme
@@ -29,7 +28,7 @@ class Theme
 	/**
 	 * Define o nome do Tema atual (Antes de instanciar o Application)
 	 *
-	 * Após esta chamada, os Blocos e Views serão buscados em "themes/[$theme]"
+	 * Após esta chamada, os Templates serão buscados em "themes/[$theme]"
 	 * @param string $theme
 	 */
 	public function set($theme)
@@ -50,18 +49,31 @@ class Theme
 	 * Retorna o Novo caminho completo do arquivo
 	 * (incluindo o diretório do template atual)
 	 *
-	 * @param string $file Arquivo atual da View
-	 * @return string Novo caminho completo da View
+	 * @param string $file Arquivo atual da Template
+	 * @return string Novo caminho completo do Template
 	 */
-	public function getFilePath($file)
+	public function getTemplatePath(Template $template)
 	{
-		$viewDir = str_replace('templates/', '', View::$dir);
-		$path = self::$dir . DIRECTORY_SEPARATOR . self::$theme
-		. $viewDir . DIRECTORY_SEPARATOR;
-		if (file_exists(BASE_PATH . $path . $file . '.phtml')) {
-			return $path . $file;
+		$filePath = $this->getFilePath($this->get(), $template);
+		var_dump($filePath);
+
+		if (file_exists($filePath)) {
+			return $filePath;
 		}
 
-		return self::$dir . DIRECTORY_SEPARATOR . self::THEME_DEFAULT . $viewDir . DIRECTORY_SEPARATOR . $file;
+		return $this->getFilePath(static::THEME_DEFAULT, $template);
+	}
+
+	/**
+	 * Retorna o nome do arquivo com base no tema
+	 * @param string $theme
+	 * @param Template $template
+	 * @return string
+	 */
+	private function getFilePath($theme, $template)
+	{
+		$themeDir = self::$dir . DIRECTORY_SEPARATOR . $theme;
+
+		return str_replace('/templates', $themeDir, $template->getFile());
 	}
 }

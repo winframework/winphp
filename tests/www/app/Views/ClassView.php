@@ -14,7 +14,7 @@ class ClassView extends View
 	public function __construct($code)
 	{
 		$this->code = $code;
-		parent::__construct('class-view');
+		parent::__construct('basic/class');
 	}
 
 	public function getCode()

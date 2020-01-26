@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controllers\MyModule;
 
 use Win\Controllers\Controller;
@@ -12,6 +11,6 @@ class IndexController extends Controller
 	{
 		$this->title = 'Esse é meu módulo | ' . APP_NAME;
 
-		return new View('multi/nivel/de/arquivo');
+		return new View('basic/com-multi/nivel/de/arquivo');
 	}
 }
