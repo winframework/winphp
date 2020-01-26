@@ -14,16 +14,6 @@ class ResponseException extends Exception
 	public static $errorsController = 'App\\Controllers\\ErrorsController';
 
 	/**
-	 * @param string $message
-	 * @param int $code
-	 * @param Throwable $previous
-	 */
-	public function __construct($message, $code, $previous = null)
-	{
-		parent::__construct($message, $code, $previous);
-	}
-
-	/**
 	 * Envia a resposta de erro
 	 */
 	public function sendResponse()
@@ -31,8 +21,7 @@ class ResponseException extends Exception
 		http_response_code($this->code);
 		try {
 			$destination = [static::$errorsController, 'error' . $this->code, [$this]];
-			$response = ResponseFactory::create($destination);
-			echo $response;
+			echo ResponseFactory::create($destination);
 		} catch (Exception $e) {
 			// Envia apenas um HTTP 404, sem body
 		}

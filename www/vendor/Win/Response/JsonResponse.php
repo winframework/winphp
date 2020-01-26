@@ -20,6 +20,7 @@ class JsonResponse implements Response
 
 	/**
 	 * Exibe os dados em Json
+	 * @codeCoverageIgnore
 	 * @return string
 	 */
 	public function __toString()
