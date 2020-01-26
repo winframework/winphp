@@ -1,27 +1,54 @@
 <?php
 
-namespace Win\Mail;
+namespace Win\InfraServices;
 
 use PHPUnit\Framework\TestCase;
-use Win\Filesystem\Directory;
-use Win\Request\Server;
+use Win\Models\Email;
+use Win\Repositories\Filesystem;
 
 class MailerTest extends TestCase
 {
-	public function testLayoutWithContent()
+	public function setUp()
 	{
-		$email = new Email();
-		$email->setLayout('main');
-		$email->setContent(new EmailContent('html/first'));
-		$this->assertContains('My first content', $email->__toString());
+		$fs = new Filesystem();
+		$fs->delete('data/emails');
 	}
 
 	public function testSend()
 	{
+		$emailBody = 'My email body';
 		$email = new Email();
-		$email->setContent('My email content');
-		$email->setLanguage('pt-br');
-		$email->send();
+		$email->setContent($emailBody);
+
+		$mailer = new Mailer(null);
+		$mailer->send($email);
+	}
+
+	public function testSendWithTemplate()
+	{
+		$emailBody = 'My email body';
+		$email = new Email();
+		$email->setContent($emailBody);
+
+		$mailer = new Mailer(null);
+		$mailer->template = 'secondary';
+		$mailer->send($email);
+	}
+
+	public function testSendWithHeaders()
+	{
+		$emailBody = 'My email body';
+		$email = new Email();
+		$email->setContent($emailBody);
+		$email->addTo('to@john.com', 'John');
+		$email->addBcc('bcc@john.com', 'John');
+		$email->addCc('cc@john.com', 'John');
+		$email->addCc('cc2@john.com', 'Mary');
+		$email->addReplyTo('reply@john.com', 'John');
+
+		$mailer = new Mailer(null);
+		$mailer->template = 'secondary';
+		$mailer->send($email);
 	}
 
 	/**
@@ -29,27 +56,13 @@ class MailerTest extends TestCase
 	 */
 	public function testSendErrorLocalHost()
 	{
+		Mailer::$sendOnLocalHost = true;
+		$emailBody = 'My email body';
 		$email = new Email();
-		Email::$sendOnLocalHost = true;
-		$email->setContent('My email content');
-		$email->send();
-		Email::$sendOnLocalHost = false;
-	}
+		$email->setContent('main');
 
-	public function testSendSaveFile()
-	{
-		$dir = new Directory('data/emails');
-		$dir->delete();
-		$dir->create();
-		$this->assertEquals(0, count($dir->getItems()));
-
-		Email::$sendOnLocalHost = false;
-		$email = new Email();
-		$email->setContent('My email content');
-		$email->send();
-
-		if (Server::isLocalHost()) {
-			$this->assertEquals(1, count($dir->getItems()));
-		}
+		$mailer = new Mailer(null);
+		$mailer->send($email);
+		Mailer::$sendOnLocalHost = false;
 	}
 }
