@@ -1,9 +1,8 @@
 <?php
 
-namespace Win\Database\Orm;
+namespace Win\Common;
 
 use PHPUnit\Framework\TestCase;
-use Win\Mvc\Block;
 
 class PaginationTest extends TestCase
 {
@@ -86,5 +85,4 @@ class PaginationTest extends TestCase
 		$p->setPage($PAGE_SIZE, 100);
 		$this->assertEquals(10, $p->next());
 	}
-
 }

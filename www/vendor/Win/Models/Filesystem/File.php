@@ -25,12 +25,6 @@ class File extends Storable
 	}
 
 	/** @return string */
-	protected function getExtensionDot()
-	{
-		return $this->getExtension() ? '.' . $this->getExtension() : '';
-	}
-
-	/** @return string */
 	public function getType()
 	{
 		return mime_content_type($this->getAbsolutePath());
@@ -63,27 +57,6 @@ class File extends Storable
 			throw new Exception($path . ' is a invalid file path.');
 		}
 		parent::setPath($path);
-	}
-
-	/** @param string $name */
-	protected function setName($name)
-	{
-		if ($name) {
-			if (!preg_match(static::REGEXP_NAME, $name)) {
-				throw new Exception($name . ' is a invalid file name.');
-			}
-			$relativePath = static::DS . $name . $this->getExtensionDot();
-			$this->setPath($this->getDirectory()->getPath() . $relativePath);
-		}
-	}
-
-	/** @param string $extension */
-	protected function setExtension($extension)
-	{
-		if ($extension) {
-			$relativePath = static::DS . $this->getName() . '.' . $extension;
-			$this->setPath($this->getDirectory()->getPath() . $relativePath);
-		}
 	}
 
 	/**

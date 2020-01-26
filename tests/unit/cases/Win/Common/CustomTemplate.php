@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Models;
+namespace Win\Common;
 
 class CustomTemplate
 {

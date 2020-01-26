@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Filesystem\Files;
+namespace Win\Models\Filesystem;
 
 use PHPUnit\Framework\TestCase;
 

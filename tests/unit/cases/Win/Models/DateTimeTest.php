@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Calendar;
+namespace Win\Models;
 
 use PHPUnit\Framework\TestCase;
 

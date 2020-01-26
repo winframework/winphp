@@ -77,19 +77,4 @@ abstract class Storable
 	{
 		$this->path = $path;
 	}
-
-	/** @param Directory $directory */
-	protected function setDirectory(Directory $directory)
-	{
-		$this->directory = $directory;
-		$path = $directory->getPath() . static::DS . $this->getBaseName();
-		$this->setPath($path);
-	}
-
-	/** @param string */
-	protected function setName($name)
-	{
-		$path = $this->getDirectory()->getPath() . static::DS . $name;
-		$this->setPath($path);
-	}
 }

@@ -3,6 +3,7 @@
 namespace Win\Models;
 
 use PHPUnit\Framework\TestCase;
+use Win\Common\CustomTemplate;
 use Win\Common\Template;
 
 class EmailTest extends TestCase
