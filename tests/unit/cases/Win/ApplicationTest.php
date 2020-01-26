@@ -1,10 +1,11 @@
 <?php
 
-namespace Win\Mvc;
+namespace Win;
 
+use App\Controllers\IndexController;
 use PHPUnit\Framework\TestCase;
-use Win\Formats\Arr\Data;
-use Win\Request\Server;
+use Win\Controllers\MyController;
+use Win\Request\Router;
 use Win\Request\Url;
 
 class ApplicationTest extends TestCase
@@ -32,26 +33,10 @@ class ApplicationTest extends TestCase
 		$this->assertTrue(Application::app() instanceof Application);
 	}
 
-	public function testData()
-	{
-		$name = Application::app()->getName();
-		Data::instance()->set('a', 10);
-
-		$this->assertEquals($name, Application::app()->data()->get('name'));
-		$this->assertEquals(10, Application::app()->data()->get('a'));
-	}
-
 	public function testGetName()
 	{
-		$config = ['name' => 'My custom Application Name'];
-		$app = new Application($config);
-		$this->assertEquals('My custom Application Name', $app->getName());
-	}
-
-	public function testNewConstruct()
-	{
-		$app = new Application(['name' => 'Other']);
-		$this->assertNotEquals($app->getName(), static::$app->getName());
+		$app = new Application();
+		$this->assertEquals(APP_NAME, $app->getName());
 	}
 
 	public function testGetPage()
@@ -62,88 +47,74 @@ class ApplicationTest extends TestCase
 		$this->assertEquals('index', $app->getPage());
 	}
 
-	public function testGetAction()
+	public function testGetUrl()
 	{
-		$this->assertEquals('myAction', static::$app->controller->getAction());
-		$app = static::newApp('contato');
-		$this->assertEquals('index', $app->controller->getAction());
+		$url = 'my-custom/url/10/';
+		$app = static::newApp($url);
+		$this->assertEquals($url, $app->getUrl());
 	}
 
-	public function testGetParam()
+	public function testGetBaseUrl()
 	{
-		$this->assertEquals(static::$app->getPage(), static::$app->getParam(0));
-		$this->assertEquals('my-action', static::$app->getParam(1));
-		$this->assertEquals('second-param', static::$app->getParam(2));
-		$this->assertEquals('3rd-param', static::$app->getParam(3));
-		$this->assertEquals('', static::$app->getParam(4));
+		$url = 'my-custom/url/10/';
+		$app = static::newApp($url);
+		$this->assertEquals(Url::instance()->getBaseUrl(), $app->getBaseUrl());
+	}
 
-		$app = static::newApp('');
-		$this->assertEquals('index', $app->getParam(1));
-		$this->assertNotEquals('', $app->getParam(1));
-		$this->assertEquals('', $app->getParam(2));
+	public function testGetFullUrl()
+	{
+		$url = 'my-custom/url/10/';
+		$app = static::newApp($url);
+		$fullUrl = Url::instance()->getBaseUrl() . Url::instance()->getUrl();
+		$this->assertEquals($fullUrl, $app->getFullUrl());
 	}
 
 	public function testIsHomePage()
 	{
-		$this->assertFalse(static::$app->isHomePage());
-		$app = static::newApp('index');
+		$app = new Application();
+		$app->controller = new IndexController();
 		$this->assertTrue($app->isHomePage());
 	}
 
-	public function testIsLocalHost()
+	public function testIsNotHomePage()
 	{
-		$this->assertEquals(true, Server::isLocalHost());
-	}
-
-	public function testGetUrl()
-	{
-		static::newApp(static::URL);
-		$this->assertEquals(static::URL, static::$app->getUrl());
-		$this->assertNotEquals(static::URL, static::$app->getFullUrl());
-		$this->assertContains(static::URL, static::$app->getFullUrl());
-	}
-
-	public function testGetUrlWithRoutes()
-	{
-		$app = static::newApp('other-page/params/');
-		$this->assertEquals('Demo/index/params/', $app->getUrl());
-		$this->assertNotEquals('demo/index/params/', $app->getFullUrl());
-		$this->assertContains('other-page/params/', $app->getFullUrl());
-	}
-
-	public function testRun()
-	{
-		ob_start();
-		$app = static::newApp('index/index');
-		$app->run();
-		$this->assertEquals('index', $app->getPage());
-		ob_end_clean();
+		$app = new Application();
+		$app->controller = new MyController();
+		$this->assertFalse($app->isHomePage());
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\ErrorResponse
+	 * @expectedException \Win\Response\ResponseException
 	 */
-	public function testRun404()
+	public function testSendResponseException()
 	{
-		static::$app->run();
-		$this->assertTrue(static::$app->isErrorPage());
+		$app = new Application();
+		$app->sendResponse();
+	}
+
+	public function testSendResponse()
+	{
+		Router::addRoutes('Win\\Controllers\\', ['teste' => 'MyController@index']);
+
+		$app = $this->newApp('teste');
+		$app->sendResponse();
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\ErrorResponse
+	 * @expectedException \Win\Response\ResponseException
 	 */
 	public function testErrorPage500()
 	{
-		static::$app->errorPage(500);
-		$this->assertEquals('500', static::$app->getPage());
+		$app = new Application();
+		$app->errorPage(500);
 	}
 
 	/**
-	 * @expectedException \Win\Mvc\ErrorResponse
+	 * @expectedException \Win\Response\ResponseException
 	 */
 	public function testPageNotFound()
 	{
-		static::$app->pageNotFound();
-		$this->assertEquals('404', static::$app->getPage());
+		$app = new Application();
+		$app->page404();
 	}
 }
