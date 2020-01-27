@@ -10,9 +10,9 @@ use Win\Repositories\Session;
  */
 class Alert extends Session
 {
-	public static function instance($alias = '')
+	public static function instance($group = '')
 	{
-		return parent::instance('alerts.' . $alias);
+		return parent::instance('alerts.' . $group);
 	}
 
 	/** @param string $message */
