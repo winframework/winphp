@@ -60,12 +60,4 @@ class TemplateTest extends TestCase
 		$this->assertEquals('My custom block HTML', (string) $b);
 		$this->assertEquals('', (string) $c);
 	}
-
-	public function testWithTheme()
-	{
-		// Theme::instance()->set('my-theme');
-		// $b = new Template('exemplo');
-
-		// $this->assertContains('templates/themes/default/exemplo.phtml', $b->getFile());
-	}
 }

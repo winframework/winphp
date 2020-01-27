@@ -68,13 +68,7 @@ class Template
 	 */
 	protected function setFile($file)
 	{
-		$filePath = static::$dir . DIRECTORY_SEPARATOR . $file;
-
-		if (!is_null(Theme::instance()->get())) {
-			$filePath = Theme::instance()->getTemplatePath($this);
-		}
-
-		$this->file = BASE_PATH . $filePath . '.phtml';
+		$this->file = BASE_PATH . static::$dir . '/' . $file . '.phtml';
 	}
 
 	/** @return string */
