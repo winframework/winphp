@@ -1,9 +1,8 @@
 <?php
 
-namespace Win\Common\Traits;
+namespace Win\Common;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\DependenceInjector;
 use Win\Request\CustomUrl;
 use Win\Request\Url;
 

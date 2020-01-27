@@ -25,9 +25,6 @@ class Uploader
 	/** @var string[] */
 	protected $temp;
 
-	/** @var File */
-	protected $uploaded;
-
 	/**
 	 * Inicializa o upload para o diretório de destino
 	 * @param string $path
@@ -37,15 +34,6 @@ class Uploader
 		$this->path = $path . '/';
 		$this->fs = new Filesystem();
 		$this->fs->create($path);
-	}
-
-	/**
-	 * Retorna a instância do arquivo que foi enviado
-	 * @return File
-	 */
-	public function getUploaded()
-	{
-		return $this->uploaded;
 	}
 
 	/**
@@ -70,11 +58,14 @@ class Uploader
 			$name = $this->generateName($name);
 			\move_uploaded_file($this->temp['tmp_name'],
 			 $this->path . $name);
-			$this->uploaded = new File($this->path . $name);
+
+			return new File($this->path . $name);
 		}
+
+		return null;
 	}
 
-	public function generateName($name)
+	protected function generateName($name)
 	{
 		$info = pathinfo($this->temp['name']);
 

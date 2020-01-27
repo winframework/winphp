@@ -2,7 +2,7 @@
 
 namespace Win\Repositories\Database\Orm;
 
-use Win\Common\Pagination;
+use Win\Repositories\Pagination;
 use Win\Repositories\Database\Sql\Query;
 
 /**

@@ -36,10 +36,10 @@ class UploaderController extends Controller
 				$uploader = new Uploader(static::UPLOAD_PATH);
 
 				$uploader->prepare(Input::file('upload'));
-				$uploader->upload();
+				$file = $uploader->upload();
 
 				Alert::success('Imagem salva com sucesso.');
-				$this->image = new Image($uploader->getUploaded()->getPath());
+				$this->image = new Image($file->getPath());
 			} catch (\Exception $e) {
 				Alert::error('Ocorreu um erro ao enviar a Imagem.');
 			}

@@ -2,7 +2,7 @@
 
 namespace Win\Repositories\Database;
 
-use Win\Common\Pagination;
+use Win\Repositories\Pagination;
 use Win\Models\Model;
 use Win\Repositories\Database\Orm\FilterTrait;
 use Win\Repositories\Database\Orm\PaginationTrait;

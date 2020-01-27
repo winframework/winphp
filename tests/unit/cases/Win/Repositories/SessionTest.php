@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Request;
+namespace Win\Repositories;
 
 use PHPUnit\Framework\TestCase;
 

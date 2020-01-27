@@ -11,9 +11,9 @@ class Filesystem
 	 * Instância um novo arquivo
 	 * @param string $basePath
 	 */
-	public function __construct($basePath = BASE_PATH)
+	public function __construct($basePath = '')
 	{
-		$this->basePath = $basePath . '/';
+		$this->basePath = BASE_PATH . $basePath . '/';
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Filesystem
 	 */
 	public function rename($filePath = null, $newFilePath)
 	{
-		return rename($this->basePath . $filePath, $$this->basePath . $newFilePath);
+		return rename($this->basePath . $filePath, $this->basePath . $newFilePath);
 	}
 
 	public function move($filePath = null, $newFolder)
@@ -76,14 +76,14 @@ class Filesystem
 	 */
 	public function delete($path)
 	{
-		$path = $path;
-		if (is_dir($path) && !is_link($path)) {
+		$fullPath = $this->basePath . $path;
+		if (is_dir($fullPath) && !is_link($fullPath)) {
 			foreach ($this->children($path) as $child) {
 				$this->delete("$path/$child");
 			}
-			rmdir($this->basePath . $path);
-		} elseif (is_file($path)) {
-			unlink($this->basePath . $path);
+			rmdir($fullPath);
+		} elseif (is_file($fullPath)) {
+			unlink($fullPath);
 		}
 	}
 
@@ -101,7 +101,7 @@ class Filesystem
 
 		if ($dir) {
 			$this->create($dir, 0777);
-			$fp = fopen(BASE_PATH . "/$dir/$file", $mode);
+			$fp = fopen("$this->basePath$dir/$file", $mode);
 			if (false !== $fp) {
 				fwrite($fp, $content);
 				$return = fclose($fp);
@@ -132,6 +132,8 @@ class Filesystem
 	 */
 	public function exists($filePath)
 	{
-		return is_file($this->basePath . $filePath);
+		$filePath = ($this->basePath) . $filePath;
+
+		return is_file($filePath) or is_dir($filePath);
 	}
 }
