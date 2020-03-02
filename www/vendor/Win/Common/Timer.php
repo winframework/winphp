@@ -48,20 +48,20 @@ class Timer
 	 */
 	public function getTime()
 	{
-		$secs = $this->getMicroTime();
-		$days = floor($secs / 86400);
-		$secs -= $days * 86400;
-		$hours = floor($secs / 3600);
-		$secs -= $hours * 3600;
-		$minutes = floor($secs / 60);
-		$secs -= $minutes * 60;
-		$microSecs = ($secs - floor($secs)) * 1000;
+		$sec = $this->getMicroTime();
+		$day = floor($sec / 86400);
+		$sec -= $day * 86400;
+		$hour = floor($sec / 3600);
+		$sec -= $hour * 3600;
+		$minute = floor($sec / 60);
+		$sec -= $minute * 60;
+		$microsec = ($sec - floor($sec)) * 1000;
 
 		return
-				(empty($days) ? '' : $days . 'd ') .
-				(empty($hours) ? '' : $hours . 'h ') .
-				(empty($minutes) ? '' : $minutes . 'm ') .
-				floor($secs) . 's ' .
-				$microSecs . 'ms';
+				(empty($day) ? '' : $day . 'd ') .
+				(empty($hour) ? '' : $hour . 'h ') .
+				(empty($minute) ? '' : $minute . 'm ') .
+				floor($sec) . 's ' .
+				$microsec . 'ms';
 	}
 }

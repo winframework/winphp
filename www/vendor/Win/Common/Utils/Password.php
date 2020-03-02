@@ -21,13 +21,13 @@ abstract class Password
 	 */
 	public static function generate($length = 6)
 	{
-		$letters = str_shuffle('abcdefghijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXY');
-		$numbers = str_shuffle('23456789');
-		$specials = str_shuffle('@#&');
+		$letterStr = str_shuffle('abcdefghijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXY');
+		$numberStr = str_shuffle('23456789');
+		$specialStr = str_shuffle('@#&');
 
-		$password = substr($letters, 0, $length - 3)
-				. substr($numbers, 0, 2)
-				. substr($specials, 0, 1);
+		$password = substr($letterStr, 0, $length - 3)
+				. substr($numberStr, 0, 2)
+				. substr($specialStr, 0, 1);
 
 		return str_shuffle($password);
 	}

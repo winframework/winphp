@@ -9,23 +9,23 @@ use Win\Models\DateTime;
  */
 class Calendar
 {
-	const SECONDS = 'seconds';
-	const MINUTES = 'minutes';
-	const HOURS = 'hours';
-	const DAYS = 'days';
-	const WEEKS = 'weeks';
-	const MONTHS = 'months';
-	const YEARS = 'years';
+	const SECOND = 'seconds';
+	const MINUTE = 'minutes';
+	const HOUR = 'hours';
+	const DAY = 'days';
+	const WEEK = 'weeks';
+	const MONTH = 'months';
+	const YEAR = 'years';
 
 	/** @var string[] Unidades de tempo */
 	private static $units = [
-		self::SECONDS => ['segundo', 'segundos', 1],
-		self::MINUTES => ['minuto', 'minutos', 60],
-		self::HOURS => ['hora', 'horas', 60 * 60],
-		self::DAYS => ['dia', 'dias', 24 * 60 * 60],
-		self::WEEKS => ['semana', 'semanas', 7 * 24 * 60 * 60],
-		self::MONTHS => ['mês', 'meses', 30 * 24 * 60 * 60],
-		self::YEARS => ['ano', 'anos', 365 * 24 * 60 * 60],
+		self::SECOND => ['segundo', 'segundos', 1],
+		self::MINUTE => ['minuto', 'minutos', 60],
+		self::HOUR => ['hora', 'horas', 60 * 60],
+		self::DAY => ['dia', 'dias', 24 * 60 * 60],
+		self::WEEK => ['semana', 'semanas', 7 * 24 * 60 * 60],
+		self::MONTH => ['mês', 'meses', 30 * 24 * 60 * 60],
+		self::YEAR => ['ano', 'anos', 365 * 24 * 60 * 60],
 	];
 
 	/**
