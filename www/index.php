@@ -10,8 +10,8 @@ use Win\Response\ResponseException;
 define('BASE_PATH', __DIR__);
 
 require 'app/autoload.php';
-require 'config/app.php';
-require 'config/routes.php';
+require 'app/config/app.php';
+require 'app/config/routes.php';
 
 session_start();
 

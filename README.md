@@ -16,9 +16,9 @@
 ### Funcionalidades
 
 - Request/Response;
-- Templates/Views/Blocks;
-- Título de Página;
 - Rotas;
+- Templates (Views/Blocks);
+- Título de Página;
 - Envio de Emails;
 - Manipulador de Datas;
 - Cálculo de Datas;

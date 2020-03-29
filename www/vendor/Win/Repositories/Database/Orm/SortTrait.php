@@ -10,26 +10,30 @@ trait SortTrait
 	protected $query;
 
 	/**
-	 * Ordem Crescente por um campo
+	 * Ordem por um campo
 	 * @param string $column
+	 * @param string $mode 'ASC' | 'DESC'
 	 * @param int $priority
 	 */
-	public function sortAsc($column, $priority = 0)
+	public function sortBy($column, $mode = 'ASC', $priority = 0)
 	{
-		$this->query->orderBy->add($column . ' ASC', $priority);
+		$this->query->orderBy->add($column . ' ' . $mode, $priority);
 
 		return $this;
 	}
 
-	/**
-	 * Ordem Decrescente por um campo
-	 * @param string $column
-	 * @param int $priority
-	 */
-	public function sortDesc($column, $priority = 0)
+	public function sortNewest()
 	{
-		$this->query->orderBy->add($column . ' DESC', $priority);
+		return $this->sortBy('id', 'DESC');
+	}
 
-		return $this;
+	public function sortOldest()
+	{
+		return $this->sortBy('id', 'ASC');
+	}
+
+	public function sortRand()
+	{
+		return $this->sortBy('RAND()');
 	}
 }

@@ -54,13 +54,6 @@ class Where
 		if (count($values) && strpos($comparator, '?') === false) {
 			$comparator .= ' = ?';
 		}
-		$this->comparators[] = $comparator;
+		$this->comparators[] = '(' . $comparator . ')';
 	}
-
-	// public function and(...$comparators)
-	// {
-	// 	foreach ($comparators as $comparator) {
-	// 		$this->add($comparator[0], $comparator[1], $comparator[2]);
-	// 	}
-	// }
 }

@@ -15,7 +15,7 @@ trait FilterTrait
 	abstract public function one();
 
 	/**
-	 * Aplica um filtro
+	 * Aplica um filtro ($comparator aceita mais de uma regra)
 	 * @param string $comparator
 	 * @param mixed $value
 	 * @example filterBy('Name = ?', 'John')

@@ -5,9 +5,9 @@ namespace Win\Common\Utils;
 use Win\Request\Url;
 
 /**
- * Auxilia a criar Menus de Navegação
+ * Auxilia a criar Links de Navegação
  */
-class Menu
+class Link
 {
 	/**
 	 * Usado para ativar Links (aceita array)

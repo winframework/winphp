@@ -30,12 +30,22 @@ class PagesController extends Controller
 	{
 		$this->orm = new PageOrm();
 		$this->categoryOrm = new CategoryOrm();
-		$this->orm->filterVisible();
-		$this->orm->sortDesc(1);
-		$this->orm->paginate($this->pageSize, Input::get('p'));
+
+		$this->orm
+		->sortBy('id', 'desc')
+		// ->sortRand()
+		->paginate($this->pageSize, Input::get('p'))
+		->filterVisible()
+		->filterBy('id <> ?', 19)
+		->filterBy(
+			'(title LIKE ? OR title LIKE ?) OR (description IS NOT NULL AND id >= ? )',
+			'Nothing%',
+			'%age',
+			3
+		);
 
 		$db = [];
-		require 'config/database.php';
+		require 'app/config/database.php';
 		MysqlConnection::instance()->connect($db);
 	}
 
@@ -91,7 +101,7 @@ class PagesController extends Controller
 	{
 		return $this->categoryOrm
 			->filterVisible()
-			->paginate(2,1)
+			->paginate(2, 1)
 			->list();
 	}
 

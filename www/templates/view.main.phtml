@@ -2,7 +2,7 @@
 
 use Win\Blocks\Block;
 use Win\Common\Template;
-use Win\Common\Utils\Menu;
+use Win\Common\Utils\Link;
 use Win\Request\Url;
 
 /** @var Template $this */
@@ -10,7 +10,7 @@ $body = implode('-', Url::instance()->getSegments());
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-<?= new Block('head'); ?>
+<?= new Block('core/head'); ?>
 
 <body class="<?=$body; ?>">
 	<header>
@@ -22,13 +22,13 @@ $body = implode('-', Url::instance()->getSegments());
 			<label for="menu-toggle"></label>
 			<ul>
 				<li>
-					<a href="./" class="<?= Menu::active('index'); ?>">Página Inicial</a>
+					<a href="./" class="<?= Link::active('index'); ?>">Página Inicial</a>
 				</li>
 				<li>
-					<a href="demo" class="<?= Menu::active('exemplo'); ?>">Exemplo</a>
+					<a href="demo" class="<?= Link::active('exemplo'); ?>">Exemplo</a>
 				</li>
 				<li>
-					<a href="contato" class="<?= Menu::active('contato'); ?>">Contato</a>
+					<a href="contato" class="<?= Link::active('contato'); ?>">Contato</a>
 				</li>
 				<li>
 					<a href="nao-existe">404</a>

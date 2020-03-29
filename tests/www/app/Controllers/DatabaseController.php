@@ -16,7 +16,7 @@ class DatabaseController extends Controller
 	public function __construct()
 	{
 		$db = [];
-		require 'config/database.php';
+		require 'app/config/database.php';
 		MysqlConnection::instance()->connect($db);
 
 		$this->pageOrm = new PageOrm();

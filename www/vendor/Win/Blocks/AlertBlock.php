@@ -11,7 +11,7 @@ use Win\Repositories\Alert;
 class AlertBlock extends Block
 {
 	/** @var string */
-	const BLOCK = 'alerts';
+	const BLOCK = 'core/alerts';
 
 	public function __construct($group = '')
 	{

@@ -10,7 +10,6 @@ use Win\Repositories\Database\Orm\RawTrait;
 use Win\Repositories\Database\Orm\SortTrait;
 use Win\Repositories\Database\Sql\Builder;
 use Win\Repositories\Database\Sql\Query;
-use Win\Repositories\Database\Sql\Where;
 
 /**
  * Object Relational Mapping
@@ -37,9 +36,6 @@ abstract class Orm
 	/** @var bool */
 	public $debug;
 
-	/** @var Where */
-	public $filter;
-
 	/** @var Model */
 	protected $model;
 
@@ -65,7 +61,6 @@ abstract class Orm
 	{
 		$this->conn = $connection ?: MysqlConnection::instance();
 		$this->query = new Query($this);
-		$this->filter = $this->query->where;
 		$this->pagination = new Pagination();
 	}
 
