@@ -16,6 +16,6 @@ class ErrorsController extends Controller
 		$this->title = 'Página não encontrada';
 		$this->exception = $e;
 
-		return new View('404');
+		return new View('errors/404');
 	}
 }
