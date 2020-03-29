@@ -30,11 +30,11 @@ class View extends Template
 		$this->data = $data;
 		$output = $this->load();
 		$layout = static::LAYOUT_PREFIX . $this->app->controller->template;
-		$template = new Template($layout, ['view' => $output]);
-		$this->output = $template->__toString();
+		$finalOutput = new Template($layout, ['view' => $output]);
+		$this->output = $finalOutput->__toString();
 	}
 
-	public function setFile($file)
+	protected function setFile($file)
 	{
 		parent::setFile($file);
 		if (!$this->exists()) {
