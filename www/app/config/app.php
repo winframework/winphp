@@ -2,6 +2,8 @@
 
 use Win\InfraServices\ReCaptcha;
 
+ini_set('display_errors', 0);
+
 /* Constantes */
 define('APP_NAME', 'winPHP Framework');
 

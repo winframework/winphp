@@ -39,13 +39,20 @@ class Template
 	 * Cria um template com base no arquivo escolhido
 	 * @param string $file Nome do arquivo
 	 * @param mixed[] $data Array de variáveis
+	 * @param string $layout Layout
 	 */
-	public function __construct($file, $data = [])
+	public function __construct($file, $data = [], $layout = null)
 	{
 		$this->app = Application::app();
 		$this->setFile($file);
 		$this->data = $data;
-		$this->output = $this->load();
+
+		if ($layout) {
+			$layout = static::LAYOUT_PREFIX . '_' . $layout;
+			$this->output = (string) new Template($layout, [static::LAYOUT_PREFIX => $this]);
+		} else {
+			$this->output = $this->load();
+		}
 	}
 
 	/**

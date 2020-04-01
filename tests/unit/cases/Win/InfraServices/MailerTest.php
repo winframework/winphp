@@ -3,6 +3,7 @@
 namespace Win\InfraServices;
 
 use PHPUnit\Framework\TestCase;
+use Win\Common\EmailTemplate;
 use Win\Models\Email;
 use Win\Repositories\Filesystem;
 
@@ -16,9 +17,9 @@ class MailerTest extends TestCase
 
 	public function testSend()
 	{
-		$emailBody = 'My email body';
+		$EmailTemplate = 'My email body';
 		$email = new Email();
-		$email->setContent($emailBody);
+		$email->setBody($EmailTemplate);
 
 		$mailer = new Mailer(null);
 		$mailer->send($email);
@@ -26,20 +27,17 @@ class MailerTest extends TestCase
 
 	public function testSendWithTemplate()
 	{
-		$emailBody = 'My email body';
-		$email = new Email();
-		$email->setContent($emailBody);
+		$email = new Email('email', []);
 
 		$mailer = new Mailer(null);
-		$mailer->template = 'secondary';
 		$mailer->send($email);
 	}
 
 	public function testSendWithHeaders()
 	{
-		$emailBody = 'My email body';
+		$EmailTemplate = 'My email body';
 		$email = new Email();
-		$email->setContent($emailBody);
+		$email->setBody($EmailTemplate);
 		$email->addTo('to@john.com', 'John');
 		$email->addBcc('bcc@john.com', 'John');
 		$email->addCc('cc@john.com', 'John');
@@ -57,7 +55,7 @@ class MailerTest extends TestCase
 	public function testSendErrorLocalHost()
 	{
 		Mailer::$sendOnLocalHost = true;
-		$emailBody = 'My email body';
+		$EmailTemplate = 'My email body';
 		$email = new Email();
 		$email->setContent('main');
 

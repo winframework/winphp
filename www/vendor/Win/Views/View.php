@@ -14,7 +14,7 @@ use Win\Response\ResponseException;
 class View extends Template
 {
 	public static $dir = '/templates/views';
-	const LAYOUT_PREFIX = 'view.';
+	const LAYOUT_PREFIX = 'view';
 
 	/**
 	 * Cria uma View com base no arquivo escolhido
@@ -23,15 +23,8 @@ class View extends Template
 	 */
 	public function __construct($file, $data = [])
 	{
-		$this->setFile($file);
-		$this->app = Application::app();
-		$this->app->view = $this;
-
-		$this->data = $data;
-		$output = $this->load();
-		$layout = static::LAYOUT_PREFIX . $this->app->controller->template;
-		$finalOutput = new Template($layout, ['view' => $output]);
-		$this->output = $finalOutput->__toString();
+		Application::app()->view = $this;
+		parent::__construct($file, $data, Application::app()->controller->layout);
 	}
 
 	protected function setFile($file)

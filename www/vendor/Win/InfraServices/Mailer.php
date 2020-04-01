@@ -5,7 +5,6 @@ namespace Win\InfraServices;
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Common\Server;
-use Win\Common\Template;
 use Win\Models\Email;
 use Win\Repositories\Filesystem;
 
@@ -24,16 +23,11 @@ class Mailer
 	/** @var bool */
 	public static $sendOnLocalHost = false;
 
-	/** @var string|null */
-	public $template;
-
 	/**
 	 * Instancia o serviço de E-mail
-	 * @param string $template
 	 */
-	public function __construct($template = 'main')
+	public function __construct()
 	{
-		$this->template = $template;
 		$this->mailer = new PHPMailer();
 		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->IsMail();
@@ -71,7 +65,6 @@ class Mailer
 		$phpMailer = $this->mailer;
 		$phpMailer->SetLanguage($email->getLanguage());
 		$phpMailer->Subject = $email->getSubject();
-		$phpMailer->Body = $email->__toString();
 
 		// From
 		$phpMailer->From = $email->getFrom();
@@ -98,12 +91,7 @@ class Mailer
 	 */
 	private function prepareBody(Email $email)
 	{
-		if ($this->template) {
-			$template = new Template('email.' . $this->template, ['email' => $email]);
-			$this->mailer->Body = (string) $template;
-		} else {
-			$this->mailer->Body = $email->getContent();
-		}
+		$this->mailer->Body = $email->getBody();
 	}
 
 	/**
@@ -125,6 +113,6 @@ class Mailer
 		$fs = new Filesystem();
 		$name = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 
-		return $fs->write(static::DIRECTORY . '/' . $name, $email);
+		return $fs->write(static::DIRECTORY . '/' . $name, $email->getBody());
 	}
 }

@@ -4,8 +4,10 @@ use Win\Blocks\Block;
 use Win\Common\Template;
 use Win\Common\Utils\Link;
 use Win\Request\Url;
+use Win\Views\View;
 
 /** @var Template $this */
+/** @var View $view */
 $body = implode('-', Url::instance()->getSegments());
 ?>
 <!DOCTYPE html>
@@ -38,7 +40,7 @@ $body = implode('-', Url::instance()->getSegments());
 	</header>
 
 	<div class="middle">
-		<?= $view; ?>
+		<?= $view->load(); ?>
 		<br />
 	</div>
 

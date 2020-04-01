@@ -12,6 +12,7 @@ Router::addRoutes('App\\Controllers\\', [
 
 	// Básicos
 	'basic' => 'BasicController@index',
+	'alternative-layout' => 'BasicController@alternativeLayout',
 	'basic-class' => 'BasicController@classView',
 	'return-five' => 'BasicController@returnFive',
 	'other-page/(.*)' => 'BasicController@index',

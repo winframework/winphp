@@ -2,7 +2,7 @@
 
 namespace Win\Models;
 
-use Win\Common\Template;
+use Win\Common\EmailTemplate;
 
 /**
  * Email
@@ -18,25 +18,19 @@ class Email
 	private $subject = '';
 	private $language = 'br';
 
-	/** @var Template | string */
-	private $content;
+	private $body;
+	private $data = [];
+	private $layout = '';
+	private $template = '';
 
 	/**
 	 * Cria uma mensagem de E-mail
-	 * @param string $content
-	 * @param mixed[] $data
 	 */
-	public function __construct($content = null, $data = [])
+	public function __construct($template, $data, $layout = 'default')
 	{
-		if ($content) {
-			$this->content = new Template('emails/' . $content, $data);
-		}
-	}
-
-	/** @return string */
-	public function __toString()
-	{
-		return (string) $this->content;
+		$this->template = $template;
+		$this->data = $data;
+		$this->layout = $layout;
 	}
 
 	/**
@@ -123,18 +117,18 @@ class Email
 	}
 
 	/**
-	 * Define o conteúdo
-	 * @param string $content
+	 * Define o corpo
+	 * @param string $body
 	 */
-	public function setContent($content)
+	public function setBody($body)
 	{
-		$this->content = $content;
+		$this->body = $body;
 
 		return $this;
 	}
 
 	/**
-	 * Retorna o E-mail de quem envia
+	 * Retorna quem envia
 	 * @return string
 	 */
 	public function getFrom()
@@ -206,11 +200,15 @@ class Email
 	}
 
 	/**
-	 * Retorna o conteúdo do E-mail
+	 * Retorna o corpo do E-mail
 	 * @return string
 	 */
-	public function getContent()
+	public function getBody()
 	{
-		return $this->content;
+		if (!$this->body) {
+			$this->body = new EmailTemplate($this->template, $this->data, $this->layout, $this);
+		}
+
+		return (string)$this->body;
 	}
 }

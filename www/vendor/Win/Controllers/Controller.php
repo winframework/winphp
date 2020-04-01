@@ -18,7 +18,7 @@ abstract class Controller
 	public $app;
 
 	/** @var string */
-	public $template = 'main';
+	public $layout = 'default';
 
 	/** @var string */
 	public $title;

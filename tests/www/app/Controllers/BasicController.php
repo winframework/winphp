@@ -27,6 +27,15 @@ class BasicController extends Controller
 
 		return new View('basic/index');
 	}
+	/**
+	 * Exibe view com layout alternativo
+	 */
+	public function alternativeLayout()
+	{
+		$this->layout = 'alternative';
+
+		return new View('basic/index');
+	}
 
 	/**
 	 * Exibe View com variáveis criados na View

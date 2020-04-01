@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use Win\Common\Template;
 use Win\Controllers\Controller;
 use Win\InfraServices\Mailer;
 use Win\Models\Email;
@@ -15,12 +14,10 @@ class EmailController extends Controller
 	{
 		$mailer = new Mailer();
 
-		$email = new Email();
-		$email->setContent('Meu conteúdo');
-		$mailer->send($email);
+		$data = ['name' => 'John', 'subject' => 'A', 'phone' => '0000-000', 'message' => 'My Message', 'email' => 'john@email.com'];
 
-		$email = new Email();
-		$email->setContent(new Template('emails/contact'));
+		$email = new Email('contact', $data);
+		$email->setFrom('no-reply@teste.com');
 		$mailer->send($email);
 
 		Alert::success('E-mail enviado!');

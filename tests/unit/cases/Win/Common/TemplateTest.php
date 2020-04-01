@@ -34,6 +34,15 @@ class TemplateTest extends TestCase
 		$this->assertFalse((new Template(static::INVALID))->exists());
 	}
 
+	public function testLayout()
+	{
+		$template = new Template(static::VALID, [], 'layout');
+		$template2 = new Template(static::VALID, [], 'layout_not_exist');
+
+		$this->assertTrue($template->exists());
+		$this->assertTrue($template2->exists());
+	}
+
 	public function testData()
 	{
 		$vars = ['a' => 1, 'b' => 2];
