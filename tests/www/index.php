@@ -5,6 +5,7 @@
  */
 
 use Win\Application;
+use Win\Common\Timer;
 use Win\Response\ResponseException;
 
 define('BASE_PATH', __DIR__);

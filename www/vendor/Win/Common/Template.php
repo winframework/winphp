@@ -44,29 +44,23 @@ class Template
 	public function __construct($file, $data = [], $layout = null)
 	{
 		$this->app = Application::app();
-		$this->setFile($file);
 		$this->data = $data;
-
-		if ($layout) {
-			$layout = static::LAYOUT_PREFIX . '_' . $layout;
-			$this->output = (string) new Template($layout, [static::LAYOUT_PREFIX => $this]);
-		} else {
-			$this->output = $this->load();
-		}
+		$this->setFile($file);
+		$this->setOutput($layout);
 	}
 
 	/**
-	 * Retorna uma variável
-	 * @param string $name
-	 * @return mixed|null
+	 * Define o output
+	 * @param string $layout
 	 */
-	public function getData($name)
+	protected function setOutput($layout)
 	{
-		if (key_exists($name, $this->data)) {
-			return $this->data[$name];
+		if ($layout) {
+			$layout = static::LAYOUT_PREFIX . '_' . $layout;
+			$this->output = (string) new Layout($layout, [static::LAYOUT_PREFIX => $this]);
+		} else {
+			$this->output = $this->load();
 		}
-
-		return null;
 	}
 
 	/**
@@ -82,6 +76,20 @@ class Template
 	public function getFile()
 	{
 		return $this->file;
+	}
+
+	/**
+	 * Retorna uma variável
+	 * @param string $name
+	 * @return mixed|null
+	 */
+	public function getData($name)
+	{
+		if (key_exists($name, $this->data)) {
+			return $this->data[$name];
+		}
+
+		return null;
 	}
 
 	/**

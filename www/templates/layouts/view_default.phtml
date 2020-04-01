@@ -1,12 +1,12 @@
 <?php
 
 use Win\Blocks\Block;
-use Win\Common\Template;
+use Win\Common\Layout;
 use Win\Common\Utils\Link;
 use Win\Request\Url;
 use Win\Views\View;
 
-/** @var Template $this */
+/** @var Layout $this */
 /** @var View $view */
 $body = implode('-', Url::instance()->getSegments());
 ?>
