@@ -2,6 +2,7 @@
 
 use Win\Blocks\AlertBlock;
 use Win\InfraServices\ReCaptcha;
+use Win\Repositories\Alert;
 use Win\Views\View;
 
 /** @var View $this */
@@ -9,7 +10,11 @@ use Win\Views\View;
 <main>
 	<h1>Exemplo de Formulário de Contato</h1>
 
-	<form method="post" action="contato/send">
+	<form method="post">
+		<?php if (Alert::instance()->isEmpty()) : ?>
+			<div class="alert alert-info">Preencha os campos abaixo:</div>
+		<?php endif; ?>
+
 		<?= new AlertBlock(); ?>
 
 		<fieldset>

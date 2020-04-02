@@ -23,7 +23,7 @@ class ResponseFactory
 			$app->controller->app = $app;
 
 			if (method_exists($app->controller, $action)) {
-				return $app->controller->$action(...$args);
+				echo $app->controller->$action(...$args);
 			} else {
 				$msg = "Action '{$action}' not found in '{$controllerClass}'";
 				throw new ResponseException($msg, 404);

@@ -16,7 +16,14 @@ class EmailTemplate extends Template
 	/** @var Email */
 	public $email;
 
-	public function __construct($file, $data, $layout, Email $email)
+	/**
+	 * Cria um Template de E-mail
+	 * @param Email $email
+	 * @param string $file
+	 * @param array $data
+	 * @param string $layout
+	 */
+	public function __construct(Email $email, $file, $data = [], $layout = 'default')
 	{
 		$this->email = $email;
 		parent::__construct($file, $data, $layout);

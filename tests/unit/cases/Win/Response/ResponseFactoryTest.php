@@ -30,8 +30,10 @@ class ResponseFactoryTest extends TestCase
 		new Application();
 		$data = [1, 2];
 		$destination = ['Win\\Controllers\\MyController', 'sum', $data];
-		$sum = ResponseFactory::create($destination);
 
+		ob_start();
+		$sum = ResponseFactory::create($destination);
+		$sum = ob_get_clean();
 
 		$this->assertEquals(array_sum($data), $sum);
 	}

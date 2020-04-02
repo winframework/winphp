@@ -14,7 +14,7 @@ $body = implode('-', Url::instance()->getSegments());
 <html lang="pt-BR">
 <?= new Block('core/head'); ?>
 
-<body class="<?=$body; ?>">
+<body class="<?= $body; ?>">
 	<header>
 		<nav class="main-nav">
 			<a id="logo" href="<?= $this->app->getBaseUrl(); ?>">

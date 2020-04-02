@@ -43,5 +43,4 @@ Router::addRoutes('App\\Controllers\\', [
 
 	// Contato
 	'contato' => 'ContatoController@index',
-	'contato/send' => 'ContatoController@send',
 ]);

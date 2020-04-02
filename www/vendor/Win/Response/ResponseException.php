@@ -21,7 +21,7 @@ class ResponseException extends Exception
 		http_response_code($this->code);
 		try {
 			$destination = [static::$errorsController, 'error' . $this->code, [$this]];
-			echo ResponseFactory::create($destination);
+			ResponseFactory::create($destination);
 		} catch (Exception $e) {
 			// Envia apenas um HTTP 404, sem body
 		}

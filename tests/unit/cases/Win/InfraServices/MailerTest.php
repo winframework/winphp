@@ -24,14 +24,6 @@ class MailerTest extends TestCase
 		$mailer->send($email);
 	}
 
-	public function testSendWithTemplate()
-	{
-		$email = new Email('email', [], 'null');
-
-		$mailer = new Mailer();
-		$mailer->send($email);
-	}
-
 	public function testSendWithHeaders()
 	{
 		$body = 'My email body';

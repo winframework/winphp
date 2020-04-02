@@ -11,7 +11,7 @@ use Win\Application;
 class Template
 {
 	const LAYOUT_PREFIX = '';
-	
+
 	public static $dir = '/templates';
 	/**
 	 * Ponteiro para Aplicação Principal
@@ -38,6 +38,12 @@ class Template
 	private $output;
 
 	/**
+	 * Layout
+	 * @var string
+	 */
+	private $layout;
+
+	/**
 	 * Cria um template com base no arquivo escolhido
 	 * @param string $file Nome do arquivo
 	 * @param mixed[] $data Array de variáveis
@@ -45,22 +51,23 @@ class Template
 	 */
 	public function __construct($file, $data = [], $layout = null)
 	{
+		$this->setFile($file);
 		$this->app = Application::app();
 		$this->data = $data;
-		$this->setFile($file);
-		$this->setOutput($layout);
+		$this->layout = $layout;
+		$this->output = $this->getOutput();
 	}
 
 	/**
 	 * Define o output
-	 * @param string $layout
+	 * @return string
 	 */
-	protected function setOutput($layout)
+	protected function getOutput()
 	{
-		if ($layout) {
-			$this->output = (string) new Layout($layout, $this);
+		if ($this->layout) {
+			return (string) new Layout($this->layout, $this);
 		} else {
-			$this->output = $this->load();
+			return $this->load();
 		}
 	}
 

@@ -3,6 +3,8 @@
 namespace Win\Models;
 
 use PHPUnit\Framework\TestCase;
+use Win\ApplicationTest;
+use Win\Common\EmailTemplate;
 
 class EmailTest extends TestCase
 {
@@ -100,13 +102,4 @@ class EmailTest extends TestCase
 		$email->setBody($body);
 		$this->assertEquals($body, $email->getBody());
 	}
-
-	public function testTemplate()
-	{
-		$body = 'My first content';
-		$email = new Email('first', [], null);
-
-		$this->assertEquals($body, $email->getBody());
-	}
-
 }

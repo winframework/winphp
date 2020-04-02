@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Exception;
+use Win\Common\EmailTemplate;
 use Win\Controllers\Controller;
 use Win\InfraServices\Mailer;
 use Win\InfraServices\ReCaptcha;
@@ -30,6 +31,8 @@ class ContatoController extends Controller
 	 */
 	public function __construct()
 	{
+		$this->title = 'Contato | ' . APP_NAME;
+
 		$this->name = trim(Input::post('name'));
 		$this->phone = trim(Input::post('phone'));
 		$this->email = trim(Input::post('email'));
@@ -38,42 +41,30 @@ class ContatoController extends Controller
 	}
 
 	/**
-	 * Exibe formulário
+	 * Exibe/Envia formulário
 	 */
 	public function index()
 	{
-		$this->title = 'Contato | ' . APP_NAME;
+		try {
+			if (Input::post('submit')) {
+				$this->validate();
+				$mailer = new Mailer();
 
-		if (Alert::instance()->isEmpty()) {
-			Alert::info('Preencha os campos abaixo:');
+				$email = new Email('Contato efetuado pelo site ' . APP_NAME);
+				$email->addTo(static::SEND_TO);
+				$email->setFrom(static::SEND_FROM, APP_NAME);
+				$email->addReplyTo($this->email, $this->name);
+				$template = new EmailTemplate($email, 'contact', get_object_vars($this));
+				$email->setBody($template);
+				$mailer->send($email);
+				Alert::success('Sua mensagem foi enviada com sucesso!');
+				$this->refresh();
+			}
+		} catch (Exception $e) {
+			Alert::error($e->getMessage());
 		}
 
 		return new View('contato');
-	}
-
-	/**
-	 * Envia o email
-	 */
-	public function send()
-	{
-		try {
-			$this->validate();
-			$mailer = new Mailer();
-
-			$email = new Email('contact', get_object_vars($this));
-			$email->setSubject('Contato efetuado pelo site ' . APP_NAME);
-			$email->addTo(static::SEND_TO);
-			$email->setFrom(static::SEND_FROM, APP_NAME);
-			$email->addReplyTo($this->email, $this->name);
-			$mailer->send($email);
-
-			Alert::success('Sua mensagem foi enviada com sucesso!');
-			$this->backToIndex();
-		} catch (Exception $e) {
-			Alert::error($e->getMessage());
-
-			return $this->index();
-		}
 	}
 
 	/**

@@ -3,6 +3,7 @@
 namespace Win\Models;
 
 use Win\Common\EmailTemplate;
+use Win\Common\Template;
 
 /**
  * Email
@@ -17,23 +18,15 @@ class Email
 	private $bcc = [];
 	private $subject = '';
 	private $language = 'br';
-
 	private $body;
-	private $data = [];
-	private $layout = '';
-	private $template = '';
 
 	/**
 	 * Cria uma mensagem de E-mail
-	 * @param string $template
-	 * @param mixed[] $data
-	 * @param string $layout
+	 * @param string $subject
 	 */
-	public function __construct($template = null, $data = [], $layout = 'default')
+	public function __construct($subject = '')
 	{
-		$this->template = $template;
-		$this->data = $data;
-		$this->layout = $layout;
+		$this->subject = $subject;
 	}
 
 	/**
@@ -208,10 +201,6 @@ class Email
 	 */
 	public function getBody()
 	{
-		if (!$this->body) {
-			$this->body = new EmailTemplate($this->template, $this->data, $this->layout, $this);
-		}
-
-		return (string) $this->body;
+		return $this->body;
 	}
 }
