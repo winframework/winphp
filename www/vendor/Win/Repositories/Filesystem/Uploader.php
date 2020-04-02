@@ -22,7 +22,7 @@ class Uploader
 	/** @var Filesystem */
 	protected $fs;
 
-	/** @var string[] */
+	/** @var string[]|null */
 	protected $temp;
 
 	/**

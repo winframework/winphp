@@ -212,6 +212,6 @@ class Email
 			$this->body = new EmailTemplate($this->template, $this->data, $this->layout, $this);
 		}
 
-		return (string)$this->body;
+		return (string) $this->body;
 	}
 }

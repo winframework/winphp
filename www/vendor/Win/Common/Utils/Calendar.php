@@ -71,7 +71,7 @@ class Calendar
 	 */
 	protected static function toHighestUnit($seconds)
 	{
-		$units = array_reverse(static::$units);
+		$units = array_reverse(self::$units);
 		$time = 0;
 		foreach ($units as $unitName => $unitInfo) {
 			if ($seconds >= $unitInfo[2]) {
