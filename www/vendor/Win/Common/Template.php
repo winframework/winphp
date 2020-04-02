@@ -10,13 +10,9 @@ use Win\Application;
  */
 class Template
 {
+	const LAYOUT_PREFIX = '';
+	
 	public static $dir = '/templates';
-	/**
-	 * Retorno do arquivo
-	 * @var string
-	 */
-	public $output;
-
 	/**
 	 * Ponteiro para Aplicação Principal
 	 * @var Application
@@ -34,6 +30,12 @@ class Template
 	 * @var mixed[]
 	 */
 	protected $data = [];
+
+	/**
+	 * Conteúdo HTML do Template
+	 * @var string
+	 */
+	private $output;
 
 	/**
 	 * Cria um template com base no arquivo escolhido
@@ -56,8 +58,7 @@ class Template
 	protected function setOutput($layout)
 	{
 		if ($layout) {
-			$layout = static::LAYOUT_PREFIX . '_' . $layout;
-			$this->output = (string) new Layout($layout, [static::LAYOUT_PREFIX => $this]);
+			$this->output = (string) new Layout($layout, $this);
 		} else {
 			$this->output = $this->load();
 		}
@@ -114,7 +115,7 @@ class Template
 	 * Carrega e retorna o output
 	 * @return string
 	 */
-	protected function load()
+	public function load()
 	{
 		ob_start();
 

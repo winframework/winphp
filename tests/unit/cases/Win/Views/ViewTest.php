@@ -38,12 +38,14 @@ class ViewTest extends TestCase
 	public function testToString()
 	{
 		$view = new View('index');
-		$this->assertTrue(strlen((string) $view) > 0);
+		$this->assertGreaterThan(0, strlen((string) $view));
 	}
 
 	public function testGetTitle()
 	{
-		$view = new View('index', ['title' => 'My title']);
-		$this->assertEquals('My title', $view->getTitle());
+		$title = 'My Title';
+		Application::app()->controller->title = $title;
+		$view = new View('index');
+		$this->assertEquals($title, $view->getTitle());
 	}
 }

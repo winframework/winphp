@@ -45,7 +45,7 @@ abstract class Connection
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec('set names utf8');
 			$this->pdoException = null;
-		} catch (PDOException $e) {
+		} catch (\PDOException $e) {
 			$message = 'Houve um erro ao conectar o banco de dados';
 			throw new ResponseException($message, 503, $e);
 		}

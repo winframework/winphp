@@ -84,7 +84,7 @@ abstract class Orm
 	 */
 	public function find($id)
 	{
-		return $this->filterBy(static::$PK, $id)->one();
+		return $this->filterBy(static::PK, $id)->one();
 	}
 
 	/**

@@ -3,19 +3,20 @@
 namespace Win\Common;
 
 /**
- * Contador de Tempo
+ * Contador de Desempenho
  *
- * Usado para medir o tempo de resposta de códigos
+ * Usado para analisar desempenho de códigos códigos
  *
  * <code>
- * $t = new Timer();
+ * $b = new Benchmark();
  * [code here]
- * echo $t->getTime();
+ * echo $b->getTime();
  * </code>
  */
-class Timer
+class Benchmark
 {
 	private $startTime;
+	private $memory;
 
 	/**
 	 * Inicia a contagem de tempo
@@ -23,6 +24,7 @@ class Timer
 	public function __construct()
 	{
 		$this->startTime = microtime(true);
+		$this->memory = memory_get_usage();
 	}
 
 	/**
@@ -31,6 +33,7 @@ class Timer
 	public function reset()
 	{
 		$this->startTime = microtime(true);
+		$this->memory = memory_get_usage();
 	}
 
 	/**
@@ -63,5 +66,14 @@ class Timer
 				(empty($minute) ? '' : $minute . 'm ') .
 				floor($sec) . 's ' .
 				$microsec . 'ms';
+	}
+
+	/**
+	 * Retorna a quantidade de memória gasta
+	 * @return int
+	 */
+	public function getMemory()
+	{
+		return (memory_get_usage() - $this->memory) / (1024 * 1024);
 	}
 }

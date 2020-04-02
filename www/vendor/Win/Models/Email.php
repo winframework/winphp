@@ -25,8 +25,11 @@ class Email
 
 	/**
 	 * Cria uma mensagem de E-mail
+	 * @param string $template
+	 * @param mixed[] $data
+	 * @param string $layout
 	 */
-	public function __construct($template, $data, $layout = 'default')
+	public function __construct($template = null, $data = [], $layout = 'default')
 	{
 		$this->template = $template;
 		$this->data = $data;

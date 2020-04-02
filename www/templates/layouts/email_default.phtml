@@ -4,7 +4,7 @@ use Win\Common\EmailTemplate;
 use Win\Mvc\Layout;
 
 /** @var Layout $this */
-/** @var EmailTemplate $email */
+/** @var EmailTemplate $emailTemplate */
 ?>
 <div id="email-body" style="width:100%; max-width: 500px; margin: 0 auto; border: solid 1px #AAA; border-radius: 3px; font-family: Arial; font-size: 14px; line-height: 16px;">
 	<div id="email-header" style="background:#019875; color:#FFF; margin: 5px; text-align: center ">
@@ -12,7 +12,7 @@ use Win\Mvc\Layout;
 	</div>
 
 	<div id="email-main" style="margin:15px; line-height: 22px;">
-		<?= $email->load(); ?>
+		<?= $emailTemplate->load(); ?>
 	</div>
 
 	<div id="email-footer" style="background:#aaa; color:#FFF; margin: 5px; padding: 10px; font-size:11px;">
@@ -21,5 +21,6 @@ use Win\Mvc\Layout;
 			<?= APP_NAME; ?>
 		</a><br />
 		Enviado em: <?= date('d/m/Y'); ?> às <?= date('H:i:s'); ?><br />
+		<?= $emailTemplate->email->getSubject() ?>
 	</div>
 </div>

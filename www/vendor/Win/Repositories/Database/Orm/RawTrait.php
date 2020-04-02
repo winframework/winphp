@@ -2,6 +2,7 @@
 
 namespace Win\Repositories\Database\Orm;
 
+use Win\Repositories\Database\Sql\Builder;
 use Win\Repositories\Database\Sql\Query;
 
 /**
@@ -31,7 +32,7 @@ trait RawTrait
 	 */
 	public function runRaw()
 	{
-		$this->query->setBuilder('RAW');
+		$this->query->setBuilder(Builder::RAW);
 
 		return $this->conn->query($this->query, $this->query->getValues());
 	}

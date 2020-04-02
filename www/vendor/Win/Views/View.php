@@ -19,12 +19,12 @@ class View extends Template
 	/**
 	 * Cria uma View com base no arquivo escolhido
 	 * @param string $file arquivo da View
-	 * @param mixed[] $data Variáveis
 	 */
-	public function __construct($file, $data = [])
+	public function __construct($file)
 	{
 		Application::app()->view = $this;
-		parent::__construct($file, $data, Application::app()->controller->layout);
+		$controller = Application::app()->controller;
+		parent::__construct($file, get_object_vars($controller), $controller->layout);
 	}
 
 	protected function setFile($file)
@@ -47,7 +47,6 @@ class View extends Template
 	 */
 	public function load()
 	{
-		$this->data += get_object_vars($this->app->controller);
 		$output = parent::load();
 		$data = get_object_vars($this);
 		$this->data = $data + $this->data;

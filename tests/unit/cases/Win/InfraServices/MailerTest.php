@@ -3,7 +3,6 @@
 namespace Win\InfraServices;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\EmailTemplate;
 use Win\Models\Email;
 use Win\Repositories\Filesystem;
 
@@ -17,34 +16,34 @@ class MailerTest extends TestCase
 
 	public function testSend()
 	{
-		$EmailTemplate = 'My email body';
+		$body = 'My email body';
 		$email = new Email();
-		$email->setBody($EmailTemplate);
+		$email->setBody($body);
 
-		$mailer = new Mailer(null);
+		$mailer = new Mailer();
 		$mailer->send($email);
 	}
 
 	public function testSendWithTemplate()
 	{
-		$email = new Email('email', []);
+		$email = new Email('email', [], 'null');
 
-		$mailer = new Mailer(null);
+		$mailer = new Mailer();
 		$mailer->send($email);
 	}
 
 	public function testSendWithHeaders()
 	{
-		$EmailTemplate = 'My email body';
+		$body = 'My email body';
 		$email = new Email();
-		$email->setBody($EmailTemplate);
+		$email->setBody($body);
 		$email->addTo('to@john.com', 'John');
 		$email->addBcc('bcc@john.com', 'John');
 		$email->addCc('cc@john.com', 'John');
 		$email->addCc('cc2@john.com', 'Mary');
 		$email->addReplyTo('reply@john.com', 'John');
 
-		$mailer = new Mailer(null);
+		$mailer = new Mailer();
 		$mailer->template = 'secondary';
 		$mailer->send($email);
 	}
@@ -55,11 +54,11 @@ class MailerTest extends TestCase
 	public function testSendErrorLocalHost()
 	{
 		Mailer::$sendOnLocalHost = true;
-		$EmailTemplate = 'My email body';
+		$body = 'My email body';
 		$email = new Email();
-		$email->setContent('main');
+		$email->setBody($body);
 
-		$mailer = new Mailer(null);
+		$mailer = new Mailer();
 		$mailer->send($email);
 		Mailer::$sendOnLocalHost = false;
 	}

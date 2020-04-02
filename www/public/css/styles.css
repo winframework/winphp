@@ -570,6 +570,8 @@ form fieldset {
 }
 
 .pagination li a {
+	display: inline-block;
+	margin-bottom: 3px;
 	padding: 5px 12px;
 	border-radius: 3px;
 	background: #019875;

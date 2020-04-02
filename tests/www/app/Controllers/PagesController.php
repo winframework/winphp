@@ -31,6 +31,10 @@ class PagesController extends Controller
 		$this->orm = new PageOrm();
 		$this->categoryOrm = new CategoryOrm();
 
+		$db = [];
+		require 'app/config/database.php';
+		MysqlConnection::instance()->connect($db);
+
 		$this->orm
 		->sortBy('id', 'desc')
 		// ->sortRand()
@@ -43,10 +47,6 @@ class PagesController extends Controller
 			'%age',
 			3
 		);
-
-		$db = [];
-		require 'app/config/database.php';
-		MysqlConnection::instance()->connect($db);
 	}
 
 	/**

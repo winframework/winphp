@@ -3,8 +3,6 @@
 namespace Win\Models;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\CustomTemplate;
-use Win\Common\Template;
 
 class EmailTest extends TestCase
 {
@@ -95,44 +93,20 @@ class EmailTest extends TestCase
 		$this->assertFalse(key_exists($addTo, $email->getReplyTo()));
 	}
 
-	public function testContentString()
+	public function testBodyString()
 	{
-		$content = 'A';
+		$body = 'A';
 		$email = new Email();
-		$email->setContent($content);
-		$this->assertEquals($content, $email->getContent());
+		$email->setBody($body);
+		$this->assertEquals($body, $email->getBody());
 	}
 
-	public function testInvalidContent()
+	public function testTemplate()
 	{
-		$email = new Email();
-		$email->setContent(new Template('html/this-block-not-exist'));
+		$body = 'My first content';
+		$email = new Email('first', [], null);
 
-		$this->assertTrue($email->getContent() instanceof Template);
-		$this->assertEquals('', $email->getContent());
+		$this->assertEquals($body, $email->getBody());
 	}
 
-	public function testContentTemplate()
-	{
-		$email = new Email();
-		$content = new CustomTemplate();
-		$email->setContent($content);
-
-		$this->assertEquals($content, $email->getContent());
-	}
-
-	public function testContentConstructor()
-	{
-		$email = new Email('first');
-		$this->assertEquals('My first content', $email->getContent());
-	}
-
-	public function testToString()
-	{
-		$content = 'My content';
-		$email = new Email();
-		$email->setContent($content);
-
-		$this->assertEquals($content, (string) $email);
-	}
 }

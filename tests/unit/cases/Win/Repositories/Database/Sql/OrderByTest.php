@@ -1,9 +1,8 @@
 <?php
 
-namespace Win\Database\Sql;
+namespace Win\Repositories\Database\Sql;
 
 use PHPUnit\Framework\TestCase;
-use Win\Database\Sql\Clauses\OrderBy;
 
 class OrderByTest extends TestCase
 {

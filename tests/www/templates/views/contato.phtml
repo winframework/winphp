@@ -10,7 +10,7 @@ use Win\Views\View;
 	<h1>Exemplo de Formulário de Contato</h1>
 
 	<form method="post" action="contato/send">
-		<?= (new AlertBlock())->toHtml(); ?>
+		<?= new AlertBlock(); ?>
 
 		<fieldset>
 			<input type="text" name="name" value="<?= $name; ?>" placeholder="Nome" maxlength="75" />
@@ -19,8 +19,6 @@ use Win\Views\View;
 			<input type="text" name="subject" value="<?= $subject; ?>" placeholder="Assunto" maxlength="45" />
 			<textarea name="message" placeholder="Mensagem" rows="6"><?= $message; ?></textarea>
 		</fieldset>
-
-		<?= (new AlertBlock())->toHtml(); ?>
 
 		<fieldset>
 			<div class="g-recaptcha" data-sitekey="<?= ReCaptcha::$siteKey; ?>"></div>
