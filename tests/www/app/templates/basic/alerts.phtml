@@ -1,0 +1,17 @@
+<?php
+
+use Win\Blocks\AlertBlock;
+use Win\Views\View;
+
+/** @var View $this */
+?>
+<main>
+	<h1>My Alert view</h1>
+
+	<?= (new AlertBlock())->toHtml(); ?>
+
+	<div class="text-center">
+		<a class="btn" href="./">Voltar</a>
+		<a class="btn" href="alerts/show">Recarregar</a>
+	</div>
+</main>

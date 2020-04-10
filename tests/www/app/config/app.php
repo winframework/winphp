@@ -1,3 +1,4 @@
 <?php
-/* Constantes */
+
+/** Constantes */
 define('APP_NAME', 'winPHP Framework');

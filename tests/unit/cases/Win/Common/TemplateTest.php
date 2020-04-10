@@ -9,15 +9,6 @@ class TemplateTest extends TestCase
 	const VALID = 'blocks/custom-block';
 	const INVALID = 'this-file-does-not-exit';
 
-	public function testGetFile()
-	{
-		$template = new Template('main');
-		$templateNotExist = new Template('main/not-exist');
-
-		$this->assertContains('main.phtml', $template->getFile());
-		$this->assertContains('main/not-exist.phtml', $templateNotExist->getFile());
-	}
-
 	public function testParamData()
 	{
 		$vars = ['a' => 5];

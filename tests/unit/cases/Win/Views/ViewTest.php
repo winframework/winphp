@@ -29,12 +29,6 @@ class ViewTest extends TestCase
 		$this->assertTrue($view->exists());
 	}
 
-	public function testGetFile()
-	{
-		$view = new View('index');
-		$this->assertContains('index.phtml', $view->getFile());
-	}
-
 	public function testToString()
 	{
 		$view = new View('index');

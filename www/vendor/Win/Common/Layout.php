@@ -2,21 +2,17 @@
 
 namespace Win\Common;
 
-use Win\Common\Utils\Str;
-
 /**
  * Templates para Layouts em .PHTML
  * Layouts são a parte externa de um template
- * Ver arquivos em: "/templates/layouts"
+ * Ver arquivos em: "/app/templates/layouts"
  */
 class Layout extends Template
 {
-	public static $dir = '/templates/layouts';
+	static $dir = '';
 
-	public function __construct($layout, Template $child)
+	public function __construct($layout, Template $content)
 	{
-		$class = get_class($child);
-		$childName = lcfirst(substr($class, strrpos($class, '\\') + 1));
-		parent::__construct($child::LAYOUT_PREFIX . '_' . $layout, [$childName => $child]);
+		parent::__construct("{$content::$dir}/layouts/{$layout}", ['content' => $content]);
 	}
 }

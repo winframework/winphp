@@ -6,13 +6,11 @@ use Win\Application;
 
 /**
  * Templates em .PHTML
- * Ver arquivos em: "/templates/"
+ * Ver arquivos em: "/app/templates/"
  */
 class Template
 {
-	const LAYOUT_PREFIX = '';
-
-	public static $dir = '/templates';
+	public static $dir = '/app/templates';
 	/**
 	 * Ponteiro para Aplicação Principal
 	 * @var Application
@@ -32,16 +30,10 @@ class Template
 	protected $data = [];
 
 	/**
-	 * Conteúdo HTML do Template
-	 * @var string
-	 */
-	private $output;
-
-	/**
 	 * Layout
 	 * @var string
 	 */
-	private $layout;
+	private $layout = null;
 
 	/**
 	 * Cria um template com base no arquivo escolhido
@@ -55,20 +47,6 @@ class Template
 		$this->app = Application::app();
 		$this->data = $data;
 		$this->layout = $layout;
-		$this->output = $this->getOutput();
-	}
-
-	/**
-	 * Define o output
-	 * @return string
-	 */
-	protected function getOutput()
-	{
-		if ($this->layout) {
-			return (string) new Layout($this->layout, $this);
-		} else {
-			return $this->load();
-		}
 	}
 
 	/**
@@ -78,12 +56,6 @@ class Template
 	protected function setFile($file)
 	{
 		$this->file = BASE_PATH . static::$dir . '/' . $file . '.phtml';
-	}
-
-	/** @return string */
-	public function getFile()
-	{
-		return $this->file;
 	}
 
 	/**
@@ -110,27 +82,28 @@ class Template
 	}
 
 	/**
-	 * Retorna o conteúdo
-	 * @return string
-	 */
-	public function __toString()
-	{
-		return $this->output;
-	}
-
-	/**
 	 * Carrega e retorna o output
 	 * @return string
 	 */
+	public function toHtml()
+	{
+		if ($this->layout) {
+			return (new Layout($this->layout, $this))->toHtml();
+		}
+
+		ob_start();
+		$this->load();
+		return ob_get_clean();
+	}
+
+	/**
+	 * Carrega e exibe o conteúdo do template
+	 */
 	public function load()
 	{
-		ob_start();
-
 		if (isset($this->file) && $this->exists()) {
 			extract($this->data);
 			include $this->file;
 		}
-
-		return ob_get_clean();
 	}
 }

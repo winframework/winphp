@@ -19,11 +19,11 @@ class JsonResponse implements Response
 	}
 
 	/**
-	 * Exibe os dados em Json
+	 * Envia a resposta Json
 	 * @codeCoverageIgnore
 	 * @return string
 	 */
-	public function __toString()
+	public function respond()
 	{
 		header('Content-Type: application/json');
 

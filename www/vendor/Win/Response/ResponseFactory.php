@@ -4,32 +4,32 @@ namespace Win\Response;
 
 use Exception;
 use Win\Application;
+use Win\Common\Template;
 
 class ResponseFactory
 {
 	/**
-	 * Cria uma resposta baseada no destino [Controller, action, [...args]]
+	 * Envia uma resposta baseada no destino [Controller, action, [...args]]
 	 * @param array $destination
 	 */
-	public static function create($destination)
+	public static function send($destination)
 	{
-		$app = Application::app();
-		$controllerClass = $destination[0];
+		$class = $destination[0];
 		$action = rtrim($destination[1], '@') ?? '';
 		$args = $destination[2] ?? [];
 
-		if (class_exists($controllerClass)) {
-			$app->controller = new $controllerClass();
-			$app->controller->app = $app;
-
-			if (method_exists($app->controller, $action)) {
-				echo $app->controller->$action(...$args);
-			} else {
-				$msg = "Action '{$action}' not found in '{$controllerClass}'";
-				throw new ResponseException($msg, 404);
-			}
-		} else {
-			throw new ResponseException("Controller '{$controllerClass}' not found", 404);
+		if (!class_exists($class)) {
+			throw new ResponseException("Controller '{$class}' not found", 404);
 		}
+
+		$controller = new $class();
+		$controller->app = Application::app();
+		$controller->app->controller = $controller;
+		if (!method_exists($controller, $action)) {
+			throw new ResponseException("Action '{$action}' not found in '{$class}'", 404);
+		}
+
+		$response = $controller->$action(...$args);
+		echo ($response instanceof Response) ? $response->respond() :  $response;
 	}
 }

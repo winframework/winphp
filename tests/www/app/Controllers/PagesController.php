@@ -36,17 +36,17 @@ class PagesController extends Controller
 		MysqlConnection::instance()->connect($db);
 
 		$this->orm
-		->sortBy('id', 'desc')
-		// ->sortRand()
-		->paginate($this->pageSize, Input::get('p'))
-		->filterVisible()
-		->filterBy('id <> ?', 19)
-		->filterBy(
-			'(title LIKE ? OR title LIKE ?) OR (description IS NOT NULL AND id >= ? )',
-			'Nothing%',
-			'%age',
-			3
-		);
+			->sortBy('id', 'desc')
+			// ->sortRand()
+			->paginate($this->pageSize, Input::get('p'))
+			->filterVisible()
+			->filterBy('id <> ?', 19)
+			->filterBy(
+				'(title LIKE ? OR title LIKE ?) OR (description IS NOT NULL AND id >= ? )',
+				'Nothing%',
+				'%age',
+				3
+			);
 	}
 
 	/**
@@ -69,10 +69,10 @@ class PagesController extends Controller
 	public function byCategory($categoryId)
 	{
 		$category = $this->categoryOrm
-		->filterBy('Id', $categoryId)
-		->filterVisible()
-		->one()
-		->or404();
+			->filterBy('Id', $categoryId)
+			->filterVisible()
+			->one()
+			->or404();
 
 		$orm = $this->orm;
 		$orm->filterBy('CategoryId', $category->id);

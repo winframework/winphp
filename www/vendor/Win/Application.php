@@ -51,7 +51,7 @@ class Application
 	 */
 	public function sendResponse()
 	{
-		ResponseFactory::create(Router::getDestination());
+		ResponseFactory::send(Router::getDestination());
 	}
 
 	/** @return string */

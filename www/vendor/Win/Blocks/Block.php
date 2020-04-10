@@ -10,8 +10,6 @@ use Win\Common\Template;
  */
 class Block extends Template
 {
-	public static $dir = '/templates/blocks';
-
 	public function __construct($file, $data = [])
 	{
 		parent::__construct($file, $data);

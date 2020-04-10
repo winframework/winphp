@@ -4,6 +4,7 @@ namespace Win\Views;
 
 use Win\Application;
 use Win\Common\Template;
+use Win\Response\Response;
 use Win\Response\ResponseException;
 
 /**
@@ -11,11 +12,8 @@ use Win\Response\ResponseException;
  *
  * Responsável por criar o visual da página
  */
-class View extends Template
+class View extends Template implements Response
 {
-	public static $dir = '/templates/views';
-	const LAYOUT_PREFIX = 'view';
-
 	/**
 	 * Cria uma View com base no arquivo escolhido
 	 * @param string $file arquivo da View
@@ -31,7 +29,7 @@ class View extends Template
 	{
 		parent::setFile($file);
 		if (!$this->exists()) {
-			throw new ResponseException("View '{$this->getFile()}' not found", 404);
+			throw new ResponseException("View '{$this->file}' not found", 404);
 		}
 	}
 
@@ -42,15 +40,11 @@ class View extends Template
 	}
 
 	/**
-	 * Carrega e retorna o output da view
+	 * Envia a resposta Html
 	 * @return string
 	 */
-	public function load()
+	public function respond()
 	{
-		$output = parent::load();
-		$data = get_object_vars($this);
-		$this->data = $data + $this->data;
-
-		return $output;
+		return $this->toHtml();
 	}
 }

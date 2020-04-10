@@ -1,10 +1,11 @@
 <?php
 /*
- * Para editar o código HTML procure em: /templates
- * @see /templates
+ * Para editar o código HTML procure em: /app/templates
+ * @see /app/templates
  */
 
 use Win\Application;
+use Win\Common\Benchmark;
 use Win\Response\ResponseException;
 
 define('BASE_PATH', __DIR__);
@@ -15,9 +16,15 @@ require 'app/config/routes.php';
 
 session_start();
 
-try {
-	$app = new Application();
-	$app->sendResponse();
-} catch (ResponseException $e) {
-	$e->sendResponse();
+$b = new Benchmark();
+for ($i=0; $i < 100; $i++) { 
+	# code...
+	try {
+		$app = new Application();
+		$app->sendResponse();
+	} catch (ResponseException $e) {
+		$e->sendResponse();
+	}
 }
+
+echo $b->getTime();

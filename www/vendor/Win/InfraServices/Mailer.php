@@ -4,8 +4,9 @@ namespace Win\InfraServices;
 
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
+use Win\Common\Email;
 use Win\Common\Server;
-use Win\Models\Email;
+use Win\Common\Template;
 use Win\Repositories\Filesystem;
 
 /**
@@ -35,12 +36,81 @@ class Mailer
 	}
 
 	/**
-	 * Envia o E-mail
+	 * Define o idioma
+	 * @param string $language
 	 */
-	public function send(Email $email)
+	public	function setLanguage($language)
 	{
-		$this->prepareHeader($email);
-		$this->prepareBody($email);
+		$this->mailer->SetLanguage($language);
+	}
+
+	/**
+	 * Define o assunto
+	 * @param string $subject
+	 */
+	public function setSubject($subject)
+	{
+		$this->mailer->Subject = $subject;
+	}
+
+	/**
+	 * Define o remetente
+	 * @param string $address
+	 * @param string $name
+	 */
+	public function setFrom($address, $name = '')
+	{
+		$this->mailer->From = $address;
+		$this->mailer->FromName = $name;
+	}
+
+	/**
+	 * Add destinatário
+	 * @param string $address
+	 * @param string $name
+	 */
+	public function addTo($address, $name = '')
+	{
+		$this->mailer->addAddress($address, $name);
+	}
+
+	/**
+	 * Add cópia
+	 * @param string $address
+	 * @param string $name
+	 */
+	public function addCC($address, $name = '')
+	{
+		$this->mailer->addCC($address, $name);
+	}
+
+	/**
+	 * Add cópia oculta
+	 * @param string $address
+	 * @param string $name
+	 */
+	public function addBCC($address, $name = '')
+	{
+		$this->mailer->addBCC($address, $name);
+	}
+
+	/**
+	 * Add responder para
+	 * @param string $address
+	 * @param string $name
+	 */
+	public function addReplyTo($address, $name = '')
+	{
+		$this->mailer->addReplyTo($address, $name);
+	}
+
+	/**
+	 * Envia o E-mail
+	 * @param string|Email $body
+	 */
+	public function send($body)
+	{
+		$this->setBody($body);
 
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
 			$send = $this->mailer->Send();
@@ -48,50 +118,24 @@ class Mailer
 
 			if (!$send) {
 				throw new Exception('Houve um erro ao enviar o e-mail.<br />'
-				. '<span style="display:none">' . $this->mailer->ErrorInfo . '</span>');
+					. '<span style="display:none">' . $this->mailer->ErrorInfo . '</span>');
 			}
 		} else {
-			$this->saveOnDisk($email);
+			$this->saveOnDisk();
 		}
 	}
 
 	/**
-	 * Prepara os dados do email
-	 * @param Email $email
+	 * Define o corpo do email
+	 * @param string|Email $body
 	 */
-	private function prepareHeader(Email $email)
+	protected function setBody($body)
 	{
-		// Details
-		$phpMailer = $this->mailer;
-		$phpMailer->SetLanguage($email->getLanguage());
-		$phpMailer->Subject = $email->getSubject();
-
-		// From
-		$phpMailer->From = $email->getFrom();
-		$phpMailer->FromName = $email->getFromName();
-
-		// Addresses
-		foreach ($email->getTo() as $address => $name) {
-			$phpMailer->addAddress($address, $name);
+		if ($body instanceof Template) {
+			$this->mailer->Body = $body->toHtml();
+		} else {
+			$this->mailer->Body = $body;
 		}
-		foreach ($email->getCc() as $address => $name) {
-			$phpMailer->addCC($address, $name);
-		}
-		foreach ($email->getBcc() as $address => $name) {
-			$phpMailer->addBCC($address, $name);
-		}
-		foreach ($email->getReplyTo() as $address => $name) {
-			$phpMailer->addReplyTo($address, $name);
-		}
-	}
-
-	/**
-	 * Prepara o corpo do email
-	 * @param Email $email
-	 */
-	private function prepareBody(Email $email)
-	{
-		$this->mailer->Body = $email->getBody();
 	}
 
 	/**
@@ -104,15 +148,15 @@ class Mailer
 	}
 
 	/**
-	 * Salva o E-mail em um arquivo
-	 * @param Email $email
+	 * Salva o corpo do E-mail em um arquivo
 	 * @return bool
 	 */
-	private function saveOnDisk(Email $email)
+	private function saveOnDisk()
 	{
 		$fs = new Filesystem();
 		$name = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
+		$body = $this->mailer->Body;
 
-		return $fs->write(static::DIRECTORY . '/' . $name, $email->getBody());
+		return $fs->write(static::DIRECTORY . '/' . $name, $body);
 	}
 }

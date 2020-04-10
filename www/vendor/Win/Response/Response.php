@@ -4,5 +4,6 @@ namespace Win\Response;
 
 interface Response
 {
-	public function __toString();
+	/** @return string */
+	public function respond();
 }

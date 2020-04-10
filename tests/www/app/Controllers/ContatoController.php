@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Exception;
 use Win\Common\EmailTemplate;
+use Win\Common\Template;
 use Win\Controllers\Controller;
 use Win\InfraServices\Mailer;
 use Win\InfraServices\ReCaptcha;
@@ -50,12 +51,11 @@ class ContatoController extends Controller
 				$this->validate();
 				$mailer = new Mailer();
 
-				$email = new Email('Contato efetuado pelo site ' . APP_NAME);
-				$email->addTo(static::SEND_TO);
-				$email->setFrom(static::SEND_FROM, APP_NAME);
-				$email->addReplyTo($this->email, $this->name);
-				$template = new EmailTemplate($email, 'contact', get_object_vars($this));
-				$email->setBody($template);
+				$mailer->setSubject('Contato efetuado pelo site ' . APP_NAME);
+				$mailer->addTo(static::SEND_TO);
+				$mailer->setFrom(static::SEND_FROM, APP_NAME);
+				$mailer->addReplyTo($this->email, $this->name);
+				$email = new Template('emails/contact', get_object_vars($this));
 				$mailer->send($email);
 				Alert::success('Sua mensagem foi enviada com sucesso!');
 				$this->refresh();

@@ -20,6 +20,5 @@ class Category extends Model
 	}
 
 	public function validate()
-	{
-	}
+	{ }
 }

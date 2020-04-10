@@ -2,6 +2,7 @@
 
 namespace Win\Response;
 
+use App\Controllers\ErrorsController;
 use Exception;
 use Throwable;
 
@@ -11,8 +12,6 @@ use Throwable;
  */
 class ResponseException extends Exception
 {
-	public static $errorsController = 'App\\Controllers\\ErrorsController';
-
 	/**
 	 * Envia a resposta de erro
 	 */
@@ -20,8 +19,7 @@ class ResponseException extends Exception
 	{
 		http_response_code($this->code);
 		try {
-			$destination = [static::$errorsController, 'error' . $this->code, [$this]];
-			ResponseFactory::create($destination);
+			ResponseFactory::send([ErrorsController::class, "error{$this->code}", [$this]]);
 		} catch (Exception $e) {
 			// Envia apenas um HTTP 404, sem body
 		}

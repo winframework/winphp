@@ -31,6 +31,5 @@ class Page extends Model
 	}
 
 	public function validate()
-	{
-	}
+	{ }
 }

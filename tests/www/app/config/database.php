@@ -1,6 +1,6 @@
 <?php
 
-/* Configurações do banco */
+/** Configurações do banco */
 $db = [
 	'host' => 'localhost',
 	'user' => 'root',
