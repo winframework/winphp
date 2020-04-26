@@ -39,7 +39,7 @@ class Mailer
 	 * Define o idioma
 	 * @param string $language
 	 */
-	public	function setLanguage($language)
+	public function setLanguage($language)
 	{
 		$this->mailer->SetLanguage($language);
 	}

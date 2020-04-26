@@ -11,6 +11,8 @@ use Exception;
  */
 class HttpException extends Exception
 {
+	public static $controller = ErrorsController::class;
+
 	/**
 	 * Envia a resposta de erro
 	 */
@@ -18,7 +20,7 @@ class HttpException extends Exception
 	{
 		http_response_code($this->code);
 		try {
-			Router::process([ErrorsController::class, "error{$this->code}", [$this]]);
+			Router::process([static::$controller, "error{$this->code}", [$this]]);
 		} catch (Exception $e) {
 			// Envia apenas um HTTP 404, sem body
 		}

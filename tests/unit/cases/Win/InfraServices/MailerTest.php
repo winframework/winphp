@@ -3,15 +3,23 @@
 namespace Win\InfraServices;
 
 use PHPUnit\Framework\TestCase;
-use Win\Models\Email;
+use Win\Common\Email;
 use Win\Repositories\Filesystem;
 
 class MailerTest extends TestCase
 {
+	/** @var Filesystem */
+	protected $fs;
+
 	public function setUp()
 	{
-		$fs = new Filesystem();
-		$fs->delete('data/emails');
+		$this->fs = new Filesystem();
+		$this->fs->delete('data/emails');
+	}
+
+	public function tearDown()
+	{
+		$this->fs->delete('data/emails');
 	}
 
 	public function testSend()
@@ -20,6 +28,16 @@ class MailerTest extends TestCase
 
 		$mailer = new Mailer();
 		$mailer->send($body);
+		$this->assertEquals(1, $this->fs->count('data/emails'));
+	}
+
+	public function testSendTemplate()
+	{
+		$body = new Email('first', [], '');
+
+		$mailer = new Mailer();
+		$mailer->send($body);
+		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
 
 	public function testSendWithHeaders()
@@ -31,8 +49,12 @@ class MailerTest extends TestCase
 		$mailer->addCc('cc@john.com', 'John');
 		$mailer->addCc('cc2@john.com', 'Mary');
 		$mailer->addReplyTo('reply@john.com', 'John');
+		$mailer->setFrom('from@john.com', 'Luccas');
+		$mailer->setSubject('My subject');
+		$mailer->setLanguage('en-Us');
 
 		$mailer->send($body);
+		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
 
 	/**
