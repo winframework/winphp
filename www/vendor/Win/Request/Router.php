@@ -75,6 +75,6 @@ class Router
 		}
 
 		$response = $controller->$action(...$args);
-		echo ($response instanceof Response) ? $response->respond() :  $response;
+		echo ($response instanceof Response) ? $response->respond() : $response;
 	}
 }

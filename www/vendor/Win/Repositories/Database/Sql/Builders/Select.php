@@ -12,10 +12,10 @@ class Select extends Builder
 	public function __toString()
 	{
 		return ($this->query->raw ??
-		'SELECT * FROM ' . $this->query->table)
-		. $this->query->where
-		. $this->query->orderBy
-		. $this->query->limit;
+			'SELECT * FROM ' . $this->query->table)
+			. $this->query->where
+			. $this->query->orderBy
+			. $this->query->limit;
 	}
 
 	public function getValues()

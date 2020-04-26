@@ -12,8 +12,8 @@ class Delete extends Builder
 	public function __toString()
 	{
 		return 'DELETE FROM ' . $this->query->table
-		. $this->query->where
-		. $this->query->limit;
+			. $this->query->where
+			. $this->query->limit;
 	}
 
 	public function getValues()

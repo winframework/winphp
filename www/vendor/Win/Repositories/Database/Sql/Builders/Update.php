@@ -12,9 +12,9 @@ class Update extends Builder
 	public function __toString()
 	{
 		return 'UPDATE ' . $this->query->table
-		. ' SET ' . $this->set()
-		. $this->query->where
-		. $this->query->limit;
+			. ' SET ' . $this->set()
+			. $this->query->where
+			. $this->query->limit;
 	}
 
 	/** @return string */

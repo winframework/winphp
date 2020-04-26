@@ -12,8 +12,8 @@ class Insert extends Builder
 	public function __toString()
 	{
 		return 'INSERT INTO ' . $this->query->table
-		. ' (' . implode(',', array_keys($this->getValues())) . ')'
-		. ' VALUES (' . implode(', ', $this->getBindParams()) . ')';
+			. ' (' . implode(',', array_keys($this->getValues())) . ')'
+			. ' VALUES (' . implode(', ', $this->getBindParams()) . ')';
 	}
 
 	public function getValues()

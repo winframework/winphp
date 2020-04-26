@@ -26,5 +26,4 @@ trait FilterTrait
 
 		return $this;
 	}
-
 }

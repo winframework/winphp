@@ -16,7 +16,7 @@ class Alert extends Session
 	}
 
 	/** @param string $message */
-	public static function default($message)
+	public static function message($message)
 	{
 		static::instance()->add('default', $message);
 	}

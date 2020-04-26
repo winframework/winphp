@@ -20,7 +20,7 @@ class AlertTest extends TestCase
 		$info = 'INFO 1';
 		$warning = 'WARNING 1';
 
-		Alert::default($default);
+		Alert::message($default);
 		Alert::success($success1);
 		Alert::success($success2);
 		Alert::error($error);

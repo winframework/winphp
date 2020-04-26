@@ -56,8 +56,10 @@ class Uploader
 	{
 		if (!is_null($this->temp)) {
 			$name = $this->generateName($name);
-			\move_uploaded_file($this->temp['tmp_name'],
-			 $this->path . $name);
+			\move_uploaded_file(
+				$this->temp['tmp_name'],
+				$this->path . $name
+			);
 
 			return new File($this->path . $name);
 		}

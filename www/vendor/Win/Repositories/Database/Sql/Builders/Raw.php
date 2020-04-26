@@ -12,8 +12,8 @@ class Raw extends Builder
 	public function __toString()
 	{
 		return $this->query->raw
-		. $this->query->where
-		. $this->query->limit;
+			. $this->query->where
+			. $this->query->limit;
 	}
 
 	public function getValues()
