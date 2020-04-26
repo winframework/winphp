@@ -7,7 +7,6 @@ use Win\Controllers\Controller;
 use Win\Request\Router;
 use Win\Request\Url;
 use Win\Request\HttpException;
-use Win\Response\ResponseFactory;
 use Win\Views\View;
 
 /**
