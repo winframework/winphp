@@ -8,12 +8,12 @@ use Win\Application;
 class ResponseFactoryTest extends TestCase
 {
 	/** @expectedException \Win\Response\ResponseException */
-	public function testCreateController404()
+	public function testCreateController404() 
 	{
 		new Application();
 		$data = ['a' => 1, ' b' => 2];
 		$destination = ['App\\Controllers\\InvalidController', 'index', $data];
-		ResponseFactory::create($destination);
+		ResponseFactory::send($destination);
 	}
 
 	/** @expectedException \Win\Response\ResponseException */
@@ -22,7 +22,7 @@ class ResponseFactoryTest extends TestCase
 		new Application();
 		$data = ['a' => 1, ' b' => 2];
 		$destination = ['App\\Controllers\\IndexController', 'actionNotFound', $data];
-		ResponseFactory::create($destination);
+		ResponseFactory::send($destination);
 	}
 
 	public function testCreate()
@@ -32,7 +32,7 @@ class ResponseFactoryTest extends TestCase
 		$destination = ['Win\\Controllers\\MyController', 'sum', $data];
 
 		ob_start();
-		$sum = ResponseFactory::create($destination);
+		$sum = ResponseFactory::send($destination);
 		$sum = ob_get_clean();
 
 		$this->assertEquals(array_sum($data), $sum);

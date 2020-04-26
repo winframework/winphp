@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class TemplateTest extends TestCase
 {
-	const VALID = 'blocks/custom-block';
+	const VALID = 'index';
 	const INVALID = 'this-file-does-not-exit';
 
 	public function testParamData()
@@ -50,14 +50,5 @@ class TemplateTest extends TestCase
 
 		$this->assertEquals($vars['a'], $b->getData('a'));
 		$this->assertEquals($vars['b'], $b->getData('b'));
-	}
-
-	public function testToString()
-	{
-		$b = new Template(static::VALID);
-		$c = new Template(static::INVALID);
-
-		$this->assertEquals('My custom block HTML', (string) $b);
-		$this->assertEquals('', (string) $c);
 	}
 }

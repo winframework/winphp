@@ -2,9 +2,7 @@
 
 namespace Win\Response;
 
-use Exception;
 use Win\Application;
-use Win\Common\Template;
 
 class ResponseFactory
 {

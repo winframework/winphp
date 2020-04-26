@@ -17,27 +17,22 @@ class MailerTest extends TestCase
 	public function testSend()
 	{
 		$body = 'My email body';
-		$email = new Email();
-		$email->setBody($body);
 
 		$mailer = new Mailer();
-		$mailer->send($email);
+		$mailer->send($body);
 	}
 
 	public function testSendWithHeaders()
 	{
 		$body = 'My email body';
-		$email = new Email();
-		$email->setBody($body);
-		$email->addTo('to@john.com', 'John');
-		$email->addBcc('bcc@john.com', 'John');
-		$email->addCc('cc@john.com', 'John');
-		$email->addCc('cc2@john.com', 'Mary');
-		$email->addReplyTo('reply@john.com', 'John');
-
 		$mailer = new Mailer();
-		$mailer->template = 'secondary';
-		$mailer->send($email);
+		$mailer->addTo('to@john.com', 'John');
+		$mailer->addBcc('bcc@john.com', 'John');
+		$mailer->addCc('cc@john.com', 'John');
+		$mailer->addCc('cc2@john.com', 'Mary');
+		$mailer->addReplyTo('reply@john.com', 'John');
+
+		$mailer->send($body);
 	}
 
 	/**
@@ -46,12 +41,10 @@ class MailerTest extends TestCase
 	public function testSendErrorLocalHost()
 	{
 		Mailer::$sendOnLocalHost = true;
-		$body = 'My email body';
-		$email = new Email();
-		$email->setBody($body);
-
 		$mailer = new Mailer();
-		$mailer->send($email);
+		$body = 'My email body';
+
+		$mailer->send($body);
 		Mailer::$sendOnLocalHost = false;
 	}
 }

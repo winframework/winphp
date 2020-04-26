@@ -29,12 +29,6 @@ class ViewTest extends TestCase
 		$this->assertTrue($view->exists());
 	}
 
-	public function testToString()
-	{
-		$view = new View('index');
-		$this->assertGreaterThan(0, strlen((string) $view));
-	}
-
 	public function testGetTitle()
 	{
 		$title = 'My Title';
