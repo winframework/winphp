@@ -31,7 +31,7 @@
 - ORM;
 
 ### Request/Response
-<img src="https://rawgit.com/winframework/winphp/blob/master/docs/architecture/request-response.png?raw=true"/>
+<img src="https://raw.githubusercontent.com/winframework/winphp/master/docs/architecture/request-response.png"/>
 
 
 ### Camadas
