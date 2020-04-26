@@ -31,7 +31,11 @@
 - ORM;
 
 ### Request/Response
-<img src="https://rawgit.com/winframework/winphp/gh-pages/docs/diagrams/win-diagram.png"/>
+<img src="https://rawgit.com/winframework/winphp/blob/master/docs/architecture/request-response.png?raw=true"/>
+
+
+### Camadas
+<img src="https://raw.githubusercontent.com/winframework/winphp/master/docs/architecture/layers.png"/>
 
 
 ### Requisitos
