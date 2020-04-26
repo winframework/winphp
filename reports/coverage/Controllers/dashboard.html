@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /home/wanderson/www/winframework/winphp/www/vendor/Win/Request</title>
+  <title>Dashboard for /home/wanderson/www/winframework/winphp/www/vendor/Win/Controllers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
      <div class="col-md-12">
       <ol class="breadcrumb">
         <li><a href="../index.html">/home/wanderson/www/winframework/winphp/www/vendor/Win</a></li>
-        <li><a href="index.html">Request</a></li>
+        <li><a href="index.html">Controllers</a></li>
         <li class="active">(Dashboard)</li>
 
       </ol>
@@ -158,7 +158,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,4], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -176,7 +176,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,19], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,6], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -226,7 +226,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,2,"<a href=\"HttpException.php.html#12\">Win\\Request\\HttpException<\/a>"],[100,13,"<a href=\"Input.php.html#10\">Win\\Request\\Input<\/a>"],[100,9,"<a href=\"Router.php.html#14\">Win\\Request\\Router<\/a>"],[100,15,"<a href=\"Url.php.html#10\">Win\\Request\\Url<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,7,"<a href=\"Controller.php.html#13\">Win\\Controllers\\Controller<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -250,7 +250,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,2,"<a href=\"HttpException.php.html#19\">Win\\Request\\HttpException::run<\/a>"],[100,2,"<a href=\"Input.php.html#19\">Win\\Request\\Input::post<\/a>"],[100,1,"<a href=\"Input.php.html#32\">Win\\Request\\Input::postArray<\/a>"],[100,2,"<a href=\"Input.php.html#43\">Win\\Request\\Input::server<\/a>"],[100,2,"<a href=\"Input.php.html#57\">Win\\Request\\Input::get<\/a>"],[100,2,"<a href=\"Input.php.html#69\">Win\\Request\\Input::file<\/a>"],[100,4,"<a href=\"Input.php.html#82\">Win\\Request\\Input::protocol<\/a>"],[100,2,"<a href=\"Router.php.html#24\">Win\\Request\\Router::addRoutes<\/a>"],[100,3,"<a href=\"Router.php.html#36\">Win\\Request\\Router::getDestination<\/a>"],[100,4,"<a href=\"Router.php.html#60\">Win\\Request\\Router::process<\/a>"],[100,1,"<a href=\"Url.php.html#26\">Win\\Request\\Url::setSuffix<\/a>"],[100,1,"<a href=\"Url.php.html#36\">Win\\Request\\Url::format<\/a>"],[100,2,"<a href=\"Url.php.html#46\">Win\\Request\\Url::redirect<\/a>"],[100,2,"<a href=\"Url.php.html#59\">Win\\Request\\Url::getBaseUrl<\/a>"],[100,2,"<a href=\"Url.php.html#76\">Win\\Request\\Url::getProtocol<\/a>"],[100,3,"<a href=\"Url.php.html#89\">Win\\Request\\Url::getUrl<\/a>"],[100,1,"<a href=\"Url.php.html#109\">Win\\Request\\Url::setUrl<\/a>"],[100,1,"<a href=\"Url.php.html#118\">Win\\Request\\Url::setSegments<\/a>"],[100,2,"<a href=\"Url.php.html#127\">Win\\Request\\Url::getSegments<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"Controller.php.html#32\">Win\\Controllers\\Controller::index<\/a>"],[100,1,"<a href=\"Controller.php.html#41\">Win\\Controllers\\Controller::addData<\/a>"],[100,2,"<a href=\"Controller.php.html#51\">Win\\Controllers\\Controller::getData<\/a>"],[100,1,"<a href=\"Controller.php.html#64\">Win\\Controllers\\Controller::backToIndex<\/a>"],[100,1,"<a href=\"Controller.php.html#74\">Win\\Controllers\\Controller::redirect<\/a>"],[100,1,"<a href=\"Controller.php.html#84\">Win\\Controllers\\Controller::refresh<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);

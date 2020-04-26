@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /home/wanderson/www/winframework/winphp/www/vendor/Win/Request</title>
+  <title>Dashboard for /home/wanderson/www/winframework/winphp/www/vendor/Win/Models</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
      <div class="col-md-12">
       <ol class="breadcrumb">
         <li><a href="../index.html">/home/wanderson/www/winframework/winphp/www/vendor/Win</a></li>
-        <li><a href="index.html">Request</a></li>
+        <li><a href="index.html">Models</a></li>
         <li class="active">(Dashboard)</li>
 
       </ol>
@@ -158,7 +158,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,4], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,6], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -176,7 +176,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,19], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,37], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -226,7 +226,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,2,"<a href=\"HttpException.php.html#12\">Win\\Request\\HttpException<\/a>"],[100,13,"<a href=\"Input.php.html#10\">Win\\Request\\Input<\/a>"],[100,9,"<a href=\"Router.php.html#14\">Win\\Request\\Router<\/a>"],[100,15,"<a href=\"Url.php.html#10\">Win\\Request\\Url<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,13,"<a href=\"DateTime.php.html#11\">Win\\Models\\DateTime<\/a>"],[100,9,"<a href=\"Filesystem\/Directory.php.html#11\">Win\\Models\\Filesystem\\Directory<\/a>"],[100,10,"<a href=\"Filesystem\/File.php.html#10\">Win\\Models\\Filesystem\\File<\/a>"],[100,4,"<a href=\"Filesystem\/Image.php.html#8\">Win\\Models\\Filesystem\\Image<\/a>"],[100,9,"<a href=\"Filesystem\/Storable.php.html#11\">Win\\Models\\Filesystem\\Storable<\/a>"],[100,3,"<a href=\"Model.php.html#7\">Win\\Models\\Model<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -250,7 +250,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,2,"<a href=\"HttpException.php.html#19\">Win\\Request\\HttpException::run<\/a>"],[100,2,"<a href=\"Input.php.html#19\">Win\\Request\\Input::post<\/a>"],[100,1,"<a href=\"Input.php.html#32\">Win\\Request\\Input::postArray<\/a>"],[100,2,"<a href=\"Input.php.html#43\">Win\\Request\\Input::server<\/a>"],[100,2,"<a href=\"Input.php.html#57\">Win\\Request\\Input::get<\/a>"],[100,2,"<a href=\"Input.php.html#69\">Win\\Request\\Input::file<\/a>"],[100,4,"<a href=\"Input.php.html#82\">Win\\Request\\Input::protocol<\/a>"],[100,2,"<a href=\"Router.php.html#24\">Win\\Request\\Router::addRoutes<\/a>"],[100,3,"<a href=\"Router.php.html#36\">Win\\Request\\Router::getDestination<\/a>"],[100,4,"<a href=\"Router.php.html#60\">Win\\Request\\Router::process<\/a>"],[100,1,"<a href=\"Url.php.html#26\">Win\\Request\\Url::setSuffix<\/a>"],[100,1,"<a href=\"Url.php.html#36\">Win\\Request\\Url::format<\/a>"],[100,2,"<a href=\"Url.php.html#46\">Win\\Request\\Url::redirect<\/a>"],[100,2,"<a href=\"Url.php.html#59\">Win\\Request\\Url::getBaseUrl<\/a>"],[100,2,"<a href=\"Url.php.html#76\">Win\\Request\\Url::getProtocol<\/a>"],[100,3,"<a href=\"Url.php.html#89\">Win\\Request\\Url::getUrl<\/a>"],[100,1,"<a href=\"Url.php.html#109\">Win\\Request\\Url::setUrl<\/a>"],[100,1,"<a href=\"Url.php.html#118\">Win\\Request\\Url::setSegments<\/a>"],[100,2,"<a href=\"Url.php.html#127\">Win\\Request\\Url::getSegments<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"DateTime.php.html#20\">Win\\Models\\DateTime::__toString<\/a>"],[100,1,"<a href=\"DateTime.php.html#26\">Win\\Models\\DateTime::isEmpty<\/a>"],[100,1,"<a href=\"DateTime.php.html#32\">Win\\Models\\DateTime::getMonthName<\/a>"],[100,1,"<a href=\"DateTime.php.html#38\">Win\\Models\\DateTime::getMonthShortName<\/a>"],[100,1,"<a href=\"DateTime.php.html#48\">Win\\Models\\DateTime::formatF<\/a>"],[100,2,"<a href=\"DateTime.php.html#58\">Win\\Models\\DateTime::getAge<\/a>"],[100,1,"<a href=\"DateTime.php.html#68\">Win\\Models\\DateTime::toHtml<\/a>"],[100,1,"<a href=\"DateTime.php.html#74\">Win\\Models\\DateTime::toSql<\/a>"],[100,2,"<a href=\"DateTime.php.html#85\">Win\\Models\\DateTime::isValid<\/a>"],[100,1,"<a href=\"DateTime.php.html#95\">Win\\Models\\DateTime::create<\/a>"],[100,1,"<a href=\"DateTime.php.html#106\">Win\\Models\\DateTime::createEmpty<\/a>"],[100,1,"<a href=\"Filesystem\/Directory.php.html#17\">Win\\Models\\Filesystem\\Directory::__construct<\/a>"],[100,1,"<a href=\"Filesystem\/Directory.php.html#23\">Win\\Models\\Filesystem\\Directory::exists<\/a>"],[100,2,"<a href=\"Filesystem\/Directory.php.html#32\">Win\\Models\\Filesystem\\Directory::setPath<\/a>"],[100,1,"<a href=\"Filesystem\/Directory.php.html#41\">Win\\Models\\Filesystem\\Directory::isEmpty<\/a>"],[100,1,"<a href=\"Filesystem\/Directory.php.html#50\">Win\\Models\\Filesystem\\Directory::getChildrenNames<\/a>"],[100,3,"<a href=\"Filesystem\/Directory.php.html#61\">Win\\Models\\Filesystem\\Directory::getChildren<\/a>"],[100,1,"<a href=\"Filesystem\/File.php.html#16\">Win\\Models\\Filesystem\\File::__construct<\/a>"],[100,1,"<a href=\"Filesystem\/File.php.html#22\">Win\\Models\\Filesystem\\File::getExtension<\/a>"],[100,1,"<a href=\"Filesystem\/File.php.html#28\">Win\\Models\\Filesystem\\File::getType<\/a>"],[100,2,"<a href=\"Filesystem\/File.php.html#34\">Win\\Models\\Filesystem\\File::getSize<\/a>"],[100,1,"<a href=\"Filesystem\/File.php.html#45\">Win\\Models\\Filesystem\\File::exists<\/a>"],[100,2,"<a href=\"Filesystem\/File.php.html#54\">Win\\Models\\Filesystem\\File::setPath<\/a>"],[100,2,"<a href=\"Filesystem\/File.php.html#66\">Win\\Models\\Filesystem\\File::getContent<\/a>"],[100,1,"<a href=\"Filesystem\/Image.php.html#19\">Win\\Models\\Filesystem\\Image::getWidth<\/a>"],[100,1,"<a href=\"Filesystem\/Image.php.html#28\">Win\\Models\\Filesystem\\Image::getHeight<\/a>"],[100,2,"<a href=\"Filesystem\/Image.php.html#37\">Win\\Models\\Filesystem\\Image::getImageSize<\/a>"],[100,1,"<a href=\"Filesystem\/Storable.php.html#24\">Win\\Models\\Filesystem\\Storable::__toString<\/a>"],[100,1,"<a href=\"Filesystem\/Storable.php.html#30\">Win\\Models\\Filesystem\\Storable::getPath<\/a>"],[100,1,"<a href=\"Filesystem\/Storable.php.html#36\">Win\\Models\\Filesystem\\Storable::getAbsolutePath<\/a>"],[100,2,"<a href=\"Filesystem\/Storable.php.html#45\">Win\\Models\\Filesystem\\Storable::getDirectory<\/a>"],[100,1,"<a href=\"Filesystem\/Storable.php.html#56\">Win\\Models\\Filesystem\\Storable::getName<\/a>"],[100,1,"<a href=\"Filesystem\/Storable.php.html#62\">Win\\Models\\Filesystem\\Storable::getBaseName<\/a>"],[100,1,"<a href=\"Filesystem\/Storable.php.html#68\">Win\\Models\\Filesystem\\Storable::getLastModifiedDate<\/a>"],[100,1,"<a href=\"Filesystem\/Storable.php.html#76\">Win\\Models\\Filesystem\\Storable::setPath<\/a>"],[100,1,"<a href=\"Model.php.html#12\">Win\\Models\\Model::validate<\/a>"],[100,2,"<a href=\"Model.php.html#18\">Win\\Models\\Model::or404<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
