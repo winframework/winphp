@@ -1,0 +1,78 @@
+<?php
+
+use Win\Blocks\AlertBlock;
+use Win\Common\Utils\Form;
+use Win\Views\View;
+
+/** @var View $this */
+/** @var Image $image */
+$animals = ['spaniel', 'Luke', 'James'];
+$current = 'Luke';
+?>
+<main>
+	<h1>Uploader</h1>
+
+	<form method="post" enctype="multipart/form-data">
+
+		<?= (new AlertBlock())->toHtml(); ?>
+
+		<!-- Select -->
+		<div class="form-group">
+			<select>
+				<?php foreach ($animals as $animal) : ?>
+					<option <?= Form::select($current, $animal); ?> value="<?= $animal; ?>">
+						<?= $animal; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+
+		<!-- Checkbox -->
+		<div class="form-group">
+			<input type="checkbox" name="" <?= Form::check(false); ?>>
+			<label for="">Not checked</label>
+		</div>
+		<div class="form-group">
+			<input type="checkbox" name="" <?= FOrm::check(10, 20); ?>>
+			<label for="">Not checked</label>
+		</div>
+		<div class="form-group">
+			<input type="checkbox" name="" <?= FOrm::check(22, 22); ?>>
+			<label for="">Checked</label>
+		</div>
+
+		<!-- Image -->
+		<?php if ($image && $image->exists()) : ?>
+			name: <?= $image->getBaseName(); ?><br />
+			width: <?= $image->getWidth(); ?><br />
+			height: <?= $image->getHeight(); ?><br />
+			size: <?= $image->getSize(); ?><br />
+
+			<div style="max-width: 300px; text-align: center;">
+				<img class="thumbnail" src="<?= $image; ?>" style="max-width: 100%;" />
+			</div>
+		<?php endif; ?>
+
+		<!-- Buttons -->
+		<input type="file" name="upload" required />
+		<input type="submit" name="submit" value="Enviar arquivo" />
+	</form>
+</main>
+
+<style>
+	.form-group {
+		margin-bottom: 10px;
+	}
+
+	.form-group input[type="checkbox"] {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+	}
+
+	.form-group label {
+		line-height: 20px;
+		padding-top: 5px;
+		display: inline-block;
+	}
+</style>

@@ -1,23 +1,30 @@
 <?php
-
 /*
- * Para editar o código HTML do layout, procure em:
- * app/block/layout/
+ * Para editar o código HTML procure em: /app/templates
+ * @see /app/templates
  */
 
-use Win\Mvc\Application;
-use Win\Mvc\HttpException;
+use Win\Application;
+use Win\Common\Benchmark;
+use Win\Request\HttpException;
 
 define('BASE_PATH', __DIR__);
 
-require 'autoload.php';
+require 'app/autoload.php';
 require '../../www/app/config/app.php';
+require 'app/config/routes.php';
 
 session_start();
 
-try {
-	$app = new Application($config);
-	$app->run();
-} catch (HttpException $e) {
-	$e->run();
+$b = new Benchmark();
+for ($i=0; $i < 1; $i++) { 
+	# code...
+	try {
+		$app = new Application();
+		$app->run();
+	} catch (HttpException $e) {
+		$e->run();
+	}
 }
+
+echo $b->getTime();

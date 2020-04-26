@@ -15,10 +15,10 @@
 
 ### Funcionalidades
 
-- Views automáticas;
+- Request/Response;
+- Rotas;
+- Templates (Views/Blocks);
 - Título de Página;
-- Rotas Personalizadas;
-- Sistema de Layouts;
 - Envio de Emails;
 - Manipulador de Datas;
 - Cálculo de Datas;
@@ -29,11 +29,11 @@
 - Sessão;
 - Conexão com Banco de Dados;
 - ORM;
-- Validação de Campos;
 
----
+### Request/Response
+<img src="https://rawgit.com/winframework/winphp/gh-pages/docs/diagrams/win-diagram.png"/>
 
 
 ### Requisitos
 
-| PHP 5.6 +
+| PHP 7.0 +

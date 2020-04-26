@@ -1,23 +1,12 @@
 <?php
 
-/*
- * Rotas Personalizadas
- *
- * Aponta uma URL para um controller de forma manual
- * Rotas personalizadas funcionam apenas se
- * a rota automática não encontrar o controller e nem a view
- */
-
-$routes = [];
+use Win\Request\Router;
 
 /**
- * Exemplos de rotas personalizadas
+ * Direciona uma URL para um Controller/action
  *
- * @example
- * <code>
- * $routes['^home'] = 'index/index';
- * $routes['^foo'] = 'example/foo';
- * $routes['^product/(.*)'] = 'product/detail/$1';
- * </code>
+ * url => NomeDoController/nomeDoAction
  */
-return $routes;
+Router::addRoutes('App\\Controllers\\', [
+	'' => 'IndexController@index',
+]);
