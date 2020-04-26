@@ -1,0 +1,54 @@
+<?php
+
+use Win\Blocks\Block;
+use Win\Common\Layout;
+use Win\Common\Utils\Link;
+use Win\Request\Url;
+
+/** @var Layout $this */
+$body = implode('-', Url::instance()->getSegments());
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<?= (new Block('shared/head'))->toHtml(); ?>
+
+<body class="<?= $body; ?>">
+	<header>
+		<nav class="main-nav">
+			<a id="logo" href="<?= $this->app->getBaseUrl(); ?>">
+				<img src="public/img/win.svg" alt="<?= APP_NAME; ?>" />
+			</a>
+			<input type="checkbox" id="menu-toggle" />
+			<label for="menu-toggle"></label>
+			<ul>
+				<li>
+					<a href="./" class="<?= Link::active('index'); ?>">Página Inicial</a>
+				</li>
+				<li>
+					<a href="demo" class="<?= Link::active('exemplo'); ?>">Exemplo</a>
+				</li>
+				<li>
+					<a href="contato" class="<?= Link::active('contato'); ?>">Contato</a>
+				</li>
+				<li>
+					<a href="nao-existe">404</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="middle">
+		<?= $this->app->view->load(); ?>
+		<br />
+	</div>
+
+	<footer>
+		Made with <span class="heart"></span> by
+		<a href="https://github.com/winframework/winphp" target="_blank">
+			<?= APP_NAME; ?>
+		</a>
+		&copy; <?= date('Y'); ?>
+	</footer>
+</body>
+
+</html>
