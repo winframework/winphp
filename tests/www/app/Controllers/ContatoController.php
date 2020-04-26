@@ -53,7 +53,7 @@ class ContatoController extends Controller
 				$mailer->addTo(static::SEND_TO);
 				$mailer->setFrom(static::SEND_FROM, APP_NAME);
 				$mailer->addReplyTo($this->email, $this->name);
-				$email = new Email('emails/contact', get_object_vars($this));
+				$email = new Email('contact', get_object_vars($this));
 				$mailer->send($email);
 				Alert::success('Sua mensagem foi enviada com sucesso!');
 				$this->refresh();
