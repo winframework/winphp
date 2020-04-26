@@ -84,24 +84,24 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Response\ResponseException
+	 * @expectedException \Win\Request\HttpException
 	 */
-	public function testSendResponseException()
+	public function testRunHttpException()
 	{
 		$app = new Application();
-		$app->sendResponse();
+		$app->run();
 	}
 
-	public function testSendResponse()
+	public function testRunResponse()
 	{
 		Router::addRoutes('Win\\Controllers\\', ['teste' => 'MyController@index']);
 
 		$app = $this->newApp('teste');
-		$app->sendResponse();
+		$app->run();
 	}
 
 	/**
-	 * @expectedException \Win\Response\ResponseException
+	 * @expectedException \Win\Request\HttpException
 	 */
 	public function testErrorPage500()
 	{
@@ -110,7 +110,7 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Response\ResponseException
+	 * @expectedException \Win\Request\HttpException
 	 */
 	public function testPageNotFound()
 	{

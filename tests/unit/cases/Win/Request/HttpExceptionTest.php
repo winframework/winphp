@@ -1,19 +1,19 @@
 <?php
 
-namespace Win\Response;
+namespace Win\Request;
 
 use App\Controllers\ErrorsController;
 use PHPUnit\Framework\TestCase;
 use Win\Application;
 
-class ResponseExceptionTest extends TestCase
+class HttpExceptionTest extends TestCase
 {
-	public function testSendResponseWithView()
+	public function testRunWithView()
 	{
 		ob_start();
 		new Application();
-		$res = new ResponseException('MSG', 404);
-		$res->sendResponse();
+		$ex = new HttpException('MSG', 404);
+		$ex->run();
 		$output = ob_get_clean();
 
 		$this->assertTrue(Application::app()->controller instanceof ErrorsController);

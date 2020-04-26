@@ -2,7 +2,7 @@
 
 namespace Win\Models;
 
-use Win\Response\ResponseException;
+use Win\Request\HttpException;
 
 abstract class Model
 {
@@ -18,7 +18,7 @@ abstract class Model
 	public function or404()
 	{
 		if (!isset($this->id)) {
-			throw new ResponseException('Model not found', 404);
+			throw new HttpException('Model not found', 404);
 		}
 
 		return $this;

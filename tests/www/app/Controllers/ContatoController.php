@@ -3,12 +3,10 @@
 namespace App\Controllers;
 
 use Exception;
-use Win\Common\EmailTemplate;
-use Win\Common\Template;
+use Win\Common\Email;
 use Win\Controllers\Controller;
 use Win\InfraServices\Mailer;
 use Win\InfraServices\ReCaptcha;
-use Win\Models\Email;
 use Win\Repositories\Alert;
 use Win\Request\Input;
 use Win\Views\View;
@@ -55,7 +53,7 @@ class ContatoController extends Controller
 				$mailer->addTo(static::SEND_TO);
 				$mailer->setFrom(static::SEND_FROM, APP_NAME);
 				$mailer->addReplyTo($this->email, $this->name);
-				$email = new Template('emails/contact', get_object_vars($this));
+				$email = new Email('emails/contact', get_object_vars($this));
 				$mailer->send($email);
 				Alert::success('Sua mensagem foi enviada com sucesso!');
 				$this->refresh();

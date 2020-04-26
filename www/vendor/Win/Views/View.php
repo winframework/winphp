@@ -5,7 +5,7 @@ namespace Win\Views;
 use Win\Application;
 use Win\Common\Template;
 use Win\Response\Response;
-use Win\Response\ResponseException;
+use Win\Request\HttpException;
 
 /**
  * View
@@ -29,7 +29,7 @@ class View extends Template implements Response
 	{
 		parent::setFile($file);
 		if (!$this->exists()) {
-			throw new ResponseException("View '{$this->file}' not found", 404);
+			throw new HttpException("View '{$this->file}' not found", 404);
 		}
 	}
 

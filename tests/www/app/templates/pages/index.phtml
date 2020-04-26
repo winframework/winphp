@@ -45,7 +45,9 @@ use Win\Views\View;
 					<?php endforeach; ?>
 				</ul>
 
-				<?= (new Block('shared/pagination', ['pagination' => $orm->pagination]))->toHtml(); ?>
+				<div style="width: 100%">
+					<?= (new Block('shared/pagination', ['pagination' => $orm->pagination]))->toHtml(); ?>
+				</div>
 			</div>
 		</div>
 	</div>

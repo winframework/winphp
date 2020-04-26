@@ -38,8 +38,4 @@ class CategoryOrm extends Orm
 		];
 	}
 
-	public function filterVisible()
-	{
-		return $this->filterBy('Enabled', true);
-	}
 }

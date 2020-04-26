@@ -64,7 +64,7 @@ class MysqlConnectionTest extends TestCase
 		$this->assertTrue(static::$connection->isValid());
 	}
 
-	/** @expectedException Win\Response\ResponseException */
+	/** @expectedException Win\Request\HttpException */
 	public function testErrorConnection()
 	{
 		static::$connectionWrongDb->connect(DbConfig::wrongDb());

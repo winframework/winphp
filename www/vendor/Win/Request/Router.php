@@ -2,7 +2,8 @@
 
 namespace Win\Request;
 
-use Win\Response\ResponseException;
+use Win\Application;
+use Win\Response\Response;
 
 /**
  * Rota de URL
@@ -49,6 +50,31 @@ class Router
 			}
 		}
 
-		throw new ResponseException('Route not found', 404);
+		throw new HttpException('Route not found', 404);
+	}
+
+	/**
+	 * Processa e envia uma resposta baseada no destino [Controller, action, [...args]]
+	 * @param array $destination
+	 */
+	public static function process($destination)
+	{
+		$class = $destination[0];
+		$action = rtrim($destination[1], '@') ?? '';
+		$args = $destination[2] ?? [];
+
+		if (!class_exists($class)) {
+			throw new HttpException("Controller '{$class}' not found", 404);
+		}
+
+		$controller = new $class();
+		$controller->app = Application::app();
+		$controller->app->controller = $controller;
+		if (!method_exists($controller, $action)) {
+			throw new HttpException("Action '{$action}' not found in '{$class}'", 404);
+		}
+
+		$response = $controller->$action(...$args);
+		echo ($response instanceof Response) ? $response->respond() :  $response;
 	}
 }

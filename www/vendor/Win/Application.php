@@ -6,7 +6,7 @@ use App\Controllers\IndexController;
 use Win\Controllers\Controller;
 use Win\Request\Router;
 use Win\Request\Url;
-use Win\Response\ResponseException;
+use Win\Request\HttpException;
 use Win\Response\ResponseFactory;
 use Win\Views\View;
 
@@ -49,9 +49,9 @@ class Application
 	/**
 	 * Roda a aplicação e envia a resposta
 	 */
-	public function sendResponse()
+	public function run()
 	{
-		ResponseFactory::send(Router::getDestination());
+		Router::process(Router::getDestination());
 	}
 
 	/** @return string */
@@ -102,21 +102,21 @@ class Application
 	/**
 	 * Define a página como 404
 	 * @param string $message
-	 * @throws ResponseException
+	 * @throws HttpException
 	 */
 	public function page404($message = '')
 	{
-		throw new ResponseException($message, 404);
+		throw new HttpException($message, 404);
 	}
 
 	/**
 	 * Define a página atual como algum erro
 	 * @param int $code
 	 * @param string $message
-	 * @throws ResponseException
+	 * @throws HttpException
 	 */
 	public function errorPage($code, $message = '')
 	{
-		throw new ResponseException($message, $code);
+		throw new HttpException($message, $code);
 	}
 }

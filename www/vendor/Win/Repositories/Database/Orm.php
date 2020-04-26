@@ -167,7 +167,7 @@ abstract class Orm
 	/**
 	 * Remove todos os filtros
 	 */
-	protected function flush()
+	public function flush()
 	{
 		$this->query = new Query($this);
 

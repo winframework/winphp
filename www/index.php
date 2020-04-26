@@ -5,7 +5,7 @@
  */
 
 use Win\Application;
-use Win\Response\ResponseException;
+use Win\Request\HttpException;
 
 define('BASE_PATH', __DIR__);
 
@@ -17,7 +17,7 @@ session_start();
 
 try {
 	$app = new Application();
-	$app->sendResponse();
-} catch (ResponseException $e) {
-	$e->sendResponse();
+	$app->run();
+} catch (HttpException $e) {
+	$e->run();
 }

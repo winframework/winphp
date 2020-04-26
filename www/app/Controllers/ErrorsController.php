@@ -3,15 +3,15 @@
 namespace App\Controllers;
 
 use Win\Controllers\Controller;
-use Win\Response\ResponseException;
+use Win\Request\HttpException;
 use Win\Views\View;
 
 class ErrorsController extends Controller
 {
-	/** @var ResponseException */
+	/** @var HttpException */
 	public $exception;
 
-	public function error404(ResponseException $e)
+	public function error404(HttpException $e)
 	{
 		$this->title = 'Página não encontrada';
 		$this->exception = $e;

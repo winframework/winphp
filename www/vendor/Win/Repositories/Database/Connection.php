@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 use PDOStatement;
 use Win\Common\Traits\SingletonTrait;
-use Win\Response\ResponseException;
+use Win\Request\HttpException;
 
 /**
  * Conexão com banco de dados
@@ -47,7 +47,7 @@ abstract class Connection
 			$this->pdoException = null;
 		} catch (\PDOException $e) {
 			$message = 'Houve um erro ao conectar o banco de dados';
-			throw new ResponseException($message, 503, $e);
+			throw new HttpException($message, 503, $e);
 		}
 	}
 

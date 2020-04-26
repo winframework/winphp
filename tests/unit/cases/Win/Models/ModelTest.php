@@ -20,7 +20,7 @@ class ModelTest extends TestCase
 		$model->or404();
 	}
 
-	/** @expectedException Win\Response\ResponseException */
+	/** @expectedException Win\Request\HttpException */
 	public function testOr404Redirect()
 	{
 		$model = new MyModel();

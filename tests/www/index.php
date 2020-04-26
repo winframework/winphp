@@ -6,7 +6,7 @@
 
 use Win\Application;
 use Win\Common\Benchmark;
-use Win\Response\ResponseException;
+use Win\Request\HttpException;
 
 define('BASE_PATH', __DIR__);
 
@@ -17,13 +17,13 @@ require 'app/config/routes.php';
 session_start();
 
 $b = new Benchmark();
-for ($i=0; $i < 100; $i++) { 
+for ($i=0; $i < 1; $i++) { 
 	# code...
 	try {
 		$app = new Application();
-		$app->sendResponse();
-	} catch (ResponseException $e) {
-		$e->sendResponse();
+		$app->run();
+	} catch (HttpException $e) {
+		$e->run();
 	}
 }
 

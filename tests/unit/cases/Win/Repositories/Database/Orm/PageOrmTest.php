@@ -203,7 +203,7 @@ class PageOrmTest extends TestCase
 		$this->assertEquals('First Page', $orm->title);
 	}
 
-	/** @expectedException Win\Response\ResponseException */
+	/** @expectedException Win\Request\HttpException */
 	public function testOrFailException()
 	{
 		ApplicationTest::newApp();
