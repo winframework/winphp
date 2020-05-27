@@ -5,6 +5,7 @@ namespace Win\Common;
 /**
  * Templates para Layouts em .PHTML
  * Layouts são a parte externa de um template
+ * É recomendável que todos layouts tenham o prefixo "layout" no nome.
  */
 class Layout extends Template
 {
