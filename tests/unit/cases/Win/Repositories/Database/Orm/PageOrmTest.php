@@ -21,19 +21,19 @@ class PageOrmTest extends TestCase
 
 	public static function createTable()
 	{
-		Mysql::instance()->query('DROP TABLE `Pages` ');
-		Mysql::instance()->query('CREATE TABLE `Pages` (
-			`Id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-			`CategoryId` int(11) NULL,
-			`Title` varchar(75) NOT NULL,
-			`Description` text NOT NULL,
-			`CreatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+		Mysql::instance()->query('DROP TABLE `pages` ');
+		Mysql::instance()->query('CREATE TABLE `pages` (
+			`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+			`categoryId` int(11) NULL,
+			`title` varchar(75) NOT NULL,
+			`description` text NOT NULL,
+			`createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 			) ENGINE=InnoDB DEFAULT CHARSET=latin1;');
 	}
 
 	public static function importTable()
 	{
-		Mysql::instance()->query("INSERT INTO `Pages` (`Id`, `Title`, `Description`, `CreatedAt`) VALUES
+		Mysql::instance()->query("INSERT INTO `pages` (`id`, `title`, `description`, `createdAt`) VALUES
 			(1, 'First Page', 'About us', '2018-11-04 10:46:03'),
 			(2, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
 			(3, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");

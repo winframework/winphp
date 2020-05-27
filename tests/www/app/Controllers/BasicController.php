@@ -32,7 +32,7 @@ class BasicController extends Controller
 	 */
 	public function alternativeLayout()
 	{
-		$this->layout = 'alternative';
+		$this->layout = 'layout-alternative';
 
 		return new View('basic/index');
 	}

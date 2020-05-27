@@ -2,25 +2,25 @@
 
 namespace App\Controllers;
 
-use App\Models\Page;
-use App\Repositories\CategoryOrm;
+use App\Repositories\PageCategoryOrm;
 use App\Repositories\PageOrm;
 use Win\Controllers\Controller;
 use Win\Repositories\Database\MysqlConnection;
+use Win\Repositories\Filesystem;
 use Win\Request\Input;
 use Win\Views\View;
 
 /**
  * pages => Pages@index
- * pages/(.*) => Pages@byCategory
- * page/(.*) => Pages@detail
+ * pages/(.*) => Pages@listByCategory
+ * page/(.*) => Pages@detailPage
  */
 class PagesController extends Controller
 {
 	/** @var PageOrm */
 	public $orm;
 
-	/** @var CategoryOrm */
+	/** @var PageCategoryOrm */
 	public $categoryOrm;
 
 	/** @var int */
@@ -29,12 +29,9 @@ class PagesController extends Controller
 	public function __construct()
 	{
 		$this->orm = new PageOrm();
-		$this->categoryOrm = new CategoryOrm();
+		$this->categoryOrm = new PageCategoryOrm();
 
-		$db = [];
-		require 'app/config/database.php';
-		MysqlConnection::instance()->connect($db);
-
+		$this->prepareDatabase();
 		$this->orm
 			->sortBy('id', 'asc')
 			->paginate($this->pageSize, Input::get('p'));
@@ -57,18 +54,13 @@ class PagesController extends Controller
 	/**
 	 * Exibe os itens da categoria atual
 	 */
-	public function byCategory($categoryId)
+	public function listByCategory($categoryId)
 	{
-		$category = $this->categoryOrm
-			->filterBy('Id', $categoryId)
-			->one()
-			->or404();
-
-		$orm = $this->orm;
-		$orm->filterBy('CategoryId', $category->id);
+		$category = $this->categoryOrm->find($categoryId);
+		$this->orm->filterBy('categoryId', $categoryId);
 
 		$this->title = 'Pages - ' . $category->title;
-		$this->pages = $orm->list();
+		$this->pages = $this->orm->list();
 		$this->categories = $this->getCategories();
 
 		return new View('pages/index');
@@ -77,14 +69,14 @@ class PagesController extends Controller
 	/**
 	 * Exibe detalhes do item
 	 */
-	public function detail($id)
+	public function show($id)
 	{
 		$page = $this->getPage($id);
 
 		$this->title = 'Page - ' . $page->title;
 		$this->page = $page;
 
-		return new View('pages/detail');
+		return new View('pages/show');
 	}
 
 	protected function getCategories()
@@ -97,8 +89,18 @@ class PagesController extends Controller
 	protected function getPage($id)
 	{
 		return $this->orm
-			->filterBy('Id', $id)
+			->filterBy('id', $id)
 			->one()
 			->or404();
+	}
+
+	private function prepareDatabase()
+	{
+		$fs = new Filesystem();
+		$db = [];
+		require 'app/config/database.php';
+		MysqlConnection::instance()->connect($db);
+		$query = $fs->read('../database/winphp_demo.sql');
+		MysqlConnection::instance()->query($query);
 	}
 }

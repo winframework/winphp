@@ -10,6 +10,7 @@ use Win\Repositories\Database\Orm\RawTrait;
 use Win\Repositories\Database\Orm\SortTrait;
 use Win\Repositories\Database\Sql\Builder;
 use Win\Repositories\Database\Sql\Query;
+use Win\Request\HttpException;
 
 /**
  * Object Relational Mapping
@@ -48,10 +49,6 @@ abstract class Orm
 	 */
 	abstract public static function mapRow($model);
 
-	/**
-	 * @param mixed[] $row
-	 * @return Model
-	 */
 	abstract public static function mapModel($row);
 
 	/**
@@ -76,6 +73,23 @@ abstract class Orm
 		$this->flush();
 
 		return $this->mapModel($row);
+	}
+
+	/** @return static::one() */
+	public function oneOrFail()
+	{
+		$obj = $this->one();
+		$this->or404($obj);
+		return $obj;
+	}
+
+	private function or404(Model $obj)
+	{
+		if (!isset($obj->id)) {
+			throw new HttpException('Model not found', 404);
+		}
+
+		return $this;
 	}
 
 	/**

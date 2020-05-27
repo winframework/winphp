@@ -12,13 +12,11 @@ use Win\Request\Url;
  */
 abstract class Controller
 {
-	public static $dir = '/app/controllers';
-
 	/** @var Application */
 	public $app;
 
 	/** @var string */
-	public $layout = 'default';
+	public $layout = 'layout';
 
 	/** @var string */
 	public $title;

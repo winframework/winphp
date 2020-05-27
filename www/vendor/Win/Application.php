@@ -15,7 +15,7 @@ use Win\Views\View;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.5.0
+ * @version 1.5.1
  */
 class Application
 {

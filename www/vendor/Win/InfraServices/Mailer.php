@@ -157,6 +157,6 @@ class Mailer
 		$name = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 		$body = $this->mailer->Body;
 
-		return $fs->write(static::DIRECTORY . '/' . $name, $body);
+		return $fs->write(static::DIRECTORY . "/$name", $body);
 	}
 }

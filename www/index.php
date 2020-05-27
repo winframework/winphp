@@ -1,7 +1,7 @@
 <?php
 /*
- * Para editar o código HTML procure em: /app/templates
- * @see /app/templates
+ * Para editar o código HTML procure em: app/templates/shared
+ * @see app/templates/shared
  */
 
 use Win\Application;

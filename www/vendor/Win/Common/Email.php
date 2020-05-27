@@ -6,11 +6,11 @@ use Win\InfraServices\Mailer;
 
 /**
  * Templates de Email
- * Ver arquivos em: "/app/templates/emails"
+ * Ver arquivos em: "app/templates/emails"
  */
 class Email extends Template
 {
-	public static $dir = '/app/templates/emails';
+	public static $dir = 'app/templates/emails';
 
 	/** @var Mailer */
 	public $mailer;
@@ -21,8 +21,8 @@ class Email extends Template
 	 * @param array $data
 	 * @param string $layout
 	 */
-	public function __construct($file, $data = [], $layout = 'default')
+	public function __construct($file, $data = [], $layout = 'layout')
 	{
-		parent::__construct($file, $data, $layout);
+		parent::__construct($file, $data, 'emails/' . $layout);
 	}
 }

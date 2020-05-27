@@ -7,7 +7,7 @@ use Win\Models\Model;
 /**
  * Categoria
  */
-class Category extends Model
+class PageCategory extends Model
 {
 	public $title;
 	public $description;

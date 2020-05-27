@@ -22,12 +22,13 @@ class View extends Template implements Response
 	{
 		Application::app()->view = $this;
 		$controller = Application::app()->controller;
-		parent::__construct($file, get_object_vars($controller), $controller->layout);
+		$data = get_object_vars($controller);
+		parent::__construct($file, $data, 'shared/' . $controller->layout);
+		$this->validateFile();
 	}
 
-	protected function setFile($file)
+	private function validateFile()
 	{
-		parent::setFile($file);
 		if (!$this->exists()) {
 			throw new HttpException("View '{$this->file}' not found", 404);
 		}

@@ -6,11 +6,11 @@ use Win\Application;
 
 /**
  * Templates em .PHTML
- * Ver arquivos em: "/app/templates/"
+ * Ver arquivos em: "app/templates/"
  */
 class Template
 {
-	public static $dir = '/app/templates';
+	public static $dir = 'app/templates';
 	/**
 	 * Ponteiro para Aplicação Principal
 	 * @var Application
@@ -43,19 +43,10 @@ class Template
 	 */
 	public function __construct($file, $data = [], $layout = null)
 	{
-		$this->setFile($file);
 		$this->app = Application::app();
+		$this->file = BASE_PATH . '/' . static::$dir . "/$file.phtml";
 		$this->data = $data;
 		$this->layout = $layout;
-	}
-
-	/**
-	 * Define o arquivo do template
-	 * @param string $file
-	 */
-	protected function setFile($file)
-	{
-		$this->file = BASE_PATH . static::$dir . '/' . $file . '.phtml';
 	}
 
 	/**

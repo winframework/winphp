@@ -11,13 +11,19 @@ abstract class Model
 
 	abstract public function validate();
 
+	/** @return boolean */
+	public function exists()
+	{
+		return isset($this->id);
+	}
+
 	/**
 	 * Retorna o model ou define página 404
 	 * @return static
 	 */
 	public function or404()
 	{
-		if (!isset($this->id)) {
+		if (!$this->exists()) {
 			throw new HttpException('Model not found', 404);
 		}
 

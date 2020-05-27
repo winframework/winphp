@@ -15,17 +15,17 @@ use Win\Repositories\Database\Orm;
  */
 class PageOrm extends Orm
 {
-	const TABLE = 'Pages';
+	const TABLE = 'pages';
 	const TITLE = 'Página';
 
 	/** @return Page */
 	public static function mapModel($row)
 	{
 		$page = new Page();
-		$page->id = $row['Id'];
-		$page->title = $row['Title'];
-		$page->description = $row['Description'];
-		$page->createdAt = new DateTime($row['CreatedAt']);
+		$page->id = $row['id'];
+		$page->title = $row['title'];
+		$page->description = $row['description'];
+		$page->createdAt = new DateTime($row['createdAt']);
 
 		return $page;
 	}
@@ -34,15 +34,15 @@ class PageOrm extends Orm
 	public static function mapRow($model)
 	{
 		return [
-			'Id' => $model->id,
-			'Title' => $model->title,
-			'Description' => $model->description,
-			'CreatedAt' => $model->createdAt->toSql(),
+			'id' => $model->id,
+			'title' => $model->title,
+			'description' => $model->description,
+			'createdAt' => $model->createdAt->toSql(),
 		];
 	}
 
 	public function filterVisible()
 	{
-		return $this->filterBy('CreatedAt < NOW()');
+		return $this->filterBy('createdAt < NOW()');
 	}
 }
