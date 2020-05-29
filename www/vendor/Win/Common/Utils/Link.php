@@ -13,7 +13,7 @@ class Link
 	 * Usado para ativar Links (aceita array)
 	 *
 	 * Retorna 'active' se o link for idêntico ao início da URL atual
-	 * @param string ...$links
+	 * @param string[] $links
 	 * @return string
 	 */
 	public static function active(...$links)

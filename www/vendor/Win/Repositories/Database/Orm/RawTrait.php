@@ -32,7 +32,7 @@ trait RawTrait
 	 */
 	public function runRaw()
 	{
-		$this->query->setBuilder(Builder::RAW);
+		$this->query->build(Builder::RAW);
 
 		return $this->conn->query($this->query, $this->query->getValues());
 	}

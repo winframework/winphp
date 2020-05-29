@@ -8,7 +8,7 @@ class UrlTest extends TestCase
 {
 	public function testFormat()
 	{
-		Url::instance()->setSuffix('/');
+		Url::instance()->suffix = '/';
 		$link = 'my-custom-link';
 		$formatedLink = Url::instance()->format($link);
 		$this->assertEquals('my-custom-link/', $formatedLink);
@@ -20,7 +20,7 @@ class UrlTest extends TestCase
 
 	public function testFormatExtension()
 	{
-		Url::instance()->setSuffix('.html');
+		Url::instance()->suffix = '.html';
 		$link2 = 'my-custom-link-with-extension';
 		$formatedLink2 = Url::instance()->format($link2);
 		$this->assertEquals('my-custom-link-with-extension.html', $formatedLink2);
@@ -28,7 +28,7 @@ class UrlTest extends TestCase
 
 	public function testGetUrl()
 	{
-		Url::instance()->setSuffix('/');
+		Url::instance()->suffix = '/';
 		Url::instance()->setUrl('my-page/subpage');
 		$url = Url::instance()->getUrl();
 		$this->assertContains('my-page/subpage', $url);
@@ -36,7 +36,7 @@ class UrlTest extends TestCase
 
 	public function testGetUrlNull()
 	{
-		Url::instance('new')->setSuffix('');
+		Url::instance('new')->suffix = '';
 		$_SERVER['HTTP_HOST'] = true;
 
 		$url = Url::instance('new')->getUrl();
@@ -45,7 +45,7 @@ class UrlTest extends TestCase
 
 	public function testGetSegments()
 	{
-		Url::instance()->setSuffix('/');
+		Url::instance()->suffix = '/';
 		Url::instance()->setUrl('my-page/subpage');
 		$segments = Url::instance()->getSegments();
 
@@ -53,12 +53,4 @@ class UrlTest extends TestCase
 		$this->assertEquals('subpage', $segments[1]);
 	}
 
-	public function testSetSegments()
-	{
-		$segments = ['a', 'b'];
-		Url::instance()->setUrl('my-page/subpage');
-		Url::instance()->setSegments($segments);
-
-		$this->assertEquals($segments, Url::instance()->getSegments());
-	}
 }

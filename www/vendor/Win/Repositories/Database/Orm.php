@@ -66,30 +66,12 @@ abstract class Orm
 	 */
 	public function one()
 	{
-		$query = $this->query;
-		$query->setBuilder(Builder::SELECT);
+		$query = $this->query->build(Builder::SELECT);
 		$query->limit->set(0, 1);
 		$row = $this->conn->fetch($query, $query->getValues());
 		$this->flush();
 
 		return $this->mapModel($row);
-	}
-
-	/** @return static::one() */
-	public function oneOrFail()
-	{
-		$obj = $this->one();
-		$this->or404($obj);
-		return $obj;
-	}
-
-	private function or404(Model $obj)
-	{
-		if (!isset($obj->id)) {
-			throw new HttpException('Model not found', 404);
-		}
-
-		return $this;
 	}
 
 	/**
@@ -107,8 +89,7 @@ abstract class Orm
 	public function list()
 	{
 		$this->applyPagination();
-		$query = $this->query;
-		$query->setBuilder(Builder::SELECT);
+		$query = $this->query->build(Builder::SELECT);
 		$rows = $this->conn->fetchAll($query, $query->getValues());
 		$this->flush();
 
@@ -121,8 +102,7 @@ abstract class Orm
 	 */
 	public function count()
 	{
-		$query = $this->query;
-		$query->setBuilder(Builder::SELECT_COUNT);
+		$query = $this->query->build(Builder::SELECT_COUNT);
 
 		return $this->conn->fetchCount($query, $query->getValues());
 	}
@@ -132,8 +112,7 @@ abstract class Orm
 	 */
 	public function delete()
 	{
-		$query = $this->query;
-		$query->setBuilder(Builder::DELETE);
+		$query = $this->query->build(Builder::DELETE);
 
 		$this->conn->query($query, $query->getValues());
 		$this->flush();
@@ -145,9 +124,8 @@ abstract class Orm
 	 */
 	public function destroy($id)
 	{
-		$query = $this->query;
+		$query = $this->query->build(Builder::DELETE);;
 		$this->filterBy(static::PK, $id);
-		$query->setBuilder(Builder::DELETE);
 
 		$this->conn->query($query, $query->getValues());
 		$this->flush();
@@ -190,9 +168,8 @@ abstract class Orm
 
 	private function insert()
 	{
-		$query = $this->query;
+		$query = $this->query->build(Builder::INSERT);
 		$query->values = $this->mapRow($this->model);
-		$query->setBuilder(Builder::INSERT);
 
 		$this->conn->query($query, $query->getValues());
 		$this->model->id = (int) $this->conn->getLastInsertId();
@@ -203,9 +180,8 @@ abstract class Orm
 		$this->query = new Query($this);
 		$this->filterBy(static::PK, $this->model->id);
 
-		$query = $this->query;
+		$query = $this->query->build(Builder::UPDATE);
 		$query->values = $this->mapRow($this->model);
-		$query->setBuilder(Builder::UPDATE);
 
 		$this->conn->query($query, $query->getValues());
 		$this->flush();

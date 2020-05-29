@@ -40,7 +40,7 @@ class Directory extends Storable
 	/** @return bool */
 	public function isEmpty()
 	{
-		return 0 == count($this->getChildrenNames());
+		return count($this->getChildrenNames()) == 0;
 	}
 
 	/**

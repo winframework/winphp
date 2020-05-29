@@ -53,11 +53,14 @@ class Query
 	/**
 	 * Define o builder da Query
 	 * @param string $statementType
+	 * @return $this
 	 * @example setStatement('SELECT'|'UPDATE'|'DELETE')
 	 */
-	public function setBuilder($statementType)
+	public function build($statementType)
 	{
 		$this->builder = Builder::factory($statementType, $this);
+
+		return $this;
 	}
 
 	/** @return mixed[] */

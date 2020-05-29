@@ -12,21 +12,12 @@ class Url
 	use SingletonTrait;
 
 	const HOME = ['index', 'index'];
+	public $suffix = '/';
 
 	protected $base = null;
 	protected $url = null;
-	protected $suffix = '/';
 	protected $protocol = null;
 	protected $segments = null;
-
-	/**
-	 * Define um novo sufixo de URL
-	 * @param string $suffix
-	 */
-	public function setSuffix($suffix)
-	{
-		$this->suffix = $suffix;
-	}
 
 	/**
 	 * Retorna no formato de URL
@@ -110,14 +101,6 @@ class Url
 	{
 		$this->url = $this->format($url);
 		$this->segments = null;
-	}
-
-	/**
-	 * @param string[] $segments
-	 */
-	public function setSegments($segments)
-	{
-		$this->segments = $segments;
 	}
 
 	/**

@@ -10,12 +10,9 @@ use Win\Repositories\Alert;
  */
 class AlertBlock extends Block
 {
-	/** @var string */
-	const BLOCK = 'shared/alerts';
-
-	public function __construct($group = '')
+	public function __construct($group = 'default')
 	{
 		$alerts = Alert::instance($group)->popAll() ?? [];
-		parent::__construct(static::BLOCK, ['alerts' => $alerts]);
+		parent::__construct('shared/alerts', ['alerts' => $alerts]);
 	}
 }

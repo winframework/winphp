@@ -9,7 +9,7 @@ use Win\Response\Response;
  * Rota de URL
  *
  * Redireciona a requisição para um "Controller@action".
- * @see "/app/config/routes.php"
+ * @see "app/config/routes.php"
  */
 class Router
 {
@@ -30,7 +30,7 @@ class Router
 
 	/**
 	 * Percorre todas as rotas e retorna o destino final
-	 * @return mixed[] Destino
+	 * @return array<string, string, array> Destino
 	 * @example return [Controller, action, [..$args]]
 	 */
 	public static function getDestination()
@@ -40,11 +40,10 @@ class Router
 
 		foreach (static::$routes as $request => $destination) {
 			$pattern = '@^' . $url->format($request) . '$@';
-			$match = 1 == preg_match($pattern, $url->getUrl(), $matches);
+			$match = preg_match($pattern, $url->getUrl(), $matches);
 			if ($match) {
-				$args = array_splice($matches, 1);
 				$target = array_pad(explode('@', $destination), 2, '');
-				$target[] = $args;
+				$target[] = (array) array_splice($matches, 1);
 
 				return $target;
 			}
@@ -55,12 +54,12 @@ class Router
 
 	/**
 	 * Processa e envia uma resposta baseada no destino [Controller, action, [...args]]
-	 * @param array $destination
+	 * @param array<string,string,array> $destination
 	 */
 	public static function process($destination)
 	{
 		$class = $destination[0];
-		$action = rtrim($destination[1], '@') ?? '';
+		$action = $destination[1] ?? '';
 		$args = $destination[2] ?? [];
 
 		if (!class_exists($class)) {

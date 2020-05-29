@@ -10,7 +10,7 @@ use Win\Repositories\Session;
  */
 class Alert extends Session
 {
-	public static function instance($group = '')
+	public static function instance($group = 'default')
 	{
 		return parent::instance('alerts.' . $group);
 	}

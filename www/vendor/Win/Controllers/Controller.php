@@ -8,7 +8,7 @@ use Win\Request\Url;
 /**
  * Controller
  *
- * Responsável por processar as requisições e definir a View
+ * Responsável por processar as requisições e retornar a View
  */
 abstract class Controller
 {
