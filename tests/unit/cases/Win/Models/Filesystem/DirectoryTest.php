@@ -22,6 +22,7 @@ class DirectoryTest extends TestCase
 		$fs->delete('data/dir');
 		$fs->create('data/dir');
 		$fs->create('data/dir/sub1');
+		$fs->write('data/dir/file.txt','teste');
 
 		static::$dirInexistent = new Directory('my-sample/directory');
 		static::$dir = new Directory('data/dir');
@@ -111,6 +112,9 @@ class DirectoryTest extends TestCase
 
 	public function testGetChildren()
 	{
-		$this->assertEquals(1, count(static::$dir->getChildren()));
+		$children = static::$dir->getChildren();
+		$this->assertEquals(2, count($children));
+		$this->assertEquals('file.txt', $children[0]->getBaseName());
+		$this->assertEquals('sub1', $children[1]->getBaseName());
 	}
 }

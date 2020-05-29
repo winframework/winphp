@@ -23,7 +23,7 @@
 - Manipulador de Datas;
 - Cálculo de Datas;
 - Manipulador de Arquivos;
-- Manipulador de Tipos Variáveis (Boolean, String, Array, etc);
+- Manipulador de Tipos Variáveis (String, Array, Integer, etc);
 - Manipulador de Variáveis Globais (Input, Server, etc);
 - Alertas;
 - Sessão;
