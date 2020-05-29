@@ -2,6 +2,6 @@ languages:
  PHP: true
 exclude_paths:
  - tests/
- - www/lib/vendor/
- - www/app/models/PHPMailer/
+ - www/vendor/
+ - www/vendor/PHPMailer/
  - spec/
