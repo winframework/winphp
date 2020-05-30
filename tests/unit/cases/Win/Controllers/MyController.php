@@ -4,19 +4,22 @@ namespace Win\Controllers;
 
 class MyController extends Controller
 {
+	private $a;
+	private $b;
+	
 	public function __construct($a = null)
 	{
-		$this->addData('a', $a);
+		$this->a =  $a;
 	}
 
 	public function getA()
 	{
-		return $this->getData('a');
+		return $this->a;
 	}
 
 	public function getB()
 	{
-		return $this->getData('b');
+		return $this->b;
 	}
 
 	public function sum($first, $second)

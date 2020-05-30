@@ -21,38 +21,11 @@ abstract class Controller
 	/** @var string */
 	public $title;
 
-	/** @var mixed[] */
-	public $data;
-
 	/**
 	 * Action Index
 	 */
 	public function index()
 	{
-	}
-
-	/**
-	 * Adiciona uma variável para usar na View
-	 * @param string $name
-	 * @param mixed $value
-	 */
-	protected function addData($name, $value)
-	{
-		$this->data[$name] = $value;
-	}
-
-	/**
-	 * Retorna uma variável do Controller
-	 * @param string $name
-	 * @return mixed|null
-	 */
-	protected function getData($name)
-	{
-		if (key_exists($name, $this->data)) {
-			return $this->data[$name];
-		}
-
-		return null;
 	}
 
 	/**
