@@ -101,6 +101,6 @@ class PagesController extends Controller
 		require 'app/config/database.php';
 		MysqlConnection::instance()->connect($db);
 		$query = $fs->read('../database/winphp_demo.sql');
-		MysqlConnection::instance()->query($query);
+		MysqlConnection::instance()->execute($query);
 	}
 }
