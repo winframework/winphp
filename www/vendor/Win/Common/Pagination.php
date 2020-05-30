@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Repositories;
+namespace Win\Common;
 
 /**
  * Auxilia criar paginações

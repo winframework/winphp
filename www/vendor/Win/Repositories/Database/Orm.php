@@ -2,11 +2,8 @@
 
 namespace Win\Repositories\Database;
 
-use Win\Repositories\Pagination;
+use Win\Common\Pagination;
 use Win\Models\Model;
-use Win\Repositories\Database\Orm\FilterTrait;
-use Win\Repositories\Database\Orm\PaginationTrait;
-use Win\Repositories\Database\Orm\SortTrait;
 use Win\Repositories\Database\Sql\Query;
 
 /**
