@@ -30,7 +30,7 @@ class Router
 
 	/**
 	 * Percorre todas as rotas e retorna o destino final
-	 * @return array<string, string, mixed[]> Destino
+	 * @return array Destino
 	 * @example return [Controller, action, [..$args]]
 	 */
 	public static function getDestination()
@@ -53,8 +53,9 @@ class Router
 	}
 
 	/**
-	 * Processa e envia uma resposta baseada no destino [Controller, action, [...args]]
-	 * @param array<string,string,array> $destination
+	 * Processa e envia uma resposta baseada no destino 
+	 * @param array $destination
+	 * @example process([Controller, action, [...args]])
 	 */
 	public static function process($destination)
 	{

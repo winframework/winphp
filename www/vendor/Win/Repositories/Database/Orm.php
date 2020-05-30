@@ -26,6 +26,9 @@ abstract class Orm
 	/** @var Query */
 	protected $query;
 
+	/** @var Pagination */
+	protected $pagination;
+
 	/**
 	 * @param Model $model
 	 * @return mixed[]
