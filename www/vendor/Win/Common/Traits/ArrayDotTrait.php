@@ -126,6 +126,6 @@ trait ArrayDotTrait
 	 */
 	public function isEmpty()
 	{
-		return count($this->all()) == 0;
+		return empty($this->data);
 	}
 }
