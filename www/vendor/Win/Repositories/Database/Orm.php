@@ -124,7 +124,7 @@ abstract class Orm
 	 */
 	public function destroy($id)
 	{
-		$query = $this->query->build(Builder::DELETE);;
+		$query = $this->query->build(Builder::DELETE);
 		$this->filterBy(static::PK, $id);
 
 		$this->conn->query($query, $query->getValues());

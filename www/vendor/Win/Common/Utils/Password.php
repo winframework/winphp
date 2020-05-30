@@ -8,10 +8,10 @@ namespace Win\Common\Utils;
 abstract class Password
 {
 	/**
-	 * Chave única que aumenta a segurança das senhas
+	 * Chave que aumenta a segurança das senhas
 	 * @var string
 	 */
-	private static $salt = 'E50H%gDui#';
+	public static $salt = 'E50H%gDui#';
 
 	/**
 	 * Retorna uma senha aleatória
@@ -33,7 +33,7 @@ abstract class Password
 	}
 
 	/**
-	 * Adiciona maior segurança a senha
+	 * Criptografa a senha com maior maior segurança
 	 * @param string $password
 	 */
 	public static function encrypt($password)
