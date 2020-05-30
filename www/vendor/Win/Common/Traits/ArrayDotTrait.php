@@ -23,7 +23,7 @@ trait ArrayDotTrait
 	}
 
 	/**
-	 * Retorna todas as variáveis
+	 * Retorna todos os valores
 	 * @return mixed[]
 	 */
 	public function all()
