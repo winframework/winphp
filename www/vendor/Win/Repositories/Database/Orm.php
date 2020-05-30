@@ -26,9 +26,6 @@ abstract class Orm
 	/** @var Connection */
 	public $conn;
 
-	/** @var Model */
-	protected $model;
-
 	/** @var Query */
 	protected $query;
 
@@ -155,12 +152,14 @@ abstract class Orm
 	public function save(Model $model)
 	{
 		$model->validate();
-		$this->model = $model;
-		!$this->modelExists() ? $this->insert() : $this->update();
-
+		if ($this->exists($model)) {
+			$this->update($model);
+		} else {
+			$this->insert($model);
+		};
 		$this->flush();
 
-		return $this->model;
+		return $model;
 	}
 
 	/**
@@ -173,20 +172,26 @@ abstract class Orm
 		return $this;
 	}
 
-	private function insert()
+	/**
+	 * @param Model $model
+	 */
+	private function insert($model)
 	{
-		$this->query = new Query(static::TABLE, $this->mapRow($this->model));
+		$this->query = new Query(static::TABLE, $this->mapRow($model));
 		$query = $this->query->insert();
 		$values = $this->query->getValues();
 		$this->conn->execute($query, $values);
 
-		$this->model->id = (int) $this->conn->getLastInsertId();
+		$model->id = (int) $this->conn->getLastInsertId();
 	}
 
-	private function update()
+	/**
+	 * @param Model $model
+	 */
+	private function update($model)
 	{
-		$this->query = new Query(static::TABLE, $this->mapRow($this->model));
-		$this->filterBy(static::PK, $this->model->id);
+		$this->query = new Query(static::TABLE, $this->mapRow($model));
+		$this->filterBy(static::PK, $model->id);
 
 		$query = $this->query->update();
 		$values = $this->query->getValues();
@@ -194,11 +199,14 @@ abstract class Orm
 		$this->flush();
 	}
 
-	/** @return bool */
-	protected function modelExists()
+	/**
+	 * Retorna TRUE se o model existir no banco
+	 * @return bool
+	 */
+	protected function exists($model)
 	{
 		$orm = new static($this->conn);
-		$orm->filterBy(static::PK, $this->model->id);
+		$orm->filterBy(static::PK, $model->id);
 
 		return $orm->count() > 0;
 	}
@@ -214,31 +222,6 @@ abstract class Orm
 		$this->query->where->add($comparator, ...$values);
 
 		return $this;
-	}
-
-	/**
-	 * @param int $pageSize
-	 * @param int $pageNumber
-	 */
-	public function paginate($pageSize, $pageNumber = 1)
-	{
-		$this->pagination->setPage($pageSize, $pageNumber);
-
-		return $this;
-	}
-
-	/**
-	 * Define a paginação se necessário
-	 */
-	private function applyPagination()
-	{
-		$count = $this->count();
-		$pagination = $this->pagination;
-
-		if ($pagination->pageSize() && $count) {
-			$pagination->setCount($count);
-			$this->query->limit->set($pagination->offset(), $pagination->pageSize());
-		}
 	}
 
 	/**
@@ -267,5 +250,30 @@ abstract class Orm
 	public function sortRand()
 	{
 		return $this->sortBy('RAND()');
+	}
+
+	/**
+	 * @param int $pageSize
+	 * @param int $pageNumber
+	 */
+	public function paginate($pageSize, $pageNumber = 1)
+	{
+		$this->pagination->setPage($pageSize, $pageNumber);
+
+		return $this;
+	}
+
+	/**
+	 * Define a paginação se necessário
+	 */
+	private function applyPagination()
+	{
+		$count = $this->count();
+		$pagination = $this->pagination;
+
+		if ($pagination->pageSize() && $count) {
+			$pagination->setCount($count);
+			$this->query->limit->set($pagination->offset(), $pagination->pageSize());
+		}
 	}
 }
