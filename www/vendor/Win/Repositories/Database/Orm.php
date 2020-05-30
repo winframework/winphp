@@ -14,10 +14,6 @@ use Win\Repositories\Database\Sql\Query;
  */
 abstract class Orm
 {
-	use FilterTrait;
-	use SortTrait;
-	use PaginationTrait;
-
 	/** @var string */
 	const TABLE = '';
 
@@ -205,5 +201,71 @@ abstract class Orm
 		$orm->filterBy(static::PK, $this->model->id);
 
 		return $orm->count() > 0;
+	}
+
+	/**
+	 * Aplica um filtro ($comparator aceita mais de uma regra)
+	 * @param string $comparator
+	 * @param mixed $value
+	 * @example filterBy('name = ? AND email = ?', 'John', 'john@email.com')
+	 */
+	public function filterBy($comparator, ...$values)
+	{
+		$this->query->where->add($comparator, ...$values);
+
+		return $this;
+	}
+
+	/**
+	 * @param int $pageSize
+	 * @param int $pageNumber
+	 */
+	public function paginate($pageSize, $pageNumber = 1)
+	{
+		$this->pagination->setPage($pageSize, $pageNumber);
+
+		return $this;
+	}
+
+	/**
+	 * Define a paginação se necessário
+	 */
+	private function applyPagination()
+	{
+		$count = $this->count();
+		$pagination = $this->pagination;
+
+		if ($pagination->pageSize() && $count) {
+			$pagination->setCount($count);
+			$this->query->limit->set($pagination->offset(), $pagination->pageSize());
+		}
+	}
+
+	/**
+	 * Ordem por um campo
+	 * @param string $column
+	 * @param string $mode 'ASC' | 'DESC'
+	 * @param int $priority
+	 */
+	public function sortBy($column, $mode = 'ASC', $priority = 0)
+	{
+		$this->query->orderBy->add($column . ' ' . $mode, $priority);
+
+		return $this;
+	}
+
+	public function sortNewest()
+	{
+		return $this->sortBy('id', 'DESC');
+	}
+
+	public function sortOldest()
+	{
+		return $this->sortBy('id', 'ASC');
+	}
+
+	public function sortRand()
+	{
+		return $this->sortBy('RAND()');
 	}
 }
