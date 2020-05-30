@@ -41,12 +41,6 @@ class PaginationTest extends TestCase
 		$this->assertEquals(40, $p->offset());
 	}
 
-	public function testFirst()
-	{
-		$p = new Pagination();
-		$this->assertEquals(1, $p->first());
-	}
-
 	public function testLast()
 	{
 		$PAGE_SIZE = 10;

@@ -52,11 +52,6 @@ class Pagination
 		return $this->current;
 	}
 
-	public function first()
-	{
-		return 1;
-	}
-
 	public function last()
 	{
 		return ceil($this->count / $this->pageSize);
