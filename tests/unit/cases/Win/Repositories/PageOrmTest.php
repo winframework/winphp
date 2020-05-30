@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Repositories\Database\Orm;
+namespace Win\Repositories;
 
 use App\Models\Page;
 use App\Repositories\PageOrm;

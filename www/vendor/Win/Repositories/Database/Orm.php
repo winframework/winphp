@@ -4,7 +4,6 @@ namespace Win\Repositories\Database;
 
 use Win\Common\Pagination;
 use Win\Models\Model;
-use Win\Repositories\Database\Sql\Query;
 
 /**
  * Object Relational Mapping
@@ -74,7 +73,7 @@ abstract class Orm
 	 */
 	public function one()
 	{
-		$this->query->limit->set(0, 1);
+		$this->query->setLimit(0, 1);
 
 		$query = $this->query->select();
 		$values = $this->query->getValues();
@@ -219,7 +218,7 @@ abstract class Orm
 	 */
 	public function filterBy($comparator, ...$values)
 	{
-		$this->query->where->add($comparator, ...$values);
+		$this->query->addWhere($comparator, ...$values);
 
 		return $this;
 	}
@@ -232,7 +231,7 @@ abstract class Orm
 	 */
 	public function sortBy($column, $mode = 'ASC', $priority = 0)
 	{
-		$this->query->orderBy->add($column . ' ' . $mode, $priority);
+		$this->query->addOrderBy($column . ' ' . $mode, $priority);
 
 		return $this;
 	}
@@ -273,7 +272,7 @@ abstract class Orm
 
 		if ($pagination->pageSize() && $count) {
 			$pagination->setCount($count);
-			$this->query->limit->set($pagination->offset(), $pagination->pageSize());
+			$this->query->setLimit($pagination->offset(), $pagination->pageSize());
 		}
 	}
 }
