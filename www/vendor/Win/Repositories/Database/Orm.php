@@ -23,11 +23,11 @@ abstract class Orm
 	/** @var Connection */
 	public $conn;
 
+	/** @var Pagination */
+	public $pagination;
+
 	/** @var Query */
 	protected $query;
-
-	/** @var Pagination */
-	protected $pagination;
 
 	/**
 	 * @param Model $model
