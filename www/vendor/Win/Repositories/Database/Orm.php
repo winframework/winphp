@@ -73,7 +73,7 @@ abstract class Orm
 	{
 		$query = $this->query->raw();
 		$values = $this->query->getValues();
-		return $this->conn->query($query, $values);
+		return $this->conn->execute($query, $values);
 	}
 
 	/**
@@ -134,7 +134,7 @@ abstract class Orm
 	{
 		$query = $this->query->delete();
 		$values = $this->query->getValues();
-		$this->conn->query($query, $values);
+		$this->conn->execute($query, $values);
 		$this->flush();
 	}
 
@@ -148,7 +148,7 @@ abstract class Orm
 
 		$query = $this->query->delete();
 		$values = $this->query->getValues();
-		$this->conn->query($query, $values);
+		$this->conn->execute($query, $values);
 		$this->flush();
 	}
 
@@ -182,7 +182,7 @@ abstract class Orm
 		$this->query = new Query(static::TABLE, $this->mapRow($this->model));
 		$query = $this->query->insert();
 		$values = $this->query->getValues();
-		$this->conn->query($query, $values);
+		$this->conn->execute($query, $values);
 
 		$this->model->id = (int) $this->conn->getLastInsertId();
 	}
@@ -194,7 +194,7 @@ abstract class Orm
 
 		$query = $this->query->update();
 		$values = $this->query->getValues();
-		$this->conn->query($query, $values);
+		$this->conn->execute($query, $values);
 		$this->flush();
 	}
 

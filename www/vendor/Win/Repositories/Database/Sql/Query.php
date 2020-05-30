@@ -2,8 +2,6 @@
 
 namespace Win\Repositories\Database\Sql;
 
-use Win\Repositories\Database\Orm;
-
 /**
  * SELECT, UPDATE, DELETE, etc
  */
@@ -47,26 +45,11 @@ class Query
 	/** @return mixed[] */
 	public function getValues()
 	{
-		return $this->values + $this->where->values;
+		return array_values($this->values + $this->where->values);
 	}
 
 	/**
-	 * Retorna o comando SQL
-	 * @return string
-	 */
-	public function __toString()
-	{
-		if ($this->orm->debug) {
-			print_r('<pre>' . $this . '<br/>');
-			print_r($this->getValues());
-			print_r('</pre>');
-		}
-
-		return (string) $this;
-	}
-
-	/**
-	 * SELECT * FROM
+	 * SELECT * FROM ...
 	 * @return string
 	 */
 	public function select()
@@ -90,47 +73,35 @@ class Query
 	}
 
 	/**
-	 * 
+	 * INSERT INTO ... VALUES
 	 * @return string
 	 */
 	public function insert()
 	{
+		$params = str_split(str_repeat('?', count($this->values)));
 		return 'INSERT INTO ' . $this->table
 			. ' (' . implode(',', array_keys($this->values)) . ')'
-			. ' VALUES (' . implode(', ', $this->getBindParams()) . ')';
+			. ' VALUES (' . implode(', ', $params) . ')';
 	}
 
 	/**
-	 * @return string[]
-	 * @example return ['?','?','?']
-	 */
-	protected function getBindParams()
-	{
-		return str_split(str_repeat('?', count($this->values)));
-	}
-
-	/**
+	 * UPDATE ... SET
 	 * @return string
 	 */
 	public function update()
 	{
+		$columns = array_map(function ($column) {
+			return $column . ' = ?';
+		}, array_keys($this->values));
+
 		return 'UPDATE ' . $this->table
-			. ' SET ' . $this->updateSet()
+			. ' SET ' . implode(', ', $columns)
 			. $this->where
 			. $this->limit;
 	}
 
 	/**
-	 * @return string
-	 */
-	protected function updateSet()
-	{
-		return implode(', ', array_map(function ($column) {
-			return $column . ' = ?';
-		}, array_keys($this->values)));
-	}
-
-	/**
+	 * DELETE FROM ...
 	 * @return string
 	 */
 	public function delete()

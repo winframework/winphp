@@ -46,15 +46,15 @@ class MysqlConnectionTest extends TestCase
 	{
 		$query = 'CREATE TABLE IF NOT EXISTS `child` (`age` int(11) NOT NULL,' .
 		' `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT)';
-		static::$connection->query($query);
+		static::$connection->execute($query);
 		$query = 'INSERT INTO child VALUES(2,null); INSERT INTO child VALUES(3,null)';
-		static::$connection->query($query);
+		static::$connection->execute($query);
 	}
 
 	public static function dropTable()
 	{
 		$query = 'DROP TABLE IF EXISTS `child`';
-		static::$connection->query($query);
+		static::$connection->execute($query);
 	}
 
 	// TESTES
@@ -90,7 +90,7 @@ class MysqlConnectionTest extends TestCase
 	/** @expectedException Win\Repositories\Database\DatabaseException */
 	public function testSintaxeError()
 	{
-		$success = static::$connection->query('SELECT * FROM ASDF');
+		$success = static::$connection->execute('SELECT * FROM ASDF');
 		$this->assertFalse($success);
 	}
 
@@ -104,14 +104,14 @@ class MysqlConnectionTest extends TestCase
 	public function testTruncate()
 	{
 		$query = 'TRUNCATE TABLE child';
-		$success = static::$connection->query($query);
+		$success = static::$connection->execute($query);
 		$this->assertTrue($success);
 	}
 
 	public function testInsert()
 	{
 		$query = 'INSERT INTO child VALUES(?,null)';
-		$success = static::$connection->query($query, [10]);
+		$success = static::$connection->execute($query, [10]);
 		$this->assertTrue($success);
 		$this->assertGreaterThan(0, static::$connection->getLastInsertId());
 	}
@@ -137,7 +137,7 @@ class MysqlConnectionTest extends TestCase
 	{
 		$this->testInsert();
 		$query = 'UPDATE child SET age = ? WHERE age = ? LIMIT 1';
-		$success = static::$connection->query($query, [1, 10]);
+		$success = static::$connection->execute($query, [1, 10]);
 		$rows = static::$connection->fetchAll('SELECT * FROM child WHERE age = ?', [1]);
 
 		$this->assertTrue($success);
@@ -148,7 +148,7 @@ class MysqlConnectionTest extends TestCase
 	public function testDelete()
 	{
 		$this->testInsert();
-		$success = static::$connection->query('DELETE FROM child WHERE age = ? LIMIT 1', [10]);
+		$success = static::$connection->execute('DELETE FROM child WHERE age = ? LIMIT 1', [10]);
 		$rows = static::$connection->fetchAll('SELECT * FROM child');
 		$this->assertTrue($success);
 		$this->assertCount(2, $rows);

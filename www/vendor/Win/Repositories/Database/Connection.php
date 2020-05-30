@@ -65,12 +65,12 @@ abstract class Connection
 	 * @param mixed[] $values
 	 * @return bool
 	 */
-	public function query($query, $values = [])
+	public function execute($query, $values = [])
 	{
 		try {
 			$stmt = $this->pdo->prepare($query);
 
-			return $stmt->execute(array_values($values));
+			return $stmt->execute($values);
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
 		}
@@ -100,9 +100,7 @@ abstract class Connection
 	 */
 	public function fetchAll($query, $values = [])
 	{
-		$stmt = $this->stmt($query, $values);
-
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $this->stmt($query, $values)->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -112,9 +110,7 @@ abstract class Connection
 	 */
 	public function fetch($query, $values)
 	{
-		$stmt = $this->stmt($query, $values);
-
-		return $stmt->fetch();
+		return $this->stmt($query, $values)->fetch();
 	}
 
 	/**
@@ -124,9 +120,7 @@ abstract class Connection
 	 */
 	public function fetchCount($query, $values)
 	{
-		$stmt = $this->stmt($query, $values);
-
-		return $stmt->fetchColumn();
+		return $this->stmt($query, $values)->fetchColumn();
 	}
 
 	/** @return string */

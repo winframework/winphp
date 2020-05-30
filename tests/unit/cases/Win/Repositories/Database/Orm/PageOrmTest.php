@@ -21,8 +21,8 @@ class PageOrmTest extends TestCase
 
 	public static function createTable()
 	{
-		Mysql::instance()->query('DROP TABLE `pages` ');
-		Mysql::instance()->query('CREATE TABLE `pages` (
+		Mysql::instance()->execute('DROP TABLE `pages` ');
+		Mysql::instance()->execute('CREATE TABLE `pages` (
 			`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			`categoryId` int(11) NULL,
 			`title` varchar(75) NOT NULL,
@@ -33,7 +33,7 @@ class PageOrmTest extends TestCase
 
 	public static function importTable()
 	{
-		Mysql::instance()->query("INSERT INTO `pages` (`id`, `title`, `description`, `createdAt`) VALUES
+		Mysql::instance()->execute("INSERT INTO `pages` (`id`, `title`, `description`, `createdAt`) VALUES
 			(1, 'First Page', 'About us', '2018-11-04 10:46:03'),
 			(2, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
 			(3, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
@@ -50,7 +50,7 @@ class PageOrmTest extends TestCase
 		$this->assertEquals(3, $page->id);
 	}
 
-	public function testRunQuery()
+	public function testRunRawQuery()
 	{
 		$orm = (new PageOrm());
 		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
