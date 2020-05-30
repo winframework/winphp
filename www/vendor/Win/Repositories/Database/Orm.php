@@ -6,11 +6,8 @@ use Win\Repositories\Pagination;
 use Win\Models\Model;
 use Win\Repositories\Database\Orm\FilterTrait;
 use Win\Repositories\Database\Orm\PaginationTrait;
-use Win\Repositories\Database\Orm\RawTrait;
 use Win\Repositories\Database\Orm\SortTrait;
-use Win\Repositories\Database\Sql\Builder;
 use Win\Repositories\Database\Sql\Query;
-use Win\Request\HttpException;
 
 /**
  * Object Relational Mapping
@@ -19,7 +16,6 @@ abstract class Orm
 {
 	use FilterTrait;
 	use SortTrait;
-	use RawTrait;
 	use PaginationTrait;
 
 	/** @var string */
@@ -29,13 +25,10 @@ abstract class Orm
 	const TITLE = '';
 
 	/** @var string */
-	const PK = 'Id';
+	const PK = 'id';
 
 	/** @var Connection */
 	public $conn;
-
-	/** @var bool */
-	public $debug;
 
 	/** @var Model */
 	protected $model;
@@ -57,8 +50,30 @@ abstract class Orm
 	public function __construct($connection = null)
 	{
 		$this->conn = $connection ?: MysqlConnection::instance();
-		$this->query = new Query($this);
+		$this->query = new Query(static::TABLE);
 		$this->pagination = new Pagination();
+	}
+
+	/**
+	 * Prepara raw Sql
+	 * @param string $query
+	 * @param mixed[]
+	 */
+	public function rawQuery($query, $values = [])
+	{
+		$this->query = new Query(static::TABLE, $values, $query);
+
+		return $this;
+	}
+
+	/**
+	 * Rota do raw sql
+	 */
+	public function run()
+	{
+		$query = $this->query->raw();
+		$values = $this->query->getValues();
+		return $this->conn->query($query, $values);
 	}
 
 	/**
@@ -66,9 +81,11 @@ abstract class Orm
 	 */
 	public function one()
 	{
-		$query = $this->query->build(Builder::SELECT);
-		$query->limit->set(0, 1);
-		$row = $this->conn->fetch($query, $query->getValues());
+		$this->query->limit->set(0, 1);
+
+		$query = $this->query->select();
+		$values = $this->query->getValues();
+		$row = $this->conn->fetch($query, $values);
 		$this->flush();
 
 		return $this->mapModel($row);
@@ -89,8 +106,10 @@ abstract class Orm
 	public function list()
 	{
 		$this->applyPagination();
-		$query = $this->query->build(Builder::SELECT);
-		$rows = $this->conn->fetchAll($query, $query->getValues());
+
+		$query = $this->query->select();
+		$values = $this->query->getValues();
+		$rows = $this->conn->fetchAll($query, $values);
 		$this->flush();
 
 		return array_map([$this, 'mapModel'], $rows);
@@ -102,9 +121,10 @@ abstract class Orm
 	 */
 	public function count()
 	{
-		$query = $this->query->build(Builder::SELECT_COUNT);
+		$query = $this->query->selectCount();
+		$values = $this->query->getValues();
 
-		return $this->conn->fetchCount($query, $query->getValues());
+		return $this->conn->fetchCount($query, $values);
 	}
 
 	/**
@@ -112,9 +132,9 @@ abstract class Orm
 	 */
 	public function delete()
 	{
-		$query = $this->query->build(Builder::DELETE);
-
-		$this->conn->query($query, $query->getValues());
+		$query = $this->query->delete();
+		$values = $this->query->getValues();
+		$this->conn->query($query, $values);
 		$this->flush();
 	}
 
@@ -124,10 +144,11 @@ abstract class Orm
 	 */
 	public function destroy($id)
 	{
-		$query = $this->query->build(Builder::DELETE);
 		$this->filterBy(static::PK, $id);
 
-		$this->conn->query($query, $query->getValues());
+		$query = $this->query->delete();
+		$values = $this->query->getValues();
+		$this->conn->query($query, $values);
 		$this->flush();
 	}
 
@@ -147,43 +168,33 @@ abstract class Orm
 	}
 
 	/**
-	 * Habilita o debug
-	 */
-	public function debug()
-	{
-		$this->debug = true;
-
-		return $this;
-	}
-
-	/**
-	 * Remove todos os filtros
+	 * Remove todos os filtros, ordenação, etc
 	 */
 	public function flush()
 	{
-		$this->query = new Query($this);
+		$this->query = new Query(static::TABLE);
 
 		return $this;
 	}
 
 	private function insert()
 	{
-		$query = $this->query->build(Builder::INSERT);
-		$query->values = $this->mapRow($this->model);
+		$this->query = new Query(static::TABLE, $this->mapRow($this->model));
+		$query = $this->query->insert();
+		$values = $this->query->getValues();
+		$this->conn->query($query, $values);
 
-		$this->conn->query($query, $query->getValues());
 		$this->model->id = (int) $this->conn->getLastInsertId();
 	}
 
 	private function update()
 	{
-		$this->query = new Query($this);
+		$this->query = new Query(static::TABLE, $this->mapRow($this->model));
 		$this->filterBy(static::PK, $this->model->id);
 
-		$query = $this->query->build(Builder::UPDATE);
-		$query->values = $this->mapRow($this->model);
-
-		$this->conn->query($query, $query->getValues());
+		$query = $this->query->update();
+		$values = $this->query->getValues();
+		$this->conn->query($query, $values);
 		$this->flush();
 	}
 
@@ -191,8 +202,8 @@ abstract class Orm
 	protected function modelExists()
 	{
 		$orm = new static($this->conn);
-		$total = $orm->filterBy(static::PK, $this->model->id)->count();
+		$orm->filterBy(static::PK, $this->model->id);
 
-		return $total > 0;
+		return $orm->count() > 0;
 	}
 }

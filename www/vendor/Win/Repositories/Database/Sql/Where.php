@@ -10,7 +10,7 @@ class Where
 	/**
 	 * Comparadores (column + operator)
 	 * @var string[]
-	 * @example ['Id > ?', 'Name LIKE ?', 'Age IS NULL']
+	 * @example ['id > ?', 'name LIKE ?', 'age IS NULL']
 	 */
 	private $comparators;
 

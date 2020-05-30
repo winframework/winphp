@@ -18,7 +18,7 @@ trait FilterTrait
 	 * Aplica um filtro ($comparator aceita mais de uma regra)
 	 * @param string $comparator
 	 * @param mixed $value
-	 * @example filterBy('Name = ?', 'John')
+	 * @example filterBy('name = ? AND email = ?', 'John', 'john@email.com')
 	 */
 	public function filterBy($comparator, ...$values)
 	{

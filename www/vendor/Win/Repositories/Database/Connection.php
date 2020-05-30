@@ -70,7 +70,7 @@ abstract class Connection
 		try {
 			$stmt = $this->pdo->prepare($query);
 
-			return $stmt->execute($values);
+			return $stmt->execute(array_values($values));
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
 		}

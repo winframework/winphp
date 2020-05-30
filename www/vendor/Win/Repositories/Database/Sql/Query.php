@@ -9,23 +9,14 @@ use Win\Repositories\Database\Orm;
  */
 class Query
 {
-	/** @var Orm */
-	protected $orm;
-
-	/**
-	 * Responsável por gerar a Query completa
-	 * @var Builder
-	 */
-	protected $builder;
+	/** @var string */
+	private $table;
 
 	/** @var string */
-	public $table;
-
-	/** @var string */
-	public $raw = null;
+	private $raw = null;
 
 	/** @var array */
-	public $values = [];
+	private $values = [];
 
 	/** @var Where */
 	public $where;
@@ -38,35 +29,25 @@ class Query
 
 	/**
 	 * Prepara a query
-	 * @param Orm $orm
+	 * @param string $table
+	 * @param mixed $values
+	 * @param string $raw
 	 */
-	public function __construct(Orm $orm)
+	public function __construct($table, $values = [], $raw = null)
 	{
-		$this->table = $orm::TABLE;
-		$this->orm = $orm;
+		$this->table = $table;
+		$this->values = $values;
+		$this->raw = $raw;
 
 		$this->where = new Where();
 		$this->orderBy = new OrderBy();
 		$this->limit = new Limit();
 	}
 
-	/**
-	 * Define o builder da Query
-	 * @param string $statementType
-	 * @return $this
-	 * @example setStatement('SELECT'|'UPDATE'|'DELETE')
-	 */
-	public function build($statementType)
-	{
-		$this->builder = Builder::factory($statementType, $this);
-
-		return $this;
-	}
-
 	/** @return mixed[] */
 	public function getValues()
 	{
-		return array_values($this->builder->getValues());
+		return $this->values + $this->where->values;
 	}
 
 	/**
@@ -76,11 +57,96 @@ class Query
 	public function __toString()
 	{
 		if ($this->orm->debug) {
-			print_r('<pre>' . $this->builder . '<br/>');
+			print_r('<pre>' . $this . '<br/>');
 			print_r($this->getValues());
 			print_r('</pre>');
 		}
 
-		return (string) $this->builder;
+		return (string) $this;
+	}
+
+	/**
+	 * SELECT * FROM
+	 * @return string
+	 */
+	public function select()
+	{
+		return ($this->raw ??
+			'SELECT * FROM ' . $this->table)
+			. $this->where
+			. $this->orderBy
+			. $this->limit;
+	}
+
+	/**
+	 * SELECT COUNT(*) FROM
+	 * @return string
+	 */
+	public function selectCount()
+	{
+		return ($this->raw ??
+			'SELECT COUNT(*) FROM ' . $this->table)
+			. $this->where;
+	}
+
+	/**
+	 * 
+	 * @return string
+	 */
+	public function insert()
+	{
+		return 'INSERT INTO ' . $this->table
+			. ' (' . implode(',', array_keys($this->values)) . ')'
+			. ' VALUES (' . implode(', ', $this->getBindParams()) . ')';
+	}
+
+	/**
+	 * @return string[]
+	 * @example return ['?','?','?']
+	 */
+	protected function getBindParams()
+	{
+		return str_split(str_repeat('?', count($this->values)));
+	}
+
+	/**
+	 * @return string
+	 */
+	public function update()
+	{
+		return 'UPDATE ' . $this->table
+			. ' SET ' . $this->updateSet()
+			. $this->where
+			. $this->limit;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function updateSet()
+	{
+		return implode(', ', array_map(function ($column) {
+			return $column . ' = ?';
+		}, array_keys($this->values)));
+	}
+
+	/**
+	 * @return string
+	 */
+	public function delete()
+	{
+		return 'DELETE FROM ' . $this->table
+			. $this->where
+			. $this->limit;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function raw()
+	{
+		return $this->raw
+			. $this->where
+			. $this->limit;
 	}
 }

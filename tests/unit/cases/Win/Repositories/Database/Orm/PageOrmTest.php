@@ -43,7 +43,7 @@ class PageOrmTest extends TestCase
 	{
 		$orm = (new PageOrm());
 		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
-			. ' WHERE Id BETWEEN ? AND ? ORDER BY Id DESC', [2, 10]);
+			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', [2, 10]);
 
 		$page = $orm->one();
 
@@ -54,9 +54,9 @@ class PageOrmTest extends TestCase
 	{
 		$orm = (new PageOrm());
 		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
-			. ' WHERE Id BETWEEN ? AND ? ORDER BY Id DESC', [2, 10]);
+			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', [2, 10]);
 
-		$success = $orm->runRaw();
+		$success = $orm->run();
 
 		$this->assertTrue($success);
 	}
@@ -67,7 +67,7 @@ class PageOrmTest extends TestCase
 	public function testRunInvalidQuery()
 	{
 		$orm = (new PageOrm())->rawQuery('INVALID QUERY');
-		$success = $orm->runRaw();
+		$success = $orm->run();
 
 		$this->assertFalse($success);
 	}
@@ -77,7 +77,7 @@ class PageOrmTest extends TestCase
 	 */
 	public function testRunWithoutRawQuery()
 	{
-		$success = (new PageOrm())->runRaw();
+		$success = (new PageOrm())->run();
 		$this->assertFalse($success);
 	}
 
@@ -104,7 +104,7 @@ class PageOrmTest extends TestCase
 	public function testSortBy()
 	{
 		$page = (new PageOrm())
-			->sortBy('Id', 'ASC')
+			->sortBy('id', 'ASC')
 			->one();
 		$this->assertEquals(1, $page->id);
 	}
@@ -138,7 +138,7 @@ class PageOrmTest extends TestCase
 	public function testSortByWithPriority()
 	{
 		$pages = (new PageOrm())
-			->sortBy('Id', 'DESC', 0)
+			->sortBy('id', 'DESC', 0)
 			->sortBy('Title', 'ASC', 1)
 			->list();
 		$this->assertTrue(count($pages) > 1);
@@ -188,9 +188,9 @@ class PageOrmTest extends TestCase
 	public function testFilterAndSort()
 	{
 		$orm = (new PageOrm());
-		$orm->filterBy('Id > ?', 1);
-		$orm->filterBy('Id < ?', 3);
-		$orm->sortBy('Id');
+		$orm->filterBy('id > ?', 1);
+		$orm->filterBy('id < ?', 3);
+		$orm->sortBy('id');
 
 		$pages = $orm->list();
 		$this->assertCount(1, $pages);
@@ -207,7 +207,7 @@ class PageOrmTest extends TestCase
 	public function testOrFailException()
 	{
 		ApplicationTest::newApp();
-		$orm = (new PageOrm())->filterBy('Id', 100)->one()->or404();
+		$orm = (new PageOrm())->filterBy('id', 100)->one()->or404();
 		$this->assertEquals('First Page', $orm->title);
 	}
 
@@ -242,7 +242,7 @@ class PageOrmTest extends TestCase
 	public function testDelete()
 	{
 		$pagesCount = count((new PageOrm())->list());
-		(new PageOrm())->filterBy('Id', 2)->delete();
+		(new PageOrm())->filterBy('id', 2)->delete();
 
 		$this->assertCount($pagesCount - 1, (new PageOrm())->list());
 	}
@@ -254,26 +254,6 @@ class PageOrmTest extends TestCase
 		$newCount = count((new PageOrm())->list());
 
 		$this->assertNotEquals($pagesCount, $newCount);
-	}
-
-	public function testDebugOn()
-	{
-		$orm = (new PageOrm());
-		ob_start();
-		$orm->debug();
-		$orm->list();
-		$result = ob_get_clean();
-		$this->assertContains('SELECT * FROM', $result);
-	}
-
-	public function testDebugOff()
-	{
-		$orm = (new PageOrm());
-		ob_start();
-		$orm->debug = false;
-		$orm->list();
-		$empty = ob_get_clean();
-		$this->assertEmpty($empty);
 	}
 
 	public function testInsert()
@@ -295,11 +275,11 @@ class PageOrmTest extends TestCase
 		$pagesTotal = count((new PageOrm())->list());
 		$description = 'Updated by save method';
 
-		$page = (new PageOrm())->sortBy('Id', 'DESC')->one();
+		$page = (new PageOrm())->sortBy('id', 'DESC')->one();
 		$page->title = 'New Title';
 		$page->description = $description;
 		$pageAfterSave = (new PageOrm())->save($page);
-		$pageUpdated = (new PageOrm())->sortBy('Id', 'DESC')->one();
+		$pageUpdated = (new PageOrm())->sortBy('id', 'DESC')->one();
 
 		$this->assertEquals($page->title, $pageUpdated->title);
 		$this->assertEquals($page->title, $pageAfterSave->title);

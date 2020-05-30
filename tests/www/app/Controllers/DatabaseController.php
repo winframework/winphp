@@ -34,13 +34,13 @@ class DatabaseController extends Controller
 		$pageOrm->debug = true;
 		// $pageOrm->rawQuery('SELECT * FROM ' . $pageOrm::TABLE);
 
-		// $pageOrm->rawQuery('SELECT * FROM ' . $pageOrm::TABLE . ' WHERE Id BETWEEN 1 AND 8');
+		// $pageOrm->rawQuery('SELECT * FROM ' . $pageOrm::TABLE . ' WHERE id BETWEEN 1 AND 8');
 		$x = $pageOrm->list();
 
 		// $pageOrm->filterNotPublished();
 		// $pageOrm->filterBy('UserId', '=', 10);
 		// $pageOrm->filterBy('UserId', '=', 10);
-		// $pageOrm->filterBy('Id', '<', 10);
+		// $pageOrm->filterBy('id', '<', 10);
 		// $x = $pageOrm->one();
 		var_dump($x);
 
