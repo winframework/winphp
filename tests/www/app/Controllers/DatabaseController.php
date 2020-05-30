@@ -32,9 +32,9 @@ class DatabaseController extends Controller
 		$page->title = 'chaves';
 
 		$pageOrm->debug = true;
-		// $pageOrm->rawQuery('SELECT * FROM ' . $pageOrm::TABLE);
+		// $pageOrm->raw('SELECT * FROM ' . $pageOrm::TABLE);
 
-		// $pageOrm->rawQuery('SELECT * FROM ' . $pageOrm::TABLE . ' WHERE id BETWEEN 1 AND 8');
+		// $pageOrm->raw('SELECT * FROM ' . $pageOrm::TABLE . ' WHERE id BETWEEN 1 AND 8');
 		$x = $pageOrm->list();
 
 		// $pageOrm->filterNotPublished();

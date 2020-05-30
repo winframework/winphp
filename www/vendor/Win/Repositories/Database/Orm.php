@@ -51,7 +51,7 @@ abstract class Orm
 	 * @param string $query
 	 * @param mixed[]
 	 */
-	public function rawQuery($query, $values = [])
+	public function raw($query, $values = [])
 	{
 		$this->query = new Query(static::TABLE, $values, $query);
 
@@ -59,12 +59,12 @@ abstract class Orm
 	}
 
 	/**
-	 * Rota do raw sql
+	 * Executa SQL
+	 * @param string $query
+	 * @param mixed[]
 	 */
-	public function run()
+	public function execute($query, $values = [])
 	{
-		$query = $this->query->raw();
-		$values = $this->query->getValues();
 		return $this->conn->execute($query, $values);
 	}
 
@@ -274,5 +274,26 @@ abstract class Orm
 			$pagination->setCount($count);
 			$this->query->setLimit($pagination->offset(), $pagination->pageSize());
 		}
+	}
+
+	public function beginTransaction()
+	{
+		$this->conn->getPdo()->beginTransaction();
+	}
+
+	/**
+	 * Completa a Transação
+	 */
+	public function commit()
+	{
+		$this->conn->getPdo()->commit();
+	}
+
+	/**
+	 * Cancela a Transação
+	 */
+	public function rollback()
+	{
+		$this->conn->getPdo()->rollBack();
 	}
 }

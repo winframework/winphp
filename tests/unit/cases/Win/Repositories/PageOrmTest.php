@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Win\ApplicationTest;
 use Win\Repositories\Database\DbConfig;
 use Win\Repositories\Database\MysqlConnection as Mysql;
-use Win\Repositories\Database\Transaction;
 
 class PageOrmTest extends TestCase
 {
@@ -42,7 +41,7 @@ class PageOrmTest extends TestCase
 	public function testRawQuery()
 	{
 		$orm = (new PageOrm());
-		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
+		$orm->raw('SELECT * FROM ' . $orm::TABLE
 			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', [2, 10]);
 
 		$page = $orm->one();
@@ -53,10 +52,8 @@ class PageOrmTest extends TestCase
 	public function testRunRawQuery()
 	{
 		$orm = (new PageOrm());
-		$orm->rawQuery('SELECT * FROM ' . $orm::TABLE
+		$success = $orm->execute('SELECT * FROM ' . $orm::TABLE
 			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', [2, 10]);
-
-		$success = $orm->run();
 
 		$this->assertTrue($success);
 	}
@@ -66,8 +63,8 @@ class PageOrmTest extends TestCase
 	 */
 	public function testRunInvalidQuery()
 	{
-		$orm = (new PageOrm())->rawQuery('INVALID QUERY');
-		$success = $orm->run();
+		$orm = new PageOrm();
+		$success = $orm->execute('INVALID QUERY');
 
 		$this->assertFalse($success);
 	}
@@ -77,7 +74,7 @@ class PageOrmTest extends TestCase
 	 */
 	public function testRunWithoutRawQuery()
 	{
-		$success = (new PageOrm())->run();
+		$success = (new PageOrm())->execute('');
 		$this->assertFalse($success);
 	}
 
@@ -290,24 +287,24 @@ class PageOrmTest extends TestCase
 	public function testTransactionCommit()
 	{
 		$orm = new PageOrm();
-		$t = new Transaction($orm);
+		$orm->beginTransaction();
 		$count = $orm->count();
 		$orm->save(new Page());
 
 		$this->assertEquals($count + 1, $orm->count());
-		$t->commit();
+		$orm->commit();
 		$this->assertEquals($count + 1, $orm->count());
 	}
 
 	public function testTransactionRollback()
 	{
 		$orm = new PageOrm();
-		$t = new Transaction($orm);
+		$orm->beginTransaction();
 		$count = $orm->count();
 		$orm->save(new Page());
 
 		$this->assertEquals($count + 1, $orm->count());
-		$t->rollback();
+		$orm->rollback();
 		$this->assertEquals($count, $orm->count());
 	}
 }
