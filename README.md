@@ -20,10 +20,8 @@
 - Templates (Views/Blocks);
 - Título de Página;
 - Envio de Emails;
-- Manipulador de Datas;
-- Cálculo de Datas;
 - Manipulador de Arquivos;
-- Manipulador de Tipos Variáveis (String, Array, Integer, etc);
+- Manipulador de Tipos Variáveis (String, Array, Date, etc);
 - Manipulador de Variáveis Globais (Input, Server, etc);
 - Alertas;
 - Sessão;
