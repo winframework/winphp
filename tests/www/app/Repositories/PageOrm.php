@@ -25,7 +25,8 @@ class PageOrm extends Orm
 		$page->id = $row['id'];
 		$page->title = $row['title'];
 		$page->description = $row['description'];
-		$page->createdAt = new DateTime($row['createdAt']);
+		$page->createdAt = $row['createdAt'];
+		$page->updatedAt = $row['updatedAt'];
 
 		return $page;
 	}
@@ -37,7 +38,7 @@ class PageOrm extends Orm
 			'id' => $model->id,
 			'title' => $model->title,
 			'description' => $model->description,
-			'createdAt' => $model->createdAt->toSql(),
+			'updatedAt' => $model->updatedAt,
 		];
 	}
 

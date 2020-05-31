@@ -26,7 +26,8 @@ class PageOrmTest extends TestCase
 			`categoryId` int(11) NULL,
 			`title` varchar(75) NOT NULL,
 			`description` text NOT NULL,
-			`createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+			`createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			`updatedAt` datetime NULL DEFAULT NULL
 			) ENGINE=InnoDB DEFAULT CHARSET=latin1;');
 	}
 

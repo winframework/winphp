@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Models\Filesystem;
+namespace Win\Repositories\Filesystem;
 
 use Win\Models\DateTime;
 
@@ -64,12 +64,12 @@ abstract class Storable
 		return pathinfo($this->getAbsolutePath(), PATHINFO_BASENAME);
 	}
 
-	/** @return DateTime */
-	public function getLastModifiedDate()
+	/** @return string */
+	public function getUpdatedAt()
 	{
 		$ts = filemtime($this->getAbsolutePath());
 
-		return new DateTime("@$ts");
+		return date('Y-m-d H:i:s', $ts);
 	}
 
 	/** @param string $path */

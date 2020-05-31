@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Win\Controllers\Controller;
-use Win\Models\Filesystem\Image;
+use Win\Repositories\Filesystem\Image;
 use Win\Repositories\Alert;
 use Win\Repositories\Filesystem;
 use Win\Repositories\Filesystem\Uploader;

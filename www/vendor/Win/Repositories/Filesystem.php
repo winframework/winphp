@@ -101,7 +101,7 @@ class Filesystem
 
 		if ($dir) {
 			$this->create($dir, 0777);
-			$fp = fopen("$this->basePath$dir/$file", $mode);
+			$fp = fopen("{$this->basePath}{$dir}/{$file}", $mode);
 			if (false !== $fp) {
 				fwrite($fp, $content);
 				$return = fclose($fp);

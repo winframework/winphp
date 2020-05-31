@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Models\Filesystem;
+namespace Win\Repositories\Filesystem;
 
 /**
  * Arquivo de Imagem

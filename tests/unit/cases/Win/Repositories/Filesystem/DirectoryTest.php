@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Models\Filesystem;
+namespace Win\Repositories\Filesystem;
 
 use PHPUnit\Framework\TestCase;
 use Win\Repositories\Filesystem;
@@ -22,7 +22,7 @@ class DirectoryTest extends TestCase
 		$fs->delete('data/dir');
 		$fs->create('data/dir');
 		$fs->create('data/dir/sub1');
-		$fs->write('data/dir/file.txt','teste');
+		$fs->write('data/dir/file.txt', 'teste');
 
 		static::$dirInexistent = new Directory('my-sample/directory');
 		static::$dir = new Directory('data/dir');
@@ -105,9 +105,8 @@ class DirectoryTest extends TestCase
 	public function testGetLastModifiedDate()
 	{
 		$ts = filemtime(BASE_PATH . '/data/dir');
-		$modifiedAt = static::$dir->getLastModifiedDate();
-		$this->assertEquals($ts, $modifiedAt->getTimestamp());
-		$this->assertEquals(date('m'), $modifiedAt->format('m'));
+		$modifiedAt = static::$dir->getUpdatedAt();
+		$this->assertEquals(date('Y-m-d H:i:s', $ts), $modifiedAt);
 	}
 
 	public function testGetChildren()

@@ -1,8 +1,9 @@
 <?php
 
-namespace Win\Models\Filesystem;
+namespace Win\Repositories\Filesystem;
 
 use Exception;
+use Win\Repositories\Filesystem;
 
 /**
  * Arquivo
@@ -65,11 +66,6 @@ class File extends Storable
 	 */
 	public function getContent()
 	{
-		$content = false;
-		if ($this->exists()) {
-			$content = file_get_contents($this->getAbsolutePath());
-		}
-
-		return $content;
+		return (new Filesystem())->read($this->getPath());
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Models\Filesystem;
+namespace Win\Repositories\Filesystem;
 
 use const BASE_PATH;
 use Exception;

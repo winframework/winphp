@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Page;
+use Win\Common\Utils\Date;
 use Win\Views\View;
 
 /** @var View $this */
@@ -11,7 +12,9 @@ use Win\Views\View;
 		<h2>
 			<?= $page->title; ?>
 		</h2>
-		<b><?= $page->createdAt->toHtml(); ?></b>
+		<?php if ($page->createdAt) : ?>
+			<b>Criado em: <?= Date::format($page->createdAt, 'd/m/Y H:i:s'); ?></b>
+		<?php endif; ?>
 		<p>
 			<?= nl2br($page->description); ?>
 		</p>

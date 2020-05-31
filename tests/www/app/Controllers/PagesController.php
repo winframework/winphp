@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Repositories\PageCategoryOrm;
 use App\Repositories\PageOrm;
+use Exception;
 use Win\Controllers\Controller;
+use Win\Repositories\Database\DatabaseException;
 use Win\Repositories\Database\MysqlConnection;
 use Win\Repositories\Filesystem;
 use Win\Request\Input;

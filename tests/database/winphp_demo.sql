@@ -50,17 +50,18 @@ INSERT INTO `pageCategories` (`id`, `enabled`, `title`, `description`, `createdA
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` int(11) NOT NULL,
-  `CategoryId` int(11) DEFAULT NULL,
+  `categoryId` int(11) DEFAULT NULL,
   `title` varchar(75) NOT NULL,
   `description` text NOT NULL,
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` datetime NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
 --
 
-INSERT INTO `pages` (`id`, `CategoryId`, `title`, `description`, `createdAt`) VALUES
+INSERT INTO `pages` (`id`, `categoryId`, `title`, `description`, `createdAt`) VALUES
 (1, 1, 'First Page', 'About us', '2018-11-04 10:46:03'),
 (2, NULL, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
 (3, 1, 'Third Page', 'Sample Page', '2018-11-04 12:05:20'),

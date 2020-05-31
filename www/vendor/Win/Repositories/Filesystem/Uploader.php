@@ -2,7 +2,7 @@
 
 namespace Win\Repositories\Filesystem;
 
-use Win\Models\Filesystem\File;
+use Win\Repositories\Filesystem\File;
 use Win\Repositories\Filesystem;
 
 /**
