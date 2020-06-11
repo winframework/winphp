@@ -263,12 +263,12 @@ abstract class Orm
 
 	public function sortNewest()
 	{
-		return $this->sortBy('id', 'DESC');
+		return $this->sortBy(static::PK, 'DESC');
 	}
 
 	public function sortOldest()
 	{
-		return $this->sortBy('id', 'ASC');
+		return $this->sortBy(static::PK, 'ASC');
 	}
 
 	public function sortRand()
