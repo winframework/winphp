@@ -2,8 +2,6 @@
 
 namespace Win\Repositories\Filesystem;
 
-use Win\Models\DateTime;
-
 /**
  * Item dentro do Diretório
  * Podendo ser outro diretório, arquivos, etc

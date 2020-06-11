@@ -36,7 +36,7 @@ class Pagination
 		$this->count = $count;
 		$this->last = ceil($count / $this->pageSize);
 		$this->current = min($this->last, $this->current);
-		$this->prev =  max(1, $this->current - 1);
+		$this->prev = max(1, $this->current - 1);
 		$this->next = min($this->last, $this->current + 1);
 		$this->offset = $this->pageSize * ($this->current - 1);
 	}

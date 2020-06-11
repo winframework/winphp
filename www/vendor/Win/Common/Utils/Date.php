@@ -66,8 +66,8 @@ class Date
 
 	/**
 	 * Retorna a idade
-	 * @param $date1 Data de Nascimento
-	 * @param $date2
+	 * @param string $date1 Data de Nascimento
+	 * @param string $date2
 	 * @return int
 	 */
 	public static function age($date1, $date2 = 'today')
@@ -77,7 +77,7 @@ class Date
 
 	/**
 	 * Retorna TRUE se a data é valida
-	 * @param string $time
+	 * @param string $date
 	 * @param string|null $format
 	 * @return bool
 	 */
