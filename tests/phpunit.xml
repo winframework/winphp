@@ -2,7 +2,7 @@
 
 	<filter>
 		<whitelist>
-			<directory suffix='.php'>../../www/vendor/Win</directory>
+			<directory suffix='.php'>../www/vendor/Win</directory>
 		</whitelist>
 	</filter>
 
