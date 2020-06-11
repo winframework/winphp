@@ -26,11 +26,17 @@ class Page extends Model
 		$this->updatedAt = null;
 	}
 
+	public function __toString()
+	{
+		return $this->title;
+	}
+
 	public function category()
 	{
 		return (new PageCategoryOrm())->find($this->categoryId);
 	}
 
 	public function validate()
-	{ }
+	{
+	}
 }

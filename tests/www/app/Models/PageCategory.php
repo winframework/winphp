@@ -19,6 +19,12 @@ class PageCategory extends Model
 		$this->description = '';
 	}
 
+	public function __toString()
+	{
+		return $this->title;
+	}
+
 	public function validate()
-	{ }
+	{
+	}
 }

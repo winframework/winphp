@@ -43,7 +43,7 @@ class PageOrmTest extends TestCase
 	{
 		$orm = (new PageOrm());
 		$orm->raw('SELECT * FROM ' . $orm::TABLE
-			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', [2, 10]);
+			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', 2, 10);
 
 		$page = $orm->one();
 
@@ -54,7 +54,7 @@ class PageOrmTest extends TestCase
 	{
 		$orm = (new PageOrm());
 		$success = $orm->execute('SELECT * FROM ' . $orm::TABLE
-			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', [2, 10]);
+			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', 2, 10);
 
 		$this->assertTrue($success);
 	}
@@ -219,7 +219,7 @@ class PageOrmTest extends TestCase
 		$orm = (new PageOrm())->paginate(1, 2);
 		$this->assertEquals(1, count($orm->list()));
 		$this->assertEquals(3, $orm->count());
-		$this->assertEquals(2, $orm->pagination->current());
+		$this->assertEquals(2, $orm->pagination->current);
 	}
 
 	public function testPaginateInvalid()
@@ -227,7 +227,7 @@ class PageOrmTest extends TestCase
 		$orm = (new PageOrm())->paginate(2, 200);
 		$this->assertEquals(1, count($orm->list()));
 		$this->assertEquals(3, $orm->count());
-		$this->assertEquals(2, $orm->pagination->current());
+		$this->assertEquals(2, $orm->pagination->current);
 	}
 
 	public function testFlush()

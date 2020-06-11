@@ -8,62 +8,36 @@ namespace Win\Common;
 class Pagination
 {
 	/** @var int */
-	private $pageSize = 0;
+	public $pageSize;
 
-	/** @var int */
-	private $current = 0;
+	/** @var int Current Page */
+	public $current;
 
-	/** @var int */
-	private $count = 0;
+	/** @var int Total of records */
+	public $count = 0;
+
+	public $prev;
+	public $next;
+	public $last;
+	public $offset;
 
 	/**
 	 * @param int $pageSize
-	 * @param int $currentPage
+	 * @param int $current
 	 */
-	public function setPage($pageSize, $currentPage)
+	public function __construct($pageSize, $current)
 	{
 		$this->pageSize = $pageSize;
-		$this->current = max($currentPage, 1);
+		$this->current = max($current, 1);
 	}
 
 	public function setCount($count)
 	{
 		$this->count = $count;
-		$this->current = min($this->last(), $this->current);
-	}
-
-	public function pageSize()
-	{
-		return $this->pageSize;
-	}
-
-	public function count()
-	{
-		return $this->count;
-	}
-
-	public function offset()
-	{
-		return $this->pageSize * ($this->current - 1);
-	}
-
-	public function current()
-	{
-		return $this->current;
-	}
-
-	public function last()
-	{
-		return ceil($this->count / $this->pageSize);
-	}
-
-	public function prev()
-	{
-		return max(1, $this->current - 1);
-	}
-
-	public function next()
-	{
-		return min($this->last(), $this->current + 1);
+		$this->last = ceil($count / $this->pageSize);
+		$this->current = min($this->last, $this->current);
+		$this->prev =  max(1, $this->current - 1);
+		$this->next = min($this->last, $this->current + 1);
+		$this->offset = $this->pageSize * ($this->current - 1);
 	}
 }

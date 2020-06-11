@@ -120,7 +120,7 @@ abstract class Connection
 	 */
 	public function fetchCount($query, $values)
 	{
-		return $this->stmt($query, $values)->fetchColumn();
+		return (int) $this->stmt($query, $values)->fetchColumn();
 	}
 
 	/** @return string */

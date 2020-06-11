@@ -5,45 +5,44 @@ use Win\Common\Pagination;
 use Win\Request\Url;
 
 $url = Url::instance()->getUrl();
-$showFirst = false;
-$showLast = false;
 
 /** @var Block $this */
 /** @var Pagination $pagination */
+extract(get_object_vars($pagination));
 ?>
-<?php if ($pagination->pageSize() > 0 && $pagination->last() > 0) : ?>
+<?php if ($pageSize > 0 && $last > 0) : ?>
 	<ul class="pagination pagination-lg">
-		<?php if ($showFirst && $pagination->current() >= 1 + 5) : ?>
-			<li>
+		<?php if ($current > 5) : ?>
+			<!-- <li class="first">
 				<a href="<?= $url; ?>?p=1">
 					Primeiro
 				</a>
-			</li>
+			</li> -->
 		<?php endif; ?>
-		<?php if ($pagination->current() > 1) : ?>
-			<li>
-				<a href="<?= $url; ?>?p=<?= $pagination->prev(); ?>">
+		<?php if ($current > 1) : ?>
+			<li class="prev">
+				<a href="<?= $url; ?>?p=<?= $prev; ?>">
 					Anterior
 				</a>
 			</li> <?php endif; ?>
-		<?php for ($i = 1; $i <= $pagination->last(); ++$i) : ?>
-			<li class="<?= ($i == $pagination->current()) ? 'active' : ''; ?>">
+		<?php for ($i = 1; $i <= $last; ++$i) : ?>
+			<li class="<?= ($i == $current) ? 'active' : ''; ?>">
 				<a href="<?= $url; ?>?p=<?= $i; ?>">
 					<?= $i; ?>
 				</a>
 			</li>
 		<?php endfor; ?>
-		<?php if ($pagination->current() < $pagination->last()) : ?>
-			<li>
-				<a href="<?= $url; ?>?p=<?= $pagination->next(); ?>">
+		<?php if ($current < $last) : ?>
+			<li class="next">
+				<a href="<?= $url; ?>?p=<?= $next; ?>">
 					Próximo
 				</a>
 			</li>
 		<?php endif; ?>
-		<?php if ($showLast && $pagination->current() <= $pagination->last() - 5) : ?>
-			<li>
-				<a href="<?= $url; ?>?p=<?= $pagination->last(); ?>">Último</a>
-			</li>
+		<?php if ($current <= $last - 5) : ?>
+			<!-- <li class="last">
+				<a href="<?= $url; ?>?p=<?= $last; ?>">Último</a>
+			</li> -->
 		<?php endif; ?>
 	</ul>
 <?php endif;

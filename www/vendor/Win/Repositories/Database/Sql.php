@@ -5,7 +5,7 @@ namespace Win\Repositories\Database;
 /**
  * Cria comandos SQL
  */
-class Query
+class Sql
 {
 	/** @var string */
 	private $table;

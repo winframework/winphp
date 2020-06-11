@@ -4,14 +4,14 @@ namespace Win\Repositories\Database;
 
 use PHPUnit\Framework\TestCase;
 
-class QueryTest extends TestCase
+class SqlTest extends TestCase
 {
 	public function testGetValues()
 	{
 		$values = ['a', 'b'];
 		$rules = [10, 'john'];
 
-		$q = new Query('t1', $values);
+		$q = new Sql('t1', $values);
 		$q->addWhere('id', $rules[0]);
 		$q->addWhere('name', $rules[1]);
 
@@ -22,7 +22,7 @@ class QueryTest extends TestCase
 	{
 		$values = ['a', 'b'];
 		$raw = 'SELECT id,name,email FROM t1 WHERE id = ? AND name LIKE = ?';
-		$q = new Query('t1', $values, $raw);
+		$q = new Sql('t1', $values, $raw);
 		$q->setOrderBy('name DESC');
 
 		$this->assertEquals(
@@ -35,7 +35,7 @@ class QueryTest extends TestCase
 	{
 		$values = ['a', 'b'];
 		$raw = 'SELECT id,name,email FROM t1';
-		$q = new Query('t1', $values, $raw);
+		$q = new Sql('t1', $values, $raw);
 		$q->addWhere('name < ?', 10);
 		$q->setLimit(0, 5);
 
@@ -47,7 +47,7 @@ class QueryTest extends TestCase
 
 	public function testSelect()
 	{
-		$q = new Query('t1');
+		$q = new Sql('t1');
 		$q->addWhere('id', 10);
 
 		$this->assertEquals(
@@ -58,7 +58,7 @@ class QueryTest extends TestCase
 
 	public function testSelectCount()
 	{
-		$q = new Query('t1');
+		$q = new Sql('t1');
 		$q->addWhere('id', 10);
 
 		$this->assertEquals(
@@ -73,7 +73,7 @@ class QueryTest extends TestCase
 			'id' => 10,
 			'name' => 'john',
 		];
-		$q = new Query('t1', $values);
+		$q = new Sql('t1', $values);
 
 		$this->assertEquals(
 			'INSERT INTO t1 (id,name) VALUES (?, ?)',
@@ -87,7 +87,7 @@ class QueryTest extends TestCase
 			'id' => 10,
 			'name' => 'john',
 		];
-		$q = new Query('t1', $values);
+		$q = new Sql('t1', $values);
 
 		$this->assertEquals(
 			'UPDATE t1 SET id = ?, name = ?',
@@ -97,7 +97,7 @@ class QueryTest extends TestCase
 
 	public function testDelete()
 	{
-		$q = new Query('t1', ['fakeData']);
+		$q = new Sql('t1', ['fakeData']);
 		$q->addWhere('id', 10);
 
 		$this->assertEquals(
@@ -108,7 +108,7 @@ class QueryTest extends TestCase
 
 	public function testSetLimit()
 	{
-		$q = new Query('t1', ['fakeData']);
+		$q = new Sql('t1', ['fakeData']);
 		$q->setLimit(10, 5);
 
 		$this->assertEquals(
@@ -119,7 +119,7 @@ class QueryTest extends TestCase
 
 	public function testAddOrderBy()
 	{
-		$q = new Query('t1', ['fakeData']);
+		$q = new Sql('t1', ['fakeData']);
 		$q->addOrderBy('id ASC', 3);
 		$q->addOrderBy('name DESC', 1);
 		$q->addOrderBy('email ASC', 2);
@@ -132,7 +132,7 @@ class QueryTest extends TestCase
 
 	public function testSetOrderBy()
 	{
-		$q = new Query('t1', ['fakeData']);
+		$q = new Sql('t1', ['fakeData']);
 		$q->addOrderBy('id ASC', 3);
 		$q->setOrderBy('name DESC');
 

@@ -9,9 +9,11 @@ use Win\Repositories\Database\Orm;
 /**
  * Categoria ORM
  *
- * @method PageCategory one()
  * @method PageCategory[] list()
  * @method PageCategory find($id)
+ * @method PageCategory findOr404($id)
+ * @method PageCategory one()
+ * @method PageCategory oneOr404()
  */
 class PageCategoryOrm extends Orm
 {

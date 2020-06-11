@@ -2,8 +2,6 @@
 
 namespace Win\Models;
 
-use Win\Request\HttpException;
-
 abstract class Model
 {
 	/** @var int|null */

@@ -26,8 +26,8 @@ abstract class Orm
 	/** @var Pagination */
 	public $pagination;
 
-	/** @var Query */
-	protected $query;
+	/** @var Sql */
+	protected $sql;
 
 	/**
 	 * @param Model $model
@@ -43,8 +43,8 @@ abstract class Orm
 	public function __construct($connection = null)
 	{
 		$this->conn = $connection ?: MysqlConnection::instance();
-		$this->query = new Query(static::TABLE);
-		$this->pagination = new Pagination();
+		$this->sql = new Sql(static::TABLE);
+		// $this->pagination = new Pagination();
 	}
 
 	/**
@@ -52,9 +52,9 @@ abstract class Orm
 	 * @param string $query
 	 * @param mixed[]
 	 */
-	public function raw($query, $values = [])
+	public function raw($query, ...$values)
 	{
-		$this->query = new Query(static::TABLE, $values, $query);
+		$this->sql = new Sql(static::TABLE, $values, $query);
 
 		return $this;
 	}
@@ -64,7 +64,7 @@ abstract class Orm
 	 * @param string $query
 	 * @param mixed[]
 	 */
-	public function execute($query, $values = [])
+	public function execute($query, ...$values)
 	{
 		return $this->conn->execute($query, $values);
 	}
@@ -75,10 +75,10 @@ abstract class Orm
 	 */
 	public function one()
 	{
-		$this->query->setLimit(0, 1);
+		$this->sql->setLimit(0, 1);
 
-		$query = $this->query->select();
-		$values = $this->query->getValues();
+		$query = $this->sql->select();
+		$values = $this->sql->getValues();
 		$row = $this->conn->fetch($query, $values);
 		$this->flush();
 
@@ -121,10 +121,12 @@ abstract class Orm
 	 */
 	public function list()
 	{
-		$this->applyPagination();
+		if ($this->pagination) {
+			$this->setLimit();
+		}
 
-		$query = $this->query->select();
-		$values = $this->query->getValues();
+		$query = $this->sql->select();
+		$values = $this->sql->getValues();
 		$rows = $this->conn->fetchAll($query, $values);
 		$this->flush();
 
@@ -133,14 +135,17 @@ abstract class Orm
 
 	/**
 	 * Retorna o total de resultados da busca
-	 * Sem aplicar LIMIT e FLUSH
+	 * @return int
 	 */
 	public function count()
 	{
-		$query = $this->query->selectCount();
-		$values = $this->query->getValues();
+		$query = $this->sql->selectCount();
+		$values = $this->sql->getValues();
 
-		return $this->conn->fetchCount($query, $values);
+		$count = $this->conn->fetchCount($query, $values);
+		$this->flush();
+
+		return $count;
 	}
 
 	/**
@@ -148,8 +153,8 @@ abstract class Orm
 	 */
 	public function delete()
 	{
-		$query = $this->query->delete();
-		$values = $this->query->getValues();
+		$query = $this->sql->delete();
+		$values = $this->sql->getValues();
 		$this->conn->execute($query, $values);
 		$this->flush();
 	}
@@ -162,8 +167,8 @@ abstract class Orm
 	{
 		$this->filterBy(static::PK, $id);
 
-		$query = $this->query->delete();
-		$values = $this->query->getValues();
+		$query = $this->sql->delete();
+		$values = $this->sql->getValues();
 		$this->conn->execute($query, $values);
 		$this->flush();
 	}
@@ -186,11 +191,11 @@ abstract class Orm
 	}
 
 	/**
-	 * Remove todos os filtros, ordenação, etc
+	 * Remove todos os filtros e ordenação
 	 */
 	public function flush()
 	{
-		$this->query = new Query(static::TABLE);
+		$this->sql = new Sql(static::TABLE);
 
 		return $this;
 	}
@@ -200,9 +205,9 @@ abstract class Orm
 	 */
 	private function insert($model)
 	{
-		$this->query = new Query(static::TABLE, $this->mapRow($model));
-		$query = $this->query->insert();
-		$values = $this->query->getValues();
+		$this->sql = new Sql(static::TABLE, $this->mapRow($model));
+		$query = $this->sql->insert();
+		$values = $this->sql->getValues();
 		$this->conn->execute($query, $values);
 
 		$model->id = (int) $this->conn->getLastInsertId();
@@ -213,11 +218,11 @@ abstract class Orm
 	 */
 	private function update($model)
 	{
-		$this->query = new Query(static::TABLE, $this->mapRow($model));
+		$this->sql = new Sql(static::TABLE, $this->mapRow($model));
 		$this->filterBy(static::PK, $model->id);
 
-		$query = $this->query->update();
-		$values = $this->query->getValues();
+		$query = $this->sql->update();
+		$values = $this->sql->getValues();
 		$this->conn->execute($query, $values);
 		$this->flush();
 	}
@@ -242,7 +247,7 @@ abstract class Orm
 	 */
 	public function filterBy($comparator, ...$values)
 	{
-		$this->query->addWhere($comparator, ...$values);
+		$this->sql->addWhere($comparator, ...$values);
 
 		return $this;
 	}
@@ -255,7 +260,7 @@ abstract class Orm
 	 */
 	public function sortBy($column, $mode = 'ASC', $priority = 0)
 	{
-		$this->query->addOrderBy($column . ' ' . $mode, $priority);
+		$this->sql->addOrderBy($column . ' ' . $mode, $priority);
 
 		return $this;
 	}
@@ -281,22 +286,22 @@ abstract class Orm
 	 */
 	public function paginate($pageSize, $pageNumber = 1)
 	{
-		$this->pagination->setPage($pageSize, $pageNumber);
-
+		$this->pagination = new Pagination($pageSize, $pageNumber);
 		return $this;
 	}
 
 	/**
-	 * Define a paginação se necessário
+	 * Define o limit com base na paginação
 	 */
-	private function applyPagination()
+	private function setLimit()
 	{
-		$count = $this->count();
-		$pagination = $this->pagination;
+		$query = $this->sql->selectCount();
+		$values = $this->sql->getValues();
+		$count = $this->conn->fetchCount($query, $values);
 
-		if ($pagination->pageSize() && $count) {
-			$pagination->setCount($count);
-			$this->query->setLimit($pagination->offset(), $pagination->pageSize());
+		if ($count) {
+			$this->pagination->setCount($count);
+			$this->sql->setLimit($this->pagination->offset, $this->pagination->pageSize);
 		}
 	}
 

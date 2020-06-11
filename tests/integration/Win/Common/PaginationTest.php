@@ -8,75 +8,72 @@ class PaginationTest extends TestCase
 {
 	public function testSetPage()
 	{
-		$PAGE_SIZE = 10;
-		$CURRENT = 5;
+		$pageSize = 10;
+		$current = 5;
 
-		$p = new Pagination();
-		$p->setPage($PAGE_SIZE, $CURRENT);
+		$p = new Pagination($pageSize, $current);
 
-		$this->assertEquals($PAGE_SIZE, $p->pageSize());
-		$this->assertEquals($CURRENT, $p->current());
+		$this->assertEquals($pageSize, $p->pageSize);
+		$this->assertEquals($current, $p->current);
 	}
 
 	public function testSetCount()
 	{
-		$PAGE_SIZE = 10;
-		$CURRENT = 5;
-		$COUNT = 10;
-		$p = new Pagination();
-		$p->setPage($PAGE_SIZE, $CURRENT);
-		$p->setCount($COUNT);
+		$pageSize = 10;
+		$current = 5;
+		$count = 10;
+		$p = new Pagination($pageSize, $current);
+		$p->setCount($count);
 
-		$this->assertEquals($COUNT, $p->count());
-		$this->assertEquals(1, $p->current());
+		$this->assertEquals($count, $p->count);
+		$this->assertEquals(1, $p->current);
 	}
 
 	public function testOffset()
 	{
-		$PAGE_SIZE = 10;
-		$CURRENT = 5;
-		$p = new Pagination();
-		$p->setPage($PAGE_SIZE, $CURRENT);
+		$pageSize = 10;
+		$current = 5;
+		$p = new Pagination($pageSize, $current);
+		$p->setCount(400);
 
-		$this->assertEquals(40, $p->offset());
+		$this->assertEquals(40, $p->offset);
 	}
 
 	public function testLast()
 	{
-		$PAGE_SIZE = 10;
-		$CURRENT = 5;
-		$COUNT = 100;
-		$p = new Pagination();
-		$p->setPage($PAGE_SIZE, $CURRENT);
-		$p->setCount($COUNT);
-		$this->assertEquals(10, $p->last());
+		$pageSize = 10;
+		$current = 5;
+		$count = 100;
+		$p = new Pagination($pageSize, $current);
+		$p->setCount($count);
+		$this->assertEquals(10, $p->last);
 	}
 
 	public function testPrev()
 	{
-		$PAGE_SIZE = 10;
-		$CURRENT = 5;
-		$COUNT = 100;
-		$p = new Pagination();
-		$p->setPage($PAGE_SIZE, $CURRENT);
-		$p->setCount($COUNT);
-		$this->assertEquals(4, $p->prev());
+		$pageSize = 10;
+		$current = 5;
+		$count = 100;
+		$p = new Pagination($pageSize, $current);
+		$p->setCount($count);
+		$this->assertEquals(4, $p->prev);
 
-		$p->setPage($PAGE_SIZE, 1);
-		$this->assertEquals(1, $p->prev());
+		$p = new Pagination($pageSize, 1);
+		$p->setCount($count);
+		$this->assertEquals(1, $p->prev);
 	}
 
 	public function testNext()
 	{
-		$PAGE_SIZE = 10;
-		$CURRENT = 5;
-		$COUNT = 100;
-		$p = new Pagination();
-		$p->setPage($PAGE_SIZE, $CURRENT);
-		$p->setCount($COUNT);
-		$this->assertEquals(6, $p->next());
+		$pageSize = 10;
+		$current = 5;
+		$count = 100;
+		$p = new Pagination($pageSize, $current);
+		$p->setCount($count);
+		$this->assertEquals(6, $p->next);
 
-		$p->setPage($PAGE_SIZE, 100);
-		$this->assertEquals(10, $p->next());
+		$p = new Pagination($pageSize, 100);
+		$p->setCount($count);
+		$this->assertEquals(10, $p->next);
 	}
 }

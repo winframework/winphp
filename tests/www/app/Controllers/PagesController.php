@@ -6,6 +6,7 @@ use App\Repositories\PageCategoryOrm;
 use App\Repositories\PageOrm;
 use ArrayObject;
 use Exception;
+use Win\Common\Pagination;
 use Win\Controllers\Controller;
 use Win\Repositories\Database\DatabaseException;
 use Win\Repositories\Database\MysqlConnection;
@@ -27,7 +28,7 @@ class PagesController extends Controller
 	public $categoryOrm;
 
 	/** @var int */
-	protected $pageSize = 2;
+	protected $pageSize = 1;
 
 	public function __construct()
 	{
@@ -35,9 +36,7 @@ class PagesController extends Controller
 		$this->categoryOrm = new PageCategoryOrm();
 
 		$this->prepareDatabase();
-		$this->orm
-			->sortBy('id', 'asc')
-			->paginate($this->pageSize, Input::get('p'));
+		$this->orm->sortOldest()->paginate($this->pageSize, Input::get('p'));
 	}
 
 	/**
@@ -45,11 +44,9 @@ class PagesController extends Controller
 	 */
 	public function index()
 	{
-		$orm = $this->orm;
-
 		$this->title = 'Pages';
-		$this->pages = $orm->list();
 		$this->categories = $this->getCategories();
+		$this->pages = $this->orm->list();
 
 		return new View('pages/index');
 	}
@@ -60,11 +57,12 @@ class PagesController extends Controller
 	public function listByCategory($categoryId)
 	{
 		$category = $this->categoryOrm->find($categoryId);
-		$this->orm->filterBy('categoryId', $categoryId);
 
-		$this->title = 'Pages - ' . $category->title;
-		$this->pages = $this->orm->list();
+		$this->title = 'Pages - ' . $category;
 		$this->categories = $this->getCategories();
+		$this->pages = $this->orm
+			->filterBy('categoryId', $categoryId)
+			->list();
 
 		return new View('pages/index');
 	}
@@ -76,7 +74,7 @@ class PagesController extends Controller
 	{
 		$page = $this->orm->findOr404($id);
 
-		$this->title = 'Page - ' . $page->title;
+		$this->title = 'Page - ' . $page;
 		$this->page = $page;
 
 		return new View('pages/detail');
@@ -84,9 +82,7 @@ class PagesController extends Controller
 
 	protected function getCategories()
 	{
-		return $this->categoryOrm
-			->paginate(2, 1)
-			->list();
+		return $this->categoryOrm->list();
 	}
 
 	private function prepareDatabase()
