@@ -41,7 +41,6 @@ abstract class Orm
 	{
 		$this->conn = $connection ?: MysqlConnection::instance();
 		$this->sql = new Sql(static::TABLE);
-		// $this->pagination = new Pagination();
 	}
 
 	/**
@@ -88,7 +87,7 @@ abstract class Orm
 	public function oneOr404()
 	{
 		$model = $this->one();
-		if ($model->id === 0) {
+		if (is_null($model->id)) {
 			throw new HttpException('Model not found', 404);
 		}
 
