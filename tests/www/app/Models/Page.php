@@ -11,20 +11,11 @@ use Win\Models\Model;
  */
 class Page extends Model
 {
-	public $title;
-	public $description;
 	public $categoryId;
+	public $title = '';
+	public $description = '';
 	public $createdAt;
 	public $updatedAt;
-
-	/** Construtor */
-	public function __construct()
-	{
-		$this->title = '';
-		$this->description = '';
-		$this->createdAt = null;
-		$this->updatedAt = null;
-	}
 
 	public function __toString()
 	{

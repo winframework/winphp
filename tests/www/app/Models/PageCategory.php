@@ -9,16 +9,12 @@ use Win\Models\Model;
  */
 class PageCategory extends Model
 {
-	public $title;
-	public $description;
+	public $enabled;
+	public $title = '';
+	public $description = '';
+	public $createdAt;
 
 	/** Construtor */
-	public function __construct()
-	{
-		$this->title = '';
-		$this->description = '';
-	}
-
 	public function __toString()
 	{
 		return $this->title;

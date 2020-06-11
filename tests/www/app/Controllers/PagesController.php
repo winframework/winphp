@@ -82,7 +82,7 @@ class PagesController extends Controller
 
 	protected function getCategories()
 	{
-		return $this->categoryOrm->list();
+		return $this->categoryOrm->filterBy('enabled')->list();
 	}
 
 	private function prepareDatabase()
