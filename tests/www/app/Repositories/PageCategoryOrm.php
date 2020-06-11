@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Page;
 use App\Models\PageCategory;
 use Win\Repositories\Database\Orm;
 
@@ -18,7 +17,6 @@ use Win\Repositories\Database\Orm;
 class PageCategoryOrm extends Orm
 {
 	const TABLE = 'pageCategories';
-	const TITLE = 'Categoria de Páginas';
 
 	/** @return PageCategory */
 	public static function mapModel($row)

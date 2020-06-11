@@ -15,9 +15,6 @@ abstract class Orm
 	const TABLE = '';
 
 	/** @var string */
-	const TITLE = '';
-
-	/** @var string */
 	const PK = 'id';
 
 	/** @var Connection */

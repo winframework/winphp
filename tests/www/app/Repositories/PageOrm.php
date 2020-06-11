@@ -18,7 +18,6 @@ use Win\Repositories\Database\Orm;
 class PageOrm extends Orm
 {
 	const TABLE = 'pages';
-	const TITLE = 'Página';
 
 	/** @return Page */
 	public static function mapModel($row)
