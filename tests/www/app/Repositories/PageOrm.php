@@ -25,6 +25,7 @@ class PageOrm extends Orm
 	{
 		$page = new Page();
 		$page->id = $row['id'];
+		$page->categoryId = $row['categoryId'];
 		$page->title = $row['title'];
 		$page->description = $row['description'];
 		$page->createdAt = $row['createdAt'];
@@ -38,6 +39,7 @@ class PageOrm extends Orm
 	{
 		return [
 			'id' => $model->id,
+			'categoryId' => $model->categoryId,
 			'title' => $model->title,
 			'description' => $model->description,
 			'updatedAt' => $model->updatedAt,

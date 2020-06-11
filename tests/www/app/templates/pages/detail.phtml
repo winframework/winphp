@@ -15,6 +15,10 @@ use Win\Views\View;
 		<?php if ($page->createdAt) : ?>
 			<b>Criado em: <?= Date::format($page->createdAt, 'd/m/Y H:i:s'); ?></b>
 		<?php endif; ?>
+		<?php if ($page->categoryId) : ?>
+			<br />
+			<b>Categoria: <?= $page->category()->title; ?></b>
+		<?php endif; ?>
 		<p>
 			<?= nl2br($page->description); ?>
 		</p>

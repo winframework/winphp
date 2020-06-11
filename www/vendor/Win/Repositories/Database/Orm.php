@@ -91,7 +91,7 @@ abstract class Orm
 	public function oneOr404()
 	{
 		$model = $this->one();
-		if ($model->id > 0) {
+		if ($model->id === 0) {
 			throw new HttpException('Model not found', 404);
 		}
 
