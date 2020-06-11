@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Win\ApplicationTest;
 use Win\Repositories\Database\DbConfig;
 use Win\Repositories\Database\MysqlConnection as Mysql;
+use Win\Repositories\Database\Transaction;
 
 class PageOrmTest extends TestCase
 {
@@ -293,24 +294,24 @@ class PageOrmTest extends TestCase
 	public function testTransactionCommit()
 	{
 		$orm = new PageOrm();
-		$orm->beginTransaction();
+		$t = new Transaction();
 		$count = $orm->count();
 		$orm->save(new Page());
 
 		$this->assertEquals($count + 1, $orm->count());
-		$orm->commit();
+		$t->commit();
 		$this->assertEquals($count + 1, $orm->count());
 	}
 
 	public function testTransactionRollback()
 	{
 		$orm = new PageOrm();
-		$orm->beginTransaction();
+		$t = new Transaction();
 		$count = $orm->count();
 		$orm->save(new Page());
 
 		$this->assertEquals($count + 1, $orm->count());
-		$orm->rollback();
+		$t->rollback();
 		$this->assertEquals($count, $orm->count());
 	}
 }

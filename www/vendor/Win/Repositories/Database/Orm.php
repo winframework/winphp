@@ -301,28 +301,4 @@ abstract class Orm
 			$this->sql->setLimit($this->pagination->offset, $this->pagination->pageSize);
 		}
 	}
-
-	/**
-	 * Inicia uma Transação
-	 */
-	public function beginTransaction()
-	{
-		$this->conn->getPdo()->beginTransaction();
-	}
-
-	/**
-	 * Completa a Transação
-	 */
-	public function commit()
-	{
-		$this->conn->getPdo()->commit();
-	}
-
-	/**
-	 * Cancela a Transação
-	 */
-	public function rollback()
-	{
-		$this->conn->getPdo()->rollBack();
-	}
 }

@@ -27,6 +27,12 @@ class DateTest extends TestCase
 
 		$date = Date::format('1993-01-26 13:14:15', 'd/m/Y h:i:s');
 		$this->assertEquals('26/01/1993 01:14:15', $date);
+
+		$date = Date::format('', 'd/m/Y h:i:s');
+		$this->assertNull($date);
+
+		$date = Date::format(null, 'd/m/Y h:i:s');
+		$this->assertNull($date);
 	}
 
 	public function testFormatF()
