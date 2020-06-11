@@ -14,8 +14,8 @@
 	</logging>
 
 	<testsuites>
-		<testsuite name="base">
-			<directory>cases</directory>
+		<testsuite name="integration">
+			<directory>integration</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

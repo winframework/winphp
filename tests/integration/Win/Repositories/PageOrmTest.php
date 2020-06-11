@@ -99,6 +99,12 @@ class PageOrmTest extends TestCase
 		$this->assertEquals('Second Page', $page->title);
 	}
 
+	/** @expectedException Win\Request\HttpException */
+	public function testFindOr404()
+	{
+		$page = (new PageOrm())->findOr404(200);
+	}
+
 	public function testSortBy()
 	{
 		$page = (new PageOrm())
@@ -197,7 +203,7 @@ class PageOrmTest extends TestCase
 
 	public function testOrFailReturns()
 	{
-		$orm = (new PageOrm())->one()->or404();
+		$orm = (new PageOrm())->oneOr404();
 		$this->assertEquals('First Page', $orm->title);
 	}
 
@@ -205,8 +211,7 @@ class PageOrmTest extends TestCase
 	public function testOrFailException()
 	{
 		ApplicationTest::newApp();
-		$orm = (new PageOrm())->filterBy('id', 100)->one()->or404();
-		$this->assertEquals('First Page', $orm->title);
+		$orm = (new PageOrm())->filterBy('id', 100)->oneOr404();
 	}
 
 	public function testPaginate()

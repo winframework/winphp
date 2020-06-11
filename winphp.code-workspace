@@ -12,6 +12,6 @@
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "winphp",
 		"better-phpunit.phpunitBinary": "/usr/local/bin/phpunit",
-		"better-phpunit.commandSuffix": "--configuration ${workspaceRoot}/../tests/unit/phpunit.xml",
+		"better-phpunit.commandSuffix": "--configuration ${workspaceRoot}/../tests/phpunit.xml",
 	}
 }

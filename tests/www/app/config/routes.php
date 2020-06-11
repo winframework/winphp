@@ -39,7 +39,7 @@ Router::addRoutes('App\\Controllers\\', [
 	// Pages
 	'pages' => 'PagesController@index',
 	'pages/(.*)' => 'PagesController@listByCategory',
-	'page/(.*)' => 'PagesController@show',
+	'page/(.*)' => 'PagesController@detail',
 
 	// Contato
 	'contato' => 'ContatoController@index',

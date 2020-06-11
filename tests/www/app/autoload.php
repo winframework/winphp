@@ -15,7 +15,7 @@ spl_autoload_register(function ($className) {
  * Autoload Tests
  */
 spl_autoload_register(function ($className) {
-	$file = BASE_PATH . '/../unit/cases/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+	$file = BASE_PATH . '/../integration/' . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
 	if (file_exists($file)) {
 		return require $file;
 	}

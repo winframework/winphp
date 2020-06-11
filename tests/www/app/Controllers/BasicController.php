@@ -109,10 +109,10 @@ class BasicController extends Controller
 	 */
 	public function redirecting()
 	{
-		Alert::success('Você será redirecionado');
+		Alert::success('Você foi redirecionado.');
 		$this->redirect('alerts/show');
 
-		Alert::error('Este não pode aparecer');
+		Alert::error('Este não pode aparecer.');
 
 		return new View('index');
 	}
@@ -122,9 +122,9 @@ class BasicController extends Controller
 	 */
 	public function createAlerts()
 	{
-		Alert::error('Ops! Um erro');
-		Alert::error('Outro erro');
-		Alert::success('Parabéns');
+		Alert::error('Ops! Um erro.');
+		Alert::error('Outro erro.');
+		Alert::success('Parabéns.');
 
 		$this->redirect('alerts/show');
 	}

@@ -9,9 +9,12 @@ use Win\Repositories\Database\Orm;
 /**
  * Página ORM
  *
- * @method Page one()
+ * 
  * @method Page[] list()
+ * @method Page one()
+ * @method Page oneOr404()
  * @method Page find($id)
+ * @method Page findOr404($id)
  */
 class PageOrm extends Orm
 {

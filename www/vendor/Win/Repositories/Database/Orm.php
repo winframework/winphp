@@ -4,6 +4,7 @@ namespace Win\Repositories\Database;
 
 use Win\Common\Pagination;
 use Win\Models\Model;
+use Win\Request\HttpException;
 
 /**
  * Object Relational Mapping
@@ -70,6 +71,7 @@ abstract class Orm
 
 	/**
 	 * Retorna o primeiro resultado da busca
+	 * @return Model
 	 */
 	public function one()
 	{
@@ -84,12 +86,34 @@ abstract class Orm
 	}
 
 	/**
+	 * Retorna o primeiro resultado da busca ou redireciona para Página 404
+	 */
+	public function oneOr404()
+	{
+		$model = $this->one();
+		if (!$model->id) {
+			throw new HttpException('Model not found', 404);
+		}
+
+		return $model;
+	}
+
+	/**
 	 * Retorna o registro pela PK
 	 * @param int $id
 	 */
 	public function find($id)
 	{
 		return $this->filterBy(static::PK, $id)->one();
+	}
+
+	/**
+	 * Retorna o registro pela PK ou redireciona para Página 404
+	 * @param int $id
+	 */
+	public function findOr404($id)
+	{
+		return $this->filterBy(static::PK, $id)->oneOr404();
 	}
 
 	/**

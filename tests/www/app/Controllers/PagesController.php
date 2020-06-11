@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Repositories\PageCategoryOrm;
 use App\Repositories\PageOrm;
+use ArrayObject;
 use Exception;
 use Win\Controllers\Controller;
 use Win\Repositories\Database\DatabaseException;
@@ -15,7 +16,7 @@ use Win\Views\View;
 /**
  * pages => Pages@index
  * pages/(.*) => Pages@listByCategory
- * page/(.*) => Pages@detailPage
+ * page/(.*) => Pages@detail
  */
 class PagesController extends Controller
 {
@@ -71,14 +72,14 @@ class PagesController extends Controller
 	/**
 	 * Exibe detalhes do item
 	 */
-	public function show($id)
+	public function detail($id)
 	{
-		$page = $this->getPage($id);
+		$page = $this->orm->findOr404($id);
 
 		$this->title = 'Page - ' . $page->title;
 		$this->page = $page;
 
-		return new View('pages/show');
+		return new View('pages/detail');
 	}
 
 	protected function getCategories()
@@ -86,14 +87,6 @@ class PagesController extends Controller
 		return $this->categoryOrm
 			->paginate(2, 1)
 			->list();
-	}
-
-	protected function getPage($id)
-	{
-		return $this->orm
-			->filterBy('id', $id)
-			->one()
-			->or404();
 	}
 
 	private function prepareDatabase()
