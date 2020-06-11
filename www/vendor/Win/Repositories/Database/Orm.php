@@ -302,6 +302,9 @@ abstract class Orm
 		}
 	}
 
+	/**
+	 * Inicia uma Transação
+	 */
 	public function beginTransaction()
 	{
 		$this->conn->getPdo()->beginTransaction();
