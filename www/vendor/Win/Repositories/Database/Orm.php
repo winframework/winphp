@@ -278,6 +278,7 @@ abstract class Orm
 	}
 
 	/**
+	 * Define um limite das buscas com list()
 	 * @param int $pageSize
 	 * @param int $currentPage
 	 */
