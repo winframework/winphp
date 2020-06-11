@@ -279,11 +279,11 @@ abstract class Orm
 
 	/**
 	 * @param int $pageSize
-	 * @param int $pageNumber
+	 * @param int $currentPage
 	 */
-	public function paginate($pageSize, $pageNumber = 1)
+	public function paginate($pageSize, $currentPage = 1)
 	{
-		$this->pagination = new Pagination($pageSize, $pageNumber);
+		$this->pagination = new Pagination($pageSize, $currentPage);
 		return $this;
 	}
 
