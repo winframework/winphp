@@ -1,9 +1,10 @@
 <?php
 
-namespace Win\Request;
+namespace Win;
 
 use App\Controllers\ErrorsController;
 use Exception;
+use Win\Request\Router;
 
 /**
  * Erro Http

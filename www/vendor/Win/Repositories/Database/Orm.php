@@ -2,9 +2,10 @@
 
 namespace Win\Repositories\Database;
 
+use Win\Application;
 use Win\Common\Pagination;
 use Win\Models\Model;
-use Win\Request\HttpException;
+use Win\HttpException;
 
 /**
  * Object Relational Mapping
@@ -39,20 +40,8 @@ abstract class Orm
 	 */
 	public function __construct($connection = null)
 	{
-		$this->conn = $connection ?: MysqlConnection::instance();
+		$this->conn = $connection ?: Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
-	}
-
-	/**
-	 * Prepara raw Sql
-	 * @param string $query
-	 * @param mixed[]
-	 */
-	public function raw($query, ...$values)
-	{
-		$this->sql = new Sql(static::TABLE, $values, $query);
-
-		return $this;
 	}
 
 	/**
@@ -60,7 +49,7 @@ abstract class Orm
 	 * @param string $query
 	 * @param mixed[]
 	 */
-	public function execute($query, ...$values)
+	protected function execute($query, ...$values)
 	{
 		return $this->conn->execute($query, $values);
 	}
@@ -74,7 +63,7 @@ abstract class Orm
 		$this->sql->setLimit(0, 1);
 
 		$query = $this->sql->select();
-		$values = $this->sql->getValues();
+		$values = $this->sql->values();
 		$row = $this->conn->fetch($query, $values);
 		$this->flush();
 
@@ -100,7 +89,7 @@ abstract class Orm
 	 */
 	public function find($id)
 	{
-		return $this->filterBy(static::PK, $id)->one();
+		return $this->filter(static::PK, $id)->one();
 	}
 
 	/**
@@ -109,7 +98,7 @@ abstract class Orm
 	 */
 	public function findOr404($id)
 	{
-		return $this->filterBy(static::PK, $id)->oneOr404();
+		return $this->filter(static::PK, $id)->oneOr404();
 	}
 
 	/**
@@ -122,7 +111,7 @@ abstract class Orm
 		}
 
 		$query = $this->sql->select();
-		$values = $this->sql->getValues();
+		$values = $this->sql->values();
 		$rows = $this->conn->fetchAll($query, $values);
 		$this->flush();
 
@@ -136,7 +125,7 @@ abstract class Orm
 	public function count()
 	{
 		$query = $this->sql->selectCount();
-		$values = $this->sql->getValues();
+		$values = $this->sql->values();
 
 		$count = $this->conn->fetchCount($query, $values);
 		$this->flush();
@@ -150,7 +139,7 @@ abstract class Orm
 	public function delete()
 	{
 		$query = $this->sql->delete();
-		$values = $this->sql->getValues();
+		$values = $this->sql->values();
 		$this->conn->execute($query, $values);
 		$this->flush();
 	}
@@ -161,10 +150,10 @@ abstract class Orm
 	 */
 	public function destroy($id)
 	{
-		$this->filterBy(static::PK, $id);
+		$this->filter(static::PK, $id);
 
 		$query = $this->sql->delete();
-		$values = $this->sql->getValues();
+		$values = $this->sql->values();
 		$this->conn->execute($query, $values);
 		$this->flush();
 	}
@@ -176,14 +165,36 @@ abstract class Orm
 	public function save(Model $model)
 	{
 		$model->validate();
-		if ($this->exists($model)) {
-			$this->update($model);
+		$this->sql = new Sql(static::TABLE, $this->mapRow($model));
+
+		if ($this->exists($model->id)) {
+			$this->filter(static::PK, $model->id);
+			$query = $this->sql->update();
 		} else {
-			$this->insert($model);
-		};
+			$query = $this->sql->insert();
+		}
+		$values = array_values($this->sql->values());
+		$this->conn->execute($query, $values);
+		$model->id = $model->id ?? $this->conn->lastInsertId();
+
+		$this->flush();
+		return $model;
+	}
+
+	/**
+	 * Atualiza somente as colunas informadas
+	 * @param mixed[] $columns
+	 * @return int
+	 */
+	public function update($columns)
+	{
+		$this->sql->setValues($columns);
+		$query = $this->sql->update();
+		$values = array_values($this->sql->values());
+		$stmt = $this->conn->stmt($query, $values);
 		$this->flush();
 
-		return $model;
+		return $stmt->rowCount();
 	}
 
 	/**
@@ -197,83 +208,108 @@ abstract class Orm
 	}
 
 	/**
-	 * @param Model $model
-	 */
-	private function insert($model)
-	{
-		$this->sql = new Sql(static::TABLE, $this->mapRow($model));
-		$query = $this->sql->insert();
-		$values = $this->sql->getValues();
-		$this->conn->execute($query, $values);
-
-		$model->id = (int) $this->conn->getLastInsertId();
-	}
-
-	/**
-	 * @param Model $model
-	 */
-	private function update($model)
-	{
-		$this->sql = new Sql(static::TABLE, $this->mapRow($model));
-		$this->filterBy(static::PK, $model->id);
-
-		$query = $this->sql->update();
-		$values = $this->sql->getValues();
-		$this->conn->execute($query, $values);
-		$this->flush();
-	}
-
-	/**
 	 * Retorna TRUE se o model existir no banco
+	 * @param int $id
 	 * @return bool
 	 */
-	protected function exists($model)
+	protected function exists($id)
 	{
 		$orm = new static($this->conn);
-		$orm->filterBy(static::PK, $model->id);
-
-		return $orm->count() > 0;
+		return $orm->filter(static::PK, $id)->count() > 0;
 	}
 
 	/**
-	 * Aplica um filtro ($comparator aceita mais de uma regra)
-	 * @param string $comparator
-	 * @param mixed $value
-	 * @example filterBy('name = ? AND email = ?', 'John', 'john@email.com')
+	 * Define as colunas da busca
+	 * @param string $columns
 	 */
-	public function filterBy($comparator, ...$values)
+	public function select(...$columns)
 	{
-		$this->sql->addWhere($comparator, ...$values);
+		$this->sql->columns = $columns;
+
+		return $this;
+	}
+
+	/**
+	 * Adiciona Join
+	 * @param string $query
+	 */
+	public function join($query)
+	{
+		$this->sql->addJoin('JOIN ' . $query);
+
+		return $this;
+	}
+
+	/**
+	 * Adiciona Join
+	 * @param string $query
+	 */
+	public function leftJoin($query)
+	{
+		$this->sql->addJoin('LEFT JOIN ' . $query);
+
+		return $this;
+	}
+
+	/**
+	 * Adiciona Join
+	 * @param string $query
+	 */
+	public function rightJoin($query)
+	{
+		$this->sql->addJoin('RIGHT JOIN ' . $query);
+
+		return $this;
+	}
+
+	/**
+	 * Adiciona Join
+	 * @param string $query
+	 */
+	public function innerJoin($query)
+	{
+		$this->sql->addJoin('INNER JOIN ' . $query);
+
+		return $this;
+	}
+
+	/**
+	 * Aplica filtros
+	 * @param string $comparator
+	 * @param mixed $values
+	 * @example filter('name', 'John')
+	 * @example filter('name = ? OR email = ?', 'John', 'email')
+	 */
+	public function filter($comparator, ...$values)
+	{
+		$this->sql->addWhere($comparator, $values);
+
+		return $this;
+	}
+
+	/**
+	 * Aplica filtros (aceita bind params)
+	 * @param string $query
+	 * @param mixed[] $values
+	 * @example filterBy('name = :name OR age > 0', [':name' => 'John'])
+	 */
+	public function filterBy($query, $values = [])
+	{
+		$this->sql->addWhere($query, $values);
 
 		return $this;
 	}
 
 	/**
 	 * Ordem por um campo
-	 * @param string $column
-	 * @param string $mode 'ASC' | 'DESC'
+	 * @param string $rule
 	 * @param int $priority
 	 */
-	public function sortBy($column, $mode = 'ASC', $priority = 0)
+	public function sort($rule, $priority = 0)
 	{
-		$this->sql->addOrderBy($column . ' ' . $mode, $priority);
+		$this->sql->addOrderBy($rule, $priority);
 
 		return $this;
-	}
-
-	public function sortNewest()
-	{
-		return $this->sortBy(static::PK, 'DESC');
-	}
-
-	public function sortOldest()
-	{
-		return $this->sortBy(static::PK, 'ASC');
-	}
-
-	public function sortRand()
-	{
-		return $this->sortBy('RAND()');
 	}
 
 	/**
@@ -293,7 +329,7 @@ abstract class Orm
 	private function setLimit()
 	{
 		$query = $this->sql->selectCount();
-		$values = $this->sql->getValues();
+		$values = $this->sql->values();
 		$count = $this->conn->fetchCount($query, $values);
 
 		if ($count) {

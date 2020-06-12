@@ -1,11 +1,10 @@
 <?php
 
-namespace Win\Request;
+namespace Win;
 
 use App\Controllers\ErrorsController;
 use PHPUnit\Framework\TestCase;
 use Win\Application;
-use Win\Controllers\Controller;
 
 class HttpExceptionTest extends TestCase
 {

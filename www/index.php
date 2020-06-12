@@ -5,7 +5,7 @@
  */
 
 use Win\Application;
-use Win\Request\HttpException;
+use Win\HttpException;
 
 define('BASE_PATH', __DIR__);
 

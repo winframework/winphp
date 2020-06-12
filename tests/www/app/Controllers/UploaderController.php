@@ -20,7 +20,7 @@ class UploaderController extends Controller
 	/** @var FileSystem */
 	private $fs;
 
-	public function __construct()
+	public function init()
 	{
 		$fs = new Filesystem();
 		$fs->delete(static::UPLOAD_PATH);

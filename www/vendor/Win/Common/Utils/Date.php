@@ -11,12 +11,12 @@ class Date
 {
 	/**
 	 * Cra data no formato desejado
-	 * @param string $date
 	 * @param string $formatFrom
+	 * @param string $date
 	 * @param string $formatTo
 	 * @return string
 	 */
-	public static function create($date, $formatFrom, $formatTo = 'Y-m-d H:i:s')
+	public static function create($formatFrom, $date, $formatTo = 'Y-m-d H:i:s')
 	{
 		return DateTime::createFromFormat($formatFrom, $date)->format($formatTo);
 	}

@@ -181,6 +181,11 @@ h6 {
 	flex-wrap: wrap;
 }
 
+.column-2 {
+	float: left;
+	width: 64%;
+}
+
 .column span.art,
 .row span.art {
 	height: auto;

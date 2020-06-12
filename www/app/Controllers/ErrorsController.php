@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Win\Controllers\Controller;
-use Win\Request\HttpException;
+use Win\HttpException;
 use Win\Views\View;
 
 class ErrorsController extends Controller

@@ -4,9 +4,10 @@
  * @see app/templates/shared
  */
 
+use App\Repositories\PageOrm;
 use Win\Application;
 use Win\Common\Benchmark;
-use Win\Request\HttpException;
+use Win\HttpException;
 
 define('BASE_PATH', __DIR__);
 
@@ -27,5 +28,5 @@ for ($i=0; $i < 1; $i++) {
 		$e->run();
 	}
 }
-
+echo '<hr />';
 echo $b->getTime();

@@ -34,10 +34,9 @@ Router::addRoutes('App\\Controllers\\', [
 	// Avançados
 	'send-email' => 'EmailController@index',
 	'uploader' => 'UploaderController@index',
-	'database' => 'DatabaseController@index',
-
-	// Pages
 	'pages' => 'PagesController@index',
+	'pages/save' => 'PagesController@save',
+	'pages/update' => 'PagesController@update',
 	'pages/(.*)' => 'PagesController@listByCategory',
 	'page/(.*)' => 'PagesController@detail',
 

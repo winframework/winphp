@@ -33,12 +33,6 @@ class ApplicationTest extends TestCase
 		$this->assertTrue(Application::app() instanceof Application);
 	}
 
-	public function testGetName()
-	{
-		$app = new Application();
-		$this->assertEquals(APP_NAME, $app->getName());
-	}
-
 	public function testGetPage()
 	{
 		$this->assertEquals('demo', static::$app->getPage());
@@ -84,7 +78,7 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Request\HttpException
+	 * @expectedException \Win\HttpException
 	 */
 	public function testRunHttpException()
 	{
@@ -101,7 +95,7 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Request\HttpException
+	 * @expectedException \Win\HttpException
 	 */
 	public function testErrorPage500()
 	{
@@ -110,7 +104,7 @@ class ApplicationTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Request\HttpException
+	 * @expectedException \Win\HttpException
 	 */
 	public function testPageNotFound()
 	{

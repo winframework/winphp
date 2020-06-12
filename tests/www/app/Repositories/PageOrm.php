@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Page;
+use App\Models\PageCategory;
 use Win\Repositories\Database\Orm;
 
 /**
@@ -47,6 +48,11 @@ class PageOrm extends Orm
 
 	public function filterVisible()
 	{
-		return $this->filterBy('createdAt < NOW()');
+		return $this->filter('createdAt < NOW()');
+	}
+
+	public function execute($query, ...$values)
+	{
+		return parent::execute($query, ...$values);
 	}
 }

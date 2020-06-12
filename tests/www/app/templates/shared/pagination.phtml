@@ -1,14 +1,17 @@
 <?php
 
 use Win\Blocks\Block;
-use Win\Common\Pagination;
 use Win\Request\Url;
 
 $url = Url::instance()->getUrl();
 
 /** @var Block $this */
-/** @var Pagination $pagination */
-extract(get_object_vars($pagination));
+/** @var int $pageSize */
+/** @var int $last */
+/** @var int $prev */
+/** @var int $next */
+/** @var int $current */
+/** @var int $count */
 ?>
 <?php if ($pageSize > 0 && $last > 0) : ?>
 	<ul class="pagination pagination-lg">

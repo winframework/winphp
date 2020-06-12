@@ -22,9 +22,9 @@ abstract class Controller
 	public $title;
 
 	/**
-	 * Action Index
+	 * Action Init
 	 */
-	public function index()
+	public function init()
 	{
 	}
 

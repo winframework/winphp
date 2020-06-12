@@ -6,23 +6,31 @@ use App\Models\Page;
 use App\Repositories\PageOrm;
 use PHPUnit\Framework\TestCase;
 use Win\ApplicationTest;
+use Win\Repositories\Database\Connection;
 use Win\Repositories\Database\DbConfig;
-use Win\Repositories\Database\MysqlConnection as Mysql;
+use Win\Repositories\Database\Mysql as Mysql;
 use Win\Repositories\Database\Transaction;
 
 class PageOrmTest extends TestCase
 {
+	/** @var Connection */
+	static $conn;
+
+	public static function setUpBeforeClass()
+	{
+		static::$conn = new Mysql(DbConfig::valid());
+	}
+
 	public function setUp()
 	{
-		DbConfig::connect();
 		static::createTable();
 		static::importTable();
 	}
 
 	public static function createTable()
 	{
-		Mysql::instance()->execute('DROP TABLE `pages` ');
-		Mysql::instance()->execute('CREATE TABLE `pages` (
+		static::$conn->execute('DROP TABLE IF EXISTS `pages` ');
+		static::$conn->execute('CREATE TABLE `pages` (
 			`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			`categoryId` int(11) NULL,
 			`title` varchar(75) NOT NULL,
@@ -34,26 +42,15 @@ class PageOrmTest extends TestCase
 
 	public static function importTable()
 	{
-		Mysql::instance()->execute("INSERT INTO `pages` (`id`, `title`, `description`, `createdAt`) VALUES
+		static::$conn->execute("INSERT INTO `pages` (`id`, `title`, `description`, `createdAt`) VALUES
 			(1, 'First Page', 'About us', '2018-11-04 10:46:03'),
 			(2, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
 			(3, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
 	}
 
-	public function testRawQuery()
-	{
-		$orm = (new PageOrm());
-		$orm->raw('SELECT * FROM ' . $orm::TABLE
-			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', 2, 10);
-
-		$page = $orm->one();
-
-		$this->assertEquals(3, $page->id);
-	}
-
 	public function testRunRawQuery()
 	{
-		$orm = (new PageOrm());
+		$orm = (new PageOrm(static::$conn));
 		$success = $orm->execute('SELECT * FROM ' . $orm::TABLE
 			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', 2, 10);
 
@@ -65,7 +62,7 @@ class PageOrmTest extends TestCase
 	 */
 	public function testRunInvalidQuery()
 	{
-		$orm = new PageOrm();
+		$orm = new PageOrm(static::$conn);
 		$success = $orm->execute('INVALID QUERY');
 
 		$this->assertFalse($success);
@@ -76,75 +73,49 @@ class PageOrmTest extends TestCase
 	 */
 	public function testRunWithoutRawQuery()
 	{
-		$success = (new PageOrm())->execute('');
+		$success = (new PageOrm(static::$conn))->execute('');
 		$this->assertFalse($success);
 	}
 
 	public function testCount()
 	{
-		$count = (new PageOrm())->count();
+		$count = (new PageOrm(static::$conn))->count();
 		$this->assertEquals(3, $count);
 	}
 
-	public function testAll()
+	public function testList()
 	{
-		$pages = (new PageOrm())->list();
+		$pages = (new PageOrm(static::$conn))->list();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('First Page', $pages[0]->title);
 	}
 
 	public function testFind()
 	{
-		$page = (new PageOrm())->find(2);
+		$page = (new PageOrm(static::$conn))->find(2);
 		$this->assertEquals(2, $page->id);
 		$this->assertEquals('Second Page', $page->title);
 	}
 
-	/** @expectedException Win\Request\HttpException */
+	/** @expectedException Win\HttpException */
 	public function testFindOr404()
 	{
-		$page = (new PageOrm())->findOr404(200);
+		(new PageOrm(static::$conn))->findOr404(200);
 	}
 
-	public function testSortBy()
+	public function testSort()
 	{
-		$page = (new PageOrm())
-			->sortBy('id', 'ASC')
+		$page = (new PageOrm(static::$conn))
+			->sort('id ASC')
 			->one();
 		$this->assertEquals(1, $page->id);
 	}
 
-	public function testSortNewest()
+	public function testSortWithPriority()
 	{
-		$page = (new PageOrm())
-			->sortNewest()
-			->one();
-		$this->assertEquals(3, $page->id);
-	}
-
-	public function testSortOldest()
-	{
-		$page = (new PageOrm())
-			->sortOldest()
-			->one();
-		$this->assertEquals(1, $page->id);
-	}
-
-	public function testSortRand()
-	{
-		// TODO: How to test RAND() ?
-		$orm = new PageOrm();
-		$count = $orm
-			->sortRand()
-			->count();
-		$this->assertEquals(3, $count);
-	}
-
-	public function testSortByWithPriority()
-	{
-		$pages = (new PageOrm())
-			->sortBy('id', 'DESC', 0)
-			->sortBy('Title', 'ASC', 1)
+		$pages = (new PageOrm(static::$conn))
+			->sort('id DESC', 0)
+			->sort('Title ASC', 1)
 			->list();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('Third Page', $pages[0]->title);
@@ -152,15 +123,15 @@ class PageOrmTest extends TestCase
 
 	public function testFilterByEquals()
 	{
-		$page = (new PageOrm())
-			->filterBy('title = ?', 'Second Page')
+		$page = (new PageOrm(static::$conn))
+			->filter('title = ?', 'Second Page')
 			->one();
 		$this->assertEquals(2, $page->id);
 	}
 
 	public function testFilterByNotNull()
 	{
-		$page = (new PageOrm())
+		$page = (new PageOrm(static::$conn))
 			->filterBy('title IS NOT NULL')
 			->one();
 		$this->assertEquals(1, $page->id);
@@ -168,56 +139,96 @@ class PageOrmTest extends TestCase
 
 	public function testFilterByNull()
 	{
-		$count = (new PageOrm())
-			->filterBy('title IS NULL')
+		$count = (new PageOrm(static::$conn))
+			->filter('title IS NULL')
 			->count();
 		$this->assertEquals(0, $count);
 	}
 
 	public function testFilterByLike()
 	{
-		$page = (new PageOrm())
-			->filterBy('title LIKE ?', '%Second%')
+		$page = (new PageOrm(static::$conn))
+			->filter('title LIKE ?', '%Second%')
 			->one();
 		$this->assertEquals(2, $page->id);
 	}
 
-	public function testFilterBy()
+	public function testFilter()
 	{
-		$page = (new PageOrm())
-			->filterBy('Title', 'Second Page')
+		$page = (new PageOrm(static::$conn))
+			->filter('Title', 'Second Page')
 			->one();
 		$this->assertEquals($page->id, 2);
 	}
 
+	public function testFilterBy()
+	{
+		$count = (new PageOrm(static::$conn))
+			->filterBy(
+				'title LIKE ? OR id > ?',
+				['%Second%', 2]
+			)->count();
+		$this->assertEquals(2, $count);
+	}
+
+	public function testFilterByBindParams()
+	{
+		$count = (new PageOrm(static::$conn))
+			->filterBy(
+				'title LIKE :title OR id > :id',
+				[':title' => '%Second%', ':id' => 2]
+			)->count();
+		$this->assertEquals(2, $count);
+	}
+
 	public function testFilterAndSort()
 	{
-		$orm = (new PageOrm());
-		$orm->filterBy('id > ?', 1);
-		$orm->filterBy('id < ?', 3);
-		$orm->sortBy('id');
+		$orm = (new PageOrm(static::$conn));
+		$orm->filter('id > ?', 1);
+		$orm->filter('id < ?', 3);
+		$orm->sort('id');
 
 		$pages = $orm->list();
 		$this->assertCount(1, $pages);
 		$this->assertEquals('Second Page', $pages[0]->title);
 	}
 
-	public function testOrFailReturns()
+	public function testOne()
 	{
-		$orm = (new PageOrm())->oneOr404();
+		$orm = new PageOrm(static::$conn);
+		$page = $orm->find(3);
+
+		$this->assertEquals(3, $page->id);
+		$this->assertEquals('Third Page', $page->title);
+	}
+
+	public function testSelect()
+	{
+		$title = 'Teste';
+		$orm = new PageOrm(static::$conn);
+		$orm->select('*, "' . $title . '" as title');
+		$page = $orm->find(3);
+
+		$this->assertEquals(3, $page->id);
+		$this->assertEquals($title, $page->title);
+	}
+
+	public function testOneOr404()
+	{
+		$orm = (new PageOrm(static::$conn))->oneOr404();
 		$this->assertEquals('First Page', $orm->title);
 	}
 
-	/** @expectedException Win\Request\HttpException */
-	public function testOrFailException()
+	/** @expectedException Win\HttpException */
+	public function testOneOr404Exception()
 	{
 		ApplicationTest::newApp();
-		$orm = (new PageOrm())->filterBy('id', 100)->oneOr404();
+		(new PageOrm(static::$conn))->filter('id', 100)->oneOr404();
 	}
 
 	public function testPaginate()
 	{
-		$orm = (new PageOrm())->paginate(1, 2);
+		$orm = (new PageOrm(static::$conn))->paginate(1, 2);
 		$this->assertEquals(1, count($orm->list()));
 		$this->assertEquals(3, $orm->count());
 		$this->assertEquals(2, $orm->pagination->current);
@@ -225,7 +236,7 @@ class PageOrmTest extends TestCase
 
 	public function testPaginateInvalid()
 	{
-		$orm = (new PageOrm())->paginate(2, 200);
+		$orm = (new PageOrm(static::$conn))->paginate(2, 200);
 		$this->assertEquals(1, count($orm->list()));
 		$this->assertEquals(3, $orm->count());
 		$this->assertEquals(2, $orm->pagination->current);
@@ -233,10 +244,10 @@ class PageOrmTest extends TestCase
 
 	public function testFlush()
 	{
-		$orm = (new PageOrm());
-		$pages = $orm->filterBy('id > ?', 1)->list();
+		$orm = (new PageOrm(static::$conn));
+		$pages = $orm->filter('id > ?', 1)->list();
 		$pages2 = $orm->list();
-		$pages3 = (new PageOrm())->list();
+		$pages3 = (new PageOrm(static::$conn))->list();
 
 		$this->assertCount(2, $pages);
 		$this->assertCount(3, $pages2);
@@ -245,56 +256,56 @@ class PageOrmTest extends TestCase
 
 	public function testDelete()
 	{
-		$pagesCount = count((new PageOrm())->list());
-		(new PageOrm())->filterBy('id', 2)->delete();
+		$pagesCount = count((new PageOrm(static::$conn))->list());
+		(new PageOrm(static::$conn))->filter('id', 2)->delete();
 
-		$this->assertCount($pagesCount - 1, (new PageOrm())->list());
+		$this->assertCount($pagesCount - 1, (new PageOrm(static::$conn))->list());
 	}
 
 	public function testDestroy()
 	{
-		$pagesCount = count((new PageOrm())->list());
-		(new PageOrm())->destroy(2);
-		$newCount = count((new PageOrm())->list());
+		$pagesCount = count((new PageOrm(static::$conn))->list());
+		(new PageOrm(static::$conn))->destroy(2);
+		$newCount = count((new PageOrm(static::$conn))->list());
 
 		$this->assertNotEquals($pagesCount, $newCount);
 	}
 
 	public function testInsert()
 	{
-		$pagesTotal = count((new PageOrm())->list());
+		$pagesTotal = count((new PageOrm(static::$conn))->list());
 
 		$page = new Page();
 		$page->title = 'Fourth Page';
 		$page->description = 'Inserted by save method';
-		$result = (new PageOrm())->save($page);
+		$result = (new PageOrm(static::$conn))->save($page);
 
 		$this->assertInstanceOf(Page::class, $result);
 		$this->assertGreaterThan(0, $page->id);
-		$this->assertCount($pagesTotal + 1, (new PageOrm())->list());
+		$this->assertCount($pagesTotal + 1, (new PageOrm(static::$conn))->list());
 	}
 
 	public function testUpdate()
 	{
-		$pagesTotal = count((new PageOrm())->list());
+		$pagesTotal = count((new PageOrm(static::$conn))->list());
 		$description = 'Updated by save method';
 
-		$page = (new PageOrm())->sortBy('id', 'DESC')->one();
+		$page = (new PageOrm(static::$conn))->sort('id DESC')->one();
 		$page->title = 'New Title';
 		$page->description = $description;
-		$pageAfterSave = (new PageOrm())->save($page);
-		$pageUpdated = (new PageOrm())->sortBy('id', 'DESC')->one();
+		$pageAfterSave = (new PageOrm(static::$conn))->save($page);
+		$pageUpdated = (new PageOrm(static::$conn))->sort('id DESC')->one();
 
 		$this->assertEquals($page->title, $pageUpdated->title);
 		$this->assertEquals($page->title, $pageAfterSave->title);
 		$this->assertEquals($description, $pageUpdated->description);
-		$this->assertCount($pagesTotal, (new PageOrm())->list());
+		$this->assertCount($pagesTotal, (new PageOrm(static::$conn))->list());
 	}
 
 	public function testTransactionCommit()
 	{
-		$orm = new PageOrm();
-		$t = new Transaction();
+		$orm = new PageOrm(static::$conn);
+		$t = new Transaction(static::$conn);
 		$count = $orm->count();
 		$orm->save(new Page());
 
@@ -305,8 +316,8 @@ class PageOrmTest extends TestCase
 
 	public function testTransactionRollback()
 	{
-		$orm = new PageOrm();
-		$t = new Transaction();
+		$orm = new PageOrm(static::$conn);
+		$t = new Transaction(static::$conn);
 		$count = $orm->count();
 		$orm->save(new Page());
 

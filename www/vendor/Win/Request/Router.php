@@ -3,6 +3,7 @@
 namespace Win\Request;
 
 use Win\Application;
+use Win\HttpException;
 use Win\Response\Response;
 
 /**
@@ -67,13 +68,15 @@ class Router
 			throw new HttpException("Controller '{$class}' not found", 404);
 		}
 
-		$controller = new $class();
+		$controller = new $class(Application::app());
 		$controller->app = Application::app();
 		$controller->app->controller = $controller;
+
 		if (!method_exists($controller, $action)) {
 			throw new HttpException("Action '{$action}' not found in '{$class}'", 404);
 		}
 
+		$controller->init();
 		$response = $controller->$action(...$args);
 		echo ($response instanceof Response) ? $response->respond() : $response;
 	}

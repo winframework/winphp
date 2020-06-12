@@ -10,13 +10,13 @@ class DateTest extends TestCase
 
 	public function testCreate()
 	{
-		$date = Date::create('1993-01-26 13:14:15', 'Y-m-d H:i:s', 'd/m/Y H:i:s');
+		$date = Date::create('Y-m-d H:i:s', '1993-01-26 13:14:15', 'd/m/Y H:i:s');
 		$this->assertEquals('26/01/1993 13:14:15', $date);
 
-		$date = Date::create('26/01/93 13:14:15', 'd/m/y H:i:s');
+		$date = Date::create('d/m/y H:i:s', '26/01/93 13:14:15');
 		$this->assertEquals('1993-01-26 13:14:15', $date);
 
-		$date = Date::create('1993-01-26', 'Y-m-d', 'd/m/y');
+		$date = Date::create('Y-m-d', '1993-01-26', 'd/m/y');
 		$this->assertEquals('26/01/93', $date);
 	}
 

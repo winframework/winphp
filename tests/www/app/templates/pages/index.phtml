@@ -33,7 +33,7 @@ use Win\Views\View;
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<div class="column" style="float: left; width: auto;">
+			<div class="column column-2">
 				<b>PAGES:</b>
 				<ul>
 					<?php foreach ($pages as $page) : ?>
@@ -46,7 +46,7 @@ use Win\Views\View;
 				</ul>
 
 				<div style="width: 100%">
-					<?= (new Block('shared/pagination', ['pagination' => $orm->pagination]))->toHtml(); ?>
+					<?= (new Block('shared/pagination', get_object_vars($orm->pagination)))->toHtml(); ?>
 				</div>
 			</div>
 		</div>

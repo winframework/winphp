@@ -6,10 +6,14 @@ class MyController extends Controller
 {
 	private $a;
 	private $b;
-	
+
 	public function __construct($a = null)
 	{
 		$this->a =  $a;
+	}
+
+	public function index()
+	{
 	}
 
 	public function getA()

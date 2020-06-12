@@ -7,14 +7,17 @@ namespace Win\Repositories\Database;
  */
 class Sql
 {
+	/** @var string[] */
+	public $columns = ['*'];
+
 	/** @var string */
 	private $table;
 
-	/** @var string */
-	private $raw = null;
-
 	/** @var array */
 	private $values = [];
+
+	/** @var array */
+	private $join = [];
 
 	/** @var array */
 	private $where = [];
@@ -32,19 +35,24 @@ class Sql
 	 * Prepara a query
 	 * @param string $table
 	 * @param mixed $values
-	 * @param string $raw
+	 * @param string[] $columns
 	 */
-	public function __construct($table, $values = [], $raw = null)
+	public function __construct($table, $values = [])
 	{
 		$this->table = $table;
 		$this->values = $values;
-		$this->raw = $raw;
+	}
+
+	/** @param mixed[] */
+	public function setValues($values)
+	{
+		return $this->values = $values;
 	}
 
 	/** @return mixed[] */
-	public function getValues()
+	public function values()
 	{
-		return array_values($this->values + $this->whereValues);
+		return $this->values + $this->whereValues;
 	}
 
 	/**
@@ -53,7 +61,9 @@ class Sql
 	 */
 	public function select()
 	{
-		return ($this->raw ?? 'SELECT * FROM ' . $this->table)
+		return 'SELECT ' . implode(', ', $this->columns)
+			. ' FROM ' . $this->table
+			. $this->join()
 			. $this->where()
 			. $this->orderBy()
 			. $this->limit();
@@ -65,7 +75,8 @@ class Sql
 	 */
 	public function selectCount()
 	{
-		return ($this->raw ?? 'SELECT COUNT(*) FROM ' . $this->table)
+		return 'SELECT COUNT(*) FROM ' . $this->table
+			. $this->join()
 			. $this->where();
 	}
 
@@ -109,27 +120,27 @@ class Sql
 	}
 
 	/**
-	 * @return string
-	 */
-	public function raw()
-	{
-		return $this->raw
-			. $this->where()
-			. $this->limit();
-	}
-
-	/**
 	 * WHERE ...
 	 * @param string $comparator
 	 * @param mixed $values
 	 */
-	public function addWhere($comparator, ...$values)
+	public function addWhere($comparator, $values)
 	{
-		$this->whereValues = array_merge($this->whereValues, $values);
-		if (count($values) && strpos($comparator, '?') === false) {
+		$hasBindParams = preg_match('/[:\?]/', $comparator);
+		if ($values && !$hasBindParams) {
 			$comparator .= ' = ?';
 		}
 		$this->where[] = '(' . $comparator . ')';
+		$this->whereValues = array_merge($this->whereValues, $values);
+	}
+
+	/**
+	 * JOIN, LEFT JOIN ...
+	 * @param string $join
+	 */
+	public function addJoin($join)
+	{
+		$this->join[] = $join;
 	}
 
 	/**
@@ -142,16 +153,26 @@ class Sql
 		$this->limit = $offset . ',' . $limit;
 	}
 
+	private function join()
+	{
+		if ($this->join) {
+			return ' ' . implode(' ', $this->join);
+		}
+
+		return '';
+	}
+
 	/**
 	 * Retorna o SQL
 	 * @return string
 	 */
 	private function where()
 	{
-		if (empty($this->where)) {
-			return '';
+		if ($this->where) {
+			return ' WHERE ' . implode(' AND ', $this->where);
 		}
-		return ' WHERE ' . implode(' AND ', $this->where);
+
+		return '';
 	}
 
 
@@ -194,11 +215,11 @@ class Sql
 	 */
 	private function orderBy()
 	{
-		if (empty($this->orderBy)) {
-			return '';
+		if ($this->orderBy) {
+			ksort($this->orderBy);
+			return ' ORDER BY ' . implode(', ', $this->orderBy);
 		}
 
-		ksort($this->orderBy);
-		return ' ORDER BY ' . implode(', ', $this->orderBy);
+		return '';
 	}
 }

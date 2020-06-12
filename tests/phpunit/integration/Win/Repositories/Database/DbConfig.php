@@ -2,10 +2,12 @@
 
 namespace Win\Repositories\Database;
 
+use Win\Application;
+
 use const BASE_PATH;
 
 /**
- * Retorna configurações do banco para conexão
+ * Retorna configurações do banco para conexão para Testes
  */
 class DbConfig
 {
@@ -45,14 +47,5 @@ class DbConfig
 		$db['dbname'] = 'invalid-database';
 
 		return $db;
-	}
-
-	/** @return Mysql */
-	public static function connect()
-	{
-		$connection = MysqlConnection::instance();
-		$connection->connect(static::valid());
-
-		return $connection;
 	}
 }

@@ -2,19 +2,18 @@
 
 namespace Win\Repositories\Database;
 
+use App\Models\User\Admin;
 use PDO;
 use PDOException;
 use PDOStatement;
 use Win\Common\Traits\SingletonTrait;
-use Win\Request\HttpException;
+use Win\HttpException;
 
 /**
  * Conexão com banco de dados
  */
 abstract class Connection
 {
-	use SingletonTrait;
-
 	/** @var PDO */
 	protected $pdo;
 
@@ -39,7 +38,7 @@ abstract class Connection
 	 * Cria uma conexão com um banco de dados
 	 * @param string[] $dbConfig
 	 */
-	public function connect($dbConfig)
+	public function __construct($dbConfig)
 	{
 		try {
 			$this->pdo = $this->createPdo($dbConfig);
@@ -123,9 +122,9 @@ abstract class Connection
 		return (int) $this->stmt($query, $values)->fetchColumn();
 	}
 
-	/** @return string */
-	public function getLastInsertId()
+	/** @return int */
+	public function lastInsertId()
 	{
-		return $this->pdo->lastInsertId();
+		return (int) $this->pdo->lastInsertId();
 	}
 }

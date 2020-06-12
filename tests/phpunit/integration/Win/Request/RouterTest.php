@@ -20,7 +20,7 @@ class RouterTest extends TestCase
 	}
 
 	/**
-	 * @expectedException \Win\Request\HttpException
+	 * @expectedException \Win\HttpException
 	 */
 	public function testRoute404()
 	{
@@ -59,7 +59,7 @@ class RouterTest extends TestCase
 		$this->assertEquals($namespace . $controller, Router::getDestination()[0]);
 	}
 
-	/** @expectedException \Win\Request\HttpException */
+	/** @expectedException \Win\HttpException */
 	public function testCreateController404()
 	{
 		new Application();
@@ -68,7 +68,7 @@ class RouterTest extends TestCase
 		Router::process($destination);
 	}
 
-	/** @expectedException \Win\Request\HttpException */
+	/** @expectedException \Win\HttpException */
 	public function testCreateAction404()
 	{
 		new Application();

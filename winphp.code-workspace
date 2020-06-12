@@ -7,11 +7,11 @@
 		{
 			"path": "tests",
 			"name": "tests"
-		}
+		},
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "winphp",
 		"better-phpunit.phpunitBinary": "/usr/local/bin/phpunit",
-		"better-phpunit.commandSuffix": "--configuration ${workspaceRoot}/../tests/phpunit.xml",
+		"better-phpunit.commandSuffix": "--configuration ${workspaceRoot}/../tests/phpunit/phpunit.xml",
 	}
 }

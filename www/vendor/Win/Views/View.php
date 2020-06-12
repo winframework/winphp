@@ -5,7 +5,7 @@ namespace Win\Views;
 use Win\Application;
 use Win\Common\Template;
 use Win\Response\Response;
-use Win\Request\HttpException;
+use Win\HttpException;
 
 /**
  * View

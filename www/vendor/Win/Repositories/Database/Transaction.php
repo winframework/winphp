@@ -3,6 +3,7 @@
 namespace Win\Repositories\Database;
 
 use PDO;
+use Win\Application;
 
 /**
  * Transações no Banco de Dados
@@ -18,7 +19,7 @@ class Transaction
 	 */
 	public function __construct(Connection $conn = null)
 	{
-		$conn = $conn ?? MysqlConnection::instance();
+		$conn = $conn ?? Application::app()->conn;
 		$this->pdo = $conn->getPdo();
 		$this->pdo->beginTransaction();
 	}

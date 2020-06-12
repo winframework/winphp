@@ -4,9 +4,10 @@ namespace Win;
 
 use App\Controllers\IndexController;
 use Win\Controllers\Controller;
+use Win\Repositories\Database\Connection;
 use Win\Request\Router;
 use Win\Request\Url;
-use Win\Request\HttpException;
+use Win\HttpException;
 use Win\Views\View;
 
 /**
@@ -24,6 +25,9 @@ class Application
 
 	/** @var View */
 	public $view;
+
+	/** @var Connection */
+	public $conn;
 
 	/** @var static */
 	protected static $instance;
@@ -51,12 +55,6 @@ class Application
 	public function run()
 	{
 		Router::process(Router::getDestination());
-	}
-
-	/** @return string */
-	public function getName()
-	{
-		return APP_NAME;
 	}
 
 	/** @return string */

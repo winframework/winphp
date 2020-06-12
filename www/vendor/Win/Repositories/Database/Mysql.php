@@ -7,7 +7,7 @@ use PDO;
 /**
  * Conexão com banco de dados MySQL
  */
-class MysqlConnection extends Connection
+class Mysql extends Connection
 {
 	/**
 	 * Cria conexão via PDO
