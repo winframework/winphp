@@ -6,11 +6,11 @@ use Win\Application;
 
 /**
  * Templates em .PHTML
- * Ver arquivos em: "app/templates/"
+ * Ver arquivos em: "templates/"
  */
 class Template
 {
-	public static $dir = 'app/templates';
+	public static $dir = 'templates';
 	/**
 	 * Ponteiro para Aplicação Principal
 	 * @var Application

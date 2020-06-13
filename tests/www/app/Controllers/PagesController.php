@@ -123,7 +123,7 @@ class PagesController extends Controller
 	{
 		$fs = new Filesystem();
 		$db = [];
-		require 'app/config/database.php';
+		require 'config/database.php';
 		$conn = new Mysql($db);
 		Application::app()->conn = $conn;
 		$query = $fs->read('../database/winphp_demo.sql');

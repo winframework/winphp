@@ -6,11 +6,11 @@ use Win\InfraServices\Mailer;
 
 /**
  * Templates de Email
- * Ver arquivos em: "app/templates/emails"
+ * Ver arquivos em: "templates/emails"
  */
 class Email extends Template
 {
-	public static $dir = 'app/templates/emails';
+	public static $dir = 'templates/emails';
 
 	/** @var Mailer */
 	public $mailer;

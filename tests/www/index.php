@@ -1,10 +1,9 @@
 <?php
 /*
- * Para editar o código HTML procure em: app/templates/shared
- * @see app/templates/shared
+ * Para editar o código HTML procure em: templates/shared
+ * @see templates/shared
  */
 
-use App\Repositories\PageOrm;
 use Win\Application;
 use Win\Common\Benchmark;
 use Win\HttpException;
@@ -12,9 +11,9 @@ use Win\HttpException;
 define('BASE_PATH', __DIR__);
 
 require 'app/autoload.php';
-require '../../www/app/config/app.php';
-require 'app/config/locale.php';
-require 'app/config/routes.php';
+require '../../www/config/app.php';
+require 'config/locale.php';
+require 'config/routes.php';
 
 session_start();
 

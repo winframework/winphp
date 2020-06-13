@@ -10,7 +10,7 @@ use Win\Response\Response;
  * Rota de URL
  *
  * Redireciona a requisição para um "Controller@action".
- * @see "app/config/routes.php"
+ * @see "config/routes.php"
  */
 class Router
 {

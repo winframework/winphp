@@ -230,7 +230,7 @@ abstract class Orm
 	}
 
 	/**
-	 * Adiciona Join
+	 * Adiciona (inner) join
 	 * @param string $query
 	 */
 	public function join($query)
@@ -241,7 +241,7 @@ abstract class Orm
 	}
 
 	/**
-	 * Adiciona Join
+	 * Adiciona left join
 	 * @param string $query
 	 */
 	public function leftJoin($query)
@@ -252,23 +252,12 @@ abstract class Orm
 	}
 
 	/**
-	 * Adiciona Join
+	 * Adiciona right join
 	 * @param string $query
 	 */
 	public function rightJoin($query)
 	{
 		$this->sql->addJoin('RIGHT JOIN ' . $query);
-
-		return $this;
-	}
-
-	/**
-	 * Adiciona Join
-	 * @param string $query
-	 */
-	public function innerJoin($query)
-	{
-		$this->sql->addJoin('INNER JOIN ' . $query);
 
 		return $this;
 	}
@@ -336,5 +325,15 @@ abstract class Orm
 			$this->pagination->setCount($count);
 			$this->sql->setLimit($this->pagination->offset, $this->pagination->pageSize);
 		}
+	}
+
+	/**
+	 * Exibe a query e os valores para debug
+	 * @param string $method
+	 * @return array<string,mixed>
+	 */
+	public function debug($method = 'select')
+	{
+		return [$this->sql->$method(), $this->sql->values()];
 	}
 }

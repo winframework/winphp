@@ -11,7 +11,7 @@ use const BASE_PATH;
  */
 class DbConfig
 {
-	const FILE = BASE_PATH . '/app/config/database.php';
+	const FILE = BASE_PATH . '/config/database.php';
 
 	/** @return string[] */
 	public static function valid()

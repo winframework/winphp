@@ -46,6 +46,7 @@ class MysqlTest extends TestCase
 
 	public function testIsValid()
 	{
+		static::$conn = new Mysql(DbConfig::valid());
 		$this->assertTrue(static::$conn->isValid());
 	}
 

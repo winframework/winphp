@@ -42,6 +42,15 @@ class SqlTest extends TestCase
 		$this->assertEquals('SELECT id, name, email FROM t1', $sql->select());
 	}
 
+	public function testSetValues()
+	{
+		$values1 = ['a1', 'b1'];
+		$values2 = ['a2', 'b2'];
+		$sql = new Sql('t1',$values1);
+		$sql->setValues($values2);
+		$this->assertEquals($values2, $sql->values());
+	}
+
 	public function testSelectCount()
 	{
 		$sql = new Sql('t1');

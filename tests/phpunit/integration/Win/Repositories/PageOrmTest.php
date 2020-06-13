@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Win\ApplicationTest;
 use Win\Repositories\Database\Connection;
 use Win\Repositories\Database\DbConfig;
-use Win\Repositories\Database\Mysql as Mysql;
-use Win\Repositories\Database\Transaction;
+use Win\Repositories\Database\Mysql;
 
 class PageOrmTest extends TestCase
 {
@@ -42,10 +41,10 @@ class PageOrmTest extends TestCase
 
 	public static function importTable()
 	{
-		static::$conn->execute("INSERT INTO `pages` (`id`, `title`, `description`, `createdAt`) VALUES
-			(1, 'First Page', 'About us', '2018-11-04 10:46:03'),
-			(2, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
-			(3, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
+		static::$conn->execute("INSERT INTO `pages` (`id`, `categoryId`, `title`, `description`, `createdAt`) VALUES
+			(1, NULL, 'First Page', 'About us', '2018-11-04 10:46:03'),
+			(2, 1, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
+			(3, 2, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
 	}
 
 	public function testRunRawQuery()
@@ -271,7 +270,7 @@ class PageOrmTest extends TestCase
 		$this->assertNotEquals($pagesCount, $newCount);
 	}
 
-	public function testInsert()
+	public function testSave()
 	{
 		$pagesTotal = count((new PageOrm(static::$conn))->list());
 
@@ -285,7 +284,7 @@ class PageOrmTest extends TestCase
 		$this->assertCount($pagesTotal + 1, (new PageOrm(static::$conn))->list());
 	}
 
-	public function testUpdate()
+	public function testSaveExisting()
 	{
 		$pagesTotal = count((new PageOrm(static::$conn))->list());
 		$description = 'Updated by save method';
@@ -302,27 +301,61 @@ class PageOrmTest extends TestCase
 		$this->assertCount($pagesTotal, (new PageOrm(static::$conn))->list());
 	}
 
-	public function testTransactionCommit()
+	public function testUpdate()
 	{
-		$orm = new PageOrm(static::$conn);
-		$t = new Transaction(static::$conn);
-		$count = $orm->count();
-		$orm->save(new Page());
+		$title = 'New title';
+		$orm = (new PageOrm(static::$conn));
 
-		$this->assertEquals($count + 1, $orm->count());
-		$t->commit();
-		$this->assertEquals($count + 1, $orm->count());
+		// Act
+		$total = $orm->filter('id >= ?', 2)->update(['title' => $title]);
+		$pages = $orm->list();
+
+		// Assert
+		$this->assertEquals(2, $total);
+		$this->assertNotEquals($title, $pages[0]->title);
+		$this->assertEquals($title, $pages[1]->title);
+		$this->assertEquals($title, $pages[2]->title);
 	}
 
-	public function testTransactionRollback()
+	public function testJoin()
 	{
-		$orm = new PageOrm(static::$conn);
-		$t = new Transaction(static::$conn);
-		$count = $orm->count();
-		$orm->save(new Page());
+		$orm = (new PageOrm(static::$conn))
+			->join('pageCategories as pc ON pages.categoryId = pc.id');
+		$pages = $orm->list();
+		$this->assertCount(2, $pages);
+		$this->assertEquals('Second Category', $pages[1]->title);
+	}
 
-		$this->assertEquals($count + 1, $orm->count());
-		$t->rollback();
-		$this->assertEquals($count, $orm->count());
+	public function testLeftJoin()
+	{
+		$orm = (new PageOrm(static::$conn))
+			->leftJoin('pageCategories as pc ON pages.categoryId = pc.id');
+		$pages = $orm->list();
+
+		$this->assertCount(3, $pages);
+		$this->assertEquals('First Category', $pages[0]->title);
+		$this->assertEquals(null, $pages[2]->title);
+	}
+
+	public function testRightJoin()
+	{
+		$orm = (new PageOrm(static::$conn))
+			->rightJoin('pageCategories as pc ON pages.categoryId = pc.id');
+		$pages = $orm->list();
+
+		$this->assertCount(3, $pages);
+		$this->assertEquals('First Category', $pages[0]->title);
+		$this->assertEquals('Disabled Category', $pages[2]->title);
+	}
+
+	public function testDebug()
+	{
+		$debug = (new PageOrm(static::$conn))->filter('id > ?', 10)->debug();
+		$this->assertContains('SELECT * FROM pages WHERE (id > ?)', $debug[0]);
+		$this->assertEquals([10], $debug[1]);
+
+		$debug = (new PageOrm(static::$conn))->debug('insert');
+		$this->assertContains('INSERT INTO', $debug[0]);
+		$this->assertEquals([], $debug[1]);
 	}
 }
