@@ -2,11 +2,9 @@
 
 namespace Win\Repositories\Database;
 
-use App\Models\User\Admin;
 use PDO;
 use PDOException;
 use PDOStatement;
-use Win\Common\Traits\SingletonTrait;
 use Win\HttpException;
 
 /**
@@ -16,9 +14,6 @@ abstract class Connection
 {
 	/** @var PDO */
 	protected $pdo;
-
-	/** @var PDOException */
-	public $pdoException;
 
 	/**
 	 * Cria e retorna conexão PDO
@@ -43,9 +38,8 @@ abstract class Connection
 		try {
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec('set names utf8');
-			$this->pdoException = null;
 		} catch (\PDOException $e) {
-			$message = 'Houve um erro ao conectar o banco de dados';
+			$message = 'Houve um erro ao conectar o banco de dados [' . $e->getCode() . '].';
 			throw new HttpException($message, 503, $e);
 		}
 	}
@@ -56,7 +50,7 @@ abstract class Connection
 	 */
 	public function isValid()
 	{
-		return is_null($this->pdoException) && $this->pdo instanceof \PDO;
+		return $this->pdo instanceof \PDO;
 	}
 
 	/**
@@ -68,7 +62,6 @@ abstract class Connection
 	{
 		try {
 			$stmt = $this->pdo->prepare($query);
-
 			return $stmt->execute($values);
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
@@ -99,7 +92,11 @@ abstract class Connection
 	 */
 	public function fetchAll($query, $values = [])
 	{
-		return $this->stmt($query, $values)->fetchAll(PDO::FETCH_ASSOC);
+		try {
+			return $this->stmt($query, $values)->fetchAll(PDO::FETCH_ASSOC);
+		} catch (PDOException $e) {
+			throw new DatabaseException($e);
+		}
 	}
 
 	/**
@@ -109,7 +106,11 @@ abstract class Connection
 	 */
 	public function fetch($query, $values)
 	{
-		return $this->stmt($query, $values)->fetch();
+		try {
+			return $this->stmt($query, $values)->fetch();
+		} catch (PDOException $e) {
+			throw new DatabaseException($e);
+		}
 	}
 
 	/**
@@ -119,7 +120,11 @@ abstract class Connection
 	 */
 	public function fetchCount($query, $values)
 	{
-		return (int) $this->stmt($query, $values)->fetchColumn();
+		try {
+			return (int) $this->stmt($query, $values)->fetchColumn();
+		} catch (PDOException $e) {
+			throw new DatabaseException($e);
+		}
 	}
 
 	/** @return int */

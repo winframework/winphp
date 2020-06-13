@@ -2,6 +2,7 @@
 
 namespace Win\Repositories;
 
+use Exception;
 use Win\Repositories\Session;
 
 /**
@@ -27,9 +28,12 @@ class Alert extends Session
 		static::instance()->add('success', $message);
 	}
 
-	/** @param string $message */
+	/** @param string|Exception $message */
 	public static function error($message)
 	{
+		if ($message instanceof Exception) {
+			$message = $message->getMessage();
+		}
 		static::instance()->add('danger', $message);
 	}
 

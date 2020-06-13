@@ -3,15 +3,19 @@
 namespace Win\Repositories\Database;
 
 use Exception;
+use PDOException;
 
 /**
- * Errors
+ * Erro de Banco de dados
  */
 class DatabaseException extends Exception
 {
-	public function __construct($previous)
+	public function __construct(PDOException $previous)
 	{
-		$message = 'Ocorreu um erro durante a leitura/escrita de dados.';
-		parent::__construct($message, null, $previous);
+		parent::__construct(
+			'Ocorreu um erro durante a leitura/escrita de dados.',
+			null,
+			$previous
+		);
 	}
 }

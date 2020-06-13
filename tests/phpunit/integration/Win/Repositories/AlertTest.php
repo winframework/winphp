@@ -2,6 +2,7 @@
 
 namespace Win\Repositories;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class AlertTest extends TestCase
@@ -34,6 +35,15 @@ class AlertTest extends TestCase
 		$this->assertEquals([$error], $alerts['danger']);
 		$this->assertEquals([$info], $alerts['info']);
 		$this->assertEquals([$warning], $alerts['warning']);
+	}
+
+	public function testErrorException()
+	{
+		$exception = new Exception('Message', 100);
+		Alert::error($exception);
+
+		$alerts = Alert::instance()->all();
+		$this->assertEquals([$exception->getMessage()], $alerts['danger']);
 	}
 
 	public function testAddDifferentInstances()

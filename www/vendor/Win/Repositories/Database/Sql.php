@@ -155,11 +155,11 @@ class Sql
 
 	private function join()
 	{
-		if ($this->join) {
-			return ' ' . implode(' ', $this->join);
+		if (empty($this->join)) {
+			return '';
 		}
 
-		return '';
+		return ' ' . implode(' ', $this->join);
 	}
 
 	/**
@@ -168,11 +168,11 @@ class Sql
 	 */
 	private function where()
 	{
-		if ($this->where) {
-			return ' WHERE ' . implode(' AND ', $this->where);
+		if (empty($this->where)) {
+			return '';
 		}
 
-		return '';
+		return ' WHERE ' . implode(' AND ', $this->where);
 	}
 
 
@@ -201,11 +201,11 @@ class Sql
 	 */
 	private function limit()
 	{
-		if ($this->limit) {
-			return ' LIMIT ' . $this->limit;
+		if (empty($this->limit)) {
+			return '';
 		}
 
-		return '';
+		return ' LIMIT ' . $this->limit;
 	}
 
 
@@ -215,11 +215,11 @@ class Sql
 	 */
 	private function orderBy()
 	{
-		if ($this->orderBy) {
-			ksort($this->orderBy);
-			return ' ORDER BY ' . implode(', ', $this->orderBy);
+		if (empty($this->orderBy)) {
+			return '';
 		}
 
-		return '';
+		ksort($this->orderBy);
+		return ' ORDER BY ' . implode(', ', $this->orderBy);
 	}
 }

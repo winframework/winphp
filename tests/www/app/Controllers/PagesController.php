@@ -58,14 +58,18 @@ class PagesController extends Controller
 	 */
 	public function save()
 	{
-		$page = new Page();
-		$page->title = 'Inserted';
-		$this->orm->save($page);
-		Alert::success('Inseriu e atualizou: ' . $page->id);
+		try {
+			$page = new Page();
+			$page->title = 'Inserted';
+			$this->orm->save($page);
+			Alert::success('Inseriu e atualizou: ' . $page->id);
 
-		$page = $this->orm->filter('title', $page->title)->one();
-		$page->title = 'Updated';
-		$this->orm->save($page);
+			$page = $this->orm->filter('title', $page->title)->one();
+			$page->title = 'Updated';
+			$this->orm->save($page);
+		} catch (\Exception $e) {
+			Alert::error($e);
+		}
 		$this->redirect('alerts/show');
 	}
 
