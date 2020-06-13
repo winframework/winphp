@@ -5,9 +5,9 @@ namespace Win;
 use App\Controllers\IndexController;
 use Win\Controllers\Controller;
 use Win\Repositories\Database\Connection;
-use Win\Request\Router;
 use Win\Request\Url;
 use Win\HttpException;
+use Win\Response\Response;
 use Win\Views\View;
 
 /**
@@ -50,11 +50,28 @@ class Application
 	}
 
 	/**
-	 * Roda a aplicação e envia a resposta
+	 * Executa o Controller@action e envia o retorno como resposta
+	 * @param string $class Controller
+	 * @param string $method Action
+	 * @param array $args
 	 */
-	public function run()
+	public function run($class, $method, $args = [])
 	{
-		Router::process(Router::getDestination());
+		if (!class_exists($class)) {
+			throw new HttpException("Controller '{$class}' not found", 404);
+		}
+
+		$controller = new $class($this);
+		$controller->app = $this;
+		$this->controller = $controller;
+
+		if (!method_exists($controller, $method)) {
+			throw new HttpException("Action '{$method}' not found in '{$class}'", 404);
+		}
+
+		$controller->init();
+		$response = $controller->$method(...$args);
+		echo ($response instanceof Response) ? $response->respond() : $response;
 	}
 
 	/** @return string */

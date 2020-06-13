@@ -4,8 +4,10 @@
  * @see templates/shared
  */
 
+use App\Controllers\ErrorsController;
 use Win\Application;
 use Win\HttpException;
+use Win\Request\Router;
 
 define('BASE_PATH', __DIR__);
 
@@ -13,11 +15,9 @@ require 'app/autoload.php';
 require 'config/app.php';
 require 'config/routes.php';
 
-session_start();
-
 try {
 	$app = new Application();
-	$app->run();
+	$app->run(...Router::getDestination());
 } catch (HttpException $e) {
-	$e->run();
+	$app->run(ErrorsController::class, "error{$e->getCode()}", [$e]);
 }

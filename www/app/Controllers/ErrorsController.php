@@ -6,6 +6,10 @@ use Win\Controllers\Controller;
 use Win\HttpException;
 use Win\Views\View;
 
+/**
+ * Páginas de Erros 
+ * 404, 500, etc
+ */
 class ErrorsController extends Controller
 {
 	/** @var HttpException */

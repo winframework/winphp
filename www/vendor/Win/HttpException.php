@@ -2,9 +2,7 @@
 
 namespace Win;
 
-use App\Controllers\ErrorsController;
 use Exception;
-use Win\Request\Router;
 
 /**
  * Erro Http
@@ -12,18 +10,9 @@ use Win\Request\Router;
  */
 class HttpException extends Exception
 {
-	public static $controller = ErrorsController::class;
-
-	/**
-	 * Envia a resposta de erro
-	 */
-	public function run()
+	public function __construct($message, $code)
 	{
-		http_response_code($this->code);
-		try {
-			Router::process([static::$controller, "error{$this->code}", [$this]]);
-		} catch (Exception $e) {
-			// Envia apenas um HTTP 404, sem body
-		}
+		http_response_code($code);
+		parent::__construct($message, $code);
 	}
 }
