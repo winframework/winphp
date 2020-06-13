@@ -92,11 +92,7 @@ abstract class Connection
 	 */
 	public function fetchAll($query, $values = [])
 	{
-		try {
-			return $this->stmt($query, $values)->fetchAll(PDO::FETCH_ASSOC);
-		} catch (PDOException $e) {
-			throw new DatabaseException($e);
-		}
+		return $this->stmt($query, $values)->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -106,11 +102,7 @@ abstract class Connection
 	 */
 	public function fetch($query, $values)
 	{
-		try {
-			return $this->stmt($query, $values)->fetch();
-		} catch (PDOException $e) {
-			throw new DatabaseException($e);
-		}
+		return $this->stmt($query, $values)->fetch();
 	}
 
 	/**
@@ -120,11 +112,7 @@ abstract class Connection
 	 */
 	public function fetchCount($query, $values)
 	{
-		try {
-			return (int) $this->stmt($query, $values)->fetchColumn();
-		} catch (PDOException $e) {
-			throw new DatabaseException($e);
-		}
+		return (int) $this->stmt($query, $values)->fetchColumn();
 	}
 
 	/** @return int */

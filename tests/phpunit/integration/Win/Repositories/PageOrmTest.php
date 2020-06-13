@@ -56,26 +56,6 @@ class PageOrmTest extends TestCase
 		$this->assertTrue($success);
 	}
 
-	/**
-	 * @expectedException \Win\Repositories\Database\DatabaseException
-	 */
-	public function testRunInvalidQuery()
-	{
-		$orm = new PageOrm(static::$conn);
-		$success = $orm->execute('INVALID QUERY');
-
-		$this->assertFalse($success);
-	}
-
-	/**
-	 * @expectedException \Win\Repositories\Database\DatabaseException
-	 */
-	public function testRunWithoutRawQuery()
-	{
-		$success = (new PageOrm(static::$conn))->execute('');
-		$this->assertFalse($success);
-	}
-
 	public function testCount()
 	{
 		$count = (new PageOrm(static::$conn))->count();

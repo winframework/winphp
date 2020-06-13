@@ -128,7 +128,7 @@ class MysqlTest extends TestCase
 		$this->assertCount(2, $rows);
 	}
 
-	public function testNumRows()
+	public function testCount()
 	{
 		$count1 = static::$conn->fetchCount('SELECT count(*) FROM child WHERE age = ?', [3]);
 		$count2 = static::$conn->fetchCount('SELECT count(*) FROM child WHERE age >= ?', [1]);
