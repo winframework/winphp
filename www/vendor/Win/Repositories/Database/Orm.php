@@ -315,7 +315,7 @@ abstract class Orm
 		$values = $this->sql->values();
 		$count = $this->conn->fetchCount($query, $values);
 
-		if ($count) {
+		if ($count && $this->pagination) {
 			$this->pagination->setCount($count);
 			$this->sql->setLimit($this->pagination->offset, $this->pagination->pageSize);
 		}
