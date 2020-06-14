@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Repositories\PageCategoryOrm;
+use App\Repositories\PageCategoryRepo;
 use Win\Models\Model;
 
 /**
@@ -23,7 +23,7 @@ class Page extends Model
 
 	public function category()
 	{
-		return (new PageCategoryOrm())->find($this->categoryId);
+		return (new PageCategoryRepo())->find($this->categoryId);
 	}
 
 	public function validate()

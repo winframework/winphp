@@ -3,20 +3,18 @@
 namespace App\Repositories;
 
 use App\Models\Page;
-use App\Models\PageCategory;
 use Win\Repositories\Database\Orm;
 
 /**
- * Página ORM
+ * Página Repositório
  *
- * 
  * @method Page[] list()
  * @method Page one()
  * @method Page oneOr404()
  * @method Page find($id)
  * @method Page findOr404($id)
  */
-class PageOrm extends Orm
+class PageRepo extends Orm
 {
 	const TABLE = 'pages';
 

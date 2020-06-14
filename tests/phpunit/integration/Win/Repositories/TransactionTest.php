@@ -3,7 +3,7 @@
 namespace Win\Repositories;
 
 use App\Models\Page;
-use App\Repositories\PageOrm;
+use App\Repositories\PageRepo;
 use PHPUnit\Framework\TestCase;
 use Win\Repositories\Database\DbConfig;
 use Win\Repositories\Database\Mysql;
@@ -13,19 +13,19 @@ class TransactionTest extends TestCase
 {
 	public static function setUpBeforeClass()
 	{
-		PageOrmTest::$conn = new Mysql(DbConfig::valid());
+		PageRepoTest::$conn = new Mysql(DbConfig::valid());
 	}
 
 	public function setUp()
 	{
-		PageOrmTest::createTable();
-		PageOrmTest::importTable();
+		PageRepoTest::createTable();
+		PageRepoTest::importTable();
 	}
 
 	public function testTransactionCommit()
 	{
-		$orm = new PageOrm(PageOrmTest::$conn);
-		$t = new Transaction(PageOrmTest::$conn);
+		$orm = new PageRepo(PageRepoTest::$conn);
+		$t = new Transaction(PageRepoTest::$conn);
 		$count = $orm->count();
 		$orm->save(new Page());
 
@@ -36,8 +36,8 @@ class TransactionTest extends TestCase
 
 	public function testTransactionRollback()
 	{
-		$orm = new PageOrm(PageOrmTest::$conn);
-		$t = new Transaction(PageOrmTest::$conn);
+		$orm = new PageRepo(PageRepoTest::$conn);
+		$t = new Transaction(PageRepoTest::$conn);
 		$count = $orm->count();
 		$orm->save(new Page());
 

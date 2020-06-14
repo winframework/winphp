@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Page;
-use App\Repositories\PageCategoryOrm;
-use App\Repositories\PageOrm;
+use App\Repositories\PageCategoryRepo;
+use App\Repositories\PageRepo;
 use Win\Application;
 use Win\Controllers\Controller;
 use Win\Repositories\Alert;
@@ -20,10 +20,10 @@ use Win\Views\View;
  */
 class PagesController extends Controller
 {
-	/** @var PageOrm */
+	/** @var PageRepo */
 	public $orm;
 
-	/** @var PageCategoryOrm */
+	/** @var PageCategoryRepo */
 	public $categoryOrm;
 
 	/** @var int */
@@ -32,8 +32,8 @@ class PagesController extends Controller
 	public function __construct()
 	{
 		$this->prepareDatabase();
-		$this->orm = new PageOrm();
-		$this->categoryOrm = new PageCategoryOrm();
+		$this->orm = new PageRepo();
+		$this->categoryOrm = new PageCategoryRepo();
 	}
 
 	public function init(){

@@ -6,7 +6,7 @@ use App\Models\PageCategory;
 use Win\Repositories\Database\Orm;
 
 /**
- * Categoria ORM
+ * Categoria Repositório
  *
  * @method PageCategory[] list()
  * @method PageCategory find($id)
@@ -14,7 +14,7 @@ use Win\Repositories\Database\Orm;
  * @method PageCategory one()
  * @method PageCategory oneOr404()
  */
-class PageCategoryOrm extends Orm
+class PageCategoryRepo extends Orm
 {
 	const TABLE = 'pageCategories';
 
