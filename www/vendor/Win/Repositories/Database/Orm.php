@@ -16,7 +16,7 @@ abstract class Orm
 	const PK = 'id';
 
 	public Connection $conn;
-	public ?Pagination $pagination = null;
+	public ?Pagination $pagination;
 	protected Sql $sql;
 
 	/**
@@ -34,6 +34,7 @@ abstract class Orm
 	{
 		$this->conn = $connection ?: Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
+		$this->pagination = null;
 	}
 
 	/**
@@ -100,7 +101,7 @@ abstract class Orm
 	 */
 	public function list()
 	{
-		if ($this->pagination) {
+		if (!is_null($this->pagination)) {
 			$this->setLimit();
 		}
 
