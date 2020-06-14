@@ -27,7 +27,7 @@ class Template
 	 * Cria um template com base no arquivo escolhido
 	 * @param string $file Nome do arquivo
 	 * @param mixed[] $data Array de variáveis
-	 * @param string $layout Layout
+	 * @param string $layout
 	 */
 	public function __construct($file, $data = [], $layout = null)
 	{
