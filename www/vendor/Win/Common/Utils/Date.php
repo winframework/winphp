@@ -70,9 +70,9 @@ class Date
 	 * @param string $date2
 	 * @return int
 	 */
-	public static function age($date1, $date2 = 'today')
+	public static function age($date1, $date2 = 'now')
 	{
-		return date_diff(date_create($date1), date_create($date2))->y;
+		return (new DateTime($date1))->diff(new DateTime($date2))->y;
 	}
 
 	/**
