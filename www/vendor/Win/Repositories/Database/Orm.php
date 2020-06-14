@@ -59,7 +59,7 @@ abstract class Orm
 		$row = $this->conn->fetch($query, $values);
 		$this->flush();
 
-		if ($row) {
+		if ($row !== false) {
 			return $this->mapModel($row);
 		}
 	}

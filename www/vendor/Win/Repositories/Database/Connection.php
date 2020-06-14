@@ -12,7 +12,8 @@ use Win\HttpException;
  */
 abstract class Connection
 {
-	protected ?PDO $pdo;
+	/** @var PDO */
+	protected $pdo;
 
 	/**
 	 * Cria e retorna conexão PDO
@@ -97,7 +98,7 @@ abstract class Connection
 	/**
 	 * @param string $query
 	 * @param mixed[] $values
-	 * @return mixed[]
+	 * @return mixed[]|false
 	 */
 	public function fetch($query, $values)
 	{
