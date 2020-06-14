@@ -16,8 +16,6 @@ require 'app/autoload.php';
 require '../../www/config/app.php';
 require 'config/routes.php';
 
-session_start();
-
 $b = new Benchmark();
 for ($i = 0; $i < 1; $i++) {
 	# code...
