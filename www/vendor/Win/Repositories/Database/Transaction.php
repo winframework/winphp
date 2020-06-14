@@ -16,6 +16,7 @@ class Transaction
 	/**
 	 * Inicia a Transação
 	 * @param Connection $conn
+	 * @scrutinizer ignore-call
 	 */
 	public function __construct(Connection $conn = null)
 	{
