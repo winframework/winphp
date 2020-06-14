@@ -16,11 +16,11 @@ class Transaction
 	/**
 	 * Inicia a Transação
 	 * @param Connection $conn
-	 * @scrutinizer ignore-call
 	 */
 	public function __construct(Connection $conn = null)
 	{
 		$conn = $conn ?? Application::app()->conn;
+		/** @scrutinizer ignore-call */
 		$this->pdo = $conn->getPdo();
 		$this->pdo->beginTransaction();
 	}
