@@ -2,9 +2,7 @@
 
 namespace Win\Request;
 
-use Win\Application;
 use Win\HttpException;
-use Win\Response\Response;
 
 /**
  * Rota de URL

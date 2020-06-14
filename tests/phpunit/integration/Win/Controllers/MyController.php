@@ -2,7 +2,9 @@
 
 namespace Win\Controllers;
 
-class MyController extends Controller
+use App\Controllers\BasicController;
+
+class MyController extends BasicController
 {
 	private $a;
 	private $b;
@@ -10,10 +12,6 @@ class MyController extends Controller
 	public function __construct($a = null)
 	{
 		$this->a =  $a;
-	}
-
-	public function index()
-	{
 	}
 
 	public function getA()

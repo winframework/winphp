@@ -7,7 +7,6 @@ use Win\Controllers\Controller;
 use Win\Repositories\Database\Connection;
 use Win\Request\Url;
 use Win\HttpException;
-use Win\Response\Response;
 use Win\Views\View;
 
 /**
@@ -71,7 +70,25 @@ class Application
 
 		$controller->init();
 		$response = $controller->$method(...$args);
-		echo ($response instanceof Response) ? $response->respond() : $response;
+		echo $this->send($response);
+	}
+
+	/**
+	 * Envia a resposta baseado no tipo
+	 * @param mixed $response
+	 * @return mixed
+	 */
+	private function send($response)
+	{
+		if ($response instanceof View) {
+			return $response->toHtml();
+		}
+		if (is_array($response)) {
+			@header('Content-Type: application/json');
+			return json_encode($response);
+		}
+
+		return $response;
 	}
 
 	/** @return string */

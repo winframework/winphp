@@ -4,7 +4,6 @@ namespace Win\Views;
 
 use Win\Application;
 use Win\Common\Template;
-use Win\Response\Response;
 use Win\HttpException;
 
 /**
@@ -12,7 +11,7 @@ use Win\HttpException;
  *
  * Responsável por criar o visual da página
  */
-class View extends Template implements Response
+class View extends Template
 {
 	/**
 	 * Cria uma View com base no arquivo escolhido
@@ -38,14 +37,5 @@ class View extends Template implements Response
 	public function getTitle()
 	{
 		return $this->getData('title');
-	}
-
-	/**
-	 * Envia a resposta Html
-	 * @return string
-	 */
-	public function respond()
-	{
-		return $this->toHtml();
 	}
 }

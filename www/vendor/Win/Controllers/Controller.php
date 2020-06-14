@@ -23,6 +23,7 @@ abstract class Controller
 
 	/**
 	 * Action Init
+	 * @codeCoverageIgnore
 	 */
 	public function init()
 	{

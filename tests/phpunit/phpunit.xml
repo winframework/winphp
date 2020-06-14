@@ -9,7 +9,7 @@
 	<logging>
 		<!-- <log type="coverage-clover" target="reports/logs/clover.xml"/> -->
 		<!-- Lembre-se de ativar o xDEBUG -->
-		<log type="coverage-html" target="reports/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
+		<log type="coverage-html" target="reports/coverage" lowUpperBound="35" highLowerBound="70" />
 		<!-- <log type="testdox-text" target="reports/testdox/executed.txt"/> -->
 	</logging>
 

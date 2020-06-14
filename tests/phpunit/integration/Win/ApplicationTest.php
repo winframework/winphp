@@ -5,7 +5,6 @@ namespace Win;
 use App\Controllers\IndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Controllers\MyController;
-use Win\Request\Router;
 use Win\Request\Url;
 
 class ApplicationTest extends TestCase
@@ -77,23 +76,54 @@ class ApplicationTest extends TestCase
 		$this->assertFalse($app->isHomePage());
 	}
 
-	/**
-	 * @expectedException \Win\HttpException
-	 */
-	public function testRunHttpException()
+
+	/** @expectedException \Win\HttpException */
+	public function testRunController404()
 	{
 		$app = new Application();
-		$app->run();
+		$app->run('App\\Controllers\\InvalidController', 'index');
 	}
 
-	public function testRunResponse()
+	/** @expectedException \Win\HttpException */
+	public function testRunAction404()
 	{
-		Router::addRoutes('Win\\Controllers\\', ['teste' => 'MyController@index']);
-
-		$app = $this->newApp('teste');
-		$app->run();
+		$app = new Application();
+		$app->run('App\\Controllers\\IndexController', 'actionNotFound');
 	}
 
+	public function testRun()
+	{
+		$app = new Application();
+		$data = [1, 2];
+
+		ob_start();
+		$app->run('Win\\Controllers\\MyController', 'sum', $data);
+		$sum = ob_get_clean();
+
+		$this->assertEquals(array_sum($data), $sum);
+	}
+
+	public function testRunView()
+	{
+		$app = new Application();
+		$data = [1, 2];
+
+		ob_start();
+		$app->run('Win\\Controllers\\MyController', 'index', $data);
+
+		$this->assertStringContainsString('Esta é uma view simples', ob_get_clean());
+	}
+
+	public function testRunArray()
+	{
+		$app = new Application();
+
+		ob_start();
+		$app->run('Win\\Controllers\\MyController', 'json');
+		$response = ob_get_clean();
+
+		$this->assertStringContainsString('{"totalResults":"3","values":[{"name":"John","age":30},{"name":"Mary","age":24},{"name":"Petter","age":18}]}', $response);
+	}
 	/**
 	 * @expectedException \Win\HttpException
 	 */

@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Views\ClassView;
 use Win\Controllers\Controller;
 use Win\Repositories\Alert;
-use Win\Response\JsonResponse;
 use Win\Views\View;
 
 /**
@@ -91,7 +90,7 @@ class BasicController extends Controller
 			],
 		];
 
-		return new JsonResponse($data);
+		return $data;
 	}
 
 	/**
