@@ -36,8 +36,7 @@ class PagesController extends Controller
 		$this->categoryOrm = new PageCategoryOrm();
 	}
 
-	public function init()
-	{
+	public function init(){
 		$this->orm->sort('id DESC')->paginate($this->pageSize, Input::get('p'));
 	}
 

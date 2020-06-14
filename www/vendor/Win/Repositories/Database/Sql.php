@@ -98,9 +98,8 @@ class Sql
 	 */
 	public function update()
 	{
-		$columns = array_map(function ($column) {
-			return $column . ' = ?';
-		}, array_keys($this->values));
+		$keys = array_keys($this->values);
+		$columns = array_map(fn ($column) => $column . ' = ?', $keys);
 
 		return 'UPDATE ' . $this->table
 			. ' SET ' . implode(', ', $columns)
@@ -174,7 +173,6 @@ class Sql
 
 		return ' WHERE ' . implode(' AND ', $this->where);
 	}
-
 
 	/**
 	 * Define a ordenação principal

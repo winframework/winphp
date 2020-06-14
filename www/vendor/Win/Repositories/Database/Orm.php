@@ -67,7 +67,9 @@ abstract class Orm
 		$row = $this->conn->fetch($query, $values);
 		$this->flush();
 
-		return $this->mapModel($row);
+		if ($row) {
+			return $this->mapModel($row);
+		}
 	}
 
 	/**
@@ -76,7 +78,7 @@ abstract class Orm
 	public function oneOr404()
 	{
 		$model = $this->one();
-		if (is_null($model->id)) {
+		if (is_null($model)) {
 			throw new HttpException('Model not found', 404);
 		}
 
