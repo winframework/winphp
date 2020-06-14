@@ -50,6 +50,6 @@ abstract class Controller
 	 */
 	protected function refresh()
 	{
-		Url::redirect($this->app->url);
+		Url::redirect(Url::$path);
 	}
 }
