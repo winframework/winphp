@@ -1,3 +1,4 @@
+<!-- Requer PHP Unit 7.5+ -->
 <phpunit bootstrap="./bootstrap.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" stopOnFailure="false" beStrictAboutTestsThatDoNotTestAnything="false">
 
 	<filter>
