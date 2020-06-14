@@ -12,20 +12,12 @@ use Win\HttpException;
  */
 abstract class Orm
 {
-	/** @var string */
 	const TABLE = '';
-
-	/** @var string */
 	const PK = 'id';
 
-	/** @var Connection */
-	public $conn;
-
-	/** @var Pagination */
-	public $pagination;
-
-	/** @var Sql */
-	protected $sql;
+	public Connection $conn;
+	public ?Pagination $pagination = null;
+	protected Sql $sql;
 
 	/**
 	 * @param Model $model

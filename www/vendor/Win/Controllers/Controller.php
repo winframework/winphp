@@ -12,14 +12,9 @@ use Win\Request\Url;
  */
 abstract class Controller
 {
-	/** @var Application */
-	public $app;
-
-	/** @var string */
-	public $layout = 'layout';
-
-	/** @var string */
-	public $title;
+	public Application $app;
+	public string $layout = 'layout';
+	public string $title;
 
 	/**
 	 * Action Init

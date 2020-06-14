@@ -12,11 +12,8 @@ abstract class Storable
 	const REGEXP_NAME = '@^(([a-zA-Z0-9._\-]?))+$@';
 	const DS = DIRECTORY_SEPARATOR;
 
-	/** @var string */
-	private $path;
-
-	/** @var Directory */
-	private $directory;
+	private string $path;
+	private ?Directory $directory = null;
 
 	/** @return string */
 	public function __toString()

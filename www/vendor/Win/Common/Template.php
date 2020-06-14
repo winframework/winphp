@@ -11,29 +11,17 @@ use Win\Application;
 class Template
 {
 	public static $dir = 'templates';
-	/**
-	 * Ponteiro para Aplicação Principal
-	 * @var Application
-	 */
-	public $app;
+	public Application $app;
 
 	/**
 	 * Endereço completo do arquivo .phtml
 	 * @var string
 	 */
-	protected $file;
+	protected string $file;
 
-	/**
-	 * Variáveis para serem usadas no corpo do arquivo
-	 * @var mixed[]
-	 */
 	protected $data = [];
 
-	/**
-	 * Layout
-	 * @var string
-	 */
-	private $layout = null;
+	private ?string $layout = null;
 
 	/**
 	 * Cria um template com base no arquivo escolhido

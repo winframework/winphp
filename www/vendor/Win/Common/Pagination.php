@@ -7,19 +7,13 @@ namespace Win\Common;
  */
 class Pagination
 {
-	/** @var int */
-	public $pageSize;
-
-	/** @var int Current Page */
-	public $current;
-
-	/** @var int Total of records */
-	public $count = 0;
-
-	public $prev;
-	public $next;
-	public $last;
-	public $offset;
+	public int $current;
+	public int $pageSize;
+	public int $count = 0;
+	public int $prev;
+	public int $next;
+	public int $last;
+	public int $offset;
 
 	/**
 	 * @param int $pageSize

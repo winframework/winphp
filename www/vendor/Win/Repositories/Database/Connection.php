@@ -12,8 +12,7 @@ use Win\HttpException;
  */
 abstract class Connection
 {
-	/** @var PDO */
-	protected $pdo;
+	protected ?PDO $pdo;
 
 	/**
 	 * Cria e retorna conexão PDO

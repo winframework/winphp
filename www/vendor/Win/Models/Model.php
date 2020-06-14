@@ -4,8 +4,7 @@ namespace Win\Models;
 
 abstract class Model
 {
-	/** @var int|null */
-	public $id;
+	public ?int $id = null;
 
 	abstract public function validate();
 }

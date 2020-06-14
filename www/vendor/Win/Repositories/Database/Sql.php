@@ -7,29 +7,15 @@ namespace Win\Repositories\Database;
  */
 class Sql
 {
-	/** @var string[] */
-	public $columns = ['*'];
+	public array $columns = ['*'];
 
-	/** @var string */
-	private $table;
-
-	/** @var array */
-	private $values = [];
-
-	/** @var array */
-	private $join = [];
-
-	/** @var array */
-	private $where = [];
-
-	/** @var array */
-	private $whereValues = [];
-
-	/** @var array */
-	private $orderBy = [];
-
-	/** @var string */
-	private $limit = '';
+	private ?string $table;
+	private array $values = [];
+	private array $join = [];
+	private array $where = [];
+	private array $whereValues = [];
+	private array $orderBy = [];
+	private string $limit = '';
 
 	/**
 	 * Prepara a query

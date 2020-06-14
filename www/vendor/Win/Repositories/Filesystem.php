@@ -4,7 +4,7 @@ namespace Win\Repositories;
 
 class Filesystem
 {
-	private $basePath;
+	private string $basePath;
 	const DS = DIRECTORY_SEPARATOR;
 
 	/**

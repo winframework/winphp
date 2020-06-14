@@ -11,9 +11,7 @@ use Win\InfraServices\Mailer;
 class Email extends Template
 {
 	public static $dir = 'templates/emails';
-
-	/** @var Mailer */
-	public $mailer;
+	public Mailer $mailer;
 
 	/**
 	 * Cria um Template de E-mail
