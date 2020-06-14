@@ -2,6 +2,7 @@
 
 namespace Win\Request;
 
+use Win\Application;
 use Win\HttpException;
 
 /**
@@ -34,12 +35,12 @@ class Router
 	 */
 	public static function getDestination()
 	{
-		$url = Url::instance();
+		$url = Url::$path;
 		$matches = [];
 
 		foreach (static::$routes as $request => $destination) {
-			$pattern = '@^' . $url->format($request) . '$@';
-			$match = preg_match($pattern, $url->getUrl(), $matches);
+			$pattern = '@^' . $request . '$@';
+			$match = preg_match($pattern, $url, $matches);
 			if ($match) {
 				$destination = array_pad(explode('@', $destination), 2, '');
 				$destination[] = (array) array_splice($matches, 1);

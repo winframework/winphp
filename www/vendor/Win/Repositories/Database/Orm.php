@@ -16,7 +16,7 @@ abstract class Orm
 	const PK = 'id';
 
 	public Connection $conn;
-	public ?Pagination $pagination;
+	public ?Pagination $pagination = null;
 	protected Sql $sql;
 
 	/**
@@ -34,7 +34,6 @@ abstract class Orm
 	{
 		$this->conn = $connection ?: Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
-		$this->pagination = null;
 	}
 
 	/**

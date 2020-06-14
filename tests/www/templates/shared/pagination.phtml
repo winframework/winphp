@@ -1,9 +1,8 @@
 <?php
 
 use Win\Blocks\Block;
-use Win\Request\Url;
 
-$url = Url::instance()->getUrl();
+$url = $this->app->url;
 
 /** @var Block $this */
 /** @var int $pageSize */

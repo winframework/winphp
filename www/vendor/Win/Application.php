@@ -19,10 +19,11 @@ use Win\Views\View;
  */
 class Application
 {
+	protected static Application $instance;
+
 	public Controller $controller;
 	public View $view;
-	public Connection $conn;
-	protected static Application $instance;
+	public ?Connection $conn;
 
 	/**
 	 * Cria a aplicação principal
@@ -30,6 +31,7 @@ class Application
 	public function __construct()
 	{
 		static::$instance = $this;
+		Url::init();
 	}
 
 	/**
@@ -74,32 +76,11 @@ class Application
 	private function send($response)
 	{
 		if (is_array($response)) {
-			@header('Content-Type: application/json');
+			header('Content-Type: application/json');
 			return json_encode($response);
 		}
 
 		return $response;
-	}
-
-	/** @return string */
-	public function getFullUrl()
-	{
-		return Url::instance()->getBaseUrl() . Url::instance()->getUrl();
-	}
-
-	/** @return string */
-	public function getBaseUrl()
-	{
-		return Url::instance()->getBaseUrl();
-	}
-
-	/**
-	 * Retorna a URL Atual
-	 * @return string
-	 */
-	public function getUrl()
-	{
-		return Url::instance()->getUrl();
 	}
 
 	/**
@@ -108,7 +89,7 @@ class Application
 	 */
 	public function getPage()
 	{
-		return Url::instance()->getSegments()[0];
+		return Url::$segments[0];
 	}
 
 	/**

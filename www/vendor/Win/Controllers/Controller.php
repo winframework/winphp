@@ -30,7 +30,7 @@ abstract class Controller
 	 */
 	protected function backToIndex()
 	{
-		Url::instance()->redirect($this->app->getPage());
+		Url::redirect($this->app->getPage());
 	}
 
 	/**
@@ -40,7 +40,7 @@ abstract class Controller
 	 */
 	protected function redirect($url)
 	{
-		Url::instance()->redirect($url);
+		Url::redirect($url);
 	}
 
 	/**
@@ -50,6 +50,6 @@ abstract class Controller
 	 */
 	protected function refresh()
 	{
-		Url::instance()->redirect(Url::instance()->getUrl());
+		Url::redirect($this->app->url);
 	}
 }

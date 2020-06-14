@@ -2,31 +2,40 @@
 
 namespace Win\Request;
 
-use Win\Common\Traits\SingletonTrait;
-
 /**
  * Manipulador de URLs
  */
 class Url
 {
-	use SingletonTrait;
-
 	const HOME = ['index', 'index'];
-	public $suffix = '/';
+	const SUFFIX = '/';
 
-	protected $base = null;
-	protected $url = null;
-	protected $protocol = null;
-	protected $segments = null;
+	static $base;
+	static $path;
+	static $protocol;
+	static $segments;
+
+	public static function init()
+	{
+		static::$protocol = Input::protocol();
+		static::setBase();
+		static::setPath();
+		static::setSegments();
+	}
+
+	public static function full()
+	{
+		return static::$base . static::$path;
+	}
 
 	/**
 	 * Retorna no formato de URL
 	 * @param string $url
 	 * @return string
 	 */
-	public function format($url)
+	public static function format($url)
 	{
-		return rtrim($url, $this->suffix) . $this->suffix;
+		return rtrim($url, static::SUFFIX) . static::SUFFIX;
 	}
 
 	/**
@@ -34,10 +43,10 @@ class Url
 	 * @param string $url URL relativa ou absoluta
 	 * @codeCoverageIgnore
 	 */
-	public function redirect($url = '')
+	public static function redirect($url = '')
 	{
 		if (false === strpos($url, '://')) {
-			$url = $this->getBaseUrl() . $url;
+			$url = static::$base . $url;
 		}
 		header('location:' . $url);
 		die();
@@ -47,73 +56,36 @@ class Url
 	 * Retorna a URL base
 	 * @return string
 	 */
-	public function getBaseUrl()
+	protected static function setBase()
 	{
-		if (is_null($this->base)) {
-			$protocol = $this->getProtocol();
-			$host = Input::server('HTTP_HOST');
-			$script = Input::server('SCRIPT_NAME');
-			$basePath = preg_replace('@/+$@', '', dirname($script)) . '/';
-			$this->base = $protocol . '://' . $host . $basePath;
-		}
-
-		return $this->base;
+		$host = Input::server('HTTP_HOST');
+		$script = Input::server('SCRIPT_NAME');
+		$basePath = preg_replace('@/+$@', '', dirname($script));
+		static::$base = static::$protocol . '://' . $host . $basePath . '/';
 	}
 
 	/**
-	 * Retorna o protocolo atual
-	 * @return string (http|https)
-	 */
-	public function getProtocol()
-	{
-		if (is_null($this->protocol)) {
-			$this->protocol = Input::protocol();
-		}
-
-		return $this->protocol;
-	}
-
-	/**
-	 * Retorna a URL atual
+	 * Define o final da url
 	 * @return string
 	 */
-	public function getUrl()
+	protected static function setPath()
 	{
-		if (is_null($this->url)) {
-			$host = Input::server('HTTP_HOST');
-			$url = '';
-			if ($host) {
-				$requestUri = explode('?', Input::server('REQUEST_URI'));
-				$context = explode($host, $this->getBaseUrl());
-				$uri = (explode(end($context), $requestUri[0], 2));
-				$url = end($uri);
-			}
-			$this->url = $this->format($url);
+		$host = Input::server('HTTP_HOST');
+		$path = '';
+		if ($host) {
+			$requestUri = explode('?', Input::server('REQUEST_URI'));
+			$context = explode($host, static::$base);
+			$uri = (explode(end($context), $requestUri[0], 2));
+			$path = end($uri);
 		}
-
-		return $this->url;
+		static::$path = $path;
 	}
 
 	/**
-	 * @param string $url
+	 * Define os fragmentos da URL
 	 */
-	public function setUrl($url)
+	protected static function setSegments()
 	{
-		$this->url = $this->format($url);
-		$this->segments = null;
-	}
-
-	/**
-	 * Retorna o array de fragmentos da URL
-	 * @return string[]
-	 */
-	public function getSegments()
-	{
-		if (is_null($this->segments)) {
-			$url = rtrim($this->getUrl(), $this->suffix);
-			$this->segments = array_filter(explode('/', $url)) + static::HOME;
-		}
-
-		return $this->segments;
+		static::$segments = array_filter(explode('/', static::$path)) + static::HOME;
 	}
 }

@@ -1,12 +1,13 @@
 <?php
 
 use Win\Blocks\Block;
+use Win\Request\Url;
 
 /** @var Block $this */
 ?>
 
 <head>
-	<base href="<?= $this->app->getBaseUrl(); ?>" />
+	<base href="<?= Url::$base; ?>" />
 	<title>
 		<?= $this->app->view->getData('title'); ?>
 	</title>

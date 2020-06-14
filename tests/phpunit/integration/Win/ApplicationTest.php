@@ -51,14 +51,14 @@ class ApplicationTest extends TestCase
 	{
 		$url = 'my-custom/url/10/';
 		$app = static::newApp($url);
-		$this->assertEquals(Url::instance()->getBaseUrl(), $app->getBaseUrl());
+		$this->assertEquals(Url::instance()->Url::$base, $app->Url::$base);
 	}
 
 	public function testGetFullUrl()
 	{
 		$url = 'my-custom/url/10/';
 		$app = static::newApp($url);
-		$fullUrl = Url::instance()->getBaseUrl() . Url::instance()->getUrl();
+		$fullUrl = Url::instance()->Url::$base . Url::instance()->getUrl();
 		$this->assertEquals($fullUrl, $app->getFullUrl());
 	}
 
@@ -114,16 +114,6 @@ class ApplicationTest extends TestCase
 		$this->assertStringContainsString('Esta é uma view simples', ob_get_clean());
 	}
 
-	public function testRunArray()
-	{
-		$app = new Application();
-
-		ob_start();
-		$app->run('Win\\Controllers\\MyController', 'json');
-		$response = ob_get_clean();
-
-		$this->assertStringContainsString('{"totalResults":"3","values":[{"name":"John","age":30},{"name":"Mary","age":24},{"name":"Petter","age":18}]}', $response);
-	}
 	/**
 	 * @expectedException \Win\HttpException
 	 */
