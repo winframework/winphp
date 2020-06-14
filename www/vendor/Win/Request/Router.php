@@ -39,7 +39,7 @@ class Router
 		$matches = [];
 
 		foreach (static::$routes as $request => $destination) {
-			$pattern = '@^' . $request . '$@';
+			$pattern = '@^' . Url::format($request) . '$@';
 			$match = preg_match($pattern, $url, $matches);
 			if ($match) {
 				$destination = array_pad(explode('@', $destination), 2, '');
