@@ -15,7 +15,7 @@ use Win\Views\View;
 			<div class="alert alert-info">Preencha os campos abaixo:</div>
 		<?php endif; ?>
 
-		<?= (new AlertBlock())->toHtml(); ?>
+		<?= new AlertBlock(); ?>
 
 		<fieldset>
 			<input type="text" name="name" value="<?= $name; ?>" placeholder="Nome" maxlength="75" />

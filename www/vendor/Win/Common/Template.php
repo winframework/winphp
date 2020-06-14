@@ -50,6 +50,15 @@ class Template
 	}
 
 	/**
+	 * Carrega e retorna o output
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return (string) $this->toHtml();
+	}
+
+	/**
 	 * Retorna uma variável
 	 * @param string $name
 	 * @return mixed|null
@@ -79,7 +88,7 @@ class Template
 	public function toHtml()
 	{
 		if ($this->layout) {
-			return (new Template($this->layout, ['content' => $this]))->toHtml();
+			return new Template($this->layout, ['content' => $this]);
 		}
 
 		ob_start();

@@ -13,9 +13,9 @@ class EmailTest extends TestCase
 	{
 		new Application();
 		$email = new Email(static::VALID, []);
-		$this->assertContains('id="email-body"', $email->toHtml());
+		$this->assertStringContainsString('id="email-body"', (string) $email);
 
 		$email = new Email(static::VALID, [], 'layout-not-found');
-		$this->assertNotContains('id="email-body"', $email->toHtml());
+		$this->assertStringContainsString('id="email-body"', (string) $email);
 	}
 }

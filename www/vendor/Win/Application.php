@@ -80,9 +80,6 @@ class Application
 	 */
 	private function send($response)
 	{
-		if ($response instanceof View) {
-			return $response->toHtml();
-		}
 		if (is_array($response)) {
 			@header('Content-Type: application/json');
 			return json_encode($response);

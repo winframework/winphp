@@ -131,11 +131,7 @@ class Mailer
 	 */
 	protected function setBody($body)
 	{
-		if ($body instanceof Template) {
-			$this->mailer->Body = $body->toHtml();
-		} else {
-			$this->mailer->Body = $body;
-		}
+		$this->mailer->Body = (string) $body;
 	}
 
 	/**

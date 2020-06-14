@@ -46,7 +46,7 @@ use Win\Views\View;
 				</ul>
 
 				<div style="width: 100%">
-					<?= (new Block('shared/pagination', get_object_vars($orm->pagination)))->toHtml(); ?>
+					<?= new Block('shared/pagination', get_object_vars($orm->pagination)); ?>
 				</div>
 			</div>
 		</div>

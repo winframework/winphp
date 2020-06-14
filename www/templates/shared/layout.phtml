@@ -10,7 +10,7 @@ $body = implode('-', Url::instance()->getSegments());
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-<?= (new Block('shared/head'))->toHtml(); ?>
+<?= new Block('shared/head'); ?>
 
 <body class="<?= $body; ?>">
 	<header>
