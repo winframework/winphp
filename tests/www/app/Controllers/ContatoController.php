@@ -19,11 +19,11 @@ class ContatoController extends Controller
 	const SEND_TO = 'destinatario@example.com';
 	const SEND_FROM = 'no-reply@example.com';
 
-	public $name;
-	public $phone;
-	public $email;
-	public $subject;
-	public $message;
+	public string $name;
+	public string $phone;
+	public string $email;
+	public string $subject;
+	public string $message;
 
 	/**
 	 * Inicia variáveis

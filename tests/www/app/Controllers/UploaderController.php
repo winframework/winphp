@@ -14,19 +14,19 @@ class UploaderController extends Controller
 {
 	const UPLOAD_PATH = 'data/uploads';
 
-	/** @var Image */
-	public $image = null;
+	public ?Image $image = null;
 
-	/** @var FileSystem */
-	private $fs;
+	private ?FileSystem $fs = null;
+
+	public function __construct()
+	{
+		$this->fs = new Filesystem();
+	}
 
 	public function init()
 	{
-		$fs = new Filesystem();
-		$fs->delete(static::UPLOAD_PATH);
-		$fs->create(static::UPLOAD_PATH);
-
-		$this->fs = $fs;
+		$this->fs->delete(static::UPLOAD_PATH);
+		$this->fs->create(static::UPLOAD_PATH);
 	}
 
 	public function index()

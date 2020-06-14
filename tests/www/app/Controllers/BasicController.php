@@ -12,6 +12,8 @@ use Win\Views\View;
  */
 class BasicController extends Controller
 {
+	public int $ten;
+
 	public function init()
 	{
 		$this->ten = 10;

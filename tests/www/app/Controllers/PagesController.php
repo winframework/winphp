@@ -20,13 +20,8 @@ use Win\Views\View;
  */
 class PagesController extends Controller
 {
-	/** @var PageRepo */
-	public $orm;
-
-	/** @var PageCategoryRepo */
-	public $categoryOrm;
-
-	/** @var int */
+	public PageRepo $orm;
+	public PageCategoryRepo $categoryOrm;
 	protected $pageSize = 2;
 
 	public function __construct()

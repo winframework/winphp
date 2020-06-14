@@ -30,7 +30,7 @@ abstract class Orm
 	/**
 	 * @param Connection $connection
 	 */
-	public function __construct(?Connection $connection)
+	public function __construct(?Connection $connection = null)
 	{
 		$this->conn = $connection ?: Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
