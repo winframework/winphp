@@ -21,8 +21,9 @@ class ApplicationTest extends TestCase
 
 	public static function newApp($url = 'index')
 	{
-		Url::instance()->setUrl($url);
-
+		$_SERVER['REQUEST_URI'] = $url;
+		$_SERVER['HTTP_HOST'] = 'http://localhost';
+		$_SERVER['SCRIPT_NAME'] = '';
 		return new Application();
 	}
 
@@ -34,32 +35,11 @@ class ApplicationTest extends TestCase
 
 	public function testGetPage()
 	{
+		$app = static::newApp('demo');
 		$this->assertEquals('demo', static::$app->getPage());
 
 		$app = static::newApp('index');
 		$this->assertEquals('index', $app->getPage());
-	}
-
-	public function testGetUrl()
-	{
-		$url = 'my-custom/url/10/';
-		$app = static::newApp($url);
-		$this->assertEquals($url, $app->getUrl());
-	}
-
-	public function testGetBaseUrl()
-	{
-		$url = 'my-custom/url/10/';
-		$app = static::newApp($url);
-		$this->assertEquals(Url::instance()->Url::$base, $app->Url::$base);
-	}
-
-	public function testGetFullUrl()
-	{
-		$url = 'my-custom/url/10/';
-		$app = static::newApp($url);
-		$fullUrl = Url::instance()->Url::$base . Url::instance()->getUrl();
-		$this->assertEquals($fullUrl, $app->getFullUrl());
 	}
 
 	public function testIsHomePage()

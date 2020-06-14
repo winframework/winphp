@@ -7,6 +7,7 @@ use Win\Controllers\Controller;
 use Win\Repositories\Database\Connection;
 use Win\Request\Url;
 use Win\HttpException;
+use Win\Request\Input;
 use Win\Views\View;
 
 /**
@@ -72,6 +73,7 @@ class Application
 	 * Envia a resposta baseado no tipo
 	 * @param mixed $response
 	 * @return mixed
+	 * @codeCoverageIgnore
 	 */
 	private function send($response)
 	{

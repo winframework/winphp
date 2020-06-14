@@ -3,8 +3,6 @@
 namespace Win\Common;
 
 use PHPUnit\Framework\TestCase;
-use Win\Request\CustomUrl;
-use Win\Request\Url;
 
 class DependenceInjectorTest extends TestCase
 {
@@ -15,15 +13,24 @@ class DependenceInjectorTest extends TestCase
 		DependenceInjector::$container = [];
 	}
 
-	public function testGetClassDi()
+	public function testInstance()
 	{
+		$obj = MyClass::instance();
+
+		$this->assertEquals('Win\\Common\\MyClass', get_class($obj));
+	}
+
+	public function testInstanceGetClassDi()
+	{
+		MyClass::instance();
 		DependenceInjector::$container = [
-			'Win\\Request\\Url' => 'Win\\Request\\CustomUrl',
+			'Win\\Common\\MyClass' => 'Win\\Common\\MyClass2',
 		];
 
-		CustomUrl::$fakeSegments = static::FAKE_SEGMENTS;
-		$segments = Url::instance('UNIQUE_INSTANCE')->getSegments();
+		$obj = MyClass::instance();
+		$obj2 = MyClass::instance('2');
 
-		$this->assertEquals(static::FAKE_SEGMENTS, $segments);
+		$this->assertEquals('Win\\Common\\MyClass', get_class($obj));
+		$this->assertEquals('Win\\Common\\MyClass2', get_class($obj2));
 	}
 }

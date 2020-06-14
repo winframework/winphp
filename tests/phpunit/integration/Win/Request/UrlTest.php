@@ -8,49 +8,32 @@ class UrlTest extends TestCase
 {
 	public function testFormat()
 	{
-		Url::instance()->suffix = '/';
 		$link = 'my-custom-link';
-		$formatedLink = Url::instance()->format($link);
-		$this->assertEquals('my-custom-link/', $formatedLink);
+		$this->assertEquals('my-custom-link/', Url::format($link));
 
-		$linkBar = 'my-custom-link/';
-		$formatedLinkBar = Url::instance()->format($linkBar);
-		$this->assertEquals('my-custom-link/', $formatedLinkBar);
+		$link = 'my-custom-link/';
+		$this->assertEquals('my-custom-link/', Url::format($link));
 	}
 
-	public function testFormatExtension()
+	public function testInit()
 	{
-		Url::instance()->suffix = '.html';
-		$link2 = 'my-custom-link-with-extension';
-		$formatedLink2 = Url::instance()->format($link2);
-		$this->assertEquals('my-custom-link-with-extension.html', $formatedLink2);
+		$_SERVER['REQUEST_URI'] = 'my-page';
+		$_SERVER['HTTP_HOST'] = 'http://localhost/teste';
+		$_SERVER['SCRIPT_NAME'] = '';
+		$_SERVER['HTTPS'] = false;
+		Url::init();
+		$this->assertEquals('http', Url::$protocol);
+		$this->assertEquals('my-page', Url::$path);
 	}
 
-	public function testGetUrl()
+	public function testInitNoHost()
 	{
-		Url::instance()->suffix = '/';
-		Url::instance()->setUrl('my-page/subpage');
-		$url = Url::instance()->getUrl();
-		$this->assertContains('my-page/subpage', $url);
-	}
-
-	public function testGetUrlNull()
-	{
-		Url::instance('new')->suffix = '';
-		$_SERVER['HTTP_HOST'] = true;
-
-		$url = Url::instance('new')->getUrl();
-		$this->assertEquals('', $url);
-	}
-
-	public function testGetSegments()
-	{
-		Url::instance()->suffix = '/';
-		Url::instance()->setUrl('my-page/subpage');
-		$segments = Url::instance()->getSegments();
-
-		$this->assertEquals('my-page', $segments[0]);
-		$this->assertEquals('subpage', $segments[1]);
+		$_SERVER['REQUEST_URI'] = 'my-page';
+		$_SERVER['HTTP_HOST'] = '';
+		$_SERVER['SCRIPT_NAME'] = '';
+		$_SERVER['HTTPS'] = false;
+		Url::init();
+		$this->assertEquals(null, Url::$path);
 	}
 
 }

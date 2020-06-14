@@ -14,18 +14,15 @@ class Url
 	static $path;
 	static $protocol;
 	static $segments;
+	static $full;
 
 	public static function init()
 	{
 		static::$protocol = Input::protocol();
-		static::setBase();
-		static::setPath();
-		static::setSegments();
-	}
-
-	public static function full()
-	{
-		return static::$base . static::$path;
+		static::$base = static::getBase();
+		static::$path = static::getPath();
+		static::$segments = static::getSegments();
+		static::$full = static::$base . static::$path;
 	}
 
 	/**
@@ -56,36 +53,37 @@ class Url
 	 * Retorna a URL base
 	 * @return string
 	 */
-	protected static function setBase()
+	private static function getBase()
 	{
 		$host = Input::server('HTTP_HOST');
-		$script = Input::server('SCRIPT_NAME');
-		$basePath = preg_replace('@/+$@', '', dirname($script));
-		static::$base = static::$protocol . '://' . $host . $basePath . '/';
+		if ($host) {
+			$script = Input::server('SCRIPT_NAME');
+			$basePath = preg_replace('@/+$@', '', dirname($script));
+			return static::$protocol . '://' . $host . $basePath . '/';
+		}
 	}
 
 	/**
-	 * Define o final da url
+	 * Define o final da URL
 	 * @return string
 	 */
-	protected static function setPath()
+	private static function getPath()
 	{
 		$host = Input::server('HTTP_HOST');
-		$path = '';
 		if ($host) {
 			$requestUri = explode('?', Input::server('REQUEST_URI'));
 			$context = explode($host, static::$base);
 			$uri = (explode(end($context), $requestUri[0], 2));
-			$path = end($uri);
+			return end($uri);
 		}
-		static::$path = $path;
 	}
 
 	/**
 	 * Define os fragmentos da URL
+	 * @return string[]
 	 */
-	protected static function setSegments()
+	private static function getSegments()
 	{
-		static::$segments = array_filter(explode('/', static::$path)) + static::HOME;
+		return array_filter(explode('/', static::$path)) + static::HOME;
 	}
 }
