@@ -16,7 +16,7 @@ class RouterTest extends TestCase
 
 	public static function setUpBeforeClass()
 	{
-		Router::addRoutes(static::NAMESPACE, static::$routes);
+		Router::add(static::NAMESPACE, static::$routes);
 	}
 
 	public function testGetDestination()
@@ -53,7 +53,7 @@ class RouterTest extends TestCase
 		$controller = 'My\\CustomController';
 		Url::instance()->setUrl($url);
 
-		Router::addRoutes($namespace, [$url => $controller . '@index']);
+		Router::add($namespace, [$url => $controller . '@index']);
 
 		$this->assertEquals($namespace . $controller, Router::getDestination()[0]);
 	}

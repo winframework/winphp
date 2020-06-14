@@ -7,6 +7,6 @@ use Win\Request\Router;
  *
  * url => NomeDoController/nomeDoAction
  */
-Router::addRoutes('App\\Controllers\\', [
+Router::add('App\\Controllers\\', [
 	'' => 'IndexController@index',
 ]);
