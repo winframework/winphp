@@ -35,8 +35,8 @@ class Router
 	 */
 	public static function getDestination()
 	{
-		$url = Url::$path;
-		$matches = [];
+		$url = Url::format(Url::$path);
+				$matches = [];
 
 		foreach (static::$routes as $request => $destination) {
 			$pattern = '@^' . Url::format($request) . '$@';
