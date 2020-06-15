@@ -57,16 +57,19 @@ class Filesystem
 	 * @param string $newExtension
 	 * @return bool
 	 */
-	public function rename($filePath = null, $newFilePath)
+	public function rename($filePath, $newFilePath)
 	{
 		return rename($this->basePath . $filePath, $this->basePath . $newFilePath);
 	}
 
-	public function move($filePath = null, $newFolder)
+	/**
+	 * Move o arquivo
+	 * @param string $filePath
+	 * @param string $newFolder
+	 */
+	public function move($filePath, $newFolder)
 	{
-		$currentName = '';
-
-		return rename($this->basePath . $filePath, $this->basePath . $newFolder . $currentName);
+		return rename($this->basePath . $filePath, $this->basePath . $newFolder);
 	}
 
 	/**
