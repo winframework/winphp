@@ -18,15 +18,15 @@ class Alert
         }
 
 	/** @param string $message */
-	public static function add($message, type= "default", group = '')
+	public static function add($message, $type = "default", $group = '')
 	{
-		Application::app->session->add($group . 'alerts.' . type, $message);
+		Application::app()->session->add($group . 'alerts.' . type, $message);
 	}
 
 	/** @param string $message */
 	public static function success($message)
 	{
-		static::add($message,'success');
+		static::add($message, 'success');
 	}
 
 	/** @param string|Exception $message */
