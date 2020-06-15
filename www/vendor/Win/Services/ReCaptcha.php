@@ -32,7 +32,7 @@ class ReCaptcha
 	 * Retorna a URL de validação
 	 * @return string
 	 */
-	public static function getValidationUrl()
+	private static function getValidationUrl()
 	{
 		return 'https://www.google.com/recaptcha/api/siteverify'
 			. '?secret=' . static::$secretKey
