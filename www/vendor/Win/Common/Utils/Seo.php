@@ -11,6 +11,13 @@ class Seo
 {
 	public static $titlePrefix = '';
 	public static $titleSuffix = '';
+
+
+	/**
+	 * Keywords padrão.
+	 * Usadas quando a descrição informada não tenha o tamanho suficiente
+	 * @var string
+	 */
 	public static $keywords = [];
 
 	/**
@@ -35,10 +42,6 @@ class Seo
 		return static::$titlePrefix . Str::truncate($title, $maxLength) . static::$titleSuffix;
 	}
 
-	/* Chaves padrão.
-		* Usadas quando as chaves informadas não tenham o tamanho suficiente
-		* @var array
-		*/
 
 	/**
 	 * Retorna uma string em minúscula, separada por virgula
