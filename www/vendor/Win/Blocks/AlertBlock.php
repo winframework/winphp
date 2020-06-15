@@ -6,13 +6,13 @@ use Win\Blocks\Block;
 use Win\Repositories\Alert;
 
 /**
- * Exibe os Alerta da sessão
+ * Exibe os Alertas da sessão
  */
 class AlertBlock extends Block
 {
-	public function __construct($group = 'default')
+	public function __construct($group = '')
 	{
-		$alerts = Alert::instance($group)->popAll() ?? [];
+		$alerts = Alert::popAll($group) ?? [];
 		parent::__construct('shared/alerts', ['alerts' => $alerts]);
 	}
 }
