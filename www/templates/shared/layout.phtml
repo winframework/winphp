@@ -6,13 +6,13 @@ use Win\Common\Utils\Link;
 use Win\Request\Url;
 
 /** @var Template $this */
-$body = implode('-', Url::$segments);
+$bodyClass = implode('-', Url::$segments);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <?= new Block('shared/head'); ?>
 
-<body class="<?= $body; ?>">
+<body class="<?= $bodyClass; ?>">
 	<header>
 		<nav class="main-nav">
 			<a id="logo" href="<?= Url::$base; ?>">
