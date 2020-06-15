@@ -12,10 +12,9 @@ class Seo
 	public static $titlePrefix = '';
 	public static $titleSuffix = '';
 
-
 	/**
 	 * Keywords padrão.
-	 * Usadas quando a descrição informada não tenha o tamanho suficiente
+	 * Usadas quando as keywords informadas não tenha o tamanho suficiente
 	 * @var string
 	 */
 	public static $keywords = [];
