@@ -9,23 +9,24 @@ use Win\Repositories\Session;
  * Alerta
  * Armazena mensagens de alerta na sessão
  */
-class Alert extends Session
+class Alert
 {
-	public static function instance($group = 'default')
-	{
-		return parent::instance('alerts.' . $group);
-	}
+
+        public static function get($group = '')
+        {
+                 return Application::app()->session->pop($group . 'alerts');
+        }
 
 	/** @param string $message */
-	public static function message($message)
+	public static function add($message, $type = "default", $group = '')
 	{
-		static::instance()->add('default', $message);
+		Application::app()->session->add($group . 'alerts.' . type, $message);
 	}
 
 	/** @param string $message */
 	public static function success($message)
 	{
-		static::instance()->add('success', $message);
+		static::add($message, 'success');
 	}
 
 	/** @param string|Exception $message */
@@ -34,18 +35,18 @@ class Alert extends Session
 		if ($message instanceof Exception) {
 			$message = $message->getMessage();
 		}
-		static::instance()->add('danger', $message);
+		static::add($message, 'danger');
 	}
 
 	/** @param string $message */
 	public static function info($message)
 	{
-		static::instance()->add('info', $message);
+		static::add($message, 'info');
 	}
 
 	/** @param string $message */
 	public static function warning($message)
 	{
-		static::instance()->add('warning', $message);
+		static::add($message, 'warning');
 	}
 }
