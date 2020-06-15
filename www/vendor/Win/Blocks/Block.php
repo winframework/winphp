@@ -5,8 +5,9 @@ namespace Win\Blocks;
 use Win\Common\Template;
 
 /**
- * Blocos .PHTML
- * Pequeno arquivo .phtml que é chamado em templates, views, emails, etc
+ * Pequeno bloco .PHTML que é exibido dentro de outros templates
+ * 
+ * Blocos não possuem layout
  */
 class Block extends Template
 {

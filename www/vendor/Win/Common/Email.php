@@ -2,7 +2,7 @@
 
 namespace Win\Common;
 
-use Win\InfraServices\Mailer;
+use Win\Services\Mailer;
 
 /**
  * Templates de Email

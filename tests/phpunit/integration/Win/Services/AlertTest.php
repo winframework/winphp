@@ -1,15 +1,16 @@
 <?php
 
-namespace Win\Repositories;
+namespace Win\Services;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
+use Win\Application;
 
 class AlertTest extends TestCase
 {
 	public function setUp()
 	{
-		Alert::instance()->clear();
+		new Application();
 	}
 
 	public function testAllWithTypes()
@@ -21,14 +22,14 @@ class AlertTest extends TestCase
 		$info = 'INFO 1';
 		$warning = 'WARNING 1';
 
-		Alert::message($default);
+		Alert::add($default);
 		Alert::success($success1);
 		Alert::success($success2);
 		Alert::error($error);
 		Alert::info($info);
 		Alert::warning($warning);
 
-		$alerts = Alert::instance()->all();
+		$alerts = Alert::popAll();
 
 		$this->assertEquals([$default], $alerts['default']);
 		$this->assertEquals([$success1, $success2], $alerts['success']);
@@ -42,22 +43,22 @@ class AlertTest extends TestCase
 		$exception = new Exception('Message', 100);
 		Alert::error($exception);
 
-		$alerts = Alert::instance()->all();
+		$alerts = Alert::popAll();
 		$this->assertEquals([$exception->getMessage()], $alerts['danger']);
 	}
 
-	public function testAddDifferentInstances()
+	public function testAddGroups()
 	{
 		$messages = ['default' => ['MSG 01'], 'success' => ['MSG 02']];
 		$productMessages = ['success' => ['MSG 03', 'MSG 04']];
 
-		Alert::instance()->add('default', $messages['default'][0]);
-		Alert::instance('product')->add('success', $productMessages['success'][0]);
-		Alert::instance()->add('success', $messages['success'][0]);
-		Alert::instance('product')->add('success', $productMessages['success'][1]);
+		Alert::add($messages['default'][0]);
+		Alert::add($productMessages['success'][0], 'success', 'product');
+		Alert::add($messages['success'][0], 'success');
+		Alert::add($productMessages['success'][1], 'success', 'product');
 
-		$alerts = Alert::instance()->all();
-		$productAlerts = Alert::instance('product')->all();
+		$alerts = Alert::popAll();
+		$productAlerts = Alert::popAll('product');
 
 		$this->assertEquals($messages, $alerts);
 		$this->assertEquals($productMessages, $productAlerts);

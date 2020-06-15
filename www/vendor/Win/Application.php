@@ -7,7 +7,7 @@ use Win\Controllers\Controller;
 use Win\Repositories\Database\Connection;
 use Win\Request\Url;
 use Win\HttpException;
-use Win\Request\Input;
+use Win\Repositories\Session;
 use Win\Views\View;
 
 /**
@@ -24,6 +24,7 @@ class Application
 
 	public Controller $controller;
 	public View $view;
+	public Session $session;
 	public ?Connection $conn;
 
 	/**
@@ -33,6 +34,7 @@ class Application
 	{
 		static::$instance = $this;
 		Url::init();
+		$this->session = new Session();
 	}
 
 	/**

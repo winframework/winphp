@@ -1,9 +1,9 @@
 <?php
 
-namespace Win\Repositories;
+namespace Win\Services;
 
 use Exception;
-use Win\Repositories\Session;
+use Win\Application;
 
 /**
  * Alerta
@@ -12,15 +12,24 @@ use Win\Repositories\Session;
 class Alert
 {
 
-        public static function get($group = '')
-        {
-                 return Application::app()->session->pop($group . 'alerts');
-        }
+	/**
+	 * Retorna os alerts da sessão
+	 * @param string $group
+	 */
+	public static function popAll($group = '')
+	{
+		return Application::app()->session->pop($group . 'alerts', []);
+	}
 
-	/** @param string $message */
+	/**
+	 * Adiciona um alerta na sessão
+	 * @param string $message
+	 * @param string $type
+	 * @param string $group
+	 */
 	public static function add($message, $type = "default", $group = '')
 	{
-		Application::app()->session->add($group . 'alerts.' . type, $message);
+		Application::app()->session->add($group . 'alerts.' . $type, $message);
 	}
 
 	/** @param string $message */

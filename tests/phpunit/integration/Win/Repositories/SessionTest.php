@@ -8,7 +8,7 @@ class SessionTest extends TestCase
 {
 	public function testSet()
 	{
-		$session = Session::instance();
+		$session = new Session();
 		$session->set('a', 1);
 
 		$this->assertEquals(1, $session->get('a'));
@@ -18,40 +18,38 @@ class SessionTest extends TestCase
 	public function testSuperGlobal()
 	{
 		session_unset();
-		$_SESSION['default']['a'] = 1;
-		$session = Session::instance();
+		$_SESSION['a'] = 1;
+		$session = new Session();
 		$session->set('b', 2);
 
 		$this->assertEquals(1, $session->get('a'));
 		$this->assertEquals(2, $session->get('b', 3));
 	}
 
-	public function testGetArray()
+	public function testAdd()
 	{
 		session_unset();
-		$_SESSION['default']['a']['b'] = 12;
-		$session = Session::instance();
+		$session = new Session();
+		$session->set('b', 2);
+		$session->add('b', 3);
+		$session->add('b', 4);
+
+		$this->assertEquals([2, 3, 4], $session->get('b'));
+	}
+
+	public function testGetDotSintaxe()
+	{
+		session_unset();
+		$_SESSION['a']['b'] = 12;
+		$session = new Session();
 		$session->set('b', 2);
 
 		$this->assertEquals(12, $session->get('a.b'));
 	}
 
-	public function testGetMultiInstance()
-	{
-		session_unset();
-		$_SESSION['default']['a']['b'] = 1;
-		$_SESSION['user']['a']['b'] = 2;
-		$session = Session::instance();
-		Session::instance('user')->set('b', 3);
-
-		$this->assertEquals(1, $session->get('a.b'));
-		$this->assertEquals(2, Session::instance('user')->get('a.b'));
-		$this->assertEquals(3, Session::instance('user')->get('b'));
-	}
-
 	public function testPop()
 	{
-		$data = Session::instance();
+		$data = new Session();
 		$data->clear();
 		$data->set('a', 1);
 		$data->set('b', 2);
@@ -64,7 +62,7 @@ class SessionTest extends TestCase
 
 	public function testPopAll()
 	{
-		$data = Session::instance();
+		$data = new Session();
 		$data->clear();
 		$data->set('a', 1);
 		$data->set('b', 2);
@@ -72,5 +70,28 @@ class SessionTest extends TestCase
 		$this->assertCount(2, $data->popAll());
 		$this->assertFalse($data->has('a'));
 		$this->assertFalse($data->has('b'));
+	}
+
+	public function testAll()
+	{
+		$data = new Session();
+		$data->clear();
+		$data->set('a', 1);
+		$data->set('b', 2);
+
+		$this->assertCount(2, $data->all());
+		$this->assertTrue($data->has('a'));
+		$this->assertTrue($data->has('b'));
+	}
+
+	public function testIsEmpty()
+	{
+		$data = new Session();
+		$data->set('a', 1);
+
+		$this->assertFalse($data->isEmpty());
+		$data->clear();
+
+		$this->assertTrue($data->isEmpty());
 	}
 }

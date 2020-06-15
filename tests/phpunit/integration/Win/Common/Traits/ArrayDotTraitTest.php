@@ -79,7 +79,7 @@ class ArrayDotTraitTest extends TestCase
 
 	public function testAdd()
 	{
-		$data = new ArrClass();
+		$data = new ArrClass([]);
 
 		$data->set('a', 2);
 		$data->add('a', 3);

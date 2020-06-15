@@ -71,6 +71,6 @@ class Uploader
 	{
 		$info = pathinfo($this->temp['name']);
 
-		return ($name ? $name : md5(time())) . '.' . $info['extension'];
+		return ($name ?? md5(time())) . '.' . $info['extension'];
 	}
 }

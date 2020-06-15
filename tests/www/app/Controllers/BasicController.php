@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Views\ClassView;
 use Win\Controllers\Controller;
-use Win\Repositories\Alert;
+use Win\Services\Alert;
 use Win\Views\View;
 
 /**

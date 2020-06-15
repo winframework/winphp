@@ -3,7 +3,7 @@
 namespace Win\Blocks;
 
 use PHPUnit\Framework\TestCase;
-use Win\Repositories\Alert;
+use Win\Services\Alert;
 
 class AlertBlockTest extends TestCase
 {
@@ -16,12 +16,12 @@ class AlertBlockTest extends TestCase
 		];
 		$keys = array_keys($alerts);
 
-		Alert::instance()->add('success', 'Success Default');
-		Alert::instance('group1')->add('success', 'Success Group 1');
+		Alert::add('Success Default', 'success');
+		Alert::add('Success Group 1', 'success', 'group1');
 
-		Alert::instance($group)->add($keys[0], array_values($alerts)[0][0]);
-		Alert::instance($group)->add($keys[1], array_values($alerts)[1][0]);
-		Alert::instance($group)->add($keys[1], array_values($alerts)[1][1]);
+		Alert::add(array_values($alerts)[0][0], $keys[0], $group);
+		Alert::add(array_values($alerts)[1][0], $keys[1], $group);
+		Alert::add(array_values($alerts)[1][1], $keys[1], $group);
 
 		$alertBlock = new AlertBlock($group);
 

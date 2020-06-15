@@ -7,7 +7,7 @@ use App\Repositories\PageCategoryRepo;
 use App\Repositories\PageRepo;
 use Win\Application;
 use Win\Controllers\Controller;
-use Win\Repositories\Alert;
+use Win\Services\Alert;
 use Win\Repositories\Database\Mysql;
 use Win\Repositories\Filesystem;
 use Win\Request\Input;

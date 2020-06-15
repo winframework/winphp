@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 use Win\Common\Email;
 use Win\Controllers\Controller;
-use Win\InfraServices\Mailer;
-use Win\Repositories\Alert;
+use Win\Services\Mailer;
+use Win\Services\Alert;
 use Win\Views\View;
 
 class EmailController extends Controller

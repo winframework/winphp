@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\InfraServices;
+namespace Win\Services;
 
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -110,28 +110,18 @@ class Mailer
 	 */
 	public function send($body)
 	{
-		$this->setBody($body);
+		$this->mailer->Body = (string) $body;
 
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
 			$send = $this->mailer->Send();
 			$this->flush();
 
 			if (!$send) {
-				throw new Exception('Houve um erro ao enviar o e-mail.<br />'
-					. '<span style="display:none">' . $this->mailer->ErrorInfo . '</span>');
+				throw new Exception('Houve um erro ao enviar o e-mail.');
 			}
 		} else {
 			$this->saveOnDisk();
 		}
-	}
-
-	/**
-	 * Define o corpo do email
-	 * @param string|Email $body
-	 */
-	protected function setBody($body)
-	{
-		$this->mailer->Body = (string) $body;
 	}
 
 	/**

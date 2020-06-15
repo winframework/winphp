@@ -20,8 +20,8 @@ class Input
 	{
 		$post = filter_input(INPUT_POST, $name, $filter);
 
-		return !is_null($post) ? $post : $default;
-	}
+		return $post ?? $default;
+	} 
 
 	/**
 	 * Retorna variável $_POST em modo array
@@ -58,7 +58,7 @@ class Input
 	{
 		$get = filter_input(INPUT_GET, $name, $filter);
 
-		return !is_null($get) ? $get : $default;
+		return $get ?? $default;
 	}
 
 	/**
