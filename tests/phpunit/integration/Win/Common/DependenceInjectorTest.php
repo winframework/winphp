@@ -3,34 +3,65 @@
 namespace Win\Common;
 
 use PHPUnit\Framework\TestCase;
+use Win\Common\DependenceInjector as DI;
+
+
+class DIParent
+{
+	public function __construct(DIChild $child)
+	{
+		$this->child = $child;
+	}
+}
+
+class DIChild
+{
+	public function __construct(DIGrandChild $grandChild)
+	{
+		$this->grandChild = $grandChild;
+	}
+}
+
+class DIGrandChild
+{
+}
+
+class AliasDIChild extends DIChild
+{
+}
+
 
 class DependenceInjectorTest extends TestCase
 {
 	const FAKE_SEGMENTS = ['FAKE SEGMENTS'];
 
+	public function setUp()
+	{
+		DI::$container = [];
+	}
+
 	public function tearDown()
 	{
-		DependenceInjector::$container = [];
+		DI::$container = [];
 	}
 
-	public function testInstance()
+	public function testMake()
 	{
-		$obj = MyClass::instance();
-
-		$this->assertEquals('Win\\Common\\MyClass', get_class($obj));
+		$parent = DI::make('Win\\Common\\DIParent');
+		$this->assertInstanceOf(DIParent::class, $parent);
+		$this->assertInstanceOf(DIChild::class, $parent->child);
+		$this->assertInstanceOf(DIGrandChild::class, $parent->child->grandChild);
 	}
 
-	public function testInstanceGetClassDi()
+	public function testMakeAlias()
 	{
-		MyClass::instance();
-		DependenceInjector::$container = [
-			'Win\\Common\\MyClass' => 'Win\\Common\\MyClass2',
+		DI::$container = [
+			DIChild::class => AliasDIChild::class,
 		];
 
-		$obj = MyClass::instance();
-		$obj2 = MyClass::instance('2');
+		$parent = DI::make(DIParent::class);
 
-		$this->assertEquals('Win\\Common\\MyClass', get_class($obj));
-		$this->assertEquals('Win\\Common\\MyClass2', get_class($obj2));
+		$this->assertInstanceOf(DIParent::class, $parent);
+		$this->assertInstanceOf(AliasDIChild::class, $parent->child);
 	}
 }
