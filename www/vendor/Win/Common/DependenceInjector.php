@@ -6,13 +6,9 @@ use ReflectionClass;
 
 /**
  * Dependence Injector
- *
- * Auxilia a Injetar dependências
- * As classes ficam salvas em $container, então poderão ser sobrescritas
- * desde que todas as chamadas das classes estejam utilizando o Singleton
- * ao invés de instanciar a classe.
- *
- * @see SingletonTrait
+ * 
+ * Se há um apelido para a classe dentro de $container,
+ * então ela será utilizada ao invés da classe original.
  */
 class DependenceInjector
 {
@@ -23,7 +19,7 @@ class DependenceInjector
 	public static $container = [];
 
 	/**
-	 * Cria a classe, injetando as dependências automaticamente
+	 * Cria a classe, injetando as dependências
 	 * @param string $class
 	 * @return object
 	 */
