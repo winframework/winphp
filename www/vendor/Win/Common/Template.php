@@ -53,11 +53,7 @@ class Template
 	 */
 	public function getData($name)
 	{
-		if (key_exists($name, $this->data)) {
-			return $this->data[$name];
-		}
-
-		return null;
+		return $this->data[$name] ?? null;
 	}
 
 	/**

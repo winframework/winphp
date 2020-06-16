@@ -21,7 +21,7 @@ class Input
 		$post = filter_input(INPUT_POST, $name, $filter);
 
 		return $post ?? $default;
-	} 
+	}
 
 	/**
 	 * Retorna variável $_POST em modo array
@@ -68,11 +68,7 @@ class Input
 	 */
 	public static function file($name)
 	{
-		if (key_exists($name, $_FILES)) {
-			return $_FILES[$name];
-		} else {
-			return null;
-		}
+		return $_FILES[$name] ?? null;
 	}
 
 	/**
