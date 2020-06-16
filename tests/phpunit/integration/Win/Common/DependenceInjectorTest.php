@@ -5,7 +5,6 @@ namespace Win\Common;
 use PHPUnit\Framework\TestCase;
 use Win\Common\DependenceInjector as DI;
 
-
 class DIParent
 {
 	public function __construct(DIChild $child)
