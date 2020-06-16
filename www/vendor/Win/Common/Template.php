@@ -76,7 +76,7 @@ class Template
 	public function toHtml()
 	{
 		if ($this->layout) {
-			return new Template($this->layout, ['content' => $this]);
+			return new self($this->layout, ['content' => $this]);
 		}
 
 		ob_start();

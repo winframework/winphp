@@ -6,7 +6,6 @@ use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Common\Email;
 use Win\Common\Server;
-use Win\Common\Template;
 use Win\Repositories\Filesystem;
 
 /**
