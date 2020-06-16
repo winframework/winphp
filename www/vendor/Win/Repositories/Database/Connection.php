@@ -23,12 +23,6 @@ abstract class Connection
 	 */
 	abstract protected function createPdo(&$db);
 
-	/** @return PDO */
-	public function getPdo()
-	{
-		return $this->pdo;
-	}
-
 	/**
 	 * Cria uma conexão com um banco de dados
 	 * @param string[] $dbConfig
@@ -100,7 +94,7 @@ abstract class Connection
 	 * @param mixed[] $values
 	 * @return mixed[]|false
 	 */
-	public function fetch($query, $values)
+	public function fetch($query, $values = [])
 	{
 		return $this->stmt($query, $values)->fetch();
 	}
@@ -110,7 +104,7 @@ abstract class Connection
 	 * @param mixed[] $values
 	 * @return int
 	 */
-	public function fetchCount($query, $values)
+	public function fetchCount($query, $values = [])
 	{
 		return (int) $this->stmt($query, $values)->fetchColumn();
 	}
@@ -119,5 +113,29 @@ abstract class Connection
 	public function lastInsertId()
 	{
 		return (int) $this->pdo->lastInsertId();
+	}
+
+	/**
+	 * Inicia a Transação
+	 */
+	public function beginTransaction()
+	{
+		$this->pdo->beginTransaction();
+	}
+
+	/**
+	 * Completa a Transação
+	 */
+	public function commit()
+	{
+		$this->pdo->commit();
+	}
+
+	/**
+	 * Cancela a Transação
+	 */
+	public function rollback()
+	{
+		$this->pdo->rollBack();
 	}
 }

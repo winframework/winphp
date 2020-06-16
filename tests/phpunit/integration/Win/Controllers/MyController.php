@@ -6,13 +6,8 @@ use App\Controllers\BasicController;
 
 class MyController extends BasicController
 {
-	private $a;
+	private $a = null;
 	private $b;
-
-	public function __construct($a = null)
-	{
-		$this->a =  $a;
-	}
 
 	public function getA()
 	{

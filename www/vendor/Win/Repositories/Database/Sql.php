@@ -10,12 +10,12 @@ class Sql
 	public array $columns = ['*'];
 
 	private ?string $table;
-	private array $values = [];
-	private array $join = [];
-	private array $where = [];
-	private array $whereValues = [];
-	private array $orderBy = [];
-	private string $limit = '';
+	private array $values;
+	private array $join;
+	private array $where;
+	private array $whereValues;
+	private array $orderBy;
+	private string $limit;
 
 	/**
 	 * Prepara a query
@@ -27,6 +27,11 @@ class Sql
 	{
 		$this->table = $table;
 		$this->values = $values;
+		$this->join = [];
+		$this->where = [];
+		$this->whereValues = [];
+		$this->orderBy = [];
+		$this->limit = '';
 	}
 
 	/** @param mixed[] */

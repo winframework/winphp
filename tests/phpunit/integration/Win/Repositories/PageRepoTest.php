@@ -49,7 +49,9 @@ class PageRepoTest extends TestCase
 
 	public function testRunRawQuery()
 	{
-		$repo = (new PageRepo(static::$conn));
+		$repo = new PageRepo();
+		$repo = $repo;
+		$repo->conn = static::$conn;
 		$success = $repo->execute('SELECT * FROM ' . $repo::TABLE
 			. ' WHERE id BETWEEN ? AND ? ORDER BY id DESC', 2, 10);
 
@@ -58,20 +60,26 @@ class PageRepoTest extends TestCase
 
 	public function testCount()
 	{
-		$count = (new PageRepo(static::$conn))->count();
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$count = $repo->count();
 		$this->assertEquals(3, $count);
 	}
 
 	public function testList()
 	{
-		$pages = (new PageRepo(static::$conn))->list();
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$pages = $repo->list();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('First Page', $pages[0]->title);
 	}
 
 	public function testFind()
 	{
-		$page = (new PageRepo(static::$conn))->find(2);
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$page = $repo->find(2);
 		$this->assertEquals(2, $page->id);
 		$this->assertEquals('Second Page', $page->title);
 	}
@@ -79,12 +87,16 @@ class PageRepoTest extends TestCase
 	/** @expectedException Win\HttpException */
 	public function testFindOr404()
 	{
-		(new PageRepo(static::$conn))->findOr404(200);
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo->findOr404(200);
 	}
 
 	public function testSort()
 	{
-		$page = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$page = $repo
 			->sort('id ASC')
 			->one();
 		$this->assertEquals(1, $page->id);
@@ -92,7 +104,9 @@ class PageRepoTest extends TestCase
 
 	public function testSortWithPriority()
 	{
-		$pages = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$pages = $repo
 			->sort('id DESC', 0)
 			->sort('Title ASC', 1)
 			->list();
@@ -102,7 +116,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByEquals()
 	{
-		$page = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$page = $repo
 			->filter('title = ?', 'Second Page')
 			->one();
 		$this->assertEquals(2, $page->id);
@@ -110,7 +126,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByNotNull()
 	{
-		$page = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$page = $repo
 			->filterBy('title IS NOT NULL')
 			->one();
 		$this->assertEquals(1, $page->id);
@@ -118,7 +136,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByNull()
 	{
-		$count = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$count = $repo
 			->filter('title IS NULL')
 			->count();
 		$this->assertEquals(0, $count);
@@ -126,7 +146,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByLike()
 	{
-		$page = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$page = $repo
 			->filter('title LIKE ?', '%Second%')
 			->one();
 		$this->assertEquals(2, $page->id);
@@ -134,7 +156,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilter()
 	{
-		$page = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$page = $repo
 			->filter('Title', 'Second Page')
 			->one();
 		$this->assertEquals($page->id, 2);
@@ -142,7 +166,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilterBy()
 	{
-		$count = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$count = $repo
 			->filterBy(
 				'title LIKE ? OR id > ?',
 				['%Second%', 2]
@@ -152,7 +178,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByBindParams()
 	{
-		$count = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$count = $repo
 			->filterBy(
 				'title LIKE :title OR id > :id',
 				[':title' => '%Second%', ':id' => 2]
@@ -162,7 +190,9 @@ class PageRepoTest extends TestCase
 
 	public function testFilterAndSort()
 	{
-		$repo = (new PageRepo(static::$conn));
+		$repo = new PageRepo();
+		$repo = $repo;
+		$repo->conn = static::$conn;
 		$repo->filter('id > ?', 1);
 		$repo->filter('id < ?', 3);
 		$repo->sort('id');
@@ -174,7 +204,8 @@ class PageRepoTest extends TestCase
 
 	public function testOne()
 	{
-		$repo = new PageRepo(static::$conn);
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
 		$page = $repo->find(3);
 
 		$this->assertEquals(3, $page->id);
@@ -184,7 +215,8 @@ class PageRepoTest extends TestCase
 	public function testSelect()
 	{
 		$title = 'Teste';
-		$repo = new PageRepo(static::$conn);
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
 		$repo->select('*, "' . $title . '" as title');
 		$page = $repo->find(3);
 
@@ -194,7 +226,9 @@ class PageRepoTest extends TestCase
 
 	public function testOneOr404()
 	{
-		$repo = (new PageRepo(static::$conn))->oneOr404();
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo = $repo->oneOr404();
 		$this->assertEquals('First Page', $repo->title);
 	}
 
@@ -202,12 +236,16 @@ class PageRepoTest extends TestCase
 	public function testOneOr404Exception()
 	{
 		ApplicationTest::newApp();
-		(new PageRepo(static::$conn))->filter('id', 100)->oneOr404();
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo->filter('id', 100)->oneOr404();
 	}
 
 	public function testPaginate()
 	{
-		$repo = (new PageRepo(static::$conn))->paginate(1, 2);
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo = $repo->paginate(1, 2);
 		$this->assertEquals(1, count($repo->list()));
 		$this->assertEquals(3, $repo->count());
 		$this->assertEquals(2, $repo->pagination->current);
@@ -215,7 +253,9 @@ class PageRepoTest extends TestCase
 
 	public function testPaginateInvalid()
 	{
-		$repo = (new PageRepo(static::$conn))->paginate(2, 200);
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo = $repo->paginate(2, 200);
 		$this->assertEquals(1, count($repo->list()));
 		$this->assertEquals(3, $repo->count());
 		$this->assertEquals(2, $repo->pagination->current);
@@ -223,10 +263,15 @@ class PageRepoTest extends TestCase
 
 	public function testFlush()
 	{
-		$repo = (new PageRepo(static::$conn));
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
 		$pages = $repo->filter('id > ?', 1)->list();
+
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
 		$pages2 = $repo->list();
-		$pages3 = (new PageRepo(static::$conn))->list();
+
+		$pages3 = $repo->list();
 
 		$this->assertCount(2, $pages);
 		$this->assertCount(3, $pages2);
@@ -235,56 +280,67 @@ class PageRepoTest extends TestCase
 
 	public function testDelete()
 	{
-		$pagesCount = count((new PageRepo(static::$conn))->list());
-		(new PageRepo(static::$conn))->filter('id', 2)->delete();
-
-		$this->assertCount($pagesCount - 1, (new PageRepo(static::$conn))->list());
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$pagesCount = count($repo->list());
+		$repo->filter('id', 2)->delete();
+		
+		$this->assertCount($pagesCount - 1, $repo->list());
+		$repo->conn = static::$conn;
 	}
 
 	public function testDestroy()
 	{
-		$pagesCount = count((new PageRepo(static::$conn))->list());
-		(new PageRepo(static::$conn))->destroy(2);
-		$newCount = count((new PageRepo(static::$conn))->list());
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$pagesCount = count($repo->list());
+		$repo->destroy(2);
 
+		$newCount = count($repo->list());
 		$this->assertNotEquals($pagesCount, $newCount);
 	}
 
 	public function testSave()
 	{
-		$pagesTotal = count((new PageRepo(static::$conn))->list());
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$pagesTotal = count($repo->list());
 
 		$page = new Page();
 		$page->title = 'Fourth Page';
 		$page->description = 'Inserted by save method';
-		$result = (new PageRepo(static::$conn))->save($page);
+		$result = $repo->save($page);
 
 		$this->assertInstanceOf(Page::class, $result);
 		$this->assertGreaterThan(0, $page->id);
-		$this->assertCount($pagesTotal + 1, (new PageRepo(static::$conn))->list());
+		$this->assertCount($pagesTotal + 1, $repo->list());
 	}
 
 	public function testSaveExisting()
 	{
-		$pagesTotal = count((new PageRepo(static::$conn))->list());
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$pagesTotal = count($repo->list());
 		$description = 'Updated by save method';
 
-		$page = (new PageRepo(static::$conn))->sort('id DESC')->one();
+		$page = $repo->sort('id DESC')->one();
 		$page->title = 'New Title';
 		$page->description = $description;
-		$pageAfterSave = (new PageRepo(static::$conn))->save($page);
-		$pageUpdated = (new PageRepo(static::$conn))->sort('id DESC')->one();
+		$pageAfterSave = $repo->save($page);
+		$pageUpdated = $repo->sort('id DESC')->one();
 
 		$this->assertEquals($page->title, $pageUpdated->title);
 		$this->assertEquals($page->title, $pageAfterSave->title);
 		$this->assertEquals($description, $pageUpdated->description);
-		$this->assertCount($pagesTotal, (new PageRepo(static::$conn))->list());
+		$this->assertCount($pagesTotal, $repo->list());
+		$repo->conn = static::$conn;
 	}
 
 	public function testUpdate()
 	{
 		$title = 'New title';
-		$repo = (new PageRepo(static::$conn));
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
 
 		// Act
 		$total = $repo->filter('id >= ?', 2)->update(['title' => $title]);
@@ -299,7 +355,9 @@ class PageRepoTest extends TestCase
 
 	public function testJoin()
 	{
-		$repo = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo = $repo
 			->join('pageCategories as pc ON pages.categoryId = pc.id');
 		$pages = $repo->list();
 		$this->assertCount(2, $pages);
@@ -308,7 +366,9 @@ class PageRepoTest extends TestCase
 
 	public function testLeftJoin()
 	{
-		$repo = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo = $repo
 			->leftJoin('pageCategories as pc ON pages.categoryId = pc.id');
 		$pages = $repo->list();
 
@@ -319,7 +379,9 @@ class PageRepoTest extends TestCase
 
 	public function testRightJoin()
 	{
-		$repo = (new PageRepo(static::$conn))
+		$repo = new PageRepo();
+		$repo->conn = static::$conn;
+		$repo = $repo
 			->rightJoin('pageCategories as pc ON pages.categoryId = pc.id');
 		$pages = $repo->list();
 
@@ -330,11 +392,15 @@ class PageRepoTest extends TestCase
 
 	public function testDebug()
 	{
-		$debug = (new PageRepo(static::$conn))->filter('id > ?', 10)->debug();
+		$repo = new PageRepo();
+		$debug = $repo->filter('id > ?', 10)->debug();
+		$repo->conn = static::$conn;
 		$this->assertContains('SELECT * FROM pages WHERE (id > ?)', $debug[0]);
 		$this->assertEquals([10], $debug[1]);
 
-		$debug = (new PageRepo(static::$conn))->debug('insert');
+		$repo = new PageRepo();
+		$debug = $repo->debug('insert');
+		$repo->conn = static::$conn;
 		$this->assertContains('INSERT INTO', $debug[0]);
 		$this->assertEquals([], $debug[1]);
 	}

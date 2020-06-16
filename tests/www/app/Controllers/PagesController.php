@@ -9,6 +9,7 @@ use Win\Application;
 use Win\Controllers\Controller;
 use Win\Services\Alert;
 use Win\Repositories\Database\Mysql;
+use Win\Repositories\Database\Transaction;
 use Win\Repositories\Filesystem;
 use Win\Request\Input;
 use Win\Views\View;
@@ -24,14 +25,17 @@ class PagesController extends Controller
 	public PageCategoryRepo $categoryOrm;
 	protected $pageSize = 2;
 
-	public function __construct()
+	public function __construct(PageRepo $orm, PageCategoryRepo $categoryOrm)
 	{
-		$this->prepareDatabase();
-		$this->orm = new PageRepo();
-		$this->categoryOrm = new PageCategoryRepo();
+		$conn = $this->connectDatabase();
+		$this->orm = $orm;
+		$this->categoryOrm = $categoryOrm;
+		$this->orm->conn = $conn;
+		$this->categoryOrm->conn = $conn;
 	}
 
-	public function init(){
+	public function init()
+	{
 		$this->orm->sort('id DESC')->paginate($this->pageSize, Input::get('p'));
 	}
 
@@ -53,15 +57,21 @@ class PagesController extends Controller
 	public function save()
 	{
 		try {
+			$conn = $this->orm->conn;
+			$conn->beginTransaction();
 			$page = new Page();
 			$page->title = 'Inserted';
 			$this->orm->save($page);
-			Alert::success('Inseriu e atualizou: ' . $page->id);
+			$this->categoryOrm->save($page->category());
 
+
+			Alert::success('Inseriu e atualizou: ' . $page->id);
+			$conn->commit();
 			$page = $this->orm->filter('title', $page->title)->one();
 			$page->title = 'Updated';
 			$this->orm->save($page);
 		} catch (\Exception $e) {
+			$conn->rollback();
 			Alert::error($e);
 		}
 		$this->redirect('alerts/show');
@@ -117,14 +127,14 @@ class PagesController extends Controller
 		return $this->categoryOrm->filter('enabled')->list();
 	}
 
-	private function prepareDatabase()
+	private function connectDatabase()
 	{
 		$fs = new Filesystem();
 		$db = [];
 		require 'config/database.php';
 		$conn = new Mysql($db);
-		Application::app()->conn = $conn;
 		$query = $fs->read('../database/winphp_demo.sql');
 		$conn->execute($query);
+		return $conn;
 	}
 }

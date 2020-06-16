@@ -68,7 +68,7 @@ class ApplicationTest extends TestCase
 	public function testRunAction404()
 	{
 		$app = new Application();
-		$app->run('App\\Controllers\\IndexController', 'actionNotFound');
+		$app->run(IndexController::class, 'actionNotFound');
 	}
 
 	public function testRun()
@@ -77,7 +77,7 @@ class ApplicationTest extends TestCase
 		$data = [1, 2];
 
 		ob_start();
-		$app->run('Win\\Controllers\\MyController', 'sum', $data);
+		$app->run(MyController::class, 'sum', $data);
 		$sum = ob_get_clean();
 
 		$this->assertEquals(array_sum($data), $sum);
@@ -89,7 +89,7 @@ class ApplicationTest extends TestCase
 		$data = [1, 2];
 
 		ob_start();
-		$app->run('Win\\Controllers\\MyController', 'index', $data);
+		$app->run(MyController::class, 'index', $data);
 
 		$this->assertStringContainsString('Esta é uma view simples', ob_get_clean());
 	}

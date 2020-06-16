@@ -2,7 +2,6 @@
 
 namespace Win\Repositories\Database;
 
-use PDO;
 use PHPUnit\Framework\TestCase;
 
 class MysqlTest extends TestCase
@@ -54,11 +53,6 @@ class MysqlTest extends TestCase
 	public function testErrorConnection()
 	{
 		new Mysql(DbConfig::wrongDb());
-	}
-
-	public function testGetPdo()
-	{
-		$this->assertTrue(static::$conn->getPdo() instanceof PDO);
 	}
 
 	/** @expectedException Win\Repositories\Database\DatabaseException */
@@ -134,5 +128,27 @@ class MysqlTest extends TestCase
 		$count2 = static::$conn->fetchCount('SELECT count(*) FROM child WHERE age >= ?', [1]);
 		$this->assertEquals(1, $count1);
 		$this->assertEquals(2, $count2);
+	}
+
+	public function testTransactionCommit()
+	{
+		$conn = static::$conn;
+		$conn->beginTransaction();
+		$conn->execute('INSERT INTO child VALUES(?,null)', [10]);
+
+		$conn->commit();
+		$count = $conn->fetchCount('SELECT COUNT(*) FROM child', []);
+		$this->assertEquals(3, $count);
+	}
+
+	public function testTransactionRollback()
+	{
+		$conn = static::$conn;
+		$conn->beginTransaction();
+		$conn->execute('INSERT INTO child VALUES(?,null)', [10]);
+
+		$conn->rollback();
+		$count = $conn->fetchCount('SELECT COUNT(*) FROM child', []);
+		$this->assertEquals(2, $count);
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace Win\Common\Traits;
 
-use Win\Common\DependenceInjector;
+use Win\Common\DependenceInjector as DI;
 
 /**
  * Implementa Design Pattern Singleton
@@ -29,21 +29,13 @@ trait SingletonTrait
 	{
 		$class = get_called_class();
 		if (!isset(static::$instance[$class][$alias])) {
-			$classDi = static::getClassDi();
-			$instance = new $classDi();
+			$class = DI::getClass(get_called_class());
+			$instance = new $class();
 			static::$instance[$class][$alias] = $instance;
 		}
 
 		return static::$instance[$class][$alias];
-	}
-
-	/**
-	 * Retorna o nome a classe que deverá ser usada no $instance
-	 * @return string
-	 */
-	protected static function getClassDi()
-	{
-		return DependenceInjector::getClassDi(get_called_class());
+		
 	}
 
 	/**

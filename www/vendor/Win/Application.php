@@ -3,6 +3,7 @@
 namespace Win;
 
 use App\Controllers\IndexController;
+use Win\Common\DependenceInjector as DI;
 use Win\Controllers\Controller;
 use Win\Repositories\Database\Connection;
 use Win\Request\Url;
@@ -25,7 +26,7 @@ class Application
 	public Controller $controller;
 	public View $view;
 	public Session $session;
-	public ?Connection $conn;
+	public ?Connection $conn = null;
 
 	/**
 	 * Cria a aplicação principal
@@ -57,8 +58,8 @@ class Application
 		if (!class_exists($class)) {
 			throw new HttpException("Controller '{$class}' not found", 404);
 		}
-
-		$controller = new $class($this);
+		/** @var Controller $controller */
+		$controller = DI::make($class);
 		$controller->app = $this;
 		$this->controller = $controller;
 

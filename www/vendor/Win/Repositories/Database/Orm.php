@@ -15,7 +15,7 @@ abstract class Orm
 	const TABLE = '';
 	const PK = 'id';
 
-	public Connection $conn;
+	public ?Connection $conn;
 	public ?Pagination $pagination = null;
 	protected Sql $sql;
 
@@ -27,12 +27,9 @@ abstract class Orm
 
 	abstract public static function mapModel($row);
 
-	/**
-	 * @param Connection $connection
-	 */
-	public function __construct(?Connection $connection = null)
+	public function __construct()
 	{
-		$this->conn = $connection ?: Application::app()->conn;
+		$this->conn = Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
 	}
 
@@ -159,7 +156,7 @@ abstract class Orm
 	public function save(Model $model)
 	{
 		$model->validate();
-		$this->sql = new Sql(static::TABLE, $this->mapRow($model));
+		$this->sql->__construct(static::TABLE, $this->mapRow($model));
 
 		if ($this->exists($model->id)) {
 			$this->filter(static::PK, $model->id);
@@ -196,7 +193,7 @@ abstract class Orm
 	 */
 	public function flush()
 	{
-		$this->sql = new Sql(static::TABLE);
+		$this->sql->__construct(static::TABLE);
 
 		return $this;
 	}
@@ -208,7 +205,8 @@ abstract class Orm
 	 */
 	protected function exists($id)
 	{
-		$orm = new static($this->conn);
+		$orm = new static();
+		$orm->conn = $this->conn;
 		return $orm->filter(static::PK, $id)->count() > 0;
 	}
 
