@@ -32,8 +32,6 @@ class AliasDIChild extends DIChild
 
 class DependenceInjectorTest extends TestCase
 {
-	const FAKE_SEGMENTS = ['FAKE SEGMENTS'];
-
 	public function setUp()
 	{
 		DI::$container = [];
