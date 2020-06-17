@@ -4,6 +4,7 @@ namespace Win\Controllers;
 
 use Win\Application;
 use Win\Request\Url;
+use Win\Common\Utils\Str;
 
 /**
  * Controller
@@ -15,6 +16,12 @@ abstract class Controller
 	public Application $app;
 	public string $layout = 'layout';
 	public string $title;
+
+	public function __toString()
+	{
+		$replaces = ['Controllers\\', 'Controller', 'App\\', '\\'];
+		return Str::toUrl(str_replace($replaces, ' ', get_class($this)));
+	}
 
 	/**
 	 * Action Init

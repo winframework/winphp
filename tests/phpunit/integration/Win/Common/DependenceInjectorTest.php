@@ -4,6 +4,7 @@ namespace Win\Common;
 
 use PHPUnit\Framework\TestCase;
 use Win\Common\DependenceInjector as DI;
+use Win\Common\Traits\InjectableTrait;
 
 class DIParent
 {
@@ -15,6 +16,8 @@ class DIParent
 
 class DIChild
 {
+	use InjectableTrait;
+
 	public function __construct(DIGrandChild $grandChild)
 	{
 		$this->grandChild = $grandChild;
@@ -60,5 +63,6 @@ class DependenceInjectorTest extends TestCase
 
 		$this->assertInstanceOf(DIParent::class, $parent);
 		$this->assertInstanceOf(AliasDIChild::class, $parent->child);
+		$this->assertInstanceOf(AliasDIChild::class, DIChild::instance());
 	}
 }

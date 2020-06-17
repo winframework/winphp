@@ -4,6 +4,7 @@ namespace Win\Repositories\Database;
 
 use Win\Application;
 use Win\Common\Pagination;
+use Win\Common\Traits\InjectableTrait;
 use Win\Models\Model;
 use Win\HttpException;
 
@@ -12,6 +13,8 @@ use Win\HttpException;
  */
 abstract class Orm
 {
+	use InjectableTrait;
+	
 	const TABLE = '';
 	const PK = 'id';
 

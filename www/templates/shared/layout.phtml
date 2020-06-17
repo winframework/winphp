@@ -3,16 +3,17 @@
 use Win\Blocks\Block;
 use Win\Common\Template;
 use Win\Common\Utils\Link;
+use Win\Common\Utils\Str;
 use Win\Request\Url;
 
 /** @var Template $this */
-$bodyClass = implode('-', Url::$segments);
+$bodyClass = Str::toUrl($this->app->controller . '-' . $this->app->action);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <?= new Block('shared/head'); ?>
 
-<body class="<?= $bodyClass; ?>">
+<body class="page-<?= $bodyClass; ?>">
 	<header>
 		<nav class="main-nav">
 			<a id="logo" href="<?= Url::$base; ?>">

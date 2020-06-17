@@ -2,6 +2,7 @@
 
 namespace Win;
 
+use App\Controllers\BasicController;
 use App\Controllers\IndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Controllers\MyController;
@@ -35,24 +36,28 @@ class ApplicationTest extends TestCase
 
 	public function testGetPage()
 	{
-		$app = static::newApp('demo');
-		$this->assertEquals('demo', static::$app->getPage());
-
-		$app = static::newApp('index');
+		$app = static::newApp();
+		$app->controller = new IndexController();
 		$this->assertEquals('index', $app->getPage());
+
+		$app->controller = new BasicController();
+		$this->assertEquals('basic', $app->getPage());
 	}
 
 	public function testIsHomePage()
 	{
 		$app = new Application();
-		$app->controller = new IndexController();
+		Url::$segments = Url::HOME;
 		$this->assertTrue($app->isHomePage());
 	}
 
 	public function testIsNotHomePage()
 	{
 		$app = new Application();
-		$app->controller = new MyController();
+		Url::$segments = ['index', 'teste'];
+		$this->assertFalse($app->isHomePage());
+
+		Url::$segments = ['teste', 'index'];
 		$this->assertFalse($app->isHomePage());
 	}
 
@@ -80,6 +85,7 @@ class ApplicationTest extends TestCase
 		$app->run(MyController::class, 'sum', $data);
 		$sum = ob_get_clean();
 
+		$this->assertEquals('sum', $app->action);
 		$this->assertEquals(array_sum($data), $sum);
 	}
 

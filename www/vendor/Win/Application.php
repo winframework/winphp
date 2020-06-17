@@ -4,6 +4,7 @@ namespace Win;
 
 use App\Controllers\IndexController;
 use Win\Common\DependenceInjector as DI;
+use Win\Common\Utils\Str;
 use Win\Controllers\Controller;
 use Win\Repositories\Database\Connection;
 use Win\Request\Url;
@@ -27,6 +28,7 @@ class Application
 	public View $view;
 	public Session $session;
 	public ?Connection $conn = null;
+	public string $action = '';
 
 	/**
 	 * Cria a aplicação principal
@@ -62,6 +64,7 @@ class Application
 		$controller = DI::make($class);
 		$controller->app = $this;
 		$this->controller = $controller;
+		$this->action = $method;
 
 		if (!method_exists($controller, $method)) {
 			throw new HttpException("Action '{$method}' not found in '{$class}'", 404);
@@ -94,7 +97,7 @@ class Application
 	 */
 	public function getPage()
 	{
-		return Url::$segments[0];
+		return (string) $this->controller;
 	}
 
 	/**
@@ -103,7 +106,7 @@ class Application
 	 */
 	public function isHomePage()
 	{
-		return $this->controller instanceof IndexController;
+		return Url::$segments == Url::HOME;
 	}
 
 	/**

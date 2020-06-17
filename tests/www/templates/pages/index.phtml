@@ -10,7 +10,7 @@ use Win\Views\View;
 /** @var PageCategory[] $categories */
 /** @var PageCategory $category */
 /** @var Page[] $pages */
-/** @var PageRepo $orm */
+/** @var PageRepo $repo */
 ?>
 <main>
 	<div class="row">
@@ -46,9 +46,12 @@ use Win\Views\View;
 				</ul>
 
 				<div style="width: 100%">
-					<?= new Block('shared/pagination', get_object_vars($orm->pagination)); ?>
+					<?= new Block('shared/pagination', get_object_vars($repo->pagination)); ?>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<hr />
+	<?= new Block('pages/most-recent'); ?>
 </main>

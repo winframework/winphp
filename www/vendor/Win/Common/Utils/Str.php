@@ -18,6 +18,7 @@ class Str
 	{
 		$url = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
 		$url = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $url);
+		$url = ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $url)), '_');
 		$url = preg_replace("/[\/_| -]+/", '-', $url);
 		$url = strtolower(trim($url, '-'));
 

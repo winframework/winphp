@@ -9,7 +9,6 @@ use Win\Application;
 use Win\Controllers\Controller;
 use Win\Services\Alert;
 use Win\Repositories\Database\Mysql;
-use Win\Repositories\Database\Transaction;
 use Win\Repositories\Filesystem;
 use Win\Request\Input;
 use Win\Views\View;
@@ -28,15 +27,15 @@ class PagesController extends Controller
 	public function __construct(PageRepo $repo, PageCategoryRepo $categoryRepo)
 	{
 		$conn = $this->connectDatabase();
-		$this->orm = $repo;
+		$this->repo = $repo;
 		$this->categoryRepo = $categoryRepo;
-		$this->orm->conn = $conn;
+		$this->repo->conn = $conn;
 		$this->categoryRepo->conn = $conn;
 	}
 
 	public function init()
 	{
-		$this->orm->sort('id DESC')->paginate($this->pageSize, Input::get('p'));
+		$this->repo->sort('id DESC')->paginate($this->pageSize, Input::get('p'));
 	}
 
 	/**
@@ -46,9 +45,38 @@ class PagesController extends Controller
 	{
 		$this->title = 'Pages';
 		$this->categories = $this->getCategories();
-		$this->pages = $this->orm->list();
+		$this->pages = $this->repo->list();
 
 		return new View('pages/index');
+	}
+
+	/**
+	 * Exibe os itens da categoria atual
+	 */
+	public function listByCategory($categoryId)
+	{
+		$category = $this->categoryRepo->findOr404($categoryId);
+
+		$this->title = 'Pages - ' . $category;
+		$this->categories = $this->getCategories();
+		$this->pages = $this->repo
+			->filter('categoryId', $categoryId)
+			->list();
+
+		return new View('pages/index');
+	}
+
+	/**
+	 * Exibe detalhes do item
+	 */
+	public function detail($id)
+	{
+		$page = $this->repo->findOr404($id);
+
+		$this->title = 'Page - ' . $page;
+		$this->page = $page;
+
+		return new View('pages/detail');
 	}
 
 	/**
@@ -57,19 +85,22 @@ class PagesController extends Controller
 	public function save()
 	{
 		try {
-			$conn = $this->orm->conn;
+			$conn = $this->repo->conn;
 			$conn->beginTransaction();
+
 			$page = new Page();
 			$page->title = 'Inserted';
-			$this->orm->save($page);
-			$this->categoryRepo->save($page->category());
+			$this->repo->save($page);
 
+			$this->categoryRepo->filter('id', $page->categoryId)
+				->update(['title' => 'Category updated']);
+
+			$page = $this->repo->filter('title', $page->title)->one();
+			$page->title = 'Updated';
+			$this->repo->save($page);
 
 			Alert::success('Inseriu e atualizou: ' . $page->id);
 			$conn->commit();
-			$page = $this->orm->filter('title', $page->title)->one();
-			$page->title = 'Updated';
-			$this->orm->save($page);
 		} catch (\Exception $e) {
 			$conn->rollback();
 			Alert::error($e);
@@ -82,7 +113,7 @@ class PagesController extends Controller
 	 */
 	public function update()
 	{
-		$total = $this->orm
+		$total = $this->repo
 			->filter('id > ?', 3)
 			->update([
 				'title' => 'Updated 01 - Title',
@@ -91,35 +122,6 @@ class PagesController extends Controller
 		Alert::success("Atualizou somente 2 atributos de $total entidade(s).");
 
 		$this->redirect('alerts/show');
-	}
-
-	/**
-	 * Exibe os itens da categoria atual
-	 */
-	public function listByCategory($categoryId)
-	{
-		$category = $this->categoryRepo->findOr404($categoryId);
-
-		$this->title = 'Pages - ' . $category;
-		$this->categories = $this->getCategories();
-		$this->pages = $this->orm
-			->filter('categoryId', $categoryId)
-			->list();
-
-		return new View('pages/index');
-	}
-
-	/**
-	 * Exibe detalhes do item
-	 */
-	public function detail($id)
-	{
-		$page = $this->orm->findOr404($id);
-
-		$this->title = 'Page - ' . $page;
-		$this->page = $page;
-
-		return new View('pages/detail');
 	}
 
 	protected function getCategories()
@@ -132,7 +134,7 @@ class PagesController extends Controller
 		$fs = new Filesystem();
 		$db = [];
 		require 'config/database.php';
-		$conn = new Mysql($db);
+		Application::app()->conn = $conn = new Mysql($db);
 		$query = $fs->read('../database/winphp_demo.sql');
 		$conn->execute($query);
 		return $conn;

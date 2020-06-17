@@ -13,7 +13,7 @@ class StrTest extends TestCase
 	public function testToUrl()
 	{
 		$url = Str::toUrl('Mi.nh@-+=$tring]!/ c0m₂² A"©&ntuaçãoβ ');
-		$this->assertEquals('minh-tring-c0m22-acntuacao', $url);
+		$this->assertEquals('minh-tring-c0m22-a-cntuacao', $url);
 	}
 
 	public function testTruncateEquals()
