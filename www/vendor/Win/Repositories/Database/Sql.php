@@ -9,7 +9,7 @@ class Sql
 {
 	public array $columns = ['*'];
 
-	private ?string $table;
+	private string $table;
 	private array $values;
 	private array $join;
 	private array $where;

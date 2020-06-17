@@ -6,6 +6,7 @@ use App\Models\Page;
 use App\Repositories\PageRepo;
 use PHPUnit\Framework\TestCase;
 use Win\ApplicationTest;
+use Win\Common\Pagination;
 use Win\Repositories\Database\Connection;
 use Win\Repositories\Database\DbConfig;
 use Win\Repositories\Database\Mysql;
@@ -49,7 +50,7 @@ class PageRepoTest extends TestCase
 
 	public function testRunRawQuery()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo = $repo;
 		$repo->conn = static::$conn;
 		$success = $repo->execute('SELECT * FROM ' . $repo::TABLE
@@ -60,7 +61,7 @@ class PageRepoTest extends TestCase
 
 	public function testCount()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$count = $repo->count();
 		$this->assertEquals(3, $count);
@@ -68,7 +69,7 @@ class PageRepoTest extends TestCase
 
 	public function testList()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pages = $repo->list();
 		$this->assertTrue(count($pages) > 1);
@@ -77,7 +78,7 @@ class PageRepoTest extends TestCase
 
 	public function testFind()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$page = $repo->find(2);
 		$this->assertEquals(2, $page->id);
@@ -87,14 +88,14 @@ class PageRepoTest extends TestCase
 	/** @expectedException Win\HttpException */
 	public function testFindOr404()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo->findOr404(200);
 	}
 
 	public function testSort()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$page = $repo
 			->sort('id ASC')
@@ -104,7 +105,7 @@ class PageRepoTest extends TestCase
 
 	public function testSortWithPriority()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pages = $repo
 			->sort('id DESC', 0)
@@ -116,7 +117,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByEquals()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$page = $repo
 			->filter('title = ?', 'Second Page')
@@ -126,7 +127,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByNotNull()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$page = $repo
 			->filterBy('title IS NOT NULL')
@@ -136,7 +137,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByNull()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$count = $repo
 			->filter('title IS NULL')
@@ -146,7 +147,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByLike()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$page = $repo
 			->filter('title LIKE ?', '%Second%')
@@ -156,7 +157,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilter()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$page = $repo
 			->filter('Title', 'Second Page')
@@ -166,7 +167,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilterBy()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$count = $repo
 			->filterBy(
@@ -178,7 +179,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilterByBindParams()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$count = $repo
 			->filterBy(
@@ -190,7 +191,7 @@ class PageRepoTest extends TestCase
 
 	public function testFilterAndSort()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo = $repo;
 		$repo->conn = static::$conn;
 		$repo->filter('id > ?', 1);
@@ -204,7 +205,7 @@ class PageRepoTest extends TestCase
 
 	public function testOne()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$page = $repo->find(3);
 
@@ -215,7 +216,7 @@ class PageRepoTest extends TestCase
 	public function testSelect()
 	{
 		$title = 'Teste';
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo->select('*, "' . $title . '" as title');
 		$page = $repo->find(3);
@@ -226,7 +227,7 @@ class PageRepoTest extends TestCase
 
 	public function testOneOr404()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo = $repo->oneOr404();
 		$this->assertEquals('First Page', $repo->title);
@@ -236,14 +237,14 @@ class PageRepoTest extends TestCase
 	public function testOneOr404Exception()
 	{
 		ApplicationTest::newApp();
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo->filter('id', 100)->oneOr404();
 	}
 
 	public function testPaginate()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo = $repo->paginate(1, 2);
 		$this->assertEquals(1, count($repo->list()));
@@ -253,7 +254,7 @@ class PageRepoTest extends TestCase
 
 	public function testPaginateInvalid()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo = $repo->paginate(2, 200);
 		$this->assertEquals(1, count($repo->list()));
@@ -271,11 +272,11 @@ class PageRepoTest extends TestCase
 
 	public function testFlush()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pages = $repo->filter('id > ?', 1)->list();
 
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pages2 = $repo->list();
 
@@ -288,7 +289,7 @@ class PageRepoTest extends TestCase
 
 	public function testDelete()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pagesCount = count($repo->list());
 		$repo->filter('id', 2)->delete();
@@ -299,7 +300,7 @@ class PageRepoTest extends TestCase
 
 	public function testDestroy()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pagesCount = count($repo->list());
 		$repo->destroy(2);
@@ -310,7 +311,7 @@ class PageRepoTest extends TestCase
 
 	public function testSave()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pagesTotal = count($repo->list());
 
@@ -326,7 +327,7 @@ class PageRepoTest extends TestCase
 
 	public function testSaveExisting()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$pagesTotal = count($repo->list());
 		$description = 'Updated by save method';
@@ -347,7 +348,7 @@ class PageRepoTest extends TestCase
 	public function testUpdate()
 	{
 		$title = 'New title';
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 
 		// Act
@@ -363,7 +364,7 @@ class PageRepoTest extends TestCase
 
 	public function testJoin()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo = $repo
 			->join('pageCategories as pc ON pages.categoryId = pc.id');
@@ -374,7 +375,7 @@ class PageRepoTest extends TestCase
 
 	public function testLeftJoin()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo = $repo
 			->leftJoin('pageCategories as pc ON pages.categoryId = pc.id');
@@ -387,7 +388,7 @@ class PageRepoTest extends TestCase
 
 	public function testRightJoin()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$repo->conn = static::$conn;
 		$repo = $repo
 			->rightJoin('pageCategories as pc ON pages.categoryId = pc.id');
@@ -400,13 +401,13 @@ class PageRepoTest extends TestCase
 
 	public function testDebug()
 	{
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$debug = $repo->filter('id > ?', 10)->debug();
 		$repo->conn = static::$conn;
 		$this->assertContains('SELECT * FROM pages WHERE (id > ?)', $debug[0]);
 		$this->assertEquals([10], $debug[1]);
 
-		$repo = new PageRepo();
+		$repo = new PageRepo(new Pagination());
 		$debug = $repo->debug('insert');
 		$repo->conn = static::$conn;
 		$this->assertContains('INSERT INTO', $debug[0]);

@@ -27,11 +27,11 @@ abstract class Orm
 
 	abstract public static function mapModel($row);
 
-	public function __construct()
+	public function __construct(Pagination $pagination)
 	{
 		$this->conn = Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
-		$this->pagination = new Pagination();
+		$this->pagination = $pagination;
 	}
 
 	/**
@@ -221,7 +221,7 @@ abstract class Orm
 	 */
 	protected function exists($id)
 	{
-		$orm = new static();
+		$orm = new static($this->pagination);
 		$orm->conn = $this->conn;
 		return $orm->filter(static::PK, $id)->count() > 0;
 	}
