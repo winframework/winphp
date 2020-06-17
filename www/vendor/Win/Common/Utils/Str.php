@@ -26,15 +26,6 @@ class Str
 
 	/**
 	 * @param string $string
-	 * @return string
-	 */
-	public static function toFileName($string)
-	{
-		return static::toUrl($string);
-	}
-
-	/**
-	 * @param string $string
 	 * @return int
 	 */
 	public static function length($string)
@@ -77,7 +68,7 @@ class Str
 	 */
 	public static function camel($string)
 	{
-		$string = ucwords(strtolower(trim(str_replace(['-', '_'], ' ', $string))));
+		$string = ucwords(mb_strtolower(trim(str_replace(['-', '_'], ' ', $string))));
 
 		return preg_replace('/[^a-zA-Z0-9]/', '', $string);
 	}
@@ -91,31 +82,16 @@ class Str
 	 */
 	public static function truncate($string, $limit, $mode = self::TRUNCATE_BEFORE)
 	{
-		if (mb_strlen($string) > $limit) {
-			$string = strip_tags($string);
-			$limit = static::calcLimit($string, $limit, $mode);
-			$string = rtrim(mb_substr($string, 0, $limit), ' ,.!?') . '...';
+		$string = strip_tags($string);
+		if (mb_strlen($string) <= $limit) {
+			return $string;
 		}
-
-		return $string;
-	}
-
-	/**
-	 * Calcula o limite ideal
-	 * @param string $string
-	 * @param int $limit
-	 * @param int $mode
-	 * @return int
-	 */
-	protected static function calcLimit($string, $limit, $mode)
-	{
 		if ($mode === static::TRUNCATE_BEFORE) {
 			$limit = mb_strrpos(mb_substr($string, 0, $limit + 1), ' ');
 		} elseif ($mode === static::TRUNCATE_AFTER) {
 			$limit = mb_strpos(mb_substr($string, $limit), ' ') + $limit;
 		}
-
-		return $limit;
+		return rtrim(mb_substr($string, 0, $limit), ' ,.!?') . '...';
 	}
 
 	/**

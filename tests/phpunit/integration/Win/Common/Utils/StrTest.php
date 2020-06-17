@@ -16,11 +16,6 @@ class StrTest extends TestCase
 		$this->assertEquals('minh-tring-c0m22-acntuacao', $url);
 	}
 
-	public function testToFileName()
-	{
-		$this->assertEquals('produtos-de-otima-qualidade-2', Str::toFileName('.Produtos-de_óti?ma q.ualida@"de/²-'));
-	}
-
 	public function testTruncateEquals()
 	{
 		$truncated = Str::truncate('Minhâ stríng curta', 20);
