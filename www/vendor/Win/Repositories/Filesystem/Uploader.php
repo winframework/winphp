@@ -53,7 +53,7 @@ class Uploader
 			$name = $this->generateName($name);
 			\move_uploaded_file(
 				$this->temp['tmp_name'],
-				$directoryPath . $name
+				"$directoryPath/$name"
 			);
 
 			$this->fs->create($directoryPath);

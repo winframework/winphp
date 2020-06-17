@@ -16,11 +16,13 @@ class UploaderController extends Controller
 
 	public ?Image $image = null;
 
-	private ?FileSystem $fs = null;
+	private FileSystem $fs;
+	private Uploader $uploader;
 
-	public function __construct()
+	public function __construct(Filesystem $fs, Uploader $uploader)
 	{
-		$this->fs = new Filesystem();
+		$this->fs = $fs;
+		$this->uploader = $uploader;
 	}
 
 	public function init()
@@ -33,10 +35,8 @@ class UploaderController extends Controller
 	{
 		if (Input::post('submit')) {
 			try {
-				$uploader = new Uploader(static::UPLOAD_PATH);
-
-				$uploader->prepare(Input::file('upload'));
-				$file = $uploader->upload();
+				$this->uploader->prepare(Input::file('upload'));
+				$file = $this->uploader->upload(static::UPLOAD_PATH);
 
 				Alert::success('Imagem salva com sucesso.');
 				$this->image = new Image($file->getPath());
