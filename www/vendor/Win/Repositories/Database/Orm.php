@@ -123,7 +123,6 @@ abstract class Orm
 	{
 		$query = $this->sql->selectCount();
 		$values = $this->sql->values();
-
 		$count = $this->conn->fetchCount($query, $values);
 		$this->flush();
 
@@ -173,8 +172,8 @@ abstract class Orm
 		$values = array_values($this->sql->values());
 		$this->conn->execute($query, $values);
 		$model->id = $model->id ?? $this->conn->lastInsertId();
-
 		$this->flush();
+
 		return $model;
 	}
 
