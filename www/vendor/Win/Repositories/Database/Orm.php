@@ -16,7 +16,7 @@ abstract class Orm
 	const PK = 'id';
 
 	public ?Connection $conn;
-	public ?Pagination $pagination = null;
+	public Pagination $pagination;
 	protected Sql $sql;
 
 	/**
@@ -31,6 +31,7 @@ abstract class Orm
 	{
 		$this->conn = Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
+                $this->pagination = new Pagination();
 	}
 
 	/**
@@ -97,12 +98,18 @@ abstract class Orm
 	 */
 	public function list()
 	{
-		if (!is_null($this->pagination)) {
-			$this->setLimit();
-		}
-
-		$query = $this->sql->select();
+                $query = $this->sql->select();
 		$values = $this->sql->values();
+                $pagination = $this->pagination;
+
+                if ($pagination->pageSize) {
+                    $countQuery = $this->sql->selectCount();
+		    $count = $this->conn->fetchCount($countQuery, $values);
+
+	            $pagination->count = $count;
+	            $this->sql->setLimit($pagination->offset(), $pagination->pageSize);
+                }
+
 		$rows = $this->conn->fetchAll($query, $values);
 		$this->flush();
 
@@ -300,23 +307,9 @@ abstract class Orm
 	 */
 	public function paginate($pageSize, $currentPage = 1)
 	{
-		$this->pagination = new Pagination($pageSize, $currentPage);
+		$this->pagination->pageSize = $pageSize;
+                $this->pagination->currentPage = $currentPage;
 		return $this;
-	}
-
-	/**
-	 * Define o limit com base na paginação
-	 */
-	private function setLimit()
-	{
-		$query = $this->sql->selectCount();
-		$values = $this->sql->values();
-		$count = $this->conn->fetchCount($query, $values);
-
-		if ($count && $this->pagination) {
-			$this->pagination->setCount($count);
-			$this->sql->setLimit($this->pagination->offset, $this->pagination->pageSize);
-		}
 	}
 
 	/**
