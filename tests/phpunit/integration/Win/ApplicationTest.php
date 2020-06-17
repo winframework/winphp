@@ -4,6 +4,7 @@ namespace Win;
 
 use App\Controllers\BasicController;
 use App\Controllers\IndexController;
+use App\Controllers\MyModule\IndexController as MyModuleIndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Controllers\MyController;
 use Win\Request\Url;
@@ -40,8 +41,8 @@ class ApplicationTest extends TestCase
 		$app->controller = new IndexController();
 		$this->assertEquals('index', $app->getPage());
 
-		$app->controller = new BasicController();
-		$this->assertEquals('basic', $app->getPage());
+		$app->controller = new MyModuleIndexController();
+		$this->assertEquals('my-module-index', $app->getPage());
 	}
 
 	public function testIsHomePage()

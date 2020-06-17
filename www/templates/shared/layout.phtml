@@ -13,7 +13,7 @@ $bodyClass = Str::toUrl($this->app->controller . '-' . $this->app->action);
 <html lang="pt-BR">
 <?= new Block('shared/head'); ?>
 
-<body class="page-<?= $bodyClass; ?>">
+<body class="<?= $bodyClass; ?>">
 	<header>
 		<nav class="main-nav">
 			<a id="logo" href="<?= Url::$base; ?>">
