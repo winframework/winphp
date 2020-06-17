@@ -15,7 +15,7 @@ class Seo
 	/**
 	 * Keywords padrão.
 	 * Usadas quando as keywords informadas não tenha o tamanho suficiente
-	 * @var string
+	 * @var string[]
 	 */
 	public static $keywords = [];
 
