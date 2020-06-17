@@ -7,27 +7,19 @@ namespace Win\Common;
  */
 class Pagination
 {
-	public int $current;
-	public int $pageSize;
-	public int $count = 0;
+	public int $current = 1;
+	public ?int $pageSize = null;
+	public int $count;
 	public int $last;
 	public int $offset;
 
-	/**
-	 * @param int $pageSize
-	 * @param int $current
-	 */
-	public function __construct($pageSize, $current)
+	public function offset()
 	{
-		$this->pageSize = $pageSize;
-		$this->current = max($current, 1);
-	}
-
-	public function setCount($count)
-	{
-		$this->count = $count;
-		$this->last = ceil($count / $this->pageSize);
-		$this->current = min($this->last, $this->current);
+             if ($this->pageSize) {
+		$this->last = ceil($this->count / $this->pageSize);
+		$this->current = min(max($this->current, 1), $this->last);
 		$this->offset = $this->pageSize * ($this->current - 1);
+             }
+             return $this->offset;
 	}
 }
