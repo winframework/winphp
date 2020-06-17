@@ -4,17 +4,7 @@ namespace Win\Repositories;
 
 class Filesystem
 {
-	private string $basePath;
 	const DS = DIRECTORY_SEPARATOR;
-
-	/**
-	 * Instância um novo arquivo
-	 * @param string $basePath
-	 */
-	public function __construct($basePath = '')
-	{
-		$this->basePath = BASE_PATH . $basePath . '/';
-	}
 
 	/**
 	 * Retorna array com arquivos e diretórios
@@ -23,7 +13,7 @@ class Filesystem
 	 */
 	public function children($path = '')
 	{
-		return array_diff((array) scandir($this->basePath . $path), ['..', '.']);
+		return array_diff((array) scandir(BASE_PATH . "/$path"), ['..', '.']);
 	}
 
 	/**
@@ -43,7 +33,7 @@ class Filesystem
 	 */
 	public function create($folderPath, $chmod = 0755)
 	{
-		$path = $this->basePath . $folderPath;
+		$path = BASE_PATH . "/$folderPath";
 		if (!is_dir($path)) {
 			$mask = umask(0);
 			mkdir($path, $chmod, true);
@@ -53,13 +43,13 @@ class Filesystem
 
 	/**
 	 * Renomeia o arquivo
-	 * @param string $newName
-	 * @param string $newExtension
+	 * @param string $filePath
+	 * @param string $newFilePath
 	 * @return bool
 	 */
 	public function rename($filePath, $newFilePath)
 	{
-		return rename($this->basePath . $filePath, $this->basePath . $newFilePath);
+		return rename(BASE_PATH . "/$filePath", BASE_PATH . "/$newFilePath");
 	}
 
 	/**
@@ -69,7 +59,7 @@ class Filesystem
 	 */
 	public function move($filePath, $newFolder)
 	{
-		return rename($this->basePath . $filePath, $this->basePath . $newFolder);
+		return rename(BASE_PATH . "/$filePath", BASE_PATH . "/$newFolder");
 	}
 
 	/**
@@ -79,7 +69,7 @@ class Filesystem
 	 */
 	public function delete($path)
 	{
-		$fullPath = $this->basePath . $path;
+		$fullPath = BASE_PATH . "/$path";
 		if (is_dir($fullPath) && !is_link($fullPath)) {
 			foreach ($this->children($path) as $child) {
 				$this->delete("$path/$child");
@@ -104,7 +94,7 @@ class Filesystem
 
 		if ($dir) {
 			$this->create($dir, 0777);
-			$fp = fopen("{$this->basePath}{$dir}/{$file}", $mode);
+			$fp = fopen(BASE_PATH . "/{$dir}/{$file}", $mode);
 			if (false !== $fp) {
 				fwrite($fp, $content);
 				$return = fclose($fp);
@@ -120,12 +110,10 @@ class Filesystem
 	 */
 	public function read($filePath)
 	{
-		$content = false;
-		if ($this->exists($filePath)) {
-			$content = file_get_contents($this->basePath . $filePath);
+		if (!$this->exists($filePath)) {
+			return false;
 		}
-
-		return $content;
+		return file_get_contents(BASE_PATH . "/$filePath");
 	}
 
 	/**
@@ -135,7 +123,7 @@ class Filesystem
 	 */
 	public function exists($filePath)
 	{
-		$filePath = ($this->basePath) . $filePath;
+		$filePath = BASE_PATH . "/$filePath";
 
 		return is_file($filePath) or is_dir($filePath);
 	}

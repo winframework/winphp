@@ -16,9 +16,6 @@ class Uploader
 		'mp4', 'mpeg', 'pdf', 'png', 'svg', 'txt', 'wav', 'xls', 'xlsx', 'zip',
 	];
 
-	/** @var string */
-	protected $path;
-
 	/** @var Filesystem */
 	protected $fs;
 
@@ -26,14 +23,11 @@ class Uploader
 	protected $temp;
 
 	/**
-	 * Inicializa o upload para o diretório de destino
-	 * @param string $path
+	 * Inicializa o uploader
 	 */
-	public function __construct($path)
+	public function __construct(Filesystem $fs)
 	{
-		$this->path = $path . '/';
-		$this->fs = new Filesystem();
-		$this->fs->create($path);
+		$this->fs = $fs;
 	}
 
 	/**
@@ -43,25 +37,27 @@ class Uploader
 	public function prepare($tempFile)
 	{
 		if (is_null($tempFile) || $tempFile['error']) {
-			throw new \Exception('Error during upload');
+			throw new \Exception("Erro ao enviar o arquivo.");
 		}
 		$this->temp = $tempFile;
 	}
 
 	/**
 	 * Faz o upload para o diretório final
+	 * @param string $directoryPath
 	 * @param string $name
 	 */
-	public function upload($name = '')
+	public function upload($directoryPath, $name = null)
 	{
 		if (!is_null($this->temp)) {
 			$name = $this->generateName($name);
 			\move_uploaded_file(
 				$this->temp['tmp_name'],
-				$this->path . $name
+				$directoryPath . $name
 			);
 
-			return new File($this->path . $name);
+			$this->fs->create($directoryPath);
+			return new File("$directoryPath/$name");
 		}
 
 		return null;

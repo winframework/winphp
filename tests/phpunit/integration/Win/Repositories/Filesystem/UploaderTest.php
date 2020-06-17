@@ -7,22 +7,22 @@ use Win\Repositories\Filesystem;
 
 class UploaderTest extends TestCase
 {
-	public function testConstructor()
+	private Filesystem $fs;
+
+	public function setUp()
 	{
 		$dir = 'data/dir';
-		$fs = new Filesystem();
-		$fs->delete($dir);
-
-		new Uploader($dir);
-		$this->assertTrue($fs->exists($dir));
+		$this->fs = new Filesystem();
+		$this->fs->delete($dir);
 	}
+
 
 	/**
 	 * @expectedException \Exception
 	 */
 	public function testPrepareError()
 	{
-		$uploader = new Uploader('data/dir');
+		$uploader = new Uploader($this->fs);
 		$uploader->prepare(['error' => 1]);
 	}
 
@@ -31,21 +31,21 @@ class UploaderTest extends TestCase
 	 */
 	public function testPrepareNull()
 	{
-		$uploader = new Uploader('data/dir');
+		$uploader = new Uploader($this->fs);
 		$uploader->prepare(null);
 	}
 
 	public function testPrepare()
 	{
-		$uploader = new Uploader('data/dir');
+		$uploader = new Uploader($this->fs);
 		$uploader->prepare(['error' => 0]);
 	}
 
 	public function testUploadNull()
 	{
-		$uploader = new Uploader('data/dir');
+		$uploader = new Uploader($this->fs);
 
-		$this->assertNull($uploader->upload());
+		$this->assertNull($uploader->upload('data/dir'));
 	}
 
 	public function testUpload()
@@ -57,13 +57,13 @@ class UploaderTest extends TestCase
 			'tmp_name' => '1m123123daa34n2l',
 			'name' => "data/dir/teste.$extension",
 		];
-		
-		$uploader = new Uploader($dir);
-		$uploader->prepare($temp);
-		$file = $uploader->upload();
 
-		$this->assertContains($dir, $file->getPath());
-		$this->assertContains(".$extension", $file->getPath());
+		$uploader = new Uploader($this->fs);
+		$uploader->prepare($temp);
+		$file = $uploader->upload($dir);
+
+		$this->assertStringContainsString($dir, $file->getPath());
+		$this->assertStringContainsString(".$extension", $file->getPath());
 	}
 
 	public function testUploadGeneratedName()
@@ -77,10 +77,10 @@ class UploaderTest extends TestCase
 		];
 		$customName = 'FAKE_NAME';
 
-		$uploader = new Uploader($dir);
+		$uploader = new Uploader($this->fs);
 		$uploader->prepare($temp);
-		$file = $uploader->upload($customName);
+		$file = $uploader->upload($dir, $customName);
 
-		$this->assertContains("$dir/$customName.$extension", $file->getPath());
+		$this->assertStringContainsString("$dir/$customName.$extension", $file->getPath());
 	}
 }
