@@ -35,16 +35,6 @@ class ApplicationTest extends TestCase
 		$this->assertTrue(Application::app() instanceof Application);
 	}
 
-	public function testGetPage()
-	{
-		$app = static::newApp();
-		$app->controller = new IndexController();
-		$this->assertEquals('index', $app->getPage());
-
-		$app->controller = new MyModuleIndexController();
-		$this->assertEquals('my-module-index', $app->getPage());
-	}
-
 	public function testIsHomePage()
 	{
 		$app = new Application();
@@ -86,8 +76,20 @@ class ApplicationTest extends TestCase
 		$app->run(MyController::class, 'sum', $data);
 		$sum = ob_get_clean();
 
-		$this->assertEquals('sum', $app->action);
 		$this->assertEquals(array_sum($data), $sum);
+	}
+
+	public function testRunActionPage()
+	{
+		$app = new Application();
+		$data = [1, 2];
+
+		ob_start();
+		$app->run(MyModuleIndexController::class, 'index');
+		$sum = ob_get_clean();
+
+		$this->assertEquals('my-module-index', $app->page);
+		$this->assertEquals('index', $app->action);
 	}
 
 	public function testRunView()

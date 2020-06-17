@@ -29,6 +29,7 @@ class Application
 	public Session $session;
 	public ?Connection $conn = null;
 	public string $action = '';
+	public string $page = '';
 
 	/**
 	 * Cria a aplicação principal
@@ -65,6 +66,7 @@ class Application
 		$controller->app = $this;
 		$this->controller = $controller;
 		$this->action = $method;
+		$this->setPage($class);
 
 		if (!method_exists($controller, $method)) {
 			throw new HttpException("Action '{$method}' not found in '{$class}'", 404);
@@ -89,15 +91,6 @@ class Application
 		}
 
 		return $response;
-	}
-
-	/**
-	 * Retorna a página atual
-	 * @return string
-	 */
-	public function getPage()
-	{
-		return (string) $this->controller;
 	}
 
 	/**
@@ -128,5 +121,15 @@ class Application
 	public function errorPage($code, $message = '')
 	{
 		throw new HttpException($message, $code);
+	}
+
+	/**
+	 * Retorna a página atual
+	 * @param string
+	 */
+	private function setPage($class)
+	{
+		$replaces = ['Controllers\\', 'Controller', 'App\\', '\\'];
+		$this->page = Str::toUrl(str_replace($replaces, ' ', $class));
 	}
 }
