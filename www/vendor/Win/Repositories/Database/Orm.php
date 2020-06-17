@@ -105,7 +105,6 @@ abstract class Orm
                 if ($pagination->pageSize) {
                     $countQuery = $this->sql->selectCount();
 		    $count = $this->conn->fetchCount($countQuery, $values);
-
 	            $pagination->count = $count;
 	            $this->sql->setLimit($pagination->offset(), $pagination->pageSize);
                 }
