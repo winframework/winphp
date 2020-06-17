@@ -11,7 +11,8 @@ class SqlTest extends TestCase
 		$values = ['a', 'b'];
 		$rules = [10, 'john'];
 
-		$sql = new Sql('t1', $values);
+		$sql = new Sql('t1');
+		$sql->setValues($values);
 		$sql->addWhere('id', [$rules[0]]);
 		$sql->addWhere('name', [$rules[1]]);
 
@@ -68,7 +69,8 @@ class SqlTest extends TestCase
 			'id' => 10,
 			'name' => 'john',
 		];
-		$sql = new Sql('t1', $values);
+		$sql = new Sql('t1');
+		$sql->setValues($values);
 
 		$this->assertEquals(
 			'INSERT INTO t1 (id,name) VALUES (?, ?)',
@@ -82,7 +84,8 @@ class SqlTest extends TestCase
 			'id' => 10,
 			'name' => 'john',
 		];
-		$sql = new Sql('t1', $values);
+		$sql = new Sql('t1');
+		$sql->setValues($values);
 
 		$this->assertEquals(
 			'UPDATE t1 SET id = ?, name = ?',
@@ -92,7 +95,7 @@ class SqlTest extends TestCase
 
 	public function testDelete()
 	{
-		$sql = new Sql('t1', ['fakeData']);
+		$sql = new Sql('t1');
 		$sql->addWhere('id', [10]);
 
 		$this->assertEquals(
@@ -103,7 +106,7 @@ class SqlTest extends TestCase
 
 	public function testSetLimit()
 	{
-		$sql = new Sql('t1', ['fakeData']);
+		$sql = new Sql('t1');
 		$sql->setLimit(10, 5);
 
 		$this->assertEquals(
@@ -114,7 +117,7 @@ class SqlTest extends TestCase
 
 	public function testAddOrderBy()
 	{
-		$sql = new Sql('t1', ['fakeData']);
+		$sql = new Sql('t1');
 		$sql->addOrderBy('id ASC', 3);
 		$sql->addOrderBy('name DESC', 1);
 		$sql->addOrderBy('email ASC', 2);
@@ -127,7 +130,7 @@ class SqlTest extends TestCase
 
 	public function testSetOrderBy()
 	{
-		$sql = new Sql('t1', ['fakeData']);
+		$sql = new Sql('t1');
 		$sql->addOrderBy('id ASC', 3);
 		$sql->setOrderBy('name DESC');
 

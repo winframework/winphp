@@ -31,7 +31,7 @@ abstract class Orm
 	{
 		$this->conn = Application::app()->conn;
 		$this->sql = new Sql(static::TABLE);
-                $this->pagination = new Pagination();
+		$this->pagination = new Pagination();
 	}
 
 	/**
@@ -98,17 +98,16 @@ abstract class Orm
 	 */
 	public function list()
 	{
-                $query = $this->sql->select();
 		$values = $this->sql->values();
-                $pagination = $this->pagination;
+		$pagination = $this->pagination;
 
-                if ($pagination->pageSize) {
-                    $countQuery = $this->sql->selectCount();
-		    $count = $this->conn->fetchCount($countQuery, $values);
-	            $pagination->count = $count;
-	            $this->sql->setLimit($pagination->offset(), $pagination->pageSize);
-                }
+		if ($pagination->pageSize) {
+			$query = $this->sql->selectCount();
+			$pagination->count = $this->conn->fetchCount($query, $values);
+			$this->sql->setLimit($pagination->offset(), $pagination->pageSize);
+		}
 
+		$query = $this->sql->select();
 		$rows = $this->conn->fetchAll($query, $values);
 		$this->flush();
 
@@ -127,6 +126,18 @@ abstract class Orm
 		$this->flush();
 
 		return $count;
+	}
+
+	/**
+	 * Define um limite das buscas com list()
+	 * @param int $pageSize
+	 * @param int $currentPage
+	 */
+	public function paginate($pageSize, $currentPage = 1)
+	{
+		$this->pagination->pageSize = $pageSize;
+		$this->pagination->current = max($currentPage, 1);
+		return $this;
 	}
 
 	/**
@@ -161,7 +172,7 @@ abstract class Orm
 	public function save(Model $model)
 	{
 		$model->validate();
-		$this->sql->__construct(static::TABLE, $this->mapRow($model));
+		$this->sql->setValues($this->mapRow($model));
 
 		if ($this->exists($model->id)) {
 			$this->filter(static::PK, $model->id);
@@ -295,18 +306,6 @@ abstract class Orm
 	{
 		$this->sql->addOrderBy($rule, $priority);
 
-		return $this;
-	}
-
-	/**
-	 * Define um limite das buscas com list()
-	 * @param int $pageSize
-	 * @param int $currentPage
-	 */
-	public function paginate($pageSize, $currentPage = 1)
-	{
-		$this->pagination->pageSize = $pageSize;
-                $this->pagination->currentPage = $currentPage;
 		return $this;
 	}
 

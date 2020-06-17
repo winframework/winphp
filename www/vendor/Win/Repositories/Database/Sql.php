@@ -20,13 +20,11 @@ class Sql
 	/**
 	 * Prepara a query
 	 * @param string $table
-	 * @param mixed $values
-	 * @param string[] $columns
 	 */
-	public function __construct($table, $values = [])
+	public function __construct($table)
 	{
 		$this->table = $table;
-		$this->values = $values;
+		$this->values = [];
 		$this->join = [];
 		$this->where = [];
 		$this->whereValues = [];

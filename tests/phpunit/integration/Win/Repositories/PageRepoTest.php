@@ -259,6 +259,14 @@ class PageRepoTest extends TestCase
 		$this->assertEquals(1, count($repo->list()));
 		$this->assertEquals(3, $repo->count());
 		$this->assertEquals(2, $repo->pagination->current);
+
+		$repo = $repo->paginate(0);
+		$this->assertEquals(3, $repo->count());
+		$this->assertEquals(1, $repo->pagination->current);
+
+		$repo = $repo->paginate(10, 0);
+		$this->assertEquals(3, $repo->count());
+		$this->assertEquals(1, $repo->pagination->current);
 	}
 
 	public function testFlush()
