@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\Page;
+use App\Repositories\PageCategoryRepo;
 use Win\Common\Utils\Date;
 use Win\Views\View;
 
 /** @var View $this */
 /** @var Page $page */
+/** @var PageCategoryRepo $categoryRepo */
 ?>
 <main>
 	<div class="row">
@@ -17,7 +19,7 @@ use Win\Views\View;
 		<?php endif; ?>
 		<?php if ($page->categoryId) : ?>
 			<br />
-			<b>Categoria: <?= $page->category()->title; ?></b>
+			<b>Categoria: <?= $categoryRepo->find($page->categoryId); ?></b>
 		<?php endif; ?>
 		<p>
 			<?= nl2br($page->description); ?>

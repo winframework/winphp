@@ -21,17 +21,17 @@ use Win\Views\View;
  */
 class PagesController extends Controller
 {
-	public PageRepo $orm;
-	public PageCategoryRepo $categoryOrm;
+	public PageRepo $repo;
+	public PageCategoryRepo $categoryRepo;
 	protected $pageSize = 2;
 
-	public function __construct(PageRepo $orm, PageCategoryRepo $categoryOrm)
+	public function __construct(PageRepo $repo, PageCategoryRepo $categoryRepo)
 	{
 		$conn = $this->connectDatabase();
-		$this->orm = $orm;
-		$this->categoryOrm = $categoryOrm;
+		$this->orm = $repo;
+		$this->categoryRepo = $categoryRepo;
 		$this->orm->conn = $conn;
-		$this->categoryOrm->conn = $conn;
+		$this->categoryRepo->conn = $conn;
 	}
 
 	public function init()
@@ -62,7 +62,7 @@ class PagesController extends Controller
 			$page = new Page();
 			$page->title = 'Inserted';
 			$this->orm->save($page);
-			$this->categoryOrm->save($page->category());
+			$this->categoryRepo->save($page->category());
 
 
 			Alert::success('Inseriu e atualizou: ' . $page->id);
@@ -98,7 +98,7 @@ class PagesController extends Controller
 	 */
 	public function listByCategory($categoryId)
 	{
-		$category = $this->categoryOrm->findOr404($categoryId);
+		$category = $this->categoryRepo->findOr404($categoryId);
 
 		$this->title = 'Pages - ' . $category;
 		$this->categories = $this->getCategories();
@@ -124,7 +124,7 @@ class PagesController extends Controller
 
 	protected function getCategories()
 	{
-		return $this->categoryOrm->filter('enabled')->list();
+		return $this->categoryRepo->filter('enabled')->list();
 	}
 
 	private function connectDatabase()

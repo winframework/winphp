@@ -21,11 +21,6 @@ class Page extends Model
 		return $this->title;
 	}
 
-	public function category()
-	{
-		return (new PageCategoryRepo())->find($this->categoryId);
-	}
-
 	public function validate()
 	{
 	}

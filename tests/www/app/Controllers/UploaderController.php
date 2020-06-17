@@ -24,15 +24,10 @@ class UploaderController extends Controller
 		$this->fs = $fs;
 		$this->uploader = $uploader;
 	}
-
-	public function init()
-	{
-		$this->fs->delete(static::UPLOAD_PATH);
-		$this->fs->create(static::UPLOAD_PATH);
-	}
-
+	
 	public function index()
 	{
+		$this->fs->delete(static::UPLOAD_PATH);
 		if (Input::post('submit')) {
 			try {
 				$this->uploader->prepare(Input::file('upload'));
