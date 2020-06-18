@@ -2,7 +2,6 @@
 
 namespace Win\Request;
 
-use Win\Application;
 use Win\HttpException;
 
 /**
@@ -30,22 +29,19 @@ class Router
 
 	/**
 	 * Percorre todas as rotas e retorna o destino final
-	 * @return mixed Destino
-	 * @example return [Controller, action, [..$args]]
+	 * @return array Destino
+	 * @example return [Controller, action, ...$args]
 	 */
 	public static function getDestination()
 	{
 		$url = Url::format(Url::$path);
-				$matches = [];
+		$matches = [];
 
 		foreach (static::$routes as $request => $destination) {
 			$pattern = '@^' . Url::format($request) . '$@';
 			$match = preg_match($pattern, $url, $matches);
 			if ($match) {
-				$destination = array_pad(explode('@', $destination), 2, '');
-				$destination[] = (array) array_splice($matches, 1);
-
-				return $destination;
+				return [...explode('@', $destination), ...array_splice($matches, 1)];
 			}
 		}
 

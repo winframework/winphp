@@ -22,7 +22,7 @@ class RouterTest extends TestCase
 	{
 		Url::$path = 'index';
 
-		$expected = [static::NAMESPACE . 'IndexController', 'index', []];
+		$expected = [static::NAMESPACE . 'IndexController', 'index'];
 		$this->assertEquals($expected, Router::getDestination());
 	}
 
@@ -41,7 +41,7 @@ class RouterTest extends TestCase
 		$args = [5, 'John'];
 		Url::$path = 'index/' . implode('/', $args) . '/teste';
 
-		$expected = [static::NAMESPACE . 'IndexController', 'index', $args];
+		$expected = [static::NAMESPACE . 'IndexController', 'index', ...$args];
 		$this->assertEquals($expected, Router::getDestination());
 	}
 

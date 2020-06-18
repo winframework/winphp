@@ -1,14 +1,22 @@
 <?php
 
+use Win\Blocks\Block;
 use Win\Common\Server;
 use Win\Views\View;
 
 /** @var View $this */
 /** @var Exception $exception */
 ?>
-<main>
-	<h1>Ops! Algo deu errado na requisição.</h1>
-	<?php if (Server::isLocalHost()) : ?>
-		<?= $exception; ?>
-	<?php endif; ?>
-</main>
+<?= new Block('shared/head'); ?>
+
+<body>
+	<main>
+		<h1>Ops! Algo deu errado na requisição.</h1>
+		<p>Tente novamente mais tarde ou entre em contato.</p>
+		
+		<?php if (Server::isLocalHost()) : ?>
+			<p><?= $exception->getMessage(); ?></p>
+			<p><?= $exception; ?></p>
+		<?php endif; ?>
+	</main>
+</body>

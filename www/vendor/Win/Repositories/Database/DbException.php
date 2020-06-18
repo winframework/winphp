@@ -10,9 +10,8 @@ use PDOException;
  */
 class DbException extends Exception
 {
-	public function __construct(PDOException $previous)
+	public function __construct($message, PDOException $previous)
 	{
-		$message = 'Ocorreu um erro durante a leitura/escrita de dados.';
 		parent::__construct($message, null, $previous);
 	}
 }

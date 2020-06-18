@@ -1,5 +1,4 @@
 <?php
-
 use Win\Request\Router;
 
 /**
@@ -11,7 +10,7 @@ Router::add('App\\Controllers\\', [
 	'' => 'IndexController@index',
 
 	// Básicos
-	'basic' => 'BasicController@index',
+	'basic' => 'BasicController',
 	'alternative-layout' => 'BasicController@alternativeLayout',
 	'basic-class' => 'BasicController@classView',
 	'return-five' => 'BasicController@returnFive',

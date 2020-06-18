@@ -33,7 +33,7 @@ abstract class Connection
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec('set names utf8');
 		} catch (\PDOException $e) {
-			throw new DbException($e);
+			throw new DbException('Ocorreu um erro ao conectar o banco de dados.', $e);
 		}
 	}
 
@@ -57,7 +57,7 @@ abstract class Connection
 			$stmt = $this->pdo->prepare($query);
 			return $stmt->execute($values);
 		} catch (PDOException $e) {
-			throw new DbException($e);
+			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
 		}
 	}
 
@@ -74,7 +74,7 @@ abstract class Connection
 
 			return $stmt;
 		} catch (PDOException $e) {
-			throw new DbException($e);
+			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
 		}
 	}
 

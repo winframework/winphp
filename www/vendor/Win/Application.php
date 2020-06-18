@@ -56,7 +56,7 @@ class Application
 	 * @param string $method Action
 	 * @param array $args
 	 */
-	public function run($class, $method, $args = [])
+	public function run($class, $method = 'index', ...$args)
 	{
 		if (!class_exists($class)) {
 			throw new HttpException("Controller '{$class}' not found", 404);

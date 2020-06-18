@@ -7,7 +7,7 @@ use Win\Common\Utils\Str;
 use Win\Request\Url;
 
 /** @var Template $this */
-$bodyClass = Str::toUrl($this->app->page . '-' . $this->app->action);
+$bodyClass = $this->app->page . '-' .  Str::toUrl($this->app->action);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

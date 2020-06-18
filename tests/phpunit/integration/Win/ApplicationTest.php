@@ -73,7 +73,7 @@ class ApplicationTest extends TestCase
 		$data = [1, 2];
 
 		ob_start();
-		$app->run(MyController::class, 'sum', $data);
+		$app->run(MyController::class, 'sum', ...$data);
 		$sum = ob_get_clean();
 
 		$this->assertEquals(array_sum($data), $sum);
