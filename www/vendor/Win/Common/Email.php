@@ -19,8 +19,8 @@ class Email extends Template
 	 * @param array $data
 	 * @param string $layout
 	 */
-	public function __construct($file, $data = [], $layout = 'layout')
+	public function __construct($file, $data = [], $layout = 'emails/layout')
 	{
-		parent::__construct($file, $data, 'emails/' . $layout);
+		parent::__construct($file, $data, $layout);
 	}
 }

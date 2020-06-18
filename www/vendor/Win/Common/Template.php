@@ -74,7 +74,6 @@ class Template
 		if ($this->layout) {
 			return new self($this->layout, ['content' => $this]);
 		}
-
 		ob_start();
 		$this->load();
 		return ob_get_clean();

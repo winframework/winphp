@@ -5,7 +5,7 @@ namespace Win\Repositories\Database;
 use PDO;
 use PDOException;
 use PDOStatement;
-use Win\HttpException;
+use Win\Repositories\Database\DbException;
 
 /**
  * Conexão com banco de dados
@@ -33,8 +33,7 @@ abstract class Connection
 			$this->pdo = $this->createPdo($dbConfig);
 			$this->pdo->exec('set names utf8');
 		} catch (\PDOException $e) {
-			$message = 'Houve um erro ao conectar o banco de dados [' . $e->getCode() . '].';
-			throw new HttpException($message, 503, $e);
+			throw new DbException($e);
 		}
 	}
 
@@ -58,7 +57,7 @@ abstract class Connection
 			$stmt = $this->pdo->prepare($query);
 			return $stmt->execute($values);
 		} catch (PDOException $e) {
-			throw new DatabaseException($e);
+			throw new DbException($e);
 		}
 	}
 
@@ -75,7 +74,7 @@ abstract class Connection
 
 			return $stmt;
 		} catch (PDOException $e) {
-			throw new DatabaseException($e);
+			throw new DbException($e);
 		}
 	}
 

@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\Page;
 use App\Repositories\PageCategoryRepo;
 use App\Repositories\PageRepo;
+use Exception;
+use PDOException;
 use Win\Application;
 use Win\Controllers\Controller;
 use Win\Services\Alert;
@@ -95,17 +97,18 @@ class PagesController extends Controller
 			$this->categoryRepo->filter('id', $page->categoryId)
 				->update(['title' => 'Category updated']);
 
-			$page = $this->repo->filter('title', $page->title)->one();
+			$page = $this->repo->filter('titdle', $page->title)->one();
 			$page->title = 'Updated';
 			$this->repo->save($page);
 
 			Alert::success('Inseriu e atualizou: ' . $page->id);
 			$conn->commit();
 		} catch (\Exception $e) {
-			$conn->rollback();
 			Alert::error($e);
+			// throw $e;
 		}
-		$this->redirect('alerts/show');
+
+		return new View('pages/form');
 	}
 
 	/**
@@ -121,7 +124,7 @@ class PagesController extends Controller
 			]);
 		Alert::success("Atualizou somente 2 atributos de $total entidade(s).");
 
-		$this->redirect('alerts/show');
+		return new View('pages/form');
 	}
 
 	protected function getCategories()

@@ -49,20 +49,20 @@ class MysqlTest extends TestCase
 		$this->assertTrue(static::$conn->isValid());
 	}
 
-	/** @expectedException Win\HttpException */
+	/** @expectedException Win\Repositories\Database\DbException */
 	public function testErrorConnection()
 	{
 		new Mysql(DbConfig::wrongDb());
 	}
 
-	/** @expectedException Win\Repositories\Database\DatabaseException */
+	/** @expectedException Win\Repositories\Database\DbException */
 	public function testSintaxeError()
 	{
 		$success = static::$conn->execute('SELECT * FROM ASDF');
 		$this->assertFalse($success);
 	}
 
-	/** @expectedException Win\Repositories\Database\DatabaseException */
+	/** @expectedException Win\Repositories\Database\DbException */
 	public function testStmtError()
 	{
 		$success = static::$conn->fetch('SELECT * FROM ASDF', []);

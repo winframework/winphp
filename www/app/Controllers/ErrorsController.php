@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
+use Exception;
+use Win\Common\Template;
 use Win\Controllers\Controller;
-use Win\HttpException;
 use Win\Views\View;
 
 /**
@@ -12,14 +13,22 @@ use Win\Views\View;
  */
 class ErrorsController extends Controller
 {
-	/** @var HttpException */
+	/** @var Exception */
 	public $exception;
 
-	public function error404(HttpException $e)
+	public function error404(Exception $e)
 	{
 		$this->title = 'Página não encontrada';
 		$this->exception = $e;
 
 		return new View('errors/404');
+	}
+
+	public function error503(Exception $e)
+	{
+		$this->title = 'Ocorreu um erro';
+		$this->exception = $e;
+		$this->layout = null;
+		return new View('errors/503');
 	}
 }

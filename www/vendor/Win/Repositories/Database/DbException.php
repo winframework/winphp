@@ -8,14 +8,11 @@ use PDOException;
 /**
  * Erro de Banco de dados
  */
-class DatabaseException extends Exception
+class DbException extends Exception
 {
 	public function __construct(PDOException $previous)
 	{
-		parent::__construct(
-			'Ocorreu um erro durante a leitura/escrita de dados.',
-			null,
-			$previous
-		);
+		$message = 'Ocorreu um erro durante a leitura/escrita de dados.';
+		parent::__construct($message, null, $previous);
 	}
 }

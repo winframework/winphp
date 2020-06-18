@@ -22,7 +22,7 @@ class View extends Template
 		Application::app()->view = $this;
 		$controller = Application::app()->controller;
 		$data = get_object_vars($controller);
-		parent::__construct($file, $data, 'shared/' . $controller->layout);
+		parent::__construct($file, $data, $controller->layout);
 		$this->validateFile();
 	}
 

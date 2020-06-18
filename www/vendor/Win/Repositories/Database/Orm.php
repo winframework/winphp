@@ -14,7 +14,7 @@ use Win\HttpException;
 abstract class Orm
 {
 	use InjectableTrait;
-	
+
 	const TABLE = '';
 	const PK = 'id';
 
@@ -203,8 +203,7 @@ abstract class Orm
 		$values = array_values($this->sql->values());
 		$stmt = $this->conn->stmt($query, $values);
 		$this->flush();
-
-		return $stmt->rowCount();
+		return $stmt ? $stmt->rowCount() : null;
 	}
 
 	/**
