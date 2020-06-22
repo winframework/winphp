@@ -23,9 +23,9 @@ for ($i = 0; $i < 1; $i++) {
 		$app = new Application();
 		$app->run(...Router::getDestination());
 	} catch (HttpException $e) {
-		$app->run(ErrorsController::class, "error{$e->getCode()}", $e);
+		$app->run(ErrorsController::class, "_{$e->getCode()}", $e);
 	} catch (Exception $e) {
-		$app->run(ErrorsController::class, "error503", $e);
+		$app->run(ErrorsController::class, "_503", $e);
 	}
 }
 echo '<hr />';

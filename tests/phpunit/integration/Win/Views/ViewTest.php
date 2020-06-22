@@ -34,6 +34,6 @@ class ViewTest extends TestCase
 		$title = 'My Title';
 		Application::app()->controller->title = $title;
 		$view = new View('index');
-		$this->assertEquals($title, $view->getTitle());
+		$this->assertEquals($title, $view->get('title'));
 	}
 }

@@ -25,7 +25,7 @@ class AlertBlockTest extends TestCase
 
 		$alertBlock = new AlertBlock($group);
 
-		$this->assertEquals(count($alerts), count($alertBlock->getData('alerts')));
-		$this->assertEquals($alerts, $alertBlock->getData('alerts'));
+		$this->assertEquals(count($alerts), count($alertBlock->get('alerts')));
+		$this->assertEquals($alerts, $alertBlock->get('alerts'));
 	}
 }

@@ -10,23 +10,25 @@ class SqlTest extends TestCase
 	{
 		$values = ['a', 'b'];
 		$rules = [10, 'john'];
+		$table = 't1';
 
-		$sql = new Sql('t1');
+		$sql = new Sql($table);
 		$sql->setValues($values);
 		$sql->addWhere('id', [$rules[0]]);
 		$sql->addWhere('name', [$rules[1]]);
 
-		$this->assertEquals($values + $rules, $sql->values());
+		$this->assertEquals(array_merge($values, $rules), $sql->values());
 	}
 
 	public function testJoin()
 	{
 		$join1 = 'JOIN a ON a.col1 = a.col2';
 		$join2 = 'LEFT JOIN b ON b.col1 = b.col2';
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 
-		$sql->addJoin($join1);
-		$sql->addJoin($join2);
+		$sql->addJoin($join1,[]);
+		$sql->addJoin($join2, []);
 		$sql->setOrderBy('name DESC');
 
 		$this->assertEquals(
@@ -37,7 +39,8 @@ class SqlTest extends TestCase
 
 	public function testSelect()
 	{
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->columns = ['id', 'name', 'email'];
 
 		$this->assertEquals('SELECT id, name, email FROM t1', $sql->select());
@@ -47,14 +50,16 @@ class SqlTest extends TestCase
 	{
 		$values1 = ['a1', 'b1'];
 		$values2 = ['a2', 'b2'];
-		$sql = new Sql('t1',$values1);
+		$table = 't1';
+		$sql = new Sql($table,$values1);
 		$sql->setValues($values2);
 		$this->assertEquals($values2, $sql->values());
 	}
 
 	public function testSelectCount()
 	{
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->addWhere('id', [10]);
 
 		$this->assertEquals(
@@ -69,7 +74,8 @@ class SqlTest extends TestCase
 			'id' => 10,
 			'name' => 'john',
 		];
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->setValues($values);
 
 		$this->assertEquals(
@@ -84,7 +90,8 @@ class SqlTest extends TestCase
 			'id' => 10,
 			'name' => 'john',
 		];
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->setValues($values);
 
 		$this->assertEquals(
@@ -95,7 +102,8 @@ class SqlTest extends TestCase
 
 	public function testDelete()
 	{
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->addWhere('id', [10]);
 
 		$this->assertEquals(
@@ -106,7 +114,8 @@ class SqlTest extends TestCase
 
 	public function testSetLimit()
 	{
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->setLimit(10, 5);
 
 		$this->assertEquals(
@@ -117,7 +126,8 @@ class SqlTest extends TestCase
 
 	public function testAddOrderBy()
 	{
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->addOrderBy('id ASC', 3);
 		$sql->addOrderBy('name DESC', 1);
 		$sql->addOrderBy('email ASC', 2);
@@ -130,7 +140,8 @@ class SqlTest extends TestCase
 
 	public function testSetOrderBy()
 	{
-		$sql = new Sql('t1');
+		$table = 't1';
+		$sql = new Sql($table);
 		$sql->addOrderBy('id ASC', 3);
 		$sql->setOrderBy('name DESC');
 

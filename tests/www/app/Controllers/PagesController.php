@@ -6,6 +6,7 @@ use App\Models\Page;
 use App\Repositories\PageCategoryRepo;
 use App\Repositories\PageRepo;
 use Exception;
+use PDO;
 use PDOException;
 use Win\Application;
 use Win\Controllers\Controller;
@@ -28,11 +29,11 @@ class PagesController extends Controller
 
 	public function __construct(PageRepo $repo, PageCategoryRepo $categoryRepo)
 	{
-		$conn = $this->connectDatabase();
+		$pdo = $this->connectDatabase();
 		$this->repo = $repo;
 		$this->categoryRepo = $categoryRepo;
-		$this->repo->conn = $conn;
-		$this->categoryRepo->conn = $conn;
+		$this->repo->pdo = $pdo;
+		$this->categoryRepo->pdo = $pdo;
 	}
 
 	public function init()
@@ -62,7 +63,7 @@ class PagesController extends Controller
 		$this->title = 'Pages - ' . $category;
 		$this->categories = $this->getCategories();
 		$this->pages = $this->repo
-			->filter('categoryId', $categoryId)
+			->if('categoryId', $categoryId)
 			->list();
 
 		return new View('pages/index');
@@ -87,25 +88,26 @@ class PagesController extends Controller
 	public function save()
 	{
 		try {
-			$conn = $this->repo->conn;
-			$conn->beginTransaction();
+			$pdo = $this->repo->pdo;
+			$pdo->beginTransaction();
 
 			$page = new Page();
 			$page->title = 'Inserted';
 			$this->repo->save($page);
 
-			$this->categoryRepo->filter('id', $page->categoryId)
+			$this->categoryRepo
+				->if('id', $page->categoryId)
 				->update(['title' => 'Category updated']);
 
-			$page = $this->repo->filter('titdle', $page->title)->one();
+			$page = $this->repo->if('title', $page->title)->one();
 			$page->title = 'Updated';
 			$this->repo->save($page);
 
 			Alert::success('Inseriu e atualizou: ' . $page->id);
-			$conn->commit();
+			$pdo->commit();
 		} catch (\Exception $e) {
 			Alert::error($e);
-			// throw $e;
+			$pdo->rollBack();
 		}
 
 		return new View('pages/form');
@@ -117,7 +119,7 @@ class PagesController extends Controller
 	public function update()
 	{
 		$total = $this->repo
-			->filter('id > ?', 3)
+			->if('id > ?', 3)
 			->update([
 				'title' => 'Updated 01 - Title',
 				'updatedAt' => date('Y-m-d H:i:s')
@@ -129,17 +131,17 @@ class PagesController extends Controller
 
 	protected function getCategories()
 	{
-		return $this->categoryRepo->filter('enabled')->list();
+		return $this->categoryRepo->if('enabled')->list();
 	}
 
-	private function connectDatabase()
+	private function connectDatabase(): PDO
 	{
 		$fs = new Filesystem();
 		$db = [];
 		require 'config/database.php';
-		Application::app()->conn = $conn = new Mysql($db);
+		Application::app()->pdo = $pdo = Mysql::connect($db);
 		$query = $fs->read('../database/winphp_demo.sql');
-		$conn->execute($query);
-		return $conn;
+		$pdo->exec($query);
+		return $pdo;
 	}
 }

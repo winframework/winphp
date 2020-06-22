@@ -17,25 +17,15 @@ class View extends Template
 	 * Cria uma View com base no arquivo escolhido
 	 * @param string $file arquivo da View
 	 */
-	public function __construct($file)
+	public function __construct($file, $data = [])
 	{
 		Application::app()->view = $this;
 		$controller = Application::app()->controller;
-		$data = get_object_vars($controller);
+		$data = array_merge(get_object_vars($controller), $data);
 		parent::__construct($file, $data, $controller->layout);
-		$this->validateFile();
-	}
 
-	private function validateFile()
-	{
 		if (!$this->exists()) {
 			throw new HttpException("View '{$this->file}' not found", 404);
 		}
-	}
-
-	/** @return string */
-	public function getTitle()
-	{
-		return $this->getData('title');
 	}
 }

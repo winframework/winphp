@@ -15,8 +15,8 @@ class TemplateTest extends TestCase
 		$templateWithData = new Template('index', $vars);
 		$templateNoData = new Template('index');
 
-		$this->assertEquals($vars['a'], $templateWithData->getData('a'));
-		$this->assertNotEquals($vars['a'], $templateNoData->getData('a'));
+		$this->assertEquals($vars['a'], $templateWithData->get('a'));
+		$this->assertNotEquals($vars['a'], $templateNoData->get('a'));
 	}
 
 	public function testExist()
@@ -39,8 +39,8 @@ class TemplateTest extends TestCase
 		$vars = ['a' => 1, 'b' => 2];
 		$b = new Template(static::VALID, $vars);
 
-		$this->assertEquals($vars['a'], $b->getData('a'));
-		$this->assertEquals($vars['b'], $b->getData('b'));
+		$this->assertEquals($vars['a'], $b->get('a'));
+		$this->assertEquals($vars['b'], $b->get('b'));
 	}
 
 	public function testDataDoNotExist()
@@ -48,7 +48,7 @@ class TemplateTest extends TestCase
 		$vars = ['a' => 1, 'b' => 2];
 		$b = new Template(static::INVALID, $vars);
 
-		$this->assertEquals($vars['a'], $b->getData('a'));
-		$this->assertEquals($vars['b'], $b->getData('b'));
+		$this->assertEquals($vars['a'], $b->get('a'));
+		$this->assertEquals($vars['b'], $b->get('b'));
 	}
 }

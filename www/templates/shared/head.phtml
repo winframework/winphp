@@ -2,14 +2,16 @@
 
 use Win\Blocks\Block;
 use Win\Request\Url;
+use Win\Common\Utils\Str;
 
 /** @var Block $this */
+$view = $this->app->view;
+$title = implode(' | ', (array) ($view->get('title') ?? APP_NAME));
 ?>
+
 <head>
 	<base href="<?= Url::$base; ?>" />
-	<title>
-		<?= $this->app->view->getData('title'); ?>
-	</title>
+	<title><?= Str::truncate($title, 150) ?></title>
 
 	<!-- Meta Tags -->
 	<meta charset="UTF-8" />

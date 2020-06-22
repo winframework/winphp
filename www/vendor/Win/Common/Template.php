@@ -51,7 +51,7 @@ class Template
 	 * @param string $name
 	 * @return mixed|null
 	 */
-	public function getData($name)
+	public function get($name)
 	{
 		return $this->data[$name] ?? null;
 	}
@@ -71,18 +71,20 @@ class Template
 	 */
 	public function toHtml()
 	{
-		if ($this->layout) {
-			return new self($this->layout, ['content' => $this]);
-		}
 		ob_start();
-		$this->load();
-		return ob_get_clean();
+		$this->include();
+		$content = ob_get_clean();
+
+		if ($this->layout) {
+			return new self($this->layout, ['content' => $content]);
+		}
+		return $content;
 	}
 
 	/**
 	 * Carrega e exibe o conteúdo do template
 	 */
-	public function load()
+	protected function include()
 	{
 		if (isset($this->file) && $this->exists()) {
 			extract($this->data);

@@ -14,7 +14,9 @@ abstract class Controller
 {
 	public Application $app;
 	public ?string $layout = 'shared/layout';
-	public string $title;
+
+	/** @var string|string[] */
+	public $title;
 
 	/**
 	 * Action Init

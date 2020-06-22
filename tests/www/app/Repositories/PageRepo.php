@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Page;
-use Win\Repositories\Database\Orm;
+use CorpTotal\Models\CmsPage;
+use Win\Models\Model;
+use Win\Repositories\Database\Repository;
 
 /**
  * Página Repositório
@@ -14,9 +16,10 @@ use Win\Repositories\Database\Orm;
  * @method Page find($id)
  * @method Page findOr404($id)
  */
-class PageRepo extends Orm
+class PageRepo extends Repository
 {
-	const TABLE = 'pages';
+	protected $table = 'pages';
+	protected $class = Page::class;
 
 	/** @return Page */
 	public static function mapModel($row)
@@ -44,13 +47,8 @@ class PageRepo extends Orm
 		];
 	}
 
-	public function filterVisible()
+	public function ifVisible()
 	{
-		return $this->filter('createdAt < NOW()');
-	}
-
-	public function execute($query, ...$values)
-	{
-		return parent::execute($query, ...$values);
+		return $this->if('createdAt < NOW()');
 	}
 }

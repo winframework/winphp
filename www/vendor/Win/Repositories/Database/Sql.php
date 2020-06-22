@@ -12,6 +12,7 @@ class Sql
 	private string $table;
 	private array $values;
 	private array $join;
+	private array $joinValues;
 	private array $where;
 	private array $whereValues;
 	private array $orderBy;
@@ -21,11 +22,12 @@ class Sql
 	 * Prepara a query
 	 * @param string $table
 	 */
-	public function __construct($table)
+	public function __construct(&$table)
 	{
-		$this->table = $table;
+		$this->table = &$table;
 		$this->values = [];
 		$this->join = [];
+		$this->joinValues = [];
 		$this->where = [];
 		$this->whereValues = [];
 		$this->orderBy = [];
@@ -41,7 +43,7 @@ class Sql
 	/** @return mixed[] */
 	public function values()
 	{
-		return $this->values + $this->whereValues;
+		return array_merge($this->values, $this->joinValues, $this->whereValues);
 	}
 
 	/**
@@ -125,10 +127,12 @@ class Sql
 	/**
 	 * JOIN, LEFT JOIN ...
 	 * @param string $join
+	 * @param array $values
 	 */
-	public function addJoin($join)
+	public function addJoin($join, $values)
 	{
 		$this->join[] = $join;
+		$this->joinValues = array_merge($this->joinValues, $values);
 	}
 
 	/**

@@ -3,13 +3,15 @@
 use Win\Blocks\Block;
 use Win\Request\Url;
 
-$url = Url::$full;
+/**
+ * @var Block $this
+ * @var int $pageSize
+ * @var int $last
+ * @var int $current
+ * @var int $count
+ */
 
-/** @var Block $this */
-/** @var int $pageSize */
-/** @var int $last */
-/** @var int $current */
-/** @var int $count */
+$url = Url::$full;
 ?>
 <?php if ($pageSize > 0 && $last > 0) : ?>
 	<ul class="pagination pagination-lg">
@@ -22,7 +24,7 @@ $url = Url::$full;
 		<?php endif; ?>
 		<?php if ($current > 1) : ?>
 			<li class="prev">
-				<a href="<?= $url; ?>?p=<?= $current-1; ?>">
+				<a href="<?= $url; ?>?p=<?= $current - 1; ?>">
 					Anterior
 				</a>
 			</li> <?php endif; ?>
@@ -35,7 +37,7 @@ $url = Url::$full;
 		<?php endfor; ?>
 		<?php if ($current < $last) : ?>
 			<li class="next">
-				<a href="<?= $url; ?>?p=<?= $current+1; ?>">
+				<a href="<?= $url; ?>?p=<?= $current + 1; ?>">
 					Próximo
 				</a>
 			</li>

@@ -15,7 +15,7 @@ class ErrorsController extends Controller
 	/** @var Exception */
 	public $exception;
 
-	public function error404(Exception $e)
+	public function _404(Exception $e)
 	{
 		http_response_code(404);
 		$this->title = 'Página não encontrada';
@@ -24,12 +24,13 @@ class ErrorsController extends Controller
 		return new View('errors/404');
 	}
 
-	public function error503(Exception $e)
+	public function _503(Exception $e)
 	{
 		http_response_code(503);
+		$this->layout = null;
 		$this->title = 'Ocorreu um erro';
 		$this->exception = $e;
-		$this->layout = null;
+		
 		return new View('errors/503');
 	}
 }

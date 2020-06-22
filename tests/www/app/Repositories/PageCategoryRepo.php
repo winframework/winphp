@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\PageCategory;
-use Win\Repositories\Database\Orm;
+use Win\Repositories\Database\Repository;
 
 /**
  * Categoria Repositório
@@ -14,9 +14,10 @@ use Win\Repositories\Database\Orm;
  * @method PageCategory one()
  * @method PageCategory oneOr404()
  */
-class PageCategoryRepo extends Orm
+class PageCategoryRepo extends Repository
 {
-	const TABLE = 'pageCategories';
+	protected $table = 'pageCategories';
+	protected $class = PageCategory::class;
 
 	/** @return PageCategory */
 	public static function mapModel($row)

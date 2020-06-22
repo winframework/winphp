@@ -1,11 +1,10 @@
 <?php
 
-use Win\Common\Email;
 use Win\Common\Template;
 use Win\Request\Url;
 
 /** @var Template $this */
-/** @var Email $content */
+/** @var string $content */
 ?>
 <div id="email" style="width:100%; max-width: 500px; margin: 0 auto; border: solid 1px #AAA; border-radius: 3px; font-family: Arial; font-size: 14px; line-height: 16px;">
 	<div id="email-header" style="background:#019875; color:#FFF; margin: 5px; text-align: center ">
@@ -13,7 +12,7 @@ use Win\Request\Url;
 	</div>
 
 	<div id="email-main" style="margin:15px; line-height: 22px;">
-		<?php $content->load(); ?>
+		<?= $content; ?>
 	</div>
 
 	<div id="email-footer" style="background:#aaa; color:#FFF; margin: 5px; padding: 10px; font-size:11px;">

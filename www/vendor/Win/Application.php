@@ -2,11 +2,10 @@
 
 namespace Win;
 
-use App\Controllers\IndexController;
+use PDO;
 use Win\Common\DependenceInjector as DI;
 use Win\Common\Utils\Str;
 use Win\Controllers\Controller;
-use Win\Repositories\Database\Connection;
 use Win\Request\Url;
 use Win\HttpException;
 use Win\Repositories\Session;
@@ -27,7 +26,7 @@ class Application
 	public Controller $controller;
 	public View $view;
 	public Session $session;
-	public ?Connection $conn = null;
+	public ?PDO $pdo = null;
 	public string $action = '';
 	public string $page = '';
 
