@@ -30,3 +30,5 @@ for ($i = 0; $i < 1; $i++) {
 }
 echo '<hr />';
 echo $b->getTime();
+echo '<hr />';
+echo $b->getMemory();
