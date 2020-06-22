@@ -192,16 +192,7 @@ abstract class Repository
 	 */
 	public function destroy($id)
 	{
-		try {
-			$this->if($this->pk, $id);
-			$query = $this->sql->delete();
-			$values = $this->sql->values();
-			$this->flush();
-
-			$this->pdo->prepare($query)->execute($values);
-		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
-		}
+		$this->if($this->pk, $id)->delete();
 	}
 
 	/**
@@ -371,29 +362,5 @@ abstract class Repository
 	public function debug($method = 'select')
 	{
 		return [$this->sql->$method(), ...$this->sql->values()];
-	}
-
-	/**
-	 * Inicia a Transação
-	 */
-	public function beginTransaction()
-	{
-		$this->pdo->beginTransaction();
-	}
-
-	/**
-	 * Completa a Transação
-	 */
-	public function commit()
-	{
-		$this->pdo->commit();
-	}
-
-	/**
-	 * Cancela a Transação
-	 */
-	public function rollback()
-	{
-		$this->pdo->rollBack();
 	}
 }

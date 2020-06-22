@@ -67,6 +67,15 @@ class PageRepoTest extends TestCase
 		$this->assertEquals(3, $count);
 	}
 
+	/** @expectedException Win\Repositories\Database\DbException */
+	public function testCountError()
+	{
+		$repo = new PageRepo(new Pagination());
+		$repo->pdo = static::$pdo;
+		$repo->if('INEXISTENT = 2');
+		$repo->count();
+	}
+
 	public function testList()
 	{
 		$repo = new PageRepo(new Pagination());
@@ -74,6 +83,15 @@ class PageRepoTest extends TestCase
 		$pages = $repo->list();
 		$this->assertTrue(count($pages) > 1);
 		$this->assertEquals('First Page', $pages[0]->title);
+	}
+
+	/** @expectedException Win\Repositories\Database\DbException */
+	public function testListError()
+	{
+		$repo = new PageRepo(new Pagination());
+		$repo->pdo = static::$pdo;
+		$repo->if('DOTEXISTEND = 1');
+		$repo->list();
 	}
 
 	public function testFind()
@@ -305,6 +323,14 @@ class PageRepoTest extends TestCase
 		$repo->pdo = static::$pdo;
 	}
 
+	/** @expectedException Win\Repositories\Database\DbException */
+	public function testDeleteError()
+	{
+		$repo = new PageRepo(new Pagination());
+		$repo->pdo = static::$pdo;
+		$repo->if('id > ?')->delete();
+	}
+
 	public function testDestroy()
 	{
 		$repo = new PageRepo(new Pagination());
@@ -329,6 +355,16 @@ class PageRepoTest extends TestCase
 
 		$this->assertEquals($pagesTotal + 1, $id);
 		$this->assertCount($pagesTotal + 1, $repo->list());
+	}
+
+	/** @expectedException Win\Repositories\Database\DbException */
+	public function testSaveError()
+	{
+		$repo = new PageRepo(new Pagination());
+		$repo->pdo = static::$pdo;
+		$page = new Page();
+		$page->title = null; //title is required
+		$repo->save($page);
 	}
 
 	public function testSaveExisting()
@@ -365,6 +401,14 @@ class PageRepoTest extends TestCase
 		$this->assertNotEquals($title, $pages[0]->title);
 		$this->assertEquals($title, $pages[1]->title);
 		$this->assertEquals($title, $pages[2]->title);
+	}
+
+	/** @expectedException Win\Repositories\Database\DbException */
+	public function testUpdateError()
+	{
+		$repo = new PageRepo(new Pagination());
+		$repo->pdo = static::$pdo;
+		$repo->if('id >= ?', 2)->update(['NOT-EXISTENT-FIELD' => 'Value']);
 	}
 
 	public function testJoin()
