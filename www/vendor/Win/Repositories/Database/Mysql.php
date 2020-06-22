@@ -12,6 +12,7 @@ class Mysql
 	/**
 	 * Cria conexão via PDO
 	 * @param array $db
+	 * @return PDO
 	 */
 	public static function connect($db)
 	{

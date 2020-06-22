@@ -118,7 +118,7 @@ abstract class Repository
 
 			$stmt = $this->pdo->prepare($query);
 			$stmt->execute($values);
-			return $stmt->fetchAll(PDO::FETCH_CLASS, $this->class);
+			return array_map([$this, 'mapModel'], $stmt->fetchAll());
 		} catch (PDOException $e) {
 			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
 		}
