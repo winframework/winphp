@@ -40,6 +40,6 @@ class UploaderController extends Controller
 			}
 		}
 
-		return new View('uploader');
+		return new View('uploader/index');
 	}
 }

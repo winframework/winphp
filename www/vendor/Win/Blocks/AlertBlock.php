@@ -12,6 +12,6 @@ class AlertBlock extends Block
 {
 	public function __construct($group = '')
 	{
-		parent::__construct('shared/alerts', ['alerts' => Alert::popAll($group)]);
+		parent::__construct('layout/alerts', ['alerts' => Alert::popAll($group)]);
 	}
 }

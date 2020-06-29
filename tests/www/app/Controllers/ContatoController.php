@@ -70,7 +70,7 @@ class ContatoController extends Controller
 			Alert::error($e->getMessage());
 		}
 
-		return new View('contato');
+		return new View('contato/index');
 	}
 
 	/**

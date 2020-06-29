@@ -17,7 +17,6 @@ class ErrorsController extends Controller
 
 	public function _404(Exception $e)
 	{
-		http_response_code(404);
 		$this->title = 'Página não encontrada';
 		$this->exception = $e;
 
@@ -26,7 +25,6 @@ class ErrorsController extends Controller
 
 	public function _503(Exception $e)
 	{
-		http_response_code(503);
 		$this->layout = null;
 		$this->title = 'Ocorreu um erro';
 		$this->exception = $e;

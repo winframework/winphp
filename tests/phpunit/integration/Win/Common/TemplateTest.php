@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class TemplateTest extends TestCase
 {
-	const VALID = 'index';
+	const VALID = 'index/index';
 	const INVALID = 'this-file-does-not-exit';
 
 	public function testParamData()

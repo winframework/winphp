@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use Win\Controllers\Controller;
-use Win\Services\Mailer;
 use Win\Views\View;
 
 class IndexController extends Controller
@@ -16,6 +15,6 @@ class IndexController extends Controller
 	{
 		$this->title = 'Página Inicial | ' . APP_NAME;
 
-		return new View('index');
+		return new View('index/index');
 	}
 }

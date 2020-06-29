@@ -55,6 +55,17 @@ abstract class Repository
 	}
 
 	/**
+	 * Define as colunas da busca
+	 * @param string $columns
+	 */
+	public function select($columns)
+	{
+		$this->sql->columns[] = $columns;
+
+		return $this;
+	}
+
+	/**
 	 * Retorna o primeiro resultado da busca
 	 * @return Model
 	 */
@@ -112,8 +123,8 @@ abstract class Repository
 	{
 		try {
 			$this->setLimit();
-			$values = $this->sql->values();
 			$query = $this->sql->select();
+			$values = $this->sql->values();
 			$this->flush();
 
 			$stmt = $this->pdo->prepare($query);
@@ -215,6 +226,10 @@ abstract class Repository
 		}
 	}
 
+	/**
+	 * @param Model $model
+	 * @return string
+	 */
 	protected function querySave($model)
 	{
 		if ($this->exists($model->id)) {
@@ -247,7 +262,7 @@ abstract class Repository
 	}
 
 	/**
-	 * Remove todos os filtros e ordenação
+	 * Remove todos os filtros, ordenação, etc
 	 */
 	public function flush()
 	{
@@ -266,17 +281,6 @@ abstract class Repository
 		$orm = new static($this->pagination);
 		$orm->pdo = $this->pdo;
 		return $orm->if($this->pk, $id)->count() > 0;
-	}
-
-	/**
-	 * Define as colunas da busca
-	 * @param string $columns
-	 */
-	public function select(...$columns)
-	{
-		$this->sql->columns = $columns;
-
-		return $this;
 	}
 
 	/**

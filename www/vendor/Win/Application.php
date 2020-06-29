@@ -57,6 +57,9 @@ class Application
 	 */
 	public function run($class, $method = 'index', ...$args)
 	{
+		if (isset($args[0]) && $args[0] instanceof HttpException) {
+			http_response_code($args[0]->getCode());
+		}
 		if (!class_exists($class)) {
 			throw new HttpException("Controller '{$class}' not found", 404);
 		}

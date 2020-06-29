@@ -13,7 +13,7 @@ use Win\Request\Url;
 abstract class Controller
 {
 	public Application $app;
-	public ?string $layout = 'shared/layout';
+	public ?string $layout = 'layout';
 
 	/** @var string|string[] */
 	public $title;

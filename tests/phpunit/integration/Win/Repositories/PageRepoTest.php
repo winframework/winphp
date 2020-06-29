@@ -243,7 +243,7 @@ class PageRepoTest extends TestCase
 		$title = 'Teste';
 		$repo = new PageRepo(new Pagination());
 		$repo->pdo = static::$pdo;
-		$repo->select('*, "' . $title . '" as title');
+		$repo->select("*, '{$title}' as title");
 		$page = $repo->find(3);
 
 		$this->assertEquals(3, $page->id);

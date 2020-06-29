@@ -25,7 +25,7 @@ class ViewTest extends TestCase
 
 	public function testExists()
 	{
-		$view = new View('index');
+		$view = new View('index/index');
 		$this->assertTrue($view->exists());
 	}
 
@@ -33,7 +33,7 @@ class ViewTest extends TestCase
 	{
 		$title = 'My Title';
 		Application::app()->controller->title = $title;
-		$view = new View('index');
+		$view = new View('index/index');
 		$this->assertEquals($title, $view->get('title'));
 	}
 }

@@ -7,7 +7,7 @@ namespace Win\Repositories\Database;
  */
 class Sql
 {
-	public array $columns = ['*'];
+	public ?array $columns = null;
 
 	private string $table;
 	private array $values;
@@ -52,7 +52,7 @@ class Sql
 	 */
 	public function select()
 	{
-		return 'SELECT ' . implode(', ', $this->columns)
+		return 'SELECT ' . implode(', ', $this->columns ?? ['*'])
 			. ' FROM ' . $this->table
 			. $this->join()
 			. $this->where()
