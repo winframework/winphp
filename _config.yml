@@ -1,2 +1,2 @@
-include: [".css", ".js", ".fonts"]
+include: [".css", ".icons" ".js", ".fonts"]
 
