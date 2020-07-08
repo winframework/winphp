@@ -11,11 +11,10 @@ use Win\Request\Router;
 
 define('BASE_PATH', __DIR__);
 require 'app/autoload.php';
+require 'config/app.php';
+require 'config/routes.php';
 
 try {
-	require 'config/app.php';
-	require 'config/routes.php';
-
 	$app = new Application();
 	$app->run(...Router::getDestination());
 } catch (HttpException $e) {
