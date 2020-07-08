@@ -26,7 +26,7 @@
 - Alertas;
 - Sessão;
 - Conexão com Banco de Dados;
-- ORM;
+- Repository;
 
 ### Request/Response
 <img src="https://raw.githubusercontent.com/winframework/winphp/master/docs/architecture/request-response.png"/>
