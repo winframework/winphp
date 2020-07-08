@@ -6,56 +6,44 @@ use Win\Application;
 
 /**
  * Templates em .PHTML
- * Ver arquivos em: "/app/templates/"
+ * Ver arquivos em: "templates/"
  */
 class Template
 {
-	public static $dir = '/app/templates';
-	/**
-	 * Ponteiro para Aplicação Principal
-	 * @var Application
-	 */
-	public $app;
+	public static $dir = 'templates';
+	public Application $app;
 
 	/**
 	 * Endereço completo do arquivo .phtml
 	 * @var string
 	 */
-	protected $file;
+	protected string $file;
 
-	/**
-	 * Variáveis para serem usadas no corpo do arquivo
-	 * @var mixed[]
-	 */
 	protected $data = [];
 
-	/**
-	 * Layout
-	 * @var string
-	 */
-	private $layout = null;
+	private ?string $layout = null;
 
 	/**
 	 * Cria um template com base no arquivo escolhido
 	 * @param string $file Nome do arquivo
 	 * @param mixed[] $data Array de variáveis
-	 * @param string $layout Layout
+	 * @param string $layout
 	 */
 	public function __construct($file, $data = [], $layout = null)
 	{
-		$this->setFile($file);
 		$this->app = Application::app();
+		$this->file = BASE_PATH . '/' . static::$dir . "/$file.phtml";
 		$this->data = $data;
 		$this->layout = $layout;
 	}
 
 	/**
-	 * Define o arquivo do template
-	 * @param string $file
+	 * Carrega e retorna o output
+	 * @return string
 	 */
-	protected function setFile($file)
+	public function __toString()
 	{
-		$this->file = BASE_PATH . static::$dir . '/' . $file . '.phtml';
+		return (string) $this->toHtml();
 	}
 
 	/**
@@ -63,13 +51,9 @@ class Template
 	 * @param string $name
 	 * @return mixed|null
 	 */
-	public function getData($name)
+	public function get($name)
 	{
-		if (key_exists($name, $this->data)) {
-			return $this->data[$name];
-		}
-
-		return null;
+		return $this->data[$name] ?? null;
 	}
 
 	/**
@@ -87,19 +71,20 @@ class Template
 	 */
 	public function toHtml()
 	{
-		if ($this->layout) {
-			return (new Layout($this->layout, $this))->toHtml();
-		}
-
 		ob_start();
-		$this->load();
-		return ob_get_clean();
+		$this->include();
+		$content = ob_get_clean();
+
+		if ($this->layout) {
+			return new self($this->layout, ['content' => $content]);
+		}
+		return $content;
 	}
 
 	/**
 	 * Carrega e exibe o conteúdo do template
 	 */
-	public function load()
+	protected function include()
 	{
 		if (isset($this->file) && $this->exists()) {
 			extract($this->data);

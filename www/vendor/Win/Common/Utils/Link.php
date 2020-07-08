@@ -2,6 +2,7 @@
 
 namespace Win\Common\Utils;
 
+use Win\Application;
 use Win\Request\Url;
 
 /**
@@ -13,16 +14,15 @@ class Link
 	 * Usado para ativar Links (aceita array)
 	 *
 	 * Retorna 'active' se o link for idêntico ao início da URL atual
-	 * @param string ...$links
+	 * @param string[] $links
 	 * @return string
 	 */
 	public static function active(...$links)
 	{
-		$url = Url::instance();
-		$current = implode('/', $url->getSegments());
+		$current = implode('/', Url::$segments);
 
 		foreach ($links as $link) {
-			if (0 === strpos($url->format($current), $url->format($link))) {
+			if (0 === strpos(Url::format($current), Url::format($link))) {
 				return 'active';
 			}
 		}

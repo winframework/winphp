@@ -20,7 +20,7 @@ class Input
 	{
 		$post = filter_input(INPUT_POST, $name, $filter);
 
-		return !is_null($post) ? $post : $default;
+		return $post ?? $default;
 	}
 
 	/**
@@ -58,7 +58,7 @@ class Input
 	{
 		$get = filter_input(INPUT_GET, $name, $filter);
 
-		return !is_null($get) ? $get : $default;
+		return $get ?? $default;
 	}
 
 	/**
@@ -68,11 +68,7 @@ class Input
 	 */
 	public static function file($name)
 	{
-		if (key_exists($name, $_FILES)) {
-			return $_FILES[$name];
-		} else {
-			return null;
-		}
+		return $_FILES[$name] ?? null;
 	}
 
 	/**

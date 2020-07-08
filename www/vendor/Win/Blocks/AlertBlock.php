@@ -3,19 +3,15 @@
 namespace Win\Blocks;
 
 use Win\Blocks\Block;
-use Win\Repositories\Alert;
+use Win\Services\Alert;
 
 /**
- * Exibe os Alerta da sessão
+ * Exibe os Alertas da sessão
  */
 class AlertBlock extends Block
 {
-	/** @var string */
-	const BLOCK = 'shared/alerts';
-
 	public function __construct($group = '')
 	{
-		$alerts = Alert::instance($group)->popAll() ?? [];
-		parent::__construct(static::BLOCK, ['alerts' => $alerts]);
+		parent::__construct('layout/alerts', ['alerts' => Alert::popAll($group)]);
 	}
 }

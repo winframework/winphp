@@ -8,53 +8,22 @@ use Win\Request\Url;
 /**
  * Controller
  *
- * Responsável por processar as requisições e definir a View
+ * Responsável por processar as requisições e retornar a View
  */
 abstract class Controller
 {
-	public static $dir = '/app/controllers';
+	public Application $app;
+	public ?string $layout = 'layout';
 
-	/** @var Application */
-	public $app;
-
-	/** @var string */
-	public $layout = 'default';
-
-	/** @var string */
+	/** @var string|string[] */
 	public $title;
 
-	/** @var mixed[] */
-	public $data;
-
 	/**
-	 * Action Index
+	 * Action Init
+	 * @codeCoverageIgnore
 	 */
-	public function index()
+	public function init()
 	{
-	}
-
-	/**
-	 * Adiciona uma variável para usar na View
-	 * @param string $name
-	 * @param mixed $value
-	 */
-	protected function addData($name, $value)
-	{
-		$this->data[$name] = $value;
-	}
-
-	/**
-	 * Retorna uma variável do Controller
-	 * @param string $name
-	 * @return mixed|null
-	 */
-	protected function getData($name)
-	{
-		if (key_exists($name, $this->data)) {
-			return $this->data[$name];
-		}
-
-		return null;
 	}
 
 	/**
@@ -63,7 +32,7 @@ abstract class Controller
 	 */
 	protected function backToIndex()
 	{
-		Url::instance()->redirect($this->app->getPage());
+		Url::redirect(Url::$segments[0]);
 	}
 
 	/**
@@ -73,7 +42,7 @@ abstract class Controller
 	 */
 	protected function redirect($url)
 	{
-		Url::instance()->redirect($url);
+		Url::redirect($url);
 	}
 
 	/**
@@ -83,6 +52,6 @@ abstract class Controller
 	 */
 	protected function refresh()
 	{
-		Url::instance()->redirect(Url::instance()->getUrl());
+		Url::redirect(Url::$path);
 	}
 }

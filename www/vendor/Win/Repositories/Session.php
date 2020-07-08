@@ -12,16 +12,11 @@ class Session
 	use ArrayDotTrait;
 
 	/**
-	 * Retorna instância de Session
-	 * @param string $group
-	 * @return static
+	 * Cria referência da sessão
 	 */
-	public static function instance($group = 'default')
+	public function __construct()
 	{
-		$instance = new Session();
-		$instance->data = &$_SESSION[$group];
-
-		return $instance;
+		$this->data = &$_SESSION;
 	}
 
 	/**

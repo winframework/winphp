@@ -4,8 +4,7 @@ namespace App\Controllers;
 
 use App\Views\ClassView;
 use Win\Controllers\Controller;
-use Win\Repositories\Alert;
-use Win\Response\JsonResponse;
+use Win\Services\Alert;
 use Win\Views\View;
 
 /**
@@ -13,7 +12,9 @@ use Win\Views\View;
  */
 class BasicController extends Controller
 {
-	public function __construct()
+	public int $ten;
+
+	public function init()
 	{
 		$this->ten = 10;
 	}
@@ -32,7 +33,7 @@ class BasicController extends Controller
 	 */
 	public function alternativeLayout()
 	{
-		$this->layout = 'alternative';
+		$this->layout = 'layout-alternative';
 
 		return new View('basic/index');
 	}
@@ -91,7 +92,7 @@ class BasicController extends Controller
 			],
 		];
 
-		return new JsonResponse($data);
+		return $data;
 	}
 
 	/**
@@ -109,10 +110,10 @@ class BasicController extends Controller
 	 */
 	public function redirecting()
 	{
-		Alert::success('Você será redirecionado');
+		Alert::success('Você foi redirecionado.');
 		$this->redirect('alerts/show');
 
-		Alert::error('Este não pode aparecer');
+		Alert::error('Este não pode aparecer.');
 
 		return new View('index');
 	}
@@ -122,9 +123,9 @@ class BasicController extends Controller
 	 */
 	public function createAlerts()
 	{
-		Alert::error('Ops! Um erro');
-		Alert::error('Outro erro');
-		Alert::success('Parabéns');
+		Alert::error('Ops! Um erro.');
+		Alert::error('Outro erro.');
+		Alert::success('Parabéns.');
 
 		$this->redirect('alerts/show');
 	}

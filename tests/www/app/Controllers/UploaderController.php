@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use Win\Controllers\Controller;
-use Win\Models\Filesystem\Image;
-use Win\Repositories\Alert;
+use Win\Repositories\Filesystem\Image;
+use Win\Services\Alert;
 use Win\Repositories\Filesystem;
 use Win\Repositories\Filesystem\Uploader;
 use Win\Request\Input;
@@ -14,29 +14,24 @@ class UploaderController extends Controller
 {
 	const UPLOAD_PATH = 'data/uploads';
 
-	/** @var Image */
-	public $image = null;
+	public ?Image $image = null;
 
-	/** @var FileSystem */
-	private $fs;
+	private FileSystem $fs;
+	private Uploader $uploader;
 
-	public function __construct()
+	public function __construct(Filesystem $fs, Uploader $uploader)
 	{
-		$fs = new Filesystem();
-		$fs->delete(static::UPLOAD_PATH);
-		$fs->create(static::UPLOAD_PATH);
-
 		$this->fs = $fs;
+		$this->uploader = $uploader;
 	}
-
+	
 	public function index()
 	{
+		$this->fs->delete(static::UPLOAD_PATH);
 		if (Input::post('submit')) {
 			try {
-				$uploader = new Uploader(static::UPLOAD_PATH);
-
-				$uploader->prepare(Input::file('upload'));
-				$file = $uploader->upload();
+				$this->uploader->prepare(Input::file('upload'));
+				$file = $this->uploader->upload(static::UPLOAD_PATH);
 
 				Alert::success('Imagem salva com sucesso.');
 				$this->image = new Image($file->getPath());
@@ -45,6 +40,6 @@ class UploaderController extends Controller
 			}
 		}
 
-		return new View('uploader');
+		return new View('uploader/index');
 	}
 }

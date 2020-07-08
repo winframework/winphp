@@ -1,7 +1,8 @@
 languages:
  PHP: true
 exclude_paths:
+ - .vscode/
  - tests/
- - www/vendor/
- - www/vendor/PHPMailer/
+ - docs/
  - spec/
+ - www/vendor/PHPMailer/

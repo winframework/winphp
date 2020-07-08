@@ -1,0 +1,135 @@
+<?php
+
+namespace Win;
+
+use App\Controllers\IndexController;
+use App\Controllers\MyModule\IndexController as MyModuleIndexController;
+use PHPUnit\Framework\TestCase;
+use Win\Controllers\MyController;
+use Win\Request\Url;
+
+class ApplicationTest extends TestCase
+{
+	const URL = 'demo/my-action/second-param/3rd-param/';
+
+	/** @var Application */
+	private static $app;
+
+	public static function setUpBeforeClass()
+	{
+		static::$app = static::newApp(static::URL);
+	}
+
+	public static function newApp($url = 'index')
+	{
+		$_SERVER['REQUEST_URI'] = $url;
+		$_SERVER['HTTP_HOST'] = 'http://localhost';
+		$_SERVER['SCRIPT_NAME'] = '';
+		return new Application();
+	}
+
+	public function testApp()
+	{
+		$this->assertTrue(static::$app instanceof Application);
+		$this->assertTrue(Application::app() instanceof Application);
+	}
+
+	public function testIsHomePage()
+	{
+		$app = new Application();
+		Url::$segments = Url::HOME;
+		$this->assertTrue($app->isHomePage());
+	}
+
+	public function testIsNotHomePage()
+	{
+		$app = new Application();
+		Url::$segments = ['index', 'teste'];
+		$this->assertFalse($app->isHomePage());
+
+		Url::$segments = ['teste', 'index'];
+		$this->assertFalse($app->isHomePage());
+	}
+
+
+	/** @expectedException \Win\HttpException */
+	public function testRunController404()
+	{
+		$app = new Application();
+		$app->run('App\\Controllers\\InvalidController', 'index');
+	}
+
+	/** @expectedException \Win\HttpException */
+	public function testRunAction404()
+	{
+		$app = new Application();
+		$app->run(IndexController::class, 'actionNotFound');
+	}
+
+	public function testRunHttpException()
+	{
+		$code = 300;
+
+		ob_start();
+		$e = new HttpException('Fake Error', $code);
+		$app = new Application();
+		$app->run(IndexController::class, 'index', $e);
+		ob_get_clean();
+
+		$this->assertEquals((string) http_response_code(), $code);
+	}
+
+	public function testRun()
+	{
+		$app = new Application();
+		$data = [1, 2];
+
+		ob_start();
+		$app->run(MyController::class, 'sum', ...$data);
+		$sum = ob_get_clean();
+
+		$this->assertEquals(array_sum($data), $sum);
+	}
+
+	public function testRunActionPage()
+	{
+		$app = new Application();
+		$data = [1, 2];
+
+		ob_start();
+		$app->run(MyModuleIndexController::class, 'index');
+		$sum = ob_get_clean();
+
+		$this->assertEquals('my-module-index', $app->page);
+		$this->assertEquals('index', $app->action);
+	}
+
+	public function testRunView()
+	{
+		$app = new Application();
+		$data = [1, 2];
+
+		ob_start();
+		$app->run(MyController::class, 'index', $data);
+
+		$this->assertStringContainsString('Esta é uma view simples', ob_get_clean());
+	}
+
+	/**
+	 * @expectedException \Win\HttpException
+	 */
+	public function testErrorPage500()
+	{
+		$app = new Application();
+		$app->errorPage(500);
+	}
+
+	/**
+	 * @expectedException \Win\HttpException
+	 */
+	public function testPageNotFound()
+	{
+		$app = new Application();
+		$app->page404();
+	}
+}

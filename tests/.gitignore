@@ -1,1 +1,2 @@
-unit/reports/coverage
+reports/
+phpunit/src/

@@ -14,16 +14,7 @@ trait ArrayDotTrait
 	protected $data = [];
 
 	/**
-	 * Define todos os valores
-	 * @param mixed[] $values
-	 */
-	public function __construct($values = [])
-	{
-		$this->data = $values;
-	}
-
-	/**
-	 * Retorna todas as variáveis
+	 * Retorna todos os valores
 	 * @return mixed[]
 	 */
 	public function all()
@@ -126,6 +117,6 @@ trait ArrayDotTrait
 	 */
 	public function isEmpty()
 	{
-		return count($this->all()) == 0;
+		return empty($this->data);
 	}
 }

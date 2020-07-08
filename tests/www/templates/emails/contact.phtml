@@ -1,0 +1,20 @@
+<?php
+
+use Win\Common\EmailTemplate;
+use Win\Request\Url;
+
+/** @var EmailTemplate $this */
+?>
+<b>Contato efetuado pelo site <?= APP_NAME; ?>: <?= Url::$base; ?></b><br />
+<br />
+<b>Nome:</b> <?= $name; ?><br />
+<b>Telefone:</b> <?= $phone; ?><br />
+<b>E-mail:</b> <?= $email; ?><br />
+<b>Assunto:</b> <?= $subject; ?><br />
+<b>Mensagem:</b> <?= nl2br($message); ?><br />
+
+<div style="font-size:12px; line-height: 15px; border-top: solid 1px #AAA; margin-top: 10px; padding-top: 10px;">
+	<b>IP:</b> <?= $_SERVER['REMOTE_ADDR']; ?><br />
+	<b>Host:</b> <?= gethostbyaddr($_SERVER['REMOTE_ADDR']); ?><br />
+	<b>Navegador:</b> <?= $_SERVER['HTTP_USER_AGENT']; ?><br />
+</div>

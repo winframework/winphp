@@ -1,0 +1,41 @@
+<?php
+
+use Win\Common\Server;
+use Win\Views\View;
+
+/** @var View $this */
+/** @var Exception $exception */
+?>
+<main class="page-404">
+	<h1>Página não Encontrada</h1>
+
+	<div class="columns">
+		<div class="column error">
+			<div class="dino"></div>
+			<div class="eye"></div>
+			<div class="mouth"></div>
+			<div class="ground"></div>
+			<div class="comets"></div>
+		</div>
+
+		<div class="column info-error text-center">
+			<strong>404</strong>
+			<em>Página Não Encontrada</em>
+			<p>
+				<span>Essa página não existe ou está temporariamente indisponível.</span>
+				<span>Verifique se você digitou o endereço corretamente.</span>
+				<span>Tente novamente mais tarde ou entre em contato.</span>
+			</p>
+
+			<?php if (Server::isLocalHost()) : ?>
+				<p><b><?= $exception->getMessage(); ?></b></p>
+				<p><?= $exception; ?></p>
+			<?php endif; ?>
+
+			<div class="text-center buttons">
+				<a href="index" class="btn">Ir para à Página Inicial</a>
+				<a href="javascript:history.back(-1)" class="btn">Voltar</a>
+			</div>
+		</div>
+	</div>
+</main>

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Win\Models\DateTime;
+use App\Repositories\PageCategoryRepo;
 use Win\Models\Model;
 
 /**
@@ -10,26 +10,18 @@ use Win\Models\Model;
  */
 class Page extends Model
 {
-	public $title;
-	public $description;
 	public $categoryId;
-
-	/** @var DateTime */
+	public $title = '';
+	public $description = '';
 	public $createdAt;
+	public $updatedAt;
 
-	/** Construtor */
-	public function __construct()
+	public function __toString()
 	{
-		$this->title = '';
-		$this->description = '';
-		$this->createdAt = new DateTime();
-	}
-
-	public function category()
-	{
-		return Category::orm()->find($this->categoryId);
+		return $this->title;
 	}
 
 	public function validate()
-	{ }
+	{
+	}
 }

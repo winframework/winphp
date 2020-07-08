@@ -2,15 +2,13 @@
 
 namespace Win\Common;
 
+use ReflectionClass;
+
 /**
  * Dependence Injector
- *
- * Auxilia a Injetar dependências
- * As classes ficam salvas em $container, então poderão ser sobrescritas
- * desde que todas as chamadas das classes estejam utilizando o Singleton
- * ao invés de instanciar a classe.
- *
- * @see SingletonTrait
+ * 
+ * Se há um apelido para a classe dentro de $container,
+ * então ela será utilizada ao invés da classe original.
  */
 class DependenceInjector
 {
@@ -21,16 +19,22 @@ class DependenceInjector
 	public static $container = [];
 
 	/**
-	 * Retorna o nome da classe
+	 * Cria a classe, injetando as dependências
 	 * @param string $class
-	 * @return string
+	 * @return object
 	 */
-	public static function getClassDi($class)
+	public static function make(string $class)
 	{
-		if (key_exists($class, static::$container)) {
-			$class = static::$container[$class];
+		$args = [];
+		$class = static::$container[$class] ?? $class;
+		$con = (new ReflectionClass($class))->getConstructor();
+
+		if (!is_null($con)) {
+			foreach ($con->getParameters() as $param) {
+				$args[] = static::make($param->getType());
+			}
 		}
 
-		return $class;
+		return new $class(...$args);
 	}
 }

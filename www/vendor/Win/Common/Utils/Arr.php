@@ -14,7 +14,7 @@ class Arr
 	 */
 	public static function isFirst($i)
 	{
-		return 0 == $i;
+		return $i == 0;
 	}
 
 	/**

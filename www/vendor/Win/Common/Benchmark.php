@@ -58,14 +58,14 @@ class Benchmark
 		$sec -= $hour * 3600;
 		$minute = floor($sec / 60);
 		$sec -= $minute * 60;
-		$microsec = ($sec - floor($sec)) * 1000;
+		$microSec = ($sec - floor($sec)) * 1000;
 
 		return
 				(empty($day) ? '' : $day . 'd ') .
 				(empty($hour) ? '' : $hour . 'h ') .
 				(empty($minute) ? '' : $minute . 'm ') .
 				floor($sec) . 's ' .
-				$microsec . 'ms';
+				$microSec . 'ms';
 	}
 
 	/**
