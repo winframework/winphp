@@ -1,0 +1,1 @@
+php phpdoc.phar -d . -f phpdoc/add -t phpdoc/output --ignore "PHPMailer"
