@@ -10,7 +10,7 @@ class SeoTest extends TestCase
 	. 'Title and longest Title and longest Title and longest '
 	. 'Title and longest Title';
 
-	public function setUp()
+	public function setUp(): void
 	{
 		Seo::$description = '';
 		Seo::$keywords = [];

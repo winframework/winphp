@@ -8,7 +8,7 @@ use Win\Controllers\MyController;
 
 class ViewTest extends TestCase
 {
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		$app = new Application();
 		$app->controller = new MyController(10);

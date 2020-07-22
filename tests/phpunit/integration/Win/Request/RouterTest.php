@@ -13,7 +13,7 @@ class RouterTest extends TestCase
 
 	const NAMESPACE = 'App\\Controller\\';
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		Router::add(static::NAMESPACE, static::$routes);
 	}

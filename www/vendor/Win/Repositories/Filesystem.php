@@ -2,9 +2,15 @@
 
 namespace Win\Repositories;
 
+use Exception;
+use Win\Repositories\Filesystem\File;
+
 class Filesystem
 {
 	const DS = DIRECTORY_SEPARATOR;
+
+	/** @var string[]|null */
+	protected $tempFile;
 
 	/**
 	 * Retorna array com arquivos e diretórios
@@ -36,7 +42,9 @@ class Filesystem
 		$path = BASE_PATH . "/$folderPath";
 		if (!is_dir($path)) {
 			$mask = umask(0);
-			mkdir($path, $chmod, true);
+			if (!@mkdir($path, $chmod, true)) {
+				throw new Exception("O diretório '{$folderPath}' não existe ou não possui permissão.");
+			}
 			umask($mask);
 		}
 	}
@@ -126,5 +134,56 @@ class Filesystem
 		$filePath = BASE_PATH . "/$filePath";
 
 		return is_file($filePath) or is_dir($filePath);
+	}
+
+	/**
+	 * Prepara o upload
+	 * @param string[] $tempFile
+	 * @param string[] $extensions
+	 */
+	public function receiveFile(
+		$tempFileFile,
+		$extensions = ['csv', 'doc', 'docx', 'gif', 'jpeg', 'jpg', 'md', 'mp3', 'mp4', 'mpeg', 'pdf', 'png', 'svg', 'txt', 'wav', 'xls', 'xlsx', 'zip',]
+	) {
+		if (isset($tempFileFile['name'])) {
+			$extension = pathinfo($tempFileFile['name'])['extension'];
+			if (!in_array($extension, $extensions)) {
+				throw new \Exception("A extensão {$extension} não é permitida.");
+			}
+		}
+
+		if (is_null($tempFileFile) || $tempFileFile['error']) {
+			throw new \Exception("Erro ao receber o arquivo.");
+		}
+
+		$this->tempFile = $tempFileFile;
+	}
+
+	/**
+	 * Faz o upload para o diretório final
+	 * @param string $directoryPath
+	 * @param string $name
+	 */
+	public function upload($directoryPath, $name = null)
+	{
+		if (!is_null($this->tempFile)) {
+			$name = $this->generateName($name);
+			$this->create($directoryPath);
+			\move_uploaded_file($this->tempFile['tmp_name'], "$directoryPath/$name");
+
+			return new File("$directoryPath/$name");
+		} else {
+			throw new \Exception("Erro ao enviar o arquivo.");
+		}
+	}
+
+	/**
+	 * Gera um novo nome, mantendo a extensão
+	 * @param string $name
+	 */
+	protected function generateName($name)
+	{
+		$info = pathinfo($this->tempFile['name']);
+		return ($name ?? md5(time())) . '.' . $info['extension'];
 	}
 }

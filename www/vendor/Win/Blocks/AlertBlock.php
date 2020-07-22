@@ -10,8 +10,8 @@ use Win\Services\Alert;
  */
 class AlertBlock extends Block
 {
-	public function __construct($group = '')
+	public function __construct($alerts = null)
 	{
-		parent::__construct('layout/alerts', ['alerts' => Alert::popAll($group)]);
+		parent::__construct('layout/alerts', ['alerts' => $alerts ?? Alert::popAll()]);
 	}
 }

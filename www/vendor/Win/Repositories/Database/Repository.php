@@ -213,7 +213,6 @@ abstract class Repository
 	public function save(Model $model)
 	{
 		try {
-			$model->validate();
 			$this->sql->setValues($this->mapRow($model));
 			$query = $this->querySave($model);
 			$values = array_values($this->sql->values());

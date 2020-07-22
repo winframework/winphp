@@ -15,7 +15,7 @@ class ApplicationTest extends TestCase
 	/** @var Application */
 	private static $app;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		static::$app = static::newApp(static::URL);
 	}

@@ -16,7 +16,7 @@ class DirectoryTest extends TestCase
 	/** @var Directory */
 	public static $sub;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		$fs = new Filesystem();
 		$fs->delete('data/dir');
@@ -32,7 +32,7 @@ class DirectoryTest extends TestCase
 	public function testGetPath()
 	{
 		$dir = 'my-sample/directory';
-		$this->assertContains($dir, static::$dirInexistent->getAbsolutePath());
+		$this->assertStringContainsString($dir, static::$dirInexistent->getAbsolutePath());
 		$this->assertNotEquals($dir, static::$dirInexistent->getAbsolutePath());
 		$this->assertEquals($dir, static::$dirInexistent->getPath());
 	}

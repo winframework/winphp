@@ -8,7 +8,7 @@ use Win\Application;
 
 class AlertTest extends TestCase
 {
-	public function setUp()
+	public function setUp(): void
 	{
 		new Application();
 	}
@@ -47,20 +47,4 @@ class AlertTest extends TestCase
 		$this->assertEquals([$exception->getMessage()], $alerts['danger']);
 	}
 
-	public function testAddGroups()
-	{
-		$messages = ['default' => ['MSG 01'], 'success' => ['MSG 02']];
-		$productMessages = ['success' => ['MSG 03', 'MSG 04']];
-
-		Alert::add($messages['default'][0]);
-		Alert::add($productMessages['success'][0], 'success', 'product');
-		Alert::add($messages['success'][0], 'success');
-		Alert::add($productMessages['success'][1], 'success', 'product');
-
-		$alerts = Alert::popAll();
-		$productAlerts = Alert::popAll('product');
-
-		$this->assertEquals($messages, $alerts);
-		$this->assertEquals($productMessages, $productAlerts);
-	}
 }

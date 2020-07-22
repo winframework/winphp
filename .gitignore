@@ -1,6 +1,4 @@
 /node_modules
-/nbproject/private/
-/vendor
 /docs/phpdoc
 .history/
 package.json

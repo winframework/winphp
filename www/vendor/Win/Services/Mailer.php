@@ -109,6 +109,9 @@ class Mailer
 	 */
 	public function send($body)
 	{
+		if ($body instanceof Email){
+			$body->mailer = $this;
+		}
 		$this->mailer->Body = (string) $body;
 
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {

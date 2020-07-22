@@ -3,7 +3,6 @@
 namespace Win\Services;
 
 use Exception;
-use Win\Application;
 
 /**
  * Alerta
@@ -11,25 +10,24 @@ use Win\Application;
  */
 class Alert
 {
-
 	/**
-	 * Retorna os alerts da sessão
-	 * @param string $group
+	 * Retorna e remove os alertas da sessão
+	 * @return string[]
 	 */
-	public static function popAll($group = '')
+	public static function popAll()
 	{
-		return Application::app()->session->pop($group . 'alerts', []);
+		$alerts = $_SESSION["alerts"] ?? [];
+		$_SESSION["alerts"] = [];
+		return $alerts;
 	}
-
 	/**
 	 * Adiciona um alerta na sessão
 	 * @param string $message
 	 * @param string $type
-	 * @param string $group
 	 */
-	public static function add($message, $type = "default", $group = '')
+	public static function add($message, $type = "default")
 	{
-		Application::app()->session->add($group . 'alerts.' . $type, $message);
+		$_SESSION["alerts"][$type][] = $message;
 	}
 
 	/** @param string $message */

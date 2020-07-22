@@ -16,12 +16,12 @@ class PageRepoTest extends TestCase
 	/** @var PDO */
 	static $pdo;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		static::$pdo = Mysql::connect(DbConfig::valid());
 	}
 
-	public function setUp()
+	public function setUp(): void
 	{
 		static::createTable();
 		static::importTable();

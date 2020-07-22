@@ -11,13 +11,13 @@ class MailerTest extends TestCase
 	/** @var Filesystem */
 	protected $fs;
 
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->fs = new Filesystem();
 		$this->fs->delete('data/emails');
 	}
 
-	public function tearDown()
+	public function tearDown(): void
 	{
 		$this->fs->delete('data/emails');
 	}

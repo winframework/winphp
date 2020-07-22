@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class FilesystemTest extends TestCase
 {
-	public function setUp()
+	public function setUp(): void
 	{
 		$fs = new Filesystem();
 		$fs->delete('data/dir');
@@ -114,5 +114,75 @@ class FilesystemTest extends TestCase
 
 		$fs->write($file, $content2);
 		$this->assertEquals($content2, $fs->read($file));
+	}
+
+	/**
+	 * @expectedException \Exception
+	 */
+	public function testReceiveFileError()
+	{
+		$fs = new Filesystem();
+		$fs->receiveFile(['error' => 1]);
+	}
+
+	/**
+	 * @expectedException \Exception
+	 */
+	public function testReceiveFileNull()
+	{
+		$fs = new Filesystem();
+		$fs->receiveFile(null);
+	}
+
+	public function testReceiveFile()
+	{
+		$fs = new Filesystem();
+		$fs->receiveFile(['error' => 0]);
+	}
+
+	/**
+	 * @expectedException \Exception
+	 */
+	public function testUploadError()
+	{
+		$fs = new Filesystem();
+
+		$fs->upload('data/dir');
+	}
+
+	public function testUpload()
+	{
+		$dir = 'data/dir';
+		$extension = 'md';
+		$temp = [
+			'error' => 0,
+			'tmp_name' => '1m123123daa34n2l',
+			'name' => "data/dir/teste.$extension",
+		];
+
+		$fs = new Filesystem();
+		$fs->receiveFile($temp);
+		$file = $fs->upload($dir);
+
+		$this->assertStringContainsString($dir, $file->getPath());
+		$this->assertStringContainsString(".$extension", $file->getPath());
+	}
+
+	public function testUploadGeneratedName()
+	{
+		$dir = 'data/dir';
+		$extension = 'md';
+		$temp = [
+			'error' => 0,
+			'tmp_name' => '1m123123daa34n2l',
+			'name' => "data/dir/teste.$extension",
+		];
+		$customName = 'FAKE_NAME';
+
+		$fs = new Filesystem();
+		$fs->receiveFile($temp);
+		$file = $fs->upload($dir, $customName);
+
+		$this->assertStringContainsString("$dir/$customName.$extension", $file->getPath());
 	}
 }

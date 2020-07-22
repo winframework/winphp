@@ -8,7 +8,6 @@ use Win\Common\Utils\Str;
 use Win\Controllers\Controller;
 use Win\Request\Url;
 use Win\HttpException;
-use Win\Repositories\Session;
 use Win\Views\View;
 
 /**
@@ -25,7 +24,6 @@ class Application
 
 	public Controller $controller;
 	public View $view;
-	public Session $session;
 	public ?PDO $pdo = null;
 	public string $action = '';
 	public string $page = '';
@@ -37,7 +35,6 @@ class Application
 	{
 		static::$instance = $this;
 		Url::init();
-		$this->session = new Session();
 	}
 
 	/**

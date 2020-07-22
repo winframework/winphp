@@ -30,7 +30,7 @@ class ImageTest extends TestCase
 		$this->assertEquals(null, static::$imgInexistent->getHeight());
 	}
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		static::$imgInexistent = new Image('data/images/not-exist.jpg');
 		static::$img = new Image('data/images/image.png');
