@@ -12,7 +12,7 @@ class FilesystemTest extends TestCase
 		$fs->delete('data/dir');
 	}
 
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		$fs = new Filesystem();
 		$fs->delete('data/dir');
@@ -31,6 +31,15 @@ class FilesystemTest extends TestCase
 		$fs->create($dirPath);
 
 		$this->assertTrue($fs->exists($dirPath));
+	}
+
+	/** @expectedException Exception */
+	public function testCreateError()
+	{
+		$fs = new Filesystem();
+		$dirPath = 'data/dir/not-autorized';
+		$fs->create($dirPath, 0555);
+		$fs->create($dirPath . '/inside');
 	}
 
 	public function testDelete()
@@ -143,6 +152,22 @@ class FilesystemTest extends TestCase
 	/**
 	 * @expectedException \Exception
 	 */
+	public function testReceiveFileExtension()
+	{
+		$extension = 'md';
+		$temp = [
+			'error' => 0,
+			'tmp_name' => '1m123123daa34n2l',
+			'name' => "data/dir/teste.$extension",
+		];
+
+		$fs = new Filesystem();
+		$fs->receiveFile($temp, ['mp3', 'mp4']);
+	}
+
+	/**
+	 * @expectedException \Exception
+	 */
 	public function testUploadError()
 	{
 		$fs = new Filesystem();
@@ -164,8 +189,7 @@ class FilesystemTest extends TestCase
 		$fs->receiveFile($temp);
 		$file = $fs->upload($dir);
 
-		$this->assertStringContainsString($dir, $file->getPath());
-		$this->assertStringContainsString(".$extension", $file->getPath());
+		$this->assertStringContainsString(".$extension", $file);
 	}
 
 	public function testUploadGeneratedName()
@@ -183,6 +207,6 @@ class FilesystemTest extends TestCase
 		$fs->receiveFile($temp);
 		$file = $fs->upload($dir, $customName);
 
-		$this->assertStringContainsString("$dir/$customName.$extension", $file->getPath());
+		$this->assertStringContainsString("$customName.$extension", $file);
 	}
 }

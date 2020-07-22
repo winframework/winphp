@@ -163,6 +163,7 @@ class Filesystem
 	 * Faz o upload para o diretório final
 	 * @param string $directoryPath
 	 * @param string $name
+	 * @return string
 	 */
 	public function upload($directoryPath, $name = null)
 	{
@@ -171,7 +172,7 @@ class Filesystem
 			$this->create($directoryPath);
 			\move_uploaded_file($this->tempFile['tmp_name'], "$directoryPath/$name");
 
-			return new File("$directoryPath/$name");
+			return $name;
 		} else {
 			throw new \Exception("Erro ao enviar o arquivo.");
 		}

@@ -21,7 +21,7 @@ class UploaderController extends Controller
 	{
 		$this->fs = $fs;
 	}
-	
+
 	public function index()
 	{
 		$this->fs->delete(static::UPLOAD_PATH);
@@ -31,7 +31,7 @@ class UploaderController extends Controller
 				$file = $this->fs->upload(static::UPLOAD_PATH);
 
 				Alert::success('Imagem salva com sucesso.');
-				$this->image = new Image($file->getPath());
+				$this->image = new Image(static::UPLOAD_PATH . '/' . $file);
 			} catch (\Exception $e) {
 				Alert::error($e);
 			}
