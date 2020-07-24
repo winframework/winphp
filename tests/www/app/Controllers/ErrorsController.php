@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use Exception;
-use Win\Common\Template;
 use Win\Controllers\Controller;
 use Win\Views\View;
 
