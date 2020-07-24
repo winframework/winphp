@@ -16,7 +16,7 @@ use Win\Views\View;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.6.0
+ * @version 1.6.1
  */
 class Application
 {
@@ -54,9 +54,6 @@ class Application
 	 */
 	public function run($class, $method = 'index', ...$args)
 	{
-		if (isset($args[0]) && $args[0] instanceof HttpException) {
-			http_response_code($args[0]->getCode());
-		}
 		if (!class_exists($class)) {
 			throw new HttpException("Controller '{$class}' not found", 404);
 		}

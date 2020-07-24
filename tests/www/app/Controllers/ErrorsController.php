@@ -16,6 +16,11 @@ class ErrorsController extends Controller
 	/** @var Exception */
 	public $exception;
 
+	public function init()
+	{
+		http_response_code(str_replace('_', '', $this->app->action));
+	}
+
 	public function _404(Exception $e)
 	{
 		$this->title = 'Página não encontrada';
