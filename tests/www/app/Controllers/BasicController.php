@@ -106,6 +106,15 @@ class BasicController extends Controller
 	}
 
 	/**
+	 * Erro
+	 */
+	protected function erroView()
+	{
+		echo 'Esta mensagem não deve aparecer';
+		return new View('basic/erro-view');
+	}
+
+	/**
 	 * Redireciona
 	 */
 	public function redirecting()

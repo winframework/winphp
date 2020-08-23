@@ -3,11 +3,11 @@
 use Win\Views\View;
 
 /** @var View $this */
-/** @var Exception $exception */
+/** @var Throwable $error */
 ?>
 <main>
 	<h1>Page not found</h1>
 	<div class="text-center">
-		<?= $exception->getMessage(); ?>
+		<?= $error->getMessage(); ?>
 	</div>
 </main>

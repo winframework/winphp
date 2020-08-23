@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Exception;
+use Throwable;
 use Win\Controllers\Controller;
 use Win\Views\View;
 
@@ -12,28 +12,28 @@ use Win\Views\View;
  */
 class ErrorsController extends Controller
 {
-	/** @var Exception */
-	public $exception;
+	/** @var Throwable */
+	public $error;
 
 	public function init()
 	{
 		http_response_code(str_replace('_', '', $this->app->action));
 	}
 
-	public function _404(Exception $e)
+	public function _404(Throwable $e)
 	{
 		$this->title = 'Página não encontrada';
-		$this->exception = $e;
+		$this->error = $e;
 
 		return new View('errors/404');
 	}
 
-	public function _503(Exception $e)
+	public function _500(Throwable $e)
 	{
 		$this->layout = null;
 		$this->title = 'Ocorreu um erro';
-		$this->exception = $e;
+		$this->error = $e;
 
-		return new View('errors/503');
+		return new View('errors/500');
 	}
 }

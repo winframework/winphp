@@ -13,7 +13,7 @@ use Win\Views\View;
 class ErrorsController extends Controller
 {
 	/** @var Exception */
-	public $exception;
+	public $error;
 
 	public function init()
 	{
@@ -23,7 +23,7 @@ class ErrorsController extends Controller
 	public function _404(Exception $e)
 	{
 		$this->title = 'Página não encontrada';
-		$this->exception = $e;
+		$this->error = $e;
 
 		return new View('errors/404');
 	}
@@ -32,7 +32,7 @@ class ErrorsController extends Controller
 	{
 		$this->layout = null;
 		$this->title = 'Ocorreu um erro';
-		$this->exception = $e;
+		$this->error = $e;
 
 		return new View('errors/503');
 	}

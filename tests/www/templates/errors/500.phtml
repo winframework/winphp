@@ -1,12 +1,11 @@
 <?php
 
-use Win\Common\Server;
 use Win\Views\View;
 
 /** @var View $this */
-/** @var Exception $exception */
+/** @var Throwable $error */
 ?>
 <main>
 	<h1>Ops! Algo deu errado na requisição.</h1>
-	<?= $exception; ?>
+	<?= $error; ?>
 </main>

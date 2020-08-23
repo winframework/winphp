@@ -5,7 +5,7 @@ use Win\Common\Server;
 use Win\Views\View;
 
 /** @var View $this */
-/** @var Exception $exception */
+/** @var Throwable $error */
 ?>
 <?= new Block('layout/head'); ?>
 
@@ -15,8 +15,8 @@ use Win\Views\View;
 		<p>Tente novamente mais tarde ou entre em contato.</p>
 		
 		<?php if (Server::isLocalHost()) : ?>
-			<p><?= $exception->getMessage(); ?></p>
-			<p><?= $exception; ?></p>
+			<p><?= $error->getMessage(); ?></p>
+			<p><?= $error; ?></p>
 		<?php endif; ?>
 	</main>
 </body>

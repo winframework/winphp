@@ -20,6 +20,7 @@ Router::add('App\\Controllers\\', [
 	'alerts/show' => 'BasicController@showAlerts',
 	'alerts' => 'BasicController@createAlerts',
 	'redirecting' => 'BasicController@redirecting',
+	'erro-view' => 'BasicController@erroView',
 
 	// 404
 	'controller404' => 'IndexControllasdf',

@@ -19,6 +19,7 @@ try {
 	$app->run(...Router::getDestination());
 } catch (HttpException $e) {
 	$app->run(ErrorsController::class, "_{$e->getCode()}", $e);
-} catch (Exception $e) {
-	$app->run(ErrorsController::class, '_503', $e);
+} catch (Throwable $e) {
+	ob_clean();
+	$app->run(ErrorsController::class, '_500', $e);
 }
