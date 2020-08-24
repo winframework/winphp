@@ -3,7 +3,6 @@
 namespace Win\Repositories;
 
 use Exception;
-use Win\Repositories\Filesystem\File;
 
 class Filesystem
 {

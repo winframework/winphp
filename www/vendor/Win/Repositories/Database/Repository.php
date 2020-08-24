@@ -279,6 +279,7 @@ abstract class Repository
 	{
 		$orm = new static($this->pagination);
 		$orm->pdo = $this->pdo;
+		$orm->table = $this->table;
 		return $orm->if($this->pk, $id)->count() > 0;
 	}
 
