@@ -2,6 +2,7 @@
 
 namespace Win\Common;
 
+use Error;
 use Win\Application;
 
 /**
@@ -71,12 +72,17 @@ class Template
 	 */
 	public function toHtml()
 	{
-		ob_start();
-		$this->include();
-		$content = ob_get_clean();
+		try {
+			ob_start();
+			$this->include();
+			$content = ob_get_clean();
 
-		if ($this->layout) {
-			return new self($this->layout, ['content' => $content]);
+			if ($this->layout) {
+				return new self($this->layout, ['content' => $content]);
+			}
+		} catch (Error $e) {
+			ob_get_clean();
+			throw $e;
 		}
 		return $content;
 	}

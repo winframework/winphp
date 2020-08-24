@@ -92,7 +92,7 @@ abstract class Repository
 	{
 		$model = $this->one();
 		if (is_null($model)) {
-			throw new HttpException('Model not found', 404);
+			throw new HttpException('Model not found.', 404);
 		}
 
 		return $model;
