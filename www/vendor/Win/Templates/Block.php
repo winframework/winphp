@@ -1,8 +1,6 @@
 <?php
 
-namespace Win\Blocks;
-
-use Win\Common\Template;
+namespace Win\Templates;
 
 /**
  * Pequeno bloco .PHTML que é exibido dentro de outros templates

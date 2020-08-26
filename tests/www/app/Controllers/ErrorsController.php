@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Throwable;
 use Win\Controllers\Controller;
-use Win\Views\View;
+use Win\Templates\View;
 
 /**
  * Páginas de Erros 

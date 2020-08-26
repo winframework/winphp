@@ -1,8 +1,7 @@
 <?php
 
-namespace Win\Blocks;
+namespace Win\Templates;
 
-use Win\Blocks\Block;
 use Win\Services\Alert;
 
 /**

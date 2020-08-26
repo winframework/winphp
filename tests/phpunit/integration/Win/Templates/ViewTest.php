@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Views;
+namespace Win\Templates;
 
 use PHPUnit\Framework\TestCase;
 use Win\Application;

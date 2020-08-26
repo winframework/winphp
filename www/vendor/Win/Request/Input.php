@@ -20,7 +20,17 @@ class Input
 	{
 		$post = filter_input(INPUT_POST, $name, $filter);
 
-		return $post ?? $default;
+		return $post ? $post : $default;
+	}
+
+	/**
+	 * Retorna TRUE se a variável foi definida
+	 * @param string $name
+	 * @return boolean
+	 */
+	public static function isset($name)
+	{
+		return isset($_POST[$name]);
 	}
 
 	/**
@@ -58,7 +68,7 @@ class Input
 	{
 		$get = filter_input(INPUT_GET, $name, $filter);
 
-		return $get ?? $default;
+		return $get ? $get : $default;
 	}
 
 	/**

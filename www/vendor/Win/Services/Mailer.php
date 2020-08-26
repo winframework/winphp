@@ -4,7 +4,7 @@ namespace Win\Services;
 
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use Win\Common\Email;
+use Win\Templates\Email;
 use Win\Common\Server;
 use Win\Repositories\Filesystem;
 

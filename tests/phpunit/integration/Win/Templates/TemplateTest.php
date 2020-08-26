@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Common;
+namespace Win\Templates;
 
 use PHPUnit\Framework\TestCase;
 
@@ -50,5 +50,14 @@ class TemplateTest extends TestCase
 
 		$this->assertEquals($vars['a'], $b->get('a'));
 		$this->assertEquals($vars['b'], $b->get('b'));
+	}
+
+	/** @expectedException Error */
+	public function testThrowError()
+	{
+		error_reporting(0);
+		$vars = ['a' => 1, 'b' => 2];
+		$t = new Template('basic/erro-view', $vars);
+		$t->__toString();
 	}
 }

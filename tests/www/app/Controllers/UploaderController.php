@@ -7,7 +7,7 @@ use Win\Repositories\Filesystem\Image;
 use Win\Services\Alert;
 use Win\Repositories\Filesystem;
 use Win\Request\Input;
-use Win\Views\View;
+use Win\Templates\View;
 
 class UploaderController extends Controller
 {

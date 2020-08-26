@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use Win\Common\Email;
+use Win\Templates\Email;
 use Win\Controllers\Controller;
 use Win\Services\Mailer;
 use Win\Services\Alert;
-use Win\Views\View;
+use Win\Templates\View;
 
 class EmailController extends Controller
 {

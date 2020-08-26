@@ -14,7 +14,7 @@ use Win\Services\Alert;
 use Win\Repositories\Database\Mysql;
 use Win\Repositories\Filesystem;
 use Win\Request\Input;
-use Win\Views\View;
+use Win\Templates\View;
 
 /**
  * pages => Pages@index

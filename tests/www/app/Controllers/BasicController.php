@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Views\ClassView;
+use App\Templates\ClassView;
 use Win\Controllers\Controller;
 use Win\Services\Alert;
-use Win\Views\View;
+use Win\Templates\View;
 
 /**
  * Usado pelo PHPUnit

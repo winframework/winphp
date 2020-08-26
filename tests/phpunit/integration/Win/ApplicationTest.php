@@ -66,19 +66,6 @@ class ApplicationTest extends TestCase
 		$app->run(IndexController::class, 'actionNotFound');
 	}
 
-	public function testRunHttpException()
-	{
-		$code = 300;
-
-		ob_start();
-		$e = new HttpException('Fake Error', $code);
-		$app = new Application();
-		$app->run(IndexController::class, 'index', $e);
-		ob_get_clean();
-
-		$this->assertEquals((string) http_response_code(), $code);
-	}
-
 	public function testRun()
 	{
 		$app = new Application();

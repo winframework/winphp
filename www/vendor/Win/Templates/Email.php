@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Common;
+namespace Win\Templates;
 
 use Win\Services\Mailer;
 
@@ -19,8 +19,8 @@ class Email extends Template
 	 * @param array $data
 	 * @param string $layout
 	 */
-	public function __construct($file, $data = [], $layout = 'emails/layout')
+	public function __construct($file, $data = [], $content)
 	{
-		parent::__construct($file, $data, $layout);
+		parent::__construct($file, $data, $content);
 	}
 }

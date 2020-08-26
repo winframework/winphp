@@ -1,9 +1,8 @@
 <?php
 
-namespace Win\Views;
+namespace Win\Templates;
 
 use Win\Application;
-use Win\Common\Template;
 use Win\HttpException;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Blocks;
+namespace Win\Templates;
 
 use PHPUnit\Framework\TestCase;
 use Win\Services\Alert;

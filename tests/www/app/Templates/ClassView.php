@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Views;
+namespace App\Templates;
 
-use Win\Views\View;
+use Win\Templates\View;
 
 class ClassView extends View
 {

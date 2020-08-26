@@ -8,7 +8,8 @@ use Win\Common\Utils\Str;
 use Win\Controllers\Controller;
 use Win\Request\Url;
 use Win\HttpException;
-use Win\Views\View;
+use Win\Templates\Template;
+use Win\Templates\View;
 
 /**
  * Application (WinPHP Framework)
@@ -16,7 +17,7 @@ use Win\Views\View;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.6.1
+ * @version 1.7.0
  */
 class Application
 {
@@ -84,6 +85,9 @@ class Application
 		if (is_array($response)) {
 			header('Content-Type: application/json');
 			return json_encode($response);
+		}
+		if ($response instanceof View) {
+			$response = new Template($this->controller->layout, [], $response);
 		}
 
 		return $response;

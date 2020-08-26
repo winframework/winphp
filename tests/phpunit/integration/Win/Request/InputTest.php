@@ -19,6 +19,13 @@ class InputTest extends TestCase
 		$this->assertNull(Input::file('not-exist'));
 	}
 
+	public function testIsset()
+	{
+		$_POST['exist'] = 1;
+		$this->assertEquals(true, Input::isset('exist'));
+		$this->assertEquals(false, Input::isset('not-exist'));
+	}
+
 	public function testPost()
 	{
 		$_POST['not-exist'] = 1;
