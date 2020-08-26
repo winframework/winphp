@@ -1,7 +1,6 @@
 <?php
 
-use Win\Templates\Block;
-use Win\Common\Template;
+use Win\Templates\Template;
 use Win\Common\Utils\Link;
 use Win\Common\Utils\Str;
 use Win\Request\Url;
@@ -12,7 +11,7 @@ $bodyClass = $this->app->page . '-' .  Str::toUrl($this->app->action);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-<?= new Block('layout/head'); ?>
+<?= new Template('layout/head'); ?>
 
 <body class="<?= $bodyClass; ?>">
 	<header>

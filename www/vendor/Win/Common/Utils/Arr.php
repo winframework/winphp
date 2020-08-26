@@ -5,7 +5,7 @@ namespace Win\Common\Utils;
 /**
  * Manipulador de Arrays
  */
-class Arr
+abstract class Arr
 {
 	/**
 	 * Retorna TRUE se é primeiro elemento do array

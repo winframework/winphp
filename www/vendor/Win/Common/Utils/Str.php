@@ -5,7 +5,7 @@ namespace Win\Common\Utils;
 /**
  * Manipulador de Strings
  */
-class Str
+abstract class Str
 {
 	const TRUNCATE_BEFORE = 0;
 	const TRUNCATE_AFTER = 1;

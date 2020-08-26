@@ -5,7 +5,7 @@ namespace Win\Common\Utils;
 /**
  * Formulário
  */
-class Form
+abstract class Form
 {
 	/**
 	 * Retorna 'checked' se os valores são iguais

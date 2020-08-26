@@ -3,7 +3,7 @@
 use App\Models\Page;
 use App\Models\PageCategory;
 use App\Repositories\PageRepo;
-use Win\Templates\Block;
+use Win\Templates\Template;
 use Win\Templates\View;
 
 /** @var View $this */
@@ -46,12 +46,12 @@ use Win\Templates\View;
 				</ul>
 
 				<div style="width: 100%">
-					<?= new Block('layout/pagination', get_object_vars($repo->pagination)); ?>
+					<?= new Template('layout/pagination', get_object_vars($repo->pagination)); ?>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<hr />
-	<?= new Block('pages/most-recent'); ?>
+	<?= new Template('pages/most-recent'); ?>
 </main>

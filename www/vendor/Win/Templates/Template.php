@@ -3,7 +3,6 @@
 namespace Win\Templates;
 
 use Error;
-use Exception;
 use Win\Application;
 
 /**
@@ -23,20 +22,17 @@ class Template
 
 	protected $data = [];
 
-	public $content = '';
-
 	/**
 	 * Cria um template com base no arquivo escolhido
 	 * @param string $file Nome do arquivo
 	 * @param mixed[] $data Array de variáveis
 	 * @param string $layout
 	 */
-	public function __construct($file, $data = [], $content = '')
+	public function __construct($file, $data = [])
 	{
 		$this->app = Application::app();
 		$this->file = BASE_PATH . '/' . static::$dir . "/$file.phtml";
 		$this->data = $data;
-		$this->content = $content;
 	}
 
 	/**
@@ -71,19 +67,18 @@ class Template
 	 * Carrega e retorna o output
 	 * @return string
 	 */
-	public function toHtml()
+	protected function toHtml()
 	{
 		ob_start();
 
 		try {
 			if (isset($this->file) && $this->exists()) {
-				$content = $this->content;
 				extract($this->data);
 				include $this->file;
 			}
 		} catch (Error $e) {
 			ob_get_clean();
-			throw ($e);
+			throw $e;
 		}
 		return ob_get_clean();
 	}

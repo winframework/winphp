@@ -8,7 +8,7 @@ use Win\Request\Url;
 /**
  * Auxilia a criar Links de Navegação
  */
-class Link
+abstract class Link
 {
 	/**
 	 * Usado para ativar Links (aceita array)

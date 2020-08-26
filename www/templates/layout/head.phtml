@@ -2,9 +2,9 @@
 
 use Win\Common\Utils\Str;
 use Win\Request\Url;
-use Win\Templates\Block;
+use Win\Templates\Template;
 
-/** @var Block $this */
+/** @var Template $this */
 $view = $this->app->view;
 $title = implode(' | ', (array) ($view->get('title') ?? APP_NAME));
 ?>

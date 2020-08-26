@@ -7,7 +7,7 @@ use Win\Services\Alert;
 /**
  * Exibe os Alertas da sessão
  */
-class AlertBlock extends Block
+class AlertBlock extends Template
 {
 	public function __construct($alerts = null)
 	{

@@ -17,7 +17,7 @@
 
 - Request/Response;
 - Rotas;
-- Templates (Views/Blocks);
+- Templates (Views);
 - Título de Página;
 - Envio de Emails;
 - Manipulador de Arquivos;

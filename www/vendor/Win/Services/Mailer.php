@@ -109,7 +109,7 @@ class Mailer
 	 */
 	public function send($body)
 	{
-		if ($body instanceof Email){
+		if ($body instanceof Email) {
 			$body->mailer = $this;
 		}
 		$this->mailer->Body = (string) $body;
@@ -124,6 +124,20 @@ class Mailer
 		} else {
 			$this->saveOnDisk();
 		}
+	}
+
+	/**
+	 * Envia o email como template
+	 * @param mixed $data
+	 * @param string $template
+	 * @param string $layout
+	 */
+	public function sendTemplate($data, $template, $layout = 'layout')
+	{
+		$template = new Email($template, $data);
+		$template->mailer = $this;
+		$layout = new Email($layout, ['content' => $template]);
+		$this->send($layout);
 	}
 
 	/**

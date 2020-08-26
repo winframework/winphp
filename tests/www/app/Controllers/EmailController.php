@@ -16,8 +16,7 @@ class EmailController extends Controller
 
 		$data = ['name' => 'John', 'subject' => 'A', 'phone' => '0000-000', 'message' => 'My Message', 'email' => 'john@email.com'];
 
-		$email = new Email('contact', $data);
-		$mailer->send($email);
+		$mailer->sendTemplate($data, 'contact');
 
 		Alert::success('E-mail enviado!');
 

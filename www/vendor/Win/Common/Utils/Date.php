@@ -7,7 +7,7 @@ use DateTime;
 /**
  * Data e Hora
  */
-class Date
+abstract class Date
 {
 	/**
 	 * Cra data no formato desejado

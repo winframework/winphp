@@ -9,10 +9,10 @@ class EmailTest extends TestCase
 {
 	const VALID = 'first';
 
-	public function testDefaultLayout()
+	public function testToString()
 	{
 		new Application();
-		$email = new Email(static::VALID, []);
+		$email = new Email('layout', ['content'=>'']);
 		$this->assertStringContainsString('id="email"', $email);
 
 		$email = new Email(static::VALID, [], 'layout-not-found');

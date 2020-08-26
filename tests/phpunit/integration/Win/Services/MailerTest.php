@@ -31,12 +31,21 @@ class MailerTest extends TestCase
 		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
 
-	public function testSendTemplate()
+	public function testSendWithTemplate()
 	{
 		$body = new Email('first', [], '');
 
 		$mailer = new Mailer();
 		$mailer->send($body);
+		$this->assertEquals($mailer, $body->mailer);
+		$this->assertEquals(1, $this->fs->count('data/emails'));
+	}
+
+	public function testSendTemplate()
+	{
+		$mailer = new Mailer();
+		$mailer->sendTemplate([],'first');
+
 		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
 
