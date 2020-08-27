@@ -19,6 +19,7 @@ class DependenceInjector
 	 * @var string[]
 	 */
 	public static $container = [];
+	public static $instances = [];
 
 	/**
 	 * Cria a classe, injetando as dependências
@@ -27,16 +28,19 @@ class DependenceInjector
 	 */
 	public static function make(string $class)
 	{
-		$args = [];
 		$class = static::$container[$class] ?? $class;
-		$con = (new ReflectionClass($class))->getConstructor();
 
-		if (!is_null($con)) {
-			foreach ($con->getParameters() as $param) {
-				$args[] = static::make($param->getType());
+		if (!key_exists($class, static::$instances)) {
+			$args = [];
+			$con = (new ReflectionClass($class))->getConstructor();
+			if (!is_null($con)) {
+				foreach ($con->getParameters() as $param) {
+					$args[] = static::make($param->getType());
+				}
 			}
+			static::$instances[$class] = new $class(...$args);
 		}
 
-		return new $class(...$args);
+		return static::$instances[$class];
 	}
 }
