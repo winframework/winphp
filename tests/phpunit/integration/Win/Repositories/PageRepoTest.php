@@ -351,9 +351,9 @@ class PageRepoTest extends TestCase
 		$page = new Page();
 		$page->title = 'Fourth Page';
 		$page->description = 'Inserted by save method';
-		$id = $repo->save($page);
+		$repo->save($page);
 
-		$this->assertEquals($pagesTotal + 1, $id);
+		$this->assertEquals($pagesTotal + 1, $page->id);
 		$this->assertCount($pagesTotal + 1, $repo->list());
 	}
 

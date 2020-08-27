@@ -92,7 +92,7 @@ abstract class Repository
 	{
 		$model = $this->one();
 		if (is_null($model)) {
-			throw new HttpException('Model not found.', 404);
+			throw new HttpException('O registro não foi encontrado no banco de dados.', 404);
 		}
 
 		return $model;
@@ -219,7 +219,8 @@ abstract class Repository
 			$this->flush();
 
 			$this->pdo->prepare($query)->execute($values);
-			return $model->id ?? $this->pdo->lastInsertId();
+			$model->id = $model->id ?? $this->pdo->lastInsertId();
+			return $this;
 		} catch (PDOException $e) {
 			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
 		}
