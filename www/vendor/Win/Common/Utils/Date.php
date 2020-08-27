@@ -14,11 +14,12 @@ abstract class Date
 	 * @param string $formatFrom
 	 * @param string $date
 	 * @param string $formatTo
-	 * @return string
+	 * @return string|null
 	 */
 	public static function create($formatFrom, $date, $formatTo = 'Y-m-d H:i:s')
 	{
-		return DateTime::createFromFormat($formatFrom, $date)->format($formatTo);
+		$dateTime = DateTime::createFromFormat($formatFrom, $date);
+		return $dateTime ? $dateTime->format($formatTo) : null;
 	}
 
 	/**
