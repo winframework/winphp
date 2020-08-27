@@ -20,7 +20,7 @@ class Input
 	{
 		$post = filter_input(INPUT_POST, $name, $filter);
 
-		return $post ? $post : $default;
+		return $post ?? $default;
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Input
 	{
 		$get = filter_input(INPUT_GET, $name, $filter);
 
-		return $get ? $get : $default;
+		return $get ?? $default;
 	}
 
 	/**
