@@ -3,6 +3,7 @@
 namespace Win\Templates;
 
 use Error;
+use Throwable;
 use Win\Application;
 
 /**
@@ -76,7 +77,7 @@ class Template
 				extract($this->data);
 				include $this->file;
 			}
-		} catch (Error $e) {
+		} catch (Throwable $e) {
 			ob_get_clean();
 			throw $e;
 		}

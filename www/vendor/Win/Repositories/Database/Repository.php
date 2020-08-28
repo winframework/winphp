@@ -48,10 +48,15 @@ abstract class Repository
 	 * Define a tabela manualmente
 	 * @param string $table
 	 */
-	public function from($table)
+	public function setTable($table)
 	{
 		$this->table = $table;
 		return $this;
+	}
+
+	public function getTable()
+	{
+		return $this->table;
 	}
 
 	/**
@@ -131,7 +136,7 @@ abstract class Repository
 			$stmt->execute($values);
 			return array_map([$this, 'mapModel'], $stmt->fetchAll());
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao ler no banco de dados.', $e);
 		}
 	}
 
@@ -165,7 +170,7 @@ abstract class Repository
 			$stmt->execute($values);
 			return (int) $stmt->fetchColumn();
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao ler no banco de dados.', $e);
 		}
 	}
 
@@ -193,7 +198,7 @@ abstract class Repository
 
 			$this->pdo->prepare($query)->execute($values);
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao escrever no banco de dados.', $e);
 		}
 	}
 
@@ -222,7 +227,7 @@ abstract class Repository
 			$model->id = $model->id ?? $this->pdo->lastInsertId();
 			return $this;
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao escrever no banco de dados.', $e);
 		}
 	}
 
@@ -257,7 +262,7 @@ abstract class Repository
 			$stmt->execute($values);
 			return $stmt ? $stmt->rowCount() : null;
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao escrever no banco de dados.', $e);
 		}
 	}
 
