@@ -38,11 +38,13 @@ class DependenceInjectorTest extends TestCase
 	public function setUp(): void
 	{
 		DI::$container = [];
+		DI::$instances = [];
 	}
 
 	public function tearDown(): void
 	{
 		DI::$container = [];
+		DI::$instances = [];
 	}
 
 	public function testMake()

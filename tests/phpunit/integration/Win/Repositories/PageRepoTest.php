@@ -103,12 +103,13 @@ class PageRepoTest extends TestCase
 		$this->assertEquals('Second Page', $page->title);
 	}
 
-	public function testFrom()
+	public function testSetTable()
 	{
 		$repo = new PageRepo(new Pagination());
 		$repo->pdo = static::$pdo;
-		$page = $repo->from('pages')->find(2);
+		$page = $repo->setTable('pages')->find(2);
 		$this->assertEquals('Second Page', $page->title);
+		$this->assertEquals('pages', $repo->getTable());
 	}
 
 	/** @expectedException Win\HttpException */
