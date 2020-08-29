@@ -77,7 +77,7 @@ class Router
 			}
 		}
 
-		throw new HttpException('Route not found', 404);
+		throw new HttpException('Route not found, check "config/routes;php"', 404);
 	}
 
 
