@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use Win\Templates\Email;
 use Win\Controllers\Controller;
 use Win\Services\Mailer;
 use Win\Services\Alert;

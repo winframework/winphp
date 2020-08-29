@@ -3,7 +3,6 @@
 namespace Win\Controllers;
 
 use Win\Application;
-use Win\Services\Router;
 
 /**
  * Controller
@@ -14,7 +13,6 @@ abstract class Controller
 {
 	public Application $app;
 	public ?string $layout = 'layout';
-	protected Router $router;
 
 	/** @var string|string[] */
 	public $title;
@@ -25,10 +23,5 @@ abstract class Controller
 	 */
 	public function init()
 	{
-	}
-
-	public function __construct(Router $router)
-	{
-		$this->router = $router;
 	}
 }

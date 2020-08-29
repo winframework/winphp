@@ -2,11 +2,12 @@
 
 namespace App\Controllers;
 
+use Exception;
+use Win\Common\Utils\Input;
 use Win\Controllers\Controller;
+use Win\Repositories\Filesystem;
 use Win\Repositories\Filesystem\Image;
 use Win\Services\Alert;
-use Win\Repositories\Filesystem;
-use Win\Request\Input;
 use Win\Templates\View;
 
 class UploaderController extends Controller
@@ -14,7 +15,6 @@ class UploaderController extends Controller
 	const UPLOAD_PATH = 'data/uploads';
 
 	public ?Image $image = null;
-
 	private FileSystem $fs;
 
 	public function __construct(Filesystem $fs)
@@ -32,7 +32,7 @@ class UploaderController extends Controller
 
 				Alert::success('Imagem salva com sucesso.');
 				$this->image = new Image(static::UPLOAD_PATH . '/' . $file);
-			} catch (\Exception $e) {
+			} catch (Exception $e) {
 				Alert::error($e);
 			}
 		}

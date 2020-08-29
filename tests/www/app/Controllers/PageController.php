@@ -16,10 +16,10 @@ use Win\Templates\View;
 
 /**
  * pages => Pages@index
- * pages/(.*) => Pages@listByCategory
- * page/(.*) => Pages@detail
+ * pages/(.*) => Page@listByCategory
+ * page/(.*) => Page@detail
  */
-class PagesController extends Controller
+class PageController extends Controller
 {
 	public PageRepo $repo;
 	public PageCategoryRepo $categoryRepo;
@@ -27,11 +27,11 @@ class PagesController extends Controller
 
 	public function __construct(PageRepo $repo, PageCategoryRepo $categoryRepo)
 	{
-		$pdo = $this->connectDatabase();
 		$this->repo = $repo;
 		$this->categoryRepo = $categoryRepo;
-		$this->repo->pdo = $pdo;
-		$this->categoryRepo->pdo = $pdo;
+		$pdo = $this->connectDatabase();
+		$repo->pdo = $pdo;
+		$categoryRepo->pdo = $pdo;
 	}
 
 	public function init()
@@ -48,7 +48,7 @@ class PagesController extends Controller
 		$this->categories = $this->getCategories();
 		$this->pages = $this->repo->list();
 
-		return new View('pages/index');
+		return new View('page/index');
 	}
 
 	/**
@@ -64,7 +64,7 @@ class PagesController extends Controller
 			->if('categoryId', $categoryId)
 			->list();
 
-		return new View('pages/index');
+		return new View('page/index');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class PagesController extends Controller
 		$this->title = 'Page - ' . $page;
 		$this->page = $page;
 
-		return new View('pages/detail');
+		return new View('page/detail');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class PagesController extends Controller
 			$pdo->rollBack();
 		}
 
-		return new View('pages/form');
+		return new View('page/form');
 	}
 
 	/**
@@ -124,7 +124,7 @@ class PagesController extends Controller
 			]);
 		Alert::success("Atualizou somente 2 atributos de $total entidade(s).");
 
-		return new View('pages/form');
+		return new View('page/form');
 	}
 
 	protected function getCategories()

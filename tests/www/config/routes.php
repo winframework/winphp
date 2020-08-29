@@ -34,11 +34,11 @@ Router::instance()->add('App\\Controllers\\', [
 	// Avançados
 	'send-email' => 'EmailController@index',
 	'uploader' => 'UploaderController@index',
-	'pages' => 'PagesController@index',
-	'pages/save' => 'PagesController@save',
-	'pages/update' => 'PagesController@update',
-	'pages/(.*)' => 'PagesController@listByCategory',
-	'page/(.*)' => 'PagesController@detail',
+	'pages' => 'PageController@index',
+	'pages/save' => 'PageController@save',
+	'pages/update' => 'PageController@update',
+	'pages/(.*)' => 'PageController@listByCategory',
+	'page/(.*)' => 'PageController@detail',
 
 	// Contato
 	'contato' => 'ContatoController@index',

@@ -37,11 +37,11 @@ abstract class Repository
 
 	abstract public static function mapModel($row);
 
-	public function __construct(Pagination $pagination)
+	public function __construct()
 	{
 		$this->pdo = Application::app()->pdo;
 		$this->sql = new Sql($this->table);
-		$this->pagination = $pagination;
+		$this->pagination = new Pagination();
 	}
 
 	/**

@@ -15,13 +15,9 @@ class ErrorsController extends Controller
 	/** @var Throwable */
 	public $error;
 
-	public function init()
-	{
-		http_response_code(str_replace('_', '', $this->router->action));
-	}
-
 	public function _404(Throwable $e)
 	{
+		http_response_code(404);
 		$this->title = 'Página não encontrada';
 		$this->error = $e;
 
@@ -30,6 +26,7 @@ class ErrorsController extends Controller
 
 	public function _500(Throwable $e)
 	{
+		http_response_code(500);
 		$this->layout = null;
 		$this->title = 'Ocorreu um erro';
 		$this->error = $e;
