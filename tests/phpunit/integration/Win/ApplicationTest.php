@@ -3,10 +3,9 @@
 namespace Win;
 
 use App\Controllers\IndexController;
-use App\Controllers\MyModule\IndexController as MyModuleIndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Controllers\MyController;
-use Win\Request\Url;
+use Win\Services\Router;
 
 class ApplicationTest extends TestCase
 {
@@ -37,17 +36,17 @@ class ApplicationTest extends TestCase
 	public function testIsHomePage()
 	{
 		$app = new Application();
-		Url::$segments = Url::HOME;
+		Router::instance()->segments = Router::HOME;
 		$this->assertTrue($app->isHomePage());
 	}
 
 	public function testIsNotHomePage()
 	{
 		$app = new Application();
-		Url::$segments = ['index', 'teste'];
+		Router::instance()->segments = ['index', 'teste'];
 		$this->assertFalse($app->isHomePage());
 
-		Url::$segments = ['teste', 'index'];
+		Router::instance()->segments = ['teste', 'index'];
 		$this->assertFalse($app->isHomePage());
 	}
 
@@ -76,19 +75,6 @@ class ApplicationTest extends TestCase
 		$sum = ob_get_clean();
 
 		$this->assertEquals(array_sum($data), $sum);
-	}
-
-	public function testRunActionPage()
-	{
-		$app = new Application();
-		$data = [1, 2];
-
-		ob_start();
-		$app->run(MyModuleIndexController::class, 'index');
-		$sum = ob_get_clean();
-
-		$this->assertEquals('my-module-index', $app->page);
-		$this->assertEquals('index', $app->action);
 	}
 
 	public function testRunView()

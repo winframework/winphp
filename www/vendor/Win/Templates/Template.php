@@ -2,7 +2,6 @@
 
 namespace Win\Templates;
 
-use Error;
 use Throwable;
 use Win\Application;
 

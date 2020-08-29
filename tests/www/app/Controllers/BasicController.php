@@ -120,7 +120,7 @@ class BasicController extends Controller
 	public function redirecting()
 	{
 		Alert::success('Você foi redirecionado.');
-		$this->redirect('alerts/show');
+		$this->router->redirect('alerts/show');
 
 		Alert::error('Este não pode aparecer.');
 
@@ -136,7 +136,7 @@ class BasicController extends Controller
 		Alert::error('Outro erro.');
 		Alert::success('Parabéns.');
 
-		$this->redirect('alerts/show');
+		$this->router->redirect('alerts/show');
 	}
 
 	/**

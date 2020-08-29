@@ -3,7 +3,7 @@
 namespace Win\Controllers;
 
 use Win\Application;
-use Win\Request\Url;
+use Win\Services\Router;
 
 /**
  * Controller
@@ -14,6 +14,7 @@ abstract class Controller
 {
 	public Application $app;
 	public ?string $layout = 'layout';
+	protected Router $router;
 
 	/** @var string|string[] */
 	public $title;
@@ -26,32 +27,8 @@ abstract class Controller
 	{
 	}
 
-	/**
-	 * Volta para o método index da pagina atual
-	 * @codeCoverageIgnore
-	 */
-	protected function backToIndex()
+	public function __construct(Router $router)
 	{
-		Url::redirect(Url::$segments[0]);
-	}
-
-	/**
-	 * Redireciona para a URL
-	 * @param string $url
-	 * @codeCoverageIgnore
-	 */
-	protected function redirect($url)
-	{
-		Url::redirect($url);
-	}
-
-	/**
-	 * Atualiza a mesma página
-	 * @param string $url
-	 * @codeCoverageIgnore
-	 */
-	protected function refresh()
-	{
-		Url::redirect(Url::$path);
+		$this->router = $router;
 	}
 }

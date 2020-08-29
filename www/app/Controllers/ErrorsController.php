@@ -17,7 +17,7 @@ class ErrorsController extends Controller
 
 	public function init()
 	{
-		http_response_code(str_replace('_', '', $this->app->action));
+		http_response_code(str_replace('_', '', $this->router->action));
 	}
 
 	public function _404(Throwable $e)

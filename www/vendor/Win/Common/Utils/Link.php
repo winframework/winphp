@@ -2,8 +2,7 @@
 
 namespace Win\Common\Utils;
 
-use Win\Application;
-use Win\Request\Url;
+use Win\Services\Router;
 
 /**
  * Auxilia a criar Links de Navegação
@@ -19,10 +18,11 @@ abstract class Link
 	 */
 	public static function active(...$links)
 	{
-		$current = implode('/', Url::$segments);
+		$router = Router::instance();
+		$current = implode('/', $router->segments);
 
 		foreach ($links as $link) {
-			if (0 === strpos(Url::format($current), Url::format($link))) {
+			if (0 === strpos($router->format($current), $router->format($link))) {
 				return 'active';
 			}
 		}

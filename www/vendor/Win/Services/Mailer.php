@@ -41,6 +41,7 @@ class Mailer
 	public function setLanguage($language)
 	{
 		$this->mailer->SetLanguage($language);
+		return $this;
 	}
 
 	/**
@@ -50,6 +51,7 @@ class Mailer
 	public function setSubject($subject)
 	{
 		$this->mailer->Subject = $subject;
+		return $this;
 	}
 
 	/**
@@ -61,6 +63,7 @@ class Mailer
 	{
 		$this->mailer->From = $address;
 		$this->mailer->FromName = $name;
+		return $this;
 	}
 
 	/**
@@ -71,6 +74,7 @@ class Mailer
 	public function addTo($address, $name = '')
 	{
 		$this->mailer->addAddress($address, $name);
+		return $this;
 	}
 
 	/**
@@ -81,6 +85,7 @@ class Mailer
 	public function addCC($address, $name = '')
 	{
 		$this->mailer->addCC($address, $name);
+		return $this;
 	}
 
 	/**
@@ -91,6 +96,7 @@ class Mailer
 	public function addBCC($address, $name = '')
 	{
 		$this->mailer->addBCC($address, $name);
+		return $this;
 	}
 
 	/**
@@ -101,6 +107,7 @@ class Mailer
 	public function addReplyTo($address, $name = '')
 	{
 		$this->mailer->addReplyTo($address, $name);
+		return $this;
 	}
 
 	/**
@@ -122,6 +129,7 @@ class Mailer
 				throw new Exception('Houve um erro ao enviar o e-mail.');
 			}
 		} else {
+			$this->flush();
 			$this->saveOnDisk();
 		}
 	}

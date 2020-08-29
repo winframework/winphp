@@ -1,7 +1,7 @@
 <?php
 
 use Win\Templates\Template;
-use Win\Request\Url;
+use Win\Services\Router;
 
 /**
  * @var Template $this
@@ -11,7 +11,7 @@ use Win\Request\Url;
  * @var int $count
  */
 
-$url = Url::$full;
+$url = Router::instance()->url;
 ?>
 <?php if ($pageSize > 0 && $last > 0) : ?>
 	<ul class="pagination pagination-lg">

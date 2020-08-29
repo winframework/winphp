@@ -1,6 +1,6 @@
 <?php
 
-use Win\Request\Url;
+use Win\Services\Router;
 use Win\Templates\Email;
 
 /** @var Email $this */
@@ -8,7 +8,7 @@ use Win\Templates\Email;
 ?>
 <div id="email" style="width:100%; max-width: 500px; margin: 0 auto; border: solid 1px #AAA; border-radius: 3px; font-family: Arial; font-size: 14px; line-height: 16px;">
 	<div id="email-header" style="background:#019875; color:#FFF; margin: 5px; text-align: center ">
-		<img src="<?= Url::$base; ?>public/img/logo.png" alt="logo" style="max-width: 120px; max-height: 60px; margin: 10px auto; border-radius: 3px;" />
+		<img src="<?= Router::instance()->baseUrl; ?>public/img/logo.png" alt="logo" style="max-width: 120px; max-height: 60px; margin: 10px auto; border-radius: 3px;" />
 	</div>
 
 	<div id="email-main" style="margin:15px; line-height: 22px;">
@@ -17,7 +17,7 @@ use Win\Templates\Email;
 
 	<div id="email-footer" style="background:#aaa; color:#FFF; margin: 5px; padding: 10px; font-size:11px;">
 		Enviado por:
-		<a target="_blank" href="<?= Url::$base; ?>" style="color:#EEE">
+		<a target="_blank" href="<?= Router::instance()->baseUrl; ?>" style="color:#EEE">
 			<?= APP_NAME; ?>
 		</a><br />
 		Enviado em: <?= date('d/m/Y'); ?> às <?= date('H:i:s'); ?><br />

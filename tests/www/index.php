@@ -8,7 +8,7 @@ use App\Controllers\ErrorsController;
 use Win\Application;
 use Win\Common\Benchmark;
 use Win\HttpException;
-use Win\Request\Router;
+use Win\Services\Router;
 
 define('BASE_PATH', __DIR__);
 
@@ -21,7 +21,7 @@ for ($i = 0; $i < 1; $i++) {
 	# code...
 	try {
 		$app = new Application();
-		$app->run(...Router::getDestination());
+		$app->run(...Router::instance()->getDestination());
 	} catch (HttpException $e) {
 		$app->run(ErrorsController::class, "_{$e->getCode()}", $e);
 	} catch (Throwable $e) {

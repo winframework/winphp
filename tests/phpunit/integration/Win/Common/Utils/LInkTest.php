@@ -3,13 +3,13 @@
 namespace Win\Common\Utils;
 
 use PHPUnit\Framework\TestCase;
-use Win\Request\Url;
+use Win\Services\Router;
 
 class LinkTest extends TestCase
 {
 	public function testActive()
 	{
-		Url::$segments = ['index'];
+		Router::instance()->segments = ['index'];
 
 		$this->assertEquals('active', Link::active('index'));
 		$this->assertEquals('', Link::active('other-page'));
@@ -17,7 +17,7 @@ class LinkTest extends TestCase
 
 	public function testActiveParam()
 	{
-		Url::$segments = explode('/', 'my-page/my-action/my-last-param');
+		Router::instance()->segments = explode('/', 'my-page/my-action/my-last-param');
 
 		$this->assertEquals('active', Link::active('my-page'));
 		$this->assertEquals('active', Link::active('my-page/my-action'));
@@ -32,7 +32,7 @@ class LinkTest extends TestCase
 
 	public function testMultiActive()
 	{
-		Url::$segments = explode('/', 'my-page/my-action/my-last-param');
+		Router::instance()->segments = explode('/', 'my-page/my-action/my-last-param');
 
 		$this->assertEquals('active', Link::active('my-page'));
 		$this->assertEquals('active', Link::active('first-page', 'my-page', 'last-page'));

@@ -7,12 +7,10 @@ use ReflectionClass;
 /**
  * Dependence Injector
  * 
- * TODO: Usar singleton?
- * 
  * Se há um apelido para a classe dentro de $container,
  * então ela será utilizada ao invés da classe original.
  */
-class DependenceInjector
+abstract class DependenceInjector
 {
 	/**
 	 * Armazena os nomes de classes

@@ -1,7 +1,7 @@
 <?php
 
 use Win\Common\Utils\Str;
-use Win\Request\Url;
+use Win\Services\Router;
 use Win\Templates\Template;
 
 /** @var Template $this */
@@ -10,7 +10,7 @@ $title = implode(' | ', (array) ($view->get('title') ?? APP_NAME));
 ?>
 
 <head>
-	<base href="<?= Url::$base; ?>" />
+	<base href="<?= Router::instance()->baseUrl; ?>" />
 	<title><?= Str::truncate($title, 150) ?></title>
 
 	<!-- Meta Tags -->

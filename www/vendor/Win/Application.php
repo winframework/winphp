@@ -6,8 +6,8 @@ use PDO;
 use Win\Common\DependenceInjector as DI;
 use Win\Common\Utils\Str;
 use Win\Controllers\Controller;
-use Win\Request\Url;
 use Win\HttpException;
+use Win\Services\Router;
 use Win\Templates\Template;
 use Win\Templates\View;
 
@@ -24,10 +24,9 @@ class Application
 	protected static Application $instance;
 
 	public Controller $controller;
+	public Router $router;
 	public View $view;
 	public ?PDO $pdo = null;
-	public string $action = '';
-	public string $page = '';
 
 	/**
 	 * Cria a aplicação principal
@@ -35,7 +34,7 @@ class Application
 	public function __construct()
 	{
 		static::$instance = $this;
-		Url::init();
+		$this->router = Router::instance();
 	}
 
 	/**
@@ -62,8 +61,8 @@ class Application
 		$controller = DI::make($class);
 		$controller->app = $this;
 		$this->controller = $controller;
-		$this->action = $method;
-		$this->setPage($class);
+		$this->router->action = $method;
+		$this->router->page = $this->getPage();
 
 		if (!method_exists($controller, $method)) {
 			throw new HttpException("Action '{$method}' not found in '{$class}'", 404);
@@ -99,7 +98,7 @@ class Application
 	 */
 	public function isHomePage()
 	{
-		return Url::$segments == Url::HOME;
+		return $this->router->segments == Router::HOME;
 	}
 
 	/**
@@ -125,11 +124,12 @@ class Application
 
 	/**
 	 * Retorna a página atual
-	 * @param string
+	 * @return string
 	 */
-	private function setPage($class)
+	public function getPage()
 	{
+		$class = get_class($this->controller);
 		$replaces = ['Controllers\\', 'Controller', 'App\\', '\\'];
-		$this->page = Str::toUrl(str_replace($replaces, ' ', $class));
+		return Str::toUrl(str_replace($replaces, ' ', $class));
 	}
 }

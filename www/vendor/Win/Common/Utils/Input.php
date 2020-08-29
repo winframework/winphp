@@ -1,13 +1,13 @@
 <?php
 
-namespace Win\Request;
+namespace Win\Common\Utils;
 
 /**
  * Manipulador de variáveis globais ($_REQUEST, $_POST, $_GET, etc)
  *
  * Fornecendo uma camada de segurança maior do que manipulá-las diretamente.
  */
-class Input
+abstract class Input
 {
 	/**
 	 * Retorna variável $_POST

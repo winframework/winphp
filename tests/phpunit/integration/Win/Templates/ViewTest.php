@@ -4,6 +4,7 @@ namespace Win\Templates;
 
 use PHPUnit\Framework\TestCase;
 use Win\Application;
+use Win\Common\DependenceInjector;
 use Win\Controllers\MyController;
 
 class ViewTest extends TestCase
@@ -11,7 +12,7 @@ class ViewTest extends TestCase
 	public static function setUpBeforeClass(): void
 	{
 		$app = new Application();
-		$app->controller = new MyController(10);
+		$app->controller = DependenceInjector::make(MyController::class);
 	}
 
 	/**
