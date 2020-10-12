@@ -216,26 +216,6 @@ Search.appendIndex(
             "summary": "Cria\u0020inst\u00E2ncia\u0020da\u0020classe\u0020via\u0020DI",
             "url": "../classes/Win-Common-Traits-InjectableTrait.html#method_instance"
         },                {
-            "fqsen": "\\Win\\Common\\Utils\\Arr",
-            "name": "Arr",
-            "summary": "Manipulador\u0020de\u0020Arrays",
-            "url": "../classes/Win-Common-Utils-Arr.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Arr\u003A\u003AisFirst\u0028\u0029",
-            "name": "isFirst",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020\u00E9\u0020primeiro\u0020elemento\u0020do\u0020array",
-            "url": "../classes/Win-Common-Utils-Arr.html#method_isFirst"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Arr\u003A\u003AisLast\u0028\u0029",
-            "name": "isLast",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020\u00E9\u0020\u00FAltimo\u0020elemento\u0020do\u0020array",
-            "url": "../classes/Win-Common-Utils-Arr.html#method_isLast"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Arr\u003A\u003AisAssoc\u0028\u0029",
-            "name": "isAssoc",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020o\u0020array\u0020\u00E9\u0020associativo",
-            "url": "../classes/Win-Common-Utils-Arr.html#method_isAssoc"
-        },                {
             "fqsen": "\\Win\\Common\\Utils\\Date",
             "name": "Date",
             "summary": "Data\u0020e\u0020Hora",
@@ -331,21 +311,6 @@ Search.appendIndex(
             "summary": "Retorna\u0020o\u0020protocolo\u0020atual",
             "url": "../classes/Win-Common-Utils-Input.html#method_protocol"
         },                {
-            "fqsen": "\\Win\\Common\\Utils\\Integer",
-            "name": "Integer",
-            "summary": "Manipulador\u0020de\u0020Inteiros",
-            "url": "../classes/Win-Common-Utils-Integer.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Integer\u003A\u003AminLength\u0028\u0029",
-            "name": "minLength",
-            "summary": "Retorna\u0020o\u0020inteiro\u0020com\u0020a\u0020quantidade\u0020de\u0020caracteres\u0020escolhido\nFormatando\u0020com\u0020zeros\u0020\u00E0\u0020esquerda\u0020se\u0020necess\u00E1rio",
-            "url": "../classes/Win-Common-Utils-Integer.html#method_minLength"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Integer\u003A\u003AformatId\u0028\u0029",
-            "name": "formatId",
-            "summary": "Retorna\u0020o\u0020Id\u0020com\u0020no\u0020m\u00EDnimo\u00206\u0020d\u00EDgitos",
-            "url": "../classes/Win-Common-Utils-Integer.html#method_formatId"
-        },                {
             "fqsen": "\\Win\\Common\\Utils\\Link",
             "name": "Link",
             "summary": "Auxilia\u0020a\u0020criar\u0020Links\u0020de\u0020Navega\u00E7\u00E3o",
@@ -355,26 +320,6 @@ Search.appendIndex(
             "name": "active",
             "summary": "Usado\u0020para\u0020ativar\u0020Links\u0020\u0028aceita\u0020array\u0029",
             "url": "../classes/Win-Common-Utils-Link.html#method_active"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Password",
-            "name": "Password",
-            "summary": "Manipulador\u0020de\u0020Senhas",
-            "url": "../classes/Win-Common-Utils-Password.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Password\u003A\u003Agenerate\u0028\u0029",
-            "name": "generate",
-            "summary": "Retorna\u0020uma\u0020senha\u0020aleat\u00F3ria\nA\u0020senha\u0020gerada\u0020ter\u00E1\u0020sempre\u0020pelo\u0020menos\u003A\u00201\u0020s\u00EDmbolo\u0020e\u00202\u0020n\u00FAmeros",
-            "url": "../classes/Win-Common-Utils-Password.html#method_generate"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Password\u003A\u003Aencrypt\u0028\u0029",
-            "name": "encrypt",
-            "summary": "Criptografa\u0020a\u0020senha\u0020com\u0020maior\u0020maior\u0020seguran\u00E7a",
-            "url": "../classes/Win-Common-Utils-Password.html#method_encrypt"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Password\u003A\u003A\u0024salt",
-            "name": "salt",
-            "summary": "Chave\u0020que\u0020aumenta\u0020a\u0020seguran\u00E7a\u0020das\u0020senhas",
-            "url": "../classes/Win-Common-Utils-Password.html#property_salt"
         },                {
             "fqsen": "\\Win\\Common\\Utils\\Seo",
             "name": "Seo",
