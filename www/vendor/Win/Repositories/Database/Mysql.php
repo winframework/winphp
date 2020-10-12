@@ -26,7 +26,7 @@ class Mysql
 			$pdo->exec('set names utf8');
 			return $pdo;
 		} catch (\PDOException $e) {
-			throw new DbException('Ocorreu um erro ao conectar o banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao conectar o banco de dados.', 503, $e);
 		}
 	}
 }

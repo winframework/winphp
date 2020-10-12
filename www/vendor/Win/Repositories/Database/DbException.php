@@ -2,16 +2,16 @@
 
 namespace Win\Repositories\Database;
 
-use Exception;
 use PDOException;
+use Win\HttpException;
 
 /**
  * Erro de Banco de dados
  */
-class DbException extends Exception
+class DbException extends HttpException
 {
-	public function __construct($message, PDOException $previous)
+	public function __construct($message, $code, PDOException $previous)
 	{
-		parent::__construct($message, null, $previous);
+		parent::__construct($message, $code, $previous);
 	}
 }
