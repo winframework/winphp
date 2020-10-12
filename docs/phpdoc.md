@@ -1,2 +1,6 @@
-PHP Doc não suporta tipos nos atributos de classes
-php phpdoc.phar -d www -f phpdoc/add -t phpdoc --ignore "**PHPMailer**"
+
+# Download 3.0: 
+ - https://github.com/phpDocumentor/phpDocumentor/releases
+
+# Comando
+php phpDocumentor.phar -d "winphp/www" -t "winphp/docs/phpdoc"
