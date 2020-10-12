@@ -40,16 +40,18 @@
             <ul class="phpdocumentor-list">
                                     <li><a href="../namespaces/app-controllers.html"><abbr title="\App\Controllers">Controllers</abbr></a></li>
                             </ul>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpmailer.html"><abbr title="\PHPMailer">PHPMailer</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpmailer-phpmailer.html"><abbr title="\PHPMailer\PHPMailer">PHPMailer</abbr></a></li>
+                            </ul>
                     <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/win.html"><abbr title="\Win">Win</abbr></a></h3>
             <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/win-blocks.html"><abbr title="\Win\Blocks">Blocks</abbr></a></li>
                                     <li><a href="../namespaces/win-common.html"><abbr title="\Win\Common">Common</abbr></a></li>
                                     <li><a href="../namespaces/win-controllers.html"><abbr title="\Win\Controllers">Controllers</abbr></a></li>
                                     <li><a href="../namespaces/win-models.html"><abbr title="\Win\Models">Models</abbr></a></li>
                                     <li><a href="../namespaces/win-repositories.html"><abbr title="\Win\Repositories">Repositories</abbr></a></li>
-                                    <li><a href="../namespaces/win-request.html"><abbr title="\Win\Request">Request</abbr></a></li>
                                     <li><a href="../namespaces/win-services.html"><abbr title="\Win\Services">Services</abbr></a></li>
-                                    <li><a href="../namespaces/win-views.html"><abbr title="\Win\Views">Views</abbr></a></li>
+                                    <li><a href="../namespaces/win-templates.html"><abbr title="\Win\Templates">Templates</abbr></a></li>
                             </ul>
             
     
@@ -71,9 +73,9 @@
             Alert
                                                         </h2>
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Services/Alert.php"><a href="../files/vendor-win-services-alert.html"><abbr title="vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
+            <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Alert.php"><a href="../files/winphp-www-vendor-win-services-alert.html"><abbr title="winphp/www/vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">12</span>
+            <span class="phpdocumentor-element-found-in__line">11</span>
         </aside>
 
         <p class="phpdocumentor-class__summary">Alerta
@@ -84,8 +86,8 @@ Armazena mensagens de alerta na sessão</p>
         <table class="phpdocumentor-table_of_contents">
                                                                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/Win-Services-Alert.html#method_popAll">popAll()</a></th>
-                    <td class="phpdocumentor-cell">Retorna os alerts da sessão</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">Retorna e remove os alertas da sessão</td>
+                    <td class="phpdocumentor-cell">string[]</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/Win-Services-Alert.html#method_add">add()</a></th>
@@ -127,35 +129,23 @@ Armazena mensagens de alerta na sessão</p>
 >
     <h4 class="phpdocumentor-method__name">popAll()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Services/Alert.php"><a href="../files/vendor-win-services-alert.html"><abbr title="vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Alert.php"><a href="../files/winphp-www-vendor-win-services-alert.html"><abbr title="winphp/www/vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">19</span>
+        <span class="phpdocumentor-element-found-in__line">17</span>
     </aside>
-        <p class="phpdocumentor-summary">Retorna os alerts da sessão</p>
+        <p class="phpdocumentor-summary">Retorna e remove os alertas da sessão</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">popAll</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$group</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">string[]</span>
     </code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$group</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">string[]</span>
             
 </article>
                                     <a id="method_add"></a>
@@ -167,9 +157,9 @@ Armazena mensagens de alerta na sessão</p>
 >
     <h4 class="phpdocumentor-method__name">add()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Services/Alert.php"><a href="../files/vendor-win-services-alert.html"><abbr title="vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Alert.php"><a href="../files/winphp-www-vendor-win-services-alert.html"><abbr title="winphp/www/vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">30</span>
+        <span class="phpdocumentor-element-found-in__line">28</span>
     </aside>
         <p class="phpdocumentor-summary">Adiciona um alerta na sessão</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -183,10 +173,6 @@ Armazena mensagens de alerta na sessão</p>
             [,                 <span class="phpdocumentor-signature__argument__name">$type</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&quot;default&quot;</span> ]            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$group</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
     </code>
@@ -204,11 +190,6 @@ Armazena mensagens de alerta na sessão</p>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">&quot;default&quot;</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$group</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
@@ -225,9 +206,9 @@ Armazena mensagens de alerta na sessão</p>
 >
     <h4 class="phpdocumentor-method__name">success()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Services/Alert.php"><a href="../files/vendor-win-services-alert.html"><abbr title="vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Alert.php"><a href="../files/winphp-www-vendor-win-services-alert.html"><abbr title="winphp/www/vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">36</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -264,9 +245,9 @@ Armazena mensagens de alerta na sessão</p>
 >
     <h4 class="phpdocumentor-method__name">error()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Services/Alert.php"><a href="../files/vendor-win-services-alert.html"><abbr title="vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Alert.php"><a href="../files/winphp-www-vendor-win-services-alert.html"><abbr title="winphp/www/vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">42</span>
+        <span class="phpdocumentor-element-found-in__line">40</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -303,9 +284,9 @@ Armazena mensagens de alerta na sessão</p>
 >
     <h4 class="phpdocumentor-method__name">info()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Services/Alert.php"><a href="../files/vendor-win-services-alert.html"><abbr title="vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Alert.php"><a href="../files/winphp-www-vendor-win-services-alert.html"><abbr title="winphp/www/vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">51</span>
+        <span class="phpdocumentor-element-found-in__line">49</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -342,9 +323,9 @@ Armazena mensagens de alerta na sessão</p>
 >
     <h4 class="phpdocumentor-method__name">warning()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Services/Alert.php"><a href="../files/vendor-win-services-alert.html"><abbr title="vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Alert.php"><a href="../files/winphp-www-vendor-win-services-alert.html"><abbr title="winphp/www/vendor/Win/Services/Alert.php">Alert.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">57</span>
+        <span class="phpdocumentor-element-found-in__line">55</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>

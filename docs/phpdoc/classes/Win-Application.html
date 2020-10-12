@@ -40,16 +40,18 @@
             <ul class="phpdocumentor-list">
                                     <li><a href="../namespaces/app-controllers.html"><abbr title="\App\Controllers">Controllers</abbr></a></li>
                             </ul>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpmailer.html"><abbr title="\PHPMailer">PHPMailer</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpmailer-phpmailer.html"><abbr title="\PHPMailer\PHPMailer">PHPMailer</abbr></a></li>
+                            </ul>
                     <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/win.html"><abbr title="\Win">Win</abbr></a></h3>
             <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/win-blocks.html"><abbr title="\Win\Blocks">Blocks</abbr></a></li>
                                     <li><a href="../namespaces/win-common.html"><abbr title="\Win\Common">Common</abbr></a></li>
                                     <li><a href="../namespaces/win-controllers.html"><abbr title="\Win\Controllers">Controllers</abbr></a></li>
                                     <li><a href="../namespaces/win-models.html"><abbr title="\Win\Models">Models</abbr></a></li>
                                     <li><a href="../namespaces/win-repositories.html"><abbr title="\Win\Repositories">Repositories</abbr></a></li>
-                                    <li><a href="../namespaces/win-request.html"><abbr title="\Win\Request">Request</abbr></a></li>
                                     <li><a href="../namespaces/win-services.html"><abbr title="\Win\Services">Services</abbr></a></li>
-                                    <li><a href="../namespaces/win-views.html"><abbr title="\Win\Views">Views</abbr></a></li>
+                                    <li><a href="../namespaces/win-templates.html"><abbr title="\Win\Templates">Templates</abbr></a></li>
                             </ul>
             
     
@@ -70,9 +72,9 @@
             Application
                                                         </h2>
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+            <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">21</span>
+            <span class="phpdocumentor-element-found-in__line">22</span>
         </aside>
 
         <p class="phpdocumentor-class__summary">Application (WinPHP Framework)</p>
@@ -92,29 +94,19 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
                     <td class="phpdocumentor-cell"><a href="../classes/Win-Controllers-Controller.html"><abbr title="\Win\Controllers\Controller">Controller</abbr></a></td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#property_view">$view</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#property_router">$router</a></th>
                     <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href="../classes/Win-Views-View.html"><abbr title="\Win\Views\View">View</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\Win\Services\Router">Router</abbr></td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#property_session">$session</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#property_view">$view</a></th>
                     <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href="../classes/Win-Repositories-Session.html"><abbr title="\Win\Repositories\Session">Session</abbr></a></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/Win-Templates-View.html"><abbr title="\Win\Templates\View">View</abbr></a></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#property_pdo">$pdo</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell"><abbr title="\PDO">PDO</abbr>|null</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#property_action">$action</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#property_page">$page</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">string</td>
                 </tr>
                                                                 <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#method___construct">__construct()</a></th>
@@ -152,9 +144,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#method_setPage">setPage()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/Win-Application.html#method_getPage">getPage()</a></th>
                     <td class="phpdocumentor-cell">Retorna a página atual</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">string</td>
                 </tr>
                                             </table>
 
@@ -170,9 +162,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-property__name">$instance</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">23</span>
+        <span class="phpdocumentor-element-found-in__line">24</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
@@ -189,14 +181,33 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-property__name">$controller</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">25</span>
+        <span class="phpdocumentor-element-found-in__line">26</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__type"><a href="../classes/Win-Controllers-Controller.html"><abbr title="\Win\Controllers\Controller">Controller</abbr></a></span>
         <span class="phpdocumentor-signature__name">$controller</span>
+            </code>
+    </article>
+                                    <a id="property_router"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$router</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type"><abbr title="\Win\Services\Router">Router</abbr></span>
+        <span class="phpdocumentor-signature__name">$router</span>
             </code>
     </article>
                                     <a id="property_view"></a>
@@ -208,33 +219,14 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-property__name">$view</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">26</span>
+        <span class="phpdocumentor-element-found-in__line">28</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/Win-Views-View.html"><abbr title="\Win\Views\View">View</abbr></a></span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/Win-Templates-View.html"><abbr title="\Win\Templates\View">View</abbr></a></span>
         <span class="phpdocumentor-signature__name">$view</span>
-            </code>
-    </article>
-                                    <a id="property_session"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-                                "
->
-    <h4 class="phpdocumentor-property__name">$session</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">27</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/Win-Repositories-Session.html"><abbr title="\Win\Repositories\Session">Session</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$session</span>
             </code>
     </article>
                                     <a id="property_pdo"></a>
@@ -246,53 +238,15 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-property__name">$pdo</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">28</span>
+        <span class="phpdocumentor-element-found-in__line">29</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__type"><abbr title="\PDO">PDO</abbr>|null</span>
         <span class="phpdocumentor-signature__name">$pdo</span>
          = <span class="phpdocumentor-signature__default-value">null</span>    </code>
-    </article>
-                                    <a id="property_action"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-                                "
->
-    <h4 class="phpdocumentor-property__name">$action</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">29</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$action</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                    <a id="property_page"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-                                "
->
-    <h4 class="phpdocumentor-property__name">$page</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">30</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$page</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
     </article>
                                                             </section>
         
@@ -307,9 +261,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-method__name">__construct()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">35</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
     </aside>
         <p class="phpdocumentor-summary">Cria a aplicação principal</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -335,9 +289,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-method__name">app()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">46</span>
+        <span class="phpdocumentor-element-found-in__line">44</span>
     </aside>
         <p class="phpdocumentor-summary">Retorna o ponteiro para a aplicação principal</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -363,9 +317,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-method__name">run()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">57</span>
+        <span class="phpdocumentor-element-found-in__line">55</span>
     </aside>
         <p class="phpdocumentor-summary">Executa o Controller@action e envia o retorno como resposta</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -421,9 +375,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-method__name">send()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">87</span>
+        <span class="phpdocumentor-element-found-in__line">82</span>
     </aside>
         <p class="phpdocumentor-summary">Envia a resposta baseado no tipo</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -468,9 +422,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-method__name">isHomePage()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">101</span>
+        <span class="phpdocumentor-element-found-in__line">99</span>
     </aside>
         <p class="phpdocumentor-summary">Retorna TRUE se está na página inicial</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -496,9 +450,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-method__name">page404()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">111</span>
+        <span class="phpdocumentor-element-found-in__line">109</span>
     </aside>
         <p class="phpdocumentor-summary">Define a página como 404</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -543,9 +497,9 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
 >
     <h4 class="phpdocumentor-method__name">errorPage()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">122</span>
+        <span class="phpdocumentor-element-found-in__line">120</span>
     </aside>
         <p class="phpdocumentor-summary">Define a página atual como algum erro</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -590,44 +544,32 @@ Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
 </article>
-                                    <a id="method_setPage"></a>
+                                    <a id="method_getPage"></a>
 <article
         class="
             phpdocumentor-method
-            phpdocumentor-method--private
+            phpdocumentor-method--public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setPage()</h4>
+    <h4 class="phpdocumentor-method__name">getPage()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="vendor/Win/Application.php"><a href="../files/vendor-win-application.html"><abbr title="vendor/Win/Application.php">Application.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Application.php"><a href="../files/winphp-www-vendor-win-application.html"><abbr title="winphp/www/vendor/Win/Application.php">Application.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">131</span>
+        <span class="phpdocumentor-element-found-in__line">129</span>
     </aside>
         <p class="phpdocumentor-summary">Retorna a página atual</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                                <span class="phpdocumentor-signature__name">setPage</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$class</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPage</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">string</span>
     </code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$class</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">string</span>
             
 </article>
                                                             </section>
