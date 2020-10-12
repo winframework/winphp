@@ -5,8 +5,8 @@ namespace App\Controllers;
 use Exception;
 use Win\Common\Utils\Input;
 use Win\Controllers\Controller;
-use Win\Repositories\Filesystem;
-use Win\Repositories\Filesystem\Image;
+use Win\Services\Filesystem;
+use Win\Services\Filesystem\Image;
 use Win\Services\Alert;
 use Win\Templates\View;
 

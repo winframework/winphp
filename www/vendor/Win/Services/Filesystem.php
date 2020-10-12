@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Repositories;
+namespace Win\Services;
 
 use Exception;
 
@@ -184,6 +184,6 @@ class Filesystem
 	protected function generateName($name)
 	{
 		$info = pathinfo($this->tempFile['name']);
-		return ($name ?? md5(time())) . '.' . $info['extension'];
+		return ($name ?? md5('Y-m-d H:i:s') . $this->tempFile['name']) . '.' . $info['extension'];
 	}
 }

@@ -4,7 +4,7 @@ namespace Win\Services;
 
 use PHPUnit\Framework\TestCase;
 use Win\Templates\Email;
-use Win\Repositories\Filesystem;
+use Win\Services\Filesystem;
 
 class MailerTest extends TestCase
 {
