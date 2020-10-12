@@ -7,7 +7,7 @@
 use App\Controllers\ErrorsController;
 use Win\Application;
 use Win\HttpException;
-use Win\Request\Router;
+use Win\Services\Router;
 
 define('BASE_PATH', __DIR__);
 require 'app/autoload.php';
@@ -16,9 +16,10 @@ require 'config/routes.php';
 
 try {
 	$app = new Application();
-	$app->run(...Router::getDestination());
+	$app->run(...Router::instance()->getDestination());
 } catch (HttpException $e) {
 	$app->run(ErrorsController::class, "_{$e->getCode()}", $e);
-} catch (Exception $e) {
-	$app->run(ErrorsController::class, '_503', $e);
+} catch (Throwable $e) {
+	ob_clean();
+	$app->run(ErrorsController::class, '_500', $e);
 }

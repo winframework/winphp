@@ -16,12 +16,12 @@ class PageRepoTest extends TestCase
 	/** @var PDO */
 	static $pdo;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		static::$pdo = Mysql::connect(DbConfig::valid());
 	}
 
-	public function setUp()
+	public function setUp(): void
 	{
 		static::createTable();
 		static::importTable();
@@ -103,12 +103,13 @@ class PageRepoTest extends TestCase
 		$this->assertEquals('Second Page', $page->title);
 	}
 
-	public function testFrom()
+	public function testSetTable()
 	{
 		$repo = new PageRepo(new Pagination());
 		$repo->pdo = static::$pdo;
-		$page = $repo->from('pages')->find(2);
+		$page = $repo->setTable('pages')->find(2);
 		$this->assertEquals('Second Page', $page->title);
+		$this->assertEquals('pages', $repo->getTable());
 	}
 
 	/** @expectedException Win\HttpException */
@@ -351,9 +352,9 @@ class PageRepoTest extends TestCase
 		$page = new Page();
 		$page->title = 'Fourth Page';
 		$page->description = 'Inserted by save method';
-		$id = $repo->save($page);
+		$repo->save($page);
 
-		$this->assertEquals($pagesTotal + 1, $id);
+		$this->assertEquals($pagesTotal + 1, $page->id);
 		$this->assertCount($pagesTotal + 1, $repo->list());
 	}
 

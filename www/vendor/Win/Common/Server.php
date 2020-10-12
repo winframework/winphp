@@ -2,12 +2,12 @@
 
 namespace Win\Common;
 
-use Win\Request\Input;
+use Win\Common\Utils\Input;
 
 /**
  * Retorna informações do servidor
  */
-class Server
+abstract class Server
 {
 	/** @return bool */
 	public static function isLocalHost()

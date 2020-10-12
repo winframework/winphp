@@ -37,21 +37,26 @@ abstract class Repository
 
 	abstract public static function mapModel($row);
 
-	public function __construct(Pagination $pagination)
+	public function __construct()
 	{
 		$this->pdo = Application::app()->pdo;
 		$this->sql = new Sql($this->table);
-		$this->pagination = $pagination;
+		$this->pagination = new Pagination();
 	}
 
 	/**
 	 * Define a tabela manualmente
 	 * @param string $table
 	 */
-	public function from($table)
+	public function setTable($table)
 	{
 		$this->table = $table;
 		return $this;
+	}
+
+	public function getTable()
+	{
+		return $this->table;
 	}
 
 	/**
@@ -92,7 +97,7 @@ abstract class Repository
 	{
 		$model = $this->one();
 		if (is_null($model)) {
-			throw new HttpException('Model not found', 404);
+			throw new HttpException('O registro não foi encontrado no banco de dados.', 404);
 		}
 
 		return $model;
@@ -131,7 +136,7 @@ abstract class Repository
 			$stmt->execute($values);
 			return array_map([$this, 'mapModel'], $stmt->fetchAll());
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao ler no banco de dados.', 500, $e);
 		}
 	}
 
@@ -165,7 +170,7 @@ abstract class Repository
 			$stmt->execute($values);
 			return (int) $stmt->fetchColumn();
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao ler no banco de dados.', 500, $e);
 		}
 	}
 
@@ -193,7 +198,7 @@ abstract class Repository
 
 			$this->pdo->prepare($query)->execute($values);
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao escrever no banco de dados.', 500, $e);
 		}
 	}
 
@@ -213,16 +218,16 @@ abstract class Repository
 	public function save(Model $model)
 	{
 		try {
-			$model->validate();
 			$this->sql->setValues($this->mapRow($model));
 			$query = $this->querySave($model);
 			$values = array_values($this->sql->values());
 			$this->flush();
 
 			$this->pdo->prepare($query)->execute($values);
-			return $model->id ?? $this->pdo->lastInsertId();
+			$model->id = $model->id ?? $this->pdo->lastInsertId();
+			return $this;
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao escrever no banco de dados.', 500, $e);
 		}
 	}
 
@@ -257,7 +262,7 @@ abstract class Repository
 			$stmt->execute($values);
 			return $stmt ? $stmt->rowCount() : null;
 		} catch (PDOException $e) {
-			throw new DbException('Ocorreu um erro ao ler/escrever no banco de dados.', $e);
+			throw new DbException('Ocorreu um erro ao escrever no banco de dados.', 500, $e);
 		}
 	}
 
@@ -280,6 +285,7 @@ abstract class Repository
 	{
 		$orm = new static($this->pagination);
 		$orm->pdo = $this->pdo;
+		$orm->table = $this->table;
 		return $orm->if($this->pk, $id)->count() > 0;
 	}
 

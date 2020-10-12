@@ -2,7 +2,7 @@
 
 namespace Win\Services;
 
-use Win\Request\Input;
+use Win\Common\Utils\Input;
 
 /**
  * ReCaptcha do Google

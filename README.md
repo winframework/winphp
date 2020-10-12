@@ -17,14 +17,13 @@
 
 - Request/Response;
 - Rotas;
-- Templates (Views/Blocks);
+- Templates (Views);
 - Título de Página;
 - Envio de Emails;
 - Manipulador de Arquivos;
-- Manipulador de Tipos Variáveis (String, Array, Date, etc);
+- Manipulador de Tipos Variáveis (String, Integer, Date, etc);
 - Manipulador de Variáveis Globais (Input, Server, etc);
 - Alertas;
-- Sessão;
 - Conexão com Banco de Dados;
 - Repository;
 

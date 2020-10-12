@@ -4,9 +4,9 @@ namespace Win\Services;
 
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use Win\Common\Email;
+use Win\Templates\Email;
 use Win\Common\Server;
-use Win\Repositories\Filesystem;
+use Win\Services\Filesystem;
 
 /**
  * Envio de Emails
@@ -41,6 +41,7 @@ class Mailer
 	public function setLanguage($language)
 	{
 		$this->mailer->SetLanguage($language);
+		return $this;
 	}
 
 	/**
@@ -50,6 +51,7 @@ class Mailer
 	public function setSubject($subject)
 	{
 		$this->mailer->Subject = $subject;
+		return $this;
 	}
 
 	/**
@@ -61,6 +63,7 @@ class Mailer
 	{
 		$this->mailer->From = $address;
 		$this->mailer->FromName = $name;
+		return $this;
 	}
 
 	/**
@@ -71,6 +74,7 @@ class Mailer
 	public function addTo($address, $name = '')
 	{
 		$this->mailer->addAddress($address, $name);
+		return $this;
 	}
 
 	/**
@@ -81,6 +85,7 @@ class Mailer
 	public function addCC($address, $name = '')
 	{
 		$this->mailer->addCC($address, $name);
+		return $this;
 	}
 
 	/**
@@ -91,6 +96,7 @@ class Mailer
 	public function addBCC($address, $name = '')
 	{
 		$this->mailer->addBCC($address, $name);
+		return $this;
 	}
 
 	/**
@@ -101,6 +107,7 @@ class Mailer
 	public function addReplyTo($address, $name = '')
 	{
 		$this->mailer->addReplyTo($address, $name);
+		return $this;
 	}
 
 	/**
@@ -109,6 +116,9 @@ class Mailer
 	 */
 	public function send($body)
 	{
+		if ($body instanceof Email) {
+			$body->mailer = $this;
+		}
 		$this->mailer->Body = (string) $body;
 
 		if (!Server::isLocalHost() || static::$sendOnLocalHost) {
@@ -119,8 +129,23 @@ class Mailer
 				throw new Exception('Houve um erro ao enviar o e-mail.');
 			}
 		} else {
+			$this->flush();
 			$this->saveOnDisk();
 		}
+	}
+
+	/**
+	 * Envia o email como template
+	 * @param mixed $data
+	 * @param string $template
+	 * @param string $layout
+	 */
+	public function sendTemplate($data, $template, $layout = 'layout')
+	{
+		$template = new Email($template, $data);
+		$template->mailer = $this;
+		$layout = new Email($layout, ['content' => $template]);
+		$this->send($layout);
 	}
 
 	/**

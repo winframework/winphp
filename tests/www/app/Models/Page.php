@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Repositories\PageCategoryRepo;
 use Win\Models\Model;
-
 /**
  * Página
  */
@@ -19,9 +17,5 @@ class Page extends Model
 	public function __toString()
 	{
 		return $this->title;
-	}
-
-	public function validate()
-	{
 	}
 }

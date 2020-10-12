@@ -1,0 +1,22 @@
+<?php
+
+use Win\Common\Server;
+use Win\Templates\Template;
+use Win\Templates\View;
+
+/** @var View $this */
+/** @var Throwable $error */
+?>
+<?= new Template('layout/head'); ?>
+
+<body>
+	<main>
+		<h1>Ops! Algo deu errado na requisição.</h1>
+		<p>Tente novamente mais tarde ou entre em contato.</p>
+		
+		<?php if (Server::isLocalHost()) : ?>
+			<p><?= $error->getMessage(); ?></p>
+			<p><?= $error; ?></p>
+		<?php endif; ?>
+	</main>
+</body>

@@ -7,7 +7,7 @@ use Win\Common\Utils\Str;
 /**
  * Auxilia a criar o título otimizado para SEO
  */
-class Seo
+abstract class Seo
 {
 	public static $titlePrefix = '';
 	public static $titleSuffix = '';

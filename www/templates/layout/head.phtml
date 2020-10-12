@@ -1,16 +1,16 @@
 <?php
 
-use Win\Blocks\Block;
-use Win\Request\Url;
 use Win\Common\Utils\Str;
+use Win\Services\Router;
+use Win\Templates\Template;
 
-/** @var Block $this */
+/** @var Template $this */
 $view = $this->app->view;
 $title = implode(' | ', (array) ($view->get('title') ?? APP_NAME));
 ?>
 
 <head>
-	<base href="<?= Url::$base; ?>" />
+	<base href="<?= Router::instance()->baseUrl; ?>" />
 	<title><?= Str::truncate($title, 150) ?></title>
 
 	<!-- Meta Tags -->

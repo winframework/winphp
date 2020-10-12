@@ -3,7 +3,7 @@
 namespace App\Controllers\MyModule;
 
 use Win\Controllers\Controller;
-use Win\Views\View;
+use Win\Templates\View;
 
 class IndexController extends Controller
 {

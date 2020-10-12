@@ -1,10 +1,10 @@
 <?php
 
 use Win\Common\Server;
-use Win\Views\View;
+use Win\Templates\View;
 
 /** @var View $this */
-/** @var Exception $exception */
+/** @var Throwable $error */
 ?>
 <main class="page-404">
 	<h1>Página não Encontrada</h1>
@@ -28,8 +28,8 @@ use Win\Views\View;
 			</p>
 
 			<?php if (Server::isLocalHost()) : ?>
-				<p><b><?= $exception->getMessage(); ?></b></p>
-				<p><?= $exception; ?></p>
+				<p><b><?= $error->getMessage(); ?></b></p>
+				<p><?= $error; ?></p>
 			<?php endif; ?>
 
 			<div class="text-center buttons">

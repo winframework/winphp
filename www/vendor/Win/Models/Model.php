@@ -2,9 +2,7 @@
 
 namespace Win\Models;
 
-abstract class Model
+class Model
 {
 	public ?int $id = null;
-
-	abstract public function validate();
 }

@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Views\ClassView;
+use App\Templates\ClassView;
 use Win\Controllers\Controller;
 use Win\Services\Alert;
-use Win\Views\View;
+use Win\Templates\View;
 
 /**
  * Usado pelo PHPUnit
@@ -106,12 +106,21 @@ class BasicController extends Controller
 	}
 
 	/**
+	 * Erro
+	 */
+	protected function erroView()
+	{
+		echo 'Esta mensagem não deve aparecer';
+		return new View('basic/erro-view');
+	}
+
+	/**
 	 * Redireciona
 	 */
 	public function redirecting()
 	{
 		Alert::success('Você foi redirecionado.');
-		$this->redirect('alerts/show');
+		$this->router->redirect('alerts/show');
 
 		Alert::error('Este não pode aparecer.');
 
@@ -127,7 +136,7 @@ class BasicController extends Controller
 		Alert::error('Outro erro.');
 		Alert::success('Parabéns.');
 
-		$this->redirect('alerts/show');
+		$this->router->redirect('alerts/show');
 	}
 
 	/**

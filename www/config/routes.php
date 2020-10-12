@@ -1,12 +1,12 @@
 <?php
 
-use Win\Request\Router;
+use Win\Services\Router;
 
 /**
  * Direciona uma URL para um Controller@action
  *
  * url => NomeDoController@nomeDoAction
  */
-Router::add('App\\Controllers\\', [
+Router::instance()->add('App\\Controllers\\', [
 	'' => 'IndexController@index',
 ]);

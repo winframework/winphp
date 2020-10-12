@@ -1,0 +1,19 @@
+<?php
+
+use App\Repositories\PageRepo;
+use Win\Templates\Template;
+
+/** @var Block $this */
+$pageRepo = PageRepo::instance();
+$pages = $pageRepo->paginate(2)->sort('id DESC')->list();
+?>
+<b>LAST 2 PAGES:</b>
+<ul>
+  <?php foreach ($pages as $page) : ?>
+    <li>
+      <a href="page/<?= $page->id; ?>">
+        <?= $page->title; ?>
+      </a>
+    </li>
+  <?php endforeach; ?>
+</ul>

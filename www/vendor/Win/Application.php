@@ -6,10 +6,10 @@ use PDO;
 use Win\Common\DependenceInjector as DI;
 use Win\Common\Utils\Str;
 use Win\Controllers\Controller;
-use Win\Request\Url;
 use Win\HttpException;
-use Win\Repositories\Session;
-use Win\Views\View;
+use Win\Services\Router;
+use Win\Templates\Template;
+use Win\Templates\View;
 
 /**
  * Application (WinPHP Framework)
@@ -17,18 +17,16 @@ use Win\Views\View;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework <http://github.com/winframework/winphp/>
- * @version 1.6.0
+ * @version 1.7.0
  */
 class Application
 {
 	protected static Application $instance;
 
 	public Controller $controller;
+	public Router $router;
 	public View $view;
-	public Session $session;
 	public ?PDO $pdo = null;
-	public string $action = '';
-	public string $page = '';
 
 	/**
 	 * Cria a aplicação principal
@@ -36,8 +34,7 @@ class Application
 	public function __construct()
 	{
 		static::$instance = $this;
-		Url::init();
-		$this->session = new Session();
+		$this->router = Router::instance();
 	}
 
 	/**
@@ -57,9 +54,6 @@ class Application
 	 */
 	public function run($class, $method = 'index', ...$args)
 	{
-		if (isset($args[0]) && $args[0] instanceof HttpException) {
-			http_response_code($args[0]->getCode());
-		}
 		if (!class_exists($class)) {
 			throw new HttpException("Controller '{$class}' not found", 404);
 		}
@@ -67,8 +61,8 @@ class Application
 		$controller = DI::make($class);
 		$controller->app = $this;
 		$this->controller = $controller;
-		$this->action = $method;
-		$this->setPage($class);
+		$this->router->action = $method;
+		$this->router->page = $this->getPage();
 
 		if (!method_exists($controller, $method)) {
 			throw new HttpException("Action '{$method}' not found in '{$class}'", 404);
@@ -91,6 +85,9 @@ class Application
 			header('Content-Type: application/json');
 			return json_encode($response);
 		}
+		if ($response instanceof View && $this->controller->layout) {
+			$response = new Template($this->controller->layout, ['content' => $response]);
+		}
 
 		return $response;
 	}
@@ -101,7 +98,7 @@ class Application
 	 */
 	public function isHomePage()
 	{
-		return Url::$segments == Url::HOME;
+		return $this->router->segments == Router::HOME;
 	}
 
 	/**
@@ -127,11 +124,12 @@ class Application
 
 	/**
 	 * Retorna a página atual
-	 * @param string
+	 * @return string
 	 */
-	private function setPage($class)
+	public function getPage()
 	{
+		$class = get_class($this->controller);
 		$replaces = ['Controllers\\', 'Controller', 'App\\', '\\'];
-		$this->page = Str::toUrl(str_replace($replaces, ' ', $class));
+		return Str::toUrl(str_replace($replaces, ' ', $class));
 	}
 }

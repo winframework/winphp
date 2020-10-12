@@ -1,0 +1,31 @@
+<?php
+
+use App\Models\Page;
+use App\Repositories\PageCategoryRepo;
+use Win\Common\Utils\Date;
+use Win\Templates\Template;
+use Win\Templates\View;
+
+/** @var View $this */
+/** @var Page $page */
+/** @var PageCategoryRepo $categoryRepo */
+?>
+<main>
+	<div class="row">
+		<h2>
+			<?= $page->title; ?>
+		</h2>
+		<?php if ($page->createdAt) : ?>
+			<em>Criado em: <?= Date::format($page->createdAt, 'd/m/Y H:i:s'); ?></em>
+		<?php endif; ?>
+		<?php if ($page->categoryId) : ?>
+			<b>Categoria: <?= $categoryRepo->find($page->categoryId); ?></b>
+		<?php endif; ?>
+		<p>
+			<?= nl2br($page->description); ?>
+		</p>
+	</div>
+
+	<hr />
+	<?= new Template('page/most-recent'); ?>
+</main>

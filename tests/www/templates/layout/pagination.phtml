@@ -1,17 +1,17 @@
 <?php
 
-use Win\Blocks\Block;
-use Win\Request\Url;
+use Win\Templates\Template;
+use Win\Services\Router;
 
 /**
- * @var Block $this
+ * @var Template $this
  * @var int $pageSize
  * @var int $last
  * @var int $current
  * @var int $count
  */
 
-$url = Url::$full;
+$url = Router::instance()->url;
 ?>
 <?php if ($pageSize > 0 && $last > 0) : ?>
 	<ul class="pagination pagination-lg">

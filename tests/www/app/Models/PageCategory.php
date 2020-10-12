@@ -19,8 +19,4 @@ class PageCategory extends Model
 	{
 		return $this->title;
 	}
-
-	public function validate()
-	{
-	}
 }

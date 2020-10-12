@@ -35,14 +35,16 @@ class AliasDIChild extends DIChild
 
 class DependenceInjectorTest extends TestCase
 {
-	public function setUp()
+	public function setUp(): void
 	{
 		DI::$container = [];
+		DI::$instances = [];
 	}
 
-	public function tearDown()
+	public function tearDown(): void
 	{
 		DI::$container = [];
+		DI::$instances = [];
 	}
 
 	public function testMake()

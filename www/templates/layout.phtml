@@ -1,23 +1,22 @@
 <?php
 
-use Win\Blocks\Block;
-use Win\Common\Template;
+use Win\Templates\Template;
 use Win\Common\Utils\Link;
 use Win\Common\Utils\Str;
-use Win\Request\Url;
+use Win\Services\Router;
 
 /** @var Template $this */
 /** @var string $content */
-$bodyClass = $this->app->page . '-' .  Str::toUrl($this->app->action);
+$bodyClass = Router::instance()->page . '-' .  Str::toUrl(Router::instance()->action);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-<?= new Block('layout/head'); ?>
+<?= new Template('layout/head'); ?>
 
 <body class="<?= $bodyClass; ?>">
 	<header>
 		<nav class="main-nav">
-			<a id="logo" href="<?= Url::$base; ?>">
+			<a id="logo" href="<?= Router::instance()->baseUrl; ?>">
 				<img src="public/img/win.svg" alt="<?= APP_NAME; ?>" />
 			</a>
 			<input type="checkbox" id="menu-toggle" />

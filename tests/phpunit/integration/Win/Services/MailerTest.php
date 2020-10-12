@@ -3,21 +3,21 @@
 namespace Win\Services;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\Email;
-use Win\Repositories\Filesystem;
+use Win\Templates\Email;
+use Win\Services\Filesystem;
 
 class MailerTest extends TestCase
 {
 	/** @var Filesystem */
 	protected $fs;
 
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->fs = new Filesystem();
 		$this->fs->delete('data/emails');
 	}
 
-	public function tearDown()
+	public function tearDown(): void
 	{
 		$this->fs->delete('data/emails');
 	}
@@ -31,12 +31,21 @@ class MailerTest extends TestCase
 		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
 
-	public function testSendTemplate()
+	public function testSendWithTemplate()
 	{
 		$body = new Email('first', [], '');
 
 		$mailer = new Mailer();
 		$mailer->send($body);
+		$this->assertEquals($mailer, $body->mailer);
+		$this->assertEquals(1, $this->fs->count('data/emails'));
+	}
+
+	public function testSendTemplate()
+	{
+		$mailer = new Mailer();
+		$mailer->sendTemplate([],'first');
+
 		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
 

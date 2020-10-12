@@ -4,7 +4,7 @@ namespace Win\Common\Utils;
 /**
  * Manipulador de Inteiros
  */
-class Integer
+abstract class Integer
 {
 	/**
 	 * Retorna o inteiro com a quantidade de caracteres escolhido

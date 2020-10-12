@@ -1,13 +1,13 @@
 <?php
 
-use Win\Views\View;
+use Win\Templates\View;
 
 /** @var View $this */
-/** @var Exception $exception */
+/** @var Throwable $error */
 ?>
 <main>
 	<h1>Page not found</h1>
 	<div class="text-center">
-		<?= $exception->getMessage(); ?>
+		<?= $error->getMessage(); ?>
 	</div>
 </main>

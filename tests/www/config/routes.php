@@ -1,12 +1,12 @@
 <?php
-use Win\Request\Router;
+use Win\Services\Router;
 
 /**
  * Direciona uma URL para um Controller@action
  *
  * url => NomeDoController@nomeDoAction
  */
-Router::add('App\\Controllers\\', [
+Router::instance()->add('App\\Controllers\\', [
 	'' => 'IndexController@index',
 
 	// Básicos
@@ -20,6 +20,7 @@ Router::add('App\\Controllers\\', [
 	'alerts/show' => 'BasicController@showAlerts',
 	'alerts' => 'BasicController@createAlerts',
 	'redirecting' => 'BasicController@redirecting',
+	'erro-view' => 'BasicController@erroView',
 
 	// 404
 	'controller404' => 'IndexControllasdf',
@@ -33,11 +34,11 @@ Router::add('App\\Controllers\\', [
 	// Avançados
 	'send-email' => 'EmailController@index',
 	'uploader' => 'UploaderController@index',
-	'pages' => 'PagesController@index',
-	'pages/save' => 'PagesController@save',
-	'pages/update' => 'PagesController@update',
-	'pages/(.*)' => 'PagesController@listByCategory',
-	'page/(.*)' => 'PagesController@detail',
+	'pages' => 'PageController@index',
+	'pages/save' => 'PageController@save',
+	'pages/update' => 'PageController@update',
+	'pages/(.*)' => 'PageController@listByCategory',
+	'page/(.*)' => 'PageController@detail',
 
 	// Contato
 	'contato' => 'ContatoController@index',

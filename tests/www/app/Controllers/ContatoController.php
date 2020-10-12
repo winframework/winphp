@@ -3,13 +3,12 @@
 namespace App\Controllers;
 
 use Exception;
-use Win\Common\Email;
+use Win\Common\Utils\Input;
 use Win\Controllers\Controller;
+use Win\Services\Alert;
 use Win\Services\Mailer;
 use Win\Services\ReCaptcha;
-use Win\Services\Alert;
-use Win\Request\Input;
-use Win\Views\View;
+use Win\Templates\View;
 
 /**
  * Envia um formulário de contato via E-mail
@@ -45,16 +44,15 @@ class ContatoController extends Controller
 	public function index()
 	{
 		try {
-			if (Input::post('submit')) {
+			if (Input::isset('submit')) {
 				$this->validate();
-				
+
 				$mailer = new Mailer();
-				$mailer->setSubject('Contato efetuado pelo site ' . APP_NAME);
-				$mailer->addTo(static::SEND_TO);
-				$mailer->setFrom(static::SEND_FROM, APP_NAME);
-				$mailer->addReplyTo($this->email, $this->name);
-				$email = new Email('contact', get_object_vars($this));
-				$mailer->send($email);
+				$mailer->setSubject('Contato efetuado pelo site ' . APP_NAME)
+					->addTo(static::SEND_TO)
+					->setFrom(static::SEND_FROM, APP_NAME)
+					->addReplyTo($this->email, $this->name)
+					->sendTemplate(get_object_vars($this), 'contact');
 
 				$this->name = '';
 				$this->phone = '';
