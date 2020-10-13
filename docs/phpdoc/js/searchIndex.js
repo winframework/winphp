@@ -141,26 +141,6 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/Win-Common-Benchmark.html#property_memory"
         },                {
-            "fqsen": "\\Win\\Common\\DependenceInjector",
-            "name": "DependenceInjector",
-            "summary": "Dependence\u0020Injector",
-            "url": "../classes/Win-Common-DependenceInjector.html"
-        },                {
-            "fqsen": "\\Win\\Common\\DependenceInjector\u003A\u003Amake\u0028\u0029",
-            "name": "make",
-            "summary": "Cria\u0020a\u0020classe,\u0020injetando\u0020as\u0020depend\u00EAncias",
-            "url": "../classes/Win-Common-DependenceInjector.html#method_make"
-        },                {
-            "fqsen": "\\Win\\Common\\DependenceInjector\u003A\u003A\u0024container",
-            "name": "container",
-            "summary": "Armazena\u0020os\u0020nomes\u0020de\u0020classes",
-            "url": "../classes/Win-Common-DependenceInjector.html#property_container"
-        },                {
-            "fqsen": "\\Win\\Common\\DependenceInjector\u003A\u003A\u0024instances",
-            "name": "instances",
-            "summary": "",
-            "url": "../classes/Win-Common-DependenceInjector.html#property_instances"
-        },                {
             "fqsen": "\\Win\\Common\\Pagination",
             "name": "Pagination",
             "summary": "Auxilia\u0020criar\u0020pagina\u00E7\u00F5es",
@@ -1045,6 +1025,26 @@ Search.appendIndex(
             "name": "__construct",
             "summary": "Cria\u0020uma\u0020View\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
             "url": "../classes/Win-Templates-View.html#method___construct"
+        },                {
+            "fqsen": "\\Win\\Common\\DI",
+            "name": "DI",
+            "summary": "Dependence\u0020Injector",
+            "url": "../classes/Win-Common-DI.html"
+        },                {
+            "fqsen": "\\Win\\Common\\DI\u003A\u003Ainstance\u0028\u0029",
+            "name": "instance",
+            "summary": "Cria\u0020a\u0020classe,\u0020injetando\u0020as\u0020depend\u00EAncias",
+            "url": "../classes/Win-Common-DI.html#method_instance"
+        },                {
+            "fqsen": "\\Win\\Common\\DI\u003A\u003A\u0024container",
+            "name": "container",
+            "summary": "Armazena\u0020os\u0020nomes\u0020de\u0020classes",
+            "url": "../classes/Win-Common-DI.html#property_container"
+        },                {
+            "fqsen": "\\Win\\Common\\DI\u003A\u003A\u0024instances",
+            "name": "instances",
+            "summary": "",
+            "url": "../classes/Win-Common-DI.html#property_instances"
         },                {
             "fqsen": "\\",
             "name": "\\",
