@@ -283,7 +283,7 @@ abstract class Repository
 	 */
 	protected function exists($id)
 	{
-		$orm = new static($this->pagination);
+		$orm = new static();
 		$orm->pdo = $this->pdo;
 		$orm->table = $this->table;
 		return $orm->if($this->pk, $id)->count() > 0;

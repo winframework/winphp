@@ -8,6 +8,7 @@ use Win\Controllers\Controller;
 use Win\Services\Alert;
 use Win\Services\Mailer;
 use Win\Services\ReCaptcha;
+use Win\Templates\Email;
 use Win\Templates\View;
 
 /**
@@ -47,12 +48,12 @@ class ContatoController extends Controller
 			if (Input::isset('submit')) {
 				$this->validate();
 
-				$mailer = new Mailer();
+				$mailer = Mailer::instance();
 				$mailer->setSubject('Contato efetuado pelo site ' . APP_NAME)
 					->addTo(static::SEND_TO)
 					->setFrom(static::SEND_FROM, APP_NAME)
 					->addReplyTo($this->email, $this->name)
-					->sendTemplate(get_object_vars($this), 'contact');
+					->send(new Email('contact', get_object_vars($this)));
 
 				$this->name = '';
 				$this->phone = '';

@@ -6,6 +6,7 @@ use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Templates\Email;
 use Win\Common\Server;
+use Win\Common\Traits\InjectableTrait;
 use Win\Services\Filesystem;
 
 /**
@@ -15,10 +16,13 @@ use Win\Services\Filesystem;
  */
 class Mailer
 {
+	use InjectableTrait;
 	const DIRECTORY = 'data/emails';
 
 	/** @var PHPMailer */
-	private $mailer;
+	protected $mailer;
+
+	protected Filesystem $fs;
 
 	/** @var bool */
 	public static $sendOnLocalHost = false;
@@ -26,9 +30,10 @@ class Mailer
 	/**
 	 * Instancia o serviço de E-mail
 	 */
-	public function __construct()
+	public function __construct(Filesystem $fs, PHPMailer $mailer)
 	{
-		$this->mailer = new PHPMailer();
+		$this->fs = $fs;
+		$this->mailer = $mailer;
 		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->IsMail();
 		$this->mailer->IsHTML(true);
@@ -52,6 +57,14 @@ class Mailer
 	{
 		$this->mailer->Subject = $subject;
 		return $this;
+	}
+
+	/**
+	 * Retorna o assunto
+	 */
+	public function getSubject()
+	{
+		return $this->mailer->Subject;
 	}
 
 	/**
@@ -113,11 +126,17 @@ class Mailer
 	/**
 	 * Envia o E-mail
 	 * @param string|Email $body
+	 * @param string $layout
 	 */
-	public function send($body)
+	public function send($body, $layout = 'layout')
 	{
 		if ($body instanceof Email) {
 			$body->mailer = $this;
+		}
+		if ($layout) {
+			$layout = new Email($layout, ['content' => $body]);
+			$layout->mailer = $this;
+			$body = $layout;
 		}
 		$this->mailer->Body = (string) $body;
 
@@ -135,20 +154,6 @@ class Mailer
 	}
 
 	/**
-	 * Envia o email como template
-	 * @param mixed $data
-	 * @param string $template
-	 * @param string $layout
-	 */
-	public function sendTemplate($data, $template, $layout = 'layout')
-	{
-		$template = new Email($template, $data);
-		$template->mailer = $this;
-		$layout = new Email($layout, ['content' => $template]);
-		$this->send($layout);
-	}
-
-	/**
 	 * Limpa dados
 	 */
 	private function flush()
@@ -163,10 +168,9 @@ class Mailer
 	 */
 	private function saveOnDisk()
 	{
-		$fs = new Filesystem();
 		$name = date('Y.m.d-H.i.s-') . strtolower(md5(uniqid(time()))) . '.html';
 		$body = $this->mailer->Body;
 
-		return $fs->write(static::DIRECTORY . "/$name", $body);
+		return $this->fs->write(static::DIRECTORY . "/$name", $body);
 	}
 }

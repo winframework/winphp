@@ -21,7 +21,7 @@
 - Título de Página;
 - Envio de Emails;
 - Manipulador de Arquivos;
-- Manipulador de Tipos Variáveis (String, Integer, Date, etc);
+- Utilitários (String, Date, Form, etc);
 - Manipulador de Variáveis Globais (Input, Server, etc);
 - Alertas;
 - Conexão com Banco de Dados;

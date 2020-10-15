@@ -10,7 +10,7 @@ use ReflectionClass;
  * Se há um apelido para a classe dentro de $container,
  * então ela será utilizada ao invés da classe original.
  */
-abstract class DependenceInjector
+abstract class DI
 {
 	/**
 	 * Armazena os nomes de classes
@@ -24,7 +24,7 @@ abstract class DependenceInjector
 	 * @param string $class
 	 * @return object
 	 */
-	public static function make(string $class)
+	public static function instance(string $class)
 	{
 		$class = static::$container[$class] ?? $class;
 
@@ -33,7 +33,9 @@ abstract class DependenceInjector
 			$con = (new ReflectionClass($class))->getConstructor();
 			if (!is_null($con)) {
 				foreach ($con->getParameters() as $param) {
-					$args[] = static::make($param->getType());
+					if ($param->getType()) {
+						$args[] = static::instance($param->getType()->getName());
+					}
 				}
 			}
 			static::$instances[$class] = new $class(...$args);

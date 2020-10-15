@@ -22,29 +22,39 @@ class MailerTest extends TestCase
 		$this->fs->delete('data/emails');
 	}
 
+	public function testGetSubject()
+	{
+		$subject = 'My Subject';
+		$mailer = Mailer::instance();
+		
+		$mailer->setSubject($subject);
+
+		$this->assertEquals($subject, $mailer->getSubject());
+	}
+
 	public function testSend()
 	{
 		$body = 'My email body';
 
-		$mailer = new Mailer();
+		$mailer = Mailer::instance();
 		$mailer->send($body);
-		$this->assertEquals(1, $this->fs->count('data/emails'));
-	}
-
-	public function testSendWithTemplate()
-	{
-		$body = new Email('first', [], '');
-
-		$mailer = new Mailer();
-		$mailer->send($body);
-		$this->assertEquals($mailer, $body->mailer);
 		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
 
 	public function testSendTemplate()
 	{
-		$mailer = new Mailer();
-		$mailer->sendTemplate([],'first');
+		$body = new Email('first', [], '');
+
+		$mailer = Mailer::instance();
+		$mailer->send($body);
+		$this->assertEquals($mailer, $body->mailer);
+		$this->assertEquals(1, $this->fs->count('data/emails'));
+	}
+
+	public function testSendTemplateLayout()
+	{
+		$mailer = Mailer::instance();
+		$mailer->send([], 'first');
 
 		$this->assertEquals(1, $this->fs->count('data/emails'));
 	}
@@ -52,7 +62,7 @@ class MailerTest extends TestCase
 	public function testSendWithHeaders()
 	{
 		$body = 'My email body';
-		$mailer = new Mailer();
+		$mailer = Mailer::instance();
 		$mailer->addTo('to@john.com', 'John');
 		$mailer->addBcc('bcc@john.com', 'John');
 		$mailer->addCc('cc@john.com', 'John');
@@ -72,7 +82,7 @@ class MailerTest extends TestCase
 	public function testSendErrorLocalHost()
 	{
 		Mailer::$sendOnLocalHost = true;
-		$mailer = new Mailer();
+		$mailer = Mailer::instance();
 		$body = 'My email body';
 
 		$mailer->send($body);

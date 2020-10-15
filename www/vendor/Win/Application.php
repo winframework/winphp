@@ -3,7 +3,7 @@
 namespace Win;
 
 use PDO;
-use Win\Common\DependenceInjector as DI;
+use Win\Common\DI;
 use Win\Common\Utils\Str;
 use Win\Controllers\Controller;
 use Win\HttpException;
@@ -16,7 +16,7 @@ use Win\Templates\View;
  *
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
- * @author winPHP Framework <http://github.com/winframework/winphp/>
+ * @author winPHP Framework http://github.com/winframework/winphp/
  * @version 1.7.0
  */
 class Application
@@ -58,7 +58,7 @@ class Application
 			throw new HttpException("Controller '{$class}' not found", 404);
 		}
 		/** @var Controller $controller */
-		$controller = DI::make($class);
+		$controller = DI::instance($class);
 		$controller->app = $this;
 		$this->controller = $controller;
 		$this->router->action = $method;

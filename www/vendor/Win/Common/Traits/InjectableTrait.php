@@ -2,7 +2,7 @@
 
 namespace Win\Common\Traits;
 
-use Win\Common\DependenceInjector as DI;
+use Win\Common\DI;
 
 /**
  * Comportamento injetável
@@ -16,6 +16,6 @@ trait InjectableTrait
 	 */
 	public static function instance()
 	{
-		return DI::make(get_called_class());
+		return DI::instance(get_called_class());
 	}
 }

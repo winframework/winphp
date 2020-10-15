@@ -3,7 +3,7 @@
 namespace Win\Common;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\DependenceInjector as DI;
+use Win\Common\DI;
 use Win\Common\Traits\InjectableTrait;
 
 class DIParent
@@ -33,7 +33,7 @@ class AliasDIChild extends DIChild
 }
 
 
-class DependenceInjectorTest extends TestCase
+class DITest extends TestCase
 {
 	public function setUp(): void
 	{
@@ -49,7 +49,7 @@ class DependenceInjectorTest extends TestCase
 
 	public function testMake()
 	{
-		$parent = DI::make('Win\\Common\\DIParent');
+		$parent = DI::instance('Win\\Common\\DIParent');
 		$this->assertInstanceOf(DIParent::class, $parent);
 		$this->assertInstanceOf(DIChild::class, $parent->child);
 		$this->assertInstanceOf(DIGrandChild::class, $parent->child->grandChild);
@@ -61,7 +61,7 @@ class DependenceInjectorTest extends TestCase
 			DIChild::class => AliasDIChild::class,
 		];
 
-		$parent = DI::make(DIParent::class);
+		$parent = DI::instance(DIParent::class);
 
 		$this->assertInstanceOf(DIParent::class, $parent);
 		$this->assertInstanceOf(AliasDIChild::class, $parent->child);
