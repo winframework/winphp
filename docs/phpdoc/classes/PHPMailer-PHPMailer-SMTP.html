@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/app.html"><abbr title="\App">App</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/app-controllers.html"><abbr title="\App\Controllers">Controllers</abbr></a></li>
+                            </ul>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpmailer.html"><abbr title="\PHPMailer">PHPMailer</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpmailer-phpmailer.html"><abbr title="\PHPMailer\PHPMailer">PHPMailer</abbr></a></li>
+                            </ul>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/win.html"><abbr title="\Win">Win</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/win-common.html"><abbr title="\Win\Common">Common</abbr></a></li>
+                                    <li><a href="../namespaces/win-controllers.html"><abbr title="\Win\Controllers">Controllers</abbr></a></li>
+                                    <li><a href="../namespaces/win-models.html"><abbr title="\Win\Models">Models</abbr></a></li>
+                                    <li><a href="../namespaces/win-repositories.html"><abbr title="\Win\Repositories">Repositories</abbr></a></li>
+                                    <li><a href="../namespaces/win-services.html"><abbr title="\Win\Services">Services</abbr></a></li>
+                                    <li><a href="../namespaces/win-templates.html"><abbr title="\Win\Templates">Templates</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpmailer.html">PHPMailer</a></li>
+                    <li><a href="../namespaces/phpmailer-phpmailer.html">PHPMailer</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            SMTP
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">30</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">PHPMailer RFC821 SMTP email transport class.</p>
+        <section class="phpdocumentor-class__description"><p>Implements RFC 821 SMTP commands and provides some utility methods for sending mail to an SMTP server.</p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_VERSION">VERSION</a></th>
+                    <td class="phpdocumentor-cell">The PHPMailer SMTP version number.</td>
+                    <td class="phpdocumentor-cell">&#039;6.0.1&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_LE">LE</a></th>
+                    <td class="phpdocumentor-cell">SMTP line break constant.</td>
+                    <td class="phpdocumentor-cell">&quot;\r\n&quot;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_DEFAULT_PORT">DEFAULT_PORT</a></th>
+                    <td class="phpdocumentor-cell">The SMTP port to use if one is not specified.</td>
+                    <td class="phpdocumentor-cell">25</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_MAX_LINE_LENGTH">MAX_LINE_LENGTH</a></th>
+                    <td class="phpdocumentor-cell">The maximum line length allowed by RFC 2822 section 2.1.1.</td>
+                    <td class="phpdocumentor-cell">998</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_DEBUG_OFF">DEBUG_OFF</a></th>
+                    <td class="phpdocumentor-cell">Debug level for no output.</td>
+                    <td class="phpdocumentor-cell">0</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_DEBUG_CLIENT">DEBUG_CLIENT</a></th>
+                    <td class="phpdocumentor-cell">Debug level to show client -&gt; server messages.</td>
+                    <td class="phpdocumentor-cell">1</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_DEBUG_SERVER">DEBUG_SERVER</a></th>
+                    <td class="phpdocumentor-cell">Debug level to show client -&gt; server and server -&gt; client messages.</td>
+                    <td class="phpdocumentor-cell">2</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_DEBUG_CONNECTION">DEBUG_CONNECTION</a></th>
+                    <td class="phpdocumentor-cell">Debug level to show connection status, client -&gt; server and server -&gt; client messages.</td>
+                    <td class="phpdocumentor-cell">3</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#constant_DEBUG_LOWLEVEL">DEBUG_LOWLEVEL</a></th>
+                    <td class="phpdocumentor-cell">Debug level to show all messages.</td>
+                    <td class="phpdocumentor-cell">4</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_do_debug">$do_debug</a></th>
+                    <td class="phpdocumentor-cell">Debug output level.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_Debugoutput">$Debugoutput</a></th>
+                    <td class="phpdocumentor-cell">How to handle debug output.</td>
+                    <td class="phpdocumentor-cell">string|callable|<abbr title="\Psr\Log\LoggerInterface">LoggerInterface</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_do_verp">$do_verp</a></th>
+                    <td class="phpdocumentor-cell">Whether to use VERP.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_Timeout">$Timeout</a></th>
+                    <td class="phpdocumentor-cell">The timeout value for connection, in seconds.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_Timelimit">$Timelimit</a></th>
+                    <td class="phpdocumentor-cell">How long to wait for commands to complete, in seconds.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_smtp_transaction_id_patterns">$smtp_transaction_id_patterns</a></th>
+                    <td class="phpdocumentor-cell">Patterns to extract an SMTP transaction id from reply to a DATA command.</td>
+                    <td class="phpdocumentor-cell">string[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_last_smtp_transaction_id">$last_smtp_transaction_id</a></th>
+                    <td class="phpdocumentor-cell">The last transaction ID issued in response to a DATA command,
+if one was detected.</td>
+                    <td class="phpdocumentor-cell">string|bool|null</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_smtp_conn">$smtp_conn</a></th>
+                    <td class="phpdocumentor-cell">The socket for the server connection.</td>
+                    <td class="phpdocumentor-cell">resource|null</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_error">$error</a></th>
+                    <td class="phpdocumentor-cell">Error information, if any, for the last SMTP command.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_helo_rply">$helo_rply</a></th>
+                    <td class="phpdocumentor-cell">The reply the server sent to us for HELO.</td>
+                    <td class="phpdocumentor-cell">string|null</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_server_caps">$server_caps</a></th>
+                    <td class="phpdocumentor-cell">The set of SMTP extensions sent in reply to EHLO command.</td>
+                    <td class="phpdocumentor-cell">array|null</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#property_last_reply">$last_reply</a></th>
+                    <td class="phpdocumentor-cell">The most recent reply received from the server.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_edebug">edebug()</a></th>
+                    <td class="phpdocumentor-cell">Output debugging info via a user-selected method.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_connect">connect()</a></th>
+                    <td class="phpdocumentor-cell">Connect to an SMTP server.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_startTLS">startTLS()</a></th>
+                    <td class="phpdocumentor-cell">Initiate a TLS (encrypted) session.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_authenticate">authenticate()</a></th>
+                    <td class="phpdocumentor-cell">Perform SMTP Login.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_hmac">hmac()</a></th>
+                    <td class="phpdocumentor-cell">Calculate an MD5 HMAC hash.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_connected">connected()</a></th>
+                    <td class="phpdocumentor-cell">Check connection state.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_close">close()</a></th>
+                    <td class="phpdocumentor-cell">Close the socket and clean up the state of the class.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_data">data()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP DATA command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_hello">hello()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP HELO or EHLO command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_sendHello">sendHello()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP HELO or EHLO command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_parseHelloFields">parseHelloFields()</a></th>
+                    <td class="phpdocumentor-cell">Parse a reply to HELO/EHLO command to discover server extensions.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_mail">mail()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP MAIL command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_quit">quit()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP QUIT command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_recipient">recipient()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP RCPT command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_reset">reset()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP RSET command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_sendCommand">sendCommand()</a></th>
+                    <td class="phpdocumentor-cell">Send a command to an SMTP server and check its return code.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_sendAndMail">sendAndMail()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP SAML command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_verify">verify()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP VRFY command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_noop">noop()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP NOOP command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_turn">turn()</a></th>
+                    <td class="phpdocumentor-cell">Send an SMTP TURN command.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_client_send">client_send()</a></th>
+                    <td class="phpdocumentor-cell">Send raw data to the server.</td>
+                    <td class="phpdocumentor-cell">int|bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getError">getError()</a></th>
+                    <td class="phpdocumentor-cell">Get the latest error.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getServerExtList">getServerExtList()</a></th>
+                    <td class="phpdocumentor-cell">Get SMTP extensions available on the server.</td>
+                    <td class="phpdocumentor-cell">array|null</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getServerExt">getServerExt()</a></th>
+                    <td class="phpdocumentor-cell">Get metadata about the SMTP server from its HELO/EHLO response.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getLastReply">getLastReply()</a></th>
+                    <td class="phpdocumentor-cell">Get the last reply from the server.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_get_lines">get_lines()</a></th>
+                    <td class="phpdocumentor-cell">Read the SMTP server&#039;s response.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_setVerp">setVerp()</a></th>
+                    <td class="phpdocumentor-cell">Enable or disable VERP address generation.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getVerp">getVerp()</a></th>
+                    <td class="phpdocumentor-cell">Get VERP address generation mode.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_setError">setError()</a></th>
+                    <td class="phpdocumentor-cell">Set error messages and codes.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_setDebugOutput">setDebugOutput()</a></th>
+                    <td class="phpdocumentor-cell">Set debug output method.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getDebugOutput">getDebugOutput()</a></th>
+                    <td class="phpdocumentor-cell">Get debug output method.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_setDebugLevel">setDebugLevel()</a></th>
+                    <td class="phpdocumentor-cell">Set debug output level.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getDebugLevel">getDebugLevel()</a></th>
+                    <td class="phpdocumentor-cell">Get debug output level.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_setTimeout">setTimeout()</a></th>
+                    <td class="phpdocumentor-cell">Set SMTP timeout.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getTimeout">getTimeout()</a></th>
+                    <td class="phpdocumentor-cell">Get SMTP timeout.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_errorHandler">errorHandler()</a></th>
+                    <td class="phpdocumentor-cell">Reports an error number and string.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_recordLastTransactionID">recordLastTransactionID()</a></th>
+                    <td class="phpdocumentor-cell">Extract and return the ID of the last SMTP transaction based on
+a list of patterns provided in SMTP::$smtp_transaction_id_patterns.</td>
+                    <td class="phpdocumentor-cell">bool|null|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPMailer-PHPMailer-SMTP.html#method_getLastTransactionID">getLastTransactionID()</a></th>
+                    <td class="phpdocumentor-cell">Get the queue/transaction ID of the last SMTP transaction
+If no reply has been received yet, it will return null.</td>
+                    <td class="phpdocumentor-cell">bool|null|string</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_VERSION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">VERSION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">37</span>
+    </aside>
+            <p class="phpdocumentor-summary">The PHPMailer SMTP version number.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$VERSION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;6.0.1&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_LE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">LE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+            <p class="phpdocumentor-summary">SMTP line break constant.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$LE</span>
+        = <span class="phpdocumentor-signature__default-value">&quot;\r\n&quot;</span>
+    </code>
+    </article>
+                                    <a id="constant_DEFAULT_PORT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DEFAULT_PORT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+            <p class="phpdocumentor-summary">The SMTP port to use if one is not specified.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$DEFAULT_PORT</span>
+        = <span class="phpdocumentor-signature__default-value">25</span>
+    </code>
+    </article>
+                                    <a id="constant_MAX_LINE_LENGTH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">MAX_LINE_LENGTH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">58</span>
+    </aside>
+            <p class="phpdocumentor-summary">The maximum line length allowed by RFC 2822 section 2.1.1.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$MAX_LINE_LENGTH</span>
+        = <span class="phpdocumentor-signature__default-value">998</span>
+    </code>
+    </article>
+                                    <a id="constant_DEBUG_OFF"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DEBUG_OFF</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+            <p class="phpdocumentor-summary">Debug level for no output.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DEBUG_OFF</span>
+        = <span class="phpdocumentor-signature__default-value">""</span>
+    </code>
+    </article>
+                                    <a id="constant_DEBUG_CLIENT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DEBUG_CLIENT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">68</span>
+    </aside>
+            <p class="phpdocumentor-summary">Debug level to show client -&gt; server messages.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DEBUG_CLIENT</span>
+        = <span class="phpdocumentor-signature__default-value">1</span>
+    </code>
+    </article>
+                                    <a id="constant_DEBUG_SERVER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DEBUG_SERVER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">73</span>
+    </aside>
+            <p class="phpdocumentor-summary">Debug level to show client -&gt; server and server -&gt; client messages.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DEBUG_SERVER</span>
+        = <span class="phpdocumentor-signature__default-value">2</span>
+    </code>
+    </article>
+                                    <a id="constant_DEBUG_CONNECTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DEBUG_CONNECTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">78</span>
+    </aside>
+            <p class="phpdocumentor-summary">Debug level to show connection status, client -&gt; server and server -&gt; client messages.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DEBUG_CONNECTION</span>
+        = <span class="phpdocumentor-signature__default-value">3</span>
+    </code>
+    </article>
+                                    <a id="constant_DEBUG_LOWLEVEL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DEBUG_LOWLEVEL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">83</span>
+    </aside>
+            <p class="phpdocumentor-summary">Debug level to show all messages.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DEBUG_LOWLEVEL</span>
+        = <span class="phpdocumentor-signature__default-value">4</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_do_debug"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$do_debug</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">96</span>
+    </aside>
+            <p class="phpdocumentor-summary">Debug output level.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$do_debug</span>
+         = <span class="phpdocumentor-signature__default-value">self::DEBUG_OFF</span>    </code>
+        <section class="phpdocumentor-description">Options:
+* self::DEBUG_OFF (`0`) No debug output, default
+* self::DEBUG_CLIENT (`1`) Client commands
+* self::DEBUG_SERVER (`2`) Client commands and server responses
+* self::DEBUG_CONNECTION (`3`) As DEBUG_SERVER plus connection status
+* self::DEBUG_LOWLEVEL (`4`) Low-level data output, all messages.</section>
+    </article>
+                                    <a id="property_Debugoutput"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$Debugoutput</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">119</span>
+    </aside>
+            <p class="phpdocumentor-summary">How to handle debug output.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">string|callable|<abbr title="\Psr\Log\LoggerInterface">LoggerInterface</abbr></span>
+        <span class="phpdocumentor-signature__name">$Debugoutput</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;echo&#039;</span>    </code>
+        <section class="phpdocumentor-description">Options:
+* `echo` Output plain-text as-is, appropriate for CLI
+* `html` Output escaped, line breaks converted to `&lt;br&gt;`, appropriate for browser output
+* `error_log` Output to error log as configured in php.ini
+Alternatively, you can provide a callable expecting two params: a message string and the debug level:
+
+```php
+$smtp-&gt;Debugoutput = function($str, $level) {echo &quot;debug level $level; message: $str&quot;;};
+```
+
+Alternatively, you can pass in an instance of a PSR-3 compatible logger, though only `debug`
+level output is used:
+
+```php
+$mail-&gt;Debugoutput = new myPsr3Logger;
+```</section>
+    </article>
+                                    <a id="property_do_verp"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$do_verp</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">129</span>
+    </aside>
+            <p class="phpdocumentor-summary">Whether to use VERP.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$do_verp</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_Timeout"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$Timeout</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">140</span>
+    </aside>
+            <p class="phpdocumentor-summary">The timeout value for connection, in seconds.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$Timeout</span>
+         = <span class="phpdocumentor-signature__default-value">300</span>    </code>
+        <section class="phpdocumentor-description">Default of 5 minutes (300sec) is from RFC2821 section 4.5.3.2.
+This needs to be quite high to function correctly with hosts using greetdelay as an anti-spam measure.</section>
+    </article>
+                                    <a id="property_Timelimit"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$Timelimit</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">148</span>
+    </aside>
+            <p class="phpdocumentor-summary">How long to wait for commands to complete, in seconds.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$Timelimit</span>
+         = <span class="phpdocumentor-signature__default-value">300</span>    </code>
+        <section class="phpdocumentor-description">Default of 5 minutes (300sec) is from RFC2821 section 4.5.3.2.</section>
+    </article>
+                                    <a id="property_smtp_transaction_id_patterns"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$smtp_transaction_id_patterns</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">157</span>
+    </aside>
+            <p class="phpdocumentor-summary">Patterns to extract an SMTP transaction id from reply to a DATA command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string[]</span>
+        <span class="phpdocumentor-signature__name">$smtp_transaction_id_patterns</span>
+         = <span class="phpdocumentor-signature__default-value">[&#039;exim&#039; =&gt; &#039;/[0-9]{3} OK id=(.*)/&#039;, &#039;sendmail&#039; =&gt; &#039;/[0-9]{3} 2.0.0 (.*) Message/&#039;, &#039;postfix&#039; =&gt; &#039;/[0-9]{3} 2.0.0 Ok: queued as (.*)/&#039;, &#039;Microsoft_ESMTP&#039; =&gt; &#039;/[0-9]{3} 2.[0-9].0 (.*)@(?:.*) Queued mail for delivery/&#039;, &#039;Amazon_SES&#039; =&gt; &#039;/[0-9]{3} Ok (.*)/&#039;]</span>    </code>
+        <section class="phpdocumentor-description">The first capture group in each regex will be used as the ID.
+MS ESMTP returns the message ID, which may not be correct for internal tracking.</section>
+    </article>
+                                    <a id="property_last_smtp_transaction_id"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$last_smtp_transaction_id</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">171</span>
+    </aside>
+            <p class="phpdocumentor-summary">The last transaction ID issued in response to a DATA command,
+if one was detected.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string|bool|null</span>
+        <span class="phpdocumentor-signature__name">$last_smtp_transaction_id</span>
+            </code>
+    </article>
+                                    <a id="property_smtp_conn"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$smtp_conn</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">178</span>
+    </aside>
+            <p class="phpdocumentor-summary">The socket for the server connection.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">resource|null</span>
+        <span class="phpdocumentor-signature__name">$smtp_conn</span>
+            </code>
+    </article>
+                                    <a id="property_error"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$error</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">185</span>
+    </aside>
+            <p class="phpdocumentor-summary">Error information, if any, for the last SMTP command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$error</span>
+         = <span class="phpdocumentor-signature__default-value">[&#039;error&#039; =&gt; &#039;&#039;, &#039;detail&#039; =&gt; &#039;&#039;, &#039;smtp_code&#039; =&gt; &#039;&#039;, &#039;smtp_code_ex&#039; =&gt; &#039;&#039;]</span>    </code>
+    </article>
+                                    <a id="property_helo_rply"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$helo_rply</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">198</span>
+    </aside>
+            <p class="phpdocumentor-summary">The reply the server sent to us for HELO.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string|null</span>
+        <span class="phpdocumentor-signature__name">$helo_rply</span>
+         = <span class="phpdocumentor-signature__default-value">null</span>    </code>
+        <section class="phpdocumentor-description">If null, no HELO string has yet been received.</section>
+    </article>
+                                    <a id="property_server_caps"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$server_caps</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">210</span>
+    </aside>
+            <p class="phpdocumentor-summary">The set of SMTP extensions sent in reply to EHLO command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array|null</span>
+        <span class="phpdocumentor-signature__name">$server_caps</span>
+         = <span class="phpdocumentor-signature__default-value">null</span>    </code>
+        <section class="phpdocumentor-description">Indexes of the array are extension names.
+Value at index &#039;HELO&#039; or &#039;EHLO&#039; (according to command that was sent)
+represents the server name. In case of HELO it is the only element of the array.
+Other values can be boolean TRUE or an array containing extension options.
+If null, no HELO/EHLO string has yet been received.</section>
+    </article>
+                                    <a id="property_last_reply"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$last_reply</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">217</span>
+    </aside>
+            <p class="phpdocumentor-summary">The most recent reply received from the server.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$last_reply</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_edebug"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">edebug()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">228</span>
+    </aside>
+        <p class="phpdocumentor-summary">Output debugging info via a user-selected method.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">edebug</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$str</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$level</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$str</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Debug string to output</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$level</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The debug level of this message; see DEBUG_* constants</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_connect"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">connect()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">287</span>
+    </aside>
+        <p class="phpdocumentor-summary">Connect to an SMTP server.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">connect</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$host</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$port</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$timeout</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">30</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$options</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$host</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>SMTP server IP or host name</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$port</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The port number to connect to</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$timeout</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">30</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>How long to wait for the connection to open</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$options</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>An array of options for stream_context_create()</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_startTLS"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">startTLS()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">382</span>
+    </aside>
+        <p class="phpdocumentor-summary">Initiate a TLS (encrypted) session.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">startTLS</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_authenticate"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">authenticate()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">423</span>
+    </aside>
+        <p class="phpdocumentor-summary">Perform SMTP Login.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">authenticate</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$username</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$password</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$authtype</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$OAuth</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PHPMailer-PHPMailer-OAuth.html"><abbr title="\PHPMailer\PHPMailer\OAuth">OAuth</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Must be run after hello().</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$username</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The user name</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$password</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The password</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$authtype</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The auth type (CRAM-MD5, PLAIN, LOGIN, XOAUTH2)</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$OAuth</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PHPMailer-PHPMailer-OAuth.html"><abbr title="\PHPMailer\PHPMailer\OAuth">OAuth</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>An optional OAuth instance for XOAUTH2 Login</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>True if successfully authenticated</p></span>
+            
+</article>
+                                    <a id="method_hmac"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">hmac()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">554</span>
+    </aside>
+        <p class="phpdocumentor-summary">Calculate an MD5 HMAC hash.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">hmac</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$data</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$key</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Works like hash_hmac('md5', $data, $key)
+in case that function is not available.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$data</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The data to hash</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$key</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The key to hash with</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_connected"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">connected()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">586</span>
+    </aside>
+        <p class="phpdocumentor-summary">Check connection state.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">connected</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>True if connected</p></span>
+            
+</article>
+                                    <a id="method_close"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">close()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">613</span>
+    </aside>
+        <p class="phpdocumentor-summary">Close the socket and clean up the state of the class.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">close</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Don't use this function without first trying to use QUIT.</p></section>
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_data"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">data()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">639</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP DATA command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">data</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$msg_data</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Issues a data command and sends the msg_data to the server,
+finializing the mail transaction. $msg_data is the message
+that is to be send with the headers. Each header needs to be
+on a single line followed by a <CRLF> with the message headers
+and the message body being separated by an additional <CRLF>.
+Implements RFC 821: DATA <CRLF>.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$msg_data</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Message data to send</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_hello"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">hello()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">731</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP HELO or EHLO command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">hello</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$host</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Used to identify the sending server to the receiving server.
+This makes sure that client and server are in a known state.
+Implements RFC 821: HELO <SP> <domain> <CRLF>
+and RFC 2821 EHLO.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$host</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The host name or IP to connect to</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_sendHello"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">sendHello()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">748</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP HELO or EHLO command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">sendHello</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$hello</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$host</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Low-level implementation used by hello().</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$hello</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The HELO string</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$host</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The hostname to say we are</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_parseHelloFields"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">parseHelloFields()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">767</span>
+    </aside>
+        <p class="phpdocumentor-summary">Parse a reply to HELO/EHLO command to discover server extensions.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">parseHelloFields</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$type</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>In case of HELO, the only parameter that can be discovered is a server name.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$type</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p><code class="prettyprint">HELO</code> or <code class="prettyprint">EHLO</code></p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_mail"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">mail()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">815</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP MAIL command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">mail</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$from</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Starts a mail transaction from the email address specified in
+$from. Returns true if successful or false otherwise. If True
+the mail transaction is started and then one or more recipient
+commands may be called followed by a data command.
+Implements RFC 821: MAIL <SP> FROM:<reverse-path> <CRLF>.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$from</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Source address of this message</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_quit"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">quit()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">835</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP QUIT command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">quit</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$close_on_error</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Closes the socket if there is no error or the $close_on_error argument is true.
+Implements from RFC 821: QUIT <CRLF>.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$close_on_error</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should the connection close if an error occurs?</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_recipient"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">recipient()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">857</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP RCPT command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">recipient</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$address</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Sets the TO argument to $toaddr.
+Returns true if the recipient was accepted false if it was rejected.
+Implements from RFC 821: RCPT <SP> TO:<forward-path> <CRLF>.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$address</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The address the message is being sent to</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_reset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">reset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">873</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP RSET command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">reset</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Abort any transaction that is currently in progress.
+Implements RFC 821: RSET <CRLF>.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>True on success</p></span>
+            
+</article>
+                                    <a id="method_sendCommand"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">sendCommand()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">887</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send a command to an SMTP server and check its return code.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">sendCommand</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$command</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$commandstring</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$expect</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int|array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$command</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The command name - not sent to the server</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$commandstring</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The actual command to send</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$expect</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int|array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>One or more expected integer success codes</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>True on success</p></span>
+            
+</article>
+                                    <a id="method_sendAndMail"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">sendAndMail()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">958</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP SAML command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">sendAndMail</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$from</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Starts a mail transaction from the email address specified in $from.
+Returns true if successful or false otherwise. If True
+the mail transaction is started and then one or more recipient
+commands may be called followed by a data command. This command
+will send the message to the users terminal if they are logged
+in and send them an email.
+Implements RFC 821: SAML <SP> FROM:<reverse-path> <CRLF>.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$from</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The address the message is from</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_verify"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">verify()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">970</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP VRFY command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">verify</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$name</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name to verify</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_noop"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">noop()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">981</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP NOOP command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">noop</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Used to keep keep-alives alive, doesn't actually do anything.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_turn"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">turn()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">995</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send an SMTP TURN command.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">turn</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This is an optional command for SMTP that this class does not support.
+This method is here to make the RFC821 Definition complete for this class
+and <em>may</em> be implemented in future.
+Implements from RFC 821: TURN <CRLF>.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_client_send"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">client_send()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1010</span>
+    </aside>
+        <p class="phpdocumentor-summary">Send raw data to the server.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">client_send</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$data</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int|bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$data</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The data to send</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int|bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The number of bytes sent to the server or false on error</p></span>
+            
+</article>
+                                    <a id="method_getError"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getError()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1025</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the latest error.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getError</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_getServerExtList"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getServerExtList()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1035</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get SMTP extensions available on the server.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getServerExtList</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array|null</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array|null</span>
+            
+</article>
+                                    <a id="method_getServerExt"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getServerExt()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1057</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get metadata about the SMTP server from its HELO/EHLO response.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getServerExt</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$name</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>The method works in three ways, dependent on argument value and current state:</p>
+<ol>
+<li>HELO/EHLO has not been sent - returns null and populates $this-&gt;error.</li>
+<li>HELO has been sent -
+$name == 'HELO': returns server name
+$name == 'EHLO': returns boolean false
+$name == any other string: returns null and populates $this-&gt;error</li>
+<li>EHLO has been sent -
+$name == 'HELO'|'EHLO': returns the server name
+$name == any other string: if extension $name exists, returns True
+or its options (e.g. AUTH mechanisms supported). Otherwise returns False.</li>
+</ol></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Name of SMTP extension or 'HELO'|'EHLO'</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getLastReply"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getLastReply()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1085</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the last reply from the server.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getLastReply</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_get_lines"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">get_lines()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1099</span>
+    </aside>
+        <p class="phpdocumentor-summary">Read the SMTP server&#039;s response.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">get_lines</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Either before eof or socket timeout occurs on the operation.
+With SMTP we can tell if we have more lines to read if the
+4th character is '-' symbol. If it is a space then we don't
+need to read anything else.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setVerp"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setVerp()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1160</span>
+    </aside>
+        <p class="phpdocumentor-summary">Enable or disable VERP address generation.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setVerp</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$enabled</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$enabled</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getVerp"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getVerp()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1170</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get VERP address generation mode.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getVerp</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setError"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setError()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1183</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set error messages and codes.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">setError</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$message</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$detail</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$smtp_code</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$smtp_code_ex</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$message</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The error message</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$detail</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Further detail on the error</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$smtp_code</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>An associated SMTP error code</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$smtp_code_ex</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Extended SMTP code</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_setDebugOutput"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDebugOutput()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1198</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set debug output method.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDebugOutput</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$method</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string|callable</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;echo&#039;</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$method</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|callable</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;echo&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the mechanism to use for debugging output, or a callable to handle it</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getDebugOutput"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDebugOutput()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1208</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get debug output method.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDebugOutput</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setDebugLevel"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDebugLevel()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1218</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set debug output level.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDebugLevel</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$level</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$level</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getDebugLevel"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDebugLevel()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1228</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get debug output level.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDebugLevel</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setTimeout"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTimeout()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1238</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set SMTP timeout.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTimeout</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$timeout</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$timeout</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The timeout duration in seconds</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getTimeout"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTimeout()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1248</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get SMTP timeout.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTimeout</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_errorHandler"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">errorHandler()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1261</span>
+    </aside>
+        <p class="phpdocumentor-summary">Reports an error number and string.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">errorHandler</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$errno</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$errmsg</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$errfile</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$errline</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$errno</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The error number returned by PHP</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$errmsg</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The error message returned by PHP</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$errfile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file the error occurred in</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$errline</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The line number the error occurred on</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_recordLastTransactionID"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">recordLastTransactionID()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1284</span>
+    </aside>
+        <p class="phpdocumentor-summary">Extract and return the ID of the last SMTP transaction based on
+a list of patterns provided in SMTP::$smtp_transaction_id_patterns.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">recordLastTransactionID</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|null|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Relies on the host providing the ID in response to a DATA command.
+If no reply has been received yet, it will return null.
+If no pattern was matched, it will return false.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|null|string</span>
+            
+</article>
+                                    <a id="method_getLastTransactionID"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getLastTransactionID()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php"><a href="../files/winphp-www-vendor-phpmailer-phpmailer-smtp.html"><abbr title="winphp/www/vendor/PHPMailer/PHPMailer/SMTP.php">SMTP.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1312</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the queue/transaction ID of the last SMTP transaction
+If no reply has been received yet, it will return null.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getLastTransactionID</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|null|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>If no pattern was matched, it will return false.</p></section>
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|null|string</span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

@@ -856,6 +856,11 @@ Search.appendIndex(
             "summary": "Define\u0020o\u0020assunto",
             "url": "../classes/Win-Services-Mailer.html#method_setSubject"
         },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AgetSubject\u0028\u0029",
+            "name": "getSubject",
+            "summary": "Retorna\u0020o\u0020assunto",
+            "url": "../classes/Win-Services-Mailer.html#method_getSubject"
+        },                {
             "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsetFrom\u0028\u0029",
             "name": "setFrom",
             "summary": "Define\u0020o\u0020remetente",
@@ -886,11 +891,6 @@ Search.appendIndex(
             "summary": "Envia\u0020o\u0020E\u002Dmail",
             "url": "../classes/Win-Services-Mailer.html#method_send"
         },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsendTemplate\u0028\u0029",
-            "name": "sendTemplate",
-            "summary": "Envia\u0020o\u0020email\u0020como\u0020template",
-            "url": "../classes/Win-Services-Mailer.html#method_sendTemplate"
-        },                {
             "fqsen": "\\Win\\Services\\Mailer\u003A\u003Aflush\u0028\u0029",
             "name": "flush",
             "summary": "Limpa\u0020dados",
@@ -910,6 +910,11 @@ Search.appendIndex(
             "name": "mailer",
             "summary": "",
             "url": "../classes/Win-Services-Mailer.html#property_mailer"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024fs",
+            "name": "fs",
+            "summary": "",
+            "url": "../classes/Win-Services-Mailer.html#property_fs"
         },                {
             "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024sendOnLocalHost",
             "name": "sendOnLocalHost",
