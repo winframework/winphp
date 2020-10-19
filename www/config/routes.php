@@ -1,12 +1,15 @@
 <?php
 
+use App\Controllers\IndexController;
 use Win\Services\Router;
 
+$router =  Router::instance();
+
 /**
- * Direciona uma URL para um Controller@action
+ * Direciona uma URL para um Controller
  *
- * url => NomeDoController@nomeDoAction
+ * url => [NomeDoController, nomeDoAction]
  */
-Router::instance()->add('App\\Controllers\\', [
-	'' => 'IndexController@index',
-]);
+$router->routes = [
+	'' => [IndexController::class, 'index'],
+];

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Templates\ClassView;
 use Win\Controllers\Controller;
 use Win\Services\Alert;
+use Win\Services\Router;
 use Win\Templates\View;
 
 /**
@@ -13,6 +14,12 @@ use Win\Templates\View;
 class BasicController extends Controller
 {
 	public int $ten;
+	private Router $router;
+
+	public function __construct(Router $router)
+	{
+		$this->router = $router;
+	}
 
 	public function init()
 	{

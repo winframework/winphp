@@ -47,7 +47,7 @@ class Application
 	}
 
 	/**
-	 * Executa o Controller@action e envia o retorno como resposta
+	 * Executa o [Controller, action] e envia o retorno como resposta
 	 * @param string $class Controller
 	 * @param string $method Action
 	 * @param array $args
@@ -126,7 +126,7 @@ class Application
 	 * Retorna a página atual
 	 * @return string
 	 */
-	public function getPage()
+	protected function getPage()
 	{
 		$class = get_class($this->controller);
 		$replaces = ['Controllers\\', 'Controller', 'App\\', '\\'];

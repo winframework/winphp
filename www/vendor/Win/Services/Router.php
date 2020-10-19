@@ -9,7 +9,7 @@ use Win\HttpException;
 /**
  * Rota de URL
  *
- * Define o Controller@action a ser executado baseado na URL
+ * Define o [Controller, action] a ser executado baseado na URL
  * @see "config/routes.php"
  */
 class Router
@@ -35,8 +35,8 @@ class Router
 	public $page;
 	public $action;
 
-	/** @var string[] */
-	protected $routes = [];
+	/** @var string[][] url => [Controller, action] */
+	public $routes = [];
 
 	public function __construct()
 	{
@@ -45,18 +45,6 @@ class Router
 		$this->relativeUrl = $this->getRelativeUrl();
 		$this->segments = $this->getSegments();
 		$this->url = $this->baseUrl . $this->relativeUrl;
-	}
-
-	/**
-	 * Adiciona as rotas
-	 * @param string $namespace
-	 * @param string[] $routes
-	 */
-	public function add($namespace, $routes)
-	{
-		foreach ($routes as $request => $destination) {
-			$this->routes[$request] = $namespace . $destination;
-		}
 	}
 
 	/**
@@ -73,11 +61,11 @@ class Router
 			$pattern = '@^' . $this->format($request) . '$@';
 			$match = preg_match($pattern, $url, $args);
 			if ($match) {
-				return [...explode('@', $destination), ...array_splice($args, 1)];
+				return [...$destination, ...array_splice($args, 1)];
 			}
 		}
 
-		throw new HttpException('Route not found, check "config/routes;php"', 404);
+		throw new HttpException('Route not found, check "config/routes.php"', 404);
 	}
 
 

@@ -2,7 +2,7 @@
 
 namespace Win\Services;
 
-use App\Controllers\MyModule\IndexController;
+use App\Controllers\IndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Application;
 use Win\Services\Router;
@@ -10,24 +10,22 @@ use Win\Services\Router;
 class RouterTest extends TestCase
 {
 	public static $routes = [
-		'index' => 'IndexController@index',
-		'index/([0-9])/(.*)/teste' => 'IndexController@index',
+		'index' => [IndexController::class, 'index'],
+		'index/([0-9])/(.*)/teste' => [IndexController::class, 'index'],
 	];
-
-	const NAMESPACE = 'App\\Controller\\';
 
 	public static function setUpBeforeClass(): void
 	{
-		Router::instance()->add(static::NAMESPACE, static::$routes);
+		Router::instance()->routes = static::$routes;
 	}
 
 	public function testGetDestination()
 	{
 		$router = Router::instance();
-		Router::instance()->relativeUrl = 'index';
+		$router->relativeUrl = 'index';
 
-		$expected = [static::NAMESPACE . 'IndexController', 'index'];
-		$this->assertEquals($expected, Router::instance()->getDestination());
+		$expected = [IndexController::class, 'index'];
+		$this->assertEquals($expected, $router->getDestination());
 	}
 
 	/**
@@ -47,21 +45,8 @@ class RouterTest extends TestCase
 		$args = [5, 'John'];
 		$router->relativeUrl = 'index/' . implode('/', $args) . '/teste';
 
-		$expected = [static::NAMESPACE . 'IndexController', 'index', ...$args];
+		$expected = [IndexController::class, 'index', ...$args];
 		$this->assertEquals($expected, $router->getDestination());
-	}
-
-	public function testGetDestinationNamespace()
-	{
-		$router = Router::instance();
-		$url = 'teste';
-		$namespace = 'My\\Custom\\Namespace\\';
-		$controller = 'My\\CustomController';
-		$router->relativeUrl = $url;
-
-		$router->add($namespace, [$url => $controller . '@index']);
-
-		$this->assertEquals($namespace . $controller, $router->getDestination()[0]);
 	}
 
 	public function testFormat()
@@ -100,11 +85,10 @@ class RouterTest extends TestCase
 	public function testPageAction()
 	{
 		$app = new Application();
-		$data = [1, 2];
 
 		ob_start();
-		$app->run(IndexController::class, 'index');
-		$sum = ob_get_clean();
+		$app->run(\App\Controllers\MyModule\IndexController::class, 'index');
+		ob_get_clean();
 		$router = Router::instance();
 		$router->__construct();
 
