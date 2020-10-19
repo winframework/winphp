@@ -3,4 +3,4 @@
  - https://github.com/phpDocumentor/phpDocumentor/releases
 
 # Comando
-php phpDocumentor.phar -d "winphp/www" -t "winphp/docs/phpdoc" --ignore "winphp/www/vendor/PHPMailer"^C
+php phpDocumentor.phar -d "winphp/www" -t "winphp/docs/phpdoc" --ignore "winphp/www/vendor/PHPMailer/"
