@@ -677,7 +677,7 @@
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$name</span> :
+            [,                 <span class="phpdocumentor-signature__argument__name">$newName</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
@@ -693,7 +693,7 @@
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    <span class="phpdocumentor-signature__argument__name">$newName</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
@@ -708,23 +708,27 @@
 <article
         class="
             phpdocumentor-method
-            phpdocumentor-method--protected
+            phpdocumentor-method--public
                                                         "
 >
     <h4 class="phpdocumentor-method__name">generateName()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/Filesystem.php"><a href="../files/winphp-www-vendor-win-services-filesystem.html"><abbr title="winphp/www/vendor/Win/Services/Filesystem.php">Filesystem.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">184</span>
+        <span class="phpdocumentor-element-found-in__line">185</span>
     </aside>
         <p class="phpdocumentor-summary">Gera um novo nome, mantendo a extensão</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">generateName</span>(
                     <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$name</span> :
+                            <span class="phpdocumentor-signature__argument__name">$originalName</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$newName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
     </code>
@@ -733,9 +737,14 @@
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    <span class="phpdocumentor-signature__argument__name">$originalName</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$newName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
