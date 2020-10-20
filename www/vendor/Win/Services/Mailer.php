@@ -6,7 +6,7 @@ use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Win\Templates\Email;
 use Win\Common\Server;
-use Win\Common\Traits\InjectableTrait;
+use Win\Common\InjectableTrait;
 use Win\Services\Filesystem;
 
 /**

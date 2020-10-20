@@ -42,11 +42,7 @@ $current = 'Luke';
 		</div>
 
 		<!-- Image -->
-		<?php if ($image && $image->exists()) : ?>
-			name: <?= $image->getBaseName(); ?><br />
-			width: <?= $image->getWidth(); ?><br />
-			height: <?= $image->getHeight(); ?><br />
-			size: <?= $image->getSize(); ?><br />
+		<?php if ($image) : ?>
 
 			<div style="max-width: 300px; text-align: center;">
 				<img class="thumbnail" src="<?= $image; ?>" style="max-width: 100%;" />

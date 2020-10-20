@@ -145,7 +145,7 @@ class Filesystem
 		$extensions = ['csv', 'doc', 'docx', 'gif', 'jpeg', 'jpg', 'md', 'mp3', 'mp4', 'mpeg', 'pdf', 'png', 'svg', 'txt', 'wav', 'xls', 'xlsx', 'zip',]
 	) {
 		if (isset($tempFileFile['name'])) {
-			$extension = pathinfo($tempFileFile['name'])['extension'];
+			$extension = strtolower(pathinfo($tempFileFile['name'])['extension']);
 			if (!in_array($extension, $extensions)) {
 				throw new \Exception("A extensão {$extension} não é permitida.");
 			}
@@ -161,13 +161,13 @@ class Filesystem
 	/**
 	 * Faz o upload para o diretório final
 	 * @param string $directoryPath
-	 * @param string $name
+	 * @param string $newName
 	 * @return string
 	 */
-	public function upload($directoryPath, $name = null)
+	public function upload($directoryPath, $newName = null)
 	{
 		if (!is_null($this->tempFile)) {
-			$name = $this->generateName($name);
+			$name = $this->generateName($this->tempFile['name'], $newName);
 			$this->create($directoryPath);
 			\move_uploaded_file($this->tempFile['tmp_name'], "$directoryPath/$name");
 
@@ -179,11 +179,15 @@ class Filesystem
 
 	/**
 	 * Gera um novo nome, mantendo a extensão
-	 * @param string $name
+	 * @param string $originalName
+	 * @param string $newName
 	 */
-	protected function generateName($name)
+	public function generateName($originalName, $newName = null)
 	{
-		$info = pathinfo($this->tempFile['name']);
-		return ($name ?? md5('Y-m-d H:i:s') . $this->tempFile['name']) . '.' . $info['extension'];
+		$info = pathinfo($originalName);
+		if (!$newName) {
+			$newName = md5('Y-m-d H:i:s' . $originalName);
+		}
+		return $newName . '.' . strtolower($info['extension']);
 	}
 }

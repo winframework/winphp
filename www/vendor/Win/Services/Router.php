@@ -2,7 +2,7 @@
 
 namespace Win\Services;
 
-use Win\Common\Traits\InjectableTrait;
+use Win\Common\InjectableTrait;
 use Win\Common\Utils\Input;
 use Win\HttpException;
 
@@ -65,7 +65,7 @@ class Router
 			}
 		}
 
-		throw new HttpException('Route not found, check "config/routes.php"', 404);
+		throw new HttpException('Route não encontrada, verifique: "config/routes.php"', 404);
 	}
 
 

@@ -4,7 +4,7 @@ namespace Win\Common;
 
 use PHPUnit\Framework\TestCase;
 use Win\Common\DI;
-use Win\Common\Traits\InjectableTrait;
+use Win\Common\InjectableTrait;
 
 class DIParent
 {

@@ -17,7 +17,7 @@ use Win\Templates\View;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework http://github.com/winframework/winphp/
- * @version 1.7.0
+ * @version 1.8.0
  */
 class Application
 {
@@ -55,7 +55,7 @@ class Application
 	public function run($class, $method = 'index', ...$args)
 	{
 		if (!class_exists($class)) {
-			throw new HttpException("Controller '{$class}' not found", 404);
+			throw new HttpException("Controller '{$class}' não encontrado", 404);
 		}
 		/** @var Controller $controller */
 		$controller = DI::instance($class);
@@ -65,7 +65,7 @@ class Application
 		$this->router->page = $this->getPage();
 
 		if (!method_exists($controller, $method)) {
-			throw new HttpException("Action '{$method}' not found in '{$class}'", 404);
+			throw new HttpException("Action '{$method}' não encontrado em '{$class}'", 404);
 		}
 
 		$controller->init();

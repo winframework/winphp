@@ -9,7 +9,7 @@ use PDO;
 use Win\Application;
 use Win\Common\Utils\Input;
 use Win\Controllers\Controller;
-use Win\Repositories\Database\Mysql;
+use Win\Repositories\Mysql;
 use Win\Services\Filesystem;
 use Win\Services\Alert;
 use Win\Templates\View;
@@ -27,11 +27,9 @@ class PageController extends Controller
 
 	public function __construct(PageRepo $repo, PageCategoryRepo $categoryRepo)
 	{
+		$this->createDatabase();
 		$this->repo = $repo;
 		$this->categoryRepo = $categoryRepo;
-		$pdo = $this->connectDatabase();
-		$repo->pdo = $pdo;
-		$categoryRepo->pdo = $pdo;
 	}
 
 	public function init()
@@ -132,14 +130,12 @@ class PageController extends Controller
 		return $this->categoryRepo->if('enabled')->list();
 	}
 
-	private function connectDatabase(): PDO
+	private function createDatabase()
 	{
 		$fs = new Filesystem();
-		$db = [];
-		require 'config/database.php';
-		Application::app()->pdo = $pdo = Mysql::connect($db);
+		$pdo = require 'config/database.php';
+		Application::app()->pdo = $pdo;
 		$query = $fs->read('../database/winphp_demo.sql');
 		$pdo->exec($query);
-		return $pdo;
 	}
 }

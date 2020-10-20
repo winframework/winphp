@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Repositories\Database;
+namespace Win\Repositories;
 
 use PDO;
 use PHPUnit\Framework\TestCase;
@@ -9,13 +9,13 @@ class MysqlTest extends TestCase
 {
 	public function testIsValid()
 	{
-		$pdo = Mysql::connect(DbConfig::valid());
+		$pdo = DbConfig::valid();
 		$this->assertInstanceOf(PDO::class, $pdo);
 	}
 
-	/** @expectedException Win\Repositories\Database\DbException */
+	/** @expectedException Win\Repositories\DbException */
 	public function testErrorConnection()
 	{
-		Mysql::connect(DbConfig::wrongDb());
+		DbConfig::wrongDb();
 	}
 }
