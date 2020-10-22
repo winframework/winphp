@@ -15,9 +15,10 @@ require 'app/autoload.php';
 
 $b = new Benchmark();
 for ($i = 0; $i < 1; $i++) {
-	require '../../www/config/app.php';
-	require 'config/routes.php';
 	try {
+		require '../../www/config/app.php';
+		require 'config/routes.php';
+
 		$app = new Application();
 		$app->run(...Router::instance()->getDestination());
 	} catch (HttpException $e) {

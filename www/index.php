@@ -15,6 +15,7 @@ require 'app/autoload.php';
 try {
 	require 'config/app.php';
 	require 'config/routes.php';
+	
 	$app = new Application();
 	$app->run(...Router::instance()->getDestination());
 } catch (HttpException $e) {
