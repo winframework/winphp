@@ -12,6 +12,7 @@ use Win\Services\Router;
 
 define('BASE_PATH', __DIR__);
 require 'app/autoload.php';
+session_start();
 
 $b = new Benchmark();
 for ($i = 0; $i < 1; $i++) {

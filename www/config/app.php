@@ -12,6 +12,3 @@ date_default_timezone_set('America/Sao_Paulo');
 /** ReCaptcha */
 ReCaptcha::$siteKey = '6LcDAioUAAAAAIMAHCFz02fuq7at3C6gf9_DIGum';
 ReCaptcha::$secretKey = '6LcDAioUAAAAAKLXofatfq3FP2TLkgkIQSbJwto0';
-
-
-session_start();
