@@ -3,7 +3,7 @@
 use App\Controllers\IndexController;
 use Win\Services\Router;
 
-$router =  Router::instance();
+$router = Router::instance();
 
 /**
  * Direciona uma URL para um Controller

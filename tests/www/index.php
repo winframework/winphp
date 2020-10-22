@@ -11,14 +11,12 @@ use Win\HttpException;
 use Win\Services\Router;
 
 define('BASE_PATH', __DIR__);
-
 require 'app/autoload.php';
-require '../../www/config/app.php';
-require 'config/routes.php';
 
 $b = new Benchmark();
 for ($i = 0; $i < 1; $i++) {
-	# code...
+	require '../../www/config/app.php';
+	require 'config/routes.php';
 	try {
 		$app = new Application();
 		$app->run(...Router::instance()->getDestination());

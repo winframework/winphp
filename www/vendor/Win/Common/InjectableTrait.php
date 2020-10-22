@@ -1,8 +1,6 @@
 <?php
 
-namespace Win\Common\Traits;
-
-use Win\Common\DI;
+namespace Win\Common;
 
 /**
  * Comportamento injetável

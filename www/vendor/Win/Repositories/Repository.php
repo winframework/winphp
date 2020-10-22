@@ -1,12 +1,12 @@
 <?php
 
-namespace Win\Repositories\Database;
+namespace Win\Repositories;
 
 use PDO;
 use PDOException;
 use Win\Application;
 use Win\Common\Pagination;
-use Win\Common\Traits\InjectableTrait;
+use Win\Common\InjectableTrait;
 use Win\Models\Model;
 use Win\HttpException;
 
@@ -39,7 +39,11 @@ abstract class Repository
 
 	public function __construct()
 	{
-		$this->pdo = Application::app()->pdo;
+		$app = Application::app();
+		if (!$app->pdo) {
+			$app->pdo = require BASE_PATH . '/config/database.php';
+		}
+		$this->pdo = $app->pdo;
 		$this->sql = new Sql($this->table);
 		$this->pagination = new Pagination();
 	}
@@ -76,17 +80,21 @@ abstract class Repository
 	 */
 	public function one()
 	{
-		$this->sql->setLimit(0, 1);
-		$query = $this->sql->select();
-		$values = $this->sql->values();
-		$this->flush();
+		try {
+			$this->sql->setLimit(0, 1);
+			$query = $this->sql->select();
+			$values = $this->sql->values();
+			$this->flush();
 
-		$stmt = $this->pdo->prepare($query);
-		$stmt->execute($values);
-		$row = $stmt->fetch();
+			$stmt = $this->pdo->prepare($query);
+			$stmt->execute($values);
+			$row = $stmt->fetch();
 
-		if ($row !== false) {
-			return $this->mapModel($row);
+			if ($row !== false) {
+				return $this->mapModel($row);
+			}
+		} catch (PDOException $e) {
+			throw new DbException('Ocorreu um erro ao ler no banco de dados.', 500, $e);
 		}
 	}
 

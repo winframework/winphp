@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Repositories\Database;
+namespace Win\Repositories;
 
 use PDO;
 
@@ -11,7 +11,14 @@ class Mysql
 {
 	/**
 	 * Cria conexão via PDO
-	 * @param array $db
+	 *
+	 * @param array $db [
+	 * 		'host'=> (string),
+	 * 		'dbname' => (string),
+	 * 		'user' => (string),
+	 * 		'pass' => (string)
+	 * 	];
+	 * 
 	 * @return PDO
 	 */
 	public static function connect($db)

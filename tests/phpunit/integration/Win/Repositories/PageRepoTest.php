@@ -8,8 +8,7 @@ use App\Repositories\PageRepo;
 use PHPUnit\Framework\TestCase;
 use Win\ApplicationTest;
 use Win\Common\Pagination;
-use Win\Repositories\Database\DbConfig;
-use Win\Repositories\Database\Mysql;
+use Win\Repositories\DbConfig;
 
 class PageRepoTest extends TestCase
 {
@@ -18,7 +17,7 @@ class PageRepoTest extends TestCase
 
 	public static function setUpBeforeClass(): void
 	{
-		static::$pdo = Mysql::connect(DbConfig::valid());
+		static::$pdo = DbConfig::valid();
 	}
 
 	public function setUp(): void
@@ -67,7 +66,7 @@ class PageRepoTest extends TestCase
 		$this->assertEquals(3, $count);
 	}
 
-	/** @expectedException Win\Repositories\Database\DbException */
+	/** @expectedException Win\Repositories\DbException */
 	public function testCountError()
 	{
 		$repo = new PageRepo(new Pagination());
@@ -85,7 +84,7 @@ class PageRepoTest extends TestCase
 		$this->assertEquals('First Page', $pages[0]->title);
 	}
 
-	/** @expectedException Win\Repositories\Database\DbException */
+	/** @expectedException Win\Repositories\DbException */
 	public function testListError()
 	{
 		$repo = new PageRepo(new Pagination());
@@ -233,10 +232,18 @@ class PageRepoTest extends TestCase
 	{
 		$repo = new PageRepo(new Pagination());
 		$repo->pdo = static::$pdo;
-		$page = $repo->find(3);
+		$page = $repo->if('id = ?', 3)->one();
 
 		$this->assertEquals(3, $page->id);
 		$this->assertEquals('Third Page', $page->title);
+	}
+
+	/** @expectedException Win\Repositories\DbException */
+	public function testOneError()
+	{
+		$repo = new PageRepo(new Pagination());
+		$repo->pdo = static::$pdo;
+		$page = $repo->if('INEXISTENT = ?', 3)->one();
 	}
 
 	public function testSelect()
@@ -324,7 +331,7 @@ class PageRepoTest extends TestCase
 		$repo->pdo = static::$pdo;
 	}
 
-	/** @expectedException Win\Repositories\Database\DbException */
+	/** @expectedException Win\Repositories\DbException */
 	public function testDeleteError()
 	{
 		$repo = new PageRepo(new Pagination());
@@ -358,7 +365,7 @@ class PageRepoTest extends TestCase
 		$this->assertCount($pagesTotal + 1, $repo->list());
 	}
 
-	/** @expectedException Win\Repositories\Database\DbException */
+	/** @expectedException Win\Repositories\DbException */
 	public function testSaveError()
 	{
 		$repo = new PageRepo(new Pagination());
@@ -404,7 +411,7 @@ class PageRepoTest extends TestCase
 		$this->assertEquals($title, $pages[2]->title);
 	}
 
-	/** @expectedException Win\Repositories\Database\DbException */
+	/** @expectedException Win\Repositories\DbException */
 	public function testUpdateError()
 	{
 		$repo = new PageRepo(new Pagination());

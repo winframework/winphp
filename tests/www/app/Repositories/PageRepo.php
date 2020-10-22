@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Page;
 use CorpTotal\Models\CmsPage;
 use Win\Models\Model;
-use Win\Repositories\Database\Repository;
+use Win\Repositories\Repository;
 
 /**
  * Página Repositório

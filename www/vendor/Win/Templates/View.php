@@ -25,7 +25,7 @@ class View extends Template
 		parent::__construct($file, $data);
 
 		if (!$this->exists()) {
-			throw new HttpException("View '{$this->file}' not found", 404);
+			throw new HttpException("View '{$this->file}' não encontrada.", 404);
 		}
 	}
 }

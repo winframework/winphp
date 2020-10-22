@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\PageCategory;
-use Win\Repositories\Database\Repository;
+use Win\Repositories\Repository;
 
 /**
  * Categoria Repositório
