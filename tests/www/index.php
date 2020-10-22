@@ -17,10 +17,10 @@ session_start();
 $b = new Benchmark();
 for ($i = 0; $i < 1; $i++) {
 	try {
+		$app = new Application();
 		require '../../www/config/app.php';
 		require 'config/routes.php';
 
-		$app = new Application();
 		$app->run(...Router::instance()->getDestination());
 	} catch (HttpException $e) {
 		$app->run(ErrorsController::class, "_{$e->getCode()}", $e);
