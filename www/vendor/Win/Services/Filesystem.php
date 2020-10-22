@@ -142,7 +142,7 @@ class Filesystem
 	 */
 	public function receiveFile(
 		$tempFileFile,
-		$extensions = ['csv', 'doc', 'docx', 'gif', 'jpeg', 'jpg', 'md', 'mp3', 'mp4', 'mpeg', 'pdf', 'png', 'svg', 'txt', 'wav', 'xls', 'xlsx', 'zip',]
+		$extensions = ['csv', 'doc', 'docx', 'gif', 'jpeg', 'jpg', 'md', 'mp3', 'mp4', 'mpeg', 'pdf', 'png', 'svg', 'txt', 'wav', 'xls', 'xlsx', 'zip']
 	) {
 		if (isset($tempFileFile['name'])) {
 			$extension = strtolower(pathinfo($tempFileFile['name'])['extension']);
