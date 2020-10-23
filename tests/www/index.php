@@ -12,13 +12,15 @@ use Win\Services\Router;
 
 define('BASE_PATH', __DIR__);
 require 'app/autoload.php';
+session_start();
 
 $b = new Benchmark();
 for ($i = 0; $i < 1; $i++) {
-	require '../../www/config/app.php';
-	require 'config/routes.php';
 	try {
 		$app = new Application();
+		require '../../www/config/app.php';
+		require 'config/routes.php';
+
 		$app->run(...Router::instance()->getDestination());
 	} catch (HttpException $e) {
 		$app->run(ErrorsController::class, "_{$e->getCode()}", $e);
