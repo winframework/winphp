@@ -49,6 +49,21 @@ class RouterTest extends TestCase
 		$this->assertEquals($expected, $router->getDestination());
 	}
 
+	public function testIsHomePage()
+	{
+		Router::instance()->segments = Router::HOME;
+		$this->assertTrue(Router::instance()->isHomePage());
+	}
+
+	public function testIsNotHomePage()
+	{
+		Router::instance()->segments = ['index', 'teste'];
+		$this->assertFalse(Router::instance()->isHomePage());
+
+		Router::instance()->segments = ['teste', 'index'];
+		$this->assertFalse(Router::instance()->isHomePage());
+	}
+
 	public function testFormat()
 	{
 		$router = Router::instance();
@@ -95,4 +110,5 @@ class RouterTest extends TestCase
 		$this->assertEquals('my-module-index', $router->page);
 		$this->assertEquals('index', $router->action);
 	}
+	
 }

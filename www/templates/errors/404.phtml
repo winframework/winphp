@@ -27,7 +27,7 @@ use Win\Templates\View;
 				<span>Tente novamente mais tarde ou entre em contato.</span>
 			</p>
 
-			<?php if (Server::isLocalHost()) : ?>
+			<?php if (ini_get('display_errors')) : ?>
 				<p><b><?= $error->getMessage(); ?></b></p>
 				<p><?= $error; ?></p>
 			<?php endif; ?>

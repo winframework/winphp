@@ -14,7 +14,7 @@ use Win\Templates\View;
 		<h1>Ops! Algo deu errado na requisição.</h1>
 		<p>Tente novamente mais tarde ou entre em contato.</p>
 		
-		<?php if (Server::isLocalHost()) : ?>
+		<?php if (ini_get('display_errors')) : ?>
 			<p><?= $error->getMessage(); ?></p>
 			<p><?= $error; ?></p>
 		<?php endif; ?>

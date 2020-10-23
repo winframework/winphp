@@ -33,24 +33,6 @@ class ApplicationTest extends TestCase
 		$this->assertTrue(Application::app() instanceof Application);
 	}
 
-	public function testIsHomePage()
-	{
-		$app = new Application();
-		Router::instance()->segments = Router::HOME;
-		$this->assertTrue($app->isHomePage());
-	}
-
-	public function testIsNotHomePage()
-	{
-		$app = new Application();
-		Router::instance()->segments = ['index', 'teste'];
-		$this->assertFalse($app->isHomePage());
-
-		Router::instance()->segments = ['teste', 'index'];
-		$this->assertFalse($app->isHomePage());
-	}
-
-
 	/** @expectedException \Win\HttpException */
 	public function testRunController404()
 	{

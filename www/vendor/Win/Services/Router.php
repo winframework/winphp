@@ -68,6 +68,14 @@ class Router
 		throw new HttpException('Route não encontrada, verifique: "config/routes.php"', 404);
 	}
 
+	/**
+	 * Retorna TRUE se está na página inicial
+	 * @return bool
+	 */
+	public function isHomePage()
+	{
+		return $this->segments == static::HOME;
+	}
 
 	/**
 	 * Retorna no formato de URL

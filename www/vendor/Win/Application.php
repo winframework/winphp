@@ -93,15 +93,6 @@ class Application
 	}
 
 	/**
-	 * Retorna TRUE se está na página inicial
-	 * @return bool
-	 */
-	public function isHomePage()
-	{
-		return $this->router->segments == Router::HOME;
-	}
-
-	/**
 	 * Define a página como 404
 	 * @param string $message
 	 * @throws HttpException
