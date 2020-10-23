@@ -3,9 +3,11 @@
 namespace Win\Services;
 
 use Exception;
+use Win\Common\InjectableTrait;
 
 class Filesystem
 {
+	use InjectableTrait;
 	const DS = DIRECTORY_SEPARATOR;
 
 	/** @var string[]|null */

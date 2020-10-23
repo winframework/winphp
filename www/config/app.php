@@ -10,5 +10,6 @@ setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
 /** ReCaptcha */
-ReCaptcha::$siteKey = '6LcDAioUAAAAAIMAHCFz02fuq7at3C6gf9_DIGum';
-ReCaptcha::$secretKey = '6LcDAioUAAAAAKLXofatfq3FP2TLkgkIQSbJwto0';
+$recaptcha = ReCaptcha::instance();
+$recaptcha->siteKey = '6LcDAioUAAAAAIMAHCFz02fuq7at3C6gf9_DIGum';
+$recaptcha->secretKey = '6LcDAioUAAAAAKLXofatfq3FP2TLkgkIQSbJwto0';

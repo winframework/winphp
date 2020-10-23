@@ -8,36 +8,41 @@ class ReCaptchaTest extends TestCase
 {
 	public function testValidNoSecretKey()
 	{
-		ReCaptcha::$secretKey = false;
-		ReCaptcha::$siteKey = 'my-key';
-		$this->assertTrue(ReCaptcha::isValid());
+		$recaptcha = Recaptcha::instance(); 
+		$recaptcha->secretKey = false;
+		$recaptcha->siteKey = 'my-key';
+		$this->assertTrue($recaptcha->isValid());
 	}
 
 	public function testValidNoSiteKey()
 	{
-		ReCaptcha::$secretKey = 'my-secret';
-		ReCaptcha::$siteKey = false;
-		$this->assertTrue(ReCaptcha::isValid());
+		$recaptcha = Recaptcha::instance();
+		$recaptcha->secretKey = 'my-secret';
+		$recaptcha->siteKey = false;
+		$this->assertTrue($recaptcha->isValid());
 	}
 
 	public function testValidEmptySecretKey()
 	{
-		ReCaptcha::$secretKey = '';
-		ReCaptcha::$siteKey = 'my-key';
-		$this->assertTrue(ReCaptcha::isValid());
+		$recaptcha = Recaptcha::instance();
+		$recaptcha->secretKey = '';
+		$recaptcha->siteKey = 'my-key';
+		$this->assertTrue($recaptcha->isValid());
 	}
 
 	public function testValidNoKeys()
 	{
-		ReCaptcha::$secretKey = false;
-		ReCaptcha::$siteKey = false;
-		$this->assertTrue(ReCaptcha::isValid());
+		$recaptcha = Recaptcha::instance();
+		$recaptcha->secretKey = false;
+		$recaptcha->siteKey = false;
+		$this->assertTrue($recaptcha->isValid());
 	}
 
 	public function testInvalid()
 	{
-		ReCaptcha::$secretKey = 'my-secret';
-		ReCaptcha::$siteKey = 'my-key';
-		$this->assertNotTrue(ReCaptcha::isValid());
+		$recaptcha = Recaptcha::instance();
+		$recaptcha->secretKey = 'my-secret';
+		$recaptcha->siteKey = 'my-key';
+		$this->assertNotTrue($recaptcha->isValid());
 	}
 }

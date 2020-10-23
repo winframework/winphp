@@ -5,6 +5,7 @@ use Win\Services\ReCaptcha;
 use Win\Templates\View;
 
 /** @var View $this */
+$recaptcha = ReCaptcha::instance();
 ?>
 <main>
 	<h1>Exemplo de Formulário de Contato</h1>
@@ -21,7 +22,7 @@ use Win\Templates\View;
 		</fieldset>
 
 		<fieldset>
-			<div class="g-recaptcha" data-sitekey="<?= ReCaptcha::$siteKey; ?>"></div>
+			<div class="g-recaptcha" data-sitekey="<?= $recaptcha->siteKey; ?>"></div>
 		</fieldset>
 
 		<div class="form-buttons">
