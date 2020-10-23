@@ -14,8 +14,6 @@ require 'app/autoload.php';
 session_start();
 
 try {
-	require 'config/app.php';
-	require 'config/routes.php';
 	$app = new Application();
 	require 'config/app.php';
 	require 'config/routes.php';
