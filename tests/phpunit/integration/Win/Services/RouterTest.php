@@ -51,17 +51,19 @@ class RouterTest extends TestCase
 
 	public function testIsHomePage()
 	{
-		Router::instance()->segments = Router::HOME;
-		$this->assertTrue(Router::instance()->isHomePage());
+		$router = Router::instance();
+		$router->segments = Router::HOME;
+		$this->assertTrue($router->isHomePage());
 	}
 
 	public function testIsNotHomePage()
 	{
-		Router::instance()->segments = ['index', 'teste'];
-		$this->assertFalse(Router::instance()->isHomePage());
+		$router = Router::instance();
+		$router->segments = ['index', 'teste'];
+		$this->assertFalse($router->isHomePage());
 
-		Router::instance()->segments = ['teste', 'index'];
-		$this->assertFalse(Router::instance()->isHomePage());
+		$router->segments = ['teste', 'index'];
+		$this->assertFalse($router->isHomePage());
 	}
 
 	public function testFormat()
