@@ -7,6 +7,10 @@ use Win\Common\Utils\Date;
 
 class DateTest extends TestCase
 {
+	public static function setUpBeforeClass(): void
+	{
+		setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+	}
 
 	public function testCreate()
 	{

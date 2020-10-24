@@ -89,7 +89,7 @@ class ContatoController extends Controller
 		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
 			throw new Exception('O campo E-mail precisa ser um e-mail válido.');
 		}
-		if (!ReCaptcha::isValid()) {
+		if (!ReCaptcha::instance()->isValid()) {
 			throw new Exception('Preencha o campo eu não sou um robô.');
 		}
 	}

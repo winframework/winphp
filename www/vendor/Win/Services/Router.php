@@ -32,7 +32,11 @@ class Router
 
 	/** @var string[] fragmentos da URL */
 	public $segments;
+
+	/** @var string Nome do Controller */
 	public $page;
+
+	/** @var string Nome do action */
 	public $action;
 
 	/** @var string[][] url => [Controller, action] */
@@ -68,6 +72,14 @@ class Router
 		throw new HttpException('Route não encontrada, verifique: "config/routes.php"', 404);
 	}
 
+	/**
+	 * Retorna TRUE se está na página inicial
+	 * @return bool
+	 */
+	public function isHomePage()
+	{
+		return $this->segments == static::HOME;
+	}
 
 	/**
 	 * Retorna no formato de URL

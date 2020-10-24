@@ -2,6 +2,7 @@
 
 namespace Win\Services;
 
+use Win\Common\InjectableTrait;
 use Win\Common\Utils\Input;
 
 /**
@@ -10,32 +11,30 @@ use Win\Common\Utils\Input;
  */
 class ReCaptcha
 {
-	public static $siteKey = '';
-	public static $secretKey = '';
+	use InjectableTrait;
 
 	/**
 	 * Retorna TRUE se usuário marcou "Não sou um robô"
 	 * @return bool
 	 */
-	public static function isValid()
+	public function isValid()
 	{
-		if (static::$siteKey && static::$secretKey) {
-			$response = json_decode(file_get_contents(static::getValidationUrl()), true);
-
-			return (bool) $response['success'];
-		} else {
+		if (!defined('RECAPTCHA_SITE_KEY') || !defined('RECAPTCHA_SECRET_KEY')) {
 			return true;
 		}
+
+		$response = json_decode(file_get_contents($this->getValidationUrl()), true);
+		return (bool) $response['success'];
 	}
 
 	/**
 	 * Retorna a URL de validação
 	 * @return string
 	 */
-	private static function getValidationUrl()
+	private function getValidationUrl()
 	{
 		return 'https://www.google.com/recaptcha/api/siteverify'
-			. '?secret=' . static::$secretKey
+			. '?secret=' . RECAPTCHA_SECRET_KEY
 			. '&response=' . Input::post('g-recaptcha-response')
 			. '&remoteip=' . Input::server('REMOTE_ADDR');
 	}

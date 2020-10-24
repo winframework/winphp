@@ -12,14 +12,14 @@ use Win\Services\Router;
 
 define('BASE_PATH', __DIR__);
 require 'app/autoload.php';
-session_start();
+require '../../www/config/app.php';
+require 'config/routes.php';
 
 $b = new Benchmark();
+
 for ($i = 0; $i < 1; $i++) {
 	try {
 		$app = new Application();
-		require '../../www/config/app.php';
-		require 'config/routes.php';
 
 		$app->run(...Router::instance()->getDestination());
 	} catch (HttpException $e) {

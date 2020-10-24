@@ -3,9 +3,11 @@
 namespace Win\Services;
 
 use Exception;
+use Win\Common\InjectableTrait;
 
 class Filesystem
 {
+	use InjectableTrait;
 	const DS = DIRECTORY_SEPARATOR;
 
 	/** @var string[]|null */
@@ -56,7 +58,9 @@ class Filesystem
 	 */
 	public function rename($filePath, $newFilePath)
 	{
-		return rename(BASE_PATH . "/$filePath", BASE_PATH . "/$newFilePath");
+		if (!@rename(BASE_PATH . "/$filePath", BASE_PATH . "/$newFilePath")) {
+			throw new Exception('Não foi possível "' . $filePath . '" para "' . $newFilePath . '".');
+		}
 	}
 
 	/**
@@ -64,9 +68,9 @@ class Filesystem
 	 * @param string $filePath
 	 * @param string $newFolder
 	 */
-	public function move($filePath, $newFolder)
+	public function move($filePath, $newFilePath)
 	{
-		return rename(BASE_PATH . "/$filePath", BASE_PATH . "/$newFolder");
+		return $this->rename($filePath, $newFilePath);
 	}
 
 	/**
@@ -97,30 +101,30 @@ class Filesystem
 	{
 		$dir = pathinfo($filePath, PATHINFO_DIRNAME);
 		$file = pathinfo($filePath, PATHINFO_BASENAME);
-		$return = false;
+		$fp = false;
 
 		if ($dir) {
 			$this->create($dir, 0777);
-			$fp = fopen(BASE_PATH . "/{$dir}/{$file}", $mode);
-			if (false !== $fp) {
-				fwrite($fp, $content);
-				$return = fclose($fp);
-			}
+			$fp = @fopen(BASE_PATH . "/{$dir}/{$file}", $mode);
 		}
-
-		return $return;
+		if ($fp === false) {
+			throw new Exception('Não foi possível escrever em "' . "{$dir}/{$file}" . '".');
+		}
+		fwrite($fp, $content);
+		fclose($fp);
 	}
 
 	/**
 	 * Retorna o conteúdo do arquivo
-	 * @return string|false
+	 * @return string
 	 */
 	public function read($filePath)
 	{
-		if (!$this->exists($filePath)) {
-			return false;
+		$content = @file_get_contents(BASE_PATH . "/$filePath");
+		if ($content === false) {
+			throw new Exception('Arquivo "' . $filePath . '" não pode ser lido.');
 		}
-		return file_get_contents(BASE_PATH . "/$filePath");
+		return $content;
 	}
 
 	/**
@@ -166,7 +170,7 @@ class Filesystem
 	 */
 	public function upload($directoryPath, $newName = null)
 	{
-		if (!is_null($this->tempFile)) {
+		if ($this->tempFile && key_exists('name', $this->tempFile)) {
 			$name = $this->generateName($this->tempFile['name'], $newName);
 			$this->create($directoryPath);
 			\move_uploaded_file($this->tempFile['tmp_name'], "$directoryPath/$name");

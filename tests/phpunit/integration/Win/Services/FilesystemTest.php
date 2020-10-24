@@ -8,25 +8,25 @@ class FilesystemTest extends TestCase
 {
 	public function setUp(): void
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->delete('data/dir');
 	}
 
 	public static function tearDownAfterClass(): void
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->delete('data/dir');
 	}
 
 	public function testExists()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$this->assertTrue($fs->exists('data/teste.md'));
 	}
 
 	public function testCreate()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$dirPath = 'data/dir/sub1';
 		$fs->create($dirPath);
 
@@ -36,7 +36,7 @@ class FilesystemTest extends TestCase
 	/** @expectedException Exception */
 	public function testCreateError()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$dirPath = 'data/dir/not-autorized';
 		$fs->create($dirPath, 0555);
 		$fs->create($dirPath . '/inside');
@@ -44,7 +44,7 @@ class FilesystemTest extends TestCase
 
 	public function testDelete()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$dirPath = 'data/dir/sub1';
 		$fs->create($dirPath);
 		$fs->delete($dirPath);
@@ -55,7 +55,7 @@ class FilesystemTest extends TestCase
 	public function testChildren()
 	{
 		$dir = 'data/dir';
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 
 		$fs->create($dir . '/sub1');
 		$fs->create($dir . '/sub2');
@@ -66,7 +66,7 @@ class FilesystemTest extends TestCase
 	public function testCount()
 	{
 		$dir = 'data/dir';
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 
 		$fs->create($dir . '/sub1');
 
@@ -77,7 +77,7 @@ class FilesystemTest extends TestCase
 	{
 		$old = 'data/dir/old';
 		$new = 'data/dir/new';
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 
 		$fs->create($old);
 		$fs->rename($old, $new);
@@ -86,12 +86,24 @@ class FilesystemTest extends TestCase
 		$this->assertFalse($fs->exists($old));
 	}
 
+	/**
+	 * @expectedException \Exception
+	 */
+	public function testRenameError()
+	{
+		$old = 'data/dir/NOT-EXISTENT';
+		$new = 'data/dir/new';
+		$fs = Filesystem::instance();
+
+		$fs->rename($old, $new);
+	}
+
 	public function testMove()
 	{
 		$dir1 = 'data/dir/dir1';
 		$dir2 = 'data/dir/dir2';
 		$moved = 'moved';
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 
 		$fs->create("$dir1/$moved");
 		$fs->create($dir2);
@@ -101,11 +113,14 @@ class FilesystemTest extends TestCase
 		$this->assertFalse($fs->exists("$dir1/$moved"));
 	}
 
+	/**
+	 * @expectedException \Exception
+	 */
 	public function testRead()
 	{
 		$file = 'data/teste.md';
 		$fileNotExist = 'data/not-exit.md';
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 
 		$this->assertEquals('content', $fs->read($file));
 		$this->assertEquals(null, $fs->read($fileNotExist));
@@ -116,7 +131,7 @@ class FilesystemTest extends TestCase
 		$file = 'data/dir/new.md';
 		$content = 'My content';
 		$content2 = 'My content 2';
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 
 		$fs->write($file, $content);
 		$this->assertEquals($content, $fs->read($file));
@@ -128,9 +143,22 @@ class FilesystemTest extends TestCase
 	/**
 	 * @expectedException \Exception
 	 */
+	public function testWriteError()
+	{
+		$file = 'data/not-allowed/example.md';
+		$content = 'My content';
+		$fs = Filesystem::instance();
+		$fs->create('data/not-allowed', 0444);
+
+		$fs->write($file, $content);
+	}
+
+	/**
+	 * @expectedException \Exception
+	 */
 	public function testReceiveFileError()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->receiveFile(['error' => 1]);
 	}
 
@@ -139,13 +167,13 @@ class FilesystemTest extends TestCase
 	 */
 	public function testReceiveFileNull()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->receiveFile(null);
 	}
 
 	public function testReceiveFile()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->receiveFile(['error' => 0]);
 	}
 
@@ -161,7 +189,7 @@ class FilesystemTest extends TestCase
 			'name' => "data/dir/teste.$extension",
 		];
 
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->receiveFile($temp, ['mp3', 'mp4']);
 	}
 
@@ -170,7 +198,7 @@ class FilesystemTest extends TestCase
 	 */
 	public function testUploadError()
 	{
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 
 		$fs->upload('data/dir');
 	}
@@ -185,7 +213,7 @@ class FilesystemTest extends TestCase
 			'name' => "data/dir/teste.$extension",
 		];
 
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->receiveFile($temp);
 		$file = $fs->upload($dir);
 
@@ -203,7 +231,7 @@ class FilesystemTest extends TestCase
 		];
 		$customName = 'FAKE_NAME';
 
-		$fs = new Filesystem();
+		$fs = Filesystem::instance();
 		$fs->receiveFile($temp);
 		$file = $fs->upload($dir, $customName);
 

@@ -1,10 +1,10 @@
 <?php
 
-use Win\Common\Server;
+use Win\HttpException;
 use Win\Templates\View;
 
 /** @var View $this */
-/** @var Throwable $error */
+/** @var HttpException $error */
 ?>
 <main class="page-404">
 	<h1>Página não Encontrada</h1>
@@ -27,7 +27,7 @@ use Win\Templates\View;
 				<span>Tente novamente mais tarde ou entre em contato.</span>
 			</p>
 
-			<?php if (Server::isLocalHost()) : ?>
+			<?php if (ini_get('display_errors')) : ?>
 				<p><b><?= $error->getMessage(); ?></b></p>
 				<p><?= $error; ?></p>
 			<?php endif; ?>

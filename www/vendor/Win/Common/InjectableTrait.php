@@ -7,7 +7,6 @@ namespace Win\Common;
  */
 trait InjectableTrait
 {
-
 	/**
 	 * Cria instância da classe via DI
 	 * @return static
