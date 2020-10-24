@@ -15,8 +15,8 @@ class ReCaptchaTest extends TestCase
 	public function testInvalid()
 	{
 		$recaptcha = ReCaptcha::instance();
-		define('RECAPTCHA_SITE_KEY', '6LcDAioUAAAAAIMAHCFz02fuq7at3C6gf9_DIGum');
-		define('RECAPTCHA_SECRET_KEY', '6LcDAioUAAAAAKLXofatfq3FP2TLkgkIQSbJwto0');
+		define('RECAPTCHA_SITE_KEY', 'aaaaaaaa');
+		define('RECAPTCHA_SECRET_KEY', 'bbbbbbbb');
 		$this->assertNotTrue($recaptcha->isValid());
 	}
 }
