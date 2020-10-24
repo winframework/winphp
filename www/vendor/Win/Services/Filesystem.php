@@ -106,7 +106,7 @@ class Filesystem
 			$this->create($dir, 0777);
 			$fp = @fopen(BASE_PATH . "/{$dir}/{$file}", $mode);
 		}
-		if (!$fp) {
+		if (!isset($fp)) {
 			throw new Exception('Não foi possível escrever em "' . "{$dir}/{$file}" . '".');
 		}
 		fwrite($fp, $content);
