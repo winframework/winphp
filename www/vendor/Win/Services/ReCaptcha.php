@@ -12,8 +12,6 @@ use Win\Common\Utils\Input;
 class ReCaptcha
 {
 	use InjectableTrait;
-	public $siteKey = '';
-	public $secretKey = '';
 
 	/**
 	 * Retorna TRUE se usuário marcou "Não sou um robô"
@@ -21,13 +19,12 @@ class ReCaptcha
 	 */
 	public function isValid()
 	{
-		if ($this->siteKey && $this->secretKey) {
-			$response = json_decode(file_get_contents($this->getValidationUrl()), true);
-
-			return (bool) $response['success'];
-		} else {
+		if (!defined('RECAPTCHA_SITE_KEY') || !defined('RECAPTCHA_SECRET_KEY')) {
 			return true;
 		}
+
+		$response = json_decode(file_get_contents($this->getValidationUrl()), true);
+		return (bool) $response['success'];
 	}
 
 	/**
@@ -37,7 +34,7 @@ class ReCaptcha
 	private function getValidationUrl()
 	{
 		return 'https://www.google.com/recaptcha/api/siteverify'
-			. '?secret=' . $this->secretKey
+			. '?secret=' . RECAPTCHA_SECRET_KEY
 			. '&response=' . Input::post('g-recaptcha-response')
 			. '&remoteip=' . Input::server('REMOTE_ADDR');
 	}

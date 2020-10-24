@@ -6,43 +6,17 @@ use PHPUnit\Framework\TestCase;
 
 class ReCaptchaTest extends TestCase
 {
-	public function testValidNoSecretKey()
+	public function testValid()
 	{
-		$recaptcha = Recaptcha::instance(); 
-		$recaptcha->secretKey = false;
-		$recaptcha->siteKey = 'my-key';
-		$this->assertTrue($recaptcha->isValid());
-	}
-
-	public function testValidNoSiteKey()
-	{
-		$recaptcha = Recaptcha::instance();
-		$recaptcha->secretKey = 'my-secret';
-		$recaptcha->siteKey = false;
-		$this->assertTrue($recaptcha->isValid());
-	}
-
-	public function testValidEmptySecretKey()
-	{
-		$recaptcha = Recaptcha::instance();
-		$recaptcha->secretKey = '';
-		$recaptcha->siteKey = 'my-key';
-		$this->assertTrue($recaptcha->isValid());
-	}
-
-	public function testValidNoKeys()
-	{
-		$recaptcha = Recaptcha::instance();
-		$recaptcha->secretKey = false;
-		$recaptcha->siteKey = false;
+		$recaptcha = ReCaptcha::instance();
 		$this->assertTrue($recaptcha->isValid());
 	}
 
 	public function testInvalid()
 	{
-		$recaptcha = Recaptcha::instance();
-		$recaptcha->secretKey = 'my-secret';
-		$recaptcha->siteKey = 'my-key';
+		$recaptcha = ReCaptcha::instance();
+		define('RECAPTCHA_SITE_KEY', '6LcDAioUAAAAAIMAHCFz02fuq7at3C6gf9_DIGum');
+		define('RECAPTCHA_SECRET_KEY', '6LcDAioUAAAAAKLXofatfq3FP2TLkgkIQSbJwto0');
 		$this->assertNotTrue($recaptcha->isValid());
 	}
 }
