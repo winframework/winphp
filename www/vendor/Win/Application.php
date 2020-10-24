@@ -61,8 +61,8 @@ class Application
 		$controller = DI::instance($class);
 		$controller->app = $this;
 		$this->controller = $controller;
-		$this->router->action = $method;
 		$this->router->page = $this->getPage();
+		$this->router->action = $method;
 
 		if (!method_exists($controller, $method)) {
 			throw new HttpException("Action '{$method}' não encontrado em '{$class}'", 404);
@@ -119,8 +119,7 @@ class Application
 	 */
 	protected function getPage()
 	{
-		$class = get_class($this->controller);
 		$replaces = ['Controllers\\', 'Controller', 'App\\', '\\'];
-		return Str::toUrl(str_replace($replaces, ' ', $class));
+		return Str::toUrl(str_replace($replaces, ' ', get_class($this->controller)));
 	}
 }

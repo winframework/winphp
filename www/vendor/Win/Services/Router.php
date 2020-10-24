@@ -32,7 +32,11 @@ class Router
 
 	/** @var string[] fragmentos da URL */
 	public $segments;
+
+	/** @var string Nome do Controller */
 	public $page;
+
+	/** @var string Nome do action */
 	public $action;
 
 	/** @var string[][] url => [Controller, action] */
