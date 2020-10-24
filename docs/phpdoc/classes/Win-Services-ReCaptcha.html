@@ -67,11 +67,14 @@
     <article class="phpdocumentor-element phpdocumentor-class">
         <h2 class="phpdocumentor-content__title">
             ReCaptcha
-                                                        </h2>
+                                                                <span class="phpdocumentor-class__extends">
+                    Uses
+                                            <a href="../classes/Win-Common-InjectableTrait.html"><abbr title="\Win\Common\InjectableTrait">InjectableTrait</abbr></a>                                    </span>
+                    </h2>
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/ReCaptcha.php"><a href="../files/winphp-www-vendor-win-services-recaptcha.html"><abbr title="winphp/www/vendor/Win/Services/ReCaptcha.php">ReCaptcha.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">11</span>
+            <span class="phpdocumentor-element-found-in__line">12</span>
         </aside>
 
         <p class="phpdocumentor-class__summary">ReCaptcha do Google
@@ -80,17 +83,7 @@ Validando se o usuário não é um robô</p>
 
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Services-ReCaptcha.html#property_siteKey">$siteKey</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Services-ReCaptcha.html#property_secretKey">$secretKey</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-                </tr>
-                                                                <tr>
+                                                                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/Win-Services-ReCaptcha.html#method_isValid">isValid()</a></th>
                     <td class="phpdocumentor-cell">Retorna TRUE se usuário marcou &quot;Não sou um robô&quot;</td>
                     <td class="phpdocumentor-cell">bool</td>
@@ -100,50 +93,14 @@ Validando se o usuário não é um robô</p>
                     <td class="phpdocumentor-cell">Retorna a URL de validação</td>
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
-                                            </table>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/Win-Common-InjectableTrait.html#method_instance">instance()</a></th>
+                    <td class="phpdocumentor-cell">Cria instância da classe via DI</td>
+                    <td class="phpdocumentor-cell">static</td>
+                </tr>
+                    </table>
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_siteKey"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$siteKey</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/ReCaptcha.php"><a href="../files/winphp-www-vendor-win-services-recaptcha.html"><abbr title="winphp/www/vendor/Win/Services/ReCaptcha.php">ReCaptcha.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">13</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$siteKey</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                    <a id="property_secretKey"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$secretKey</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/ReCaptcha.php"><a href="../files/winphp-www-vendor-win-services-recaptcha.html"><abbr title="winphp/www/vendor/Win/Services/ReCaptcha.php">ReCaptcha.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">14</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$secretKey</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                                            </section>
         
                     <section>
                 <h3 class="phpdocumentor-methods__header">Methods</h3>
@@ -152,7 +109,7 @@ Validando se o usuário não é um robô</p>
         class="
             phpdocumentor-method
             phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+                                                        "
 >
     <h4 class="phpdocumentor-method__name">isValid()</h4>
     <aside class="phpdocumentor-element-found-in">
@@ -163,7 +120,7 @@ Validando se o usuário não é um robô</p>
         <p class="phpdocumentor-summary">Retorna TRUE se usuário marcou &quot;Não sou um robô&quot;</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isValid</span>(
+                                <span class="phpdocumentor-signature__name">isValid</span>(
                 )
         : <span class="phpdocumentor-signature__response_type">bool</span>
     </code>
@@ -180,18 +137,18 @@ Validando se o usuário não é um robô</p>
         class="
             phpdocumentor-method
             phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
+                                                        "
 >
     <h4 class="phpdocumentor-method__name">getValidationUrl()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Services/ReCaptcha.php"><a href="../files/winphp-www-vendor-win-services-recaptcha.html"><abbr title="winphp/www/vendor/Win/Services/ReCaptcha.php">ReCaptcha.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">35</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
     </aside>
         <p class="phpdocumentor-summary">Retorna a URL de validação</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getValidationUrl</span>(
+                                <span class="phpdocumentor-signature__name">getValidationUrl</span>(
                 )
         : <span class="phpdocumentor-signature__response_type">string</span>
     </code>
@@ -203,7 +160,35 @@ Validando se o usuário não é um robô</p>
         <span class="phpdocumentor-signature__response_type">string</span>
             
 </article>
-                                                            </section>
+                                                                    <a id="method_instance"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">instance()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Common/InjectableTrait.php"><a href="../files/winphp-www-vendor-win-common-injectabletrait.html"><abbr title="winphp/www/vendor/Win/Common/InjectableTrait.php">InjectableTrait.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">14</span>
+    </aside>
+        <p class="phpdocumentor-summary">Cria instância da classe via DI</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">instance</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">static</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">static</span>
+            
+</article>
+                            </section>
             </article>
             <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
 

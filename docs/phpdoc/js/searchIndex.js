@@ -56,11 +56,6 @@ Search.appendIndex(
             "summary": "Envia\u0020a\u0020resposta\u0020baseado\u0020no\u0020tipo",
             "url": "../classes/Win-Application.html#method_send"
         },                {
-            "fqsen": "\\Win\\Application\u003A\u003AisHomePage\u0028\u0029",
-            "name": "isHomePage",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020est\u00E1\u0020na\u0020p\u00E1gina\u0020inicial",
-            "url": "../classes/Win-Application.html#method_isHomePage"
-        },                {
             "fqsen": "\\Win\\Application\u003A\u003Apage404\u0028\u0029",
             "name": "page404",
             "summary": "Define\u0020a\u0020p\u00E1gina\u0020como\u0020404",
@@ -625,16 +620,6 @@ Search.appendIndex(
             "name": "getValidationUrl",
             "summary": "Retorna\u0020a\u0020URL\u0020de\u0020valida\u00E7\u00E3o",
             "url": "../classes/Win-Services-ReCaptcha.html#method_getValidationUrl"
-        },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003A\u0024siteKey",
-            "name": "siteKey",
-            "summary": "",
-            "url": "../classes/Win-Services-ReCaptcha.html#property_siteKey"
-        },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003A\u0024secretKey",
-            "name": "secretKey",
-            "summary": "",
-            "url": "../classes/Win-Services-ReCaptcha.html#property_secretKey"
         },                {
             "fqsen": "\\Win\\Templates\\AlertBlock",
             "name": "AlertBlock",
