@@ -101,12 +101,13 @@ class Filesystem
 	{
 		$dir = pathinfo($filePath, PATHINFO_DIRNAME);
 		$file = pathinfo($filePath, PATHINFO_BASENAME);
+		$fp = false;
 
 		if ($dir) {
 			$this->create($dir, 0777);
 			$fp = @fopen(BASE_PATH . "/{$dir}/{$file}", $mode);
 		}
-		if (!$fp) {
+		if ($fp === false) {
 			throw new Exception('Não foi possível escrever em "' . "{$dir}/{$file}" . '".');
 		}
 		fwrite($fp, $content);
