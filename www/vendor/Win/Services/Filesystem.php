@@ -101,13 +101,12 @@ class Filesystem
 	{
 		$dir = pathinfo($filePath, PATHINFO_DIRNAME);
 		$file = pathinfo($filePath, PATHINFO_BASENAME);
-		$fp = false;
 
 		if ($dir) {
 			$this->create($dir, 0777);
 			$fp = @fopen(BASE_PATH . "/{$dir}/{$file}", $mode);
 		}
-		if ($fp === false) {
+		if (!$fp) {
 			throw new Exception('Não foi possível escrever em "' . "{$dir}/{$file}" . '".');
 		}
 		fwrite($fp, $content);
@@ -188,10 +187,10 @@ class Filesystem
 	 */
 	public function generateName($originalName, $newName = null)
 	{
-		$info = pathinfo($originalName);
+		$info = explode('.', $originalName);
 		if (!$newName) {
 			$newName = md5('Y-m-d H:i:s' . $originalName);
 		}
-		return $newName . '.' . strtolower($info['extension']);
+		return $newName . '.' . strtolower(end($info));
 	}
 }
