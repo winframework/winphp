@@ -4,1091 +4,1181 @@ Search.appendIndex(
             "fqsen": "\\App\\Controllers\\ErrorsController",
             "name": "ErrorsController",
             "summary": "P\u00E1ginas\u0020de\u0020Erros\n404,\u0020500,\u0020etc",
-            "url": "../classes/App-Controllers-ErrorsController.html"
+            "url": "classes/App-Controllers-ErrorsController.html"
         },                {
             "fqsen": "\\App\\Controllers\\ErrorsController\u003A\u003A_404\u0028\u0029",
             "name": "_404",
             "summary": "",
-            "url": "../classes/App-Controllers-ErrorsController.html#method__404"
+            "url": "classes/App-Controllers-ErrorsController.html#method__404"
         },                {
             "fqsen": "\\App\\Controllers\\ErrorsController\u003A\u003A_500\u0028\u0029",
             "name": "_500",
             "summary": "",
-            "url": "../classes/App-Controllers-ErrorsController.html#method__500"
+            "url": "classes/App-Controllers-ErrorsController.html#method__500"
         },                {
             "fqsen": "\\App\\Controllers\\ErrorsController\u003A\u003A\u0024error",
             "name": "error",
             "summary": "",
-            "url": "../classes/App-Controllers-ErrorsController.html#property_error"
+            "url": "classes/App-Controllers-ErrorsController.html#property_error"
         },                {
             "fqsen": "\\App\\Controllers\\IndexController",
             "name": "IndexController",
             "summary": "Controller",
-            "url": "../classes/App-Controllers-IndexController.html"
+            "url": "classes/App-Controllers-IndexController.html"
         },                {
             "fqsen": "\\App\\Controllers\\IndexController\u003A\u003Aindex\u0028\u0029",
             "name": "index",
             "summary": "",
-            "url": "../classes/App-Controllers-IndexController.html#method_index"
+            "url": "classes/App-Controllers-IndexController.html#method_index"
         },                {
             "fqsen": "\\Win\\Application",
             "name": "Application",
             "summary": "Application\u0020\u0028WinPHP\u0020Framework\u0029",
-            "url": "../classes/Win-Application.html"
+            "url": "classes/Win-Application.html"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "Cria\u0020a\u0020aplica\u00E7\u00E3o\u0020principal",
-            "url": "../classes/Win-Application.html#method___construct"
+            "url": "classes/Win-Application.html#method___construct"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003Aapp\u0028\u0029",
             "name": "app",
             "summary": "Retorna\u0020o\u0020ponteiro\u0020para\u0020a\u0020aplica\u00E7\u00E3o\u0020principal",
-            "url": "../classes/Win-Application.html#method_app"
+            "url": "classes/Win-Application.html#method_app"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003Arun\u0028\u0029",
             "name": "run",
             "summary": "Executa\u0020o\u0020\u005BController,\u0020action\u005D\u0020e\u0020envia\u0020o\u0020retorno\u0020como\u0020resposta",
-            "url": "../classes/Win-Application.html#method_run"
+            "url": "classes/Win-Application.html#method_run"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003Asend\u0028\u0029",
             "name": "send",
             "summary": "Envia\u0020a\u0020resposta\u0020baseado\u0020no\u0020tipo",
-            "url": "../classes/Win-Application.html#method_send"
-        },                {
-            "fqsen": "\\Win\\Application\u003A\u003Apage404\u0028\u0029",
-            "name": "page404",
-            "summary": "Define\u0020a\u0020p\u00E1gina\u0020como\u0020404",
-            "url": "../classes/Win-Application.html#method_page404"
-        },                {
-            "fqsen": "\\Win\\Application\u003A\u003AerrorPage\u0028\u0029",
-            "name": "errorPage",
-            "summary": "Define\u0020a\u0020p\u00E1gina\u0020atual\u0020como\u0020algum\u0020erro",
-            "url": "../classes/Win-Application.html#method_errorPage"
+            "url": "classes/Win-Application.html#method_send"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003AgetPage\u0028\u0029",
             "name": "getPage",
             "summary": "Retorna\u0020a\u0020p\u00E1gina\u0020atual",
-            "url": "../classes/Win-Application.html#method_getPage"
+            "url": "classes/Win-Application.html#method_getPage"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003A\u0024instance",
             "name": "instance",
             "summary": "",
-            "url": "../classes/Win-Application.html#property_instance"
+            "url": "classes/Win-Application.html#property_instance"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003A\u0024controller",
             "name": "controller",
             "summary": "",
-            "url": "../classes/Win-Application.html#property_controller"
+            "url": "classes/Win-Application.html#property_controller"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003A\u0024router",
             "name": "router",
             "summary": "",
-            "url": "../classes/Win-Application.html#property_router"
+            "url": "classes/Win-Application.html#property_router"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003A\u0024view",
             "name": "view",
             "summary": "",
-            "url": "../classes/Win-Application.html#property_view"
+            "url": "classes/Win-Application.html#property_view"
         },                {
             "fqsen": "\\Win\\Application\u003A\u003A\u0024pdo",
             "name": "pdo",
             "summary": "",
-            "url": "../classes/Win-Application.html#property_pdo"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark",
-            "name": "Benchmark",
-            "summary": "Contador\u0020de\u0020Desempenho",
-            "url": "../classes/Win-Common-Benchmark.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Inicia\u0020a\u0020contagem\u0020de\u0020tempo",
-            "url": "../classes/Win-Common-Benchmark.html#method___construct"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark\u003A\u003Areset\u0028\u0029",
-            "name": "reset",
-            "summary": "Reinicia\u0020a\u0020contagem\u0020de\u0020tempo",
-            "url": "../classes/Win-Common-Benchmark.html#method_reset"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark\u003A\u003AgetMicroTime\u0028\u0029",
-            "name": "getMicroTime",
-            "summary": "Retorna\u0020o\u0020tempo\u0020gasto\u0020\u0028em\u0020microssegundos\u0029",
-            "url": "../classes/Win-Common-Benchmark.html#method_getMicroTime"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark\u003A\u003AgetTime\u0028\u0029",
-            "name": "getTime",
-            "summary": "Retorna\u0020o\u0020tempo\u0020gasto\u0020\u0028na\u0020unidade\u0020correta\u0029",
-            "url": "../classes/Win-Common-Benchmark.html#method_getTime"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark\u003A\u003AgetMemory\u0028\u0029",
-            "name": "getMemory",
-            "summary": "Retorna\u0020a\u0020quantidade\u0020de\u0020mem\u00F3ria\u0020gasta",
-            "url": "../classes/Win-Common-Benchmark.html#method_getMemory"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark\u003A\u003A\u0024startTime",
-            "name": "startTime",
-            "summary": "",
-            "url": "../classes/Win-Common-Benchmark.html#property_startTime"
-        },                {
-            "fqsen": "\\Win\\Common\\Benchmark\u003A\u003A\u0024memory",
-            "name": "memory",
-            "summary": "",
-            "url": "../classes/Win-Common-Benchmark.html#property_memory"
-        },                {
-            "fqsen": "\\Win\\Common\\Pagination",
-            "name": "Pagination",
-            "summary": "Auxilia\u0020criar\u0020pagina\u00E7\u00F5es",
-            "url": "../classes/Win-Common-Pagination.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Pagination\u003A\u003Aoffset\u0028\u0029",
-            "name": "offset",
-            "summary": "",
-            "url": "../classes/Win-Common-Pagination.html#method_offset"
-        },                {
-            "fqsen": "\\Win\\Common\\Pagination\u003A\u003A\u0024current",
-            "name": "current",
-            "summary": "",
-            "url": "../classes/Win-Common-Pagination.html#property_current"
-        },                {
-            "fqsen": "\\Win\\Common\\Pagination\u003A\u003A\u0024pageSize",
-            "name": "pageSize",
-            "summary": "",
-            "url": "../classes/Win-Common-Pagination.html#property_pageSize"
-        },                {
-            "fqsen": "\\Win\\Common\\Pagination\u003A\u003A\u0024count",
-            "name": "count",
-            "summary": "",
-            "url": "../classes/Win-Common-Pagination.html#property_count"
-        },                {
-            "fqsen": "\\Win\\Common\\Pagination\u003A\u003A\u0024last",
-            "name": "last",
-            "summary": "",
-            "url": "../classes/Win-Common-Pagination.html#property_last"
-        },                {
-            "fqsen": "\\Win\\Common\\Server",
-            "name": "Server",
-            "summary": "Retorna\u0020informa\u00E7\u00F5es\u0020do\u0020servidor",
-            "url": "../classes/Win-Common-Server.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Server\u003A\u003AisLocalHost\u0028\u0029",
-            "name": "isLocalHost",
-            "summary": "",
-            "url": "../classes/Win-Common-Server.html#method_isLocalHost"
-        },                {
-            "fqsen": "\\Win\\Common\\Server\u003A\u003AgetName\u0028\u0029",
-            "name": "getName",
-            "summary": "",
-            "url": "../classes/Win-Common-Server.html#method_getName"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date",
-            "name": "Date",
-            "summary": "Data\u0020e\u0020Hora",
-            "url": "../classes/Win-Common-Utils-Date.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Cra\u0020data\u0020no\u0020formato\u0020desejado",
-            "url": "../classes/Win-Common-Utils-Date.html#method_create"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date\u003A\u003Aformat\u0028\u0029",
-            "name": "format",
-            "summary": "Formata\u0020a\u0020data",
-            "url": "../classes/Win-Common-Utils-Date.html#method_format"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date\u003A\u003AformatF\u0028\u0029",
-            "name": "formatF",
-            "summary": "Retorna\u0020a\u0020data\u0020no\u0020formato\u0020utilizado\u0020por\u0020strftime",
-            "url": "../classes/Win-Common-Utils-Date.html#method_formatF"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date\u003A\u003Amonth\u0028\u0029",
-            "name": "month",
-            "summary": "Retorna\u0020o\u0020nome\u0020do\u0020m\u00EAs",
-            "url": "../classes/Win-Common-Utils-Date.html#method_month"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date\u003A\u003AmonthAbbr\u0028\u0029",
-            "name": "monthAbbr",
-            "summary": "Retorna\u0020o\u0020nome\u0020do\u0020m\u00EAs\u0020abreviado",
-            "url": "../classes/Win-Common-Utils-Date.html#method_monthAbbr"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date\u003A\u003Aage\u0028\u0029",
-            "name": "age",
-            "summary": "Retorna\u0020a\u0020idade",
-            "url": "../classes/Win-Common-Utils-Date.html#method_age"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Date\u003A\u003AisValid\u0028\u0029",
-            "name": "isValid",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020a\u0020data\u0020\u00E9\u0020valida",
-            "url": "../classes/Win-Common-Utils-Date.html#method_isValid"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Form",
-            "name": "Form",
-            "summary": "Formul\u00E1rio",
-            "url": "../classes/Win-Common-Utils-Form.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Form\u003A\u003Acheck\u0028\u0029",
-            "name": "check",
-            "summary": "Retorna\u0020\u0027checked\u0027\u0020se\u0020os\u0020valores\u0020s\u00E3o\u0020iguais",
-            "url": "../classes/Win-Common-Utils-Form.html#method_check"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Form\u003A\u003Aselect\u0028\u0029",
-            "name": "select",
-            "summary": "Retorna\u0020\u0027selected\u0027\u0020se\u0020os\u0020valores\u0020s\u00E3o\u0020iguais",
-            "url": "../classes/Win-Common-Utils-Form.html#method_select"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input",
-            "name": "Input",
-            "summary": "Manipulador\u0020de\u0020vari\u00E1veis\u0020globais\u0020\u0028\u0024_REQUEST,\u0020\u0024_POST,\u0020\u0024_GET,\u0020etc\u0029",
-            "url": "../classes/Win-Common-Utils-Input.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input\u003A\u003Apost\u0028\u0029",
-            "name": "post",
-            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_POST",
-            "url": "../classes/Win-Common-Utils-Input.html#method_post"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input\u003A\u003Aisset\u0028\u0029",
-            "name": "isset",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020a\u0020vari\u00E1vel\u0020foi\u0020definida",
-            "url": "../classes/Win-Common-Utils-Input.html#method_isset"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input\u003A\u003ApostArray\u0028\u0029",
-            "name": "postArray",
-            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_POST\u0020em\u0020modo\u0020array",
-            "url": "../classes/Win-Common-Utils-Input.html#method_postArray"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input\u003A\u003Aserver\u0028\u0029",
-            "name": "server",
-            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_SERVER",
-            "url": "../classes/Win-Common-Utils-Input.html#method_server"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input\u003A\u003Aget\u0028\u0029",
-            "name": "get",
-            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_GET",
-            "url": "../classes/Win-Common-Utils-Input.html#method_get"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input\u003A\u003Afile\u0028\u0029",
-            "name": "file",
-            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_FILES",
-            "url": "../classes/Win-Common-Utils-Input.html#method_file"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Input\u003A\u003Aprotocol\u0028\u0029",
-            "name": "protocol",
-            "summary": "Retorna\u0020o\u0020protocolo\u0020atual",
-            "url": "../classes/Win-Common-Utils-Input.html#method_protocol"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Link",
-            "name": "Link",
-            "summary": "Auxilia\u0020a\u0020criar\u0020Links\u0020de\u0020Navega\u00E7\u00E3o",
-            "url": "../classes/Win-Common-Utils-Link.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Link\u003A\u003Aactive\u0028\u0029",
-            "name": "active",
-            "summary": "Usado\u0020para\u0020ativar\u0020Links\u0020\u0028aceita\u0020array\u0029",
-            "url": "../classes/Win-Common-Utils-Link.html#method_active"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Seo",
-            "name": "Seo",
-            "summary": "Auxilia\u0020a\u0020criar\u0020o\u0020t\u00EDtulo\u0020otimizado\u0020para\u0020SEO",
-            "url": "../classes/Win-Common-Utils-Seo.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Seo\u003A\u003Atitle\u0028\u0029",
-            "name": "title",
-            "summary": "Retorna\u0020o\u0020t\u00EDtulo\u0020com\u0020o\u0020nome\u0020da\u0020aplica\u00E7\u00E3o\u0020no\u0020final\nMantendo\u0020o\u0020m\u00E1ximo\u0020de\u0020caracteres",
-            "url": "../classes/Win-Common-Utils-Seo.html#method_title"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Seo\u003A\u003A\u0024keywords",
-            "name": "keywords",
-            "summary": "Keywords\u0020padr\u00E3o.",
-            "url": "../classes/Win-Common-Utils-Seo.html#property_keywords"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Seo\u003A\u003A\u0024description",
-            "name": "description",
-            "summary": "Descri\u00E7\u00E3o\u0020padr\u00E3o.",
-            "url": "../classes/Win-Common-Utils-Seo.html#property_description"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Seo\u003A\u003A\u0024titlePrefix",
-            "name": "titlePrefix",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Seo.html#property_titlePrefix"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Seo\u003A\u003A\u0024titleSuffix",
-            "name": "titleSuffix",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Seo.html#property_titleSuffix"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str",
-            "name": "Str",
-            "summary": "Manipulador\u0020de\u0020Strings",
-            "url": "../classes/Win-Common-Utils-Str.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003AtoUrl\u0028\u0029",
-            "name": "toUrl",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#method_toUrl"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003Alength\u0028\u0029",
-            "name": "length",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#method_length"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003Alower\u0028\u0029",
-            "name": "lower",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#method_lower"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003Aupper\u0028\u0029",
-            "name": "upper",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#method_upper"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003AlowerCamel\u0028\u0029",
-            "name": "lowerCamel",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#method_lowerCamel"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003Acamel\u0028\u0029",
-            "name": "camel",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#method_camel"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003Atruncate\u0028\u0029",
-            "name": "truncate",
-            "summary": "Retorna\u0020a\u0020string\u0020resumida,\u0020sem\u0020cortar\u0020a\u0020\u00FAltima\u0020palavra",
-            "url": "../classes/Win-Common-Utils-Str.html#method_truncate"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003Astrip\u0028\u0029",
-            "name": "strip",
-            "summary": "Limpa\u0020a\u0020string,\u0020retirando\u0020espa\u00E7os\u0020e\u0020tags\u0020html",
-            "url": "../classes/Win-Common-Utils-Str.html#method_strip"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003ATRUNCATE_BEFORE",
-            "name": "TRUNCATE_BEFORE",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#constant_TRUNCATE_BEFORE"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils\\Str\u003A\u003ATRUNCATE_AFTER",
-            "name": "TRUNCATE_AFTER",
-            "summary": "",
-            "url": "../classes/Win-Common-Utils-Str.html#constant_TRUNCATE_AFTER"
+            "url": "classes/Win-Application.html#property_pdo"
         },                {
             "fqsen": "\\Win\\Controllers\\Controller",
             "name": "Controller",
             "summary": "Controller",
-            "url": "../classes/Win-Controllers-Controller.html"
+            "url": "classes/Win-Controllers-Controller.html"
         },                {
             "fqsen": "\\Win\\Controllers\\Controller\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "Action\u0020Init",
-            "url": "../classes/Win-Controllers-Controller.html#method_init"
+            "summary": "A\u00E7\u00E3o\u0020Inicial,\u0020executada\u0020antes\u0020de\u0020qualquer\u0020action",
+            "url": "classes/Win-Controllers-Controller.html#method_init"
         },                {
             "fqsen": "\\Win\\Controllers\\Controller\u003A\u003A\u0024app",
             "name": "app",
             "summary": "",
-            "url": "../classes/Win-Controllers-Controller.html#property_app"
+            "url": "classes/Win-Controllers-Controller.html#property_app"
         },                {
             "fqsen": "\\Win\\Controllers\\Controller\u003A\u003A\u0024layout",
             "name": "layout",
             "summary": "",
-            "url": "../classes/Win-Controllers-Controller.html#property_layout"
+            "url": "classes/Win-Controllers-Controller.html#property_layout"
         },                {
             "fqsen": "\\Win\\Controllers\\Controller\u003A\u003A\u0024title",
             "name": "title",
             "summary": "",
-            "url": "../classes/Win-Controllers-Controller.html#property_title"
+            "url": "classes/Win-Controllers-Controller.html#property_title"
+        },                {
+            "fqsen": "\\Win\\DI",
+            "name": "DI",
+            "summary": "Dependence\u0020Injector",
+            "url": "classes/Win-DI.html"
+        },                {
+            "fqsen": "\\Win\\DI\u003A\u003Ainstance\u0028\u0029",
+            "name": "instance",
+            "summary": "Cria\u0020a\u0020classe,\u0020injetando\u0020as\u0020depend\u00EAncias",
+            "url": "classes/Win-DI.html#method_instance"
+        },                {
+            "fqsen": "\\Win\\DI\u003A\u003A\u0024container",
+            "name": "container",
+            "summary": "Armazena\u0020os\u0020nomes\u0020de\u0020classes",
+            "url": "classes/Win-DI.html#property_container"
+        },                {
+            "fqsen": "\\Win\\DI\u003A\u003A\u0024instances",
+            "name": "instances",
+            "summary": "",
+            "url": "classes/Win-DI.html#property_instances"
         },                {
             "fqsen": "\\Win\\HttpException",
             "name": "HttpException",
             "summary": "Erro\u0020Http\n403,\u0020404,\u0020500,\u0020etc",
-            "url": "../classes/Win-HttpException.html"
+            "url": "classes/Win-HttpException.html"
+        },                {
+            "fqsen": "\\Win\\InjectableTrait",
+            "name": "InjectableTrait",
+            "summary": "Comportamento\u0020injet\u00E1vel",
+            "url": "classes/Win-InjectableTrait.html"
+        },                {
+            "fqsen": "\\Win\\InjectableTrait\u003A\u003Ainstance\u0028\u0029",
+            "name": "instance",
+            "summary": "Cria\u0020inst\u00E2ncia\u0020da\u0020classe\u0020via\u0020DI",
+            "url": "classes/Win-InjectableTrait.html#method_instance"
         },                {
             "fqsen": "\\Win\\Models\\Model",
             "name": "Model",
             "summary": "",
-            "url": "../classes/Win-Models-Model.html"
+            "url": "classes/Win-Models-Model.html"
         },                {
             "fqsen": "\\Win\\Models\\Model\u003A\u003A\u0024id",
             "name": "id",
             "summary": "",
-            "url": "../classes/Win-Models-Model.html#property_id"
-        },                {
-            "fqsen": "\\Win\\Services\\Alert",
-            "name": "Alert",
-            "summary": "Alerta\nArmazena\u0020mensagens\u0020de\u0020alerta\u0020na\u0020sess\u00E3o",
-            "url": "../classes/Win-Services-Alert.html"
-        },                {
-            "fqsen": "\\Win\\Services\\Alert\u003A\u003ApopAll\u0028\u0029",
-            "name": "popAll",
-            "summary": "Retorna\u0020e\u0020remove\u0020os\u0020alertas\u0020da\u0020sess\u00E3o",
-            "url": "../classes/Win-Services-Alert.html#method_popAll"
-        },                {
-            "fqsen": "\\Win\\Services\\Alert\u003A\u003Aadd\u0028\u0029",
-            "name": "add",
-            "summary": "Adiciona\u0020um\u0020alerta\u0020na\u0020sess\u00E3o",
-            "url": "../classes/Win-Services-Alert.html#method_add"
-        },                {
-            "fqsen": "\\Win\\Services\\Alert\u003A\u003Asuccess\u0028\u0029",
-            "name": "success",
-            "summary": "",
-            "url": "../classes/Win-Services-Alert.html#method_success"
-        },                {
-            "fqsen": "\\Win\\Services\\Alert\u003A\u003Aerror\u0028\u0029",
-            "name": "error",
-            "summary": "",
-            "url": "../classes/Win-Services-Alert.html#method_error"
-        },                {
-            "fqsen": "\\Win\\Services\\Alert\u003A\u003Ainfo\u0028\u0029",
-            "name": "info",
-            "summary": "",
-            "url": "../classes/Win-Services-Alert.html#method_info"
-        },                {
-            "fqsen": "\\Win\\Services\\Alert\u003A\u003Awarning\u0028\u0029",
-            "name": "warning",
-            "summary": "",
-            "url": "../classes/Win-Services-Alert.html#method_warning"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem",
-            "name": "Filesystem",
-            "summary": "",
-            "url": "../classes/Win-Services-Filesystem.html"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Achildren\u0028\u0029",
-            "name": "children",
-            "summary": "Retorna\u0020array\u0020com\u0020arquivos\u0020e\u0020diret\u00F3rios",
-            "url": "../classes/Win-Services-Filesystem.html#method_children"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Acount\u0028\u0029",
-            "name": "count",
-            "summary": "Retorna\u0020total\u0020de\u0020items",
-            "url": "../classes/Win-Services-Filesystem.html#method_count"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Cria\u0020o\u0020diret\u00F3rio",
-            "url": "../classes/Win-Services-Filesystem.html#method_create"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Arename\u0028\u0029",
-            "name": "rename",
-            "summary": "Renomeia\u0020o\u0020arquivo",
-            "url": "../classes/Win-Services-Filesystem.html#method_rename"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Amove\u0028\u0029",
-            "name": "move",
-            "summary": "Move\u0020o\u0020arquivo",
-            "url": "../classes/Win-Services-Filesystem.html#method_move"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Exclui\u0020o\u0020arquivo\/diret\u00F3rio",
-            "url": "../classes/Win-Services-Filesystem.html#method_delete"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Awrite\u0028\u0029",
-            "name": "write",
-            "summary": "Salva\u0020o\u0020conte\u00FAdo\u0020no\u0020arquivo",
-            "url": "../classes/Win-Services-Filesystem.html#method_write"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Aread\u0028\u0029",
-            "name": "read",
-            "summary": "Retorna\u0020o\u0020conte\u00FAdo\u0020do\u0020arquivo",
-            "url": "../classes/Win-Services-Filesystem.html#method_read"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Aexists\u0028\u0029",
-            "name": "exists",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020o\u0020arquivo\u0020existe",
-            "url": "../classes/Win-Services-Filesystem.html#method_exists"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003AreceiveFile\u0028\u0029",
-            "name": "receiveFile",
-            "summary": "Prepara\u0020o\u0020upload",
-            "url": "../classes/Win-Services-Filesystem.html#method_receiveFile"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Aupload\u0028\u0029",
-            "name": "upload",
-            "summary": "Faz\u0020o\u0020upload\u0020para\u0020o\u0020diret\u00F3rio\u0020final",
-            "url": "../classes/Win-Services-Filesystem.html#method_upload"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003AgenerateName\u0028\u0029",
-            "name": "generateName",
-            "summary": "Gera\u0020um\u0020novo\u0020nome,\u0020mantendo\u0020a\u0020extens\u00E3o",
-            "url": "../classes/Win-Services-Filesystem.html#method_generateName"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003ADS",
-            "name": "DS",
-            "summary": "",
-            "url": "../classes/Win-Services-Filesystem.html#constant_DS"
-        },                {
-            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003A\u0024tempFile",
-            "name": "tempFile",
-            "summary": "",
-            "url": "../classes/Win-Services-Filesystem.html#property_tempFile"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer",
-            "name": "Mailer",
-            "summary": "Envio\u0020de\u0020Emails",
-            "url": "../classes/Win-Services-Mailer.html"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Instancia\u0020o\u0020servi\u00E7o\u0020de\u0020E\u002Dmail",
-            "url": "../classes/Win-Services-Mailer.html#method___construct"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsetLanguage\u0028\u0029",
-            "name": "setLanguage",
-            "summary": "Define\u0020o\u0020idioma",
-            "url": "../classes/Win-Services-Mailer.html#method_setLanguage"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsetSubject\u0028\u0029",
-            "name": "setSubject",
-            "summary": "Define\u0020o\u0020assunto",
-            "url": "../classes/Win-Services-Mailer.html#method_setSubject"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AgetSubject\u0028\u0029",
-            "name": "getSubject",
-            "summary": "Retorna\u0020o\u0020assunto",
-            "url": "../classes/Win-Services-Mailer.html#method_getSubject"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsetFrom\u0028\u0029",
-            "name": "setFrom",
-            "summary": "Define\u0020o\u0020remetente",
-            "url": "../classes/Win-Services-Mailer.html#method_setFrom"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddTo\u0028\u0029",
-            "name": "addTo",
-            "summary": "Add\u0020destinat\u00E1rio",
-            "url": "../classes/Win-Services-Mailer.html#method_addTo"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddCC\u0028\u0029",
-            "name": "addCC",
-            "summary": "Add\u0020c\u00F3pia",
-            "url": "../classes/Win-Services-Mailer.html#method_addCC"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddBCC\u0028\u0029",
-            "name": "addBCC",
-            "summary": "Add\u0020c\u00F3pia\u0020oculta",
-            "url": "../classes/Win-Services-Mailer.html#method_addBCC"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddReplyTo\u0028\u0029",
-            "name": "addReplyTo",
-            "summary": "Add\u0020responder\u0020para",
-            "url": "../classes/Win-Services-Mailer.html#method_addReplyTo"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003Asend\u0028\u0029",
-            "name": "send",
-            "summary": "Envia\u0020o\u0020E\u002Dmail",
-            "url": "../classes/Win-Services-Mailer.html#method_send"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003Aflush\u0028\u0029",
-            "name": "flush",
-            "summary": "Limpa\u0020dados",
-            "url": "../classes/Win-Services-Mailer.html#method_flush"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsaveOnDisk\u0028\u0029",
-            "name": "saveOnDisk",
-            "summary": "Salva\u0020o\u0020corpo\u0020do\u0020E\u002Dmail\u0020em\u0020um\u0020arquivo",
-            "url": "../classes/Win-Services-Mailer.html#method_saveOnDisk"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003ADIRECTORY",
-            "name": "DIRECTORY",
-            "summary": "",
-            "url": "../classes/Win-Services-Mailer.html#constant_DIRECTORY"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024mailer",
-            "name": "mailer",
-            "summary": "",
-            "url": "../classes/Win-Services-Mailer.html#property_mailer"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024fs",
-            "name": "fs",
-            "summary": "",
-            "url": "../classes/Win-Services-Mailer.html#property_fs"
-        },                {
-            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024sendOnLocalHost",
-            "name": "sendOnLocalHost",
-            "summary": "",
-            "url": "../classes/Win-Services-Mailer.html#property_sendOnLocalHost"
-        },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha",
-            "name": "ReCaptcha",
-            "summary": "ReCaptcha\u0020do\u0020Google\nValidando\u0020se\u0020o\u0020usu\u00E1rio\u0020n\u00E3o\u0020\u00E9\u0020um\u0020rob\u00F4",
-            "url": "../classes/Win-Services-ReCaptcha.html"
-        },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003AisValid\u0028\u0029",
-            "name": "isValid",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020usu\u00E1rio\u0020marcou\u0020\u0022N\u00E3o\u0020sou\u0020um\u0020rob\u00F4\u0022",
-            "url": "../classes/Win-Services-ReCaptcha.html#method_isValid"
-        },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003AgetValidationUrl\u0028\u0029",
-            "name": "getValidationUrl",
-            "summary": "Retorna\u0020a\u0020URL\u0020de\u0020valida\u00E7\u00E3o",
-            "url": "../classes/Win-Services-ReCaptcha.html#method_getValidationUrl"
-        },                {
-            "fqsen": "\\Win\\Templates\\AlertBlock",
-            "name": "AlertBlock",
-            "summary": "Exibe\u0020os\u0020Alertas\u0020da\u0020sess\u00E3o",
-            "url": "../classes/Win-Templates-AlertBlock.html"
-        },                {
-            "fqsen": "\\Win\\Templates\\AlertBlock\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Cria\u0020um\u0020template\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
-            "url": "../classes/Win-Templates-AlertBlock.html#method___construct"
-        },                {
-            "fqsen": "\\Win\\Templates\\Email",
-            "name": "Email",
-            "summary": "Templates\u0020de\u0020Email\nVer\u0020arquivos\u0020em\u003A\u0020\u0022templates\/emails\u0022",
-            "url": "../classes/Win-Templates-Email.html"
-        },                {
-            "fqsen": "\\Win\\Templates\\Email\u003A\u003A\u0024dir",
-            "name": "dir",
-            "summary": "",
-            "url": "../classes/Win-Templates-Email.html#property_dir"
-        },                {
-            "fqsen": "\\Win\\Templates\\Email\u003A\u003A\u0024mailer",
-            "name": "mailer",
-            "summary": "",
-            "url": "../classes/Win-Templates-Email.html#property_mailer"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template",
-            "name": "Template",
-            "summary": "Templates\u0020em\u0020.PHTML\nVer\u0020arquivos\u0020em\u003A\u0020\u0022templates\/\u0022",
-            "url": "../classes/Win-Templates-Template.html"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Cria\u0020um\u0020template\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
-            "url": "../classes/Win-Templates-Template.html#method___construct"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003A__toString\u0028\u0029",
-            "name": "__toString",
-            "summary": "Carrega\u0020e\u0020retorna\u0020o\u0020output",
-            "url": "../classes/Win-Templates-Template.html#method___toString"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003Aget\u0028\u0029",
-            "name": "get",
-            "summary": "Retorna\u0020uma\u0020vari\u00E1vel",
-            "url": "../classes/Win-Templates-Template.html#method_get"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003Aexists\u0028\u0029",
-            "name": "exists",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020o\u0020template\u0020existe",
-            "url": "../classes/Win-Templates-Template.html#method_exists"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003AtoHtml\u0028\u0029",
-            "name": "toHtml",
-            "summary": "Carrega\u0020e\u0020retorna\u0020o\u0020output",
-            "url": "../classes/Win-Templates-Template.html#method_toHtml"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024dir",
-            "name": "dir",
-            "summary": "",
-            "url": "../classes/Win-Templates-Template.html#property_dir"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024app",
-            "name": "app",
-            "summary": "",
-            "url": "../classes/Win-Templates-Template.html#property_app"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024file",
-            "name": "file",
-            "summary": "Endere\u00E7o\u0020completo\u0020do\u0020arquivo\u0020.phtml",
-            "url": "../classes/Win-Templates-Template.html#property_file"
-        },                {
-            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024data",
-            "name": "data",
-            "summary": "",
-            "url": "../classes/Win-Templates-Template.html#property_data"
-        },                {
-            "fqsen": "\\Win\\Templates\\View",
-            "name": "View",
-            "summary": "View",
-            "url": "../classes/Win-Templates-View.html"
-        },                {
-            "fqsen": "\\Win\\Templates\\View\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Cria\u0020uma\u0020View\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
-            "url": "../classes/Win-Templates-View.html#method___construct"
-        },                {
-            "fqsen": "\\Win\\Common\\DI",
-            "name": "DI",
-            "summary": "Dependence\u0020Injector",
-            "url": "../classes/Win-Common-DI.html"
-        },                {
-            "fqsen": "\\Win\\Common\\DI\u003A\u003Ainstance\u0028\u0029",
-            "name": "instance",
-            "summary": "Cria\u0020a\u0020classe,\u0020injetando\u0020as\u0020depend\u00EAncias",
-            "url": "../classes/Win-Common-DI.html#method_instance"
-        },                {
-            "fqsen": "\\Win\\Common\\DI\u003A\u003A\u0024container",
-            "name": "container",
-            "summary": "Armazena\u0020os\u0020nomes\u0020de\u0020classes",
-            "url": "../classes/Win-Common-DI.html#property_container"
-        },                {
-            "fqsen": "\\Win\\Common\\DI\u003A\u003A\u0024instances",
-            "name": "instances",
-            "summary": "",
-            "url": "../classes/Win-Common-DI.html#property_instances"
-        },                {
-            "fqsen": "\\Win\\Common\\InjectableTrait",
-            "name": "InjectableTrait",
-            "summary": "Comportamento\u0020injet\u00E1vel",
-            "url": "../classes/Win-Common-InjectableTrait.html"
-        },                {
-            "fqsen": "\\Win\\Common\\InjectableTrait\u003A\u003Ainstance\u0028\u0029",
-            "name": "instance",
-            "summary": "Cria\u0020inst\u00E2ncia\u0020da\u0020classe\u0020via\u0020DI",
-            "url": "../classes/Win-Common-InjectableTrait.html#method_instance"
+            "url": "classes/Win-Models-Model.html#property_id"
         },                {
             "fqsen": "\\Win\\Repositories\\DbException",
             "name": "DbException",
             "summary": "Erro\u0020de\u0020Banco\u0020de\u0020dados",
-            "url": "../classes/Win-Repositories-DbException.html"
+            "url": "classes/Win-Repositories-DbException.html"
         },                {
             "fqsen": "\\Win\\Repositories\\DbException\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "",
-            "url": "../classes/Win-Repositories-DbException.html#method___construct"
+            "url": "classes/Win-Repositories-DbException.html#method___construct"
         },                {
             "fqsen": "\\Win\\Repositories\\Mysql",
             "name": "Mysql",
             "summary": "Conex\u00E3o\u0020com\u0020banco\u0020de\u0020dados\u0020MySQL",
-            "url": "../classes/Win-Repositories-Mysql.html"
+            "url": "classes/Win-Repositories-Mysql.html"
         },                {
             "fqsen": "\\Win\\Repositories\\Mysql\u003A\u003Aconnect\u0028\u0029",
             "name": "connect",
             "summary": "Cria\u0020conex\u00E3o\u0020via\u0020PDO",
-            "url": "../classes/Win-Repositories-Mysql.html#method_connect"
+            "url": "classes/Win-Repositories-Mysql.html#method_connect"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository",
             "name": "Repository",
             "summary": "Base\u0020Database\u0020Repository",
-            "url": "../classes/Win-Repositories-Repository.html"
+            "url": "classes/Win-Repositories-Repository.html"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AmapRow\u0028\u0029",
             "name": "mapRow",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#method_mapRow"
+            "url": "classes/Win-Repositories-Repository.html#method_mapRow"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AmapModel\u0028\u0029",
             "name": "mapModel",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#method_mapModel"
+            "url": "classes/Win-Repositories-Repository.html#method_mapModel"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#method___construct"
+            "url": "classes/Win-Repositories-Repository.html#method___construct"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AsetTable\u0028\u0029",
             "name": "setTable",
             "summary": "Define\u0020a\u0020tabela\u0020manualmente",
-            "url": "../classes/Win-Repositories-Repository.html#method_setTable"
+            "url": "classes/Win-Repositories-Repository.html#method_setTable"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AgetTable\u0028\u0029",
             "name": "getTable",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#method_getTable"
+            "url": "classes/Win-Repositories-Repository.html#method_getTable"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Aselect\u0028\u0029",
             "name": "select",
             "summary": "Define\u0020as\u0020colunas\u0020da\u0020busca",
-            "url": "../classes/Win-Repositories-Repository.html#method_select"
+            "url": "classes/Win-Repositories-Repository.html#method_select"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Aone\u0028\u0029",
             "name": "one",
             "summary": "Retorna\u0020o\u0020primeiro\u0020resultado\u0020da\u0020busca",
-            "url": "../classes/Win-Repositories-Repository.html#method_one"
+            "url": "classes/Win-Repositories-Repository.html#method_one"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AoneOr404\u0028\u0029",
             "name": "oneOr404",
             "summary": "Retorna\u0020o\u0020primeiro\u0020resultado\u0020da\u0020busca\u0020ou\u0020redireciona\u0020para\u0020P\u00E1gina\u0020404",
-            "url": "../classes/Win-Repositories-Repository.html#method_oneOr404"
+            "url": "classes/Win-Repositories-Repository.html#method_oneOr404"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Afind\u0028\u0029",
             "name": "find",
             "summary": "Retorna\u0020o\u0020registro\u0020pela\u0020PK",
-            "url": "../classes/Win-Repositories-Repository.html#method_find"
+            "url": "classes/Win-Repositories-Repository.html#method_find"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AfindOr404\u0028\u0029",
             "name": "findOr404",
             "summary": "Retorna\u0020o\u0020registro\u0020pela\u0020PK\u0020ou\u0020redireciona\u0020para\u0020P\u00E1gina\u0020404",
-            "url": "../classes/Win-Repositories-Repository.html#method_findOr404"
+            "url": "classes/Win-Repositories-Repository.html#method_findOr404"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Alist\u0028\u0029",
             "name": "list",
             "summary": "Retorna\u0020o\u0020todos\u0020os\u0020resultados\u0020da\u0020busca",
-            "url": "../classes/Win-Repositories-Repository.html#method_list"
+            "url": "classes/Win-Repositories-Repository.html#method_list"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AsetLimit\u0028\u0029",
             "name": "setLimit",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#method_setLimit"
+            "url": "classes/Win-Repositories-Repository.html#method_setLimit"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Acount\u0028\u0029",
             "name": "count",
             "summary": "Retorna\u0020o\u0020total\u0020de\u0020resultados\u0020da\u0020busca",
-            "url": "../classes/Win-Repositories-Repository.html#method_count"
+            "url": "classes/Win-Repositories-Repository.html#method_count"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Apaginate\u0028\u0029",
             "name": "paginate",
             "summary": "Define\u0020um\u0020limite\u0020das\u0020buscas\u0020com\u0020list\u0028\u0029",
-            "url": "../classes/Win-Repositories-Repository.html#method_paginate"
+            "url": "classes/Win-Repositories-Repository.html#method_paginate"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Adelete\u0028\u0029",
             "name": "delete",
             "summary": "Remove\u0020todos\u0020os\u0020registros\u0020da\u0020busca",
-            "url": "../classes/Win-Repositories-Repository.html#method_delete"
+            "url": "classes/Win-Repositories-Repository.html#method_delete"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Adestroy\u0028\u0029",
             "name": "destroy",
             "summary": "Remove\u0020o\u0020registro\u0020pela\u0020PK",
-            "url": "../classes/Win-Repositories-Repository.html#method_destroy"
+            "url": "classes/Win-Repositories-Repository.html#method_destroy"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Salva\u0020o\u0020registro\u0020no\u0020banco",
-            "url": "../classes/Win-Repositories-Repository.html#method_save"
+            "url": "classes/Win-Repositories-Repository.html#method_save"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AquerySave\u0028\u0029",
             "name": "querySave",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#method_querySave"
+            "url": "classes/Win-Repositories-Repository.html#method_querySave"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Aupdate\u0028\u0029",
             "name": "update",
             "summary": "Atualiza\u0020somente\u0020as\u0020colunas\u0020informadas",
-            "url": "../classes/Win-Repositories-Repository.html#method_update"
+            "url": "classes/Win-Repositories-Repository.html#method_update"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Aflush\u0028\u0029",
             "name": "flush",
             "summary": "Remove\u0020todos\u0020os\u0020filtros,\u0020ordena\u00E7\u00E3o,\u0020etc",
-            "url": "../classes/Win-Repositories-Repository.html#method_flush"
+            "url": "classes/Win-Repositories-Repository.html#method_flush"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Aexists\u0028\u0029",
             "name": "exists",
             "summary": "Retorna\u0020TRUE\u0020se\u0020o\u0020model\u0020existir\u0020no\u0020banco",
-            "url": "../classes/Win-Repositories-Repository.html#method_exists"
+            "url": "classes/Win-Repositories-Repository.html#method_exists"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Ajoin\u0028\u0029",
             "name": "join",
             "summary": "Adiciona\u0020\u0028inner\u0029\u0020join",
-            "url": "../classes/Win-Repositories-Repository.html#method_join"
+            "url": "classes/Win-Repositories-Repository.html#method_join"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AleftJoin\u0028\u0029",
             "name": "leftJoin",
             "summary": "Adiciona\u0020left\u0020join",
-            "url": "../classes/Win-Repositories-Repository.html#method_leftJoin"
+            "url": "classes/Win-Repositories-Repository.html#method_leftJoin"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003ArightJoin\u0028\u0029",
             "name": "rightJoin",
             "summary": "Adiciona\u0020right\u0020join",
-            "url": "../classes/Win-Repositories-Repository.html#method_rightJoin"
+            "url": "classes/Win-Repositories-Repository.html#method_rightJoin"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Aif\u0028\u0029",
             "name": "if",
             "summary": "Aplica\u0020filtros",
-            "url": "../classes/Win-Repositories-Repository.html#method_if"
+            "url": "classes/Win-Repositories-Repository.html#method_if"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Afilter\u0028\u0029",
             "name": "filter",
             "summary": "Aplica\u0020filtros\u0020\u0028aceita\u0020bind\u0020params\u0029",
-            "url": "../classes/Win-Repositories-Repository.html#method_filter"
+            "url": "classes/Win-Repositories-Repository.html#method_filter"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Asort\u0028\u0029",
             "name": "sort",
             "summary": "Ordem\u0020por\u0020um\u0020campo",
-            "url": "../classes/Win-Repositories-Repository.html#method_sort"
+            "url": "classes/Win-Repositories-Repository.html#method_sort"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Adebug\u0028\u0029",
             "name": "debug",
             "summary": "Exibe\u0020a\u0020query\u0020e\u0020os\u0020valores\u0020para\u0020debug",
-            "url": "../classes/Win-Repositories-Repository.html#method_debug"
+            "url": "classes/Win-Repositories-Repository.html#method_debug"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A\u0024pdo",
             "name": "pdo",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#property_pdo"
+            "url": "classes/Win-Repositories-Repository.html#property_pdo"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A\u0024pagination",
             "name": "pagination",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#property_pagination"
+            "url": "classes/Win-Repositories-Repository.html#property_pagination"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A\u0024table",
             "name": "table",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#property_table"
+            "url": "classes/Win-Repositories-Repository.html#property_table"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A\u0024pk",
             "name": "pk",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#property_pk"
+            "url": "classes/Win-Repositories-Repository.html#property_pk"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A\u0024sql",
             "name": "sql",
             "summary": "",
-            "url": "../classes/Win-Repositories-Repository.html#property_sql"
+            "url": "classes/Win-Repositories-Repository.html#property_sql"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql",
             "name": "Sql",
             "summary": "Cria\u0020comandos\u0020SQL",
-            "url": "../classes/Win-Repositories-Sql.html"
+            "url": "classes/Win-Repositories-Sql.html"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "Prepara\u0020a\u0020query",
-            "url": "../classes/Win-Repositories-Sql.html#method___construct"
+            "url": "classes/Win-Repositories-Sql.html#method___construct"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003AsetValues\u0028\u0029",
             "name": "setValues",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#method_setValues"
+            "url": "classes/Win-Repositories-Sql.html#method_setValues"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024values",
             "name": "values",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_values"
+            "url": "classes/Win-Repositories-Sql.html#property_values"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003Aselect\u0028\u0029",
             "name": "select",
             "summary": "SELECT\u0020\u002A\u0020FROM\u0020.",
-            "url": "../classes/Win-Repositories-Sql.html#method_select"
+            "url": "classes/Win-Repositories-Sql.html#method_select"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003AselectCount\u0028\u0029",
             "name": "selectCount",
             "summary": "SELECT\u0020COUNT\u0028\u002A\u0029\u0020FROM",
-            "url": "../classes/Win-Repositories-Sql.html#method_selectCount"
+            "url": "classes/Win-Repositories-Sql.html#method_selectCount"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003Ainsert\u0028\u0029",
             "name": "insert",
             "summary": "INSERT\u0020INTO\u0020...\u0020VALUES",
-            "url": "../classes/Win-Repositories-Sql.html#method_insert"
+            "url": "classes/Win-Repositories-Sql.html#method_insert"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003Aupdate\u0028\u0029",
             "name": "update",
             "summary": "UPDATE\u0020...\u0020SET",
-            "url": "../classes/Win-Repositories-Sql.html#method_update"
+            "url": "classes/Win-Repositories-Sql.html#method_update"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003Adelete\u0028\u0029",
             "name": "delete",
             "summary": "DELETE\u0020FROM\u0020.",
-            "url": "../classes/Win-Repositories-Sql.html#method_delete"
+            "url": "classes/Win-Repositories-Sql.html#method_delete"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003AaddWhere\u0028\u0029",
             "name": "addWhere",
             "summary": "WHERE\u0020.",
-            "url": "../classes/Win-Repositories-Sql.html#method_addWhere"
+            "url": "classes/Win-Repositories-Sql.html#method_addWhere"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003AaddJoin\u0028\u0029",
             "name": "addJoin",
             "summary": "JOIN,\u0020LEFT\u0020JOIN\u0020.",
-            "url": "../classes/Win-Repositories-Sql.html#method_addJoin"
+            "url": "classes/Win-Repositories-Sql.html#method_addJoin"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003AsetLimit\u0028\u0029",
             "name": "setLimit",
             "summary": "Define\u0020o\u0020limit",
-            "url": "../classes/Win-Repositories-Sql.html#method_setLimit"
+            "url": "classes/Win-Repositories-Sql.html#method_setLimit"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024join",
             "name": "join",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_join"
+            "url": "classes/Win-Repositories-Sql.html#property_join"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024where",
             "name": "where",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_where"
+            "url": "classes/Win-Repositories-Sql.html#property_where"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003AsetOrderBy\u0028\u0029",
             "name": "setOrderBy",
             "summary": "Define\u0020a\u0020ordena\u00E7\u00E3o\u0020principal",
-            "url": "../classes/Win-Repositories-Sql.html#method_setOrderBy"
+            "url": "classes/Win-Repositories-Sql.html#method_setOrderBy"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003AaddOrderBy\u0028\u0029",
             "name": "addOrderBy",
             "summary": "Adiciona\u0020uma\u0020ordena\u00E7\u00E3o",
-            "url": "../classes/Win-Repositories-Sql.html#method_addOrderBy"
+            "url": "classes/Win-Repositories-Sql.html#method_addOrderBy"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024limit",
             "name": "limit",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_limit"
+            "url": "classes/Win-Repositories-Sql.html#property_limit"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024orderBy",
             "name": "orderBy",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_orderBy"
+            "url": "classes/Win-Repositories-Sql.html#property_orderBy"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024columns",
             "name": "columns",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_columns"
+            "url": "classes/Win-Repositories-Sql.html#property_columns"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024table",
             "name": "table",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_table"
+            "url": "classes/Win-Repositories-Sql.html#property_table"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024joinValues",
             "name": "joinValues",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_joinValues"
+            "url": "classes/Win-Repositories-Sql.html#property_joinValues"
         },                {
             "fqsen": "\\Win\\Repositories\\Sql\u003A\u003A\u0024whereValues",
             "name": "whereValues",
             "summary": "",
-            "url": "../classes/Win-Repositories-Sql.html#property_whereValues"
+            "url": "classes/Win-Repositories-Sql.html#property_whereValues"
+        },                {
+            "fqsen": "\\Win\\Services\\Alert",
+            "name": "Alert",
+            "summary": "Armazena\u0020mensagens\u0020de\u0020alerta\u0020na\u0020sess\u00E3o",
+            "url": "classes/Win-Services-Alert.html"
+        },                {
+            "fqsen": "\\Win\\Services\\Alert\u003A\u003ApopAll\u0028\u0029",
+            "name": "popAll",
+            "summary": "Retorna\u0020e\u0020remove\u0020os\u0020alertas\u0020da\u0020sess\u00E3o",
+            "url": "classes/Win-Services-Alert.html#method_popAll"
+        },                {
+            "fqsen": "\\Win\\Services\\Alert\u003A\u003Aadd\u0028\u0029",
+            "name": "add",
+            "summary": "Adiciona\u0020um\u0020alerta\u0020na\u0020sess\u00E3o",
+            "url": "classes/Win-Services-Alert.html#method_add"
+        },                {
+            "fqsen": "\\Win\\Services\\Alert\u003A\u003Asuccess\u0028\u0029",
+            "name": "success",
+            "summary": "",
+            "url": "classes/Win-Services-Alert.html#method_success"
+        },                {
+            "fqsen": "\\Win\\Services\\Alert\u003A\u003Aerror\u0028\u0029",
+            "name": "error",
+            "summary": "",
+            "url": "classes/Win-Services-Alert.html#method_error"
+        },                {
+            "fqsen": "\\Win\\Services\\Alert\u003A\u003Ainfo\u0028\u0029",
+            "name": "info",
+            "summary": "",
+            "url": "classes/Win-Services-Alert.html#method_info"
+        },                {
+            "fqsen": "\\Win\\Services\\Alert\u003A\u003Awarning\u0028\u0029",
+            "name": "warning",
+            "summary": "",
+            "url": "classes/Win-Services-Alert.html#method_warning"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark",
+            "name": "Benchmark",
+            "summary": "Contador\u0020de\u0020Desempenho",
+            "url": "classes/Win-Services-Benchmark.html"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Inicia\u0020a\u0020contagem\u0020de\u0020tempo",
+            "url": "classes/Win-Services-Benchmark.html#method___construct"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark\u003A\u003Areset\u0028\u0029",
+            "name": "reset",
+            "summary": "Reinicia\u0020a\u0020contagem\u0020de\u0020tempo",
+            "url": "classes/Win-Services-Benchmark.html#method_reset"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark\u003A\u003AgetMicroTime\u0028\u0029",
+            "name": "getMicroTime",
+            "summary": "Retorna\u0020o\u0020tempo\u0020gasto\u0020\u0028em\u0020microssegundos\u0029",
+            "url": "classes/Win-Services-Benchmark.html#method_getMicroTime"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark\u003A\u003AgetTime\u0028\u0029",
+            "name": "getTime",
+            "summary": "Retorna\u0020o\u0020tempo\u0020gasto\u0020\u0028na\u0020unidade\u0020correta\u0029",
+            "url": "classes/Win-Services-Benchmark.html#method_getTime"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark\u003A\u003AgetMemory\u0028\u0029",
+            "name": "getMemory",
+            "summary": "Retorna\u0020a\u0020quantidade\u0020de\u0020mem\u00F3ria\u0020gasta",
+            "url": "classes/Win-Services-Benchmark.html#method_getMemory"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark\u003A\u003A\u0024startTime",
+            "name": "startTime",
+            "summary": "",
+            "url": "classes/Win-Services-Benchmark.html#property_startTime"
+        },                {
+            "fqsen": "\\Win\\Services\\Benchmark\u003A\u003A\u0024memory",
+            "name": "memory",
+            "summary": "",
+            "url": "classes/Win-Services-Benchmark.html#property_memory"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem",
+            "name": "Filesystem",
+            "summary": "Manipulador\u0020de\u0020arquivos\u0020e\u0020diret\u00F3rios",
+            "url": "classes/Win-Services-Filesystem.html"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Achildren\u0028\u0029",
+            "name": "children",
+            "summary": "Retorna\u0020array\u0020com\u0020arquivos\u0020e\u0020diret\u00F3rios",
+            "url": "classes/Win-Services-Filesystem.html#method_children"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Acount\u0028\u0029",
+            "name": "count",
+            "summary": "Retorna\u0020total\u0020de\u0020items",
+            "url": "classes/Win-Services-Filesystem.html#method_count"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Cria\u0020o\u0020diret\u00F3rio",
+            "url": "classes/Win-Services-Filesystem.html#method_create"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Arename\u0028\u0029",
+            "name": "rename",
+            "summary": "Renomeia\u0020o\u0020arquivo",
+            "url": "classes/Win-Services-Filesystem.html#method_rename"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Amove\u0028\u0029",
+            "name": "move",
+            "summary": "Move\u0020o\u0020arquivo",
+            "url": "classes/Win-Services-Filesystem.html#method_move"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "Exclui\u0020o\u0020arquivo\/diret\u00F3rio",
+            "url": "classes/Win-Services-Filesystem.html#method_delete"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Awrite\u0028\u0029",
+            "name": "write",
+            "summary": "Salva\u0020o\u0020conte\u00FAdo\u0020no\u0020arquivo",
+            "url": "classes/Win-Services-Filesystem.html#method_write"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Aread\u0028\u0029",
+            "name": "read",
+            "summary": "Retorna\u0020o\u0020conte\u00FAdo\u0020do\u0020arquivo",
+            "url": "classes/Win-Services-Filesystem.html#method_read"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Aexists\u0028\u0029",
+            "name": "exists",
+            "summary": "Retorna\u0020TRUE\u0020se\u0020o\u0020arquivo\u0020existe",
+            "url": "classes/Win-Services-Filesystem.html#method_exists"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003AreceiveFile\u0028\u0029",
+            "name": "receiveFile",
+            "summary": "Prepara\u0020o\u0020upload",
+            "url": "classes/Win-Services-Filesystem.html#method_receiveFile"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003Aupload\u0028\u0029",
+            "name": "upload",
+            "summary": "Faz\u0020o\u0020upload\u0020para\u0020o\u0020diret\u00F3rio\u0020final",
+            "url": "classes/Win-Services-Filesystem.html#method_upload"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003AgenerateName\u0028\u0029",
+            "name": "generateName",
+            "summary": "Gera\u0020um\u0020novo\u0020nome,\u0020mantendo\u0020a\u0020extens\u00E3o",
+            "url": "classes/Win-Services-Filesystem.html#method_generateName"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003ADS",
+            "name": "DS",
+            "summary": "",
+            "url": "classes/Win-Services-Filesystem.html#constant_DS"
+        },                {
+            "fqsen": "\\Win\\Services\\Filesystem\u003A\u003A\u0024tempFile",
+            "name": "tempFile",
+            "summary": "",
+            "url": "classes/Win-Services-Filesystem.html#property_tempFile"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer",
+            "name": "Mailer",
+            "summary": "Envio\u0020de\u0020Emails",
+            "url": "classes/Win-Services-Mailer.html"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Instancia\u0020o\u0020servi\u00E7o\u0020de\u0020E\u002Dmail",
+            "url": "classes/Win-Services-Mailer.html#method___construct"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsetLanguage\u0028\u0029",
+            "name": "setLanguage",
+            "summary": "Define\u0020o\u0020idioma",
+            "url": "classes/Win-Services-Mailer.html#method_setLanguage"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsetSubject\u0028\u0029",
+            "name": "setSubject",
+            "summary": "Define\u0020o\u0020assunto",
+            "url": "classes/Win-Services-Mailer.html#method_setSubject"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AgetSubject\u0028\u0029",
+            "name": "getSubject",
+            "summary": "Retorna\u0020o\u0020assunto",
+            "url": "classes/Win-Services-Mailer.html#method_getSubject"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsetFrom\u0028\u0029",
+            "name": "setFrom",
+            "summary": "Define\u0020o\u0020remetente",
+            "url": "classes/Win-Services-Mailer.html#method_setFrom"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddTo\u0028\u0029",
+            "name": "addTo",
+            "summary": "Add\u0020destinat\u00E1rio",
+            "url": "classes/Win-Services-Mailer.html#method_addTo"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddCC\u0028\u0029",
+            "name": "addCC",
+            "summary": "Add\u0020c\u00F3pia",
+            "url": "classes/Win-Services-Mailer.html#method_addCC"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddBCC\u0028\u0029",
+            "name": "addBCC",
+            "summary": "Add\u0020c\u00F3pia\u0020oculta",
+            "url": "classes/Win-Services-Mailer.html#method_addBCC"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AaddReplyTo\u0028\u0029",
+            "name": "addReplyTo",
+            "summary": "Add\u0020responder\u0020para",
+            "url": "classes/Win-Services-Mailer.html#method_addReplyTo"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003Asend\u0028\u0029",
+            "name": "send",
+            "summary": "Envia\u0020o\u0020E\u002Dmail",
+            "url": "classes/Win-Services-Mailer.html#method_send"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003Aflush\u0028\u0029",
+            "name": "flush",
+            "summary": "Limpa\u0020dados",
+            "url": "classes/Win-Services-Mailer.html#method_flush"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003AsaveOnDisk\u0028\u0029",
+            "name": "saveOnDisk",
+            "summary": "Salva\u0020o\u0020corpo\u0020do\u0020E\u002Dmail\u0020em\u0020um\u0020arquivo",
+            "url": "classes/Win-Services-Mailer.html#method_saveOnDisk"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003ADIRECTORY",
+            "name": "DIRECTORY",
+            "summary": "",
+            "url": "classes/Win-Services-Mailer.html#constant_DIRECTORY"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024mailer",
+            "name": "mailer",
+            "summary": "",
+            "url": "classes/Win-Services-Mailer.html#property_mailer"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024fs",
+            "name": "fs",
+            "summary": "",
+            "url": "classes/Win-Services-Mailer.html#property_fs"
+        },                {
+            "fqsen": "\\Win\\Services\\Mailer\u003A\u003A\u0024sendOnLocalHost",
+            "name": "sendOnLocalHost",
+            "summary": "",
+            "url": "classes/Win-Services-Mailer.html#property_sendOnLocalHost"
+        },                {
+            "fqsen": "\\Win\\Services\\Pagination",
+            "name": "Pagination",
+            "summary": "Auxilia\u0020criar\u0020pagina\u00E7\u00F5es",
+            "url": "classes/Win-Services-Pagination.html"
+        },                {
+            "fqsen": "\\Win\\Services\\Pagination\u003A\u003Aoffset\u0028\u0029",
+            "name": "offset",
+            "summary": "",
+            "url": "classes/Win-Services-Pagination.html#method_offset"
+        },                {
+            "fqsen": "\\Win\\Services\\Pagination\u003A\u003A\u0024current",
+            "name": "current",
+            "summary": "",
+            "url": "classes/Win-Services-Pagination.html#property_current"
+        },                {
+            "fqsen": "\\Win\\Services\\Pagination\u003A\u003A\u0024pageSize",
+            "name": "pageSize",
+            "summary": "",
+            "url": "classes/Win-Services-Pagination.html#property_pageSize"
+        },                {
+            "fqsen": "\\Win\\Services\\Pagination\u003A\u003A\u0024count",
+            "name": "count",
+            "summary": "",
+            "url": "classes/Win-Services-Pagination.html#property_count"
+        },                {
+            "fqsen": "\\Win\\Services\\Pagination\u003A\u003A\u0024last",
+            "name": "last",
+            "summary": "",
+            "url": "classes/Win-Services-Pagination.html#property_last"
+        },                {
+            "fqsen": "\\Win\\Services\\ReCaptcha",
+            "name": "ReCaptcha",
+            "summary": "ReCaptcha\u0020do\u0020Google\nValidando\u0020se\u0020o\u0020usu\u00E1rio\u0020n\u00E3o\u0020\u00E9\u0020um\u0020rob\u00F4",
+            "url": "classes/Win-Services-ReCaptcha.html"
+        },                {
+            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003AisValid\u0028\u0029",
+            "name": "isValid",
+            "summary": "Retorna\u0020TRUE\u0020se\u0020usu\u00E1rio\u0020marcou\u0020\u0022N\u00E3o\u0020sou\u0020um\u0020rob\u00F4\u0022",
+            "url": "classes/Win-Services-ReCaptcha.html#method_isValid"
+        },                {
+            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003AgetValidationUrl\u0028\u0029",
+            "name": "getValidationUrl",
+            "summary": "Retorna\u0020a\u0020URL\u0020de\u0020valida\u00E7\u00E3o",
+            "url": "classes/Win-Services-ReCaptcha.html#method_getValidationUrl"
+        },                {
+            "fqsen": "\\Win\\Services\\Router",
+            "name": "Router",
+            "summary": "Rota\u0020de\u0020URL",
+            "url": "classes/Win-Services-Router.html"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#method___construct"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003AgetDestination\u0028\u0029",
+            "name": "getDestination",
+            "summary": "Percorre\u0020todas\u0020as\u0020rotas\u0020e\u0020retorna\u0020o\u0020destino\u0020final",
+            "url": "classes/Win-Services-Router.html#method_getDestination"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003AisHomePage\u0028\u0029",
+            "name": "isHomePage",
+            "summary": "Retorna\u0020TRUE\u0020se\u0020est\u00E1\u0020na\u0020p\u00E1gina\u0020inicial",
+            "url": "classes/Win-Services-Router.html#method_isHomePage"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003Aformat\u0028\u0029",
+            "name": "format",
+            "summary": "Retorna\u0020no\u0020formato\u0020de\u0020URL",
+            "url": "classes/Win-Services-Router.html#method_format"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003Aredirect\u0028\u0029",
+            "name": "redirect",
+            "summary": "Redireciona\u0020para\u0020a\u0020URL\u0020escolhida",
+            "url": "classes/Win-Services-Router.html#method_redirect"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003AredirectToIndex\u0028\u0029",
+            "name": "redirectToIndex",
+            "summary": "Volta\u0020para\u0020o\u0020m\u00E9todo\u0020index\u0020da\u0020pagina\u0020atual",
+            "url": "classes/Win-Services-Router.html#method_redirectToIndex"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003Arefresh\u0028\u0029",
+            "name": "refresh",
+            "summary": "Atualiza\u0020a\u0020mesma\u0020p\u00E1gina",
+            "url": "classes/Win-Services-Router.html#method_refresh"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003AgetBaseUrl\u0028\u0029",
+            "name": "getBaseUrl",
+            "summary": "Retorna\u0020a\u0020URL\u0020base",
+            "url": "classes/Win-Services-Router.html#method_getBaseUrl"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003AgetRelativeUrl\u0028\u0029",
+            "name": "getRelativeUrl",
+            "summary": "Define\u0020o\u0020final\u0020da\u0020URL",
+            "url": "classes/Win-Services-Router.html#method_getRelativeUrl"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003AgetSegments\u0028\u0029",
+            "name": "getSegments",
+            "summary": "Define\u0020os\u0020fragmentos\u0020da\u0020URL",
+            "url": "classes/Win-Services-Router.html#method_getSegments"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003AHOME",
+            "name": "HOME",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#constant_HOME"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003ASUFFIX",
+            "name": "SUFFIX",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#constant_SUFFIX"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024protocol",
+            "name": "protocol",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_protocol"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024baseUrl",
+            "name": "baseUrl",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_baseUrl"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024relativeUrl",
+            "name": "relativeUrl",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_relativeUrl"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024url",
+            "name": "url",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_url"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024segments",
+            "name": "segments",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_segments"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024page",
+            "name": "page",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_page"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024action",
+            "name": "action",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_action"
+        },                {
+            "fqsen": "\\Win\\Services\\Router\u003A\u003A\u0024routes",
+            "name": "routes",
+            "summary": "",
+            "url": "classes/Win-Services-Router.html#property_routes"
+        },                {
+            "fqsen": "\\Win\\Templates\\AlertBlock",
+            "name": "AlertBlock",
+            "summary": "Exibe\u0020os\u0020Alertas\u0020da\u0020sess\u00E3o",
+            "url": "classes/Win-Templates-AlertBlock.html"
+        },                {
+            "fqsen": "\\Win\\Templates\\AlertBlock\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Cria\u0020um\u0020template\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
+            "url": "classes/Win-Templates-AlertBlock.html#method___construct"
+        },                {
+            "fqsen": "\\Win\\Templates\\Email",
+            "name": "Email",
+            "summary": "Templates\u0020de\u0020Email\nVer\u0020arquivos\u0020em\u003A\u0020\u0022templates\/emails\u0022",
+            "url": "classes/Win-Templates-Email.html"
+        },                {
+            "fqsen": "\\Win\\Templates\\Email\u003A\u003A\u0024dir",
+            "name": "dir",
+            "summary": "",
+            "url": "classes/Win-Templates-Email.html#property_dir"
+        },                {
+            "fqsen": "\\Win\\Templates\\Email\u003A\u003A\u0024mailer",
+            "name": "mailer",
+            "summary": "",
+            "url": "classes/Win-Templates-Email.html#property_mailer"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template",
+            "name": "Template",
+            "summary": "Templates\u0020em\u0020.PHTML\nVer\u0020arquivos\u0020em\u003A\u0020\u0022templates\/\u0022",
+            "url": "classes/Win-Templates-Template.html"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Cria\u0020um\u0020template\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
+            "url": "classes/Win-Templates-Template.html#method___construct"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003A__toString\u0028\u0029",
+            "name": "__toString",
+            "summary": "Carrega\u0020e\u0020retorna\u0020o\u0020output",
+            "url": "classes/Win-Templates-Template.html#method___toString"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003Aget\u0028\u0029",
+            "name": "get",
+            "summary": "Retorna\u0020uma\u0020vari\u00E1vel",
+            "url": "classes/Win-Templates-Template.html#method_get"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003Aexists\u0028\u0029",
+            "name": "exists",
+            "summary": "Retorna\u0020TRUE\u0020se\u0020o\u0020template\u0020existe",
+            "url": "classes/Win-Templates-Template.html#method_exists"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003AtoHtml\u0028\u0029",
+            "name": "toHtml",
+            "summary": "Carrega\u0020e\u0020retorna\u0020o\u0020output",
+            "url": "classes/Win-Templates-Template.html#method_toHtml"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024dir",
+            "name": "dir",
+            "summary": "",
+            "url": "classes/Win-Templates-Template.html#property_dir"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024app",
+            "name": "app",
+            "summary": "",
+            "url": "classes/Win-Templates-Template.html#property_app"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024file",
+            "name": "file",
+            "summary": "Endere\u00E7o\u0020completo\u0020do\u0020arquivo\u0020.phtml",
+            "url": "classes/Win-Templates-Template.html#property_file"
+        },                {
+            "fqsen": "\\Win\\Templates\\Template\u003A\u003A\u0024data",
+            "name": "data",
+            "summary": "",
+            "url": "classes/Win-Templates-Template.html#property_data"
+        },                {
+            "fqsen": "\\Win\\Templates\\View",
+            "name": "View",
+            "summary": "View",
+            "url": "classes/Win-Templates-View.html"
+        },                {
+            "fqsen": "\\Win\\Templates\\View\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Cria\u0020uma\u0020View\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
+            "url": "classes/Win-Templates-View.html#method___construct"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date",
+            "name": "Date",
+            "summary": "Utilit\u00E1rio\u0020de\u0020Data\u0020e\u0020Hora",
+            "url": "classes/Win-Utils-Date.html"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Cra\u0020data\u0020no\u0020formato\u0020desejado",
+            "url": "classes/Win-Utils-Date.html#method_create"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003Aformat\u0028\u0029",
+            "name": "format",
+            "summary": "Formata\u0020a\u0020data",
+            "url": "classes/Win-Utils-Date.html#method_format"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003AformatF\u0028\u0029",
+            "name": "formatF",
+            "summary": "Retorna\u0020a\u0020data\u0020no\u0020formato\u0020utilizado\u0020por\u0020strftime",
+            "url": "classes/Win-Utils-Date.html#method_formatF"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003Amonth\u0028\u0029",
+            "name": "month",
+            "summary": "Retorna\u0020o\u0020nome\u0020do\u0020m\u00EAs",
+            "url": "classes/Win-Utils-Date.html#method_month"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003AmonthAbbr\u0028\u0029",
+            "name": "monthAbbr",
+            "summary": "Retorna\u0020o\u0020nome\u0020do\u0020m\u00EAs\u0020abreviado",
+            "url": "classes/Win-Utils-Date.html#method_monthAbbr"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003Aage\u0028\u0029",
+            "name": "age",
+            "summary": "Retorna\u0020a\u0020idade",
+            "url": "classes/Win-Utils-Date.html#method_age"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003AisValid\u0028\u0029",
+            "name": "isValid",
+            "summary": "Retorna\u0020TRUE\u0020se\u0020a\u0020data\u0020\u00E9\u0020valida",
+            "url": "classes/Win-Utils-Date.html#method_isValid"
+        },                {
+            "fqsen": "\\Win\\Utils\\Form",
+            "name": "Form",
+            "summary": "Utilit\u00E1rio\u0020de\u0020Formul\u00E1rio",
+            "url": "classes/Win-Utils-Form.html"
+        },                {
+            "fqsen": "\\Win\\Utils\\Form\u003A\u003Acheck\u0028\u0029",
+            "name": "check",
+            "summary": "Retorna\u0020\u0027checked\u0027\u0020se\u0020os\u0020valores\u0020s\u00E3o\u0020iguais",
+            "url": "classes/Win-Utils-Form.html#method_check"
+        },                {
+            "fqsen": "\\Win\\Utils\\Form\u003A\u003Aselect\u0028\u0029",
+            "name": "select",
+            "summary": "Retorna\u0020\u0027selected\u0027\u0020se\u0020os\u0020valores\u0020s\u00E3o\u0020iguais",
+            "url": "classes/Win-Utils-Form.html#method_select"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input",
+            "name": "Input",
+            "summary": "Utilit\u00E1rio\u0020de\u0020vari\u00E1veis\u0020globais\u0020\u0028\u0024_REQUEST,\u0020\u0024_POST,\u0020\u0024_GET,\u0020etc\u0029",
+            "url": "classes/Win-Utils-Input.html"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input\u003A\u003Apost\u0028\u0029",
+            "name": "post",
+            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_POST",
+            "url": "classes/Win-Utils-Input.html#method_post"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input\u003A\u003Aisset\u0028\u0029",
+            "name": "isset",
+            "summary": "Retorna\u0020TRUE\u0020se\u0020a\u0020vari\u00E1vel\u0020foi\u0020definida",
+            "url": "classes/Win-Utils-Input.html#method_isset"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input\u003A\u003ApostArray\u0028\u0029",
+            "name": "postArray",
+            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_POST\u0020em\u0020modo\u0020array",
+            "url": "classes/Win-Utils-Input.html#method_postArray"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input\u003A\u003Aserver\u0028\u0029",
+            "name": "server",
+            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_SERVER",
+            "url": "classes/Win-Utils-Input.html#method_server"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input\u003A\u003Aget\u0028\u0029",
+            "name": "get",
+            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_GET",
+            "url": "classes/Win-Utils-Input.html#method_get"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input\u003A\u003Afile\u0028\u0029",
+            "name": "file",
+            "summary": "Retorna\u0020vari\u00E1vel\u0020\u0024_FILES",
+            "url": "classes/Win-Utils-Input.html#method_file"
+        },                {
+            "fqsen": "\\Win\\Utils\\Input\u003A\u003Aprotocol\u0028\u0029",
+            "name": "protocol",
+            "summary": "Retorna\u0020o\u0020protocolo\u0020atual",
+            "url": "classes/Win-Utils-Input.html#method_protocol"
+        },                {
+            "fqsen": "\\Win\\Utils\\Link",
+            "name": "Link",
+            "summary": "Utilit\u00E1rio\u0020de\u0020Links\u0020de\u0020Navega\u00E7\u00E3o",
+            "url": "classes/Win-Utils-Link.html"
+        },                {
+            "fqsen": "\\Win\\Utils\\Link\u003A\u003Aactive\u0028\u0029",
+            "name": "active",
+            "summary": "Usado\u0020para\u0020ativar\u0020Links\u0020\u0028aceita\u0020array\u0029",
+            "url": "classes/Win-Utils-Link.html#method_active"
+        },                {
+            "fqsen": "\\Win\\Utils\\Seo",
+            "name": "Seo",
+            "summary": "Utilit\u00E1rio\u0020de\u0020Seo",
+            "url": "classes/Win-Utils-Seo.html"
+        },                {
+            "fqsen": "\\Win\\Utils\\Seo\u003A\u003Atitle\u0028\u0029",
+            "name": "title",
+            "summary": "Retorna\u0020o\u0020t\u00EDtulo\u0020com\u0020o\u0020nome\u0020da\u0020aplica\u00E7\u00E3o\u0020no\u0020final\nMantendo\u0020o\u0020m\u00E1ximo\u0020de\u0020caracteres",
+            "url": "classes/Win-Utils-Seo.html#method_title"
+        },                {
+            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024keywords",
+            "name": "keywords",
+            "summary": "Keywords\u0020padr\u00E3o.",
+            "url": "classes/Win-Utils-Seo.html#property_keywords"
+        },                {
+            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024description",
+            "name": "description",
+            "summary": "Descri\u00E7\u00E3o\u0020padr\u00E3o.",
+            "url": "classes/Win-Utils-Seo.html#property_description"
+        },                {
+            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024titlePrefix",
+            "name": "titlePrefix",
+            "summary": "",
+            "url": "classes/Win-Utils-Seo.html#property_titlePrefix"
+        },                {
+            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024titleSuffix",
+            "name": "titleSuffix",
+            "summary": "",
+            "url": "classes/Win-Utils-Seo.html#property_titleSuffix"
+        },                {
+            "fqsen": "\\Win\\Utils\\Server",
+            "name": "Server",
+            "summary": "Utilit\u00E1rio\u0020de\u0020informa\u00E7\u00F5es\u0020do\u0020servidor",
+            "url": "classes/Win-Utils-Server.html"
+        },                {
+            "fqsen": "\\Win\\Utils\\Server\u003A\u003AisLocalHost\u0028\u0029",
+            "name": "isLocalHost",
+            "summary": "",
+            "url": "classes/Win-Utils-Server.html#method_isLocalHost"
+        },                {
+            "fqsen": "\\Win\\Utils\\Server\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "",
+            "url": "classes/Win-Utils-Server.html#method_getName"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str",
+            "name": "Str",
+            "summary": "Utilit\u00E1rio\u0020de\u0020Strings",
+            "url": "classes/Win-Utils-Str.html"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003AtoUrl\u0028\u0029",
+            "name": "toUrl",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#method_toUrl"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003Alength\u0028\u0029",
+            "name": "length",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#method_length"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003Alower\u0028\u0029",
+            "name": "lower",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#method_lower"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003Aupper\u0028\u0029",
+            "name": "upper",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#method_upper"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003AlowerCamel\u0028\u0029",
+            "name": "lowerCamel",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#method_lowerCamel"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003Acamel\u0028\u0029",
+            "name": "camel",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#method_camel"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003Atruncate\u0028\u0029",
+            "name": "truncate",
+            "summary": "Retorna\u0020a\u0020string\u0020resumida,\u0020sem\u0020cortar\u0020a\u0020\u00FAltima\u0020palavra",
+            "url": "classes/Win-Utils-Str.html#method_truncate"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003Astrip\u0028\u0029",
+            "name": "strip",
+            "summary": "Limpa\u0020a\u0020string,\u0020retirando\u0020espa\u00E7os\u0020e\u0020tags\u0020html",
+            "url": "classes/Win-Utils-Str.html#method_strip"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003ATRUNCATE_BEFORE",
+            "name": "TRUNCATE_BEFORE",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#constant_TRUNCATE_BEFORE"
+        },                {
+            "fqsen": "\\Win\\Utils\\Str\u003A\u003ATRUNCATE_AFTER",
+            "name": "TRUNCATE_AFTER",
+            "summary": "",
+            "url": "classes/Win-Utils-Str.html#constant_TRUNCATE_AFTER"
         },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
-            "url": "../namespaces/default.html"
+            "url": "namespaces/default.html"
         },                {
             "fqsen": "\\App\\Controllers",
             "name": "Controllers",
             "summary": "",
-            "url": "../namespaces/app-controllers.html"
+            "url": "namespaces/app-controllers.html"
         },                {
             "fqsen": "\\App",
             "name": "App",
             "summary": "",
-            "url": "../namespaces/app.html"
+            "url": "namespaces/app.html"
         },                {
             "fqsen": "\\Win",
             "name": "Win",
             "summary": "",
-            "url": "../namespaces/win.html"
-        },                {
-            "fqsen": "\\Win\\Common",
-            "name": "Common",
-            "summary": "",
-            "url": "../namespaces/win-common.html"
-        },                {
-            "fqsen": "\\Win\\Common\\Utils",
-            "name": "Utils",
-            "summary": "",
-            "url": "../namespaces/win-common-utils.html"
+            "url": "namespaces/win.html"
         },                {
             "fqsen": "\\Win\\Controllers",
             "name": "Controllers",
             "summary": "",
-            "url": "../namespaces/win-controllers.html"
+            "url": "namespaces/win-controllers.html"
         },                {
             "fqsen": "\\Win\\Models",
             "name": "Models",
             "summary": "",
-            "url": "../namespaces/win-models.html"
+            "url": "namespaces/win-models.html"
         },                {
             "fqsen": "\\Win\\Repositories",
             "name": "Repositories",
             "summary": "",
-            "url": "../namespaces/win-repositories.html"
+            "url": "namespaces/win-repositories.html"
         },                {
             "fqsen": "\\Win\\Services",
             "name": "Services",
             "summary": "",
-            "url": "../namespaces/win-services.html"
+            "url": "namespaces/win-services.html"
         },                {
             "fqsen": "\\Win\\Templates",
             "name": "Templates",
             "summary": "",
-            "url": "../namespaces/win-templates.html"
+            "url": "namespaces/win-templates.html"
+        },                {
+            "fqsen": "\\Win\\Utils",
+            "name": "Utils",
+            "summary": "",
+            "url": "namespaces/win-utils.html"
         }            ]
 );

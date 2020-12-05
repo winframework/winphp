@@ -3,446 +3,541 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/app.html"><abbr title="\App">App</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/app-controllers.html"><abbr title="\App\Controllers">Controllers</abbr></a></li>
+                                    </ul>
+                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/win.html"><abbr title="\Win">Win</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/win-controllers.html"><abbr title="\Win\Controllers">Controllers</abbr></a></li>
+                                            <li><a href="namespaces/win-models.html"><abbr title="\Win\Models">Models</abbr></a></li>
+                                            <li><a href="namespaces/win-repositories.html"><abbr title="\Win\Repositories">Repositories</abbr></a></li>
+                                            <li><a href="namespaces/win-services.html"><abbr title="\Win\Services">Services</abbr></a></li>
+                                            <li><a href="namespaces/win-templates.html"><abbr title="\Win\Templates">Templates</abbr></a></li>
+                                            <li><a href="namespaces/win-utils.html"><abbr title="\Win\Utils">Utils</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/app.html"><abbr title="\App">App</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/app-controllers.html"><abbr title="\App\Controllers">Controllers</abbr></a></li>
-                            </ul>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/win.html"><abbr title="\Win">Win</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/win-common.html"><abbr title="\Win\Common">Common</abbr></a></li>
-                                    <li><a href="../namespaces/win-controllers.html"><abbr title="\Win\Controllers">Controllers</abbr></a></li>
-                                    <li><a href="../namespaces/win-models.html"><abbr title="\Win\Models">Models</abbr></a></li>
-                                    <li><a href="../namespaces/win-repositories.html"><abbr title="\Win\Repositories">Repositories</abbr></a></li>
-                                    <li><a href="../namespaces/win-services.html"><abbr title="\Win\Services">Services</abbr></a></li>
-                                    <li><a href="../namespaces/win-templates.html"><abbr title="\Win\Templates">Templates</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/win.html">Win</a></li>
-                    <li><a href="../namespaces/win-templates.html">Templates</a></li>
-            </ul>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/win.html">Win</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/win-templates.html">Templates</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            AlertBlock
-                            <span class="phpdocumentor-class__extends">
-                    extends <a href="../classes/Win-Templates-Template.html"><abbr title="\Win\Templates\Template">Template</abbr></a>
-                </span>
-                                                        </h2>
+    AlertBlock
+
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/Win-Templates-Template.html"><abbr title="\Win\Templates\Template">Template</abbr></a>
+    </span>
+    
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/AlertBlock.php"><a href="../files/winphp-www-vendor-win-templates-alertblock.html"><abbr title="winphp/www/vendor/Win/Templates/AlertBlock.php">AlertBlock.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">10</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/AlertBlock.php"><a href="files/winphp-www-vendor-win-templates-alertblock.html"><abbr title="winphp/www/vendor/Win/Templates/AlertBlock.php">AlertBlock.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">10</span>
+</aside>
 
-        <p class="phpdocumentor-class__summary">Exibe os Alertas da sessão</p>
-        <section class="phpdocumentor-class__description"></section>
+            <p class="phpdocumentor-summary">Exibe os Alertas da sessão</p>
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#property_dir">$dir</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#property_app">$app</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href="../classes/Win-Application.html"><abbr title="\Win\Application">Application</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#property_file">$file</a></th>
-                    <td class="phpdocumentor-cell">Endereço completo do arquivo .phtml</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#property_data">$data</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-                </tr>
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-AlertBlock.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Cria um template com base no arquivo escolhido</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                                                    <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Cria um template com base no arquivo escolhido</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#method___toString">__toString()</a></th>
-                    <td class="phpdocumentor-cell">Carrega e retorna o output</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#method_get">get()</a></th>
-                    <td class="phpdocumentor-cell">Retorna uma variável</td>
-                    <td class="phpdocumentor-cell">mixed|null</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#method_exists">exists()</a></th>
-                    <td class="phpdocumentor-cell">Retorna TRUE se o template existe</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/Win-Templates-Template.html#method_toHtml">toHtml()</a></th>
-                    <td class="phpdocumentor-cell">Carrega e retorna o output</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                    </table>
+    <section class="phpdocumentor-description"></section>
+
+
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+                <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Win-Templates-Template.html#property_app">$app</a>
+    <span>
+                &nbsp;: <a href="classes/Win-Application.html"><abbr title="\Win\Application">Application</abbr></a>            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Win-Templates-Template.html#property_dir">$dir</a>
+    <span>
+                &nbsp;: mixed            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/Win-Templates-Template.html#property_data">$data</a>
+    <span>
+                &nbsp;: mixed            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/Win-Templates-Template.html#property_file">$file</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd>Endereço completo do arquivo .phtml</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Win-Templates-AlertBlock.html#method___construct">__construct()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Cria um template com base no arquivo escolhido</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Win-Templates-Template.html#method___toString">__toString()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Carrega e retorna o output</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Win-Templates-Template.html#method_exists">exists()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Retorna TRUE se o template existe</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Win-Templates-Template.html#method_get">get()</a>
+    <span>
+                        &nbsp;: mixed|null    </span>
+</dt>
+<dd>Retorna uma variável</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/Win-Templates-Template.html#method_toHtml">toHtml()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Carrega e retorna o output</dd>
+
+        </dl>
+
+
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                                                    <a id="property_dir"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$dir</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">14</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$dir</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;templates&#039;</span>    </code>
-    </article>
-                                    <a id="property_app"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-                                "
->
-    <h4 class="phpdocumentor-property__name">$app</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">15</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/Win-Application.html"><abbr title="\Win\Application">Application</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$app</span>
-            </code>
-    </article>
-                                    <a id="property_file"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$file</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">21</span>
-    </aside>
-            <p class="phpdocumentor-summary">Endereço completo do arquivo .phtml</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$file</span>
-            </code>
-    </article>
-                                    <a id="property_data"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$data</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">23</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$data</span>
-         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
-    </article>
-                            </section>
+
         
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method___construct"></a>
-<article
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/Win-Templates-AlertBlock.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_app">
+        $app
+        <a href="classes/Win-Templates-Template.html#property_app" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/AlertBlock.php"><a href="../files/winphp-www-vendor-win-templates-alertblock.html"><abbr title="winphp/www/vendor/Win/Templates/AlertBlock.php">AlertBlock.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">12</span>
-    </aside>
-        <p class="phpdocumentor-summary">Cria um template com base no arquivo escolhido</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$alerts</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">15</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Win-Application.html"><abbr title="\Win\Application">Application</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$app</span>
     </code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$alerts</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
+
 </article>
-                                                                    <a id="method___construct"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
 >
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_dir">
+        $dir
+        <a href="classes/Win-Templates-Template.html#property_dir" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">30</span>
-    </aside>
-        <p class="phpdocumentor-summary">Cria um template com base no arquivo escolhido</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$file</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$data</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$file</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Nome do arquivo</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$data</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array de variáveis</p></section></dd>
-                    </dl>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$dir</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;templates&#039;</span></code>
+
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
+    
+
 </article>
-                                    <a id="method___toString"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -protected
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">__toString()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_data">
+        $data
+        <a href="classes/Win-Templates-Template.html#property_data" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">41</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">23</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$data</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_file">
+        $file
+        <a href="classes/Win-Templates-Template.html#property_file" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Endereço completo do arquivo .phtml</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$file</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/Win-Templates-AlertBlock.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/Win-Templates-AlertBlock.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/AlertBlock.php"><a href="files/winphp-www-vendor-win-templates-alertblock.html"><abbr title="winphp/www/vendor/Win/Templates/AlertBlock.php">AlertBlock.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">12</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Cria um template com base no arquivo escolhido</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$alerts</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$alerts</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___toString">
+        __toString()
+        <a href="classes/Win-Templates-Template.html#method___toString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+</aside>
+
         <p class="phpdocumentor-summary">Carrega e retorna o output</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__toString</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">__toString</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_get"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">get()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">51</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retorna uma variável</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">get</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$name</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed|null</span>
-    </code>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed|null</span>
-            
 </article>
-                                    <a id="method_exists"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">exists()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_exists">
+        exists()
+        <a href="classes/Win-Templates-Template.html#method_exists" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">60</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">60</span>
+</aside>
+
         <p class="phpdocumentor-summary">Retorna TRUE se o template existe</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">exists</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">exists</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
 </article>
-                                    <a id="method_toHtml"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">toHtml()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_get">
+        get()
+        <a href="classes/Win-Templates-Template.html#method_get" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="../files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">69</span>
-    </aside>
-        <p class="phpdocumentor-summary">Carrega e retorna o output</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">toHtml</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">51</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retorna uma variável</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed|null</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
 
     
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
 </article>
-                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_toHtml">
+        toHtml()
+        <a href="classes/Win-Templates-Template.html#method_toHtml" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="winphp/www/vendor/Win/Templates/Template.php"><a href="files/winphp-www-vendor-win-templates-template.html"><abbr title="winphp/www/vendor/Win/Templates/Template.php">Template.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">69</span>
+</aside>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+        <p class="phpdocumentor-summary">Carrega e retorna o output</p>
 
-                </ul>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__name">toHtml</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+            </section>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/Win-Templates-AlertBlock.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>
