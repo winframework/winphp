@@ -7,10 +7,11 @@ use Win\Templates\Template;
 /** @var Template $this */
 $view = $this->app->view;
 $title = implode(' | ', (array) ($view->get('title') ?? APP_NAME));
+$router = Router::instance();
 ?>
 
 <head>
-	<base href="<?= Router::instance()->baseUrl; ?>" />
+	<base href="<?= $router->baseUrl; ?>" />
 	<title><?= Str::truncate($title, 150) ?></title>
 
 	<!-- Meta Tags -->
