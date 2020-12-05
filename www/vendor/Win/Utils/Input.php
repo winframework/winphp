@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Common\Utils;
+namespace Win\Utils;
 
 /**
  * Manipulador de variáveis globais ($_REQUEST, $_POST, $_GET, etc)

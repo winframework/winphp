@@ -3,7 +3,7 @@
 namespace Win\Services;
 
 use Exception;
-use Win\Common\InjectableTrait;
+use Win\InjectableTrait;
 
 class Filesystem
 {

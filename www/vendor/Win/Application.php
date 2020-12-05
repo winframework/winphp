@@ -3,13 +3,13 @@
 namespace Win;
 
 use PDO;
-use Win\Common\DI;
-use Win\Common\Utils\Str;
+use Win\DI;
 use Win\Controllers\Controller;
 use Win\HttpException;
 use Win\Services\Router;
 use Win\Templates\Template;
 use Win\Templates\View;
+use Win\Utils\Str;
 
 /**
  * Application (WinPHP Framework)
@@ -17,7 +17,7 @@ use Win\Templates\View;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework http://github.com/winframework/winphp/
- * @version 1.8.0
+ * @version 1.8.1
  */
 class Application
 {

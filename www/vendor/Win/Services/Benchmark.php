@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Common;
+namespace Win\Services;
 
 /**
  * Contador de Desempenho

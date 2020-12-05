@@ -3,7 +3,7 @@
 namespace Win\Models;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\Utils\Date;
+use Win\Utils\Date;
 
 class DateTest extends TestCase
 {

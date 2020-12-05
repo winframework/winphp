@@ -1,6 +1,6 @@
 <?php
 
-namespace Win\Common\Utils;
+namespace Win\Utils;
 
 use Win\Services\Router;
 

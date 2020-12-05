@@ -2,8 +2,8 @@
 
 namespace Win\Services;
 
-use Win\Common\InjectableTrait;
-use Win\Common\Utils\Input;
+use Win\InjectableTrait;
+use Win\Utils\Input;
 
 /**
  * ReCaptcha do Google

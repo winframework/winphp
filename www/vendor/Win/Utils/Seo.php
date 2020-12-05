@@ -1,8 +1,8 @@
 <?php
 
-namespace Win\Common\Utils;
+namespace Win\Utils;
 
-use Win\Common\Utils\Str;
+use Win\Utils\Str;
 
 /**
  * Auxilia a criar o título otimizado para SEO

@@ -5,10 +5,10 @@ namespace Win\Repositories;
 use PDO;
 use PDOException;
 use Win\Application;
-use Win\Common\Pagination;
-use Win\Common\InjectableTrait;
-use Win\Models\Model;
+use Win\InjectableTrait;
 use Win\HttpException;
+use Win\Services\Pagination;
+use Win\Models\Model;
 
 /**
  * Base Database Repository
