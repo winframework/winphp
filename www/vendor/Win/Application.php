@@ -17,7 +17,7 @@ use Win\Utils\Str;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework http://github.com/winframework/winphp/
- * @version 1.8.1
+ * @version 1.9.0
  */
 class Application
 {
