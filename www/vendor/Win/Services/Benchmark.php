@@ -5,7 +5,7 @@ namespace Win\Services;
 /**
  * Contador de Desempenho
  *
- * Usado para analisar desempenho de códigos códigos
+ * Usado para analisar desempenho de códigos
  *
  * <code>
  * $b = new Benchmark();
@@ -15,8 +15,8 @@ namespace Win\Services;
  */
 class Benchmark
 {
-	private $startTime;
-	private $memory;
+	private int $startTime;
+	private int $memory;
 
 	/**
 	 * Inicia a contagem de tempo

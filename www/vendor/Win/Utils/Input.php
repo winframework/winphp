@@ -3,7 +3,7 @@
 namespace Win\Utils;
 
 /**
- * Manipulador de variáveis globais ($_REQUEST, $_POST, $_GET, etc)
+ * Utilitário de variáveis globais ($_REQUEST, $_POST, $_GET, etc)
  *
  * Fornecendo uma camada de segurança maior do que manipulá-las diretamente.
  */

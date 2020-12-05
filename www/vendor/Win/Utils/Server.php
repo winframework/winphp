@@ -3,7 +3,7 @@
 namespace Win\Utils;
 
 /**
- * Retorna informações do servidor
+ * Utilitário de informações do servidor
  */
 abstract class Server
 {

@@ -10,7 +10,7 @@ use Win\HttpException;
  */
 class DbException extends HttpException
 {
-	public function __construct($message, $code, PDOException $previous)
+	public function __construct(string $message, int $code, PDOException $previous)
 	{
 		parent::__construct($message, $code, $previous);
 	}

@@ -5,7 +5,7 @@ namespace Win\Utils;
 use Win\Services\Router;
 
 /**
- * Auxilia a criar Links de Navegação
+ * Utilitário de Links de Navegação
  */
 abstract class Link
 {

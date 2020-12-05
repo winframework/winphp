@@ -5,7 +5,7 @@ namespace Win\Utils;
 use DateTime;
 
 /**
- * Data e Hora
+ * Utilitário de Data e Hora
  */
 abstract class Date
 {

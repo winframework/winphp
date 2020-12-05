@@ -10,7 +10,7 @@ use Win\HttpException;
  * Rota de URL
  *
  * Define o [Controller, action] a ser executado baseado na URL
- * @see "config/routes.php"
+ * "/config/routes.php"
  */
 class Router
 {

@@ -93,27 +93,6 @@ class Application
 	}
 
 	/**
-	 * Define a página como 404
-	 * @param string $message
-	 * @throws HttpException
-	 */
-	public function page404($message = '')
-	{
-		throw new HttpException($message, 404);
-	}
-
-	/**
-	 * Define a página atual como algum erro
-	 * @param int $code
-	 * @param string $message
-	 * @throws HttpException
-	 */
-	public function errorPage($code, $message = '')
-	{
-		throw new HttpException($message, $code);
-	}
-
-	/**
 	 * Retorna a página atual
 	 * @return string
 	 */

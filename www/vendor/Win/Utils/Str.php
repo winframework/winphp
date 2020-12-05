@@ -3,7 +3,7 @@
 namespace Win\Utils;
 
 /**
- * Manipulador de Strings
+ * Utilitário de Strings
  */
 abstract class Str
 {

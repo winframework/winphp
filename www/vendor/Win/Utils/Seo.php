@@ -5,7 +5,7 @@ namespace Win\Utils;
 use Win\Utils\Str;
 
 /**
- * Auxilia a criar o título otimizado para SEO
+ * Utilitário de Seo
  */
 abstract class Seo
 {
