@@ -893,7 +893,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Win\\Templates\\View",
             "name": "View",
-            "summary": "View",
+            "summary": "View\u0020\u002D\u0020Template\u0020da\u0020P\u00E1gina",
             "url": "classes/Win-Templates-View.html"
         },                {
             "fqsen": "\\Win\\Templates\\View\u003A\u003A__construct\u0028\u0029",
