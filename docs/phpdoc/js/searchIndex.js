@@ -81,11 +81,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Win-Application.html#property_view"
         },                {
-            "fqsen": "\\Win\\Application\u003A\u003A\u0024pdo",
-            "name": "pdo",
-            "summary": "",
-            "url": "classes/Win-Application.html#property_pdo"
-        },                {
             "fqsen": "\\Win\\Controllers\\Controller",
             "name": "Controller",
             "summary": "Controller",
@@ -133,7 +128,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Win\\HttpException",
             "name": "HttpException",
-            "summary": "Erro\u0020Http\n403,\u0020404,\u0020500,\u0020etc",
+            "summary": "Erro\u0020Http\n\u002D\u0020Lan\u00E7ar\u0020essa\u0020exce\u00E7\u00E3o\u0020ir\u00E1\u0020causar\u0020um\u0020403,\u0020404,\u0020500,\u0020etc",
             "url": "classes/Win-HttpException.html"
         },                {
             "fqsen": "\\Win\\InjectableTrait",
@@ -320,6 +315,11 @@ Search.appendIndex(
             "name": "debug",
             "summary": "Exibe\u0020a\u0020query\u0020e\u0020os\u0020valores\u0020para\u0020debug",
             "url": "classes/Win-Repositories-Repository.html#method_debug"
+        },                {
+            "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A\u0024globalPdo",
+            "name": "globalPdo",
+            "summary": "",
+            "url": "classes/Win-Repositories-Repository.html#property_globalPdo"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003A\u0024pdo",
             "name": "pdo",
