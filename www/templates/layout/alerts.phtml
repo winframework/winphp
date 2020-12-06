@@ -1,6 +1,9 @@
 <?php
 
+use Win\Templates\Alerts;
+
 /** @var array $alerts */
+/** @var Alerts $this */
 ?>
 <?php foreach ($alerts as $type => $messages) : ?>
 	<div class="alert alert-<?= $type; ?>">

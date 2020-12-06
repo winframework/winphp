@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Exception;
-use Win\Common\Utils\Input;
+use Win\Utils\Input;
 use Win\Controllers\Controller;
 use Win\Services\Filesystem;
 use Win\Services\Alert;

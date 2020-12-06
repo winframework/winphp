@@ -1,16 +1,16 @@
 <?php
 
-namespace Win\Common\Utils;
+namespace Win\Utils;
 
 use Win\Services\Router;
 
 /**
- * Auxilia a criar Links de Navegação
+ * Utilitário de Links de Navegação
  */
 abstract class Link
 {
 	/**
-	 * Usado para ativar Links (aceita array)
+	 * Usado para ativar Links (aceita múltiplos parâmetros)
 	 *
 	 * Retorna 'active' se o link for idêntico ao início da URL atual
 	 * @param string[] $links

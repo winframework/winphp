@@ -1,6 +1,6 @@
 <?php
 
-use Win\Templates\AlertBlock;
+use Win\Templates\Alerts;
 use Win\Services\ReCaptcha;
 use Win\Templates\View;
 
@@ -11,7 +11,7 @@ $recaptcha = ReCaptcha::instance();
 	<h1>Exemplo de Formulário de Contato</h1>
 
 	<form method="post">
-		<?= new AlertBlock(); ?>
+		<?= new Alerts(); ?>
 
 		<fieldset>
 			<input type="text" name="name" value="<?= $name; ?>" placeholder="Nome" maxlength="75" />

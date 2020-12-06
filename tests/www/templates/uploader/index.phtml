@@ -1,7 +1,7 @@
 <?php
 
-use Win\Common\Utils\Form;
-use Win\Templates\AlertBlock;
+use Win\Utils\Form;
+use Win\Templates\Alerts;
 use Win\Templates\View;
 
 /** @var View $this */
@@ -14,7 +14,7 @@ $current = 'Luke';
 
 	<form method="post" enctype="multipart/form-data">
 
-		<?= new AlertBlock(); ?>
+		<?= new Alerts(); ?>
 
 		<!-- Select -->
 		<div class="form-group">

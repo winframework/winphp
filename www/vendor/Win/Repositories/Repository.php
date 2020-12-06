@@ -5,10 +5,10 @@ namespace Win\Repositories;
 use PDO;
 use PDOException;
 use Win\Application;
-use Win\Common\Pagination;
-use Win\Common\InjectableTrait;
-use Win\Models\Model;
+use Win\InjectableTrait;
 use Win\HttpException;
+use Win\Services\Pagination;
+use Win\Models\Model;
 
 /**
  * Base Database Repository
@@ -135,7 +135,7 @@ abstract class Repository
 	public function list()
 	{
 		try {
-			$this->setLimit();
+			$this->setListLimit();
 			$query = $this->sql->select();
 			$values = $this->sql->values();
 			$this->flush();
@@ -148,7 +148,7 @@ abstract class Repository
 		}
 	}
 
-	protected function setLimit()
+	protected function setListLimit()
 	{
 		$pagination = $this->pagination;
 
