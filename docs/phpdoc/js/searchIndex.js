@@ -236,10 +236,10 @@ Search.appendIndex(
             "summary": "Retorna\u0020o\u0020todos\u0020os\u0020resultados\u0020da\u0020busca",
             "url": "classes/Win-Repositories-Repository.html#method_list"
         },                {
-            "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AsetLimit\u0028\u0029",
-            "name": "setLimit",
+            "fqsen": "\\Win\\Repositories\\Repository\u003A\u003AsetListLimit\u0028\u0029",
+            "name": "setListLimit",
             "summary": "",
-            "url": "classes/Win-Repositories-Repository.html#method_setLimit"
+            "url": "classes/Win-Repositories-Repository.html#method_setListLimit"
         },                {
             "fqsen": "\\Win\\Repositories\\Repository\u003A\u003Acount\u0028\u0029",
             "name": "count",
@@ -841,16 +841,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Win-Services-Router.html#property_routes"
         },                {
-            "fqsen": "\\Win\\Templates\\AlertBlock",
-            "name": "AlertBlock",
-            "summary": "Exibe\u0020os\u0020Alertas\u0020da\u0020sess\u00E3o",
-            "url": "classes/Win-Templates-AlertBlock.html"
-        },                {
-            "fqsen": "\\Win\\Templates\\AlertBlock\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Cria\u0020um\u0020template\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
-            "url": "classes/Win-Templates-AlertBlock.html#method___construct"
-        },                {
             "fqsen": "\\Win\\Templates\\Email",
             "name": "Email",
             "summary": "Templates\u0020de\u0020Email\nVer\u0020arquivos\u0020em\u003A\u0020\u0022templates\/emails\u0022",
@@ -946,16 +936,6 @@ Search.appendIndex(
             "summary": "Retorna\u0020a\u0020data\u0020no\u0020formato\u0020utilizado\u0020por\u0020strftime",
             "url": "classes/Win-Utils-Date.html#method_formatF"
         },                {
-            "fqsen": "\\Win\\Utils\\Date\u003A\u003Amonth\u0028\u0029",
-            "name": "month",
-            "summary": "Retorna\u0020o\u0020nome\u0020do\u0020m\u00EAs",
-            "url": "classes/Win-Utils-Date.html#method_month"
-        },                {
-            "fqsen": "\\Win\\Utils\\Date\u003A\u003AmonthAbbr\u0028\u0029",
-            "name": "monthAbbr",
-            "summary": "Retorna\u0020o\u0020nome\u0020do\u0020m\u00EAs\u0020abreviado",
-            "url": "classes/Win-Utils-Date.html#method_monthAbbr"
-        },                {
             "fqsen": "\\Win\\Utils\\Date\u003A\u003Aage\u0028\u0029",
             "name": "age",
             "summary": "Retorna\u0020a\u0020idade",
@@ -965,6 +945,16 @@ Search.appendIndex(
             "name": "isValid",
             "summary": "Retorna\u0020TRUE\u0020se\u0020a\u0020data\u0020\u00E9\u0020valida",
             "url": "classes/Win-Utils-Date.html#method_isValid"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003AFORMAT_MONTH_ABBR",
+            "name": "FORMAT_MONTH_ABBR",
+            "summary": "",
+            "url": "classes/Win-Utils-Date.html#constant_FORMAT_MONTH_ABBR"
+        },                {
+            "fqsen": "\\Win\\Utils\\Date\u003A\u003AFORMAT_MONTH_NAME",
+            "name": "FORMAT_MONTH_NAME",
+            "summary": "",
+            "url": "classes/Win-Utils-Date.html#constant_FORMAT_MONTH_NAME"
         },                {
             "fqsen": "\\Win\\Utils\\Form",
             "name": "Form",
@@ -1028,38 +1018,8 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Win\\Utils\\Link\u003A\u003Aactive\u0028\u0029",
             "name": "active",
-            "summary": "Usado\u0020para\u0020ativar\u0020Links\u0020\u0028aceita\u0020array\u0029",
+            "summary": "Usado\u0020para\u0020ativar\u0020Links\u0020\u0028aceita\u0020m\u00FAltiplos\u0020par\u00E2metros\u0029",
             "url": "classes/Win-Utils-Link.html#method_active"
-        },                {
-            "fqsen": "\\Win\\Utils\\Seo",
-            "name": "Seo",
-            "summary": "Utilit\u00E1rio\u0020de\u0020Seo",
-            "url": "classes/Win-Utils-Seo.html"
-        },                {
-            "fqsen": "\\Win\\Utils\\Seo\u003A\u003Atitle\u0028\u0029",
-            "name": "title",
-            "summary": "Retorna\u0020o\u0020t\u00EDtulo\u0020com\u0020o\u0020nome\u0020da\u0020aplica\u00E7\u00E3o\u0020no\u0020final\nMantendo\u0020o\u0020m\u00E1ximo\u0020de\u0020caracteres",
-            "url": "classes/Win-Utils-Seo.html#method_title"
-        },                {
-            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024keywords",
-            "name": "keywords",
-            "summary": "Keywords\u0020padr\u00E3o.",
-            "url": "classes/Win-Utils-Seo.html#property_keywords"
-        },                {
-            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024description",
-            "name": "description",
-            "summary": "Descri\u00E7\u00E3o\u0020padr\u00E3o.",
-            "url": "classes/Win-Utils-Seo.html#property_description"
-        },                {
-            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024titlePrefix",
-            "name": "titlePrefix",
-            "summary": "",
-            "url": "classes/Win-Utils-Seo.html#property_titlePrefix"
-        },                {
-            "fqsen": "\\Win\\Utils\\Seo\u003A\u003A\u0024titleSuffix",
-            "name": "titleSuffix",
-            "summary": "",
-            "url": "classes/Win-Utils-Seo.html#property_titleSuffix"
         },                {
             "fqsen": "\\Win\\Utils\\Server",
             "name": "Server",
@@ -1130,6 +1090,16 @@ Search.appendIndex(
             "name": "TRUNCATE_AFTER",
             "summary": "",
             "url": "classes/Win-Utils-Str.html#constant_TRUNCATE_AFTER"
+        },                {
+            "fqsen": "\\Win\\Templates\\Alerts",
+            "name": "Alerts",
+            "summary": "Exibe\u0020os\u0020Alertas\u0020da\u0020sess\u00E3o",
+            "url": "classes/Win-Templates-Alerts.html"
+        },                {
+            "fqsen": "\\Win\\Templates\\Alerts\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Cria\u0020um\u0020template\u0020com\u0020base\u0020no\u0020arquivo\u0020escolhido",
+            "url": "classes/Win-Templates-Alerts.html#method___construct"
         },                {
             "fqsen": "\\",
             "name": "\\",
