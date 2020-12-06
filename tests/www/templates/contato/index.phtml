@@ -1,11 +1,9 @@
 <?php
 
 use Win\Templates\Alerts;
-use Win\Services\ReCaptcha;
 use Win\Templates\View;
 
 /** @var View $this */
-$recaptcha = ReCaptcha::instance();
 ?>
 <main>
 	<h1>Exemplo de Formulário de Contato</h1>
@@ -21,10 +19,6 @@ $recaptcha = ReCaptcha::instance();
 			<textarea name="message" placeholder="Mensagem" rows="6"><?= $message; ?></textarea>
 		</fieldset>
 
-		<fieldset>
-			<div class="g-recaptcha" data-sitekey="<?= RECAPTCHA_SITE_KEY; ?>"></div>
-		</fieldset>
-
 		<div class="form-buttons">
 			<button type="reset" name="reset" class="btn btn-default">Cancelar</button>
 			<button type="submit" name="submit" class="btn submit" value="1">Enviar</button>
@@ -32,5 +26,3 @@ $recaptcha = ReCaptcha::instance();
 
 	</form>
 </main>
-
-<script src='https://www.google.com/recaptcha/api.js'></script>
