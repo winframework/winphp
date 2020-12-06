@@ -4,7 +4,6 @@ namespace Win\Repositories;
 
 use PDO;
 use PDOException;
-use Win\Application;
 use Win\InjectableTrait;
 use Win\HttpException;
 use Win\Services\Pagination;
@@ -22,9 +21,11 @@ use Win\Models\Model;
 abstract class Repository
 {
 	use InjectableTrait;
-	public ?PDO $pdo;
-	public Pagination $pagination;
 
+	static PDO $globalPdo;
+
+	public PDO $pdo;
+	public Pagination $pagination;
 	protected $table = '';
 	protected $pk = 'id';
 	protected Sql $sql;
@@ -39,11 +40,10 @@ abstract class Repository
 
 	public function __construct()
 	{
-		$app = Application::app();
-		if (!$app->pdo) {
-			$app->pdo = require BASE_PATH . '/config/database.php';
+		if (!isset(static::$globalPdo)) {
+			static::$globalPdo = require BASE_PATH . '/config/database.php';
 		}
-		$this->pdo = $app->pdo;
+		$this->pdo = static::$globalPdo;
 		$this->sql = new Sql($this->table);
 		$this->pagination = new Pagination();
 	}

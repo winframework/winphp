@@ -1,6 +1,5 @@
 <?php
 
-
 use Win\Repositories\Mysql;
 
 /** Configurações do banco */

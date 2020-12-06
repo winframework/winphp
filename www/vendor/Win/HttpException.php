@@ -6,10 +6,10 @@ use Exception;
 
 /**
  * Erro Http
- * 403, 404, 500, etc
+ * - Lançar essa exceção irá causar um 403, 404, 500, etc
  * 
  * @example throw new HttpException('Pagina não encontrada', 404);
- * @example throw new Exception("Autenticação obrigatória", 401);
+ * @example throw new HttpException("Autenticação obrigatória", 401);
  */
 class HttpException extends Exception
 {

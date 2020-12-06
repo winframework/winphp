@@ -27,6 +27,7 @@ class ErrorsController extends Controller
 	public function _500(Throwable $e)
 	{
 		http_response_code(500);
+		error_log($e);
 		$this->title = 'Ocorreu um erro';
 		$this->error = $e;
 

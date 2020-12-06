@@ -2,7 +2,6 @@
 
 namespace Win;
 
-use PDO;
 use Win\DI;
 use Win\Controllers\Controller;
 use Win\HttpException;
@@ -26,7 +25,6 @@ class Application
 	public Controller $controller;
 	public Router $router;
 	public View $view;
-	public ?PDO $pdo = null;
 
 	/**
 	 * Cria a aplicação principal
@@ -88,7 +86,7 @@ class Application
 		if ($response instanceof View) {
 			$this->view = $response;
 			if ($this->controller->layout) {
-				$response = new Template($this->controller->layout, ['content' => $response]);
+				return new Template($this->controller->layout, ['content' => $response]);
 			}
 		}
 
