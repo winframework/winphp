@@ -3,6 +3,7 @@
 namespace Win;
 
 use ReflectionClass;
+use ReflectionParameter;
 
 /**
  * Dependence Injector
@@ -31,11 +32,12 @@ abstract class DI
 		if (!key_exists($class, static::$instances)) {
 			$args = [];
 			$con = (new ReflectionClass($class))->getConstructor();
-			if (!is_null($con)) {
-				foreach ($con->getParameters() as $param) {
-					if ($param->getType()) {
-						$args[] = static::instance($param->getType()->getName());
-					}
+			/** @var ReflectionParameter[] $params */
+			$params = $con ? $con->getParameters() : [];
+
+			foreach ($params as $param) {
+				if ($param->getType()) {
+					$args[] = static::instance($param->getType()->getName());
 				}
 			}
 			static::$instances[$class] = new $class(...$args);
