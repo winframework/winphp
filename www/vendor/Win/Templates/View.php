@@ -19,7 +19,6 @@ class View extends Template
 	 */
 	public function __construct($file, $data = [])
 	{
-		Application::app()->view = $this;
 		$controller = Application::app()->controller;
 		$data = array_merge(get_object_vars($controller), $data);
 		parent::__construct($file, $data);

@@ -85,8 +85,11 @@ class Application
 			header('Content-Type: application/json');
 			return json_encode($response);
 		}
-		if ($response instanceof View && $this->controller->layout) {
-			$response = new Template($this->controller->layout, ['content' => $response]);
+		if ($response instanceof View) {
+			$this->view = $response;
+			if ($this->controller->layout) {
+				$response = new Template($this->controller->layout, ['content' => $response]);
+			}
 		}
 
 		return $response;
