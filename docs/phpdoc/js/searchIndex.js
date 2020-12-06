@@ -721,21 +721,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Win-Services-Pagination.html#property_last"
         },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha",
-            "name": "ReCaptcha",
-            "summary": "ReCaptcha\u0020do\u0020Google\nValidando\u0020se\u0020o\u0020usu\u00E1rio\u0020n\u00E3o\u0020\u00E9\u0020um\u0020rob\u00F4",
-            "url": "classes/Win-Services-ReCaptcha.html"
-        },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003AisValid\u0028\u0029",
-            "name": "isValid",
-            "summary": "Retorna\u0020TRUE\u0020se\u0020usu\u00E1rio\u0020marcou\u0020\u0022N\u00E3o\u0020sou\u0020um\u0020rob\u00F4\u0022",
-            "url": "classes/Win-Services-ReCaptcha.html#method_isValid"
-        },                {
-            "fqsen": "\\Win\\Services\\ReCaptcha\u003A\u003AgetValidationUrl\u0028\u0029",
-            "name": "getValidationUrl",
-            "summary": "Retorna\u0020a\u0020URL\u0020de\u0020valida\u00E7\u00E3o",
-            "url": "classes/Win-Services-ReCaptcha.html#method_getValidationUrl"
-        },                {
             "fqsen": "\\Win\\Services\\Router",
             "name": "Router",
             "summary": "Rota\u0020de\u0020URL",
