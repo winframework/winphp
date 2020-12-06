@@ -4,7 +4,7 @@ namespace Win\Templates;
 
 use PHPUnit\Framework\TestCase;
 use Win\Application;
-use Win\Common\DI;
+use Win\DI;
 use Win\Controllers\MyController;
 
 class ViewTest extends TestCase

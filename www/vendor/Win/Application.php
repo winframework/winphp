@@ -3,13 +3,13 @@
 namespace Win;
 
 use PDO;
-use Win\Common\DI;
-use Win\Common\Utils\Str;
+use Win\DI;
 use Win\Controllers\Controller;
 use Win\HttpException;
 use Win\Services\Router;
 use Win\Templates\Template;
 use Win\Templates\View;
+use Win\Utils\Str;
 
 /**
  * Application (WinPHP Framework)
@@ -17,7 +17,7 @@ use Win\Templates\View;
  * Framework em PHP baseado em MVC
  * Responsável por incluir as páginas de acordo com a URL e criar a estrutura MVC
  * @author winPHP Framework http://github.com/winframework/winphp/
- * @version 1.8.0
+ * @version 1.9.0
  */
 class Application
 {
@@ -93,27 +93,6 @@ class Application
 		}
 
 		return $response;
-	}
-
-	/**
-	 * Define a página como 404
-	 * @param string $message
-	 * @throws HttpException
-	 */
-	public function page404($message = '')
-	{
-		throw new HttpException($message, 404);
-	}
-
-	/**
-	 * Define a página atual como algum erro
-	 * @param int $code
-	 * @param string $message
-	 * @throws HttpException
-	 */
-	public function errorPage($code, $message = '')
-	{
-		throw new HttpException($message, $code);
 	}
 
 	/**

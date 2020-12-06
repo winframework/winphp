@@ -3,7 +3,7 @@
 namespace Win\Models;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\Utils\Date;
+use Win\Utils\Date;
 
 class DateTest extends TestCase
 {
@@ -43,21 +43,6 @@ class DateTest extends TestCase
 	{
 		$date = Date::formatF('1993-01-26 13:14:15', '%d %w %W');
 		$this->assertEquals('26 2 04', $date);
-	}
-
-	public function testMonth()
-	{
-		$month = Date::month('1993-01-26 13:14:15');
-		$this->assertEquals('janeiro', $month);
-	}
-
-	public function testMonthAbbr()
-	{
-		$month = Date::monthAbbr('1993-01-26 13:14:15');
-		$this->assertEquals('jan', $month);
-
-		$month = Date::monthAbbr('1991-09-07');
-		$this->assertEquals('set', $month);
 	}
 
 	public function testAge()

@@ -18,7 +18,7 @@ abstract class Controller
 	public $title;
 
 	/**
-	 * Action Init
+	 * Ação Inicial, executada antes de qualquer action
 	 * @codeCoverageIgnore
 	 */
 	public function init()

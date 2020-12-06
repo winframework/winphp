@@ -6,10 +6,9 @@ use Win\Application;
 use Win\HttpException;
 
 /**
- * View
- *
- * Responsável por criar o visual da página,
- * Extraindo as variáveis publicas do controller
+ * View - Template da Página
+ * 
+ * Exibe as variáveis públicas do controller
  */
 class View extends Template
 {

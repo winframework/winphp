@@ -20,7 +20,7 @@ class MyController extends BasicController
 	}
 
 	public function sum($first, $second)
-	{
+	{		
 		return $first + $second;
 	}
 }

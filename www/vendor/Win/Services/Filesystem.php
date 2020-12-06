@@ -3,8 +3,11 @@
 namespace Win\Services;
 
 use Exception;
-use Win\Common\InjectableTrait;
+use Win\InjectableTrait;
 
+/**
+ * Manipulador de arquivos e diretórios
+ */
 class Filesystem
 {
 	use InjectableTrait;

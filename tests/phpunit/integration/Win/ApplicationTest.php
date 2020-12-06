@@ -5,7 +5,6 @@ namespace Win;
 use App\Controllers\IndexController;
 use PHPUnit\Framework\TestCase;
 use Win\Controllers\MyController;
-use Win\Services\Router;
 
 class ApplicationTest extends TestCase
 {
@@ -68,23 +67,5 @@ class ApplicationTest extends TestCase
 		$app->run(MyController::class, 'index', $data);
 
 		$this->assertStringContainsString('Esta é uma view simples', ob_get_clean());
-	}
-
-	/**
-	 * @expectedException \Win\HttpException
-	 */
-	public function testErrorPage500()
-	{
-		$app = new Application();
-		$app->errorPage(500);
-	}
-
-	/**
-	 * @expectedException \Win\HttpException
-	 */
-	public function testPageNotFound()
-	{
-		$app = new Application();
-		$app->page404();
 	}
 }

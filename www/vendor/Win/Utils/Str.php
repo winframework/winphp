@@ -1,9 +1,9 @@
 <?php
 
-namespace Win\Common\Utils;
+namespace Win\Utils;
 
 /**
- * Manipulador de Strings
+ * Utilitário de Strings
  */
 abstract class Str
 {

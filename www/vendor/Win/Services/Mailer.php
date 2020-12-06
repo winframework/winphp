@@ -4,10 +4,10 @@ namespace Win\Services;
 
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use Win\Templates\Email;
-use Win\Common\Server;
-use Win\Common\InjectableTrait;
+use Win\InjectableTrait;
 use Win\Services\Filesystem;
+use Win\Templates\Email;
+use Win\Utils\Server;
 
 /**
  * Envio de Emails

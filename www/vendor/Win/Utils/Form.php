@@ -1,9 +1,9 @@
 <?php
 
-namespace Win\Common\Utils;
+namespace Win\Utils;
 
 /**
- * Formulário
+ * Utilitário de Formulário
  */
 abstract class Form
 {
