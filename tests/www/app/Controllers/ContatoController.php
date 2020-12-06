@@ -3,11 +3,10 @@
 namespace App\Controllers;
 
 use Exception;
-use Win\Common\Utils\Input;
+use Win\Utils\Input;
 use Win\Controllers\Controller;
 use Win\Services\Alert;
 use Win\Services\Mailer;
-use Win\Services\ReCaptcha;
 use Win\Templates\Email;
 use Win\Templates\View;
 
@@ -88,9 +87,6 @@ class ContatoController extends Controller
 		}
 		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
 			throw new Exception('O campo E-mail precisa ser um e-mail válido.');
-		}
-		if (!ReCaptcha::instance()->isValid()) {
-			throw new Exception('Preencha o campo eu não sou um robô.');
 		}
 	}
 }

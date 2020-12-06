@@ -1,10 +1,10 @@
 <?php
 
-namespace Win\Common;
+namespace Win;
 
 use PHPUnit\Framework\TestCase;
-use Win\Common\DI;
-use Win\Common\InjectableTrait;
+use Win\DI;
+use Win\InjectableTrait;
 
 class DIParent
 {
@@ -49,7 +49,7 @@ class DITest extends TestCase
 
 	public function testMake()
 	{
-		$parent = DI::instance('Win\\Common\\DIParent');
+		$parent = DI::instance(DIParent::class);
 		$this->assertInstanceOf(DIParent::class, $parent);
 		$this->assertInstanceOf(DIChild::class, $parent->child);
 		$this->assertInstanceOf(DIGrandChild::class, $parent->child->grandChild);

@@ -7,44 +7,31 @@ use App\Models\Page;
 use App\Repositories\PageRepo;
 use PHPUnit\Framework\TestCase;
 use Win\ApplicationTest;
-use Win\Common\Pagination;
+use Win\Services\Pagination;
 use Win\Repositories\DbConfig;
+use Win\Services\Filesystem;
 
 class PageRepoTest extends TestCase
 {
 	/** @var PDO */
 	static $pdo;
+	static $query;
 
 	public static function setUpBeforeClass(): void
 	{
 		static::$pdo = DbConfig::valid();
+		$fs = new Filesystem();
+		static::$query = $fs->read('../database/winphp_demo.sql');
+		static::$pdo->exec(static::$query);
 	}
 
-	public function setUp(): void
+	public function setUp()
 	{
-		static::createTable();
-		static::importTable();
-	}
-
-	public static function createTable()
-	{
-		static::$pdo->exec('DROP TABLE IF EXISTS `pages` ');
-		static::$pdo->exec('CREATE TABLE `pages` (
-			`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-			`categoryId` int(11) NULL,
-			`title` varchar(75) NOT NULL,
-			`description` text NOT NULL,
-			`createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			`updatedAt` datetime NULL DEFAULT NULL
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;');
-	}
-
-	public static function importTable()
-	{
+		static::$pdo->exec("TRUNCATE TABLE `pages`");
 		static::$pdo->exec("INSERT INTO `pages` (`id`, `categoryId`, `title`, `description`, `createdAt`) VALUES
-			(1, NULL, 'First Page', 'About us', '2018-11-04 10:46:03'),
-			(2, 1, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
-			(3, 2, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
+		(1, NULL, 'First Page', 'About us', '2018-11-04 10:46:03'),
+		(2, 1, 'Second Page', 'Contact us', '2018-11-04 12:05:01'),
+		(3, 2, 'Third Page', 'Sample Page', '2018-11-04 12:05:20');");
 	}
 
 	public function testPdoExecute()
@@ -439,8 +426,8 @@ class PageRepoTest extends TestCase
 		$pages = $repo->list();
 
 		$this->assertCount(3, $pages);
-		$this->assertEquals('First Category', $pages[0]->title);
-		$this->assertEquals(null, $pages[2]->title);
+		$this->assertEquals(null, $pages[0]->title);
+		$this->assertEquals('Second Category', $pages[2]->title);
 	}
 
 	public function testRightJoin()

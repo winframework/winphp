@@ -1,14 +1,17 @@
 <?php
 
-namespace Win\Common\Utils;
+namespace Win\Utils;
 
 use DateTime;
 
 /**
- * Data e Hora
+ * Utilitário de Data e Hora
  */
 abstract class Date
 {
+	const FORMAT_MONTH_ABBR = '%B';
+	const FORMAT_MONTH_NAME = '%b';
+	
 	/**
 	 * Cra data no formato desejado
 	 * @param string $formatFrom
@@ -36,33 +39,13 @@ abstract class Date
 
 	/**
 	 * Retorna a data no formato utilizado por strftime
-	 * @param string $dateTimePHP
+	 * @param string $date
 	 * @param string $format
 	 * @return string
 	 */
 	public static function formatF($date, $format)
 	{
 		return strftime($format, strtotime($date));
-	}
-
-	/**
-	 * Retorna o nome do mês
-	 * @param string $date
-	 * @return string
-	 */
-	public static function month($date)
-	{
-		return static::formatF($date, '%B');
-	}
-
-	/**
-	 * Retorna o nome do mês abreviado
-	 * @param string $date
-	 * @return string
-	 */
-	public static function monthAbbr($date)
-	{
-		return static::formatF($date, '%b');
 	}
 
 	/**

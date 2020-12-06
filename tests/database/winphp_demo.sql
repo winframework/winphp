@@ -6,7 +6,7 @@
 -- Generation Time: Apr 26, 2020 at 04:19 PM
 -- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.0.33-8+ubuntu18.04.1+deb.sury.org+1
-
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 

@@ -5,7 +5,6 @@ namespace Win\Services;
 use Exception;
 
 /**
- * Alerta
  * Armazena mensagens de alerta na sessão
  */
 class Alert
@@ -25,18 +24,22 @@ class Alert
 	 * @param string $message
 	 * @param string $type
 	 */
-	public static function add($message, $type = "default")
+	public static function add(string $message, $type = "default")
 	{
 		$_SESSION["alerts"][$type][] = $message;
 	}
 
-	/** @param string $message */
+	/**
+	 * @param string $message
+	 */
 	public static function success($message)
 	{
 		static::add($message, 'success');
 	}
 
-	/** @param string|Exception $message */
+	/**
+	 * @param string|Exception $message
+	 */
 	public static function error($message)
 	{
 		if ($message instanceof Exception) {
@@ -45,13 +48,17 @@ class Alert
 		static::add($message, 'danger');
 	}
 
-	/** @param string $message */
+	/**
+	 * @param string $message
+	 */
 	public static function info($message)
 	{
 		static::add($message, 'info');
 	}
 
-	/** @param string $message */
+	/**
+	 * @param string $message
+	 */
 	public static function warning($message)
 	{
 		static::add($message, 'warning');

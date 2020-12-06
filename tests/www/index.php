@@ -6,8 +6,8 @@
 
 use App\Controllers\ErrorsController;
 use Win\Application;
-use Win\Common\Benchmark;
 use Win\HttpException;
+use Win\Services\Benchmark;
 use Win\Services\Router;
 
 define('BASE_PATH', __DIR__);

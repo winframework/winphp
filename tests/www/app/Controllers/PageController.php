@@ -7,7 +7,7 @@ use App\Repositories\PageCategoryRepo;
 use App\Repositories\PageRepo;
 use PDO;
 use Win\Application;
-use Win\Common\Utils\Input;
+use Win\Utils\Input;
 use Win\Controllers\Controller;
 use Win\Repositories\Mysql;
 use Win\Services\Filesystem;
