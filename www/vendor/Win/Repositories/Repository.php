@@ -22,9 +22,9 @@ abstract class Repository
 {
 	use InjectableTrait;
 
-	static PDO $globalPdo;
+	static ?PDO $globalPdo;
 
-	public PDO $pdo;
+	public ?PDO $pdo;
 	public Pagination $pagination;
 	protected $table = '';
 	protected $pk = 'id';
